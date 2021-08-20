@@ -51,7 +51,6 @@
 #include <unistd.h>
 #include "scriptinterface.h"
 #endif
-#include "filesystemmodel.h"
 #include "icoreplatformtools.h"
 #include "fileproxymodeliterator.h"
 #include "filefilter.h"
@@ -193,8 +192,8 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
                                  QObject* parent) : QObject(parent),
   m_platformTools(platformTools),
   m_configStore(new ConfigStore(m_platformTools->applicationSettings())),
-  m_fileSystemModel(new FileSystemModel(this)),
-  m_fileProxyModel(new FileProxyModel(m_platformTools->iconProvider(), this)),
+  m_fileSystemModel(new TaggedFileSystemModel(m_platformTools->iconProvider(), this)),
+  m_fileProxyModel(new FileProxyModel(this)),
   m_fileProxyModelIterator(new FileProxyModelIterator(m_fileProxyModel)),
   m_dirProxyModel(new DirProxyModel(this)),
   m_fileSelectionModel(new QItemSelectionModel(m_fileProxyModel, this)),
@@ -917,7 +916,8 @@ void Kid3Application::unloadAllTags()
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
     if (taggedFile->isTagInformationRead() && !taggedFile->isChanged() &&
-        !m_fileSelectionModel->isSelected(taggedFile->getIndex())) {
+        !m_fileSelectionModel->isSelected(
+          m_fileProxyModel->mapFromSource(taggedFile->getIndex()))) {
       taggedFile->clearTags(false);
       taggedFile->closeFileHandle();
     }

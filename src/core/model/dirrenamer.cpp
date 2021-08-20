@@ -30,7 +30,7 @@
 #include <QCoreApplication>
 #include "trackdata.h"
 #include "saferename.h"
-#include "fileproxymodel.h"
+#include "taggedfilesystemmodel.h"
 #include "modeliterator.h"
 #include "formatconfig.h"
 
@@ -263,7 +263,8 @@ bool DirRenamer::createDirectory(
     const QString& dir, const QPersistentModelIndex& index,
     QString* errorMsg) const
 {
-  if (auto model = qobject_cast<const FileProxyModel*>(index.model())) {
+  if (auto model = const_cast<TaggedFileSystemModel*>(
+        qobject_cast<const TaggedFileSystemModel*>(index.model()))) {
     const QString parentDirName = model->filePath(index.parent());
     const QString relativeName = QDir(parentDirName).relativeFilePath(dir);
     if (model->mkdir(index.parent(), relativeName).isValid() &&
@@ -320,8 +321,8 @@ bool DirRenamer::renameDirectory(
     // The directory must be closed before renaming on Windows.
     TaggedFileIterator::closeFileHandles(index);
   }
-  if (auto model = const_cast<FileProxyModel*>(
-        qobject_cast<const FileProxyModel*>(index.model()))) {
+  if (auto model = const_cast<TaggedFileSystemModel*>(
+        qobject_cast<const TaggedFileSystemModel*>(index.model()))) {
     const QString parentDirName = model->filePath(index.parent());
     const QString relativeName = QDir(parentDirName).relativeFilePath(newdir);
     if (model->rename(index, relativeName) && QFileInfo(newdir).isDir()) {
@@ -372,7 +373,8 @@ bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
     }
     return false;
   }
-  if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
+  if (TaggedFile* taggedFile =
+      TaggedFileSystemModel::getTaggedFileOfIndex(index)) {
     // The file must be closed before renaming on Windows.
     taggedFile->closeFileHandle();
   }

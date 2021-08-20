@@ -301,6 +301,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_dirListBox->setRootIsDecorated(false);
   m_dirListBox->setModel(m_app->getDirProxyModel());
   m_dirListBox->setSelectionModel(m_app->getDirSelectionModel());
+  m_dirListBox->setMaxNumColumns(TaggedFileSystemModel::NUM_FILESYSTEM_COLUMNS);
   connect(m_fileListBox, &QAbstractItemView::activated,
           this, &Kid3Form::fileActivated);
   connect(m_dirListBox, &QAbstractItemView::activated, this,

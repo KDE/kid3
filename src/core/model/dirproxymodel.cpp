@@ -26,7 +26,7 @@
 
 #include "dirproxymodel.h"
 #include <QDateTime>
-#include "filesystemmodel.h"
+#include "taggedfilesystemmodel.h"
 
 /**
  * Constructor.
@@ -95,7 +95,7 @@ bool DirProxyModel::lessThan(const QModelIndex& left,
   // The data() in FileSystemModel are String QVariants, therefore
   // QSortFilterProxyModel::lessThan() is of no use here, custom sorting
   // has to be used.
-  Q_ASSERT_X(sourceModel()->metaObject() == &FileSystemModel::staticMetaObject,
+  Q_ASSERT_X(sourceModel()->metaObject() == &TaggedFileSystemModel::staticMetaObject,
              "lessThan", "source model must be FileSystemModel");
   auto fsModel = static_cast<FileSystemModel*>(sourceModel());
   switch (sortColumn()) {

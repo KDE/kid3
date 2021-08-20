@@ -88,7 +88,7 @@ ID3_TextEnc getDefaultTextEncoding() { return s_defaultTextEncoding; }
 /**
  * Constructor.
  *
- * @param idx index in file proxy model
+ * @param idx index in tagged file system model
  */
 Mp3File::Mp3File(const QPersistentModelIndex& idx)
   : TaggedFile(idx)

@@ -93,6 +93,14 @@ public:
   QList<int> getColumnWidths() const;
 
   /**
+   * Set the maximum number of columns shown.
+   * This can be used to restrict the number of columns, e.g. to omit columns
+   * with tag data.
+   * @param maxNumColumns maximum number of columns
+   */
+  void setMaxNumColumns(int maxNumColumns) { m_maxNumColumns = maxNumColumns; }
+
+  /**
    * Get sort column and order.
    * This method returns the values which can be set with sortByColumn().
    *
@@ -168,4 +176,5 @@ private:
   QAction* m_customColumnAction;
   QKeySequence m_openParentKey;
   QKeySequence m_openCurrentKey;
+  int m_maxNumColumns;
 };

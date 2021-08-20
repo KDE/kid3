@@ -811,7 +811,7 @@ TagLib::String::Type TagLibFile::s_defaultTextEncoding = TagLib::String::Latin1;
 /**
  * Constructor.
  *
- * @param idx index in file proxy model
+ * @param idx index in tagged file system model
  */
 TagLibFile::TagLibFile(const QPersistentModelIndex& idx)
   : TaggedFile(idx),

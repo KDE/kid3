@@ -30,13 +30,15 @@
 #include <QAction>
 #include <QActionGroup>
 #include <QKeyEvent>
+#include <climits>
 
 /**
  * Constructor.
  * @param parent parent widget
  */
 ConfigurableTreeView::ConfigurableTreeView(QWidget* parent) : QTreeView(parent),
-  m_columnVisibility(0xffffffff), m_oldModel(nullptr), m_oldSelectionModel(nullptr)
+  m_columnVisibility(0xffffffff), m_oldModel(nullptr),
+  m_oldSelectionModel(nullptr), m_maxNumColumns(INT_MAX)
 {
   QHeaderView* headerView = header();
   setSortingEnabled(true);
@@ -173,7 +175,8 @@ void ConfigurableTreeView::showHeaderContextMenu(const QPoint& pos)
 {
   QHeaderView* headerView = header();
   QMenu menu(headerView);
-  for (int column = 1; column < headerView->count(); ++column) {
+  for (int column = 1; column < headerView->count() && column < m_maxNumColumns;
+       ++column) {
     const quint32 mask = 1 << column;
     auto action = new QAction(&menu);
     action->setText(model()->headerData(column, Qt::Horizontal).toString());

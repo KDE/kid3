@@ -40,12 +40,12 @@
 #include "genres.h"
 #include "modeliterator.h"
 #include "saferename.h"
-#include "fileproxymodel.h"
+#include "taggedfilesystemmodel.h"
 
 /**
  * Constructor.
  *
- * @param idx index in file proxy model
+ * @param idx index in tagged file system model
  */
 TaggedFile::TaggedFile(const QPersistentModelIndex& idx)
   : m_index(idx), m_truncation(0), m_modified(false), m_marked(false)
@@ -54,21 +54,21 @@ TaggedFile::TaggedFile(const QPersistentModelIndex& idx)
     m_changedFrames[tagNr] = 0;
     m_changed[tagNr] = false;
   }
-  Q_ASSERT(m_index.model()->metaObject() == &FileProxyModel::staticMetaObject);
-  if (const FileProxyModel* model = getFileProxyModel()) {
+  Q_ASSERT(m_index.model()->metaObject() == &TaggedFileSystemModel::staticMetaObject);
+  if (const TaggedFileSystemModel* model = getTaggedFileSystemModel()) {
     m_newFilename = model->fileName(m_index);
     m_filename = m_newFilename;
   }
 }
 
 /**
- * Get file proxy model.
- * @return file proxy model.
+ * Get tagged file model.
+ * @return tagged file model.
  */
-const FileProxyModel* TaggedFile::getFileProxyModel() const
+const TaggedFileSystemModel* TaggedFile::getTaggedFileSystemModel() const
 {
   // The validity of this cast is checked in the constructor.
-  return static_cast<const FileProxyModel*>(m_index.model());
+  return static_cast<const TaggedFileSystemModel*>(m_index.model());
 }
 
 /**
@@ -78,7 +78,7 @@ const FileProxyModel* TaggedFile::getFileProxyModel() const
  */
 QString TaggedFile::getDirname() const
 {
-  if (const FileProxyModel* model = getFileProxyModel()) {
+  if (const TaggedFileSystemModel* model = getTaggedFileSystemModel()) {
     return model->filePath(m_index.parent());
   }
   return QString();
@@ -114,7 +114,7 @@ void TaggedFile::setFilenameFormattedIfEnabled(QString fn)
  */
 void TaggedFile::updateCurrentFilename()
 {
-  if (const FileProxyModel* model = getFileProxyModel()) {
+  if (const TaggedFileSystemModel* model = getTaggedFileSystemModel()) {
     const QString newName = model->fileName(m_index);
     if (!newName.isEmpty() && m_filename != newName) {
       if (m_newFilename == m_filename) {
@@ -132,7 +132,7 @@ void TaggedFile::updateCurrentFilename()
  */
 QString TaggedFile::currentFilePath() const
 {
-  if (const FileProxyModel* model = getFileProxyModel()) {
+  if (const TaggedFileSystemModel* model = getTaggedFileSystemModel()) {
     return model->filePath(m_index);
   }
   return QString();
@@ -309,8 +309,8 @@ void TaggedFile::updateModifiedState()
   modified = modified || m_newFilename != m_filename;
   if (m_modified != modified) {
     m_modified = modified;
-    if (const FileProxyModel* model = getFileProxyModel()) {
-      const_cast<FileProxyModel*>(model)->notifyModificationChanged(
+    if (const TaggedFileSystemModel* model = getTaggedFileSystemModel()) {
+      const_cast<TaggedFileSystemModel*>(model)->notifyModificationChanged(
             m_index, m_modified);
     }
   }
@@ -329,8 +329,8 @@ void TaggedFile::updateModifiedState()
 void TaggedFile::notifyModelDataChanged(bool priorIsTagInformationRead) const
 {
   if (isTagInformationRead() != priorIsTagInformationRead) {
-    if (const FileProxyModel* model = getFileProxyModel()) {
-      const_cast<FileProxyModel*>(model)->notifyModelDataChanged(m_index);
+    if (const TaggedFileSystemModel* model = getTaggedFileSystemModel()) {
+      const_cast<TaggedFileSystemModel*>(model)->notifyModelDataChanged(m_index);
     }
   }
 }
@@ -346,8 +346,8 @@ void TaggedFile::notifyTruncationChanged(bool priorTruncation) const
 {
   bool currentTruncation = m_truncation != 0;
   if (currentTruncation != priorTruncation) {
-    if (const FileProxyModel* model = getFileProxyModel()) {
-      const_cast<FileProxyModel*>(model)->notifyModelDataChanged(m_index);
+    if (const TaggedFileSystemModel* model = getTaggedFileSystemModel()) {
+      const_cast<TaggedFileSystemModel*>(model)->notifyModelDataChanged(m_index);
     }
   }
 }
@@ -621,7 +621,7 @@ bool TaggedFile::renameFile() const
   const QString dirname = getDirname();
   const QString fnOld = currentFilename();
   const QString fnNew = getFilename();
-  auto model = const_cast<FileProxyModel*>(getFileProxyModel());
+  auto model = const_cast<TaggedFileSystemModel*>(getTaggedFileSystemModel());
 
   if (fnNew.toLower() == fnOld.toLower()) {
     // If the filenames only differ in case, the new file is reported to

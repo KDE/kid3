@@ -61,7 +61,7 @@ public:
   /**
    * Constructor.
    *
-   * @param idx index in file proxy model
+   * @param idx index in tagged file system model
    */
   explicit TagLibFile(const QPersistentModelIndex& idx);
 

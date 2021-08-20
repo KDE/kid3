@@ -37,7 +37,7 @@
 
 class QTimer;
 class QFileInfo;
-class FileSystemModel;
+class TaggedFileSystemModel;
 class CoreTaggedFileIconProvider;
 class ITaggedFileFactory;
 
@@ -47,22 +47,12 @@ class ITaggedFileFactory;
 class KID3_CORE_EXPORT FileProxyModel : public QSortFilterProxyModel {
   Q_OBJECT
 public:
-  /** Custom role, extending FileSystemModel::Roles. */
-  enum Roles {
-    TaggedFileRole = Qt::UserRole + 4,
-    IconIdRole = Qt::UserRole + 5,
-    TruncatedRole =  Qt::UserRole + 6,
-    IsDirRole = Qt::UserRole + 7
-  };
-
   /**
    * Constructor.
    *
-   * @param iconProvider icon provider
    * @param parent parent object
    */
-  explicit FileProxyModel(CoreTaggedFileIconProvider* iconProvider,
-                          QObject* parent = nullptr);
+  explicit FileProxyModel(QObject* parent = nullptr);
 
   /**
    * Destructor.
@@ -78,27 +68,8 @@ public:
   virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
-   * Get data for a given role.
-   * @param index model index
-   * @param role item data role
-   * @return data for role
-   */
-  virtual QVariant data(const QModelIndex& index,
-                        int role = Qt::DisplayRole) const override;
-
-  /**
-   * Set data for a given role.
-   * @param index model index
-   * @param value data value
-   * @param role item data role
-   * @return true if successful
-   */
-  virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role = Qt::EditRole) override;
-
-  /**
    * Set source model.
-   * @param sourceModel source model, must be FileSystemModel
+   * @param sourceModel source model, must be TaggedFileSystemModel
    */
   virtual void setSourceModel(QAbstractItemModel* sourceModel) override;
 
@@ -147,7 +118,7 @@ public:
 
   /**
    * Filter out a model index.
-   * @param index model index which has to be filtered out
+   * @param index source model index which has to be filtered out
    */
   void filterOutIndex(const QPersistentModelIndex& index);
 
@@ -243,20 +214,6 @@ public:
                   int& folderCount, int& fileCount);
 
   /**
-   * Called from tagged file to notify modification state changes.
-   * @param index model index
-   * @param modified true if file is modified
-   */
-  void notifyModificationChanged(const QModelIndex& index, bool modified);
-
-  /**
-   * Called from tagged file to notify changes in extra model data, e.g. the
-   * information on which the CoreTaggedFileIconProvider depends.
-   * @param index model index
-   */
-  void notifyModelDataChanged(const QModelIndex& index);
-
-  /**
    * Check if any file has been modified.
    * @return true if at least one of the files in the model has been modified.
    */
@@ -276,52 +233,13 @@ public:
    * Get icon provider.
    * @return icon provider.
    */
-  CoreTaggedFileIconProvider* getIconProvider() const { return m_iconProvider; }
+  CoreTaggedFileIconProvider* getIconProvider() const;
 
   /**
    * Access to tagged file factories.
    * @return reference to tagged file factories.
    */
-  static QList<ITaggedFileFactory*>& taggedFileFactories() {
-    return s_taggedFileFactories;
-  }
-
-  /**
-   * Create a tagged file with a given feature.
-   *
-   * @param feature tagged file feature
-   * @param fileName filename
-   * @param idx model index
-   *
-   * @return tagged file, 0 if feature not found or type not supported.
-   */
-  static TaggedFile* createTaggedFile(
-      TaggedFile::Feature feature,
-      const QString& fileName,
-      const QPersistentModelIndex& idx);
-
-  /**
-   * Create a tagged file.
-   *
-   * @param fileName filename
-   * @param idx model index
-   *
-   * @return tagged file, 0 if not found or type not supported.
-   */
-  static TaggedFile* createTaggedFile(
-      const QString& fileName,
-      const QPersistentModelIndex& idx);
-
-  /**
-   * Get tagged file data of model index.
-   *
-   * @param index model index
-   * @param taggedFile a TaggedFile pointer is returned here
-   *
-   * @return true if index has a tagged file, *taggedFile is set to the pointer.
-   */
-  static bool getTaggedFileOfIndex(const QModelIndex& index,
-                                   TaggedFile** taggedFile);
+  static QList<ITaggedFileFactory*>& taggedFileFactories();
 
   /**
    * Get tagged file of model index.
@@ -440,12 +358,11 @@ protected slots:
 
 private slots:
   /**
-   * Update the TaggedFile contents for rows inserted into the model.
-   * @param parent parent model index
-   * @param start starting row
-   * @param end ending row
+   * Called when the source model emits fileModificationChanged().
+   * @param index model index
+   * @param modified true if file is modified
    */
-  void updateInsertedRows(const QModelIndex& parent, int start, int end);
+  void onFileModificationChanged(const QModelIndex& index, bool modified);
 
   /**
    * Called when the source model emits directoryLoaded().
@@ -475,33 +392,6 @@ protected:
 
 private:
   /**
-   * Retrieve tagged file for an index.
-   * @param index model index
-   * @return QVariant with tagged file, invalid QVariant if not found.
-   */
-  QVariant retrieveTaggedFileVariant(const QPersistentModelIndex& index) const;
-
-  /**
-   * Store tagged file from variant with index.
-   * @param index model index
-   * @param value QVariant containing tagged file
-   * @return true if index and value valid
-   */
-  bool storeTaggedFileVariant(const QPersistentModelIndex& index,
-                              const QVariant& value);
-
-  /**
-   * Clear store with tagged files.
-   */
-  void clearTaggedFileStore();
-
-  /**
-   * Initialize tagged file for model index.
-   * @param index model index
-   */
-  void initTaggedFileData(const QModelIndex& index);
-
-  /**
    * Check if a directory path passes the include folder filters.
    * @param dirPath absolute path to directory
    * @return true if path passes filters.
@@ -515,20 +405,14 @@ private:
    */
   bool passesExcludeFolderFilters(const QString& dirPath) const;
 
-  QHash<QPersistentModelIndex, TaggedFile*> m_taggedFiles;
   QSet<QPersistentModelIndex> m_filteredOut;
   QPersistentModelIndex m_exclusiveDraggableIndex;
   QList<QRegularExpression> m_includeFolderFilters;
   QList<QRegularExpression> m_excludeFolderFilters;
-  CoreTaggedFileIconProvider* m_iconProvider;
-  FileSystemModel* m_fsModel;
+  TaggedFileSystemModel* m_fsModel;
   QTimer* m_loadTimer;
   QTimer* m_sortTimer;
   QStringList m_extensions;
   unsigned int m_numModifiedFiles;
   bool m_isLoading;
-
-  static QList<ITaggedFileFactory*> s_taggedFileFactories;
 };
-
-Q_DECLARE_METATYPE(TaggedFile*)

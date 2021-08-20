@@ -376,7 +376,7 @@ QByteArray getValueByteArray(const char* name,
 /**
  * Constructor.
  *
- * @param idx index in file proxy model
+ * @param idx index in tagged file system model
  */
 M4aFile::M4aFile(const QPersistentModelIndex& idx)
   : TaggedFile(idx), m_fileRead(false)

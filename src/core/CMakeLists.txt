@@ -51,6 +51,7 @@ qt_wrap_cpp(core_GEN_MOC_SRCS
   model/filesystemmodel.h
   model/fileinfogatherer_p.h
   model/standardtablemodel.h
+  model/taggedfilesystemmodel.h
   TARGET kid3-core
 )
 if(HAVE_QTDBUS)
@@ -152,6 +153,7 @@ add_library(kid3-core
   model/fileinfogatherer.cpp
   model/abstractfiledecorationprovider.cpp
   model/standardtablemodel.cpp
+  model/taggedfilesystemmodel.cpp
 )
 if(HAVE_QTDBUS)
   target_sources(kid3-core PRIVATE model/scriptinterface.cpp)

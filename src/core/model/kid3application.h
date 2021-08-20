@@ -32,6 +32,7 @@
 #include <QItemSelectionModel>
 #include "frame.h"
 #include "framelist.h"
+#include "taggedfilesystemmodel.h"
 #include "fileproxymodel.h"
 #include "dirproxymodel.h"
 #include "frametablemodel.h"
@@ -51,7 +52,7 @@ class QModelIndex;
 class QNetworkAccessManager;
 class QDir;
 class QUrl;
-class FileSystemModel;
+class TaggedFileSystemModel;
 class FileProxyModelIterator;
 class TrackDataModel;
 class ConfigStore;
@@ -159,7 +160,7 @@ public:
   * Get file system model.
   * @return file system model.
   */
-  FileSystemModel* getFileSystemModel() { return m_fileSystemModel; }
+  TaggedFileSystemModel* getFileSystemModel() { return m_fileSystemModel; }
 
  /**
   * Get file proxy model.
@@ -1543,7 +1544,7 @@ private:
   /** Configuration */
   QScopedPointer<ConfigStore> m_configStore;
   /** model of filesystem */
-  FileSystemModel* m_fileSystemModel;
+  TaggedFileSystemModel* m_fileSystemModel;
   FileProxyModel* m_fileProxyModel;
   FileProxyModelIterator* m_fileProxyModelIterator;
   DirProxyModel* m_dirProxyModel;

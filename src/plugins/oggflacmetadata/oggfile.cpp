@@ -37,7 +37,7 @@
 #endif
 #include "pictureframe.h"
 #include "tagconfig.h"
-#include "fileproxymodel.h"
+#include "taggedfilesystemmodel.h"
 
 namespace {
 
@@ -140,7 +140,7 @@ long oggtell(void* stream)
 /**
  * Constructor.
  *
- * @param idx index in file proxy model
+ * @param idx index in tagged file system model
  */
 OggFile::OggFile(const QPersistentModelIndex& idx)
   : TaggedFile(idx), m_fileRead(false)
@@ -300,10 +300,11 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
         setFileTimeStamps(fnOut, actime, modtime);
       }
     }
-    const FileProxyModel* model = getFileProxyModel();
+    const TaggedFileSystemModel* model = getTaggedFileSystemModel();
     if (!writeOk) {
       // restore old file
-      if (!(model && model->remove(model->index(fnOut)))) {
+      if (!(model && const_cast<TaggedFileSystemModel*>(model)->remove(
+              model->index(fnOut)))) {
         QDir(dirname).remove(newFilename);
       }
       markFilenameUnchanged(); // currentFilename() will now return tempFilename
@@ -313,7 +314,8 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
       return false;
     }
     markTagUnchanged(Frame::Tag_2);
-    if (!(model && model->remove(model->index(fnIn)))) {
+    if (!(model && const_cast<TaggedFileSystemModel*>(model)->remove(
+            model->index(fnIn)))) {
       QDir(dirname).remove(tempFilename);
     }
     setFilename(newFilename);

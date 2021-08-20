@@ -32,7 +32,7 @@
 #include <QPersistentModelIndex>
 #include "frame.h"
 
-class FileProxyModel;
+class TaggedFileSystemModel;
 
 /** Base class for tagged files. */
 class KID3_CORE_EXPORT TaggedFile {
@@ -78,7 +78,7 @@ public:
   /**
    * Constructor.
    *
-   * @param idx index in file proxy model
+   * @param idx index in tagged file system model
    */
   explicit TaggedFile(const QPersistentModelIndex& idx);
 
@@ -600,10 +600,10 @@ protected:
   }
 
   /**
-   * Get file proxy model.
-   * @return file proxy model.
+   * Get tagged file model.
+   * @return tagged file model.
    */
-  const FileProxyModel* getFileProxyModel() const;
+  const TaggedFileSystemModel* getTaggedFileSystemModel() const;
 
   /**
    * Notify model about changes in extra model data, e.g. the information on

@@ -27,26 +27,9 @@
 #include "fileproxymodel.h"
 #include <QTimer>
 #include <QRegularExpression>
-#include "filesystemmodel.h"
-#include "coretaggedfileiconprovider.h"
+#include "taggedfilesystemmodel.h"
 #include "itaggedfilefactory.h"
-#include "tagconfig.h"
-#include "saferename.h"
 #include "config.h"
-
-/** Only defined for generation of translation files */
-#define NAME_FOR_PO QT_TRANSLATE_NOOP("QFileSystemModel", "Name")
-/** Only defined for generation of translation files */
-#define SIZE_FOR_PO QT_TRANSLATE_NOOP("QFileSystemModel", "Size")
-/** Only defined for generation of translation files */
-#define TYPE_FOR_PO QT_TRANSLATE_NOOP("QFileSystemModel", "Type")
-/** Only defined for generation of translation files */
-#define KIND_FOR_PO QT_TRANSLATE_NOOP("QFileSystemModel", "Kind")
-/** Only defined for generation of translation files */
-#define DATE_MODIFIED_FOR_PO \
-  QT_TRANSLATE_NOOP("QFileSystemModel", "Date Modified")
-
-QList<ITaggedFileFactory*> FileProxyModel::s_taggedFileFactories;
 
 namespace {
 
@@ -55,9 +38,9 @@ QHash<int,QByteArray> getRoleHash()
   QHash<int, QByteArray> roles;
   roles[FileSystemModel::FileNameRole] = "fileName";
   roles[FileSystemModel::FilePathRole] = "filePath";
-  roles[FileProxyModel::IconIdRole] = "iconId";
-  roles[FileProxyModel::TruncatedRole] = "truncated";
-  roles[FileProxyModel::IsDirRole] = "isDir";
+  roles[TaggedFileSystemModel::IconIdRole] = "iconId";
+  roles[TaggedFileSystemModel::TruncatedRole] = "truncated";
+  roles[TaggedFileSystemModel::IsDirRole] = "isDir";
   roles[Qt::CheckStateRole] = "checkState";
   return roles;
 }
@@ -67,19 +50,15 @@ QHash<int,QByteArray> getRoleHash()
 /**
  * Constructor.
  *
- * @param iconProvider icon provider
  * @param parent parent object
  */
-FileProxyModel::FileProxyModel(CoreTaggedFileIconProvider* iconProvider,
-                               QObject* parent)
+FileProxyModel::FileProxyModel(QObject* parent)
   : QSortFilterProxyModel(parent),
-    m_iconProvider(iconProvider), m_fsModel(nullptr),
+    m_fsModel(nullptr),
     m_loadTimer(new QTimer(this)), m_sortTimer(new QTimer(this)),
     m_numModifiedFiles(0), m_isLoading(false)
 {
   setObjectName(QLatin1String("FileProxyModel"));
-  connect(this, &QAbstractItemModel::rowsInserted,
-          this, &FileProxyModel::updateInsertedRows);
   m_loadTimer->setSingleShot(true);
   m_loadTimer->setInterval(1000);
   connect(m_loadTimer, &QTimer::timeout, this, &FileProxyModel::onDirectoryLoaded);
@@ -93,7 +72,6 @@ FileProxyModel::FileProxyModel(CoreTaggedFileIconProvider* iconProvider,
  */
 FileProxyModel::~FileProxyModel()
 {
-  clearTaggedFileStore();
 }
 
 /**
@@ -203,10 +181,11 @@ QModelIndex FileProxyModel::mkdir(const QModelIndex& parent, const QString& name
  */
 bool FileProxyModel::rename(const QModelIndex& index, const QString& newName)
 {
-  if (Utils::hasIllegalFileNameCharacters(newName))
-    return false;
-
-  return setData(index, newName);
+  if (m_fsModel) {
+    QModelIndex sourceIndex(mapToSource(index));
+    return m_fsModel->rename(sourceIndex, newName);
+  }
+  return false;
 }
 
 /**
@@ -224,23 +203,6 @@ QModelIndex FileProxyModel::index(const QString& path, int column) const
     }
   }
   return QModelIndex();
-}
-
-/**
- * Update the TaggedFile contents for rows inserted into the model.
- * @param parent parent model index
- * @param start starting row
- * @param end ending row
- */
-void FileProxyModel::updateInsertedRows(const QModelIndex& parent,
-                                        int start, int end) {
-  const QAbstractItemModel* model = parent.model();
-  if (!model)
-    return;
-  for (int row = start; row <= end; ++row) {
-    QModelIndex index(model->index(row, 0, parent));
-    initTaggedFileData(index);
-  }
 }
 
 /**
@@ -296,78 +258,25 @@ Qt::ItemFlags FileProxyModel::flags(const QModelIndex& index) const
       itemFlags &= ~Qt::ItemIsDragEnabled;
     }
   }
-  // Prevent inplace editing (i.e. renaming) of files and directories.
-  itemFlags &= ~Qt::ItemIsEditable;
+  if (index.column() < TaggedFileSystemModel::NUM_FILESYSTEM_COLUMNS) {
+    // Prevent inplace editing (i.e. renaming) of files and directories.
+    itemFlags &= ~Qt::ItemIsEditable;
+  } else {
+    itemFlags |= Qt::ItemIsEditable;
+  }
 
   return itemFlags;
 }
 
 /**
- * Get data for a given role.
- * @param index model index
- * @param role item data role
- * @return data for role
- */
-QVariant FileProxyModel::data(const QModelIndex& index, int role) const
-{
-  if (index.isValid()) {
-    if (role == TaggedFileRole) {
-      return retrieveTaggedFileVariant(index);
-    } else if (role == Qt::DecorationRole && index.column() == 0) {
-      TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
-      if (taggedFile) {
-        return m_iconProvider->iconForTaggedFile(taggedFile);
-      }
-    } else if (role == Qt::BackgroundRole && index.column() == 0) {
-      TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
-      if (taggedFile) {
-        QVariant color = m_iconProvider->backgroundForTaggedFile(taggedFile);
-        if (!color.isNull())
-          return color;
-      }
-    } else if (role == IconIdRole && index.column() == 0) {
-      TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
-      return taggedFile
-          ? m_iconProvider->iconIdForTaggedFile(taggedFile)
-          : QByteArray("");
-    } else if (role == TruncatedRole && index.column() == 0) {
-      TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
-      return taggedFile &&
-          ((TagConfig::instance().markTruncations() &&
-            taggedFile->getTruncationFlags(Frame::Tag_Id3v1) != 0) ||
-           taggedFile->isMarked());
-    } else if (role == IsDirRole && index.column() == 0) {
-      return isDir(index);
-    }
-  }
-  return QSortFilterProxyModel::data(index, role);
-}
-
-/**
- * Set data for a given role.
- * @param index model index
- * @param value data value
- * @param role item data role
- * @return true if successful
- */
-bool FileProxyModel::setData(const QModelIndex& index, const QVariant& value,
-                             int role)
-{
-  if (index.isValid() && role == TaggedFileRole) {
-    return storeTaggedFileVariant(index, value);
-  }
-  return QSortFilterProxyModel::setData(index, value, role);
-}
-
-/**
  * Set source model.
- * @param sourceModel source model, must be FileSystemModel
+ * @param sourceModel source model, must be TaggedFileSystemModel
  */
 void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
 {
-  auto fsModel = qobject_cast<FileSystemModel*>(sourceModel);
+  auto fsModel = qobject_cast<TaggedFileSystemModel*>(sourceModel);
   Q_ASSERT_X(fsModel != nullptr , "setSourceModel",
-             "sourceModel is not FileSystemModel");
+             "sourceModel is not TaggedFileSystemModel");
   if (fsModel != m_fsModel) {
     if (m_fsModel) {
       m_isLoading = false;
@@ -375,6 +284,8 @@ void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
                  this, &FileProxyModel::onStartLoading);
       disconnect(m_fsModel, &FileSystemModel::directoryLoaded,
                  this, &FileProxyModel::onDirectoryLoaded);
+      disconnect(m_fsModel, &TaggedFileSystemModel::fileModificationChanged,
+                 this, &FileProxyModel::onFileModificationChanged);
     }
     m_fsModel = fsModel;
     if (m_fsModel) {
@@ -382,6 +293,8 @@ void FileProxyModel::setSourceModel(QAbstractItemModel* sourceModel)
               this, &FileProxyModel::onStartLoading);
       connect(m_fsModel, &FileSystemModel::directoryLoaded,
               this, &FileProxyModel::onDirectoryLoaded);
+      connect(m_fsModel, &TaggedFileSystemModel::fileModificationChanged,
+              this, &FileProxyModel::onFileModificationChanged);
     }
   }
   QSortFilterProxyModel::setSourceModel(sourceModel);
@@ -481,7 +394,15 @@ void FileProxyModel::sort(int column, Qt::SortOrder order)
 {
   QAbstractItemModel* srcModel = nullptr;
   if (rowCount() > 0 && (srcModel = sourceModel()) != nullptr) {
-    srcModel->sort(column, order);
+    if (column < TaggedFileSystemModel::NUM_FILESYSTEM_COLUMNS) {
+      if (sortColumn() >= TaggedFileSystemModel::NUM_FILESYSTEM_COLUMNS) {
+        // restore the source model order
+        QSortFilterProxyModel::sort(-1, order);
+      }
+      srcModel->sort(column, order);
+    } else {
+      QSortFilterProxyModel::sort(column, order);
+    }
   }
 }
 
@@ -515,11 +436,11 @@ void FileProxyModel::setNameFilters(const QStringList& filters)
 
 /**
  * Filter out a model index.
- * @param index model index which has to be filtered out
+ * @param index source model index which has to be filtered out
  */
 void FileProxyModel::filterOutIndex(const QPersistentModelIndex& index)
 {
-  m_filteredOut.insert(mapToSource(index));
+  m_filteredOut.insert(index);
 }
 
 /**
@@ -529,7 +450,6 @@ void FileProxyModel::filterOutIndex(const QPersistentModelIndex& index)
 void FileProxyModel::resetInternalData()
 {
   QSortFilterProxyModel::resetInternalData();
-  clearTaggedFileStore();
   m_filteredOut.clear();
   m_loadTimer->stop();
   m_sortTimer->stop();
@@ -648,85 +568,6 @@ bool FileProxyModel::passesExcludeFolderFilters(const QString& dirPath) const
 }
 
 /**
- * Retrieve tagged file for an index.
- * @param index model index
- * @return QVariant with tagged file, invalid QVariant if not found.
- */
-QVariant FileProxyModel::retrieveTaggedFileVariant(
-    const QPersistentModelIndex& index) const {
-  if (m_taggedFiles.contains(index))
-    return QVariant::fromValue(m_taggedFiles.value(index));
-  return QVariant();
-}
-
-/**
- * Store tagged file from variant with index.
- * @param index model index
- * @param value QVariant containing tagged file
- * @return true if index and value valid
- */
-bool FileProxyModel::storeTaggedFileVariant(const QPersistentModelIndex& index,
-                     const QVariant& value) {
-  if (index.isValid()) {
-    if (value.isValid()) {
-      if (value.canConvert<TaggedFile*>()) {
-        TaggedFile* oldItem = m_taggedFiles.value(index, nullptr);
-        delete oldItem;
-        m_taggedFiles.insert(index, value.value<TaggedFile*>());
-        return true;
-      }
-    } else {
-      if (TaggedFile* oldFile = m_taggedFiles.value(index, nullptr)) {
-        m_taggedFiles.remove(index);
-        delete oldFile;
-      }
-    }
-  }
-  return false;
-}
-
-/**
- * Clear store with tagged files.
- */
-void FileProxyModel::clearTaggedFileStore() {
-  qDeleteAll(m_taggedFiles);
-  m_taggedFiles.clear();
-}
-
-/**
- * Initialize tagged file for model index.
- * @param index model index
- */
-void FileProxyModel::initTaggedFileData(const QModelIndex& index) {
-  QVariant dat = data(index, TaggedFileRole);
-  if (dat.isValid() || isDir(index))
-    return;
-
-  dat.setValue(createTaggedFile(fileName(index), index));
-  setData(index, dat, TaggedFileRole);
-}
-
-
-/**
- * Get tagged file data of model index.
- *
- * @param index model index
- * @param taggedFile a TaggedFile pointer is returned here
- *
- * @return true if index has a tagged file, *taggedFile is set to the pointer.
- */
-bool FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index,
-                                          TaggedFile** taggedFile) {
-  if (!(index.isValid() && index.model() != nullptr))
-    return false;
-  QVariant data(index.model()->data(index, FileProxyModel::TaggedFileRole));
-  if (!data.canConvert<TaggedFile*>())
-    return false;
-  *taggedFile = data.value<TaggedFile*>();
-  return true;
-}
-
-/**
  * Get tagged file of model index.
  *
  * @param index model index
@@ -735,12 +576,7 @@ bool FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index,
  * TaggedFile or if has a TaggedFile which is null.
  */
 TaggedFile* FileProxyModel::getTaggedFileOfIndex(const QModelIndex& index) {
-  if (!(index.isValid() && index.model() != nullptr))
-    return nullptr;
-  QVariant data(index.model()->data(index, FileProxyModel::TaggedFileRole));
-  if (!data.canConvert<TaggedFile*>())
-    return nullptr;
-  return data.value<TaggedFile*>();
+  return TaggedFileSystemModel::getTaggedFileOfIndex(index);
 }
 
 /**
@@ -769,8 +605,8 @@ QString FileProxyModel::getPathIfIndexOfDir(const QModelIndex& index) {
 TaggedFile* FileProxyModel::readWithId3V24(TaggedFile* taggedFile)
 {
   const QPersistentModelIndex& index = taggedFile->getIndex();
-  if (TaggedFile* tagLibFile = createTaggedFile(TaggedFile::TF_ID3v24,
-          taggedFile->getFilename(), index)) {
+  if (TaggedFile* tagLibFile = TaggedFileSystemModel::createTaggedFile(
+          TaggedFile::TF_ID3v24, taggedFile->getFilename(), index)) {
     if (index.isValid()) {
       QVariant data;
       data.setValue(tagLibFile);
@@ -778,7 +614,7 @@ TaggedFile* FileProxyModel::readWithId3V24(TaggedFile* taggedFile)
       auto setDataModel = const_cast<QAbstractItemModel*>(
           index.model());
       if (setDataModel) {
-        setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
+        setDataModel->setData(index, data, TaggedFileSystemModel::TaggedFileRole);
       }
     }
     taggedFile = tagLibFile;
@@ -786,61 +622,6 @@ TaggedFile* FileProxyModel::readWithId3V24(TaggedFile* taggedFile)
   }
   return taggedFile;
 }
-
-/**
- * Create a tagged file with a given feature.
- *
- * @param feature tagged file feature
- * @param fileName filename
- * @param idx model index
- *
- * @return tagged file, 0 if feature not found or type not supported.
- */
-TaggedFile* FileProxyModel::createTaggedFile(
-    TaggedFile::Feature feature,
-    const QString& fileName,
-    const QPersistentModelIndex& idx) {
-  TaggedFile* taggedFile = nullptr;
-  const auto factories = s_taggedFileFactories;
-  for (ITaggedFileFactory* factory : factories) {
-    const auto keys = factory->taggedFileKeys();
-    for (const QString& key : keys) {
-      if ((factory->taggedFileFeatures(key) & feature) != 0 &&
-          (taggedFile = factory->createTaggedFile(key, fileName, idx,
-                                                  feature))
-          != nullptr) {
-        return taggedFile;
-      }
-    }
-  }
-  return nullptr;
-}
-
-/**
- * Create a tagged file.
- *
- * @param fileName filename
- * @param idx model index
- *
- * @return tagged file, 0 if not found or type not supported.
- */
-TaggedFile* FileProxyModel::createTaggedFile(
-    const QString& fileName,
-    const QPersistentModelIndex& idx) {
-  TaggedFile* taggedFile = nullptr;
-  const auto factories = s_taggedFileFactories;
-  for (ITaggedFileFactory* factory : factories) {
-    const auto keys = factory->taggedFileKeys();
-    for (const QString& key : keys) {
-      taggedFile = factory->createTaggedFile(key, fileName, idx);
-      if (taggedFile) {
-        return taggedFile;
-      }
-    }
-  }
-  return nullptr;
-}
-
 /**
  * Read tagged file with ID3v2.3.0.
  *
@@ -851,8 +632,8 @@ TaggedFile* FileProxyModel::createTaggedFile(
 TaggedFile* FileProxyModel::readWithId3V23(TaggedFile* taggedFile)
 {
   const QPersistentModelIndex& index = taggedFile->getIndex();
-  if (TaggedFile* id3libFile = createTaggedFile(TaggedFile::TF_ID3v23,
-          taggedFile->getFilename(), index)) {
+  if (TaggedFile* id3libFile = TaggedFileSystemModel::createTaggedFile(
+          TaggedFile::TF_ID3v23, taggedFile->getFilename(), index)) {
     if (index.isValid()) {
       QVariant data;
       data.setValue(id3libFile);
@@ -860,7 +641,7 @@ TaggedFile* FileProxyModel::readWithId3V23(TaggedFile* taggedFile)
       auto setDataModel = const_cast<QAbstractItemModel*>(
           index.model());
       if (setDataModel) {
-        setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
+        setDataModel->setData(index, data, TaggedFileSystemModel::TaggedFileRole);
       }
     }
     taggedFile = id3libFile;
@@ -904,8 +685,8 @@ TaggedFile* FileProxyModel::readWithId3V24IfId3V24(TaggedFile* taggedFile)
 TaggedFile* FileProxyModel::readWithOggFlac(TaggedFile* taggedFile)
 {
   const QPersistentModelIndex& index = taggedFile->getIndex();
-  if (TaggedFile* tagLibFile = createTaggedFile(TaggedFile::TF_OggFlac,
-          taggedFile->getFilename(), index)) {
+  if (TaggedFile* tagLibFile = TaggedFileSystemModel::createTaggedFile(
+          TaggedFile::TF_OggFlac, taggedFile->getFilename(), index)) {
     if (index.isValid()) {
       QVariant data;
       data.setValue(tagLibFile);
@@ -913,7 +694,7 @@ TaggedFile* FileProxyModel::readWithOggFlac(TaggedFile* taggedFile)
       auto setDataModel = const_cast<QAbstractItemModel*>(
           index.model());
       if (setDataModel) {
-        setDataModel->setData(index, data, FileProxyModel::TaggedFileRole);
+        setDataModel->setData(index, data, TaggedFileSystemModel::TaggedFileRole);
       }
     }
     taggedFile = tagLibFile;
@@ -964,13 +745,14 @@ TaggedFile* FileProxyModel::readTagsFromTaggedFile(TaggedFile* taggedFile)
 }
 
 /**
- * Called from tagged file to notify modification state changes.
- * @param index model index
+ * Called when the source model emits fileModificationChanged().
+ * @param srcIndex source model index
  * @param modified true if file is modified
  */
-void FileProxyModel::notifyModificationChanged(const QModelIndex& index,
+void FileProxyModel::onFileModificationChanged(const QModelIndex& srcIndex,
                                                bool modified)
 {
+  auto index = mapFromSource(srcIndex);
   emit fileModificationChanged(index, modified);
   emit dataChanged(index, index);
   bool lastIsModified = isModified();
@@ -986,13 +768,24 @@ void FileProxyModel::notifyModificationChanged(const QModelIndex& index,
 }
 
 /**
- * Called from tagged file to notify changes in extra model data, e.g. the
- * information on which the CoreTaggedFileIconProvider depends.
- * @param index model index
+ * Get icon provider.
+ * @return icon provider.
  */
-void FileProxyModel::notifyModelDataChanged(const QModelIndex& index)
+CoreTaggedFileIconProvider* FileProxyModel::getIconProvider() const
 {
-  emit dataChanged(index, index);
+  if (m_fsModel) {
+    return m_fsModel->getIconProvider();
+  }
+  return nullptr;
+}
+
+/**
+ * Access to tagged file factories.
+ * @return reference to tagged file factories.
+ */
+QList<ITaggedFileFactory*>& FileProxyModel::taggedFileFactories()
+{
+  return TaggedFileSystemModel::taggedFileFactories();
 }
 
 /**
