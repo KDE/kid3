@@ -87,7 +87,5 @@ void TestAmazonImporter::testQueryTracks()
              QString(QLatin1String("")));
     QCOMPARE(m_trackDataModel->index(row, 9).data().toString(),
              QString(QLatin1String("")));
-    QCOMPARE(m_trackDataModel->index(row, 10).data().toString(),
-             QString(QLatin1String("Limb Music")));
   }
 }

@@ -208,6 +208,23 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     }
   }
 
+  // search for 'ProductInfoReleaseDate', text contains year
+  start = str.indexOf(
+      QLatin1String("id=\"ProductInfoReleaseDate"));
+  if (start >= 0 && standardTags) {
+    start = str.indexOf(QLatin1Char('>'), start + 26);
+    if (start >= 0) {
+      end = str.indexOf(QLatin1Char('<'), start);
+      if (end > start) {
+        QRegularExpression yearRe(QLatin1String(R"(.*(\d{4}).*)"));
+        auto match = yearRe.match(str.mid(start, end));
+        if (match.hasMatch()) {
+          framesHdr.setYear(match.captured(1).toInt());
+        }
+      }
+    }
+  }
+
   // search for >Product Details<, >Original Release Date:<, >Label:<
   const bool additionalTags = getAdditionalTags();
   QString albumArtist;
