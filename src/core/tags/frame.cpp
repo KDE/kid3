@@ -29,6 +29,8 @@
 #include <QStringList>
 #include <QRegularExpression>
 #include <QCoreApplication>
+#include <QFile>
+#include <QTextStream>
 #include "pictureframe.h"
 
 namespace {
@@ -545,6 +547,44 @@ void Frame::setValueIfChanged(const QString& value)
       setValueChanged();
     }
   }
+}
+
+/**
+ * Read value text from file.
+ * @param fileName name of data file
+ * @return true if file read and value set.
+ */
+bool Frame::setValueFromFile(const QString& fileName)
+{
+  if (!fileName.isEmpty()) {
+    QFile file(fileName);
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+      QTextStream stream(&file);
+      setValueIfChanged(stream.readAll());
+      file.close();
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Save value text to a file.
+ * @param fileName name of data file to save
+ * @return true if saved.
+ */
+bool Frame::writeValueToFile(const QString& fileName) const
+{
+  if (!fileName.isEmpty()) {
+    QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+      QTextStream stream(&file);
+      stream << m_value;
+      file.close();
+      return true;
+    }
+  }
+  return false;
 }
 
 /**

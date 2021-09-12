@@ -658,6 +658,20 @@ public:
   void setValueFromFieldList();
 
   /**
+   * Read value text from file.
+   * @param fileName name of data file
+   * @return true if file read and value set.
+   */
+  bool setValueFromFile(const QString& fileName);
+
+  /**
+   * Save value text to a file.
+   * @param fileName name of data file to save
+   * @return true if saved.
+   */
+  bool writeValueToFile(const QString& fileName) const;
+
+  /**
    * Set a field in the field list from the value.
    */
   void setFieldListFromValue();

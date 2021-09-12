@@ -3474,10 +3474,15 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
       ? frames.findByName(frameName, index)
       : frames.findByExtendedType(explicitType, index);
   if (it != frames.cend()) {
-    if (!dataFileName.isEmpty()) {
-      bool isSylt = it->getInternalName().startsWith(QLatin1String("SYLT"));
-      if (isSylt ||
-          it->getInternalName().startsWith(QLatin1String("ETCO"))) {
+    QString frmName(it->getName());
+    bool isSylt = false;
+    if (!dataFileName.isEmpty() &&
+        (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0) {
+      if (it->getType() == Frame::FT_Picture ||
+          frmName.startsWith(QLatin1String("GEOB"))) {
+        PictureFrame::writeDataToFile(*it, dataFileName);
+      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
+                 frmName.startsWith(QLatin1String("ETCO"))) {
         QFile file(dataFileName);
         if (file.open(QIODevice::WriteOnly)) {
           TimeEventModel timeEventModel;
@@ -3503,8 +3508,8 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
                                    frames.getArtist(), frames.getAlbum());
           file.close();
         }
-      } else {
-        PictureFrame::writeDataToFile(*it, dataFileName);
+      } else if (fieldName.isEmpty()) {
+        it->writeValueToFile(dataFileName);
       }
     }
     if (!fieldName.isEmpty()) {
@@ -3607,14 +3612,10 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
       : frames.findByExtendedType(explicitType, index);
   if (it != frames.end()) {
     QString frmName(it->getName());
-    bool isPicture, isGeob, isSylt = false;
+    bool isSylt = false;
     if (!dataFileName.isEmpty() &&
-        (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0 &&
-        ((isPicture = (it->getType() == Frame::FT_Picture)) ||
-         (isGeob = frmName.startsWith(QLatin1String("GEOB"))) ||
-         (isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
-         frmName.startsWith(QLatin1String("ETCO")))) {
-      if (isPicture) {
+        (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0) {
+      if (it->getType() == Frame::FT_Picture) {
         deleteFrame(tagNr, frmName, index);
         PictureFrame frame;
         PictureFrame::setDescription(frame, value);
@@ -3622,7 +3623,7 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
         PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
         addFrame(tagNr, &frame);
-      } else if (isGeob) {
+      } else if (frmName.startsWith(QLatin1String("GEOB"))) {
         Frame frame(*it);
         deleteFrame(tagNr, frmName, index);
         Frame::setField(frame, Frame::ID_MimeType,
@@ -3632,7 +3633,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         Frame::setField(frame, Frame::ID_Description, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
         addFrame(tagNr, &frame);
-      } else {
+      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
+                 frmName.startsWith(QLatin1String("ETCO"))) {
         QFile file(dataFileName);
         if (file.open(QIODevice::ReadOnly)) {
           QTextStream stream(&file);
@@ -3652,6 +3654,13 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
           file.close();
           addFrame(tagNr, &frame);
         }
+      } else if (fieldName.isEmpty()) {
+        auto& frame = const_cast<Frame&>(*it);
+        frame.setValueFromFile(dataFileName);
+        ft->transferFrames(frames);
+        ft->selectChangedFrames();
+        emit fileSelectionUpdateRequested();
+        emit selectedFilesUpdated();
       }
     } else if (value.isEmpty() && fieldName.isEmpty() &&
                (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0) {
@@ -3690,25 +3699,22 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
     Frame frame(explicitType.getType() == Frame::FT_UnknownFrame
                 ? Frame::ExtendedType(frameName) : explicitType, value, -1);
     QString frmName(frame.getInternalName());
-    bool isPicture, isGeob, isSylt = false;
-    if (!dataFileName.isEmpty() &&
-        ((isPicture = (frame.getType() == Frame::FT_Picture)) ||
-         (isGeob = frmName.startsWith(QLatin1String("GEOB"))) ||
-         (isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
-         frmName.startsWith(QLatin1String("ETCO")))) {
-      if (isPicture) {
+    bool isSylt = false;
+    if (!dataFileName.isEmpty()) {
+      if (frame.getType() == Frame::FT_Picture) {
         PictureFrame::setFields(frame);
         PictureFrame::setDescription(frame, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
         PictureFrame::setMimeTypeFromFileName(frame, dataFileName);
         PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
-      } else if (isGeob) {
+      } else if (frmName.startsWith(QLatin1String("GEOB"))) {
         PictureFrame::setGeobFields(
               frame, Frame::TE_ISO8859_1,
               PictureFrame::getMimeTypeForFile(dataFileName),
               QFileInfo(dataFileName).fileName(), value);
         PictureFrame::setDataFromFile(frame, dataFileName);
-      } else {
+      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
+                 frmName.startsWith(QLatin1String("ETCO"))) {
         QFile file(dataFileName);
         if (file.open(QIODevice::ReadOnly)) {
           Frame::Field field;
@@ -3737,6 +3743,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
           }
           file.close();
         }
+      } else if (fieldName.isEmpty()) {
+        frame.setValueFromFile(dataFileName);
       }
     } else if (value.isEmpty()) {
       // Do not add an empty frame
