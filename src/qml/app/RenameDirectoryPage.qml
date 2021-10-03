@@ -128,9 +128,12 @@ Page {
       width: parent.valueWidth
       model: [ qsTr("From Tag 2 and Tag 1"),
                qsTr("From Tag 1"),
-               qsTr("From Tag 2") ]
+               qsTr("From Tag 2"),
+               qsTr("From Tag 3"),
+               qsTr("All Tags")]
       onCurrentIndexChanged: {
-        page.tagMask = [ Kid3.Frame.TagV2V1, Kid3.Frame.TagV1, Kid3.Frame.TagV2 ][currentIndex] || 3
+        page.tagMask = [ Kid3.Frame.TagV2V1, Kid3.Frame.TagV1, Kid3.Frame.TagV2,
+                         Kid3.Frame.TagV3, Kid3.Frame.TagVAll ][currentIndex] || 3
         page.refreshPreview()
       }
     }

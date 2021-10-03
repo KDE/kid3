@@ -129,12 +129,15 @@ Page {
     ComboBox {
       id: destinationComboBox
       readonly property var tagVersions: [
-        Kid3.Frame.TagV1, Kid3.Frame.TagV2, Kid3.Frame.TagV2V1
+        Kid3.Frame.TagV1, Kid3.Frame.TagV2, Kid3.Frame.TagV3,
+        Kid3.Frame.TagV2V1, Kid3.Frame.TagVAll
       ]
       width: parent.valueWidth
       model: [ qsTr("Tag 1"),
                qsTr("Tag 2"),
-               qsTr("Tag 1 and Tag 2") ]
+               qsTr("Tag 3"),
+               qsTr("Tag 1 and Tag 2"),
+               qsTr("All Tags") ]
       currentIndex: tagVersions.indexOf(configs.batchImportConfig().importDest)
       function getTagVersion() {
         return tagVersions[currentIndex]
