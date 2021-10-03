@@ -484,6 +484,11 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     }
   }
 
+  if (!useCustomCaptures) {
+    // accept file names with spaces before the extension
+    pattern += QLatin1String("\\s*");
+  }
+
   // and finally a dot followed by 2 to 4 characters for the extension
   pattern += QLatin1String("\\..{2,4}$");
 
