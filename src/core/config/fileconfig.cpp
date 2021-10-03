@@ -116,8 +116,10 @@ void FileConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("MarkChanges"), QVariant(m_markChanges));
   config->setValue(QLatin1String("LoadLastOpenedFile"), QVariant(m_loadLastOpenedFile));
   config->setValue(QLatin1String("TextEncoding"), QVariant(m_textEncoding));
-  config->setValue(QLatin1String("LastOpenedFile"), QVariant(m_lastOpenedFile));
   config->setValue(QLatin1String("DefaultCoverFileName"), QVariant(m_defaultCoverFileName));
+  config->endGroup();
+  config->beginGroup(m_group, true);
+  config->setValue(QLatin1String("LastOpenedFile"), QVariant(m_lastOpenedFile));
   config->endGroup();
 }
 
@@ -163,10 +165,12 @@ void FileConfig::readFromConfig(ISettings* config)
                                        m_loadLastOpenedFile).toBool();
   m_textEncoding = config->value(QLatin1String("TextEncoding"),
                                  QLatin1String("System")).toString();
-  m_lastOpenedFile = config->value(QLatin1String("LastOpenedFile"),
-                                   m_lastOpenedFile).toString();
   m_defaultCoverFileName = config->value(QLatin1String("DefaultCoverFileName"),
                                          m_defaultCoverFileName).toString();
+  config->endGroup();
+  config->beginGroup(m_group, true);
+  m_lastOpenedFile = config->value(QLatin1String("LastOpenedFile"),
+                                   m_lastOpenedFile).toString();
   config->endGroup();
 
   initFormatListsIfEmpty();

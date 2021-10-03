@@ -36,10 +36,12 @@ DummySettings::DummySettings()
 /**
  * Use settings subgroup.
  * @param prefix group name
+ * @param forState true if this group stores state information
  */
-void DummySettings::beginGroup(const QString& prefix)
+void DummySettings::beginGroup(const QString& prefix, bool forState)
 {
   Q_UNUSED(prefix)
+  Q_UNUSED(forState)
 }
 
 /**

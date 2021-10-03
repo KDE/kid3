@@ -26,7 +26,6 @@
 
 #include "kdemainwindow.h"
 #include <kconfigwidgets_version.h>
-#include <KConfig>
 #include <KToggleAction>
 #include <KStandardAction>
 #include <KShortcutsDialog>
@@ -513,12 +512,13 @@ void KdeMainWindow::addDirectoryToRecentFiles(const QString& dirName)
  */
 void KdeMainWindow::readConfig()
 {
-  setAutoSaveSettings();
+  auto stateCfg = KSharedConfig::openStateConfig();
+  setAutoSaveSettings(stateCfg->group("MainWindow"));
   m_settingsShowHidePicture->setChecked(!GuiConfig::instance().hidePicture());
   m_settingsAutoHideTags->setChecked(GuiConfig::instance().autoHideTags());
-  auto cfg = KSharedConfig::openConfig();
-  m_fileOpenRecent->loadEntries(cfg->group("Recent Files"));
+  m_fileOpenRecent->loadEntries(stateCfg->group("Recent Files"));
 
+  auto cfg = KSharedConfig::openConfig();
   QString entry = cfg->group("MainWindow").readEntry("StatusBar", "Enabled");
   bool statusBarVisible = entry != QLatin1String("Disabled");
   if (m_settingsShowStatusbar) {
@@ -532,7 +532,8 @@ void KdeMainWindow::readConfig()
  */
 void KdeMainWindow::saveConfig()
 {
-  m_fileOpenRecent->saveEntries(KSharedConfig::openConfig()->group("Recent Files"));
+  m_fileOpenRecent->saveEntries(
+        KSharedConfig::openStateConfig()->group("Recent Files"));
 }
 
 /**

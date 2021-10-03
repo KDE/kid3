@@ -30,8 +30,6 @@
 #include "iplatformtools.h"
 #include "guiplatformtools.h"
 
-class KConfig;
-
 /**
  * KDE platform specific tools.
  */
@@ -222,6 +220,5 @@ public:
       const QString& text, const QStringList& strlist, const QString& caption) override;
 
 private:
-  QScopedPointer<KConfig> m_settings;
   QScopedPointer<ISettings> m_config;
 };

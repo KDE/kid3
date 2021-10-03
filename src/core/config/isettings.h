@@ -44,8 +44,9 @@ public:
   /**
    * Use settings subgroup.
    * @param prefix group name
+   * @param forState true if this group stores state information
    */
-  virtual void beginGroup(const QString& prefix) = 0;
+  virtual void beginGroup(const QString& prefix, bool forState = false) = 0;
 
   /**
    * Finnish using settings subgroup.

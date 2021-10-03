@@ -51,8 +51,9 @@ public:
   /**
    * Use settings subgroup.
    * @param prefix group name
+   * @param forState true if this group stores state information
    */
-  virtual void beginGroup(const QString& prefix) override;
+  virtual void beginGroup(const QString& prefix, bool forState = false) override;
 
   /**
    * Finnish using settings subgroup.

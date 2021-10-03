@@ -59,8 +59,6 @@ void MainWindowConfig::writeToConfig(ISettings* config) const
   config->beginGroup(m_group);
   config->setValue(QLatin1String("HideToolBar"), QVariant(m_hideToolBar));
   config->setValue(QLatin1String("HideStatusBar"), QVariant(m_hideStatusBar));
-  config->setValue(QLatin1String("Geometry"), m_geometry);
-  config->setValue(QLatin1String("WindowState"), m_windowState);
   config->setValue(QLatin1String("Language"), QVariant(m_language));
   config->setValue(QLatin1String("UseFont"), QVariant(m_useFont));
   config->setValue(QLatin1String("FontFamily"), QVariant(m_fontFamily));
@@ -68,6 +66,10 @@ void MainWindowConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("Style"), QVariant(m_style));
   config->setValue(QLatin1String("DontUseNativeDialogs"), QVariant(m_dontUseNativeDialogs));
   config->setValue(QLatin1String("QtQuickStyle"), QVariant(m_qtQuickStyle));
+  config->endGroup();
+  config->beginGroup(m_group, true);
+  config->setValue(QLatin1String("Geometry"), m_geometry);
+  config->setValue(QLatin1String("WindowState"), m_windowState);
   config->endGroup();
 }
 
@@ -81,8 +83,6 @@ void MainWindowConfig::readFromConfig(ISettings* config)
   config->beginGroup(m_group);
   m_hideToolBar = config->value(QLatin1String("HideToolBar"), m_hideToolBar).toBool();
   m_hideStatusBar = config->value(QLatin1String("HideStatusBar"), m_hideStatusBar).toBool();
-  m_geometry = config->value(QLatin1String("Geometry"), m_geometry).toByteArray();
-  m_windowState = config->value(QLatin1String("WindowState"), m_windowState).toByteArray();
   m_language = config->value(QLatin1String("Language"), m_language).toString();
   m_useFont = config->value(QLatin1String("UseFont"), m_useFont).toBool();
   m_fontFamily = config->value(QLatin1String("FontFamily"), m_fontFamily).toString();
@@ -91,6 +91,10 @@ void MainWindowConfig::readFromConfig(ISettings* config)
   m_dontUseNativeDialogs = config->value(QLatin1String("DontUseNativeDialogs"),
                                          m_dontUseNativeDialogs).toBool();
   m_qtQuickStyle = config->value(QLatin1String("QtQuickStyle"), m_qtQuickStyle).toString();
+  config->endGroup();
+  config->beginGroup(m_group, true);
+  m_geometry = config->value(QLatin1String("Geometry"), m_geometry).toByteArray();
+  m_windowState = config->value(QLatin1String("WindowState"), m_windowState).toByteArray();
   config->endGroup();
 }
 

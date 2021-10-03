@@ -69,6 +69,8 @@ void BatchImportConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("ProfileNames"), QVariant(m_profileNames));
   config->setValue(QLatin1String("ProfileSources"), QVariant(m_profileSources));
   config->setValue(QLatin1String("ProfileIdx"), QVariant(m_profileIdx));
+  config->endGroup();
+  config->beginGroup(m_group, true);
   config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 }
@@ -89,6 +91,8 @@ void BatchImportConfig::readFromConfig(ISettings* config)
   sources = config->value(QLatin1String("ProfileSources"),
                           m_profileSources).toStringList();
   m_profileIdx = config->value(QLatin1String("ProfileIdx"), m_profileIdx).toInt();
+  config->endGroup();
+  config->beginGroup(m_group, true);
   m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
                                    m_windowGeometry).toByteArray();
   config->endGroup();

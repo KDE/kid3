@@ -310,9 +310,6 @@ void ImportConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("ImportVisibleColumns"),
                    QVariant(m_importVisibleColumns));
 #endif
-  config->setValue(QLatin1String("ImportWindowGeometry"),
-                   QVariant(m_importWindowGeometry));
-
   config->setValue(QLatin1String("ImportTagsNames"),
                    QVariant(m_importTagsNames));
   config->setValue(QLatin1String("ImportTagsSources"),
@@ -337,11 +334,15 @@ void ImportConfig::writeToConfig(ISettings* config) const
   }
   config->setValue(QLatin1String("MatchPictureUrlMapKeys"), QVariant(keys));
   config->setValue(QLatin1String("MatchPictureUrlMapValues"), QVariant(values));
-  config->setValue(QLatin1String("BrowseCoverArtWindowGeometry"),
-                   QVariant(m_browseCoverArtWindowGeometry));
 
   config->setValue(QLatin1String("DisabledPlugins"),
                    QVariant(m_disabledPlugins));
+  config->endGroup();
+  config->beginGroup(m_group, true);
+  config->setValue(QLatin1String("BrowseCoverArtWindowGeometry"),
+                   QVariant(m_browseCoverArtWindowGeometry));
+  config->setValue(QLatin1String("ImportWindowGeometry"),
+                   QVariant(m_importWindowGeometry));
   config->endGroup();
 }
 
@@ -380,9 +381,6 @@ void ImportConfig::readFromConfig(ISettings* config)
 #ifdef Q_OS_MAC
   m_importVisibleColumns &= ~(Q_UINT64_C(1) << 63);
 #endif
-  m_importWindowGeometry = config->value(QLatin1String("ImportWindowGeometry"),
-                                         m_importWindowGeometry).toByteArray();
-
   tagsNames = config->value(QLatin1String("ImportTagsNames"),
                             m_importTagsNames).toStringList();
   tagsSources = config->value(QLatin1String("ImportTagsSources"),
@@ -410,12 +408,16 @@ void ImportConfig::readFromConfig(ISettings* config)
       m_matchPictureUrlMap.append({*itk, *itv});
     }
   }
-  m_browseCoverArtWindowGeometry = config->value(
-        QLatin1String("BrowseCoverArtWindowGeometry"),
-        m_browseCoverArtWindowGeometry).toByteArray();
 
   m_disabledPlugins = config->value(QLatin1String("DisabledPlugins"),
                                  m_disabledPlugins).toStringList();
+  config->endGroup();
+  config->beginGroup(m_group, true);
+  m_browseCoverArtWindowGeometry = config->value(
+        QLatin1String("BrowseCoverArtWindowGeometry"),
+        m_browseCoverArtWindowGeometry).toByteArray();
+  m_importWindowGeometry = config->value(QLatin1String("ImportWindowGeometry"),
+                                         m_importWindowGeometry).toByteArray();
   config->endGroup();
 
   // KConfig seems to strip empty entries from the end of the string lists,

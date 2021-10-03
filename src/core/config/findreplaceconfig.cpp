@@ -53,6 +53,8 @@ void FindReplaceConfig::writeToConfig(ISettings* config) const
                                                      | (Q_UINT64_C(1) << 63)
 #endif
                                                      ));
+  config->endGroup();
+  config->beginGroup(m_group, true);
   config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 }
@@ -74,6 +76,8 @@ void FindReplaceConfig::readFromConfig(ISettings* config)
                         & ~(Q_UINT64_C(1) << 63)
 #endif
                         );
+  config->endGroup();
+  config->beginGroup(m_group, true);
   m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
                                    m_windowGeometry).toByteArray();
   config->endGroup();

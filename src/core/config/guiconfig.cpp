@@ -68,27 +68,29 @@ void GuiConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("HidePicture"), QVariant(m_hidePicture));
   config->setValue(QLatin1String("PlayOnDoubleClick"),
                    QVariant(m_playOnDoubleClick));
-  config->setValue(QLatin1String("FileListSortColumn"),
-                   QVariant(m_fileListSortColumn));
-  config->setValue(QLatin1String("FileListSortOrder"),
-                   QVariant(m_fileListSortOrder));
   config->setValue(QLatin1String("FileListVisibleColumns"),
                    QVariant(intListToStringList(m_fileListVisibleColumns)));
   config->setValue(QLatin1String("FileListCustomColumnWidthsEnabled"),
                    QVariant(m_fileListCustomColumnWidthsEnabled));
+  config->setValue(QLatin1String("DirListVisibleColumns"),
+                   QVariant(intListToStringList(m_dirListVisibleColumns)));
+  config->setValue(QLatin1String("DirListCustomColumnWidthsEnabled"),
+                   QVariant(m_dirListCustomColumnWidthsEnabled));
+
+  config->endGroup();
+  config->beginGroup(m_group, true);
+  config->setValue(QLatin1String("FileListSortColumn"),
+                   QVariant(m_fileListSortColumn));
+  config->setValue(QLatin1String("FileListSortOrder"),
+                   QVariant(m_fileListSortOrder));
   config->setValue(QLatin1String("FileListColumnWidths"),
                    QVariant(intListToStringList(m_fileListColumnWidths)));
   config->setValue(QLatin1String("DirListSortColumn"),
                    QVariant(m_dirListSortColumn));
   config->setValue(QLatin1String("DirListSortOrder"),
                    QVariant(m_dirListSortOrder));
-  config->setValue(QLatin1String("DirListVisibleColumns"),
-                   QVariant(intListToStringList(m_dirListVisibleColumns)));
-  config->setValue(QLatin1String("DirListCustomColumnWidthsEnabled"),
-                   QVariant(m_dirListCustomColumnWidthsEnabled));
   config->setValue(QLatin1String("DirListColumnWidths"),
                    QVariant(intListToStringList(m_dirListColumnWidths)));
-
   auto it = m_splitterSizes.constBegin();
   int i = 0;
   for (; it != m_splitterSizes.constEnd(); ++it, ++i) {
@@ -127,11 +129,6 @@ void GuiConfig::readFromConfig(ISettings* config)
                                 m_hidePicture).toBool();
   m_playOnDoubleClick = config->value(QLatin1String("PlayOnDoubleClick"),
                                       m_playOnDoubleClick).toBool();
-  m_fileListSortColumn = config->value(QLatin1String("FileListSortColumn"),
-                                       m_fileListSortColumn).toInt();
-  m_fileListSortOrder = static_cast<Qt::SortOrder>(
-        config->value(QLatin1String("FileListSortOrder"),
-                      static_cast<int>(m_fileListSortOrder)).toInt());
   m_fileListVisibleColumns = stringListToIntList(
         config->value(QLatin1String("FileListVisibleColumns"), QStringList())
         .toStringList());
@@ -142,14 +139,6 @@ void GuiConfig::readFromConfig(ISettings* config)
   m_fileListCustomColumnWidthsEnabled =
       config->value(QLatin1String("FileListCustomColumnWidthsEnabled"),
                     m_fileListCustomColumnWidthsEnabled).toBool();
-  m_fileListColumnWidths = stringListToIntList(
-        config->value(QLatin1String("FileListColumnWidths"), QStringList())
-        .toStringList());
-  m_dirListSortColumn = config->value(QLatin1String("DirListSortColumn"),
-                                       m_dirListSortColumn).toInt();
-  m_dirListSortOrder = static_cast<Qt::SortOrder>(
-        config->value(QLatin1String("DirListSortOrder"),
-                      static_cast<int>(m_dirListSortOrder)).toInt());
   m_dirListVisibleColumns = stringListToIntList(
         config->value(QLatin1String("DirListVisibleColumns"), QStringList())
         .toStringList());
@@ -160,10 +149,25 @@ void GuiConfig::readFromConfig(ISettings* config)
   m_dirListCustomColumnWidthsEnabled =
       config->value(QLatin1String("DirListCustomColumnWidthsEnabled"),
                     m_dirListCustomColumnWidthsEnabled).toBool();
+
+  config->endGroup();
+  config->beginGroup(m_group, true);
+  m_fileListSortColumn = config->value(QLatin1String("FileListSortColumn"),
+                                       m_fileListSortColumn).toInt();
+  m_fileListSortOrder = static_cast<Qt::SortOrder>(
+        config->value(QLatin1String("FileListSortOrder"),
+                      static_cast<int>(m_fileListSortOrder)).toInt());
+  m_fileListColumnWidths = stringListToIntList(
+        config->value(QLatin1String("FileListColumnWidths"), QStringList())
+        .toStringList());
+  m_dirListSortColumn = config->value(QLatin1String("DirListSortColumn"),
+                                       m_dirListSortColumn).toInt();
+  m_dirListSortOrder = static_cast<Qt::SortOrder>(
+        config->value(QLatin1String("DirListSortOrder"),
+                      static_cast<int>(m_dirListSortOrder)).toInt());
   m_dirListColumnWidths = stringListToIntList(
         config->value(QLatin1String("DirListColumnWidths"), QStringList())
         .toStringList());
-
   m_splitterSizes.clear();
   for (int i = 0; i < 5; ++i) {
     int val = config->value(QLatin1String("SplitterSize") + QString::number(i),

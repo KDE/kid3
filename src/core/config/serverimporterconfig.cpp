@@ -74,6 +74,8 @@ void ServerImporterConfig::writeToConfig(ISettings* config) const
     propertiesKv.append(property(propertyName).toString());
   }
   config->setValue(QLatin1String("Properties"), QVariant(propertiesKv));
+  config->endGroup();
+  config->beginGroup(m_group, true);
   config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 }
@@ -107,6 +109,8 @@ void ServerImporterConfig::readFromConfig(ISettings* config)
     }
     setProperty(key.toLatin1(), *it);
   }
+  config->endGroup();
+  config->beginGroup(m_group, true);
   m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
                                    m_windowGeometry).toByteArray();
   config->endGroup();

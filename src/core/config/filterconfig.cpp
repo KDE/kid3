@@ -95,6 +95,8 @@ void FilterConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("FilterNames"), QVariant(m_filterNames));
   config->setValue(QLatin1String("FilterExpressions"), QVariant(m_filterExpressions));
   config->setValue(QLatin1String("FilterIdx"), QVariant(m_filterIdx));
+  config->endGroup();
+  config->beginGroup(m_group, true);
   config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 }
@@ -113,6 +115,8 @@ void FilterConfig::readFromConfig(ISettings* config)
   expressions = config->value(QLatin1String("FilterExpressions"),
                               m_filterExpressions).toStringList();
   m_filterIdx = config->value(QLatin1String("FilterIdx"), m_filterIdx).toInt();
+  config->endGroup();
+  config->beginGroup(m_group, true);
   m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
                                    m_windowGeometry).toByteArray();
 

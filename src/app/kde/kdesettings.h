@@ -27,9 +27,9 @@
 #pragma once
 
 #include <QScopedPointer>
+#include <KSharedConfig>
 #include "isettings.h"
 
-class KConfig;
 class KConfigGroup;
 
 /**
@@ -40,8 +40,9 @@ public:
   /**
    * Constructor.
    * @param config KDE settings
+   * @param stateConfig state information
    */
-  explicit KdeSettings(KConfig* config);
+  explicit KdeSettings(KSharedConfigPtr config, KSharedConfigPtr stateConfig);
 
   /**
    * Destructor.
@@ -51,8 +52,9 @@ public:
   /**
    * Use settings subgroup.
    * @param prefix group name
+   * @param forState true if this group stores state information
    */
-  virtual void beginGroup(const QString& prefix) override;
+  virtual void beginGroup(const QString& prefix, bool forState = false) override;
 
   /**
    * Finnish using settings subgroup.
@@ -94,6 +96,7 @@ public:
   virtual void sync() override;
 
 private:
-  KConfig* m_config;
+  KSharedConfigPtr m_config;
+  KSharedConfigPtr m_stateConfig;
   QScopedPointer<KConfigGroup> m_group;
 };

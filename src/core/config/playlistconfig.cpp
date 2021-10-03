@@ -109,6 +109,8 @@ void PlaylistConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("FileNameFormat"), QVariant(m_fileNameFormat));
   config->setValue(QLatin1String("SortTagField"), QVariant(m_sortTagField));
   config->setValue(QLatin1String("InfoFormat"), QVariant(m_infoFormat));
+  config->endGroup();
+  config->beginGroup(m_group, true);
   config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 }
@@ -141,6 +143,8 @@ void PlaylistConfig::readFromConfig(ISettings* config)
                                  m_sortTagField).toString();
   m_infoFormat = config->value(QLatin1String("InfoFormat"),
                                m_infoFormat).toString();
+  config->endGroup();
+  config->beginGroup(m_group, true);
   m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
                                    m_windowGeometry).toByteArray();
   config->endGroup();

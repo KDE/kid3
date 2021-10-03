@@ -65,9 +65,11 @@ Kid3Settings::Kid3Settings(QSettings* config) : m_config(config)
 /**
  * Use settings subgroup.
  * @param prefix group name
+ * @param forState true if this group stores state information
  */
-void Kid3Settings::beginGroup(const QString& prefix)
+void Kid3Settings::beginGroup(const QString& prefix, bool forState)
 {
+  Q_UNUSED(forState);
   m_config->beginGroup(prefix);
 }
 

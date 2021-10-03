@@ -161,6 +161,8 @@ void ExportConfig::writeToConfig(ISettings* config) const
                    QVariant(m_exportFormatTrailers));
   config->setValue(QLatin1String("ExportFormatIdx"),
                    QVariant(m_exportFormatIdx));
+  config->endGroup();
+  config->beginGroup(m_group, true);
   config->setValue(QLatin1String("ExportWindowGeometry"),
                    QVariant(m_exportWindowGeometry));
   config->endGroup();
@@ -189,6 +191,8 @@ void ExportConfig::readFromConfig(ISettings* config)
                               m_exportFormatTrailers).toStringList();
   m_exportFormatIdx = config->value(QLatin1String("ExportFormatIdx"),
                                     m_exportFormatIdx).toInt();
+  config->endGroup();
+  config->beginGroup(m_group, true);
   m_exportWindowGeometry = config->value(QLatin1String("ExportWindowGeometry"),
                                          m_exportWindowGeometry).toByteArray();
   config->endGroup();

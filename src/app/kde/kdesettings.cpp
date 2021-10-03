@@ -26,13 +26,15 @@
 
 #include "kdesettings.h"
 #include <QtConfig>
-#include <KConfig>
 #include <KConfigGroup>
 
 /**
  * Constructor.
+ * @param config KDE settings
+ * @param stateConfig state information
  */
-KdeSettings::KdeSettings(KConfig* config) : m_config(config)
+KdeSettings::KdeSettings(KSharedConfigPtr config, KSharedConfigPtr stateConfig)
+  : m_config(config), m_stateConfig(stateConfig)
 {
   migrateOldSettings();
 }
@@ -48,10 +50,11 @@ KdeSettings::~KdeSettings()
 /**
  * Use settings subgroup.
  * @param prefix group name
+ * @param forState true if this group stores state information
  */
-void KdeSettings::beginGroup(const QString& prefix)
+void KdeSettings::beginGroup(const QString& prefix, bool forState)
 {
-  m_group.reset(new KConfigGroup(m_config, prefix));
+  m_group.reset(new KConfigGroup(forState ? m_stateConfig : m_config, prefix));
 }
 
 /**
@@ -119,4 +122,5 @@ bool KdeSettings::contains(const QString& key) const
 void KdeSettings::sync()
 {
   m_config->sync();
+  m_stateConfig->sync();
 }

@@ -95,6 +95,8 @@ void RenDirConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("DirFormatText"), QVariant(m_dirFormatText));
   config->setValue(QLatin1String("RenameDirectorySource"),
                    QVariant(tagVersionToRenDirCfg(m_renDirSrc)));
+  config->endGroup();
+  config->beginGroup(m_group, true);
   config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 }
@@ -115,6 +117,8 @@ void RenDirConfig::readFromConfig(ISettings* config)
   m_dirFormatText =
       config->value(QLatin1String("DirFormatText"),
                     QString::fromLatin1(s_defaultDirFmtList[0])).toString();
+  config->endGroup();
+  config->beginGroup(m_group, true);
   m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
                                    m_windowGeometry).toByteArray();
   config->endGroup();

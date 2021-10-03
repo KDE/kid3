@@ -80,6 +80,8 @@ void NumberTracksConfig::writeToConfig(ISettings* config) const
                    QVariant(m_trackNumberingEnabled));
   config->setValue(QLatin1String("ResetCounterForEachDirectory"),
                    QVariant(m_directoryCounterResetEnabled));
+  config->endGroup();
+  config->beginGroup(m_group, true);
   config->setValue(QLatin1String("WindowGeometry"), QVariant(m_windowGeometry));
   config->endGroup();
 }
@@ -101,6 +103,8 @@ void NumberTracksConfig::readFromConfig(ISettings* config)
   m_directoryCounterResetEnabled =
       config->value(QLatin1String("ResetCounterForEachDirectory"),
                     m_directoryCounterResetEnabled).toBool();
+  config->endGroup();
+  config->beginGroup(m_group, true);
   m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
                                    m_windowGeometry).toByteArray();
   config->endGroup();

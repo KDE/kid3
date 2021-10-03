@@ -27,7 +27,7 @@
 #include "kdeplatformtools.h"
 #include <QtConfig>
 #include <KMessageBox>
-#include <KConfig>
+#include <KSharedConfig>
 #include <KIO/CopyJob>
 #include <QUrl>
 #include <QFileDialog>
@@ -57,8 +57,8 @@ KdePlatformTools::~KdePlatformTools()
 ISettings* KdePlatformTools::applicationSettings()
 {
   if (!m_config) {
-    m_settings.reset(new KConfig);
-    m_config.reset(new KdeSettings(m_settings.data()));
+    m_config.reset(new KdeSettings(KSharedConfig::openConfig(),
+                                   KSharedConfig::openStateConfig()));
   }
   return m_config.data();
 }
