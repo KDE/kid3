@@ -43,6 +43,15 @@ Kid3Script {
           tags["v1" + prop] = tagsV1[prop]
         }
       }
+      if (app.selectionInfo.tag(Frame.Tag_3).tagFormat) {
+        var tagsV3 = app.getAllFrames(Frame.TagV3)
+        if (typeof tags === "undefined") {
+          tags = {}
+        }
+        for (prop in tagsV3) {
+          tags["v3" + prop] = tagsV3[prop]
+        }
+      }
       if (tags) {
         rows.push(tags)
         for (prop in tags) {

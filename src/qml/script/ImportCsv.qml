@@ -105,6 +105,9 @@ Kid3Script {
             if (frameName.substr(0, 2) === "v1") {
               frameName = frameName.substr(2)
               app.setFrame(tagv1, frameName, frameValue)
+            } else if (frameName.substr(0, 2) === "v3") {
+              frameName = frameName.substr(2)
+              app.setFrame(Frame.TagV3, frameName, frameValue)
             } else {
               app.setFrame(tagv2, frameName, frameValue)
             }

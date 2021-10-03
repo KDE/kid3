@@ -55,10 +55,13 @@ Timer {
    */
   //property variant tagv1: script.toTagVersion(Frame.TagV1) //@QtQuick1
   //property variant tagv2: script.toTagVersion(Frame.TagV2) //@QtQuick1
+  //property variant tagv3: script.toTagVersion(Frame.TagV3) //@QtQuick1
   //property variant tagv2v1: script.toTagVersion(Frame.TagV2V1) //@QtQuick1
   readonly property int tagv1: Frame.TagV1 //@QtQuick2
   readonly property int tagv2: Frame.TagV2 //@QtQuick2
+  readonly property int tagv3: Frame.TagV3 //@QtQuick2
   readonly property int tagv2v1: Frame.TagV2V1 //@QtQuick2
+  readonly property int tagvall: Frame.TagVAll //@QtQuick2
 
   // Container for sub module instances.
   property list<QtObject> _data: [
