@@ -4114,12 +4114,15 @@ const char* getVorbisNameFromType(Frame::Type type)
     "RELEASEDATE",     // FT_ReleaseDate,
     "RATING",          // FT_Rating,
     "WORK"             // FT_Work,
-                       // FT_LastFrame = FT_Work
+                       // FT_Custom1
   };
-  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1);
+  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_Custom1);
   if (type == Frame::FT_Picture &&
       TagConfig::instance().pictureNameIndex() == TagConfig::VP_COVERART) {
     return "COVERART";
+  }
+  if (Frame::isCustomFrameType(type)) {
+    return Frame::getNameForCustomFrame(type);
   }
   return type <= Frame::FT_LastFrame ? names[type] : "UNKNOWN";
 }
@@ -4136,7 +4139,7 @@ Frame::Type getTypeFromVorbisName(QString name)
   static QMap<QString, int> strNumMap;
   if (strNumMap.empty()) {
     // first time initialization
-    for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
+    for (int i = 0; i < Frame::FT_Custom1; ++i) {
       auto type = static_cast<Frame::Type>(i);
       strNumMap.insert(QString::fromLatin1(getVorbisNameFromType(type)), type);
     }
@@ -4147,7 +4150,7 @@ Frame::Type getTypeFromVorbisName(QString name)
   if (it != strNumMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
-  return Frame::FT_Other;
+  return Frame::getTypeFromCustomFrameName(name.toLatin1());
 }
 
 /**
@@ -4377,6 +4380,11 @@ void getMp4NameForType(Frame::Type type, TagLib::String& name,
     if (it != typeNameMap.constEnd()) {
       name = mp4NameTypeValues[*it].name;
       value = mp4NameTypeValues[*it].value;
+    } else {
+      auto customFrameName = Frame::getNameForCustomFrame(type);
+      if (!customFrameName.isEmpty()) {
+        name = TagLib::String(customFrameName.constData());
+      }
     }
   }
 }
@@ -4407,7 +4415,7 @@ bool getMp4TypeForName(const TagLib::String& name, Frame::Type& type,
     value = mp4NameTypeValues[*it].value;
     return name[0] >= 'A' && name[0] <= 'Z';
   } else {
-    type = Frame::FT_Other;
+    type = Frame::getTypeFromCustomFrameName(name.toCString());
     value = MVT_String;
     return true;
   }
@@ -4714,6 +4722,11 @@ void getAsfNameForType(Frame::Type type, TagLib::String& name,
     if (it != typeNameMap.constEnd()) {
       name = asfNameTypeValues[*it].name;
       value = asfNameTypeValues[*it].value;
+    } else {
+      auto customFrameName = Frame::getNameForCustomFrame(type);
+      if (!customFrameName.isEmpty()) {
+        name = TagLib::String(customFrameName.constData());
+      }
     }
   }
 }
@@ -4741,7 +4754,7 @@ void getAsfTypeForName(const TagLib::String& name, Frame::Type& type,
     type = asfNameTypeValues[*it].type;
     value = asfNameTypeValues[*it].value;
   } else {
-    type = Frame::FT_Other;
+    type = Frame::getTypeFromCustomFrameName(name.toCString());
     value = TagLib::ASF::Attribute::UnicodeType;
   }
 }
@@ -4982,12 +4995,15 @@ TagLib::ByteVector getInfoNameFromType(Frame::Type type)
     nullptr, // FT_ReleaseDate,
     "IRTD",  // FT_Rating,
     nullptr, // FT_Work,
-             // FT_LastFrame = FT_Work
+             // FT_Custom1
   };
-  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1);
+  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_Custom1);
   if (type == Frame::FT_Track) {
     QByteArray ba = TagConfig::instance().riffTrackName().toLatin1();
     return TagLib::ByteVector(ba.constData(), ba.size());
+  }
+  if (Frame::isCustomFrameType(type)) {
+    return TagLib::ByteVector(Frame::getNameForCustomFrame(type).constData());
   }
   const char* name = type <= Frame::FT_LastFrame ? names[type] : nullptr;
   return name ? TagLib::ByteVector(name, 4) : TagLib::ByteVector();
@@ -5005,7 +5021,7 @@ Frame::Type getTypeFromInfoName(const TagLib::ByteVector& id)
   static QMap<TagLib::ByteVector, int> strNumMap;
   if (strNumMap.isEmpty()) {
     // first time initialization
-    for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
+    for (int i = 0; i < Frame::FT_Custom1; ++i) {
       auto type = static_cast<Frame::Type>(i);
       TagLib::ByteVector str = getInfoNameFromType(type);
       if (!str.isEmpty()) {
@@ -5025,7 +5041,8 @@ Frame::Type getTypeFromInfoName(const TagLib::ByteVector& id)
   if (it != strNumMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
-  return Frame::FT_Other;
+  return Frame::getTypeFromCustomFrameName(
+        QByteArray(id.data(), id.size()));
 }
 
 /**
@@ -6200,7 +6217,8 @@ Frame createFrameFromId3Frame(const TagLib::ID3v2::Frame* id3Frame, int index)
             // remove ExFalso/QuodLibet "namespace"
             description = description.mid(11);
           }
-          frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+          frame.setExtendedType(Frame::ExtendedType(
+            Frame::getTypeFromCustomFrameName(description.toLatin1()),
             frame.getInternalName() + QLatin1Char('\n') + description));
         }
       }
@@ -6736,8 +6754,11 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
       (m_tagType[tagNr] == TT_Unknown &&
        dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr]))) {
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-      lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")). // clazy:exclude=reserve-candidates
-                 getName());
+      auto name = Frame::ExtendedType(static_cast<Frame::Type>(k), QLatin1String("")). // clazy:exclude=reserve-candidates
+          getName();
+      if (!name.isEmpty()) {
+        lst.append(name);
+      }
     }
     for (const auto& ts : typeStrOfId) {
       if (ts.type == Frame::FT_Other && ts.supported && ts.str) {
@@ -6834,8 +6855,11 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
         m_tagType[tagNr] == TT_Vorbis || m_tagType[tagNr] == TT_Ape;
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       if (k != Frame::FT_Picture || picturesSupported) {
-        lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k),
-                                       QLatin1String("")).getName());
+        auto name = Frame::ExtendedType(static_cast<Frame::Type>(k),
+                                        QLatin1String("")).getName();
+        if (!name.isEmpty()) {
+          lst.append(name);
+        }
       }
     }
     for (auto fieldName : fieldNames) {

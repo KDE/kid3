@@ -188,7 +188,9 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
         Frame::ExtendedType(static_cast<Frame::Type>(type), QLatin1String(""))
         .getName().toLower();
     if (frameName == QLatin1String("track number")) frameName = QLatin1String("track.3");
-    lst.append(QLatin1String("%{") + frameName + QLatin1String("}"));
+    if (!frameName.isEmpty()) {
+      lst.append(QLatin1String("%{") + frameName + QLatin1String("}"));
+    }
   }
   m_sortTagFieldComboBox->addItems(lst);
   connect(m_sortTagFieldButton, &QAbstractButton::toggled,

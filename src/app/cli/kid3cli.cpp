@@ -126,10 +126,12 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
           if (frameNames.isEmpty()) {
             frameNames.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
             for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-              frameNames.append(
-                    Frame::ExtendedType(
-                      static_cast<Frame::Type>(k), QLatin1String(""))
-                    .getName().toLower().remove(QLatin1Char(' ')).toLocal8Bit());
+              auto frameName = Frame::ExtendedType(
+                    static_cast<Frame::Type>(k), QLatin1String(""))
+                  .getName().toLower().remove(QLatin1Char(' '));
+              if (!frameName.isEmpty()) {
+                frameNames.append(frameName.toLocal8Bit());
+              }
             }
           }
           m_parameters = frameNames;

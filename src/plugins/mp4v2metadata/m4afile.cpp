@@ -194,6 +194,11 @@ QString getNameForType(Frame::Type type)
     auto it = typeNameMap.constFind(type);
     if (it != typeNameMap.constEnd()) {
       return *it;
+    } else {
+      auto customFrameName = Frame::getNameForCustomFrame(type);
+      if (!customFrameName.isEmpty()) {
+        return QString::fromLatin1(customFrameName);
+      }
     }
   }
   return QString();
@@ -236,7 +241,7 @@ Frame::Type getTypeForName(const QString& name, bool onlyPredefined = false)
     if (it != freeFormNameTypeMap.constEnd()) {
       return *it;
     }
-    return Frame::FT_Other;
+    return Frame::getTypeFromCustomFrameName(name.toLatin1());
   }
   return Frame::FT_UnknownFrame;
 }

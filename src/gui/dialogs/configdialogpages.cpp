@@ -669,15 +669,17 @@ void ConfigDialogPages::setConfigs(
   m_quickAccessTagsModel->clear();
   const auto constFrameTypes = frameTypes;
   for (int frameType : constFrameTypes) {
-    QStandardItem* item = new QStandardItem(
-          Frame::ExtendedType(static_cast<Frame::Type>(frameType))
-          .getTranslatedName());
-    item->setData(frameType, Qt::UserRole);
-    item->setCheckable(true);
-    item->setCheckState((frameMask & (1ULL << frameType))
-                        ? Qt::Checked : Qt::Unchecked);
-    item->setDropEnabled(false);
-    m_quickAccessTagsModel->appendRow(item);
+    auto name = Frame::ExtendedType(static_cast<Frame::Type>(frameType))
+        .getTranslatedName();
+    if (!name.isEmpty()) {
+      QStandardItem* item = new QStandardItem(name);
+      item->setData(frameType, Qt::UserRole);
+      item->setCheckable(true);
+      item->setCheckState((frameMask & (1ULL << frameType))
+                          ? Qt::Checked : Qt::Unchecked);
+      item->setDropEnabled(false);
+      m_quickAccessTagsModel->appendRow(item);
+    }
   }
   m_commandsTableModel->setCommandList(userActionsCfg.contextMenuCommands());
   int idx = m_commentNameComboBox->findText(tagCfg.commentName());

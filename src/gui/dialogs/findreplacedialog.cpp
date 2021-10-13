@@ -116,8 +116,11 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   unifiedFrameNames.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 2);
   unifiedFrameNames.append(tr("Filename"));
   for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
-    unifiedFrameNames.append(
-        Frame::ExtendedType(static_cast<Frame::Type>(i)).getTranslatedName());
+    auto name = Frame::ExtendedType(static_cast<Frame::Type>(i))
+        .getTranslatedName();
+    if (!name.isEmpty()) {
+      unifiedFrameNames.append(name);
+    }
   }
   m_tagsModel->setStringList(unifiedFrameNames);
   tagsListView->setModel(m_tagsModel);

@@ -99,10 +99,30 @@ public:
     FT_ReleaseDate,
     FT_Rating,
     FT_Work,
-    FT_LastFrame = FT_Work,
+    FT_Custom1,
+    FT_Custom2,
+    FT_Custom3,
+    FT_Custom4,
+    FT_Custom5,
+    FT_Custom6,
+    FT_Custom7,
+    FT_Custom8,
+    FT_LastFrame = FT_Custom8,
     FT_Other,
     FT_UnknownFrame
   };
+
+  /** Maximum number of custom frame names. */
+  static const int NUM_CUSTOM_FRAME_NAMES = FT_LastFrame - FT_Custom1 + 1;
+
+  /**
+   * Check if a frame type is a custom frame.
+   * @param type frame type
+   * @return true if @a type is a custom frame type.
+   */
+  static constexpr bool isCustomFrameType(Type type) {
+    return type >= FT_Custom1 && type <= FT_LastFrame;
+  }
 
   /**
    * Types of fields in a frame, must be the same as id3lib's ID3_FieldID.
@@ -824,6 +844,37 @@ public:
    * @return English frame name for @a name if found, else @a name.
    */
   static QString getNameForTranslatedFrameName(const QString& name);
+
+  /**
+   * Get the internal name for a custom frame.
+   * @param type custom frame type (FT_Custom1..FT_LastFrame)
+   * @return custom frame name, empty if not used.
+   */
+  static QByteArray getNameForCustomFrame(Frame::Type type);
+
+  /**
+   * Get type of frame from custom frame name.
+   * @param name custom frame name
+   * @return type, FT_Other if no custom frame with @a name exists.
+   */
+  static Frame::Type getTypeFromCustomFrameName(const QByteArray& name);
+
+  /**
+   * Set the internal names for all custom frames.
+   * The number of custom frames is limited. The internal vector will be resized
+   * to fit the fixed number of custom frames.
+   *
+   * @param customNames names for the custom frame types (FT_Custom1, ...)
+   */
+  static void setNamesForCustomFrames(const QStringList& customNames);
+
+  /**
+   * Get the names for all custom frames.
+   * The returned list does not contain empty names.
+   *
+   * @return names for the custom frame types (FT_Custom1, ...).
+   */
+  static QStringList getNamesForCustomFrames();
 
   /**
    * Convert frame index to a negative index used for a second collection.

@@ -1038,7 +1038,8 @@ ID3_FrameID getId3libFrameIdForType(Frame::Type type)
   } else if (type == Frame::FT_CatalogNumber ||
              type == Frame::FT_ReleaseCountry ||
              type == Frame::FT_Grouping ||
-             type == Frame::FT_Subtitle) {
+             type == Frame::FT_Subtitle ||
+             (Frame::isCustomFrameType(type))) {
     return ID3FID_USERTEXT;
   }
 
@@ -1900,6 +1901,9 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
           description = QLatin1String("GROUPING");
         } else if (frame.getType() == Frame::FT_Subtitle) {
           description = QLatin1String("SUBTITLE");
+        } else if (Frame::isCustomFrameType(frame.getType())) {
+          description = QString::fromLatin1(
+                Frame::getNameForCustomFrame(frame.getType()));
         } else {
           description = frame.getName();
         }
@@ -2076,7 +2080,8 @@ Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
         } else if (description == QLatin1String("SUBTITLE")) {
           frame.setType(Frame::FT_Subtitle);
         } else {
-          frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+          frame.setExtendedType(Frame::ExtendedType(
+              Frame::getTypeFromCustomFrameName(description.toLatin1()),
               frame.getInternalName() + QLatin1Char('\n') + description));
         }
       }
@@ -2295,8 +2300,11 @@ QStringList Mp3File::getFrameIds(Frame::TagNumber tagNr) const
 
   QStringList lst;
   for (int type = Frame::FT_FirstFrame; type <= Frame::FT_LastFrame; ++type) {
-    lst.append(Frame::ExtendedType(static_cast<Frame::Type>(type),
-                                   QLatin1String("")).getName());
+    auto name = Frame::ExtendedType(static_cast<Frame::Type>(type),
+                                    QLatin1String("")).getName();
+    if (!name.isEmpty()) {
+      lst.append(name);
+    }
   }
   for (int i = 0; i <= ID3FID_WWWUSER; ++i) {
     if (typeStrOfId[i].type == Frame::FT_Other) {

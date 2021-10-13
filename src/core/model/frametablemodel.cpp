@@ -751,7 +751,7 @@ void FrameTableModel::setFrameOrder(const QList<int>& frameTypes)
   if (frameTypes.isEmpty()) {
     m_frameTypeSeqNr.clear();
     return;
-  } else if (frameTypes.size() != Frame::FT_LastFrame + 1) {
+  } else if (frameTypes.size() < Frame::FT_Custom1) {
     qWarning("FrameTableModel::setFrameOrder: Invalid parameter size");
     m_frameTypeSeqNr.clear();
     return;
@@ -771,5 +771,9 @@ void FrameTableModel::setFrameOrder(const QList<int>& frameTypes)
       return;
     }
     m_frameTypeSeqNr[frameType] = seqNr;
+  }
+  while (seqNr <= Frame::FT_LastFrame) {
+    m_frameTypeSeqNr[seqNr] = seqNr;
+    ++seqNr;
   }
 }

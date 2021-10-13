@@ -25,6 +25,7 @@
  */
 
 #include "frame.h"
+#include <QVector>
 #include <QMap>
 #include <QStringList>
 #include <QRegularExpression>
@@ -93,6 +94,11 @@ const char* const contentTypeNames[] = {
   nullptr
 };
 
+// Custom frame names.
+QVector<QByteArray> customFrameNames(Frame::NUM_CUSTOM_FRAME_NAMES);
+
+// Map of custom frame names to frame type.
+QMap<QByteArray, int> customFrameNameMap;
 
 /**
  * Get name of frame from type.
@@ -154,10 +160,13 @@ const char* getNameFromType(Frame::Type type)
     QT_TRANSLATE_NOOP("@default", "Release Date"),    // FT_ReleaseDate,
     QT_TRANSLATE_NOOP("@default", "Rating"),          // FT_Rating,
     QT_TRANSLATE_NOOP("@default", "Work")             // FT_Work,
-                                  // FT_LastFrame = FT_Work
+                                                      // FT_Custom1
   };
-  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1);
-  return type <= Frame::FT_LastFrame ? names[type] : "Unknown";
+  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_Custom1);
+  if (Frame::isCustomFrameType(type)) {
+    return Frame::getNameForCustomFrame(type).constData();
+  }
+  return type < Frame::FT_Custom1 ? names[type] : "Unknown";
 }
 
 /**
@@ -749,7 +758,7 @@ Frame::Type Frame::getTypeFromName(const QString& name)
   static QMap<QString, int> strNumMap;
   if (strNumMap.empty()) {
     // first time initialization
-    for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
+    for (int i = 0; i < Frame::FT_Custom1; ++i) {
       auto type = static_cast<Frame::Type>(i);
       strNumMap.insert(QString::fromLatin1(getNameFromType(type))
                        .remove(QLatin1Char(' ')).toUpper(), type);
@@ -761,7 +770,7 @@ Frame::Type Frame::getTypeFromName(const QString& name)
   if (it != strNumMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
-  return Frame::FT_Other;
+  return getTypeFromCustomFrameName(name.toLatin1());
 }
 
 /**
@@ -837,7 +846,7 @@ QString Frame::getNameForTranslatedFrameName(const QString& name)
   static QMap<QString, QString> nameMap;
   if (nameMap.isEmpty()) {
     // first time initialization
-    for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
+    for (int k = Frame::FT_FirstFrame; k < Frame::FT_Custom1; ++k) {
       QString name = Frame::ExtendedType(static_cast<Frame::Type>(k),
                                          QLatin1String("")).getName();
       nameMap.insert(QCoreApplication::translate("@default",
@@ -853,6 +862,90 @@ QString Frame::getNameForTranslatedFrameName(const QString& name)
   return nameMap.value(name, name);
 }
 
+/**
+ * Get the internal name for a custom frame.
+ * @param type custom frame type (FT_Custom1..FT_LastFrame)
+ * @return custom frame name, empty if not used.
+ */
+QByteArray Frame::getNameForCustomFrame(Frame::Type type)
+{
+  int idx = type - FT_Custom1;
+  if (idx >= 0 && idx < customFrameNames.size()) {
+    return customFrameNames.at(idx);
+  }
+  return "";
+}
+
+/**
+ * Get type of frame from custom frame name.
+ * @param name custom frame name
+ * @return type, FT_Other if no custom frame with @a name exists.
+ */
+Frame::Type Frame::getTypeFromCustomFrameName(const QByteArray& name)
+{
+  if (customFrameNameMap.isEmpty()) {
+    // first time initialization
+    for (int i = 0; i < customFrameNames.size(); ++i) {
+      auto type = static_cast<Frame::Type>(FT_Custom1 + i);
+      QByteArray customFrameName = customFrameNames.at(i).toUpper()
+          .replace(' ', QByteArray());
+      if (!customFrameName.isEmpty()) {
+        customFrameNameMap.insert(customFrameName, type);
+      }
+    }
+  }
+  auto ucName = name.toUpper().replace(' ', QByteArray());
+  auto it = customFrameNameMap.constFind(ucName);
+  if (it != customFrameNameMap.constEnd()) {
+    return static_cast<Frame::Type>(*it);
+  }
+  return Frame::FT_Other;
+}
+
+/**
+ * Set the internal names for all custom frames.
+ * The number of custom frames is limited. The internal vector will be resized
+ * to fit the fixed number of custom frames.
+ *
+ * @param customNames names for the custom frame types (FT_Custom1...)
+ */
+void Frame::setNamesForCustomFrames(const QStringList& customNames)
+{
+  QVector<QByteArray> newCustomFrameNames(NUM_CUSTOM_FRAME_NAMES);
+  int i = 0;
+  for (auto it = customNames.constBegin(); it != customNames.constEnd(); ++it) {
+    if (i >= NUM_CUSTOM_FRAME_NAMES) {
+      break;
+    }
+    if (!it->isEmpty()) {
+      newCustomFrameNames[i++] = it->toLatin1();
+    }
+  }
+  if (customFrameNames != newCustomFrameNames) {
+    customFrameNames.swap(newCustomFrameNames);
+    // Invalidate mapping used by getTypeFromName()
+    customFrameNameMap.clear();
+  }
+}
+
+/**
+ * Get the names for all custom frames.
+ * The returned list does not contain empty names.
+ *
+ * @return names for the custom frame types (FT_Custom1, ...).
+ */
+QStringList Frame::getNamesForCustomFrames()
+{
+  QStringList names;
+  for (auto it = customFrameNames.constBegin();
+       it != customFrameNames.constEnd();
+       ++it) {
+    if (!it->isEmpty()) {
+      names.append(QString::fromLatin1(*it));
+    }
+  }
+  return names;
+}
 
 /**
  * Get a translated string for a field ID.

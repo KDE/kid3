@@ -418,12 +418,15 @@ const char* getVorbisNameFromType(Frame::Type type)
     "RELEASEDATE",     // FT_ReleaseDate,
     "RATING",          // FT_Rating,
     "WORK"             // FT_Work,
-                       // FT_LastFrame = FT_Work
+                       // FT_Custom1
   };
-  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_LastFrame + 1);
+  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_Custom1);
   if (type == Frame::FT_Picture &&
       TagConfig::instance().pictureNameIndex() == TagConfig::VP_COVERART) {
     return "COVERART";
+  }
+  if (Frame::isCustomFrameType(type)) {
+    return Frame::getNameForCustomFrame(type);
   }
   return type <= Frame::FT_LastFrame ? names[type] : "UNKNOWN";
 }
@@ -440,7 +443,7 @@ Frame::Type getTypeFromVorbisName(QString name)
   static QMap<QString, int> strNumMap;
   if (strNumMap.empty()) {
     // first time initialization
-    for (int i = 0; i <= Frame::FT_LastFrame; ++i) {
+    for (int i = 0; i < Frame::FT_Custom1; ++i) {
       auto type = static_cast<Frame::Type>(i);
       strNumMap.insert(QString::fromLatin1(getVorbisNameFromType(type)), type);
     }
@@ -451,7 +454,7 @@ Frame::Type getTypeFromVorbisName(QString name)
   if (it != strNumMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
-  return Frame::FT_Other;
+  return Frame::getTypeFromCustomFrameName(name.toLatin1());
 }
 
 /**
@@ -854,8 +857,11 @@ QStringList OggFile::getFrameIds(Frame::TagNumber tagNr) const
   lst.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1 +
               sizeof(fieldNames) / sizeof(fieldNames[0]));
   for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-    lst.append(Frame::ExtendedType(static_cast<Frame::Type>(k),
-                                   QLatin1String("")).getName());
+    auto name = Frame::ExtendedType(static_cast<Frame::Type>(k),
+                                    QLatin1String("")).getName();
+    if (!name.isEmpty()) {
+      lst.append(name);
+    }
   }
   for (auto fieldName : fieldNames) {
     lst.append(QString::fromLatin1(fieldName));
