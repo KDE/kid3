@@ -74,6 +74,9 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   /** custom genres for ID3v2.3 */
   Q_PROPERTY(QStringList customGenres READ customGenres WRITE setCustomGenres
              NOTIFY customGenresChanged)
+  /** custom frame names */
+  Q_PROPERTY(QStringList customFrames READ customFrames WRITE setCustomFrames
+             NOTIFY customFramesChanged)
   /** version used for new ID3v2 tags */
   Q_PROPERTY(int id3v2Version READ id3v2Version WRITE setId3v2Version
              NOTIFY id3v2VersionChanged)
@@ -241,6 +244,12 @@ public:
 
   /** Set custom genres for ID3v2.3. */
   void setCustomGenres(const QStringList& customGenres);
+
+  /** custom frame names */
+  QStringList customFrames() const { return m_customFrames; }
+
+  /** Set custom frame names. */
+  void setCustomFrames(const QStringList& customFrames);
 
   /** version used for new ID3v2 tags */
   int id3v2Version() const;
@@ -439,6 +448,9 @@ signals:
   /** Emitted when @a customGenres changed. */
   void customGenresChanged(const QStringList& customGenres);
 
+  /** Emitted when @a customFrames changed. */
+  void customFramesChanged(const QStringList& customFrames);
+
   /** Emitted when @a id3v2Version changed. */
   void id3v2VersionChanged(int id3v2Version);
 
@@ -481,6 +493,7 @@ private:
   QString m_riffTrackName;
   int m_pictureNameItem;
   QStringList m_customGenres;
+  QStringList m_customFrames;
   int m_id3v2Version;
   QString m_textEncodingV1;
   int m_textEncoding;

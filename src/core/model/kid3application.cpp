@@ -692,10 +692,16 @@ void Kid3Application::applyChangedConfiguration()
     m_genreModel[tagNr]->init();
   }
   notifyConfigurationChange();
+
+  const TagConfig& tagCfg = TagConfig::instance();
   quint64 oldQuickAccessFrames = FrameCollection::getQuickAccessFrames();
-  if (TagConfig::instance().quickAccessFrames() != oldQuickAccessFrames) {
-    FrameCollection::setQuickAccessFrames(
-          TagConfig::instance().quickAccessFrames());
+  if (tagCfg.quickAccessFrames() != oldQuickAccessFrames) {
+    FrameCollection::setQuickAccessFrames(tagCfg.quickAccessFrames());
+    emit selectedFilesUpdated();
+  }
+  QStringList oldCustomFrames = Frame::getNamesForCustomFrames();
+  if (tagCfg.customFrames() != oldCustomFrames) {
+    Frame::setNamesForCustomFrames(tagCfg.customFrames());
     emit selectedFilesUpdated();
   }
 
@@ -739,8 +745,10 @@ void Kid3Application::readConfig()
     setAllFilesFileFilter();
   }
   notifyConfigurationChange();
-  FrameCollection::setQuickAccessFrames(
-        TagConfig::instance().quickAccessFrames());
+
+  const TagConfig& tagCfg = TagConfig::instance();
+  FrameCollection::setQuickAccessFrames(tagCfg.quickAccessFrames());
+  Frame::setNamesForCustomFrames(tagCfg.customFrames());
 }
 
 /**

@@ -288,6 +288,8 @@ void TagConfig::writeToConfig(ISettings* config) const
                    QVariant(m_riffTrackName));
   config->setValue(QLatin1String("CustomGenres"),
                    QVariant(m_customGenres));
+  config->setValue(QLatin1String("CustomFrames"),
+                   QVariant(m_customFrames));
   config->setValue(QLatin1String("ID3v2Version"),
                    QVariant(m_id3v2Version));
   config->setValue(QLatin1String("TextEncodingV1"),
@@ -351,6 +353,8 @@ void TagConfig::readFromConfig(ISettings* config)
                     QString::fromLatin1(defaultRiffTrackName)).toString();
   m_customGenres = config->value(QLatin1String("CustomGenres"),
                                  m_customGenres).toStringList();
+  m_customFrames = config->value(QLatin1String("CustomFrames"),
+                                 m_customFrames).toStringList();
   m_id3v2Version = config->value(QLatin1String("ID3v2Version"),
                                  ID3v2_3_0).toInt();
   m_textEncodingV1 = config->value(QLatin1String("TextEncodingV1"),
@@ -524,6 +528,15 @@ void TagConfig::setCustomGenres(const QStringList& customGenres)
   if (m_customGenres != customGenres) {
     m_customGenres = customGenres;
     emit customGenresChanged(m_customGenres);
+  }
+}
+
+/** Set custom frame names. */
+void TagConfig::setCustomFrames(const QStringList& customFrames)
+{
+  if (m_customFrames != customFrames) {
+    m_customFrames = customFrames;
+    emit customFramesChanged(m_customFrames);
   }
 }
 
