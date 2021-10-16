@@ -143,6 +143,7 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
   m_id3v2VersionComboBox(nullptr), m_trackNumberDigitsSpinBox(nullptr),
   m_fnFormatBox(nullptr), m_tagFormatBox(nullptr),
   m_onlyCustomGenresCheckBox(nullptr), m_genresEditModel(nullptr),
+  m_customFramesEditModel(nullptr),
   m_quickAccessTagsModel(nullptr), m_starRatingMappingsModel(nullptr),
   m_trackNameComboBox(nullptr), m_playOnDoubleClickCheckBox(nullptr),
   m_commandsTable(nullptr), m_commandsTableModel(nullptr),
@@ -285,6 +286,18 @@ QWidget* ConfigDialogPages::createTagsPage()
   vbox->addWidget(genresEdit);
   genresGroupBox->setLayout(vbox);
   tag2RightLayout->addWidget(genresGroupBox);
+
+  QGroupBox* customFramesGroupBox = new QGroupBox(tr("Custom F&rames"), tag2Page);
+  m_customFramesEditModel = new QStringListModel(customFramesGroupBox);
+  connect(m_customFramesEditModel, &QStringListModel::dataChanged,
+          this, &ConfigDialogPages::onCustomFramesEditModelChanged);
+  connect(m_customFramesEditModel, &QStringListModel::rowsRemoved,
+          this, &ConfigDialogPages::onCustomFramesEditModelChanged);
+  auto customFramesEdit = new StringListEdit(m_customFramesEditModel, customFramesGroupBox);
+  auto customFramesVBox = new QVBoxLayout;
+  customFramesVBox->addWidget(customFramesEdit);
+  customFramesGroupBox->setLayout(customFramesVBox);
+  tag2RightLayout->addWidget(customFramesGroupBox);
 
   QGroupBox* quickAccessTagsGroupBox = new QGroupBox(tr("&Quick Access Frames"));
   auto quickAccessTagsLayout = new QVBoxLayout(quickAccessTagsGroupBox);
@@ -656,31 +669,9 @@ void ConfigDialogPages::setConfigs(
   m_fromFilenameFormats = fileCfg.fromFilenameFormats();
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
+  m_customFramesEditModel->setStringList(tagCfg.customFrames());
   m_starRatingMappingsModel->setMappings(tagCfg.starRatingMappings());
-  quint64 frameMask = tagCfg.quickAccessFrames();
-  QList<int> frameTypes = tagCfg.quickAccessFrameOrder();
-  if (frameTypes.size() != Frame::FT_LastFrame + 1) {
-    frameTypes.clear();
-    frameTypes.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
-    for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
-      frameTypes.append(i);
-    }
-  }
-  m_quickAccessTagsModel->clear();
-  const auto constFrameTypes = frameTypes;
-  for (int frameType : constFrameTypes) {
-    auto name = Frame::ExtendedType(static_cast<Frame::Type>(frameType))
-        .getTranslatedName();
-    if (!name.isEmpty()) {
-      QStandardItem* item = new QStandardItem(name);
-      item->setData(frameType, Qt::UserRole);
-      item->setCheckable(true);
-      item->setCheckState((frameMask & (1ULL << frameType))
-                          ? Qt::Checked : Qt::Unchecked);
-      item->setDropEnabled(false);
-      m_quickAccessTagsModel->appendRow(item);
-    }
-  }
+  setQuickAccessFramesConfig(tagCfg.quickAccessFrameOrder(), tagCfg.quickAccessFrames());
   m_commandsTableModel->setCommandList(userActionsCfg.contextMenuCommands());
   int idx = m_commentNameComboBox->findText(tagCfg.commentName());
   if (idx >= 0) {
@@ -797,27 +788,11 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setFromFilenameFormats(m_fromFilenameFormats);
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());
+  tagCfg.setCustomFrames(m_customFramesEditModel->stringList());
   tagCfg.setStarRatingMappings(m_starRatingMappingsModel->getMappings());
   QList<int> frameTypes;
-  bool isStandardFrameOrder = true;
   quint64 frameMask = 0;
-  const int numQuickAccessTags = m_quickAccessTagsModel->rowCount();
-  frameTypes.reserve(numQuickAccessTags);
-  for (int row = 0; row < numQuickAccessTags; ++row) {
-    QModelIndex index = m_quickAccessTagsModel->index(row, 0);
-    int frameType = index.data(Qt::UserRole).toInt();
-    if (frameType != row) {
-      isStandardFrameOrder = false;
-    }
-    frameTypes.append(frameType);
-    if (m_quickAccessTagsModel->data(
-          index, Qt::CheckStateRole).toInt() == Qt::Checked) {
-      frameMask |= 1ULL << frameType;
-    }
-  }
-  if (isStandardFrameOrder) {
-    frameTypes.clear();
-  }
+  getQuickAccessFramesConfig(frameTypes, frameMask);
   tagCfg.setQuickAccessFrames(frameMask);
   tagCfg.setQuickAccessFrameOrder(frameTypes);
   userActionsCfg.setContextMenuCommands(m_commandsTableModel->getCommandList());
@@ -869,5 +844,79 @@ void ConfigDialogPages::getConfig() const
 
   if (QWidget* configDialog = qobject_cast<QWidget*>(parent())) {
     guiCfg.setConfigWindowGeometry(configDialog->saveGeometry());
+  }
+}
+
+void ConfigDialogPages::onCustomFramesEditModelChanged()
+{
+  QList<int> frameTypes;
+  quint64 frameMask = 0;
+  getQuickAccessFramesConfig(frameTypes, frameMask);
+  setQuickAccessFramesConfig(frameTypes, frameMask);
+}
+
+void ConfigDialogPages::getQuickAccessFramesConfig(QList<int>& frameTypes,
+                                                   quint64& frameMask) const
+{
+  bool isStandardFrameOrder = true;
+  const int numQuickAccessTags = m_quickAccessTagsModel->rowCount();
+  frameTypes.clear();
+  frameTypes.reserve(numQuickAccessTags);
+  frameMask = 0;
+  for (int row = 0; row < numQuickAccessTags; ++row) {
+    QModelIndex index = m_quickAccessTagsModel->index(row, 0);
+    int frameType = index.data(Qt::UserRole).toInt();
+    if (frameType != row) {
+      isStandardFrameOrder = false;
+    }
+    frameTypes.append(frameType);
+    if (m_quickAccessTagsModel->data(
+          index, Qt::CheckStateRole).toInt() == Qt::Checked) {
+      frameMask |= 1ULL << frameType;
+    }
+  }
+  if (isStandardFrameOrder) {
+    frameTypes.clear();
+  }
+}
+
+void ConfigDialogPages::setQuickAccessFramesConfig(const QList<int>& types,
+                                                   quint64 frameMask)
+{
+  QList<int> frameTypes(types);
+  if (frameTypes.size() < Frame::FT_Custom1) {
+    frameTypes.clear();
+    frameTypes.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
+    for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
+      frameTypes.append(i);
+    }
+  } else {
+    for (int i = frameTypes.size(); i <= Frame::FT_LastFrame; ++i) {
+      frameTypes.append(i);
+    }
+  }
+  const QStringList customFrameNames = m_customFramesEditModel->stringList();
+  m_quickAccessTagsModel->clear();
+  const auto constFrameTypes = frameTypes;
+  for (int frameType : constFrameTypes) {
+    auto name = Frame::ExtendedType(static_cast<Frame::Type>(frameType))
+        .getTranslatedName();
+    if (Frame::isCustomFrameType(static_cast<Frame::Type>(frameType))) {
+      int idx = frameType - Frame::FT_Custom1;
+      if (idx >= 0 && idx < customFrameNames.size()) {
+        name = customFrameNames.at(idx);
+      } else {
+        name.clear();
+      }
+    }
+    if (!name.isEmpty()) {
+      QStandardItem* item = new QStandardItem(name);
+      item->setData(frameType, Qt::UserRole);
+      item->setCheckable(true);
+      item->setCheckState((frameMask & (1ULL << frameType))
+                          ? Qt::Checked : Qt::Unchecked);
+      item->setDropEnabled(false);
+      m_quickAccessTagsModel->appendRow(item);
+    }
   }
 }

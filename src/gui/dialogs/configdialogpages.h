@@ -116,6 +116,7 @@ public slots:
 private slots:
   void editFormatsFromTag();
   void editFormatsToTag();
+  void onCustomFramesEditModelChanged();
 
 private:
   /**
@@ -126,6 +127,11 @@ private:
       const TagConfig& tagCfg, const FileConfig& fileCfg,
       const UserActionsConfig& userActionsCfg, const GuiConfig& guiCfg,
       const NetworkConfig& networkCfg, const ImportConfig& importCfg);
+
+  void getQuickAccessFramesConfig(QList<int>& frameTypes,
+                                  quint64& frameMask) const;
+  void setQuickAccessFramesConfig(const QList<int>& types,
+                                  quint64 frameMask);
 
   IPlatformTools* m_platformTools;
   /** Load last-opened files checkbox */
@@ -180,6 +186,8 @@ private:
   QCheckBox* m_onlyCustomGenresCheckBox;
   /** Model with list of custom genres */
   QStringListModel* m_genresEditModel;
+  /** Model with list of custom frame names */
+  QStringListModel* m_customFramesEditModel;
   /** Model with standard tags selection */
   QStandardItemModel* m_quickAccessTagsModel;
   /** Model with star rating mappings */
