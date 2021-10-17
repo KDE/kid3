@@ -389,6 +389,10 @@ the columns can be changed by drag and drop. The sort order can be toggled by
 clicking on the column header.
 </para>
 <para>
+The values of the standard tags can also be displayed and edited in columns of
+the file list.
+</para>
+<para>
 At the left of the names an icon can be displayed: a disc to show that the
 file has been modified or information about which tags are present (V1, V2,
 V1V2 or NO TAG, no icon is displayed if the file has not been read in yet).
@@ -874,6 +878,13 @@ name "<literal>SOURCEMEDIA</literal>" because of the unified type mapping. In
 order to add a frame with name "<literal>MEDIA</literal>" and not
 "<literal>SOURCEMEDIA</literal>", use "<literal>!MEDIA</literal>" to force the
 explicit name.
+</para></listitem>
+<listitem><para>
+If you need a frame which is not in this list, you still have the possibility
+to enter arbitrary names using the <guibutton>Add</guibutton> button. Often
+used frame names can be added to the <guilabel>Custom Frames</guilabel> in the
+<guilabel>Tags</guilabel> configuration, and will then be available in the
+<guilabel>Quick Access Frames</guilabel>.
 </para></listitem>
 </itemizedlist>
 </para>
@@ -2305,6 +2316,11 @@ If <guilabel>Show only custom genres</guilabel> is not active, the custom
 genres can be found at the end of the genres list.
 </para>
 <para>
+In <guilabel>Custom Frames</guilabel>, up to eight custom frame names can be
+defined, which can then be used like the unified frames, for example as
+quick access frames.
+</para>
+<para>
 <guilabel>Quick Access Frames</guilabel> defines which frame types are always
 shown in the <link linkend="tag2">Tag 2</link> section. Such frames can
 then be added without first using the <guibutton>Add</guibutton> button.
@@ -2427,6 +2443,13 @@ boxes (with arrows up and down), which can be found in the
 <para>
 <guilabel>Filename Format</guilabel> contains options for the format of the
 filenames. The same options as in <guilabel>Tag Format</guilabel> are available.
+</para>
+<para>
+Additionally, the <guilabel>Maximum length</guilabel> allowed for file names can
+be set. Most modern file systems have a limit of 255 characters, but if you want
+to burn the files to CD, you should set the limit to 64.
+If <guilabel>Use for playlist and folder names</guilabel> is checked, the
+file name format is also used when creating playlists and renaming folders.
 </para>
 <para>
 The <guilabel>User Actions</guilabel> page contains a table with the commands
@@ -3450,7 +3473,8 @@ and build all required libraries and create a &kid3; package.
 <title>Configuration</title>
 
 <para>With &kde;, the settings are stored in
-<filename>.config/kid3rc</filename>.
+<filename>.config/kid3rc</filename>,
+the application state in <filename>.local/share/kid3/kid3staterc</filename>.
 As a &Qt; application, this file is
 in <filename>.config/Kid3/Kid3.conf</filename>. On &Windows;,
 the configuration is stored in the registry. on &macOS; in a plist file.
