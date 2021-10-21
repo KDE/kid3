@@ -121,6 +121,37 @@ QStringList folderPatternListFromString(const QString& patterns,
   return folders;
 }
 
+/**
+ * Convert list of custom frame names to display names.
+ * @param names custom frame names
+ * @return possibly translated display representations of @a names.
+ */
+QStringList customFrameNamesToDisplayNames(const QStringList& names)
+{
+  QStringList displayNames;
+  for (const QString& name : names) {
+    displayNames.append(Frame::getDisplayName(name));
+  }
+  return displayNames;
+}
+
+/**
+ * Convert list of display names to custom frame names.
+ * @param displayNames displayed frame names
+ * @return internal representations of @a displayNames.
+ */
+QStringList customFrameNamesFromDisplayNames(const QStringList& displayNames)
+{
+  QStringList names;
+  for (const QString& displayName : displayNames) {
+    QByteArray frameId = Frame::getFrameIdForTranslatedFrameName(displayName);
+    names.append(frameId.isNull()
+                 ? Frame::getNameForTranslatedFrameName(displayName)
+                 : QString::fromLatin1(frameId));
+  }
+  return names;
+}
+
 }
 
 /**
@@ -669,7 +700,8 @@ void ConfigDialogPages::setConfigs(
   m_fromFilenameFormats = fileCfg.fromFilenameFormats();
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
-  m_customFramesEditModel->setStringList(tagCfg.customFrames());
+  m_customFramesEditModel->setStringList(
+        customFrameNamesToDisplayNames(tagCfg.customFrames()));
   m_starRatingMappingsModel->setMappings(tagCfg.starRatingMappings());
   setQuickAccessFramesConfig(tagCfg.quickAccessFrameOrder(), tagCfg.quickAccessFrames());
   m_commandsTableModel->setCommandList(userActionsCfg.contextMenuCommands());
@@ -788,7 +820,8 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setFromFilenameFormats(m_fromFilenameFormats);
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());
-  tagCfg.setCustomFrames(m_customFramesEditModel->stringList());
+  tagCfg.setCustomFrames(
+       customFrameNamesFromDisplayNames(m_customFramesEditModel->stringList()));
   tagCfg.setStarRatingMappings(m_starRatingMappingsModel->getMappings());
   QList<int> frameTypes;
   quint64 frameMask = 0;

@@ -225,7 +225,11 @@ Frame::Type getTypeForName(const QString& name, bool onlyPredefined = false)
     }
     auto it = nameTypeMap.constFind(name);
     if (it != nameTypeMap.constEnd()) {
-      return *it;
+      Frame::Type type = *it;
+      if (type == Frame::FT_Other) {
+        type = Frame::getTypeFromCustomFrameName(name.toLatin1());
+      }
+      return type;
     }
   }
   if (!onlyPredefined) {

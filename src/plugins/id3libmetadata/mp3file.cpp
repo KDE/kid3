@@ -1861,7 +1861,7 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
 {
   ID3_Frame* id3Frame = nullptr;
   ID3_FrameID id;
-  if (frame.getType() != Frame::FT_Other) {
+  if (!Frame::isCustomFrameTypeOrOther(frame.getType())) {
     id = getId3libFrameIdForType(frame.getType());
   } else {
     id = getId3libFrameIdForName(frame.getName());
@@ -1987,6 +1987,9 @@ ID3_Frame* Mp3File::createId3FrameFromFrame(Frame& frame) const
     Frame::Type type;
     const char* name;
     getTypeStringForId3libFrameId(id, type, name);
+    if (type == Frame::FT_Other) {
+      type = Frame::getTypeFromCustomFrameName(QByteArray(id3Frame->GetTextID()));
+    }
     frame.setExtendedType(Frame::ExtendedType(type, QString::fromLatin1(name)));
   }
   return id3Frame;
@@ -2062,6 +2065,10 @@ Frame createFrameFromId3libFrame(ID3_Frame* id3Frame, int index)
   Frame::Type type;
   const char* name;
   getTypeStringForId3libFrameId(id3Frame->GetID(), type, name);
+  if (type == Frame::FT_Other) {
+    type = Frame::getTypeFromCustomFrameName(QByteArray(id3Frame->GetTextID()));
+  }
+
   Frame frame(type, QLatin1String(""), QString::fromLatin1(name), index);
   frame.setValue(getFieldsFromId3Frame(id3Frame, frame.fieldList()));
   if (id3Frame->GetID() == ID3FID_USERTEXT ||

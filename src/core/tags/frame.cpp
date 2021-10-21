@@ -797,7 +797,7 @@ QString Frame::getDisplayName(const QString& name)
     return name;
 
   Type type = getTypeFromName(name);
-  if (type != FT_Other)
+  if (!Frame::isCustomFrameTypeOrOther(type))
     return QCoreApplication::translate("@default",
                                        name.toLatin1().constData());
 
@@ -863,6 +863,26 @@ QString Frame::getNameForTranslatedFrameName(const QString& name)
 }
 
 /**
+ * Get internal frame ID of non unified frame for a translated display name.
+ * @param name translated display name
+ * @return internal frame ID, e.g. "SYLT", "keyw" of non unified frame,
+ *         null if @a name is not the name of a supported non unified frame.
+ */
+QByteArray Frame::getFrameIdForTranslatedFrameName(const QString& name)
+{
+  static QMap<QString, QByteArray> nameMap;
+  if (nameMap.isEmpty()) {
+    // first time initialization
+    const QMap<QByteArray, QByteArray> idStrMap = getDisplayNamesOfIds();
+    for (auto it = idStrMap.constBegin(); it != idStrMap.constEnd(); ++it) {
+      nameMap.insert(QCoreApplication::translate("@default", it.value()),
+                     it.key());
+    }
+  }
+  return nameMap.value(name);
+}
+
+/**
  * Get the internal name for a custom frame.
  * @param type custom frame type (FT_Custom1..FT_LastFrame)
  * @return custom frame name, empty if not used.
@@ -907,9 +927,11 @@ Frame::Type Frame::getTypeFromCustomFrameName(const QByteArray& name)
  * The number of custom frames is limited. The internal vector will be resized
  * to fit the fixed number of custom frames.
  *
- * @param customNames names for the custom frame types (FT_Custom1...)
+ * @param customNames names for the custom frame types (FT_Custom1...),
+ * leading '!' will be removed from the names
+ * @return true if custom frame names were changed.
  */
-void Frame::setNamesForCustomFrames(const QStringList& customNames)
+bool Frame::setNamesForCustomFrames(const QStringList& customNames)
 {
   QVector<QByteArray> newCustomFrameNames(NUM_CUSTOM_FRAME_NAMES);
   int i = 0;
@@ -917,15 +939,21 @@ void Frame::setNamesForCustomFrames(const QStringList& customNames)
     if (i >= NUM_CUSTOM_FRAME_NAMES) {
       break;
     }
-    if (!it->isEmpty()) {
-      newCustomFrameNames[i++] = it->toLatin1();
+    QString name = *it;
+    if (name.startsWith(QLatin1Char('!'))) {
+      name.remove(0, 1);
+    }
+    if (!name.isEmpty()) {
+      newCustomFrameNames[i++] = name.toLatin1();
     }
   }
   if (customFrameNames != newCustomFrameNames) {
     customFrameNames.swap(newCustomFrameNames);
     // Invalidate mapping used by getTypeFromName()
     customFrameNameMap.clear();
+    return true;
   }
+  return false;
 }
 
 /**

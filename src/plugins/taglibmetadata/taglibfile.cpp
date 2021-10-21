@@ -2412,6 +2412,10 @@ void getTypeStringForFrameId(const TagLib::ByteVector& id, Frame::Type& type,
     const TypeStrOfId& ts = typeStrOfId[idIndexMap[id]];
     type = ts.type;
     str = ts.str;
+    if (type == Frame::FT_Other) {
+      type = Frame::getTypeFromCustomFrameName(
+            QByteArray(id.data(), id.size()));
+    }
   } else {
     type = Frame::FT_UnknownFrame;
     str = "????";
@@ -4413,6 +4417,9 @@ bool getMp4TypeForName(const TagLib::String& name, Frame::Type& type,
   if (it != nameTypeMap.constEnd()) {
     type = mp4NameTypeValues[*it].type;
     value = mp4NameTypeValues[*it].value;
+    if (type == Frame::FT_Other) {
+      type = Frame::getTypeFromCustomFrameName(name.toCString());
+    }
     return name[0] >= 'A' && name[0] <= 'Z';
   } else {
     type = Frame::getTypeFromCustomFrameName(name.toCString());
@@ -5630,7 +5637,7 @@ TagLib::ID3v2::Frame* createId3FrameFromFrame(const TagLibFile* self,
                                               Frame& frame)
 {
   TagLib::String::Type enc = TagLibFile::getDefaultTextEncoding();
-  QString name = frame.getType() != Frame::FT_Other
+  QString name = !Frame::isCustomFrameTypeOrOther(frame.getType())
       ? QString::fromLatin1(getStringForType(frame.getType()))
       : frame.getName();
   QString frameId = name;

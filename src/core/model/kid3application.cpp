@@ -699,9 +699,7 @@ void Kid3Application::applyChangedConfiguration()
     FrameCollection::setQuickAccessFrames(tagCfg.quickAccessFrames());
     emit selectedFilesUpdated();
   }
-  QStringList oldCustomFrames = Frame::getNamesForCustomFrames();
-  if (tagCfg.customFrames() != oldCustomFrames) {
-    Frame::setNamesForCustomFrames(tagCfg.customFrames());
+  if (Frame::setNamesForCustomFrames(tagCfg.customFrames())) {
     emit selectedFilesUpdated();
   }
 

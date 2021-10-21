@@ -125,6 +125,15 @@ public:
   }
 
   /**
+   * Check if a frame type is a custom frame or FT_Other
+   * @param type frame type
+   * @return true if @a type is a custom frame type or FT_Other.
+   */
+  static constexpr bool isCustomFrameTypeOrOther(Type type) {
+    return type >= FT_Custom1 && type <= FT_Other;
+  }
+
+  /**
    * Types of fields in a frame, must be the same as id3lib's ID3_FieldID.
    **/
   enum FieldId {
@@ -846,6 +855,14 @@ public:
   static QString getNameForTranslatedFrameName(const QString& name);
 
   /**
+   * Get internal frame ID of non unified frame for a translated display name.
+   * @param name translated display name
+   * @return internal frame ID, e.g. "SYLT", "keyw" of non unified frame,
+   *         null if @a name is not the name of a supported non unified frame.
+   */
+  static QByteArray getFrameIdForTranslatedFrameName(const QString& name);
+
+  /**
    * Get the internal name for a custom frame.
    * @param type custom frame type (FT_Custom1..FT_LastFrame)
    * @return custom frame name, empty if not used.
@@ -864,9 +881,11 @@ public:
    * The number of custom frames is limited. The internal vector will be resized
    * to fit the fixed number of custom frames.
    *
-   * @param customNames names for the custom frame types (FT_Custom1, ...)
+   * @param customNames names for the custom frame types (FT_Custom1...),
+   * leading '!' will be removed from the names
+   * @return true if custom frame names were changed.
    */
-  static void setNamesForCustomFrames(const QStringList& customNames);
+  static bool setNamesForCustomFrames(const QStringList& customNames);
 
   /**
    * Get the names for all custom frames.
