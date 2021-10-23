@@ -153,7 +153,7 @@ void ExportDialog::slotToFile()
       QMessageBox::warning(
         nullptr, tr("File Error"),
         tr("Error while writing file:\n") + fileName,
-        QMessageBox::Ok, Qt::NoButton);
+        QMessageBox::Ok, QMessageBox::NoButton);
     }
   }
 }

@@ -570,7 +570,7 @@ void FileList::executeContextCommand(int id)
       QMessageBox::warning(
         this, menuCmd.getName(),
         tr("Could not execute ") + args.join(QLatin1String(" ")),
-        QMessageBox::Ok, Qt::NoButton);
+        QMessageBox::Ok, QMessageBox::NoButton);
     }
   }
 }

@@ -194,9 +194,9 @@ int PlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
     const QString& caption)
 {
   return QMessageBox::warning(parent, caption, text,
-                              QMessageBox::Yes | QMessageBox::Default,
-                              QMessageBox::No,
-                              QMessageBox::Cancel | QMessageBox::Escape);
+                              QMessageBox::Yes | QMessageBox::No |
+                              QMessageBox::Cancel,
+                              QMessageBox::Yes);
 }
 
 /**

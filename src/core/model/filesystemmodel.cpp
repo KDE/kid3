@@ -60,6 +60,7 @@
 #include <QRegularExpression>
 
 #include <algorithm>
+#include <memory>
 
 #ifdef Q_OS_WIN
 #  include <QtCore/QVarLengthArray>
@@ -937,7 +938,7 @@ bool FileSystemModel::setData(const QModelIndex &idx, const QVariant &value, int
         int visibleLocation = parentNode->visibleLocation(parentNode->children.value(indexNode->fileName)->fileName);
 
         parentNode->visibleChildren.removeAt(visibleLocation);
-        QScopedPointer<FileSystemModelPrivate::FileSystemNode> nodeToRename(parentNode->children.take(oldName));
+        std::unique_ptr<FileSystemModelPrivate::FileSystemNode> nodeToRename(parentNode->children.take(oldName));
         nodeToRename->fileName = newName;
         nodeToRename->parent = parentNode;
 #ifndef QT_NO_FILESYSTEMWATCHER
@@ -949,7 +950,7 @@ bool FileSystemModel::setData(const QModelIndex &idx, const QVariant &value, int
         }
 #endif
         nodeToRename->isVisible = true;
-        parentNode->children[newName] = nodeToRename.take();
+        parentNode->children[newName] = nodeToRename.release();
         parentNode->visibleChildren.insert(visibleLocation, newName);
 
         d->delayedSort();

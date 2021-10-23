@@ -130,9 +130,8 @@ void PlaylistEditDialog::closeEvent(QCloseEvent* event)
           this, tr("Warning"),
           tr("A playlist has been modified.\n"
              "Do you want to save it?"),
-          QMessageBox::Yes | QMessageBox::Default,
-          QMessageBox::No,
-          QMessageBox::Cancel | QMessageBox::Escape);
+          QMessageBox::Yes | QMessageBox::No | QMessageBox::Cancel,
+          QMessageBox::Yes);
     if (answer == QMessageBox::Yes) {
       m_playlistModel->save();
     }
