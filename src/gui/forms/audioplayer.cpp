@@ -29,10 +29,70 @@
 #include <QFile>
 #include <QUrl>
 #include <QMediaPlayer>
+#if QT_VERSION >= 0x060200
+#include <QAudioOutput>
+#else
 #include <QMediaPlaylist>
+#endif
 #include "kid3application.h"
 #include "taggedfile.h"
 #include "fileproxymodel.h"
+
+#if QT_VERSION >= 0x060200
+
+class MediaPlaylist : public QObject {
+public:
+  explicit MediaPlaylist(AudioPlayer* parent)
+    : QObject(parent), m_audioPlayer(parent), m_currentPos(-1) {
+  }
+
+  virtual ~MediaPlaylist() override = default;
+
+  void clear() {
+    m_playlist.clear();
+  }
+
+  void addMedia(const QUrl& content) {
+    m_playlist.append(content);
+  }
+
+  int currentIndex() const {
+    return m_currentPos;
+  }
+
+  int mediaCount() const {
+    return m_playlist.size();
+  }
+
+  QUrl currentMedia() const {
+    return m_currentPos >= 0 && m_currentPos < m_playlist.size()
+        ? m_playlist.at(m_currentPos) : QUrl();
+  }
+
+  void setCurrentIndex(int playlistPosition) {
+    if (playlistPosition >= 0 && playlistPosition < m_playlist.size() &&
+        m_currentPos != playlistPosition) {
+      m_currentPos = playlistPosition;
+      m_audioPlayer->currentIndexChanged(m_currentPos);
+    }
+  }
+
+  void previous() {
+    setCurrentIndex(m_currentPos - 1);
+  }
+
+  void next() {
+    setCurrentIndex(m_currentPos + 1);
+  }
+
+private:
+  AudioPlayer* m_audioPlayer;
+  QList<QUrl> m_playlist;
+  int m_currentPos;
+};
+
+#endif
+
 
 /**
  * Constructor.
@@ -45,6 +105,19 @@ AudioPlayer::AudioPlayer(Kid3Application* app) : QObject(app),
   setObjectName(QLatin1String("AudioPlayer"));
 
   m_mediaPlayer = new QMediaPlayer(this);
+#if QT_VERSION >= 0x060200
+  m_mediaPlaylist = new MediaPlaylist(this);
+  m_audioOutput = new QAudioOutput(this);
+  m_mediaPlayer->setAudioOutput(m_audioOutput);
+  connect(m_mediaPlayer, &QMediaPlayer::positionChanged,
+          this, &AudioPlayer::positionChanged);
+  connect(m_mediaPlayer, &QMediaPlayer::playbackStateChanged,
+          this, &AudioPlayer::onStateChanged);
+  connect(m_mediaPlayer, &QMediaPlayer::mediaStatusChanged,
+          this, &AudioPlayer::onMediaStatusChanged);
+  connect(m_audioOutput, &QAudioOutput::volumeChanged,
+          this, &AudioPlayer::volumeChanged);
+#else
   m_mediaPlaylist = new QMediaPlaylist(m_mediaPlayer);
   m_mediaPlayer->setPlaylist(m_mediaPlaylist);
   connect(m_mediaPlaylist, &QMediaPlaylist::currentIndexChanged,
@@ -55,6 +128,7 @@ AudioPlayer::AudioPlayer(Kid3Application* app) : QObject(app),
           this, &AudioPlayer::onStateChanged);
   connect(m_mediaPlayer, &QMediaPlayer::volumeChanged,
           this, &AudioPlayer::volumeChanged);
+#endif
 }
 
 /**
@@ -93,7 +167,9 @@ int AudioPlayer::getFileCount() const
  */
 QString AudioPlayer::getFileName() const
 {
-#if QT_VERSION >= 0x050e00
+#if QT_VERSION >= 0x060200
+  return m_mediaPlaylist->currentMedia().toLocalFile();
+#elif QT_VERSION >= 0x050e00
   return m_mediaPlaylist->currentMedia().request().url().toLocalFile();
 #else
   return m_mediaPlaylist->currentMedia().canonicalUrl().toLocalFile();
@@ -148,7 +224,12 @@ void AudioPlayer::setCurrentPosition(quint64 position)
  */
 AudioPlayer::State AudioPlayer::getState() const
 {
-  switch (m_mediaPlayer->state()) {
+#if QT_VERSION >= 0x060200
+  switch (m_mediaPlayer->playbackState())
+#else
+  switch (m_mediaPlayer->state())
+#endif
+  {
   case QMediaPlayer::StoppedState:
     return StoppedState;
   case QMediaPlayer::PlayingState:
@@ -167,6 +248,20 @@ void AudioPlayer::onStateChanged()
   emit stateChanged(getState());
 }
 
+#if QT_VERSION >= 0x060200
+  /**
+   * Go to next track when end of media reached.
+   * @param status media status (QMediaPlayer::MediaStatus)
+   */
+  void AudioPlayer::onMediaStatusChanged(int status)
+  {
+    if (status == QMediaPlayer::EndOfMedia) {
+      m_mediaPlaylist->next();
+      m_mediaPlayer->play();
+    }
+  }
+#endif
+
 /**
  * Get duration of current track in milliseconds.
  * @return duration.
@@ -182,7 +277,11 @@ qint64 AudioPlayer::getDuration() const
  */
 int AudioPlayer::getVolume() const
 {
+#if QT_VERSION >= 0x060200
+  return m_audioOutput->volume() * 100.0f;
+#else
   return m_mediaPlayer->volume();
+#endif
 }
 
 /**
@@ -191,7 +290,11 @@ int AudioPlayer::getVolume() const
  */
 void AudioPlayer::setVolume(int volume)
 {
+#if QT_VERSION >= 0x060200
+  m_audioOutput->setVolume(static_cast<float>(volume) / 100.0f);
+#else
   m_mediaPlayer->setVolume(volume);
+#endif
 }
 
 /**
@@ -199,7 +302,12 @@ void AudioPlayer::setVolume(int volume)
  */
 void AudioPlayer::playOrPause()
 {
-  switch (m_mediaPlayer->state()) {
+#if QT_VERSION >= 0x060200
+  switch (m_mediaPlayer->playbackState())
+#else
+  switch (m_mediaPlayer->state())
+#endif
+  {
   case QMediaPlayer::PlayingState:
     m_mediaPlayer->pause();
     break;
@@ -242,7 +350,14 @@ void AudioPlayer::stop()
 void AudioPlayer::currentIndexChanged(int position)
 {
   if (position >= 0 && position < m_mediaPlaylist->mediaCount()) {
-#if QT_VERSION >= 0x050e00
+#if QT_VERSION >= 0x060200
+    auto state = m_mediaPlayer->playbackState();
+    QString filePath = m_mediaPlaylist->currentMedia().toLocalFile();
+    m_mediaPlayer->setSource(m_mediaPlaylist->currentMedia());
+    if (state == QMediaPlayer::PlayingState) {
+      m_mediaPlayer->play();
+    }
+#elif QT_VERSION >= 0x050e00
     QString filePath =
         m_mediaPlaylist->currentMedia().request().url().toLocalFile();
 #else

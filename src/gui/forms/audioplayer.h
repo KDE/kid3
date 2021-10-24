@@ -31,9 +31,14 @@
 #include "kid3api.h"
 
 class QMediaPlayer;
-class QMediaPlaylist;
 class Kid3Application;
 class TaggedFile;
+#if QT_VERSION >= 0x060200
+class QAudioOutput;
+class MediaPlaylist;
+#else
+class QMediaPlaylist;
+#endif
 
 /**
  * Audio player toolbar.
@@ -211,20 +216,33 @@ public slots:
    */
   void next();
 
-private slots:
   /**
    * Update display and button state when the current source is changed.
    * @param position number of song in play list
    */
   void currentIndexChanged(int position);
 
+private slots:
   /**
    * Signal stateChanged() when the playing state is changed.
    */
   void onStateChanged();
 
+#if QT_VERSION >= 0x060200
+  /**
+   * Go to next track when end of media reached.
+   * @param status media status (QMediaPlayer::MediaStatus)
+   */
+  void onMediaStatusChanged(int status);
+#endif
+
 private:
   Kid3Application* m_app;
   QMediaPlayer* m_mediaPlayer;
+#if QT_VERSION >= 0x060200
+  MediaPlaylist* m_mediaPlaylist;
+  QAudioOutput* m_audioOutput;
+#else
   QMediaPlaylist* m_mediaPlaylist;
+#endif
 };

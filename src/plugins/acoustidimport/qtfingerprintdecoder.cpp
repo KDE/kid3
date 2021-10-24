@@ -27,6 +27,9 @@
 #include "qtfingerprintdecoder.h"
 #include <QAudioDecoder>
 #include <QTimer>
+#if QT_VERSION >= 0x060200
+#include <QUrl>
+#endif
 #include "fingerprintcalculator.h"
 
 /**
@@ -39,10 +42,14 @@ QtFingerprintDecoder::QtFingerprintDecoder(QObject* parent) :
 {
   QAudioFormat desiredFormat;
   desiredFormat.setChannelCount(2);
+  desiredFormat.setSampleRate(44100);
+#if QT_VERSION >= 0x060200
+  desiredFormat.setSampleFormat(QAudioFormat::Int16);
+#else
   desiredFormat.setCodec(QLatin1String("audio/x-raw-int"));
   desiredFormat.setSampleType(QAudioFormat::SignedInt);
-  desiredFormat.setSampleRate(44100);
   desiredFormat.setSampleSize(16);
+#endif
 
   m_decoder->setAudioFormat(desiredFormat);
   connect(m_decoder, SIGNAL(bufferReady()), this, SLOT(receiveBuffer()));
@@ -69,7 +76,11 @@ QtFingerprintDecoder::~QtFingerprintDecoder()
 void QtFingerprintDecoder::start(const QString& filePath)
 {
   AbstractFingerprintDecoder::start(filePath);
+#if QT_VERSION >= 0x060200
+  m_decoder->setSource(QUrl::fromLocalFile(filePath));
+#else
   m_decoder->setSourceFilename(filePath);
+#endif
 
   QAudioFormat format = m_decoder->audioFormat();
   emit started(format.sampleRate(), format.channelCount());

@@ -86,7 +86,11 @@ private slots:
    *
    * @param newState new Phonon state
    */
+#if QT_VERSION >= 0x060200
+  void stateChanged(QMediaPlayer::PlaybackState newState);
+#else
   void stateChanged(QMediaPlayer::State newState);
+#endif
 
   /**
    * Update states when a media player error occurs.

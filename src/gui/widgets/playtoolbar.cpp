@@ -34,7 +34,11 @@
 #include <QStyle>
 #include <QLabel>
 #include <QSplitter>
+#if QT_VERSION >= 0x060200
+#include <QAudioOutput>
+#else
 #include <QMediaPlaylist>
+#endif
 #include <QSlider>
 #include "audioplayer.h"
 
@@ -88,7 +92,11 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   m_volumeSlider = new QSlider(Qt::Horizontal, this);
   m_volumeSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   m_volumeSlider->setRange(0, 100);
+#if QT_VERSION >= 0x060200
+  int volume = mediaPlayer->audioOutput()->volume() * 100.0f;
+#else
   int volume = mediaPlayer->volume();
+#endif
   m_volumeSlider->setValue(volume);
   setVolumeToolTip(volume);
   connect(m_volumeSlider, &QAbstractSlider::actionTriggered,
@@ -109,15 +117,24 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   addWidget(m_timeLcd);
   addAction(closeAction);
 
+#if QT_VERSION >= 0x060200
+  connect(mediaPlayer, &QMediaPlayer::playbackStateChanged,
+          this, &PlayToolBar::stateChanged);
+  connect(mediaPlayer, &QMediaPlayer::errorOccurred,
+          this, &PlayToolBar::error);
+  connect(mediaPlayer->audioOutput(), &QAudioOutput::volumeChanged,
+          this, [this](float volume) { setVolumeToolTip(volume * 100.0f); });
+#else
   connect(mediaPlayer, &QMediaPlayer::stateChanged,
           this, &PlayToolBar::stateChanged);
   connect(mediaPlayer, static_cast<void (QMediaPlayer::*)(QMediaPlayer::Error)>(
             &QMediaPlayer::error),
           this, &PlayToolBar::error);
-  connect(mediaPlayer, &QMediaPlayer::durationChanged,
-          this, &PlayToolBar::durationChanged);
   connect(mediaPlayer, &QMediaPlayer::volumeChanged,
           this, &PlayToolBar::setVolumeToolTip);
+#endif
+  connect(mediaPlayer, &QMediaPlayer::durationChanged,
+          this, &PlayToolBar::durationChanged);
   connect(m_muteAction, &QAction::triggered, this, &PlayToolBar::toggleMute);
   connect(m_player, &AudioPlayer::positionChanged, this, &PlayToolBar::tick);
   connect(m_player, &AudioPlayer::trackChanged,
@@ -178,7 +195,11 @@ void PlayToolBar::tick(qint64 msec)
  *
  * @param newState new Phonon state
  */
+#if QT_VERSION >= 0x060200
+void PlayToolBar::stateChanged(QMediaPlayer::PlaybackState newState)
+#else
 void PlayToolBar::stateChanged(QMediaPlayer::State newState)
+#endif
 {
   switch (newState) {
     case QMediaPlayer::PlayingState:
@@ -255,7 +276,12 @@ void PlayToolBar::seekAction(int action)
 void PlayToolBar::volumeAction(int action)
 {
   Q_UNUSED(action);
+#if QT_VERSION >= 0x060200
+  m_player->mediaPlayer()->audioOutput()->setVolume(
+        static_cast<float>(m_volumeSlider->sliderPosition()) / 100.0f);
+#else
   m_player->mediaPlayer()->setVolume(m_volumeSlider->sliderPosition());
+#endif
 }
 
 /**
@@ -263,8 +289,13 @@ void PlayToolBar::volumeAction(int action)
  */
 void PlayToolBar::toggleMute()
 {
+#if QT_VERSION >= 0x060200
+  bool muted = !m_player->mediaPlayer()->audioOutput()->isMuted();
+  m_player->mediaPlayer()->audioOutput()->setMuted(muted);
+#else
   bool muted = !m_player->mediaPlayer()->isMuted();
   m_player->mediaPlayer()->setMuted(muted);
+#endif
   m_muteAction->setIcon(style()->standardIcon(muted
       ? QStyle::SP_MediaVolumeMuted : QStyle::SP_MediaVolume));
 }
