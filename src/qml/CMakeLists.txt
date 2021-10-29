@@ -24,6 +24,8 @@ if(NOT HAVE_QMLDIR_IN_QRC)
     script/ShowTextEncodingV1.qml
     script/ExportCsv.qml
     script/ImportCsv.qml
+    script/ExportJson.qml
+    script/ImportJson.qml
     script/ExtractAlbumArt.qml
     script/EmbedAlbumArt.qml
     script/EmbedLyrics.qml

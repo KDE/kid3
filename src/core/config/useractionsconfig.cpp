@@ -261,6 +261,18 @@ void UserActionsConfig::setDefaultUserActions(bool upgradeOnly)
             QLatin1String("Rewrite Tags"),
             QLatin1String("@qml %{qmlpath}/script/RewriteTags.qml")));
   }
+  if (!upgradeOnly || ConfigStore::getConfigVersion() < 7) {
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(
+            QLatin1String("Export JSON"),
+            QLatin1String("@qml %{qmlpath}/script/ExportJson.qml"),
+            false, true));
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(
+            QLatin1String("Import JSON"),
+            QLatin1String("@qml %{qmlpath}/script/ImportJson.qml"),
+            false, true));
+  }
 #endif
 }
 
