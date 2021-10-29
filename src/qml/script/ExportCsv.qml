@@ -1,12 +1,12 @@
 /**
- * \file ExportAll.qml
+ * \file ExportCsv.qml
  * Export all tags of all files to a CSV file.
  *
  * \b Project: Kid3
  * \author Urs Fleisch
  * \date 06 Mar 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2021  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -128,7 +128,7 @@ Kid3Script {
       doWork()
     }
 
-    if (!isStandalone()) {
+    if (!isStandalone() && app.hasGui()) {
       console.log("Expanding file list")
       app.expandFileListFinished.connect(startWork)
       app.requestExpandFileList()

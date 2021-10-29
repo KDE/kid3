@@ -1290,7 +1290,7 @@ void RemoveCommand::startCommand()
 
 ConfigCommand::ConfigCommand(Kid3Cli* processor)
   : CliCommand(processor, QLatin1String("config"), tr("Configure Kid3"),
-               QLatin1String("[S]\nS = Group.Option Value"))
+               QLatin1String("[S]\nS = ") + tr("Group.Option Value"))
 {
 }
 
@@ -1413,5 +1413,64 @@ void ConfigCommand::startCommand()
     }
   } else {
     cli()->writeResult(configNames);
+  }
+}
+
+
+ExecuteCommand::ExecuteCommand(Kid3Cli* processor)
+  : CliCommand(processor, QLatin1String("execute"), tr("Execute command"),
+               QLatin1String("S\nS = [@qml] ") + tr("Executable [arguments]"))
+{
+  setTimeout(-1);
+}
+
+void ExecuteCommand::setCaption(const QString& title)
+{
+  Q_UNUSED(title)
+}
+
+void ExecuteCommand::append(const QString& text)
+{
+  cli()->writeLine(text);
+}
+
+void ExecuteCommand::scrollToBottom()
+{
+}
+
+void ExecuteCommand::startCommand()
+{
+  if (args().size() > 1) {
+    QString command = args().at(1);
+    if (!m_process) {
+      m_process.reset(new ExternalProcess(cli()->app(), this));
+      connectResultSignal();
+    }
+    m_process->setOutputViewer(this);
+    if (!m_process->launchCommand(command, args().mid(1), true)) {
+      setError(tr("Could not execute ") + args().mid(1).join(QLatin1String(" ")));
+      terminate();
+    }
+  } else {
+    showUsage();
+    terminate();
+  }
+}
+
+void ExecuteCommand::connectResultSignal()
+{
+  if (m_process) {
+    connect(m_process.data(), &ExternalProcess::finished,
+            this, &ExecuteCommand::terminate, Qt::UniqueConnection);
+  }
+}
+
+void ExecuteCommand::disconnectResultSignal()
+{
+  if (m_process) {
+    disconnect(m_process.data(), &ExternalProcess::finished,
+               this, &ExecuteCommand::terminate);
+    // Avoid segfault when m_process is deleted at program termination
+    m_process.reset();
   }
 }

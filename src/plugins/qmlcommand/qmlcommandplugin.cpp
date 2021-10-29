@@ -150,6 +150,7 @@ bool QmlCommandPlugin::startUserCommand(
           }
         }
         m_qmlEngine->clearComponentCache();
+        onEngineFinished();
       }
       return true;
     }
@@ -256,6 +257,7 @@ void QmlCommandPlugin::onEngineFinished()
     qInstallMessageHandler(nullptr);
     s_messageHandlerInstance = nullptr;
   }
+  QTimer::singleShot(0, this, [this]() { emit finished(0); });
 }
 
 /**

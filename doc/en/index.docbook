@@ -3251,6 +3251,35 @@ list can be copied with the new element appended.
 </para>
 </sect2>
 
+<sect2 id="cli-execute">
+<title>Execute program or QML script</title>
+<cmdsynopsis>
+<command>execute</command>
+<arg choice="opt">@qml</arg>
+<arg choice="req"><replaceable>FILE</replaceable></arg>
+<arg choice="opt"><replaceable>ARGS</replaceable></arg>
+</cmdsynopsis>
+<para>Execute a QML script or an executable.
+</para>
+<para>
+Without <option>@qml</option> a program is executed with arguments.
+When <option>@qml</option> is given as the first argument, the following
+arguments are the QML script and its arguments. For example, the tags
+of a folder can be exported to the file <filename>export.csv</filename> with
+the following command.
+</para>
+<screen width="65"><userinput>kid3-cli -c "execute @qml
+/usr/share/kid3/qml/script/ExportCsv.qml export.csv"
+/path/to/folder/</userinput></screen>
+<para>
+Here <option>export.csv</option> is the argument for the
+<filename>ExportCsv.qml</filename> script, whereas
+<option>/path/to/folder/</option> is the
+<option><replaceable>FILE</replaceable></option> argument for
+<command>kid3-cli</command>.
+</para>
+</sect2>
+
 </sect1>
 
 <sect1 id="kid3-cli-examples">

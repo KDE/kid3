@@ -71,14 +71,14 @@ public:
    *
    * @remarks If @a showOutput is true, command output is emitted using a signal
    * "void commandOutput(QString)". Objects implementing this interface have to
-   * be QObjects providing such a signal.
+   * be QObjects providing such a signal and a signal "void finished(int)".
    * @see qobject()
    */
   virtual bool startUserCommand(
       const QString& key, const QStringList& arguments, bool showOutput) = 0;
 
   /**
-   * Return object which emits commandOutput() signal.
+   * Return object which emits commandOutput() and finished() signals.
    *
    * @return object which emits signals.
    */

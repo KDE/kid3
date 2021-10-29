@@ -148,6 +148,12 @@ public:
   virtual QString getExistingDirectory(QWidget* parent,
       const QString& caption, const QString& startDir);
 
+  /**
+   * Check if platform has a graphical user interface.
+   * @return true if platform has GUI.
+   */
+  virtual bool hasGui() const;
+
 protected:
   /**
    * Construct a name filter string suitable for file dialogs.

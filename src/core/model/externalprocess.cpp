@@ -90,6 +90,9 @@ bool ExternalProcess::launchCommand(const QString& name, const QStringList& args
   if (m_process->state() != QProcess::NotRunning) {
     m_process = new QProcess(parent());
   }
+  connect(m_process, static_cast<void (QProcess::*)(int, QProcess::ExitStatus)>(
+            &QProcess::finished),
+          this, &ExternalProcess::finished, Qt::UniqueConnection);
 
   if (showOutput && m_outputViewer) {
     m_process->setProcessChannelMode(QProcess::MergedChannels);
@@ -108,9 +111,14 @@ bool ExternalProcess::launchCommand(const QString& name, const QStringList& args
     program = program.mid(1);
     const auto userCommandProcessors = m_app->getUserCommandProcessors();
     for (IUserCommandProcessor* userCommandProcessor : userCommandProcessors) {
-      if (userCommandProcessor->userCommandKeys().contains(program) &&
-          userCommandProcessor->startUserCommand(program, arguments, showOutput))
-        return true;
+      if (userCommandProcessor->userCommandKeys().contains(program)) {
+        connect(userCommandProcessor->qobject(), SIGNAL(finished(int)),
+                this, SIGNAL(finished(int)), Qt::UniqueConnection);
+        if (userCommandProcessor->startUserCommand(program, arguments,
+                                                   showOutput)) {
+          return true;
+        }
+      }
     }
   }
   m_process->start(program, arguments);

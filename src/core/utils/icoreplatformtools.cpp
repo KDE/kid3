@@ -97,6 +97,15 @@ QString ICorePlatformTools::getExistingDirectory(QWidget* parent,
 }
 
 /**
+ * Check if platform has a graphical user interface.
+ * @return true if platform has GUI.
+ */
+bool ICorePlatformTools::hasGui() const
+{
+  return false;
+}
+
+/**
  * Construct a name filter string suitable for file dialogs.
  * This function can be used to implement fileDialogNameFilter()
  * for QFileDialog.

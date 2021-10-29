@@ -27,7 +27,9 @@
 #pragma once
 
 #include <QObject>
+#include <QScopedPointer>
 #include "frame.h"
+#include "externalprocess.h"
 
 class QModelIndex;
 class Kid3Cli;
@@ -603,4 +605,25 @@ public:
 
 protected:
   virtual void startCommand() override;
+};
+
+/** Execute command. */
+class ExecuteCommand : public CliCommand,
+                       public ExternalProcess::IOutputViewer {
+  Q_OBJECT
+public:
+  /** Constructor. */
+  explicit ExecuteCommand(Kid3Cli* processor);
+
+  virtual void setCaption(const QString& title) override;
+  virtual void append(const QString& text) override;
+  virtual void scrollToBottom() override;
+
+protected:
+  virtual void startCommand() override;
+  virtual void connectResultSignal() override;
+  virtual void disconnectResultSignal() override;
+
+private:
+  QScopedPointer<ExternalProcess> m_process;
 };

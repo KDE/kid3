@@ -99,6 +99,12 @@ signals:
    */
   void commandOutput(const QString& msg);
 
+  /**
+   * Emitted when the command finishes.
+   * @param exitCode exit code of command
+   */
+  void finished(int exitCode);
+
 private slots:
   void onEngineError(const QList<QQmlError>& errors);
   void onQmlViewClosing();

@@ -296,6 +296,15 @@ QString KdePlatformTools::getExistingDirectory(QWidget* parent,
 }
 
 /**
+ * Check if platform has a graphical user interface.
+ * @return true if platform has GUI.
+ */
+bool KdePlatformTools::hasGui() const
+{
+  return true;
+}
+
+/**
  * Display warning dialog.
  * @param parent parent widget
  * @param text text

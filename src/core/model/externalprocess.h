@@ -103,6 +103,13 @@ public:
   bool launchCommand(const QString& name, const QStringList& args,
                      bool showOutput = false);
 
+signals:
+  /**
+   * Emitted when the process finishes.
+   * @param exitCode exit code of process
+   */
+  void finished(int exitCode);
+
 private slots:
   /**
    * Read data from standard output and display it in the output viewer.

@@ -199,6 +199,12 @@ public:
       const QString& caption, const QString& startDir) override;
 
   /**
+   * Check if platform has a graphical user interface.
+   * @return true if platform has GUI.
+   */
+  virtual bool hasGui() const override;
+
+  /**
    * Display warning dialog.
    * @param parent parent widget
    * @param text text

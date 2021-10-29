@@ -219,7 +219,8 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
          << new CopyCommand(this)
          << new PasteCommand(this)
          << new RemoveCommand(this)
-         << new ConfigCommand(this);
+         << new ConfigCommand(this)
+         << new ExecuteCommand(this);
   connect(m_app, &Kid3Application::fileSelectionUpdateRequested,
           this, &Kid3Cli::updateSelectedFiles);
   connect(m_app, &Kid3Application::selectedFilesUpdated,

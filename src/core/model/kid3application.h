@@ -890,6 +890,12 @@ public:
       const QString& caption = QString(), const QString& dir = QString());
 
   /**
+   * Check if application is running with a graphical user interface.
+   * @return true if application has a GUI.
+   */
+  Q_INVOKABLE bool hasGui() const;
+
+  /**
    * Notify the tagged file factories about the changed configuration.
    */
   static void notifyConfigurationChange();

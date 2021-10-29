@@ -3990,3 +3990,12 @@ QString Kid3Application::selectDirName(const QString& caption,
 {
   return m_platformTools->getExistingDirectory(nullptr, caption, dir);
 }
+
+/**
+ * Check if application is running with a graphical user interface.
+ * @return true if application has a GUI.
+ */
+bool Kid3Application::hasGui() const
+{
+  return m_platformTools->hasGui();
+}
