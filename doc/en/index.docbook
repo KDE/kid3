@@ -4388,20 +4388,15 @@ output will be visible in the window.
 </para>
 
 <para>
-Alternatively, the script could also be started independent of &kid3; using the
-QML tools.
-
+Unfortunately, starting the QML scripts using the <command>qml</command>
+(e.g. <command>qml -apptype widget -I /usr/lib/kid3/plugins/imports
+/path/to/Example.qml</command>) is broken in recent versions of Qt. But
+<command>kid3-cli</command> offers an alternative way to run a QML script from
+the command line using its
+<link linkend="cli-execute"><command>execute</command></link> command.
 <screen width="80">
-qml -apptype widget -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
+kid3-cli -c "execute @qml /path/to/Example.qml"
 </screen>
-or
-<screen width="80">
-qmlscene -I /usr/lib/kid3/plugins/imports /path/to/Example.qml
-</screen>
-On &Windows; and &macOS;, the import path must be adapted to the
-<filename class="directory">imports</filename> folder inside the installation
-folder. Scripts started outside of &kid3; will use the current folder, so it
-should be changed beforehand.
 </para>
 
 <para>
@@ -4544,6 +4539,21 @@ Rewrite all tags in the selected files.
 <guilabel>Export CSV</guilabel>
 (<filename>ExportCsv.qml</filename>):
 Export recursively all tags of all files to a CSV file.
+</para></listitem>
+<listitem><para>
+<guilabel>Import CSV</guilabel>
+(<filename>ImportCsv.qml</filename>):
+Import recursively all tags of all files from a CSV file.
+</para></listitem>
+<listitem><para>
+<guilabel>Export JSON</guilabel>
+(<filename>ExportJson.qml</filename>):
+Export recursively all tags of all files to a JSON file.
+</para></listitem>
+<listitem><para>
+<guilabel>Import JSON</guilabel>
+(<filename>ImportJson.qml</filename>):
+Import recursively all tags of all files from a JSON file.
 </para></listitem>
 <listitem><para>
 <guilabel>Export Playlist Folder</guilabel>
