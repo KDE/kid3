@@ -187,6 +187,7 @@ ApplicationWindow {
     MainPage {
       id: mainPage
       visible: false
+      parent: Overlay.overlay
       onConfirmedOpenRequested: confirmedOpenDirectory(path)
       onSaveRequested: saveDirectory(onCompleted)
     }

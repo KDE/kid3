@@ -91,7 +91,7 @@ Page {
 
         FileSelectDialog {
           id: openDialog
-          parent: Overlay.overlay
+          parent: page.parent  // Overlay.overlay
           title: qsTr("Open")
           onFinished: if (path) confirmedOpenRequested(path)
         }
@@ -157,7 +157,7 @@ Page {
 
             AboutDialog {
               id: aboutDialog
-              parent: Overlay.overlay
+              parent: page.parent  // Overlay.overlay
             }
           }
           MenuItem {
@@ -213,7 +213,7 @@ Page {
 
             NumberTracksDialog {
               id: numberTracksDialog
-              parent: Overlay.overlay
+              parent: page.parent  // Overlay.overlay
             }
           }
           MenuItem {
