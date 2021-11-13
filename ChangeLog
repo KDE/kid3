@@ -1,3 +1,23 @@
+Sat Dec 18 09:22:30 CET 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.9.0
+
+	* New:
+	  + Support for custom quick access frames.
+	  + Support standard tags as columns in the file list.
+	  + Option to use file format for playlist and folder names.
+	  + kid3-cli: Command 'execute' to run QML scripts.
+	  + QML: Scripts to export and import in JSON format.
+
+	* Improved:
+	  + KDE: Separate state config from settings config.
+	  + kid3-cli: Allow setting frame values from a file and storing to a file.
+
+	* Fixed:
+	  + Discogs import.
+	  + Get tags from file names with spaces before the extension.
+	  + QML: Added support for Tag 3 where it was missing.
+
 Sun Jun 20 11:18:51 CEST 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.8.7
@@ -6,7 +26,7 @@ Sun Jun 20 11:18:51 CEST 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Russian handbook.
 
 	* Fixed:
-	  + ID3v2: Wrong numeric strings for genres Fast Fusion, Fok, Folk Rock,
+	  + ID3v2: Wrong numeric strings for genres Fast Fusion, Folk, Folk Rock,
 	    Folklore, Funk, Fusion.
 	  + ID3v1: Genres Avant-Garde, Beat Music, Bebop, Britpop, Dancehall,
 	    Dark Wave, Euro House, Eurotechno, Fast Fusion, Folk Rock, Hip Hop,

@@ -5,7 +5,7 @@
 
 BASEDIR="../src" # root of translatable sources
 PROJECT="kid3" # project name
-PROJECTVERSION="3.8.7" # project version
+PROJECTVERSION="3.9.0" # project version
 BUGADDR="https://bugs.kde.org" # MSGID-Bugs
 WDIR=`pwd` # working dir
 

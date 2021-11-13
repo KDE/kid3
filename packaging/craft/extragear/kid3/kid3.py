@@ -7,7 +7,7 @@ class subinfo(info.infoclass):
     def setTargets(self):
         self.svnTargets['master'] = 'https://invent.kde.org/multimedia/kid3.git'
 
-        for ver in ['3.8.4', '3.8.5', '3.8.6', '3.8.7']:
+        for ver in ['3.8.4', '3.8.5', '3.8.6', '3.8.7', '3.9.0']:
             self.targets[ver] = f'https://download.kde.org/stable/kid3/{ver}/kid3-{ver}.tar.xz'
             self.targetInstSrc[ver] = 'kid3-' + ver
             self.targetDigestUrls[ver] = f'https://download.kde.org/stable/kid3/{ver}/kid3-{ver}.tar.xz.sha256'
