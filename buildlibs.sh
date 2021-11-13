@@ -82,7 +82,7 @@ if test "$1" = "changeversion"; then
   OLDVER=$2
   NEWVER=$3
   if test -z "$OLDVER" || test -z "$NEWVER"; then
-    echo "Usage: $0 $1 old-version-nr new-version-nr, e.g. $0 $1 0.8 0.9"
+    echo "Usage: $0 $1 old-version-nr new-version-nr [--finalize], e.g. $0 $1 0.8 0.9"
     exit 1
   fi
 
@@ -104,23 +104,29 @@ if test "$1" = "changeversion"; then
   test -z $NEWPATCH && NEWPATCH=0
 
   cd "$srcdir"
+  grep -qF "kid3 (${NEWVER}-0)" deb/changelog ||
   sed -i "1 i\
 kid3 (${NEWVER}-0) unstable; urgency=low\n\n  * New upstream release.\n\n\
  -- Urs Fleisch <ufleisch@users.sourceforge.net>  ${DATE_R}\n" deb/changelog
+  grep -qF "<releaseinfo>${NEWVER}</releaseinfo>" doc/en/index.docbook ||
   sed -i "s/^<releaseinfo>${OLDVER}<\/releaseinfo>$/<releaseinfo>${NEWVER}<\/releaseinfo>/; s/^<year>[0-9]\+<\/year>$/<year>${DATE_Y}<\/year>/; s/^<date>[0-9-]\+<\/date>$/<date>${DATE_F}<\/date>/" doc/en/index.docbook
   sed -i "s/PROJECTVERSION=\"${OLDVER}\"/PROJECTVERSION=\"${NEWVER}\"/" translations/extract-merge.sh
-  sed -i "s/^Version:        ${OLDVER}$/Version:        ${NEWVER}/" kid3.spec
-  sed -i "s/^Copyright 2003-[0-9]\+ Urs Fleisch <ufleisch@users.sourceforge.net>$/Copyright 2003-${DATE_Y} Urs Fleisch <ufleisch@users.sourceforge.net>/" deb/copyright
-  sed -i "1 i\
-${DATE}  Urs Fleisch  <ufleisch@users.sourceforge.net>\n\n\t* Release ${NEWVER}\n" ChangeLog
-  sed -i "s/PROJECT_NUMBER         = ${OLDVER}/PROJECT_NUMBER         = ${NEWVER}/" Doxyfile
-  sed -i "s/set(CPACK_PACKAGE_VERSION_MAJOR ${OLDMAJOR})/set(CPACK_PACKAGE_VERSION_MAJOR ${NEWMAJOR})/; s/set(CPACK_PACKAGE_VERSION_MINOR ${OLDMINOR})/set(CPACK_PACKAGE_VERSION_MINOR ${NEWMINOR})/; s/set(CPACK_PACKAGE_VERSION_PATCH ${OLDPATCH})/set(CPACK_PACKAGE_VERSION_PATCH ${NEWPATCH})/; s/set(RELEASE_YEAR [0-9]\+)/set(RELEASE_YEAR ${DATE_Y})/" CMakeLists.txt
-  if test $OLDVER != $NEWVER; then
+  # kid3.spec is used by f-droid to detect a new version, it should be updated exactly before the release.
+  if test "$4" = "--finalize"; then
+    sed -i "s/^Version:        ${OLDVER}$/Version:        ${NEWVER}/" kid3.spec
     OLDCODE=$(sed -n "s/ \+set(QT_ANDROID_APP_VERSION_CODE \([0-9]\+\))/\1/p" CMakeLists.txt)
     NEWCODE=$[ $OLDCODE + 1 ]
     sed -i "s/\( \+set(QT_ANDROID_APP_VERSION_CODE \)\([0-9]\+\))/\1$NEWCODE)/" CMakeLists.txt
   fi
+  sed -i "s/^Copyright 2003-[0-9]\+ Urs Fleisch <ufleisch@users.sourceforge.net>$/Copyright 2003-${DATE_Y} Urs Fleisch <ufleisch@users.sourceforge.net>/" deb/copyright
+  grep -qF "* Release ${NEWVER}" ChangeLog ||
+  sed -i "1 i\
+${DATE}  Urs Fleisch  <ufleisch@users.sourceforge.net>\n\n\t* Release ${NEWVER}\n" ChangeLog
+  sed -i "s/PROJECT_NUMBER         = ${OLDVER}/PROJECT_NUMBER         = ${NEWVER}/" Doxyfile
+  sed -i "s/set(CPACK_PACKAGE_VERSION_MAJOR ${OLDMAJOR})/set(CPACK_PACKAGE_VERSION_MAJOR ${NEWMAJOR})/; s/set(CPACK_PACKAGE_VERSION_MINOR ${OLDMINOR})/set(CPACK_PACKAGE_VERSION_MINOR ${NEWMINOR})/; s/set(CPACK_PACKAGE_VERSION_PATCH ${OLDPATCH})/set(CPACK_PACKAGE_VERSION_PATCH ${NEWPATCH})/; s/set(RELEASE_YEAR [0-9]\+)/set(RELEASE_YEAR ${DATE_Y})/" CMakeLists.txt
+  grep -qF "<release version=\"${NEWVER}\"" src/app/org.kde.kid3.appdata.xml ||
   sed -i "s,^  <releases>.*,&\n    <release version=\"${NEWVER}\" date=\"${DATE_F}\"/>," src/app/org.kde.kid3.appdata.xml
+  grep -q "for ver in .*'${NEWVER}'" packaging/craft/extragear/kid3/kid3.py ||
   sed -i -r "s/(for ver in \[[^]]*'${OLDVER}')\]:/\1, '${NEWVER}']:/" packaging/craft/extragear/kid3/kid3.py
   sed -i "s,https://download.kde.org/stable/kid3/${OLDVER}/kid3-${OLDVER}.tar.xz,https://download.kde.org/stable/kid3/${NEWVER}/kid3-${NEWVER}.tar.xz," packaging/flatpak/org.kde.kid3-stable.json
   cd - >/dev/null
@@ -157,11 +163,12 @@ fi # makearchive
 
 # Build a docker image to build binary Kid3 packages.
 # The docker image can then be started using "rundocker".
-# You can then build all using cd ~/projects/kid3/src/; ./build-all.sh
+# You can then build all packages using
+# kid3/buildlibs.sh rundocker $HOME/projects/kid3/src/build-all.sh
 # You need:
 # - Kid3 project checked out in ~/projects/kid3/src/kid3
 # Linux:
-# - Qt 5.9.7 Linux in ~/Development/Qt5.9.7-linux/5.9.7/gcc_64/
+# - Qt 5.15.2 Linux in ~/Development/Qt5.15.2-linux/5.15.2/gcc_64/
 # Windows:
 # - MinGW cross compiler packages in ~/Development/MinGW_Packages/
 # - Qt 5.6.3 MinGW in ~/Development/Qt5.6.3-mingw/5.6.3/mingw49_32/
@@ -184,7 +191,7 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 set -e
 (cd linux_build && \
    COMPILER=gcc-self-contained \
-   QTPREFIX=$HOME/Development/Qt5.9.7-linux/5.9.7/gcc_64 \
+   QTPREFIX=$HOME/Development/Qt5.15.2-linux/5.15.2/gcc_64 \
    ../kid3/buildlibs.sh)
 (cd mingw32_build && \
    COMPILER=cross-mingw \
@@ -290,14 +297,14 @@ target=${*:-libs package}
 qt_version=5.9.7
 zlib_version=1.2.8
 zlib_patchlevel=5
-libogg_version=1.3.2
-libogg_patchlevel=1
-libvorbis_version=1.3.6
-libvorbis_patchlevel=2
+libogg_version=1.3.4
+libogg_patchlevel=0.1
+libvorbis_version=1.3.7
+libvorbis_patchlevel=1
 ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
-ffmpeg_version=4.1.6
-ffmpeg_patchlevel=1~deb10u1
+ffmpeg_version=4.4.1
+ffmpeg_patchlevel=1
 libflac_version=1.3.3
 libflac_patchlevel=2
 id3lib_version=3.8.3
@@ -351,7 +358,7 @@ else
 fi
 
 if test "$compiler" = "gcc-self-contained"; then
-  if test "$qt_nr" -lt 60000; then
+  if test "$qt_nr" -lt 51500; then
     gcc_self_contained_cc="gcc-4.8"
     gcc_self_contained_cxx="g++-4.8"
   else
@@ -737,6 +744,9 @@ if test "$compiler" != "cross-android"; then
     tar xzf source/libogg_${libogg_version}.orig.tar.gz
     cd libogg-${libogg_version}/
     gunzip -c ../source/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz | patch -p1
+    if test $kernel = "Darwin" || test "$compiler" = "cross-macos"; then
+      patch -p1 <$srcdir/packaging/patches/libogg-1.3.4-00-mac.patch
+    fi
     cd ..
   fi
 
