@@ -41,7 +41,7 @@ FilenameFormatBox::FilenameFormatBox(const QString& title, QWidget* parent)
     m_useForOtherFileNamesCheckBox(nullptr),
     m_maximumLengthCheckBox(nullptr), m_maximumLengthSpinBox(nullptr)
 {
-  if (auto formLayout = qobject_cast<QFormLayout*>(layout())) {
+  if (auto formLayout = getFormLayout()) {
     m_useForOtherFileNamesCheckBox =
         new QCheckBox(tr("Use for playlist and folder names"));
     m_maximumLengthCheckBox = new QCheckBox(tr("Maximum length:"));

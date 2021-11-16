@@ -59,13 +59,17 @@ FormatBox::FormatBox(const QString& title, QWidget* parent)
   m_strReplTable = new ConfigTable(m_strReplTableModel, this);
   m_strReplTable->setHorizontalResizeModes(
       m_strReplTableModel->getHorizontalResizeModes());
-  auto formLayout = new QFormLayout(this);
-  formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
-  formLayout->addRow(m_formatEditingCheckBox);
-  formLayout->addRow(tr("Case conversion:"), m_caseConvComboBox);
-  formLayout->addRow(tr("Locale:"), m_localeComboBox);
-  formLayout->addRow(m_strRepCheckBox);
-  formLayout->addRow(m_strReplTable);
+  auto hlayout = new QHBoxLayout(this);
+  m_formLayout = new QFormLayout;
+  m_formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
+  m_formLayout->addRow(m_formatEditingCheckBox);
+  m_formLayout->addRow(tr("Case conversion:"), m_caseConvComboBox);
+  m_formLayout->addRow(tr("Locale:"), m_localeComboBox);
+  hlayout->addLayout(m_formLayout);
+  auto vlayout = new QVBoxLayout;
+  vlayout->addWidget(m_strRepCheckBox);
+  vlayout->addWidget(m_strReplTable);
+  hlayout->addLayout(vlayout);
 }
 
 /**

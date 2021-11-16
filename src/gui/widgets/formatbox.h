@@ -28,6 +28,7 @@
 
 #include <QGroupBox>
 
+class QFormLayout;
 class QComboBox;
 class QCheckBox;
 class QString;
@@ -68,7 +69,15 @@ public:
    */
   virtual void toFormatConfig(FormatConfig& cfg) const;
 
+protected:
+  /**
+   * Get form layout.
+   * @return form layout.
+   */
+  QFormLayout* getFormLayout() const { return m_formLayout; }
+
 private:
+  QFormLayout* m_formLayout;
   QComboBox* m_caseConvComboBox;
   QComboBox* m_localeComboBox;
   QCheckBox* m_strRepCheckBox;

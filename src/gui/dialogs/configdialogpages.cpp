@@ -35,6 +35,7 @@
 #include <QTabWidget>
 #include <QListView>
 #include <QSpinBox>
+#include <QToolBox>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QFormLayout>
@@ -307,33 +308,35 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag2Layout->addLayout(tag2LeftLayout);
 
   auto tag2RightLayout = new QVBoxLayout;
-  QGroupBox* genresGroupBox = new QGroupBox(tr("Custom &Genres"), tag2Page);
+  QToolBox* tag2RightToolBox = new QToolBox;
+
+  QWidget* genresWidget = new QWidget;
   m_onlyCustomGenresCheckBox = new QCheckBox(tr("&Show only custom genres"),
-                                             genresGroupBox);
-  m_genresEditModel = new QStringListModel(genresGroupBox);
-  auto genresEdit = new StringListEdit(m_genresEditModel, genresGroupBox);
+                                             genresWidget);
+  m_genresEditModel = new QStringListModel(genresWidget);
+  auto genresEdit = new StringListEdit(m_genresEditModel, genresWidget);
   auto vbox = new QVBoxLayout;
   vbox->addWidget(m_onlyCustomGenresCheckBox);
   vbox->addWidget(genresEdit);
-  genresGroupBox->setLayout(vbox);
-  tag2RightLayout->addWidget(genresGroupBox);
+  genresWidget->setLayout(vbox);
+  tag2RightToolBox->addItem(genresWidget, tr("Cu&stom Genres"));
 
-  QGroupBox* customFramesGroupBox = new QGroupBox(tr("Custom F&rames"), tag2Page);
-  m_customFramesEditModel = new QStringListModel(customFramesGroupBox);
+  QWidget* customFramesWidget = new QWidget;
+  m_customFramesEditModel = new QStringListModel(customFramesWidget);
   connect(m_customFramesEditModel, &QStringListModel::dataChanged,
           this, &ConfigDialogPages::onCustomFramesEditModelChanged);
   connect(m_customFramesEditModel, &QStringListModel::rowsRemoved,
           this, &ConfigDialogPages::onCustomFramesEditModelChanged);
-  auto customFramesEdit = new StringListEdit(m_customFramesEditModel, customFramesGroupBox);
+  auto customFramesEdit = new StringListEdit(m_customFramesEditModel, customFramesWidget);
   auto customFramesVBox = new QVBoxLayout;
   customFramesVBox->addWidget(customFramesEdit);
-  customFramesGroupBox->setLayout(customFramesVBox);
-  tag2RightLayout->addWidget(customFramesGroupBox);
+  customFramesWidget->setLayout(customFramesVBox);
+  tag2RightToolBox->addItem(customFramesWidget, tr("Custom F&rames"));
 
-  QGroupBox* quickAccessTagsGroupBox = new QGroupBox(tr("&Quick Access Frames"));
-  auto quickAccessTagsLayout = new QVBoxLayout(quickAccessTagsGroupBox);
+  QWidget* quickAccessWidget = new QWidget;
+  auto quickAccessTagsLayout = new QVBoxLayout(quickAccessWidget);
   auto quickAccessTagsListView = new QListView;
-  m_quickAccessTagsModel = new QStandardItemModel(quickAccessTagsGroupBox);
+  m_quickAccessTagsModel = new QStandardItemModel(quickAccessWidget);
   quickAccessTagsListView->setModel(m_quickAccessTagsModel);
   quickAccessTagsListView->setAcceptDrops(true);
   quickAccessTagsListView->setDragEnabled(true);
@@ -346,7 +349,9 @@ QWidget* ConfigDialogPages::createTagsPage()
       new QLabel(tr("Use drag and drop to reorder the items"));
   reorderLabel->setWordWrap(true);
   quickAccessTagsLayout->addWidget(reorderLabel);
-  tag2RightLayout->addWidget(quickAccessTagsGroupBox);
+  tag2RightToolBox->addItem(quickAccessWidget, tr("&Quick Access Frames"));
+  tag2RightToolBox->setCurrentWidget(quickAccessWidget);
+  tag2RightLayout->addWidget(tag2RightToolBox);
   tag2Layout->addLayout(tag2RightLayout);
 
   QWidget* tag3Page = new QWidget;
@@ -482,7 +487,7 @@ QWidget* ConfigDialogPages::createFilesPage()
 
   QString fnFormatTitle(tr("&Filename Format"));
   m_fnFormatBox = new FilenameFormatBox(fnFormatTitle, filesPage);
-  vlayout->addWidget(m_fnFormatBox);
+  vlayout->addWidget(m_fnFormatBox, 1);
   return filesPage;
 }
 
