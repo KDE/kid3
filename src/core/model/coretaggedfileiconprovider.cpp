@@ -25,6 +25,7 @@
  */
 
 #include "coretaggedfileiconprovider.h"
+#include <QByteArray>
 #include "taggedfile.h"
 #include "tagconfig.h"
 
