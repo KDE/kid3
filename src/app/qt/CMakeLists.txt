@@ -278,6 +278,16 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
     fixup_bundle(\"${bundle_app}\" \"\${bundle_libs}\" \"${QT_LIBRARY_DIR}\")
     ")
 
+  if((CMAKE_BUILD_TYPE MATCHES Release OR CMAKE_BUILD_TYPE MATCHES RelWithDebInfo) AND
+      CMAKE_STRIP)
+    # Strip all shared libraries.
+    install(CODE "
+      file(GLOB_RECURSE _libsToStrip
+        \"${destdir_prefix}/${WITH_BINDIR}/*${CMAKE_SHARED_LIBRARY_SUFFIX}*\")
+      execute_process(COMMAND ${CMAKE_STRIP} \${_libsToStrip})
+      ")
+  endif()
+
 endif()
 
 if(WIN32)
