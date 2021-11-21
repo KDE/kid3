@@ -46,7 +46,7 @@
 # For Linux:
 #
 # To build a self-contained Linux package use
-# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt5.9.7-linux/5.9.7/gcc_64 ../kid3/buildlibs.sh
+# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt5.15.2-linux/5.15.2/gcc_64 ../kid3/buildlibs.sh
 #
 # When cross compiling make sure that the host Qt version is not larger than
 # the target Qt version, otherwise moc and plugins will fail. To provide
@@ -170,14 +170,13 @@ fi # makearchive
 # Linux:
 # - Qt 5.15.2 Linux in ~/Development/Qt5.15.2-linux/5.15.2/gcc_64/
 # Windows:
-# - MinGW cross compiler packages in ~/Development/MinGW_Packages/
-# - Qt 5.6.3 MinGW in ~/Development/Qt5.6.3-mingw/5.6.3/mingw49_32/
-# - Qt 5.9.7 MinGW in ~/Development/Qt5.9.7-mingw64/5.9.7/mingw53_64/
-# - Qt 5.6.3 Linux in ~/Development/Qt5.6.3-linux/5.6.3/gcc_64
+# - MinGW cross compiler in /opt/mxe/
+# - Qt 5.15.2 MinGW64 in ~/Development/Qt5.15.2-mingw64/5.15.2/mingw81_64/
 # Mac:
-# - Mac cross compiler in ~/Development/osxcross/
-# - Qt 5.9.7 Mac in ~/Development/Qt5.9.7-mac/5.9.7/clang_64/
+# - Mac cross compiler in /opt/osxcross/
+# - Qt 5.15.2 Mac in ~/Development/Qt5.15.2-mac/5.15.2/clang_64/
 # Android:
+# - Java JDK 8 in /opt/jdk8/
 # - Android SDK in ~/Development/android/sdk/
 # - Android NDK in ~/Development/android/sdk/android-ndk-r19c/
 # - Qt 5.12.4 Android in ~/Development/Qt5.12.4-android/5.12.4/android_armv7/
@@ -193,64 +192,55 @@ set -e
    COMPILER=gcc-self-contained \
    QTPREFIX=$HOME/Development/Qt5.15.2-linux/5.15.2/gcc_64 \
    ../kid3/buildlibs.sh)
-(cd mingw32_build && \
-   COMPILER=cross-mingw \
-   QTPREFIX=$HOME/Development/Qt5.6.3-mingw/5.6.3/mingw49_32 \
-   QTBINARYDIR=$HOME/Development/Qt5.6.3-linux/5.6.3/gcc_64/bin \
-   ../kid3/buildlibs.sh)
 (cd mingw64_build && \
+   PATH=/opt/mxe/usr/bin:$PATH \
    COMPILER=cross-mingw \
-   QTPREFIX=$HOME/Development/Qt5.12.8-mingw64/5.12.8/mingw73_64 \
+   QTPREFIX=$HOME/Development/Qt5.15.2-mingw64/5.15.2/mingw81_64 \
    ../kid3/buildlibs.sh)
 (cd macos_build && \
    COMPILER=cross-macos \
-   QTPREFIX=$HOME/Development/Qt5.9.7-mac/5.9.7/clang_64 \
-   OSXPREFIX=$HOME/Development/osxcross/target \
-   LD_LIBRARY_PATH=$OSXPREFIX/lib \
+   QTPREFIX=$HOME/Development/Qt5.15.2-mac/5.15.2/clang_64 \
+   OSXPREFIX=/opt/osxcross/target \
    ../kid3/buildlibs.sh)
 (cd android_build && \
    COMPILER=cross-android \
    QTPREFIX=$HOME/Development/Qt5.12.4-android/5.12.4/android_armv7 \
-   JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
+   JAVA_HOME=/opt/jdk8 \
    ANDROID_SDK_ROOT=$HOME/Development/android/sdk \
    ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/android-ndk-r19c \
    ../kid3/buildlibs.sh)
 EOF
     chmod +x build-all.sh
   fi
-  mkdir -p docker_image_context/pkg
+  mkdir -p docker_image_context
   cd docker_image_context
-  for f in gcc-mingw-w64-dw2-base_4.9.3-13ubuntu2+14.1_amd64.deb \
-           gcc-mingw-w64-dw2-i686_4.9.3-13ubuntu2+14.1_amd64.deb \
-           g++-mingw-w64-dw2-i686_4.9.3-13ubuntu2+14.1_amd64.deb \
-           libmpfr4_3.1.6-1_amd64.deb; do
-    test -e pkg/$f || cp -a $HOME/Development/MinGW_Packages/$f pkg/
-  done
   echo "### Build docker image"
+  UNAME=$(uname)
   if hash podman 2>/dev/null; then
     DOCKER=podman
-  else
+  elif [ -z "${UNAME##MINGW*}" ] || [ -z "${UNAME##MSYS*}" ] || id -Gn | grep -qw "docker\(root\)\?"; then
     DOCKER=docker
+  else
+    DOCKER="sudo docker"
   fi
-  $DOCKER build -t ufleisch/kid3dev . -f-<<EOF
-FROM ubuntu:18.04
+  $DOCKER build --build-arg USER=${USER} --build-arg UID=$(id -u) -t ufleisch/kid3dev:bullseye . -f-<<"EOF"
+FROM debian:bullseye-slim
 RUN apt-get update && apt-get install -y --no-install-recommends \
 devscripts build-essential lintian debhelper extra-cmake-modules \
-kio-dev kdoctools-dev qtmultimedia5-dev qtdeclarative5-dev \
+libkf5kio-dev libkf5doctools-dev qtmultimedia5-dev qtdeclarative5-dev \
 qttools5-dev qttools5-dev-tools qtdeclarative5-dev-tools \
 qml-module-qtquick2 cmake python libid3-3.8.3-dev libflac++-dev \
 libvorbis-dev libtag1-dev libchromaprint-dev libavformat-dev \
 libavcodec-dev docbook-xsl pkg-config libreadline-dev xsltproc \
-debian-keyring ppa-purge dput-ng python-distro-info sudo curl \
-g++-4.8 libcloog-isl4 libisl15 mingw-w64 \
+debian-keyring dput-ng python3-distro-info sudo curl less \
 locales ninja-build ccache p7zip-full genisoimage \
-clang libssl1.0.0 openjdk-8-jdk-headless nasm lib32z1 chrpath
-COPY pkg .
-RUN dpkg -i *.deb && rm -f *.deb && \
-adduser --quiet --disabled-password --home $HOME --gecos "User" $USER && \
+clang llvm nasm lib32z1 chrpath libpulse-mainloop-glib0
+ARG USER
+ARG UID
+RUN adduser --quiet --disabled-password --uid $UID --gecos "User" $USER && \
 echo "$USER:$USER" | chpasswd && usermod -aG sudo $USER && \
 locale-gen en_US.UTF-8 && \
-mkdir -p $HOME/projects/kid3 $HOME/Development
+mkdir -p /home/$USER/projects/kid3 /home/$USER/Development
 USER $USER
 CMD bash
 EOF
@@ -261,18 +251,25 @@ fi
 if test "$1" = "rundocker"; then
   echo "### Run docker image"
   shift
+  UNAME=$(uname)
   if hash podman 2>/dev/null; then
     DOCKER=podman
     USERNSARG=--userns=keep-id
-  else
+  elif [ -z "${UNAME##MINGW*}" ] || [ -z "${UNAME##MSYS*}" ] || id -Gn | grep -qw "docker\(root\)\?"; then
     DOCKER=docker
+    USERNSARG=
+  else
+    DOCKER="sudo docker"
     USERNSARG=
   fi
   $DOCKER run $USERNSARG --rm -it -e LANG=C.UTF-8 \
          -v $HOME/projects/kid3:$HOME/projects/kid3 \
          -v $HOME/.gradle:$HOME/.gradle \
          -v $HOME/.gnupg:$HOME/.gnupg:ro \
-         -v $HOME/Development:$HOME/Development:ro ufleisch/kid3dev "$@"
+         -v /opt/osxcross:/opt/osxcross:ro \
+         -v /opt/mxe:/opt/mxe:ro \
+         -v /opt/jdk8:/opt/jdk8:ro \
+         -v $HOME/Development:$HOME/Development:ro ufleisch/kid3dev:bullseye "$@"
   exit 0
 fi
 
@@ -294,7 +291,7 @@ fi
 
 target=${*:-libs package}
 
-qt_version=5.9.7
+qt_version=5.15.2
 zlib_version=1.2.8
 zlib_patchlevel=5
 libogg_version=1.3.4
@@ -345,6 +342,7 @@ echo "."
 
 if [[ "$QTPREFIX" =~ /([0-9]+)\.([0-9]+)\.([0-9]+)/ ]]; then
   qt_nr=$(printf "%d%02d%02d" ${BASH_REMATCH[1]} ${BASH_REMATCH[2]} ${BASH_REMATCH[3]})
+  qt_version=$(printf "%d.%d.%d" ${BASH_REMATCH[1]} ${BASH_REMATCH[2]} ${BASH_REMATCH[3]})
 else
   echo "Could not extract Qt version from $QTPREFIX"
   exit 1
@@ -370,15 +368,29 @@ fi
 if test "$compiler" = "cross-mingw"; then
   if test -n "$QTPREFIX" && test -z "${QTPREFIX%%*64?(/)}"; then
     cross_host="x86_64-w64-mingw32"
+    if hash ${cross_host}-gcc-posix 2>/dev/null; then
+      _crossprefix=${cross_host}-
+      # Qt uses posix threads, but x86_64-w64-mingw32-gcc uses win32 thread model.
+      _crosssuffix=-posix
+    elif hash ${cross_host}.shared-gcc 2>/dev/null; then
+      _crossprefix=${cross_host}.shared-
+      _crosssuffix=
+    fi
   else
     cross_host="i686-w64-mingw32"
+    _crossprefix=${cross_host}-
+    _crosssuffix=
     # FFmpeg > 3 is not compatible with Windows XP
     ffmpeg_version=$ffmpeg3_version
     ffmpeg_patchlevel=$ffmpeg3_patchlevel
   fi
 elif test "$compiler" = "cross-macos"; then
-  cross_host="x86_64-apple-darwin17"
   osxprefix=${OSXPREFIX:-/opt/osxcross/target}
+  # e.g. x86_64-apple-darwin17
+  cross_host=$($osxprefix/bin/o64-clang --version | grep Target | cut -d' ' -f2)
+  _crossprefix=${cross_host}-
+  # e.g. $osxprefix/SDK/MacOSX10.13.sdk
+  osxsdk=($osxprefix/SDK/*.sdk)
 fi
 
 if [[ $target = *"libs"* ]]; then
@@ -433,17 +445,16 @@ fi
 if test "$compiler" = "cross-mingw"; then
   CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake"
   CONFIGURE_OPTIONS="--host=${cross_host}"
-  # Qt uses posix threads, but x86_64-w64-mingw32-gcc uses win32 thread model.
   if test "$cross_host" = "x86_64-w64-mingw32"; then
-    export CC=${cross_host}-gcc-posix
-    export CXX=${cross_host}-g++-posix
+    export CC=${_crossprefix}gcc${_crosssuffix}
+    export CXX=${_crossprefix}g++${_crosssuffix}
   fi
 elif test "$compiler" = "cross-macos"; then
   CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_C_FLAGS=\"-O2 -mmacosx-version-min=10.7\" -DCMAKE_CXX_FLAGS=\"-O2 -mmacosx-version-min=10.7 -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_MODULE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_SHARED_LINKER_FLAGS=-stdlib=libc++"
   CONFIGURE_OPTIONS="--host=${cross_host}"
-  export CC=x86_64-apple-darwin17-clang
-  export CXX=x86_64-apple-darwin17-clang++
-  export AR=x86_64-apple-darwin17-ar
+  export CC=${_crossprefix}clang
+  export CXX=${_crossprefix}clang++
+  export AR=${_crossprefix}ar
   export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7"
   export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
   export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
@@ -625,18 +636,13 @@ if test "$compiler" = "cross-mingw" || test "$compiler" = "cross-macos"; then
   fi
 fi # cross-mingw || cross-macos
 if test "$compiler" = "cross-mingw"; then
-  if test "$cross_host" = "x86_64-w64-mingw32"; then
-    _thread_suffix=-posix
-  else
-    _thread_suffix=
-  fi
   cat >$thisdir/mingw.cmake <<EOF
 set(QT_PREFIX ${_qt_prefix})
 
 set(CMAKE_SYSTEM_NAME Windows)
-set(CMAKE_C_COMPILER ${cross_host}-gcc${_thread_suffix})
-set(CMAKE_CXX_COMPILER ${cross_host}-g++${_thread_suffix})
-set(CMAKE_RC_COMPILER ${cross_host}-windres)
+set(CMAKE_C_COMPILER ${_crossprefix}gcc${_crosssuffix})
+set(CMAKE_CXX_COMPILER ${_crossprefix}g++${_crosssuffix})
+set(CMAKE_RC_COMPILER ${_crossprefix}windres)
 set(CMAKE_FIND_ROOT_PATH /usr/${cross_host} \${QT_PREFIX} $thisdir/buildroot/usr/local ${ZLIB_ROOT_PATH} $thisdir/ffmpeg-${ffmpeg_version}/inst/usr/local)
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
@@ -660,7 +666,7 @@ foreach (_exe moc rcc lupdate lrelease uic)
 endforeach (_exe)
 EOF
 elif test "$compiler" = "cross-macos"; then
-  test -z ${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxprefix/SDK/MacOSX10.13.sdk/usr/bin:$PATH
+  test -z ${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxsdk/usr/bin:$PATH
   cat >$thisdir/osxcross.cmake <<EOF
 if (POLICY CMP0025)
   cmake_policy(SET CMP0025 NEW)
@@ -669,14 +675,14 @@ endif (POLICY CMP0025)
 set(QT_PREFIX $_qt_prefix)
 
 set (CMAKE_SYSTEM_NAME Darwin)
-set (CMAKE_C_COMPILER $osxprefix/lib/ccache/bin/x86_64-apple-darwin17-clang)
-set (CMAKE_CXX_COMPILER $osxprefix/lib/ccache/bin/x86_64-apple-darwin17-clang++)
-set (CMAKE_FIND_ROOT_PATH $osxprefix/x86_64-apple-darwin17;$osxprefix/SDK/MacOSX10.13.sdk/usr;$osxprefix/x86_64-apple-darwin17;$osxprefix/SDK/MacOSX10.13.sdk;$osxprefix/SDK/MacOSX10.13.sdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers;\${QT_PREFIX};$thisdir/buildroot/usr/local)
+set (CMAKE_C_COMPILER $osxprefix/lib/ccache/bin/${_crossprefix}clang)
+set (CMAKE_CXX_COMPILER $osxprefix/lib/ccache/bin/${_crossprefix}clang++)
+set (CMAKE_FIND_ROOT_PATH $osxprefix/${cross_host};$osxsdk/usr;$osxprefix/${cross_host};$osxsdk;$osxsdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers;\${QT_PREFIX};$thisdir/buildroot/usr/local)
 set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-set (CMAKE_AR:FILEPATH x86_64-apple-darwin17-ar)
-set (CMAKE_RANLIB:FILEPATH x86_64-apple-darwin17-ranlib)
+set (CMAKE_AR:FILEPATH ${_crossprefix}ar)
+set (CMAKE_RANLIB:FILEPATH ${_crossprefix}ranlib)
 
 set(QT_INCLUDE_DIRS_NO_SYSTEM ON)
 set(QT_BINARY_DIR ${_qt_bin_dir})
@@ -1005,14 +1011,12 @@ else #  cross-android
     else
       _target=mingw
     fi
-    if test -n "${cross_host}"; then
-      _crossprefix=${cross_host}-
-    else
+    if test -z "${cross_host}"; then
       _crossprefix=
     fi
     if test "$cross_host" = "x86_64-w64-mingw32"; then
       _cctmp=$CC
-      CC=gcc-posix
+      CC=gcc${_crosssuffix}
     fi
     ./Configure shared enable-ec_nistp_64_gcc_128 $_target --cross-compile-prefix=$_crossprefix
     make depend || true
@@ -1037,7 +1041,7 @@ else #  cross-android
       make -f win32/Makefile.gcc
       make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
     elif test "$compiler" = "cross-mingw"; then
-      make -f win32/Makefile.gcc LOC=-g PREFIX=${cross_host}-
+      make -f win32/Makefile.gcc LOC=-g PREFIX=${_crossprefix}
       make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
     else
       CFLAGS="$CFLAGS -g -O3 -Wall -DNO_FSEEKO" ./configure --static
@@ -1160,7 +1164,7 @@ else #  cross-android
       # mkstemp is not available when building on Windows
       sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
       sed -i 's/^\(.*-Werror=missing-prototypes\)/#\1/' ./configure
-      AV_CONFIGURE_OPTIONS="--cross-prefix=${cross_host}- --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include"
+      AV_CONFIGURE_OPTIONS="--cross-prefix=${_crossprefix} --arch=x86 --target-os=mingw32 --sysinclude=/usr/${cross_host}/include"
       if test -n "${cross_host##x86_64*}"; then
         AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --extra-cflags=-march=i486"
       else
@@ -1180,7 +1184,7 @@ else #  cross-android
         AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --target-os=mingw32"
       fi
     elif test "$compiler" = "cross-macos"; then
-      AV_CONFIGURE_OPTIONS="--disable-iconv --enable-cross-compile --cross-prefix=${cross_host}- --arch=x86 --target-os=darwin --cc=$CC --cxx=$CXX"
+      AV_CONFIGURE_OPTIONS="--disable-iconv --enable-cross-compile --cross-prefix=${_crossprefix} --arch=x86 --target-os=darwin --cc=$CC --cxx=$CXX"
     elif test "$compiler" = "gcc-debug" || test "$compiler" = "gcc-self-contained"; then
       test -n "$CC" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cc=$CC"
       test -n "$CXX" && AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --cxx=$CXX"
@@ -1320,7 +1324,7 @@ EOF
     elif test "$compiler" = "cross-macos"; then
       cat >kid3/build.sh <<EOF
 #!/bin/bash
-test -z \${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxprefix/SDK/MacOSX10.13.sdk/usr/bin:\$PATH
+test -z \${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxsdk/usr/bin:\$PATH
 cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
     elif test "$compiler" = "gcc-self-contained"; then
@@ -1456,7 +1460,7 @@ if [[ $target = *"package"* ]]; then
     rm -f $_instdir.zip
     7z a $_instdir.zip $_instdir
   elif test "$compiler" = "cross-macos"; then
-    test -z ${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxprefix/SDK/MacOSX10.13.sdk/usr/bin:$PATH
+    test -z ${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxsdk/usr/bin:$PATH
     rm -rf inst
     DESTDIR=$(pwd)/inst ninja install/strip
     ln -s /Applications inst/Applications
