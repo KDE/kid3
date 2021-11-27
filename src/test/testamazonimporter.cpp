@@ -41,7 +41,13 @@ void TestAmazonImporter::testQueryAlbums()
   AlbumListModel* albumModel = m_importer->getAlbumListModel();
   QVERIFY(albumModel->rowCount() > 0);
   QString text, category, id;
-  albumModel->getItem(0, text, category, id);
+  for (int row = 0; row < albumModel->rowCount(); ++row) {
+    albumModel->getItem(row, text, category, id);
+    if (text.contains(QLatin1String("Wizard")) &&
+        text.contains(QLatin1String("Odin"))) {
+      break;
+    }
+  }
   QCOMPARE(text, QString(QLatin1String("Wizard - Odin")));
   QCOMPARE(category, QString(QLatin1String("dp")));
   QVERIFY(!id.isEmpty());

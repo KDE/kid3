@@ -43,7 +43,8 @@ void TestDiscogsImporter::testQueryAlbums()
   QString text, category, id;
   albumModel->getItem(0, text, category, id);
   QCOMPARE(text, QString(QLatin1String("Wizard - Odin (2003) [CD, Album, Enh, Ltd, Dig]")));
-  QCOMPARE(category, QString(QLatin1String("Wizard-Odin/release")));
+  QVERIFY(QStringList({QLatin1String("Wizard-Odin/release"), QLatin1String("release")})
+          .contains(category));
   QVERIFY(!id.isEmpty());
 }
 
@@ -85,21 +86,19 @@ void TestDiscogsImporter::testQueryTracks()
              QString(QLatin1String("Heavy Metal|Power Metal|Speed Metal")));
     QCOMPARE(m_trackDataModel->index(row, 9).data().toString(),
              QString(QLatin1String("")));
-    QCOMPARE(m_trackDataModel->index(row, 10).data().toString(),
-             QString(QLatin1String("Producer|Peter Fundeis|Producer|"
-                                   "Simon Cleary|Mixer|Piet Sielck")));
+    auto arranger = m_trackDataModel->index(row, 10).data().toString();
+    QVERIFY(arranger.contains(QLatin1String("Producer|Peter Fundeis")) &&
+            arranger.contains(QLatin1String("Mixer|Piet Sielck")));
     QCOMPARE(m_trackDataModel->index(row, 11).data().toString(),
              QString(QLatin1String("Wizard")));
-    QCOMPARE(m_trackDataModel->index(row, 12).data().toString(),
-             QString(QLatin1String("LMP 0303-054 Ltd. CD")));
-    QCOMPARE(m_trackDataModel->index(row, 13).data().toString(),
-             QString(QLatin1String("CD")));
+    QVERIFY(m_trackDataModel->index(row, 12).data().toString()
+            .contains(QLatin1String("CD")));
+    auto performer = m_trackDataModel->index(row, 13).data().toString();
+    QVERIFY(performer.contains(QLatin1String("Bass|Volker Leson")) &&
+            performer.contains(QLatin1String("Vocals|Sven D'Anna")));
     QCOMPARE(m_trackDataModel->index(row, 14).data().toString(),
-             QString::fromUtf8("Bass|Volker Leson|Drums|S\u00F6ren Van Heek|"
-                               "Guitar|Michael Maa\u00DF|Vocals|Sven D'Anna"));
-    QCOMPARE(m_trackDataModel->index(row, 15).data().toString(),
              QString(QLatin1String("LMP")));
-    QCOMPARE(m_trackDataModel->index(row, 16).data().toString(),
+    QCOMPARE(m_trackDataModel->index(row, 15).data().toString(),
              QString(QLatin1String("Germany")));
   }
 }

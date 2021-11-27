@@ -46,7 +46,7 @@ public:
   explicit AlbumListModel(QObject* parent = nullptr);
 
   /**
-   * Get and album item.
+   * Get an album item.
    * @param row model row
    * @param text the text is returned here
    * @param category the category is returned here

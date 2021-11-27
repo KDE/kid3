@@ -904,6 +904,7 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
           // strip new lines and space after them
           genreStr.replace(nlSpaceRe, QLatin1String(""));
           genreStr = removeHtml(genreStr); // strip HTML tags and entities
+          genreStr.remove(QLatin1String("RockStyle:"));
           if (genreStr.indexOf(QLatin1Char(',')) >= 0) {
             genreList += genreStr.split(QRegularExpression(QLatin1String(",\\s*")));
           } else {
@@ -925,6 +926,7 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
       }
     }
     genres.append(genreList);
+    genres.removeDuplicates();
     if (!genres.isEmpty()) {
       framesHdr.setGenre(genres.join(Frame::stringListSeparator()));
     }
@@ -939,6 +941,10 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
     if (start >= 0) {
       start += 6; // skip "Label:"
       end = str.indexOf(QLatin1String("</div>"), start + 1);
+      int anchorEnd = str.indexOf(QLatin1String("</a>"), start + 1);
+      if (anchorEnd > start && anchorEnd < end) {
+        end = anchorEnd;
+      }
       if (end > start) {
         QString labelStr = str.mid(start, end - start);
         // strip new lines and space after them
@@ -983,6 +989,10 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
     if (start >= 0) {
       start += 8; // skip "Country:"
       end = str.indexOf(QLatin1String("</div>"), start + 1);
+      int anchorEnd = str.indexOf(QLatin1String("</a>"), start + 1);
+      if (anchorEnd > start && anchorEnd < end) {
+        end = anchorEnd;
+      }
       if (end > start) {
         QString countryStr = str.mid(start, end - start);
         // strip new lines and space after them
