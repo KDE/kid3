@@ -3487,12 +3487,12 @@ To use a specific &Qt; installation, set
 <para>
 Generation of RPM-Packages is supported by the
 file <filename>kid3.spec</filename>, for &Debian; Packages,
-the script <filename>build-deb.sh</filename> is available.
+run <userinput>build.sh deb</userinput>.
 </para>
 
 <para>
 The &Qt; application can also be compiled for &Windows; and &macOS;.
-The script <filename>buildlibs.sh</filename> can be used to download
+The script <filename>build.sh</filename> can be used to download
 and build all required libraries and create a &kid3; package.
 </para>
 

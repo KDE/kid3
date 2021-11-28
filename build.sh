@@ -19,11 +19,11 @@
 # export QTPREFIX=/c/Qt/5.12.8/mingw73_64
 # test -z "${PATH##$QTPREFIX*}" ||
 # PATH=$QTPREFIX/bin:$QTPREFIX/../../Tools/mingw730_64/bin:$QTPREFIX/../../Tools/mingw730_64/opt/bin:$PROGRAMFILES/CMake/bin:$PATH
-# ../kid3/buildlibs.sh
+# ../kid3/build.sh
 #
 # You can also build a Windows version from Linux using the MinGW cross
 # compiler.
-# COMPILER=cross-mingw QTPREFIX=/path/to/Qt5.6.3-mingw/5.6.3/mingw49_32 ../kid3/buildlibs.sh
+# COMPILER=cross-mingw QTPREFIX=/path/to/Qt5.6.3-mingw/5.6.3/mingw49_32 ../kid3/build.sh
 #
 # For Mac:
 #
@@ -31,22 +31,22 @@
 # can be installed with Homebrew, for instance:
 # brew install cmake ninja autoconf automake libtool xz nasm docbook-xsl
 # Then call from a build directory
-# QTPREFIX=/path/to/Qt/5.9.7/clang_64 ../kid3/buildlibs.sh
+# QTPREFIX=/path/to/Qt/5.9.7/clang_64 ../kid3/build.sh
 #
 # You can also build a macOS version from Linux using the osxcross toolchain.
-# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 ../kid3/buildlibs.sh
+# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 ../kid3/build.sh
 # or
-# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 QTBINARYDIR=/path/to/Qt5.9.7-linux/5.9.7/gcc_64/bin ../kid3/buildlibs.sh
+# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 QTBINARYDIR=/path/to/Qt5.9.7-linux/5.9.7/gcc_64/bin ../kid3/build.sh
 #
 # For Android:
 #
 # Install Qt and a compatible Android SDK and NDK, for example Qt 5.9.7, NDK 10e or Qt 5.12.2, NDK 19c.
-# COMPILER=cross-android QTPREFIX=/path/to/Qt/5.9.7/android_armv7 ANDROID_SDK_ROOT=/path/to/sdk ANDROID_NDK_ROOT=/path/to/ndk-bundle ../buildlibs.sh
+# COMPILER=cross-android QTPREFIX=/path/to/Qt/5.9.7/android_armv7 ANDROID_SDK_ROOT=/path/to/sdk ANDROID_NDK_ROOT=/path/to/ndk-bundle ../build.sh
 #
 # For Linux:
 #
 # To build a self-contained Linux package use
-# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt5.15.2-linux/5.15.2/gcc_64 ../kid3/buildlibs.sh
+# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt5.15.2-linux/5.15.2/gcc_64 ../kid3/build.sh
 #
 # When cross compiling make sure that the host Qt version is not larger than
 # the target Qt version, otherwise moc and plugins will fail. To provide
@@ -57,13 +57,13 @@
 # repositories. If the files are no longer available, use a later version,
 # it should still work.
 #
-# buildlibs.sh will download, build and install zlib, libogg, libvorbis,
+# build.sh will download, build and install zlib, libogg, libvorbis,
 # flac, id3lib, taglib, ffmpeg, chromaprint, mp4v2. When the libraries
 # are built, the Kid3 package is built. It is also possible to build only
 # the libraries or only the Kid3 package.
 #
-# ../kid3/buildlibs.sh libs
-# ../kid3/buildlibs.sh package
+# ../kid3/build.sh libs
+# ../kid3/build.sh package
 
 # Exit if an error occurs
 set -e
@@ -74,6 +74,21 @@ srcdir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
 kernel=$(uname)
 test ${kernel:0:5} = "MINGW" && kernel="MINGW"
+
+verify_not_in_srcdir() {
+  if test -f CMakeLists.txt; then
+    echo "Do not run this script from the source directory!"
+    echo "Start it from a build directory at the same level as the source directory."
+    exit 1
+  fi
+}
+
+verify_in_srcdir() {
+  if ! test -f CMakeLists.txt; then
+    echo "Run this task from the source directory!"
+    exit 1
+  fi
+}
 
 # Administrative subtasks
 
@@ -164,7 +179,7 @@ fi # makearchive
 # Build a docker image to build binary Kid3 packages.
 # The docker image can then be started using "rundocker".
 # You can then build all packages using
-# kid3/buildlibs.sh rundocker $HOME/projects/kid3/src/build-all.sh
+# kid3/build.sh rundocker $HOME/projects/kid3/src/build-all.sh
 # You need:
 # - Kid3 project checked out in ~/projects/kid3/src/kid3
 # Linux:
@@ -183,6 +198,7 @@ fi # makearchive
 # - Sign key in ~/Development/ufleisch-release-key.keystore
 # - Gradle cache in ~/.gradle/
 if test "$1" = "makedocker"; then
+  verify_not_in_srcdir
   if ! test -f build-all.sh; then
     cat >build-all.sh <<"EOF"
 #!/bin/bash
@@ -191,24 +207,24 @@ set -e
 (cd linux_build && \
    COMPILER=gcc-self-contained \
    QTPREFIX=$HOME/Development/Qt5.15.2-linux/5.15.2/gcc_64 \
-   ../kid3/buildlibs.sh)
+   ../kid3/build.sh)
 (cd mingw64_build && \
    PATH=/opt/mxe/usr/bin:$PATH \
    COMPILER=cross-mingw \
    QTPREFIX=$HOME/Development/Qt5.15.2-mingw64/5.15.2/mingw81_64 \
-   ../kid3/buildlibs.sh)
+   ../kid3/build.sh)
 (cd macos_build && \
    COMPILER=cross-macos \
    QTPREFIX=$HOME/Development/Qt5.15.2-mac/5.15.2/clang_64 \
    OSXPREFIX=/opt/osxcross/target \
-   ../kid3/buildlibs.sh)
+   ../kid3/build.sh)
 (cd android_build && \
    COMPILER=cross-android \
    QTPREFIX=$HOME/Development/Qt5.12.4-android/5.12.4/android_armv7 \
    JAVA_HOME=/opt/jdk8 \
    ANDROID_SDK_ROOT=$HOME/Development/android/sdk \
    ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/android-ndk-r19c \
-   ../kid3/buildlibs.sh)
+   ../kid3/build.sh)
 EOF
     chmod +x build-all.sh
   fi
@@ -275,19 +291,48 @@ fi
 
 # Build flatpak
 if test "$1" = "flatpak"; then
+  verify_not_in_srcdir
   echo "### Build flatpak"
   flatpak-builder --sandbox --force-clean --ccache --repo=repo --subject="Build of org.kde.kid3 $(date --iso-8601=seconds)" app "$srcdir/packaging/flatpak/org.kde.kid3-local.json"
   exit 0
 fi
 
+# Build Debian package.
+if test "$1" = "deb"; then
+  verify_in_srcdir
+  echo "### Build Debian package"
+  shift
+  test -d debian && rm -rf debian
+  cp -R deb debian
+  # The PPA version (e.g. trusty1) can be given as a parameter to prepare
+  # a PPA upload. The source archive kid3_${version}.orig.tar.gz must be
+  # in the parent directory.
+  ppaversion=$1
+  if test -n "$ppaversion"; then
+    distribution=${ppaversion%%[0-9]*}
+  else
+    distribution=$(lsb_release -sc)
+  fi
+
+  if test -n "$ppaversion"; then
+    version=$(sed -e 's/^kid3 (\([0-9\.-]\+\).*$/\1/;q' debian/changelog)
+    DEBEMAIL="Urs Fleisch <ufleisch@users.sourceforge.net>" \
+    dch --newversion=${version}${ppaversion} --distribution=$distribution --urgency=low \
+    "No-change backport to $distribution."
+    sed -i -e 's/^Maintainer:.*$/Maintainer: Urs Fleisch <ufleisch@users.sourceforge.net>/;/^Uploaders:/,+1d' debian/control
+    debuild -S -sa &&
+    echo "PPA upload ready for $distribution. Use:" &&
+    echo "cd ..; dput ppa:ufleisch/kid3 kid3_${version}${ppaversion}_source.changes"
+  else
+    rm -rf debian/source debian/watch
+    debuild
+  fi
+  exit 0
+fi
+
 # End of subtasks
 
-
-if test -f CMakeLists.txt; then
-  echo "Do not run this script from the source directory!"
-  echo "Start it from a build directory at the same level as the source directory."
-  exit 1
-fi
+verify_not_in_srcdir
 
 target=${*:-libs package}
 
@@ -952,7 +997,7 @@ if test "$compiler" = "cross-android"; then
     echo "### Creating kid3 build directory"
     mkdir kid3
     test -e $HOME/Development/ufleisch-release-key.keystore && cp -s $HOME/Development/ufleisch-release-key.keystore kid3/
-    cat >kid3/build.sh <<EOF
+    cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 _java_root=$_java_root
 _android_sdk_root=$_android_sdk_root
@@ -971,7 +1016,7 @@ _buildprefix=\$(cd ..; pwd)/buildroot/usr/local
 # Pass -DQT_ANDROID_USE_GRADLE=ON to use Gradle instead of ANT.
 cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_EXTRA_LIBS_DIR=\$_buildprefix/lib -DANDROID_KEYSTORE_PATH=\$_android_keystore_path -DANDROID_KEYSTORE_ALIAS=\$_android_keystore_alias -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config -DCMAKE_MAKE_PROGRAM=make $srcdir
 EOF
-    chmod +x kid3/build.sh
+    chmod +x kid3/run-cmake.sh
   fi
 
 else #  cross-android
@@ -1317,12 +1362,12 @@ else #  cross-android
 
     mkdir kid3
     if test "$compiler" = "cross-mingw"; then
-      cat >kid3/build.sh <<EOF
+      cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
     elif test "$compiler" = "cross-macos"; then
-      cat >kid3/build.sh <<EOF
+      cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 test -z \${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxsdk/usr/bin:\$PATH
 cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
@@ -1340,7 +1385,7 @@ EOF
       fi
       taglib_config_version=$taglib_version
       taglib_config_version=${taglib_config_version%beta*}
-      cat >kid3/build.sh <<EOF
+      cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
@@ -1348,14 +1393,14 @@ cmake -GNinja -DCMAKE_CXX_COMPILER=${gcc_self_contained_cxx} -DCMAKE_C_COMPILER=
 EOF
     elif test $kernel = "Darwin"; then
       _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
-      cat >kid3/build.sh <<EOF
+      cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
     elif test $kernel = "MINGW"; then
       _qtToolsMingw=($QTPREFIX/../../Tools/mingw*)
       _qtToolsMingw=$(realpath $_qtToolsMingw)
-      cat >kid3/build.sh <<EOF
+      cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir:-$HOME/prg/docbook-xsl-1.72.0} ../../kid3
 EOF
@@ -1390,7 +1435,7 @@ EOF
     elif test "$compiler" = "gcc-debug"; then
       taglib_config_version=$taglib_version
       taglib_config_version=${taglib_config_version%beta*}
-      cat >kid3/build.sh <<EOF
+      cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
@@ -1399,14 +1444,14 @@ EOF
     else
       taglib_config_version=$taglib_version
       taglib_config_version=${taglib_config_version%beta*}
-      cat >kid3/build.sh <<EOF
+      cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
 cmake -GNinja -DBUILD_SHARED_LIBS=ON -DLINUX_SELF_CONTAINED=ON -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
 EOF
     fi
-    chmod +x kid3/build.sh
+    chmod +x kid3/run-cmake.sh
   fi
 
 fi # cross-android, else
@@ -1416,8 +1461,8 @@ if [[ $target = *"package"* ]]; then
   echo "### Building kid3 package"
 
   pushd kid3 >/dev/null
-  if test -f build.sh && ! test -f Makefile && ! test -f build.ninja; then
-    ./build.sh
+  if test -f run-cmake.sh && ! test -f Makefile && ! test -f build.ninja; then
+    ./run-cmake.sh
   fi
   if test "$compiler" = "cross-mingw"; then
     ninja
@@ -1469,7 +1514,7 @@ if [[ $target = *"package"* ]]; then
     dmg dmg uncompressed.dmg kid3-$_version-Darwin.dmg
     rm uncompressed.dmg
   elif test "$compiler" = "cross-android"; then
-    JAVA_HOME=$(grep _java_root= build.sh | cut -d'=' -f2) make apk
+    JAVA_HOME=$(grep _java_root= run-cmake.sh | cut -d'=' -f2) make apk
     _version=$(grep VERSION config.h | cut -d'"' -f2)
     for prefix in android/build/outputs/apk/release/android-release android/build/outputs/apk/android-release android/bin/QtApp-release; do
       for suffix in signed unsigned; do

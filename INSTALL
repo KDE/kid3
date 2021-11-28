@@ -52,7 +52,7 @@ The install directory can be assigned to DESTDIR
 Make sure that you have installed all packages listed in deb/control,
 section Build-Depends.
 
-./build-deb.sh
+./build.sh deb
 
 *** Create RPM Package
 
@@ -64,4 +64,4 @@ rpmbuild -ba kid3.spec
 
 ** Windows, macOS and Android
 
-See instructions at the top of buildlibs.sh.
+See instructions at the top of build.sh.
