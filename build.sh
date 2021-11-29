@@ -194,7 +194,7 @@ fi # makearchive
 # - Java JDK 8 in /opt/jdk8/
 # - Android SDK in ~/Development/android/sdk/
 # - Android NDK in ~/Development/android/sdk/android-ndk-r19c/
-# - Qt 5.12.4 Android in ~/Development/Qt5.12.4-android/5.12.4/android_armv7/
+# - Qt 5.12.12 Android in ~/Development/Qt5.12.12-android/5.12.12/android_armv7/
 # - Sign key in ~/Development/ufleisch-release-key.keystore
 # - Gradle cache in ~/.gradle/
 if test "$1" = "makedocker"; then
@@ -220,7 +220,7 @@ set -e
    ../kid3/build.sh)
 (cd android_build && \
    COMPILER=cross-android \
-   QTPREFIX=$HOME/Development/Qt5.12.4-android/5.12.4/android_armv7 \
+   QTPREFIX=$HOME/Development/Qt5.12.12-android/5.12.12/android_armv7 \
    JAVA_HOME=/opt/jdk8 \
    ANDROID_SDK_ROOT=$HOME/Development/android/sdk \
    ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/android-ndk-r19c \
