@@ -28,6 +28,7 @@
 
 #include <QStringList>
 #include <QScopedPointer>
+#include <QVariantList>
 #include "generalconfig.h"
 #include "kid3api.h"
 
@@ -288,6 +289,18 @@ public:
     return m_quickAccessFrameOrder;
   }
 
+  /**
+   * Available and selected quick access frames.
+   */
+  Q_INVOKABLE QVariantList selectedQuickAccessFrames() const;
+
+  /**
+   * Set selected quick access frames.
+   * @param namesSelected list of maps with name, selected and type fields
+   */
+  Q_INVOKABLE void setSelectedQuickAccessFrames(
+      const QVariantList& namesSelected);
+
   /** Set order of frames which are displayed for Tag 2 even if not present. */
   void setQuickAccessFrameOrder(const QList<int>& frameTypes);
 
@@ -405,6 +418,45 @@ public:
    * String list with suggested field names used for RIFF track entries.
    */
   Q_INVOKABLE static QStringList getRiffTrackNames();
+
+  /**
+   * Convert list of custom frame names to display names.
+   * @param names custom frame names
+   * @return possibly translated display representations of @a names.
+   */
+  Q_INVOKABLE static QStringList customFrameNamesToDisplayNames(
+      const QStringList& names);
+
+  /**
+   * Convert list of display names to custom frame names.
+   * @param displayNames displayed frame names
+   * @return internal representations of @a displayNames.
+   */
+  Q_INVOKABLE static QStringList customFrameNamesFromDisplayNames(
+      const QStringList& displayNames);
+
+  /**
+   * Get the available and selected quick access frames.
+   * @param types ordered frame types as in quickAccessFrameOrder()
+   * @param frameMask quick access frame selection as in quickAccessFrames()
+   * @param customFrameNames list of custom frame names as in customFrames()
+   * @return list of name/type/selected maps.
+   */
+  static QVariantList getQuickAccessFrameSelection(
+      const QList<int>& types, quint64 frameMask,
+      const QStringList& customFrameNames);
+
+  /**
+   * Set the selected quick access frames.
+   * @param namesSelected list of name/type/selected maps
+   * @param frameTypes ordered frame types are returned here,
+   *        suitable for setQuickAccessFrameOrder()
+   * @param frameMask the quick access frame selection is returned here,
+   *        suitable for setQuickAccessFrames()
+   */
+  static void setQuickAccessFrameSelection(
+      const QVariantList& namesSelected,
+      QList<int>& frameTypes, quint64& frameMask);
 
   /**
    * Set default plugin order.

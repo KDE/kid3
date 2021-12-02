@@ -178,7 +178,21 @@ Page {
       Standard {
         text: _modelData.name
         progression: true
-        onClicked: page.clicked(_index)
+        onClicked: {
+          if (_modelData.onEdit) {
+            _modelData.onEdit()
+          } else {
+            page.clicked(_index)
+          }
+        }
+        ThinDivider {
+          id: divider
+          anchors {
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+          }
+        }
       }
     }
 

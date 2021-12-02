@@ -27,6 +27,7 @@
 #include "tagconfig.h"
 #include <QCoreApplication>
 #include <QVector>
+#include <QVariantMap>
 #include "taggedfile.h"
 #include "frame.h"
 #include "isettings.h"
@@ -774,4 +775,139 @@ QStringList TagConfig::getPictureNames()
 QStringList TagConfig::getRiffTrackNames()
 {
   return {QLatin1String("IPRT"), QLatin1String("ITRK"), QLatin1String("TRCK")};
+}
+
+/**
+ * Available and selected quick access frames.
+ */
+QVariantList TagConfig::selectedQuickAccessFrames() const {
+  return getQuickAccessFrameSelection(
+        quickAccessFrameOrder(), quickAccessFrames(),
+        customFrameNamesToDisplayNames(customFrames()));
+}
+
+/**
+ * Set selected quick access frames.
+ * @param namesSelected list of maps with name, selected and type fields
+ */
+void TagConfig::setSelectedQuickAccessFrames(
+    const QVariantList& namesSelected) {
+  QList<int> frameTypes;
+  quint64 frameMask = 0;
+  setQuickAccessFrameSelection(namesSelected, frameTypes, frameMask);
+  setQuickAccessFrameOrder(frameTypes);
+  setQuickAccessFrames(frameMask);
+}
+
+/**
+ * Get the available and selected quick access frames.
+ * @param types ordered frame types as in quickAccessFrameOrder()
+ * @param frameMask quick access frame selection as in quickAccessFrames()
+ * @param customFrameNames list of custom frame names as in customFrames()
+ * @return list of name/type/selected maps.
+ */
+QVariantList TagConfig::getQuickAccessFrameSelection(
+    const QList<int>& types, quint64 frameMask,
+    const QStringList& customFrameNames)
+{
+  QList<int> frameTypes(types);
+  if (frameTypes.size() < Frame::FT_Custom1) {
+    frameTypes.clear();
+    frameTypes.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
+    for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
+      frameTypes.append(i);
+    }
+  } else {
+    for (int i = frameTypes.size(); i <= Frame::FT_LastFrame; ++i) {
+      frameTypes.append(i);
+    }
+  }
+  QVariantList namesSelected;
+  const auto constFrameTypes = frameTypes;
+  for (int frameType : constFrameTypes) {
+    auto name = Frame::ExtendedType(static_cast<Frame::Type>(frameType))
+        .getTranslatedName();
+    if (Frame::isCustomFrameType(static_cast<Frame::Type>(frameType))) {
+      int idx = frameType - Frame::FT_Custom1;
+      if (idx >= 0 && idx < customFrameNames.size()) {
+        name = customFrameNames.at(idx);
+      } else {
+        name.clear();
+      }
+    }
+    if (!name.isEmpty()) {
+      const bool selected = (frameMask & (1ULL << frameType)) != 0ULL;
+      namesSelected.append(
+            QVariantMap{{QLatin1String("name"), name},
+                        {QLatin1String("type"), frameType},
+                        {QLatin1String("selected"), selected}});
+    }
+  }
+  return namesSelected;
+}
+
+/**
+ * Set the selected quick access frames.
+ * @param namesSelected list of name/type/selected maps
+ * @param frameTypes ordered frame types are returned here,
+ *        suitable for setQuickAccessFrameOrder()
+ * @param frameMask the quick access frame selection is returned here,
+ *        suitable for setQuickAccessFrames()
+ */
+void TagConfig::setQuickAccessFrameSelection(
+    const QVariantList& namesSelected,
+    QList<int>& frameTypes, quint64& frameMask)
+{
+  bool isStandardFrameOrder = true;
+  const int numQuickAccessTags = namesSelected.size();
+  frameTypes.clear();
+  frameTypes.reserve(numQuickAccessTags);
+  frameMask = 0;
+  for (int row = 0; row < numQuickAccessTags; ++row) {
+    auto map = namesSelected.at(row).toMap();
+    auto frameType = map.value(QLatin1String("type")).toInt();
+    auto selected = map.value(QLatin1String("selected")).toBool();
+    if (frameType != row) {
+      isStandardFrameOrder = false;
+    }
+    frameTypes.append(frameType);
+    if (selected) {
+      frameMask |= 1ULL << frameType;
+    }
+  }
+  if (isStandardFrameOrder) {
+    frameTypes.clear();
+  }
+}
+
+/**
+ * Convert list of custom frame names to display names.
+ * @param names custom frame names
+ * @return possibly translated display representations of @a names.
+ */
+QStringList TagConfig::customFrameNamesToDisplayNames(const QStringList& names)
+{
+  QStringList displayNames;
+  for (const QString& name : names) {
+    displayNames.append(Frame::getDisplayName(name));
+  }
+  return displayNames;
+}
+
+/**
+ * Convert list of display names to custom frame names.
+ * @param displayNames displayed frame names
+ * @return internal representations of @a displayNames.
+ */
+QStringList TagConfig::customFrameNamesFromDisplayNames(
+    const QStringList& displayNames)
+{
+  QStringList names;
+  for (const QString& displayName : displayNames) {
+    QByteArray frameId = Frame::getFrameIdForTranslatedFrameName(displayName);
+    names.append(frameId.isNull()
+                 ? Frame::getNameForTranslatedFrameName(displayName)
+                 : QString::fromLatin1(frameId));
+  }
+  return names;
 }

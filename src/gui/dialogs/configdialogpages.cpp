@@ -122,37 +122,6 @@ QStringList folderPatternListFromString(const QString& patterns,
   return folders;
 }
 
-/**
- * Convert list of custom frame names to display names.
- * @param names custom frame names
- * @return possibly translated display representations of @a names.
- */
-QStringList customFrameNamesToDisplayNames(const QStringList& names)
-{
-  QStringList displayNames;
-  for (const QString& name : names) {
-    displayNames.append(Frame::getDisplayName(name));
-  }
-  return displayNames;
-}
-
-/**
- * Convert list of display names to custom frame names.
- * @param displayNames displayed frame names
- * @return internal representations of @a displayNames.
- */
-QStringList customFrameNamesFromDisplayNames(const QStringList& displayNames)
-{
-  QStringList names;
-  for (const QString& displayName : displayNames) {
-    QByteArray frameId = Frame::getFrameIdForTranslatedFrameName(displayName);
-    names.append(frameId.isNull()
-                 ? Frame::getNameForTranslatedFrameName(displayName)
-                 : QString::fromLatin1(frameId));
-  }
-  return names;
-}
-
 }
 
 /**
@@ -706,7 +675,7 @@ void ConfigDialogPages::setConfigs(
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
   m_customFramesEditModel->setStringList(
-        customFrameNamesToDisplayNames(tagCfg.customFrames()));
+        TagConfig::customFrameNamesToDisplayNames(tagCfg.customFrames()));
   m_starRatingMappingsModel->setMappings(tagCfg.starRatingMappings());
   setQuickAccessFramesConfig(tagCfg.quickAccessFrameOrder(), tagCfg.quickAccessFrames());
   m_commandsTableModel->setCommandList(userActionsCfg.contextMenuCommands());
@@ -825,8 +794,8 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setFromFilenameFormats(m_fromFilenameFormats);
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());
-  tagCfg.setCustomFrames(
-       customFrameNamesFromDisplayNames(m_customFramesEditModel->stringList()));
+  tagCfg.setCustomFrames(TagConfig::customFrameNamesFromDisplayNames(
+                           m_customFramesEditModel->stringList()));
   tagCfg.setStarRatingMappings(m_starRatingMappingsModel->getMappings());
   QList<int> frameTypes;
   quint64 frameMask = 0;
@@ -896,65 +865,39 @@ void ConfigDialogPages::onCustomFramesEditModelChanged()
 void ConfigDialogPages::getQuickAccessFramesConfig(QList<int>& frameTypes,
                                                    quint64& frameMask) const
 {
-  bool isStandardFrameOrder = true;
   const int numQuickAccessTags = m_quickAccessTagsModel->rowCount();
-  frameTypes.clear();
-  frameTypes.reserve(numQuickAccessTags);
-  frameMask = 0;
+  QVariantList namesSelected;
+  namesSelected.reserve(numQuickAccessTags);
   for (int row = 0; row < numQuickAccessTags; ++row) {
     QModelIndex index = m_quickAccessTagsModel->index(row, 0);
-    int frameType = index.data(Qt::UserRole).toInt();
-    if (frameType != row) {
-      isStandardFrameOrder = false;
-    }
-    frameTypes.append(frameType);
-    if (m_quickAccessTagsModel->data(
-          index, Qt::CheckStateRole).toInt() == Qt::Checked) {
-      frameMask |= 1ULL << frameType;
-    }
+    auto name = index.data().toString();
+    auto frameType = index.data(Qt::UserRole).toInt();
+    auto selected = m_quickAccessTagsModel->data(
+          index, Qt::CheckStateRole).toInt() == Qt::Checked;
+    namesSelected.append(
+          QVariantMap{{QLatin1String("name"), name},
+                      {QLatin1String("type"), frameType},
+                      {QLatin1String("selected"), selected}});
   }
-  if (isStandardFrameOrder) {
-    frameTypes.clear();
-  }
+  TagConfig::setQuickAccessFrameSelection(namesSelected, frameTypes, frameMask);
 }
 
 void ConfigDialogPages::setQuickAccessFramesConfig(const QList<int>& types,
                                                    quint64 frameMask)
 {
-  QList<int> frameTypes(types);
-  if (frameTypes.size() < Frame::FT_Custom1) {
-    frameTypes.clear();
-    frameTypes.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
-    for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
-      frameTypes.append(i);
-    }
-  } else {
-    for (int i = frameTypes.size(); i <= Frame::FT_LastFrame; ++i) {
-      frameTypes.append(i);
-    }
-  }
-  const QStringList customFrameNames = m_customFramesEditModel->stringList();
+  const QVariantList namesSelected = TagConfig::getQuickAccessFrameSelection(
+        types, frameMask, m_customFramesEditModel->stringList());
   m_quickAccessTagsModel->clear();
-  const auto constFrameTypes = frameTypes;
-  for (int frameType : constFrameTypes) {
-    auto name = Frame::ExtendedType(static_cast<Frame::Type>(frameType))
-        .getTranslatedName();
-    if (Frame::isCustomFrameType(static_cast<Frame::Type>(frameType))) {
-      int idx = frameType - Frame::FT_Custom1;
-      if (idx >= 0 && idx < customFrameNames.size()) {
-        name = customFrameNames.at(idx);
-      } else {
-        name.clear();
-      }
-    }
-    if (!name.isEmpty()) {
-      QStandardItem* item = new QStandardItem(name);
-      item->setData(frameType, Qt::UserRole);
-      item->setCheckable(true);
-      item->setCheckState((frameMask & (1ULL << frameType))
-                          ? Qt::Checked : Qt::Unchecked);
-      item->setDropEnabled(false);
-      m_quickAccessTagsModel->appendRow(item);
-    }
+  for (const QVariant& var : namesSelected) {
+    auto map = var.toMap();
+    auto name = map.value(QLatin1String("name")).toString();
+    auto frameType = map.value(QLatin1String("type")).toInt();
+    auto selected = map.value(QLatin1String("selected")).toBool();
+    QStandardItem* item = new QStandardItem(name);
+    item->setData(frameType, Qt::UserRole);
+    item->setCheckable(true);
+    item->setCheckState(selected ? Qt::Checked : Qt::Unchecked);
+    item->setDropEnabled(false);
+    m_quickAccessTagsModel->appendRow(item);
   }
 }

@@ -169,6 +169,27 @@ AbstractSettingsPage {
             }
             page.StackView.view.push(mapEditPage)
           }
+        },
+        SettingsElement {
+          name: qsTr("Custom frames")
+          onEdit: function() {
+            stringListEditPage.title = qsTr("Custom Frames")
+            stringListEditPage.onActivated = function() {
+              stringListEditPage.setElements(
+                    tagCfg.customFrameNamesToDisplayNames(tagCfg.customFrames))
+            }
+            stringListEditPage.onDeactivated = function() {
+              tagCfg.customFrames = tagCfg.customFrameNamesFromDisplayNames(
+                    stringListEditPage.getElements())
+            }
+            page.StackView.view.push(stringListEditPage)
+          }
+        },
+        SettingsElement {
+          name: qsTr("Quick access frames")
+          onEdit: function() {
+            page.StackView.view.push(quickAccessFramesPage)
+          }
         }
       ]
       StackView.onActivated: activateAll()
@@ -365,7 +386,7 @@ AbstractSettingsPage {
         var settingsModel = []
         var elementComponent = Qt.createComponent("SettingsElement.qml")
         for (var i = 0; i < availablePlugins.length; ++i) {
-          var elementObj = elementComponent.createObject(null)
+          var elementObj = elementComponent.createObject(pluginsPage)
           elementObj.name = availablePlugins[i]
           settingsModel.push(elementObj)
         }
@@ -405,6 +426,46 @@ AbstractSettingsPage {
       ]
       StackView.onActivated: activateAll()
       StackView.onDeactivated: deactivateAll()
+    }
+  }
+
+  Component {
+    id: quickAccessFramesPage
+    AbstractSettingsPage {
+      title: qsTr("Quick Access Frames")
+      visible: false
+      StackView.onActivated: {
+        var nameSelection = configs.tagConfig().selectedQuickAccessFrames()
+        var len = Math.min(model.length, nameSelection.length), i
+        for (i = 0; i < len; ++i) {
+          model[i].name = nameSelection[i].name
+          model[i].value = nameSelection[i].selected
+          model[i].data = nameSelection[i].type
+        }
+      }
+      StackView.onDeactivated: {
+        var tagCfg = configs.tagConfig()
+        var nameSelection = tagCfg.selectedQuickAccessFrames()
+        var len = Math.min(model.length, nameSelection.length), i
+        for (i = 0; i < len; ++i) {
+          nameSelection[i].name = model[i].name
+          nameSelection[i].selected = model[i].value
+          nameSelection[i].type = model[i].data
+        }
+        tagCfg.setSelectedQuickAccessFrames(nameSelection)
+        app.applyChangedConfiguration()
+      }
+      Component.onCompleted: {
+        var nameSelection = configs.tagConfig().selectedQuickAccessFrames()
+        var settingsModel = []
+        var elementComponent = Qt.createComponent("SettingsElement.qml")
+        for (var i = 0; i < nameSelection.length; ++i) {
+          var elementObj = elementComponent.createObject(quickAccessFramesPage)
+          elementObj.name = nameSelection[i].name
+          settingsModel.push(elementObj)
+        }
+        model = settingsModel
+      }
     }
   }
 

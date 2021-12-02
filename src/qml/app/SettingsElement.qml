@@ -26,6 +26,7 @@ import QtQuick 2.11
 QtObject {
   property string name
   property variant value
+  property variant data
   property variant dropDownModel
   property int width
   property var onActivated
