@@ -6,6 +6,7 @@ Sat Dec 18 09:22:30 CET 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Support for custom quick access frames.
 	  + Support standard tags as columns in the file list.
 	  + Option to use file format for playlist and folder names.
+	  + Basque and Icelandic translations.
 	  + kid3-cli: Command 'execute' to run QML scripts.
 	  + QML: Scripts to export and import in JSON format.
 
@@ -17,6 +18,7 @@ Sat Dec 18 09:22:30 CET 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
 	  + Discogs import.
 	  + Get tags from file names with spaces before the extension.
 	  + QML: Added support for Tag 3 where it was missing.
+	  + Android: Quick access frames configuration.
 
 Sun Jun 20 11:18:51 CEST 2021  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
