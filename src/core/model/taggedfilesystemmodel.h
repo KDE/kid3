@@ -188,7 +188,11 @@ protected slots:
    * Reset internal data of the model.
    * Is called from endResetModel().
    */
+#if QT_VERSION >= 0x060000
+  virtual void resetInternalData() override;
+#else
   void resetInternalData();
+#endif
 
 private slots:
   /**

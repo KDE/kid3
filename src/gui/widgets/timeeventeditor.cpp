@@ -319,7 +319,7 @@ void TimeEventEditor::exportData()
       if (codecName != QLatin1String("System")) {
 #if QT_VERSION >= 0x060000
         if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
-          stream.setEncoding(encoding.value());
+          stream.setEncoding(*encoding);
         }
 #else
         stream.setCodec(codecName.toLatin1());
@@ -405,7 +405,7 @@ void TimeEventEditor::clearCells()
 #if QT_VERSION >= 0x060000
   QVariant emptyData(m_model->getType() == TimeEventModel::EventTimingCodes
                      ? QMetaType(QMetaType::Int) : QMetaType(QMetaType::QString));
-  QVariant emptyTime(QMetaType(QMetaType::QTime));
+  QVariant emptyTime((QMetaType(QMetaType::QTime)));
 #else
   QVariant emptyData(m_model->getType() == TimeEventModel::EventTimingCodes
                      ? QVariant::Int : QVariant::String);

@@ -50,7 +50,7 @@ static bool isUncRoot(const QString &server)
     if (idx == -1 || idx + 1 == localPath.length())
         return true;
 
-    return localPath.rightRef(localPath.length() - idx - 1).trimmed().isEmpty();
+    return localPath.right(localPath.length() - idx - 1).trimmed().isEmpty();
 }
 
 static bool isDriveRootPath(const QString &path)

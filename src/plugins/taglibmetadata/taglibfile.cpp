@@ -729,8 +729,8 @@ public:
    */
   static void setStringDecoder(const QString& encodingName) {
     if (auto encoding = QStringConverter::encodingForName(encodingName.toLatin1())) {
-      s_encoder = QStringEncoder(encoding.value());
-      s_decoder = QStringDecoder(encoding.value());
+      s_encoder = QStringEncoder(*encoding);
+      s_decoder = QStringDecoder(*encoding);
     } else {
       s_encoder = QStringEncoder();
       s_decoder = QStringDecoder();

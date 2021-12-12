@@ -3504,7 +3504,7 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
           if (codecName != QLatin1String("System")) {
 #if QT_VERSION >= 0x060000
             if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
-              stream.setEncoding(encoding.value());
+              stream.setEncoding(*encoding);
             }
 #else
             stream.setCodec(codecName.toLatin1());

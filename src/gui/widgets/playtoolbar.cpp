@@ -195,11 +195,7 @@ void PlayToolBar::tick(qint64 msec)
  *
  * @param newState new Phonon state
  */
-#if QT_VERSION >= 0x060200
-void PlayToolBar::stateChanged(QMediaPlayer::PlaybackState newState)
-#else
-void PlayToolBar::stateChanged(QMediaPlayer::State newState)
-#endif
+void PlayToolBar::stateChanged(int newState)
 {
   switch (newState) {
     case QMediaPlayer::PlayingState:

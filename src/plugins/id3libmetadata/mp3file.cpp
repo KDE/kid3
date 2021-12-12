@@ -2333,10 +2333,8 @@ void Mp3File::setTextEncodingV1(const QString& name)
 {
 #if QT_VERSION >= 0x060000
   auto encoding = QStringConverter::encodingForName(name.toLatin1());
-  s_decoderV1 = QStringDecoder(encoding ? encoding.value()
-                                        : QStringConverter::Latin1);
-  s_encoderV1 = QStringEncoder(encoding ? encoding.value()
-                                        : QStringConverter::Latin1);
+  s_decoderV1 = QStringDecoder(encoding.value_or(QStringConverter::Latin1));
+  s_encoderV1 = QStringEncoder(encoding.value_or(QStringConverter::Latin1));
 #else
   s_textCodecV1 = name != QLatin1String("ISO-8859-1")
       ? QTextCodec::codecForName(name.toLatin1().data()) : nullptr;
