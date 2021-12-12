@@ -195,6 +195,11 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
         FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}"
                        PATTERN "*.dSYM" EXCLUDE)
     endif()
+    if(QT_VERSION VERSION_GREATER_EQUAL 6.0)
+      install(DIRECTORY "${QT_PLUGINS_DIR}/tls"
+        DESTINATION ${plugin_dest_dir}
+        FILES_MATCHING PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    endif()
   elseif(WIN32)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
       DESTINATION ${plugin_dest_dir}
@@ -207,6 +212,12 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
         DESTINATION ${plugin_dest_dir}
         FILES_MATCHING PATTERN "dsengine${CMAKE_SHARED_LIBRARY_SUFFIX}")
     endif()
+    if(QT_VERSION VERSION_GREATER_EQUAL 6.0)
+      install(DIRECTORY "${QT_PLUGINS_DIR}/tls"
+        DESTINATION ${plugin_dest_dir}
+        FILES_MATCHING PATTERN "*qopensslbackend${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                               "*qschannelbackend${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    endif()
   elseif(LINUX_SELF_CONTAINED)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
       DESTINATION ${plugin_dest_dir}
@@ -216,11 +227,18 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libcomposeplatforminputcontextplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforminputcontexts/libcomposeplatforminputcontextplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    if(HAVE_QTMULTIMEDIA)
-      install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+    if(QT_VERSION VERSION_LESS 6.0)
+      if(HAVE_QTMULTIMEDIA)
+        install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+          DESTINATION ${plugin_dest_dir}
+          FILES_MATCHING PATTERN "libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/mediaservice/libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      endif()
+    else()
+      install(DIRECTORY "${QT_PLUGINS_DIR}/tls"
         DESTINATION ${plugin_dest_dir}
-        FILES_MATCHING PATTERN "libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
-      CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/mediaservice/libgstmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        FILES_MATCHING PATTERN "libqopensslbackend${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/tls/libqopensslbackend${CMAKE_SHARED_LIBRARY_SUFFIX}")
     endif()
     install(DIRECTORY "${QT_PLUGINS_DIR}/xcbglintegrations"
       DESTINATION ${plugin_dest_dir}
@@ -308,6 +326,13 @@ if(WIN32)
   endif()
   install(FILES "${_qtBinDir}/Qt${QT_VERSION_MAJOR}Xml.dll" ${_sslDlls}
           DESTINATION ${WITH_BINDIR})
+  if(QT_VERSION VERSION_GREATER_EQUAL 5.15)
+    install(FILES "${_qtBinDir}/Qt${QT_VERSION_MAJOR}OpenGL.dll"
+                  "${_qtBinDir}/Qt${QT_VERSION_MAJOR}QmlModels.dll"
+                  "${_qtBinDir}/Qt${QT_VERSION_MAJOR}Quick.dll"
+                  "${_qtBinDir}/Qt${QT_VERSION_MAJOR}QmlWorkerScript.dll"
+            DESTINATION ${WITH_BINDIR})
+  endif()
 endif()
 
 if(LINUX_SELF_CONTAINED)

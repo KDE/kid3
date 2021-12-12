@@ -388,6 +388,7 @@ echo "."
 if [[ "$QTPREFIX" =~ /([0-9]+)\.([0-9]+)\.([0-9]+)/ ]]; then
   qt_nr=$(printf "%d%02d%02d" ${BASH_REMATCH[1]} ${BASH_REMATCH[2]} ${BASH_REMATCH[3]})
   qt_version=$(printf "%d.%d.%d" ${BASH_REMATCH[1]} ${BASH_REMATCH[2]} ${BASH_REMATCH[3]})
+  qt_version_major=${BASH_REMATCH[1]}
 else
   echo "Could not extract Qt version from $QTPREFIX"
   exit 1
@@ -681,7 +682,8 @@ if test "$compiler" = "cross-mingw" || test "$compiler" = "cross-macos"; then
   fi
 fi # cross-mingw || cross-macos
 if test "$compiler" = "cross-mingw"; then
-  cat >$thisdir/mingw.cmake <<EOF
+  if ! test -f $thisdir/mingw.cmake; then
+    cat >$thisdir/mingw.cmake <<EOF
 set(QT_PREFIX ${_qt_prefix})
 
 set(CMAKE_SYSTEM_NAME Windows)
@@ -693,26 +695,69 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 
+EOF
+    if test "$qt_version_major" = "6"; then
+      _qt_libexec_dir=${_qt_bin_dir%bin}libexec
+      cat >>$thisdir/mingw.cmake <<EOF
+set(QT_BINARY_DIR ${_qt_bin_dir})
+set(QT_LIBEXEC_DIR ${_qt_libexec_dir})
+set(QT_LIBRARY_DIR  \${QT_PREFIX}/lib)
+set(QT_QTCORE_LIBRARY   \${QT_PREFIX}/lib/libQt${qt_version_major}Core.a)
+set(QT_QTCORE_INCLUDE_DIR \${QT_PREFIX}/include/QtCore)
+set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
+set(QT_MOC_EXECUTABLE  \${QT_LIBEXEC_DIR}/moc)
+set(QT_UIC_EXECUTABLE  \${QT_LIBEXEC_DIR}/uic)
+
+foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-pro lupdate-pro)
+  if (NOT TARGET Qt${qt_version_major}::\${_exe})
+    add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
+    set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
+      IMPORTED_LOCATION \${QT_LIBEXEC_DIR}/\${_exe}
+    )
+  endif ()
+endforeach (_exe)
+foreach (_exe lupdate lrelease qtpaths androiddeployqt androidtestrunner lconvert)
+  if (NOT TARGET Qt${qt_version_major}::\${_exe})
+    add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
+    set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
+      IMPORTED_LOCATION \${QT_BINARY_DIR}/\${_exe}
+    )
+  endif ()
+endforeach (_exe)
+foreach (_exe qmake)
+  if (NOT TARGET Qt${qt_version_major}::\${_exe})
+    add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
+    set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
+      IMPORTED_LOCATION \${QT_PREFIX}/bin/\${_exe}
+    )
+  endif ()
+endforeach (_exe)
+EOF
+    else
+      cat >>$thisdir/mingw.cmake <<EOF
 set(QT_BINARY_DIR ${_qt_bin_dir})
 set(QT_LIBRARY_DIR  \${QT_PREFIX}/lib)
-set(QT_QTCORE_LIBRARY   \${QT_PREFIX}/lib/libQt5Core.a)
+set(QT_QTCORE_LIBRARY   \${QT_PREFIX}/lib/libQt${qt_version_major}Core.a)
 set(QT_QTCORE_INCLUDE_DIR \${QT_PREFIX}/include/QtCore)
 set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
 set(QT_MOC_EXECUTABLE  \${QT_BINARY_DIR}/moc)
 set(QT_UIC_EXECUTABLE  \${QT_BINARY_DIR}/uic)
 
 foreach (_exe moc rcc lupdate lrelease uic)
-  if (NOT TARGET Qt5::\${_exe})
-    add_executable(Qt5::\${_exe} IMPORTED)
-    set_target_properties(Qt5::\${_exe} PROPERTIES
+  if (NOT TARGET Qt${qt_version_major}::\${_exe})
+    add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
+    set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
       IMPORTED_LOCATION \${QT_BINARY_DIR}/\${_exe}
     )
   endif ()
 endforeach (_exe)
 EOF
+    fi
+  fi
 elif test "$compiler" = "cross-macos"; then
   test -z ${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxsdk/usr/bin:$PATH
-  cat >$thisdir/osxcross.cmake <<EOF
+  if ! test -f $thisdir/osxcross.cmake; then
+    cat >$thisdir/osxcross.cmake <<EOF
 if (POLICY CMP0025)
   cmake_policy(SET CMP0025 NEW)
 endif (POLICY CMP0025)
@@ -729,23 +774,65 @@ set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
 set (CMAKE_AR:FILEPATH ${_crossprefix}ar)
 set (CMAKE_RANLIB:FILEPATH ${_crossprefix}ranlib)
 
+EOF
+    if test "$qt_version_major" = "6"; then
+      _qt_libexec_dir=${_qt_bin_dir%bin}libexec
+      cat >>$thisdir/osxcross.cmake <<EOF
+set(QT_INCLUDE_DIRS_NO_SYSTEM ON)
+set(QT_BINARY_DIR ${_qt_bin_dir})
+set(QT_LIBEXEC_DIR ${_qt_libexec_dir})
+set(QT_LIBRARY_DIR  \${QT_PREFIX}/lib)
+set(Qt${qt_version_major}Core_DIR \${QT_PREFIX}/lib/cmake/Qt${qt_version_major}Core)
+set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
+set(QT_MOC_EXECUTABLE  \${QT_LIBEXEC_DIR}/moc)
+set(QT_UIC_EXECUTABLE  \${QT_LIBEXEC_DIR}/uic)
+
+foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-pro lupdate-pro)
+  if (NOT TARGET Qt${qt_version_major}::\${_exe})
+    add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
+    set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
+      IMPORTED_LOCATION \${QT_LIBEXEC_DIR}/\${_exe}
+    )
+  endif ()
+endforeach (_exe)
+foreach (_exe lupdate lrelease qtpaths androiddeployqt androidtestrunner lconvert)
+  if (NOT TARGET Qt${qt_version_major}::\${_exe})
+    add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
+    set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
+      IMPORTED_LOCATION \${QT_BINARY_DIR}/\${_exe}
+    )
+  endif ()
+endforeach (_exe)
+foreach (_exe qmake)
+  if (NOT TARGET Qt${qt_version_major}::\${_exe})
+    add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
+    set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
+      IMPORTED_LOCATION \${QT_PREFIX}/bin/\${_exe}
+    )
+  endif ()
+endforeach (_exe)
+EOF
+    else
+      cat >>$thisdir/osxcross.cmake <<EOF
 set(QT_INCLUDE_DIRS_NO_SYSTEM ON)
 set(QT_BINARY_DIR ${_qt_bin_dir})
 set(QT_LIBRARY_DIR  \${QT_PREFIX}/lib)
-set(Qt5Core_DIR \${QT_PREFIX}/lib/cmake/Qt5Core)
+set(Qt${qt_version_major}Core_DIR \${QT_PREFIX}/lib/cmake/Qt${qt_version_major}Core)
 set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
 set(QT_MOC_EXECUTABLE  \${QT_BINARY_DIR}/moc)
 set(QT_UIC_EXECUTABLE  \${QT_BINARY_DIR}/uic)
 
 foreach (_exe moc rcc lupdate lrelease uic)
-  if (NOT TARGET Qt5::\${_exe})
-    add_executable(Qt5::\${_exe} IMPORTED)
-    set_target_properties(Qt5::\${_exe} PROPERTIES
+  if (NOT TARGET Qt${qt_version_major}::\${_exe})
+    add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
+    set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
       IMPORTED_LOCATION \${QT_BINARY_DIR}/\${_exe}
     )
   endif ()
 endforeach (_exe)
 EOF
+    fi
+  fi
 fi # cross-mingw, cross-macos
 
 cd ..
@@ -1491,7 +1578,7 @@ if [[ $target = *"package"* ]]; then
     cp -f translations/*.qm doc/*/kid3*.html $_instdir
 
     _qtBinDir=${QTPREFIX}/bin
-    for f in Qt5Core.dll Qt5Network.dll Qt5Gui.dll Qt5Xml.dll Qt5Widgets.dll Qt5Multimedia.dll Qt5Qml.dll Qt5Quick.dll $_gccDll libstdc++-6.dll libwinpthread-1.dll; do
+    for f in Qt${qt_version_major}Core.dll Qt${qt_version_major}Network.dll Qt${qt_version_major}Gui.dll Qt${qt_version_major}Xml.dll Qt${qt_version_major}Widgets.dll Qt${qt_version_major}Multimedia.dll Qt${qt_version_major}Qml.dll Qt${qt_version_major}Quick.dll $_gccDll libstdc++-6.dll libwinpthread-1.dll; do
       cp $_qtBinDir/$f $_instdir
     done
 

@@ -298,8 +298,10 @@ get_target_property(QT_LIBRARY_DIR Qt${QT_VERSION_MAJOR}::Core LOCATION)
 get_filename_component(QT_LIBRARY_DIR ${QT_LIBRARY_DIR} PATH)
 if(APPLE)
   # For Mac Qt5.5.0 QT_LIBRARY_DIR is wrong
-  # (<installdir>/Qt5.5.0/5.5/clang_64/lib/QtCore.framework), fix it.
-  string(REGEX MATCH "^(.*)/QtCore.framework$" _qtLibDir "${QT_LIBRARY_DIR}")
+  # (<installdir>/Qt5.5.0/5.5/clang_64/lib/QtCore.framework),
+  # also for Mac Qt6.2.2 it is wrong
+  # (<installdir>/6.2.2/macos/lib/QtCore.framework/Versions/A), fix it.
+  string(REGEX MATCH "^(.*)/QtCore.framework.*$" _qtLibDir "${QT_LIBRARY_DIR}")
   if(_qtLibDir)
     set(QT_LIBRARY_DIR ${CMAKE_MATCH_1})
   endif()
@@ -316,9 +318,10 @@ if(QT_PLUGINS_DIR)
 elseif(_qtDir)
   set(QT_PLUGINS_DIR ${_qtDir}/plugins)
 else()
-  # Before Qt 5.2, there seems to be no way to get the plugins directory.
+  # Before Qt 5.2 and with Qt 6, there seems to be no way to get the plugins directory.
   # Assume it is on the same level as the bin directory.
-  get_filename_component(QT_PLUGINS_DIR ${QT_LUPDATE_EXECUTABLE} PATH)
+  get_target_property(_qmakeLocation Qt${QT_VERSION_MAJOR}::qmake LOCATION)
+  get_filename_component(QT_PLUGINS_DIR ${_qmakeLocation} PATH)
   get_filename_component(QT_PLUGINS_DIR ${QT_PLUGINS_DIR} PATH)
   set(QT_PLUGINS_DIR ${QT_PLUGINS_DIR}/plugins)
 endif()

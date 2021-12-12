@@ -121,30 +121,74 @@ if(WIN32 OR APPLE OR LINUX_SELF_CONTAINED)
   get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)
   set(QT_QML_DIR ${QT_QML_DIR}/qml)
   if(APPLE)
-    install(FILES "${QT_QML_DIR}/QtQuick.2/qmldir"
-      DESTINATION "${WITH_QMLDIR}/imports/QtQuick.2")
-    install(FILES "${QT_QML_DIR}/QtQuick/Layouts/qmldir"
-      DESTINATION "${WITH_QMLDIR}/imports/QtQuick/Layouts")
-    install(FILES "${QT_QML_DIR}/QtQuick.2/libqtquick2plugin.dylib"
-                  "${QT_QML_DIR}/QtQuick/Layouts/libqquicklayoutsplugin.dylib"
-      DESTINATION "${WITH_PLUGINSDIR}")
-    install(CODE
-      "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-        \"../../../../PlugIns/libkid3qml.dylib\"
-        \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}/imports/Kid3/libkid3qml.dylib\")
-      execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-        \"../../../../PlugIns/libqtquick2plugin.dylib\"
-        \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}/imports/QtQuick.2/libqtquick2plugin.dylib\")
-      execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
-        \"../../../../../PlugIns/libqquicklayoutsplugin.dylib\"
-        \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}/imports/QtQuick/Layouts/libqquicklayoutsplugin.dylib\")
-      ")
+    if(QT_VERSION VERSION_LESS 6.0)
+      install(FILES "${QT_QML_DIR}/QtQuick.2/qmldir"
+        DESTINATION "${WITH_QMLDIR}/imports/QtQuick.2")
+      install(FILES "${QT_QML_DIR}/QtQuick/Layouts/qmldir"
+        DESTINATION "${WITH_QMLDIR}/imports/QtQuick/Layouts")
+      install(FILES "${QT_QML_DIR}/QtQuick.2/libqtquick2plugin.dylib"
+                    "${QT_QML_DIR}/QtQuick/Layouts/libqquicklayoutsplugin.dylib"
+        DESTINATION "${WITH_PLUGINSDIR}")
+      install(CODE
+        "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+          \"../../../../PlugIns/libkid3qml.dylib\"
+          \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}/imports/Kid3/libkid3qml.dylib\")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+          \"../../../../PlugIns/libqtquick2plugin.dylib\"
+          \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}/imports/QtQuick.2/libqtquick2plugin.dylib\")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+          \"../../../../../PlugIns/libqquicklayoutsplugin.dylib\"
+          \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}/imports/QtQuick/Layouts/libqquicklayoutsplugin.dylib\")
+        ")
+    else()
+      install(FILES "${QT_QML_DIR}/QtQuick/qmldir"
+        DESTINATION "${WITH_QMLDIR}/imports/QtQuick")
+      install(FILES "${QT_QML_DIR}/QtQuick/Layouts/qmldir"
+        DESTINATION "${WITH_QMLDIR}/imports/QtQuick/Layouts")
+      install(FILES "${QT_QML_DIR}/QtQml/WorkerScript/qmldir"
+        DESTINATION "${WITH_QMLDIR}/imports/QtQml/WorkerScript")
+      install(FILES "${QT_QML_DIR}/QtQuick/libqtquick2plugin.dylib"
+                    "${QT_QML_DIR}/QtQuick/Layouts/libqquicklayoutsplugin.dylib"
+                    "${QT_QML_DIR}/QtQml/WorkerScript/libworkerscriptplugin.dylib"
+        DESTINATION "${WITH_PLUGINSDIR}")
+      install(CODE
+        "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+          \"../../../../PlugIns/libkid3qml.dylib\"
+          \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}/imports/Kid3/libkid3qml.dylib\")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+          \"../../../../PlugIns/libqtquick2plugin.dylib\"
+          \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}/imports/QtQuick/libqtquick2plugin.dylib\")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+          \"../../../../../PlugIns/libqquicklayoutsplugin.dylib\"
+          \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}/imports/QtQuick/Layouts/libqquicklayoutsplugin.dylib\")
+        execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+          \"../../../../../PlugIns/libworkerscriptplugin.dylib\"
+          \"\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/${WITH_QMLDIR}/imports/QtQml/WorkerScript/libworkerscriptplugin.dylib\")
+        ")
+    endif()
   else()
-    install(DIRECTORY "${QT_QML_DIR}/QtQuick.2"
-      DESTINATION "${WITH_PLUGINSDIR}/imports"
-      FILES_MATCHING PATTERN "*plugin${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                     PATTERN "qmldir"
-                     PATTERN "*.dSYM" EXCLUDE)
+    if(QT_VERSION VERSION_LESS 6.0)
+      install(DIRECTORY "${QT_QML_DIR}/QtQuick.2"
+        DESTINATION "${WITH_PLUGINSDIR}/imports"
+        FILES_MATCHING PATTERN "*plugin${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                       PATTERN "qmldir"
+                       PATTERN "*.dSYM" EXCLUDE)
+    else()
+      if(WIN32)
+        install(FILES "${QT_QML_DIR}/QtQuick/qtquick2plugin${CMAKE_SHARED_LIBRARY_SUFFIX}"
+          DESTINATION "${WITH_PLUGINSDIR}/imports/QtQuick")
+      else()
+        install(FILES "${QT_QML_DIR}/QtQuick/${CMAKE_SHARED_LIBRARY_PREFIX}qtquick2plugin${CMAKE_SHARED_LIBRARY_SUFFIX}"
+          DESTINATION "${WITH_PLUGINSDIR}/imports/QtQuick")
+      endif()
+      install(FILES "${QT_QML_DIR}/QtQuick/qmldir"
+        DESTINATION "${WITH_PLUGINSDIR}/imports/QtQuick")
+      install(DIRECTORY "${QT_QML_DIR}/QtQml/WorkerScript"
+        DESTINATION "${WITH_PLUGINSDIR}/imports/QtQml"
+        FILES_MATCHING PATTERN "*plugin${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                       PATTERN "qmldir"
+                       PATTERN "*.dSYM" EXCLUDE)
+    endif()
     install(DIRECTORY "${QT_QML_DIR}/QtQuick/Layouts"
       DESTINATION "${WITH_PLUGINSDIR}/imports/QtQuick"
       FILES_MATCHING PATTERN "*plugin${CMAKE_SHARED_LIBRARY_SUFFIX}"
