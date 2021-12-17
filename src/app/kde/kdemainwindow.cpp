@@ -26,6 +26,7 @@
 
 #include "kdemainwindow.h"
 #include <kconfigwidgets_version.h>
+#include <kconfig_version.h>
 #include <KToggleAction>
 #include <KStandardAction>
 #include <KShortcutsDialog>
@@ -512,13 +513,17 @@ void KdeMainWindow::addDirectoryToRecentFiles(const QString& dirName)
  */
 void KdeMainWindow::readConfig()
 {
+  auto cfg = KSharedConfig::openConfig();
+#if KCONFIG_VERSION >= 0x054300
   auto stateCfg = KSharedConfig::openStateConfig();
+#else
+  auto stateCfg = cfg;
+#endif
   setAutoSaveSettings(stateCfg->group("MainWindow"));
   m_settingsShowHidePicture->setChecked(!GuiConfig::instance().hidePicture());
   m_settingsAutoHideTags->setChecked(GuiConfig::instance().autoHideTags());
   m_fileOpenRecent->loadEntries(stateCfg->group("Recent Files"));
 
-  auto cfg = KSharedConfig::openConfig();
   QString entry = cfg->group("MainWindow").readEntry("StatusBar", "Enabled");
   bool statusBarVisible = entry != QLatin1String("Disabled");
   if (m_settingsShowStatusbar) {
@@ -532,8 +537,12 @@ void KdeMainWindow::readConfig()
  */
 void KdeMainWindow::saveConfig()
 {
-  m_fileOpenRecent->saveEntries(
-        KSharedConfig::openStateConfig()->group("Recent Files"));
+#if KCONFIG_VERSION >= 0x054300
+  auto stateCfg = KSharedConfig::openStateConfig();
+#else
+  auto stateCfg = KSharedConfig::openConfig();
+#endif
+  m_fileOpenRecent->saveEntries(stateCfg->group("Recent Files"));
 }
 
 /**

@@ -26,6 +26,7 @@
 
 #include "kdeplatformtools.h"
 #include <QtConfig>
+#include <kconfig_version.h>
 #include <KMessageBox>
 #include <KSharedConfig>
 #include <KIO/CopyJob>
@@ -57,8 +58,13 @@ KdePlatformTools::~KdePlatformTools()
 ISettings* KdePlatformTools::applicationSettings()
 {
   if (!m_config) {
-    m_config.reset(new KdeSettings(KSharedConfig::openConfig(),
-                                   KSharedConfig::openStateConfig()));
+    auto cfg = KSharedConfig::openConfig();
+#if KCONFIG_VERSION >= 0x054300
+    auto stateCfg = KSharedConfig::openStateConfig();
+#else
+    auto stateCfg = cfg;
+#endif
+    m_config.reset(new KdeSettings(cfg, stateCfg));
   }
   return m_config.data();
 }
