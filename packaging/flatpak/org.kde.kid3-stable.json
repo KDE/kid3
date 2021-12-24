@@ -118,7 +118,6 @@
                 {
                     "type": "archive",
                     "url": "https://download.kde.org/stable/kid3/3.9.0/kid3-3.9.0.tar.xz"
-                    /* , "sha256": "" */
                 }
             ]
         }
