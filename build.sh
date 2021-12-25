@@ -1059,11 +1059,13 @@ if test "$compiler" = "cross-android"; then
 
     if test "${openssl_version:0:3}" = "1.0"; then
       make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
+      _ssl_lib_suffix=.so
     else
-      make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=.so build_libs
+      make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_1_1.so build_libs
+      _ssl_lib_suffix=_1_1.so
     fi
     mkdir -p inst/usr/local/lib
-    cp --dereference libssl.so libcrypto.so inst/usr/local/lib/
+    cp --dereference libssl${_ssl_lib_suffix} libcrypto${_ssl_lib_suffix} inst/usr/local/lib/
     $_android_prefix-strip -s inst/usr/local/lib/*.so
     cd inst
     tar czf ../../bin/openssl-${openssl_version}.tgz usr

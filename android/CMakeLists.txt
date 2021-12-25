@@ -109,7 +109,7 @@ add_qt_android_apk(apk kid3-qml
   DEPENDS kid3-core kid3-gui
           musicbrainzimport discogsimport freedbimport amazonimport
           taglibmetadata kid3qml Qt${QT_VERSION_MAJOR}::Svg
-          ${ANDROID_EXTRA_LIBS_DIR}/libssl.so ${ANDROID_EXTRA_LIBS_DIR}/libcrypto.so
+          ${ANDROID_EXTRA_LIBS_DIR}/libssl_1_1.so ${ANDROID_EXTRA_LIBS_DIR}/libcrypto_1_1.so
   DEPLOYMENT_DEPENDS ${_deploymentDepends}
   PACKAGE_SOURCES ${_androidPackageDir}
   KEYSTORE ${_keystorePathAlias}
