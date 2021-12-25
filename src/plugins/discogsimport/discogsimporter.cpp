@@ -792,21 +792,46 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
           const auto data = dataValue.toObject();
           QJsonObject release;
           QString imgUrl;
+
+          // There are multiple releases in the embedded JSON,
+          // try to find the correct one.
+          const auto rootQuery = data.value(QLatin1String("ROOT_QUERY"))
+              .toObject();
+          for (auto it = rootQuery.constBegin();
+               it != rootQuery.constEnd();
+               ++it) {
+            QString releaseRef;
+            if (it.key().startsWith(QLatin1String("release")) &&
+                !(releaseRef = it.value().toObject()
+                  .value(QLatin1String("__ref")).toString()).isEmpty()) {
+              QJsonObject releaseObject = data.value(releaseRef).toObject();
+              if (releaseObject.contains(QLatin1String("tracks"))) {
+                release = releaseObject;
+                break;
+              }
+            }
+          }
+
           for (auto it = data.constBegin(); it != data.constEnd(); ++it) {
             if (it.key().startsWith(QLatin1String("Release:"))) {
-              const auto releaseValue = it.value();
-              if (releaseValue.isObject()) {
-                release = releaseValue.toObject();
+              QJsonValue releaseValue;
+              if (release.isEmpty() && (releaseValue = it.value()).isObject()) {
+                QJsonObject releaseObject = releaseValue.toObject();
+                if (releaseObject.contains(QLatin1String("tracks"))) {
+                  release = releaseObject;
+                }
               }
             } else if (it.key().startsWith(QLatin1String("Image:"))) {
-              QRegularExpression sourceUrlRe(
-                    QLatin1String("\"sourceUrl\"\\s*:\\s*\"([^\"]+)\""));
-              QString ref = it.value().toObject()
-                  .value(QLatin1String("fullsize")).toObject()
-                  .value(QLatin1String("__ref")).toString();
-              auto match = sourceUrlRe.match(ref);
-              if (match.hasMatch()) {
-                imgUrl = match.captured(1);
+              if (imgUrl.isEmpty()) {
+                QRegularExpression sourceUrlRe(
+                      QLatin1String("\"sourceUrl\"\\s*:\\s*\"([^\"]+)\""));
+                QString ref = it.value().toObject()
+                    .value(QLatin1String("fullsize")).toObject()
+                    .value(QLatin1String("__ref")).toString();
+                auto match = sourceUrlRe.match(ref);
+                if (match.hasMatch()) {
+                  imgUrl = match.captured(1);
+                }
               }
             }
           }
