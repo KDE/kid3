@@ -1121,7 +1121,10 @@ void TagLibFile::readTags(bool force)
 #endif
         if (auto mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[Frame::Tag_2])) {
 #if TAGLIB_VERSION >= 0x010a00
-          const TagLib::MP4::CoverArtList pics(mp4Tag->item("covr").toCoverArtList());
+          const auto& itemMap = mp4Tag->itemMap();
+          auto it = itemMap.find("covr");
+          const TagLib::MP4::CoverArtList pics = it != itemMap.end()
+              ? it->second.toCoverArtList() : TagLib::MP4::CoverArtList();
 #else
           const TagLib::MP4::CoverArtList pics(mp4Tag->itemListMap()["covr"].toCoverArtList());
 #endif
