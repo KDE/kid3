@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jul 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2022  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -423,7 +423,19 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
     QString baseName = fmt.getString();
     const FormatConfig& fnCfg = FilenameFormatConfig::instance();
     if (fnCfg.useForOtherFileNames()) {
-      fnCfg.formatString(baseName);
+      if (!baseName.contains(QLatin1Char('/'))) {
+        fnCfg.formatString(baseName);
+      } else {
+        // If the new folder name contains multiple path components separated
+        // by '/', make sure not to replace the '/' when applying the format.
+        QStringList baseNameComponents = baseName.split(QLatin1Char('/'));
+        for (auto it = baseNameComponents.begin();
+             it != baseNameComponents.end();
+             ++it) {
+          fnCfg.formatString(*it);
+        }
+        baseName = baseNameComponents.join(QLatin1Char('/'));
+      }
     }
     m_fmtContext->putDirName(baseName);
     newdir.append(
