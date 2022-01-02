@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Sep 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2022  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -1306,8 +1306,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
           if (m_tag[tagNr]->isEmpty()) {
             mpegFile->strip(tagTypes[tagNr]);
             fileChanged = true;
-            markTagUnchanged(tagNr);
             m_tag[tagNr] = nullptr;
+            markTagUnchanged(tagNr);
           } else {
             saveMask |= tagTypes[tagNr];
           }
@@ -1352,8 +1352,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             if (m_tag[tagNr] && (force || isTagChanged(tagNr)) && m_tag[tagNr]->isEmpty()) {
               ttaFile->strip(tagTypes[tagNr]);
               fileChanged = true;
-              markTagUnchanged(tagNr);
               m_tag[tagNr] = nullptr;
+              markTagUnchanged(tagNr);
             }
           }
         } else if (auto mpcFile =
@@ -1368,8 +1368,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
                 m_tag[tagNr]->isEmpty()) {
               mpcFile->strip(tagTypes[tagNr]);
               fileChanged = true;
-              markTagUnchanged(tagNr);
               m_tag[tagNr] = nullptr;
+              markTagUnchanged(tagNr);
             }
           }
 #else
@@ -1389,8 +1389,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
                 m_tag[tagNr]->isEmpty()) {
               wvFile->strip(tagTypes[tagNr]);
               fileChanged = true;
-              markTagUnchanged(tagNr);
               m_tag[tagNr] = nullptr;
+              markTagUnchanged(tagNr);
             }
           }
 #else
@@ -1409,8 +1409,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             if (m_tag[tagNr] && (force || isTagChanged(tagNr)) && m_tag[tagNr]->isEmpty()) {
               apeFile->strip(tagTypes[tagNr]);
               fileChanged = true;
-              markTagUnchanged(tagNr);
               m_tag[tagNr] = nullptr;
+              markTagUnchanged(tagNr);
             }
           }
         }
@@ -1425,8 +1425,8 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             if (m_tag[tagNr] && (force || isTagChanged(tagNr)) && m_tag[tagNr]->isEmpty()) {
               flacFile->strip(tagTypes[tagNr]);
               fileChanged = true;
-              markTagUnchanged(tagNr);
               m_tag[tagNr] = nullptr;
+              markTagUnchanged(tagNr);
             }
           }
 #endif
