@@ -213,6 +213,24 @@ public:
   void setMaximumLength(int maximumLength);
 
   /**
+   * Set if the formatter is omitting extensions to handle filenames.
+   *
+   * This is a setting for the formatter, not a configuration property.
+   * It can be changed temporarily when formatting folder names in order to
+   * switch off the special handling of extensions, which does not format
+   * everything after a dot in the filename.
+   *
+   * @param filenameFormatter true to enable omitting extensions
+   * @return previous filenameFormatter setting, provided to restore it after
+   *         calling formatString().
+   */
+  bool switchFilenameFormatter(bool filenameFormatter) {
+    bool oldValue = m_filenameFormatter;
+    m_filenameFormatter = filenameFormatter;
+    return oldValue;
+  }
+
+  /**
    * String list of case conversion names.
    */
   Q_INVOKABLE static QStringList getCaseConversionNames();

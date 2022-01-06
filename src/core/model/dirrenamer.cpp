@@ -421,8 +421,9 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
     DirNameFormatReplacer fmt(*m_fmtContext, trackData, m_format);
     fmt.replacePercentCodes(FormatReplacer::FSF_ReplaceSeparators);
     QString baseName = fmt.getString();
-    const FormatConfig& fnCfg = FilenameFormatConfig::instance();
+    FormatConfig& fnCfg = FilenameFormatConfig::instance();
     if (fnCfg.useForOtherFileNames()) {
+      bool isFilenameFormatter = fnCfg.switchFilenameFormatter(false);
       if (!baseName.contains(QLatin1Char('/'))) {
         fnCfg.formatString(baseName);
       } else {
@@ -436,6 +437,7 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
         }
         baseName = baseNameComponents.join(QLatin1Char('/'));
       }
+      fnCfg.switchFilenameFormatter(isFilenameFormatter);
     }
     m_fmtContext->putDirName(baseName);
     newdir.append(
