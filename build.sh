@@ -352,6 +352,7 @@ libflac_patchlevel=2
 id3lib_version=3.8.3
 id3lib_patchlevel=16.3
 taglib_version=1.12
+taglib_githash=c4a0855f42c05ad9fab8915f27439c8194b6bb94
 chromaprint_version=1.5.0
 chromaprint_patchlevel=2
 mp4v2_version=2.0.0
@@ -581,7 +582,13 @@ fixcmakeinst() {
 test -d source || mkdir source
 cd source
 
-if test -n "${taglib_version##v*}"; then
+if test -n "${taglib_githash}"; then
+  # Download an archive for a git hash
+  if ! test -f taglib-${taglib_githash}.tar.gz; then
+    $DOWNLOAD https://github.com/taglib/taglib/archive/${taglib_githash}.tar.gz
+    mv ${taglib_githash}.tar.gz taglib-${taglib_githash}.tar.gz
+  fi
+elif test -n "${taglib_version##v*}"; then
   test -f taglib-${taglib_version}.tar.gz ||
     $DOWNLOAD http://taglib.github.io/releases/taglib-${taglib_version}.tar.gz
 else
@@ -843,18 +850,18 @@ cd ..
 if ! test -d taglib-${taglib_version}; then
   echo "### Extracting taglib"
 
-  tar xzf source/taglib-${taglib_version}.tar.gz
-  cd taglib-${taglib_version}/
-  taglib_nr=${taglib_version:0:3}
-  if test $taglib_nr = "1.1"; then
-    taglib_nr=${taglib_version:0:4}
-    taglib_nr=${taglib_nr/./}
+  if test -n "${taglib_githash}"; then
+    tar xzf source/taglib-${taglib_githash}.tar.gz
+    mv taglib-${taglib_githash} taglib-${taglib_version}
   else
-    taglib_nr=${taglib_nr/./0}
+    tar xzf source/taglib-${taglib_version}.tar.gz
   fi
-  if test "$taglib_nr" = "112"; then
-    if test "$cross_host" = "x86_64-w64-mingw32"; then
-      patch -p1 <$srcdir/packaging/patches/taglib-1.12-win00-large_file.patch
+  cd taglib-${taglib_version}/
+  if test "$cross_host" = "x86_64-w64-mingw32"; then
+    if test -f $srcdir/packaging/patches/taglib-${taglib_githash}-win00-large_file.patch; then
+      patch -p1 <$srcdir/packaging/patches/taglib-${taglib_githash}-win00-large_file.patch
+    else
+      patch -p1 <$srcdir/packaging/patches/taglib-${taglib_version}-win00-large_file.patch
     fi
   fi
   cd ..
