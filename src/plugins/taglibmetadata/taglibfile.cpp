@@ -901,6 +901,8 @@ void TagLibFile::clearTags(bool force)
     m_hasTag[tagNr] = false;
     m_tagFormat[tagNr].clear();
     m_tagType[tagNr] = TT_Unknown;
+  }
+  FOR_TAGLIB_TAGS(tagNr) {
     markTagUnchanged(tagNr);
   }
   notifyModelDataChanged(priorIsTagInformationRead);
@@ -922,6 +924,8 @@ void TagLibFile::readTags(bool force)
     m_fileRef = TagLib::FileRef(FileIOStream::create(m_stream));
     FOR_TAGLIB_TAGS(tagNr) {
       m_tag[tagNr] = nullptr;
+    }
+    FOR_TAGLIB_TAGS(tagNr) {
       markTagUnchanged(tagNr);
     }
     m_fileRead = true;
