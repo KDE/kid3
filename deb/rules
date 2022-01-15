@@ -17,12 +17,6 @@ override_dh_auto_configure:
 		-DCMAKE_C_FLAGS="$(CFLAGS)" \
 		-DCMAKE_CXX_FLAGS="$(CXXFLAGS)"
 
-override_dh_auto_install:
-	dh_auto_install
-
-override_dh_install:
-	dh_install
-
 override_dh_makeshlibs:
 	dh_makeshlibs --noscripts
 

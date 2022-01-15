@@ -1,20 +1,25 @@
-kid3 (3.9.0-0) unstable; urgency=low
+kid3 (3.9.1-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 18 Dec 2021 09:22:30 +0100
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 15 Jan 2022 09:01:43 +0100
 
-kid3 (3.8.7-0) unstable; urgency=low
-
-  * New upstream release.
-
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 20 Jun 2021 11:14:31 +0200
-
-kid3 (3.8.6-0) unstable; urgency=low
+kid3 (3.9.0-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 18 Mar 2021 08:21:47 +0100
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 20 Dec 2021 14:15:23 +0100
+
+kid3 (3.8.7-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Update homepage field.
+  * Update packages long description.
+  * Update debian/copyright year.
+  * Remove deprecated KDE4 stuff.
+  * Bump Standards-Version to 4.6.0.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Thu, 19 Aug 2021 11:22:29 +0200
 
 kid3 (3.8.5-3) unstable; urgency=medium
 

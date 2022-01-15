@@ -1,4 +1,4 @@
-set(_languages ca ca@valencia cs da de el en en_GB es et eu fi fr is it ko nl pl pt pt_BR ru sr sr@ijekavian sr@ijekavianlatin sr@latin sv tr uk zh_CN zh_TW)
+set(_languages ca ca@valencia cs da de el en en_GB es et eu fi fr is it ko nl pl pt pt_BR ru sl sr sr@ijekavian sr@ijekavianlatin sr@latin sv tr uk zh_CN zh_TW)
 
 # Use -DDOWNLOAD_POS=ON to download the translations directly from SVN.
 if(DOWNLOAD_POS)
