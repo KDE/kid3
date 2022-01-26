@@ -232,7 +232,11 @@ private:
   friend class Format;
   friend class Converter;
   AVCodecContext* m_ptr;
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(59, 0, 0)
   AVCodec* m_impl;
+#else
+  const AVCodec* m_impl;
+#endif
   AVFrame* m_frame;
   bool m_opened;
 };
