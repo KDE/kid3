@@ -623,6 +623,15 @@ public:
   bool isEmpty() const { return m_value.isEmpty(); }
 
   /**
+   * Check if the value of this frame is fuzzy equal to another frame.
+   * Other than with strict equality, total values and some fields which are
+   * not supported in all tag formats are ignored.
+   * @param other frame to compare
+   * @return true if more or less equal.
+   */
+  bool isFuzzyEqual(const Frame& other) const;
+
+  /**
    * Check if frame is inactive.
    * @return true if inactive.
    */

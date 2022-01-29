@@ -1035,45 +1035,36 @@ void TaggedFile::setFrames(Frame::TagNumber tagNr,
           setFrame(tagNr, *it);
         } else {
           // The frame does not have an index
-          if (it->getType() == Frame::FT_Track) {
-            // Handle track with the basic method
-            setFrame(tagNr, *it);
+          // The frame has to be looked up and modified
+          if (!myFramesValid) {
+            getAllFrames(tagNr, myFrames);
+            myFramesValid = true;
+          }
+          auto myIt = myFrames.find(*it);
+          int myIndex = -1;
+          while (myIt != myFrames.end() && !(*it < *myIt) &&
+                 (myIndex = myIt->getIndex()) != -1) {
+            if (!replacedIndexes.contains(myIndex)) {
+              break;
+            }
+            myIndex = -1;
+            ++myIt;
+          }
+          if (myIndex != -1) {
+            replacedIndexes.insert(myIndex);
+            if (!myIt->isFuzzyEqual(*it)) {
+              Frame myFrame(*it);
+              myFrame.setIndex(myIndex);
+              setFrame(tagNr, myFrame);
+            }
           } else {
-            // The frame has to be looked up and modified
-            if (!myFramesValid) {
-              getAllFrames(tagNr, myFrames);
-              myFramesValid = true;
-            }
-            auto myIt = myFrames.find(*it);
-            int myIndex = -1;
-            while (myIt != myFrames.end() && !(*it < *myIt) &&
-                   (myIndex = myIt->getIndex()) != -1) {
-              if (!replacedIndexes.contains(myIndex)) {
-                break;
-              }
-              myIndex = -1;
-              ++myIt;
-            }
-            if (myIndex != -1) {
-              replacedIndexes.insert(myIndex);
-              if (myIt->getValue() != it->getValue() ||
-                  (!myIt->getFieldList().isEmpty() &&
-                   !it->getFieldList().isEmpty() &&
-                   !Frame::Field::fuzzyCompareFieldLists(myIt->getFieldList(),
-                                                         it->getFieldList()))) {
-                Frame myFrame(*it);
-                myFrame.setIndex(myIndex);
-                setFrame(tagNr, myFrame);
-              }
-            } else {
-              // Such a frame does not exist, add a new one.
-              if (!it->getValue().isEmpty() || !it->getFieldList().isEmpty()) {
-                Frame addedFrame(*it);
-                addFrame(tagNr, addedFrame);
-                Frame myFrame(*it);
-                myFrame.setIndex(addedFrame.getIndex());
-                setFrame(tagNr, myFrame);
-              }
+            // Such a frame does not exist, add a new one.
+            if (!it->getValue().isEmpty() || !it->getFieldList().isEmpty()) {
+              Frame addedFrame(*it);
+              addFrame(tagNr, addedFrame);
+              Frame myFrame(*it);
+              myFrame.setIndex(addedFrame.getIndex());
+              setFrame(tagNr, myFrame);
             }
           }
         }

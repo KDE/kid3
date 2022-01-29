@@ -526,6 +526,25 @@ void Frame::setValueAsNumber(int n)
 }
 
 /**
+ * Check if the value of this frame is fuzzy equal to another frame.
+ * Other than with strict equality, total values and some fields which are
+ * not supported in all tag formats are ignored.
+ * @param other frame to compare
+ * @return true if more or less equal.
+ */
+bool Frame::isFuzzyEqual(const Frame& other) const
+{
+  if (getType() == FT_Track || getType() == FT_Disc) {
+    return getValueAsNumber() == other.getValueAsNumber();
+  }
+  return (getValue() == other.getValue() &&
+          (getFieldList().isEmpty() ||
+           other.getFieldList().isEmpty() ||
+           Field::fuzzyCompareFieldLists(getFieldList(),
+                                         other.getFieldList())));
+}
+
+/**
  * Get the value of a field.
  *
  * @param id field ID
