@@ -82,6 +82,8 @@
 #include <opusfile.h>
 #include "taglibext/dsf/dsffiletyperesolver.h"
 #include "taglibext/dsf/dsffile.h"
+#include "taglibext/dsdiff/dsdifffiletyperesolver.h"
+#include "taglibext/dsdiff/dsdifffile.h"
 
 #if TAGLIB_VERSION >= 0x010a00
 #include <synchronizedlyricsframe.h>
@@ -610,6 +612,8 @@ TagLib::File* FileIOStream::createFromExtension(TagLib::IOStream* stream,
     return new TagLib::XM::File(stream);
   if (ext == "DSF")
     return new DSFFile(stream, TagLib::ID3v2::FrameFactory::instance());
+  if (ext == "DFF")
+    return new DSDIFFFile(stream, TagLib::ID3v2::FrameFactory::instance());
   return nullptr;
 }
 
@@ -946,6 +950,7 @@ void TagLibFile::readTags(bool force)
     TagLib::TrueAudio::File* ttaFile;
     TagLib::RIFF::WAV::File* wavFile;
     DSFFile* dsfFile;
+    DSDIFFFile* dffFile;
     TagLib::APE::File* apeFile;
     m_fileExtension = QLatin1String(".mp3");
     m_isTagSupported[Frame::Tag_1] = false;
@@ -1071,6 +1076,16 @@ void TagLibFile::readTags(bool force)
       markTagUnchanged(Frame::Tag_1);
       if (!m_tag[Frame::Tag_2]) {
         TagLib::ID3v2::Tag* id3v2Tag = dsfFile->ID3v2Tag();
+        setId3v2VersionFromTag(id3v2Tag);
+        m_tag[Frame::Tag_2] = id3v2Tag;
+        markTagUnchanged(Frame::Tag_2);
+      }
+    } else if ((dffFile = dynamic_cast<DSDIFFFile*>(file)) != nullptr) {
+      m_fileExtension = QLatin1String(".dff");
+      m_tag[Frame::Tag_1] = nullptr;
+      markTagUnchanged(Frame::Tag_1);
+      if (!m_tag[Frame::Tag_2]) {
+        TagLib::ID3v2::Tag* id3v2Tag = dffFile->ID3v2Tag();
         setId3v2VersionFromTag(id3v2Tag);
         m_tag[Frame::Tag_2] = id3v2Tag;
         markTagUnchanged(Frame::Tag_2);
@@ -1493,6 +1508,16 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             needsSave = false;
           }
         }
+        else if (auto dffFile = dynamic_cast<DSDIFFFile*>(file)) {
+          setId3v2VersionOrDefault(id3v2Version);
+          if (dffFile->save(m_id3v2Version)) {
+            fileChanged = true;
+            FOR_TAGLIB_TAGS(tagNr) {
+              markTagUnchanged(tagNr);
+            }
+            needsSave = false;
+          }
+        }
 #if TAGLIB_VERSION >= 0x010b00
         else if (auto xiphComment =
                  dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[Frame::Tag_2])) {
@@ -1887,6 +1912,7 @@ void TagLibFile::readAudioProperties()
     TagLib::XM::Properties* xmProperties;
     TagLib::Ogg::Opus::Properties* opusProperties;
     DSFProperties* dsfProperties;
+    DSDIFFProperties* dffProperties;
     m_detailInfo.valid = true;
     if ((mpegProperties =
          dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != nullptr) {
@@ -2096,7 +2122,11 @@ void TagLibFile::readAudioProperties()
           dynamic_cast<DSFProperties*>(audioProperties)) != nullptr) {
       m_detailInfo.format = QString(QLatin1String("DSF %1"))
           .arg(dsfProperties->version());
+    } else if ((dffProperties =
+          dynamic_cast<DSDIFFProperties*>(audioProperties)) != nullptr) {
+      m_detailInfo.format = QString(QLatin1String("DFF"));
     }
+
     m_detailInfo.bitrate = audioProperties->bitrate();
     m_detailInfo.sampleRate = audioProperties->sampleRate();
     if (audioProperties->channels() > 0) {

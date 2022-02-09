@@ -128,6 +128,7 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
         || ext2 == QLatin1String(".xm")
         || ext == QLatin1String("opus")
         || ext == QLatin1String(".dsf")
+        || ext == QLatin1String(".dff")
         || ext2 == QLatin1String(".wv"))
       return new TagLibFile(idx);
   }
@@ -159,6 +160,7 @@ TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
       QLatin1String(".xm"),
       QLatin1String(".opus"),
       QLatin1String(".dsf"),
+      QLatin1String(".dff"),
       QLatin1String(".wv")
     };
   }

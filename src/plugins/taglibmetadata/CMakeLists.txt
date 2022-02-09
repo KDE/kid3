@@ -18,6 +18,9 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
     taglibext/dsf/dsffile.cpp
     taglibext/dsf/dsfproperties.cpp
     taglibext/dsf/dsfheader.cpp
+    taglibext/dsdiff/dsdifffiletyperesolver.cpp
+    taglibext/dsdiff/dsdifffile.cpp
+    taglibext/dsdiff/dsdiffproperties.cpp
   )
   if(NOT ${TAGLIB_VERSION} VERSION_GREATER 1.9.1)
     target_sources(${plugin_TARGET} PRIVATE
