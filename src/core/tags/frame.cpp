@@ -32,6 +32,11 @@
 #include <QCoreApplication>
 #include <QFile>
 #include <QTextStream>
+#if QT_VERSION >= 0x060000
+#include <QStringConverter>
+#else
+#include <QTextCodec>
+#endif
 #include "pictureframe.h"
 
 namespace {
@@ -586,9 +591,32 @@ bool Frame::setValueFromFile(const QString& fileName)
 {
   if (!fileName.isEmpty()) {
     QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-      QTextStream stream(&file);
-      setValueIfChanged(stream.readAll());
+
+    if (file.open(QIODevice::ReadOnly)) {
+      QString value;
+      QByteArray data = file.readAll();
+#if QT_VERSION >= 0x060000
+      auto toUtf8 = QStringDecoder(QStringConverter::Utf8);
+      value = toUtf8(data);
+      if (toUtf8.hasError()) {
+        auto encoding = QStringConverter::encodingForData(data);
+        auto decoder = QStringDecoder(encoding.value_or(QStringConverter::Latin1));
+        value = decoder(data);
+      }
+#else
+      QTextCodec::ConverterState state;
+      if (QTextCodec* codec = QTextCodec::codecForName("UTF-8")) {
+        value = codec->toUnicode(data.constData(), data.size(), &state);
+        if (state.invalidChars > 0) {
+          codec = QTextCodec::codecForUtfText(
+                data, QTextCodec::codecForName("ISO 8859-1"));
+          if (codec) {
+            value = codec->toUnicode(data.constData(), data.size());
+          }
+        }
+      }
+#endif
+      setValueIfChanged(value);
       file.close();
       return true;
     }
@@ -605,9 +633,8 @@ bool Frame::writeValueToFile(const QString& fileName) const
 {
   if (!fileName.isEmpty()) {
     QFile file(fileName);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-      QTextStream stream(&file);
-      stream << m_value;
+    if (file.open(QIODevice::WriteOnly)) {
+      file.write(m_value.toUtf8());
       file.close();
       return true;
     }
