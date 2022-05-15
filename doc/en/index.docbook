@@ -1016,6 +1016,23 @@ position</guimenuitem> from the context menu.
 </para>
 </sect2>
 
+<sect2 id="mp4-chapters">
+<title>Chapters in MP4 Files</title>
+
+<para>
+MP4 audiobooks typically have a <filename class="extension">.m4b</filename>
+extension and are rather large because  they contain all chapters in a single
+file. To navigate in such files, they can contain chapter marks, which can be
+edited in &kid3; in a pseudo "Chapters" frame using the same editor which is
+used for <link linkend="synchronized-lyrics">synchronized lyrics</link>. Note,
+however, that this feature is only available with the
+<guilabel>Mp4v2Metadata</guilabel> plugin, so make sure that it is activated
+and above the <guilabel>TaglibMetadata</guilabel> plugin in the
+<guilabel>Plugins</guilabel> tab of the settings if you have to edit MP4
+chapters.
+</para>
+</sect2>
+
 </sect1>
 
 <sect1 id="file-menu">

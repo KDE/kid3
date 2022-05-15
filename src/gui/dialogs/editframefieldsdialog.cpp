@@ -1450,7 +1450,8 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
 #endif
       {
         QString frameName = frame.getName();
-        if (frameName.startsWith(QLatin1String("SYLT"))) {
+        if (frameName.startsWith(QLatin1String("SYLT")) ||
+            frameName == QLatin1String("Chapters")) {
           auto timeEventCtl = new TimeEventFieldControl(
                 m_platformTools, m_app, fld, m_fields, taggedFile, tagNr,
                 TimeEventModel::SynchronizedLyrics);

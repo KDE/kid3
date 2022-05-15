@@ -3487,7 +3487,8 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
       if (it->getType() == Frame::FT_Picture ||
           frmName.startsWith(QLatin1String("GEOB"))) {
         PictureFrame::writeDataToFile(*it, dataFileName);
-      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
+      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT")) ||
+                  frmName == QLatin1String("Chapters")) ||
                  frmName.startsWith(QLatin1String("ETCO"))) {
         QFile file(dataFileName);
         if (file.open(QIODevice::WriteOnly)) {
@@ -3639,7 +3640,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         Frame::setField(frame, Frame::ID_Description, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
         addFrame(tagNr, &frame);
-      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
+      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT")) ||
+                  frmName == QLatin1String("Chapters")) ||
                  frmName.startsWith(QLatin1String("ETCO"))) {
         QFile file(dataFileName);
         if (file.open(QIODevice::ReadOnly)) {
@@ -3719,7 +3721,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
               PictureFrame::getMimeTypeForFile(dataFileName),
               QFileInfo(dataFileName).fileName(), value);
         PictureFrame::setDataFromFile(frame, dataFileName);
-      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT"))) ||
+      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT")) ||
+                  frmName == QLatin1String("Chapters")) ||
                  frmName.startsWith(QLatin1String("ETCO"))) {
         QFile file(dataFileName);
         if (file.open(QIODevice::ReadOnly)) {

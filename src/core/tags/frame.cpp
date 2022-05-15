@@ -323,6 +323,7 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
     { "egid", QT_TRANSLATE_NOOP("@default", "Podcast GUID") },
     { "cmID", QT_TRANSLATE_NOOP("@default", "Composer ID") },
     { "xid ", QT_TRANSLATE_NOOP("@default", "XID") },
+    { "Chapters", QT_TRANSLATE_NOOP("@default", "Chapters") },
     { "IARL", QT_TRANSLATE_NOOP("@default", "Archival Location") },
     { "ICMS", QT_TRANSLATE_NOOP("@default", "Commissioned") },
     { "ICRP", QT_TRANSLATE_NOOP("@default", "Cropped") },
