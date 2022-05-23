@@ -106,6 +106,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   m_timeLcd->setSegmentStyle(QLCDNumber::Flat);
   m_timeLcd->setFrameStyle(QFrame::NoFrame);
   m_timeLcd->display(zeroTime);
+  m_timeLcd->setDigitCount(7);
 
   addAction(m_playOrPauseAction);
   addAction(m_stopAction);
@@ -178,13 +179,22 @@ void PlayToolBar::closeEvent(QCloseEvent*)
  */
 void PlayToolBar::tick(qint64 msec)
 {
+  int hours = msec / (60 * 60 * 1000);
   int minutes = (msec / (60 * 1000)) % 60;
   int seconds = (msec / 1000) % 60;
   if (msec % 1000 >= 500) {
     ++seconds;
   }
-  m_timeLcd->display(QString(QLatin1String("%1:%2")).arg(minutes, 2, 10, QLatin1Char(' '))
-                     .arg(seconds, 2, 10, QLatin1Char('0')));
+  if (hours == 0) {
+    m_timeLcd->display(QString(QLatin1String("%1:%2"))
+                       .arg(minutes, 2, 10, QLatin1Char(' '))
+                       .arg(seconds, 2, 10, QLatin1Char('0')));
+  } else {
+    m_timeLcd->display(QString(QLatin1String("%1:%2:%3"))
+                       .arg(hours, 2, 10, QLatin1Char(' '))
+                       .arg(minutes, 2, 10, QLatin1Char('0'))
+                       .arg(seconds, 2, 10, QLatin1Char('0')));
+  }
   if (!m_seekSlider->isSliderDown()) {
     m_seekSlider->setValue(msec / 1000);
   }
