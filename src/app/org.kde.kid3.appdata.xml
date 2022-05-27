@@ -22,6 +22,7 @@
   <name xml:lang="it">Kid3</name>
   <name xml:lang="ko">Kid3</name>
   <name xml:lang="nl">Kid3</name>
+  <name xml:lang="nn">Kid3</name>
   <name xml:lang="pl">Kid3</name>
   <name xml:lang="pt">Kid3</name>
   <name xml:lang="pt-BR">Kid3</name>
@@ -52,6 +53,7 @@
   <summary xml:lang="it">Modifica i metadati dei file audio</summary>
   <summary xml:lang="ko">오디오 파일 메타데이터 편집</summary>
   <summary xml:lang="nl">Metagegevens van audiobestanden bewerken</summary>
+  <summary xml:lang="nn">Rediger metadata for lydfiler</summary>
   <summary xml:lang="pl">Edytuj metadane pliku dźwiękowego</summary>
   <summary xml:lang="pt">Editar os meta-dados dos ficheiros de áudio</summary>
   <summary xml:lang="pt-BR">Edita metadados de arquivos de áudio</summary>
@@ -215,6 +217,7 @@
       <caption xml:lang="it">Finestra principale di Kid3</caption>
       <caption xml:lang="ko">Kid3 주 창</caption>
       <caption xml:lang="nl">Hoofdvenster van Kid3</caption>
+      <caption xml:lang="nn">Hovudvindauget i Kid3</caption>
       <caption xml:lang="pl">Główne okno Kid3</caption>
       <caption xml:lang="pt">Janela principal do Kid3</caption>
       <caption xml:lang="pt-BR">Janela principal do Kid3</caption>
@@ -250,6 +253,7 @@
   <developer_name xml:lang="it">Urs Fleisch</developer_name>
   <developer_name xml:lang="ko">Urs Fleisch</developer_name>
   <developer_name xml:lang="nl">Urs Fleisch</developer_name>
+  <developer_name xml:lang="nn">Urs Fleisch</developer_name>
   <developer_name xml:lang="pl">Urs Fleisch</developer_name>
   <developer_name xml:lang="pt">Urs Fleisch</developer_name>
   <developer_name xml:lang="pt-BR">Urs Fleisch</developer_name>
