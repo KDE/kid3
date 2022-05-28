@@ -1466,7 +1466,10 @@ FrameCollection::const_iterator FrameCollection::searchByName(
 #if QT_VERSION >= 0x060000
       if (ucName == ucFrameName.left(len))
 #else
-      if (ucName == ucFrameName.leftRef(len))
+      // Do not return ASF "Rating Information" when searching for "Rating".
+      if (ucName == ucFrameName.leftRef(len) &&
+          !(ucName == QLatin1String("RATING") &&
+            ucFrameName == QLatin1String("RATING INFORMATION")))
 #endif
       {
         return it;

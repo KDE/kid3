@@ -178,6 +178,69 @@ void extractFileFieldIndex(
   }
 }
 
+/**
+ * Get the internal rating frame name with optional field.
+ * @param frame frame containing rating
+ * @param taggedFile optional taggedFile to be used if @a frame does not have
+ *        a useful internal name
+ * @param tagNr used together with @a taggedFile to guess rating name
+ * @return internal name, "POPM.Email-Value" if POPM with Email value.
+ */
+QString ratingTypeName(const Frame& frame,
+                       const TaggedFile* taggedFile = nullptr,
+                       Frame::TagNumber tagNr = Frame::Tag_2)
+{
+  QString name = frame.getInternalName();
+  if (name.startsWith(QLatin1String("POPM"))) {
+    name.truncate(4);
+    QVariant emailVar = frame.getFieldValue(Frame::ID_Email);
+    QString emailValue;
+    if (emailVar.isValid() &&
+        !(emailValue = emailVar.toString()).isEmpty()) {
+      name += QLatin1Char('.');
+      name += emailValue;
+    }
+  } else if (taggedFile &&
+             name != QLatin1String("RATING") &&
+             name != QLatin1String("rate") &&
+             name != QLatin1String("IRTD") &&
+             name != QLatin1String("WM/SharedUserRating")) {
+    QString tagFormat = taggedFile->getTagFormat(tagNr);
+    if (tagFormat.isEmpty()) {
+      QString ext = taggedFile->getFileExtension().toLower();
+      if (ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") ||
+          ext == QLatin1String(".aac") || ext == QLatin1String(".tta") ||
+          ext == QLatin1String(".dsf") || ext == QLatin1String(".dff")) {
+        tagFormat = QLatin1String("ID3v2.3.0");
+      } else if (ext == QLatin1String(".ogg") ||
+                 ext == QLatin1String(".flac") ||
+                 ext == QLatin1String(".opus")) {
+        tagFormat = QLatin1String("Vorbis");
+      } else if (ext == QLatin1String(".m4a")) {
+        tagFormat = QLatin1String("MP4");
+      } else if (ext == QLatin1String(".wav") ||
+                 ext == QLatin1String(".aiff")) {
+        tagFormat = tagNr == Frame::Tag_3 ? QLatin1String("RIFF INFO")
+                                          : QLatin1String("ID3v2.3.0");
+      } else if (ext == QLatin1String(".wma")) {
+        tagFormat = QLatin1String("ASF");
+      }
+    }
+    if (tagFormat.startsWith(QLatin1String("ID3v2"))) {
+      name = QLatin1String("POPM");
+    } else if (tagFormat == QLatin1String("Vorbis")) {
+      name = QLatin1String("RATING");
+    } else if (tagFormat == QLatin1String("MP4")) {
+      name = QLatin1String("rate");
+    } else if (tagFormat == QLatin1String("RIFF INFO")) {
+      name = QLatin1String("IRTD");
+    } else if (tagFormat == QLatin1String("ASF")) {
+      name = QLatin1String("WM/SharedUserRating");
+    }
+  }
+  return name;
+}
+
 }
 
 /** Fallback for path to search for plugins */
@@ -3470,6 +3533,11 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
     explicitType = Frame::ExtendedType(Frame::FT_Other, frameName);
   }
   extractFileFieldIndex(frameName, dataFileName, fieldName, index);
+  bool isRatingStars = false;
+  if (frameName.toLower() == QLatin1String("ratingstars")) {
+    frameName.truncate(6); // Reduce to "rating"
+    isRatingStars = true;
+  }
   Frame::TagNumber tagNr = Frame::tagNumberFromMask(tagMask);
   if (tagNr >= Frame::Tag_NumValues)
     return QString();
@@ -3533,6 +3601,14 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
         return QString();
       } else {
         return Frame::getField(*it, fieldName).toString();
+      }
+    }
+    if (isRatingStars) {
+      bool ok;
+      int rating = it->getValue().toInt(&ok);
+      if (ok) {
+        return QString::number(TagConfig::instance().starCountFromRating(
+                                 rating, ratingTypeName(*it)));
       }
     }
     return it->getValue();
@@ -3613,6 +3689,11 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
     explicitType = Frame::ExtendedType(Frame::FT_Other, frameName);
   }
   extractFileFieldIndex(frameName, dataFileName, fieldName, index);
+  bool isRatingStars = false;
+  if (frameName.toLower() == QLatin1String("ratingstars")) {
+    frameName.truncate(6); // Reduce to "rating"
+    isRatingStars = true;
+  }
   FrameCollection frames(ft->frames());
   auto it = explicitType.getType() == Frame::FT_UnknownFrame
       ? frames.findByName(frameName, index)
@@ -3676,7 +3757,18 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
     } else {
       auto& frame = const_cast<Frame&>(*it);
       if (fieldName.isEmpty()) {
-        frame.setValueIfChanged(value);
+        QString val(value);
+        if (isRatingStars) {
+          bool ok;
+          int starCount = value.toInt(&ok);
+          if (ok && starCount >= 0 && starCount <= 5) {
+            val = QString::number(TagConfig::instance().starCountToRating(
+                                    starCount, ratingTypeName(*it)));
+          } else {
+            return false;
+          }
+        }
+        frame.setValueIfChanged(val);
       } else {
         if (fieldName == QLatin1String("selected")) {
           const int frameIndex = frame.getIndex();
@@ -3766,6 +3858,16 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         if (!Frame::setField(frame, fieldName, value)) {
           return false;
         }
+      }
+    }
+    if (isRatingStars) {
+      bool ok;
+      int starCount = value.toInt(&ok);
+      if (ok && starCount >= 0 && starCount <= 5) {
+        frame.setValue(QString::number(TagConfig::instance().starCountToRating(
+                                         starCount, ratingTypeName(frame, getSelectedFile(), tagNr))));
+      } else {
+        return false;
       }
     }
     addFrame(tagNr, &frame);

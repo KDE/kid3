@@ -2892,6 +2892,11 @@ for example <userinput>get artist.selected</userinput> will return
 <computeroutput>1</computeroutput> if the artist frame is selected, else
 <computeroutput>0</computeroutput>.
 </para>
+<para>
+The pseudo frame name "ratingstars" can be used to get the value of the
+"rating" frame as the format specific value corresponding to the number of
+stars (0 to 5). When using "rating", the internal value is returned.
+</para>
 </sect2>
 
 <sect2 id="cli-set">
@@ -2948,6 +2953,19 @@ To select certain frames before a copy, paste or remove action, the pseudo
 field name "selected" can be used. Normally, all frames are selected, to
 deselect all, use <userinput>set '*.selected' 0</userinput>, then for example
 <userinput>set artist.selected 1</userinput> to select the artist frame.
+</para>
+<para>
+The pseudo frame name "ratingstars" can be used to set the value of the
+"rating" frame to the format specific value corresponding to the number of
+stars (0 to 5). The frame name "rating" can be used to set the internal
+value.
+</para>
+<para>
+Setting "ratingstars" on multiple files having different tag formats will not
+work because the frame with the value mapped from the star count is created
+for the first file and then used for all files. So instead of
+<userinput>kid3-cli -c "set ratingstars 2" *</userinput> you should rather use
+<userinput>for f in *; do kid3-cli -c "set ratingstars 2" $f; done</userinput>.
 </para>
 </sect2>
 
