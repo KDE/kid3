@@ -4517,10 +4517,18 @@ void prefixMp4FreeFormName(TagLib::String& name, const TagLib::MP4::Tag* mp4Tag)
 #else
       !const_cast<TagLib::MP4::Tag*>(mp4Tag)->itemListMap().contains(name)
 #endif
-      && !name.startsWith("----") &&
-      !(name.length() == 4 &&
-        (static_cast<char>(name[0]) == '\251' ||
-         (name[0] >= 'a' && name[0] <= 'z')))) {
+      && ((!name.startsWith("----") &&
+           !(name.length() == 4 &&
+             (static_cast<char>(name[0]) == '\251' ||
+              (name[0] >= 'a' && name[0] <= 'z')))) ||
+#if TAGLIB_VERSION >= 0x010a00
+          mp4Tag->contains("----:com.apple.iTunes:" + name)
+#else
+          const_cast<TagLib::MP4::Tag*>(mp4Tag)->itemListMap().contains(
+            "----:com.apple.iTunes:" + name)
+#endif
+          )
+      ) {
     Frame::Type type;
     Mp4ValueType valueType;
     if (getMp4TypeForName(name, type, valueType)) {
