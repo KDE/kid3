@@ -91,20 +91,17 @@
         },
         {
             "name": "mp4v2",
-            "buildsystem": "autotools",
-            "config-opts": [],
-            "cleanup": [ "/bin" ],
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+                "-DBUILD_UTILS=OFF"
+            ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mp4v2/mp4v2-2.0.0.tar.bz2",
-                    "sha256": "0319b9a60b667cf10ee0ec7505eb7bdc0a2e21ca7a93db96ec5bd758e3428338"
-                },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0001-Fix_mp4tags_corruption.patch" },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0002-Fix_m4_error.patch" },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0003-Reproducible_build.patch" },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0004-Pointer_comparison.patch" },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0005-Cxx11_compiler.patch" }
+                    "url": "https://github.com/enzo1982/mp4v2/releases/download/v2.1.1/mp4v2-2.1.1.tar.bz2",
+                    "sha256": "29420c62e56a2e527fd8979d59d05ed6d83ebe27e0e2c782c1ec19a3a402eaee"
+                }
             ]
         },
         {

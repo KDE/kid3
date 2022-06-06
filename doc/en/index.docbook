@@ -2587,7 +2587,7 @@ Uses <ulink url="http://taglib.github.io/">TagLib</ulink> which supports a
 lot of audio file formats. It can be used for all audio files supported by
 &kid3;.</para></listitem>
 <listitem><para><guilabel>Mp4v2Metadata</guilabel>:
-<ulink url="http://code.google.com/p/mp4v2">mp4v2</ulink> was originally used
+<ulink url="https://mp4v2.org/">mp4v2</ulink> was originally used
 by &kid3; to support M4A files. Can be used in case of problems with the M4A
 support of TagLib.
 </para></listitem>

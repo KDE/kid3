@@ -355,8 +355,7 @@ taglib_version=1.12
 taglib_githash=c4a0855f42c05ad9fab8915f27439c8194b6bb94
 chromaprint_version=1.5.0
 chromaprint_patchlevel=2
-mp4v2_version=2.0.0
-mp4v2_patchlevel=5
+mp4v2_version=2.1.1
 
 # Try to find the configuration from an existing build.
 if test -z "$COMPILER"; then
@@ -391,8 +390,11 @@ if [[ "$QTPREFIX" =~ /([0-9]+)\.([0-9]+)\.([0-9]+)/ ]]; then
   qt_version=$(printf "%d.%d.%d" ${BASH_REMATCH[1]} ${BASH_REMATCH[2]} ${BASH_REMATCH[3]})
   qt_version_major=${BASH_REMATCH[1]}
 else
-  echo "Could not extract Qt version from $QTPREFIX"
-  exit 1
+  echo "Could not extract Qt version from $QTPREFIX, assuming $qt_version"
+  if [[ "$qt_version" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+    qt_nr=$(printf "%d%02d%02d" ${BASH_REMATCH[1]} ${BASH_REMATCH[2]} ${BASH_REMATCH[3]})
+    qt_version_major=${BASH_REMATCH[1]}
+  fi
 fi
 
 if test "$qt_nr" -ge 51204; then
@@ -639,10 +641,8 @@ if test "$compiler" != "cross-android"; then
   test -f chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
 
-  test -f mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2 ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2
-  test -f mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/m/mp4v2/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz
+  test -f mp4v2-${mp4v2_version}.tar.bz2 ||
+    $DOWNLOAD https://github.com/enzo1982/mp4v2/releases/download/v${mp4v2_version}/mp4v2-${mp4v2_version}.tar.bz2
 
 fi # !cross-android
 
@@ -959,19 +959,7 @@ if test "$compiler" != "cross-android"; then
   if ! test -d mp4v2-${mp4v2_version}; then
     echo "### Extracting mp4v2"
 
-    tar xjf source/mp4v2_${mp4v2_version}~dfsg0.orig.tar.bz2
-    cd mp4v2-${mp4v2_version}/
-    tar xJf ../source/mp4v2_${mp4v2_version}~dfsg0-${mp4v2_patchlevel}.debian.tar.xz
-    for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
-    if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
-      patch -p1 <$srcdir/packaging/patches/mp4v2-1.0.0-win00-platform.patch
-      if test -z "${cross_host##x86_64*}"; then
-        sed -i '/^#   define _USE_32BIT_TIME_T/ s#^#//#' libplatform/platform_win32.h
-      fi
-    fi
-    patch -p1 <$srcdir/packaging/patches/mp4v2-1.0.0-0005-Cxx11_compiler.patch
-    patch -p1 <$srcdir/packaging/patches/mp4v2-1.0.0-0004-Pointer_comparison.patch
-    cd ..
+    tar xjf source/mp4v2-${mp4v2_version}.tar.bz2
   fi
 
 fi # !cross-android
@@ -1442,10 +1430,11 @@ else #  cross-android
     echo "### Building mp4v2"
 
     cd mp4v2-${mp4v2_version}/
-    autoreconf -i
-    test -f Makefile || CXXFLAGS="$CXXFLAGS -g -O2 -DMP4V2_USE_STATIC_LIB" ./configure --enable-shared=no --enable-static=yes --disable-gch $CONFIGURE_OPTIONS
+    test -f Makefile || eval cmake -DBUILD_SHARED=OFF -DBUILD_UTILS=OFF -DBUILD_SHARED_LIBS=OFF $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    make VERBOSE=1
     mkdir -p inst
     make install DESTDIR=`pwd`/inst
+    fixcmakeinst
     cd inst
     tar czf ../../bin/mp4v2-${mp4v2_version}.tgz usr
     cd ../..
