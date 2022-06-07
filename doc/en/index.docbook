@@ -2965,7 +2965,7 @@ Setting "ratingstars" on multiple files having different tag formats will not
 work because the frame with the value mapped from the star count is created
 for the first file and then used for all files. So instead of
 <userinput>kid3-cli -c "set ratingstars 2" *</userinput> you should rather use
-<userinput>for f in *; do kid3-cli -c "set ratingstars 2" $f; done</userinput>.
+<userinput>for f in *; do kid3-cli -c "set ratingstars 2" "$f"; done</userinput>.
 </para>
 </sect2>
 
