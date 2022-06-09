@@ -37,7 +37,7 @@
   <name xml:lang="zh-TW">Kid3</name>
   <summary>Edit audio file metadata</summary>
   <summary xml:lang="ca">Edita les metadades dels fitxers d'àudio</summary>
-  <summary xml:lang="ca-valencia">Edita les metadades dels fichers d'àudio</summary>
+  <summary xml:lang="ca-valencia">Edita les metadades dels fitxers d'àudio</summary>
   <summary xml:lang="cs">Upravujte metadata souboru hudby</summary>
   <summary xml:lang="da">Redigér metadata for lydfiler</summary>
   <summary xml:lang="de">Metadaten von Audio-Dateien bearbeiten</summary>
@@ -73,7 +73,7 @@
       WMA, WAV, AIFF and tracker files.
     </p>
     <p xml:lang="ca">Amb el Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes als fitxers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i del seguidor de peces.</p>
-    <p xml:lang="ca-valencia">Amb Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes als fichers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i del seguidor de peces.</p>
+    <p xml:lang="ca-valencia">Amb Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes als fitxers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i del seguidor de peces.</p>
     <p xml:lang="cs">Pomocí Kid3, editoru značek hudby, můžete upravovat značky v MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF a dalších souborech.</p>
     <p xml:lang="da">Kid3 er en lydmærke-editor, hvormed du kan redigere mærker i MP3-, Ogg/Vorbis-, DSF-, FLAC-, Opus-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- og tracker-filer.</p>
     <p xml:lang="de">Mit Kid3, einem Editor für Audio-Metadaten, können Sie Tags in MP3-, Ogg/Vorbis-, DSF-, FLAC-, Opus-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- und und Tracker-Dateien bearbeiten.</p>
@@ -107,7 +107,7 @@
       lyrics can be edited, imported and exported to LRC Karaoke files.
     </p>
     <p xml:lang="ca">Es poden editar tots els marcs en les etiquetes ID3 dels fitxers MP3, i és possible convertir-les entre l'ID3 versió 1.1, 2.3 i 2.4. La lletra sincronitzada es pot editar, importar i exportar a fitxers de Karaoke en LRC.</p>
-    <p xml:lang="ca-valencia">Es poden editar tots els marcs en les etiquetes ID3 dels fichers MP3, i és possible convertir-les entre l'ID3 versió 1.1, 2.3 i 2.4. La lletra sincronisada es pot editar, importar i exportar a fichers de Karaoke en LRC.</p>
+    <p xml:lang="ca-valencia">Es poden editar tots els marcs en les etiquetes ID3 dels fitxers MP3, i és possible convertir-les entre l'ID3 versió 1.1, 2.3 i 2.4. La lletra sincronisada es pot editar, importar i exportar a fitxers de Karaoke en LRC.</p>
     <p xml:lang="da">Alle rammer i ID3-mærkerne for MP3-filer kan redigeres, og det er muligt at konvertere mellem ID3v1.1, ID3v2.3 og ID3v2.4. Synkroniserede sangtekster kan redigeres, importeres og eksporteres til LRC karaoke-filer.</p>
     <p xml:lang="de">Alle Elemente in den ID3-Tags von MP3-Dateien können bearbeitet und zwischen ID3v1.1, ID3v2.3 und ID3v2.4 umgewandelt werden. Synchronisierte Liedtexte können bearbeitet, importiert und in LRC-Karaoke-Dateien exportiert werden.</p>
     <p xml:lang="el">Όλα τα καρέ στις ID3 ετικέτες των MP3 αρχείων μπορούν να γίνουν αντικείμενο επεξεργασίας και είναι εφικτή η μετατροπή ανάμεσα σε ID3v1.1, ID3v2.3 και ID3v2.4. Μπορεί να γίνει επεξεργασία, εισαγωγή και εξαγωγή συγχρονισμένων στίχων σε LRC καραόκε αρχεία.</p>
@@ -140,7 +140,7 @@
       case conversion and string replacement help to keep tags consistent.
     </p>
     <p xml:lang="ca">Es poden establir juntes les etiquetes de múltiples fitxers. És possible generar etiquetes a partir de noms de fitxer o el contingut d'altres camps d'etiqueta i generar noms de fitxer a partir d'etiquetes i canviar el nom de les carpetes a partir de les etiquetes. La conversió automàtica de majúscules i minúscules, i la substitució de cadenes ajuden a mantenir les etiquetes coherents.</p>
-    <p xml:lang="ca-valencia">Es poden establir juntes les etiquetes de múltiples fichers. És possible generar etiquetes a partir de noms de ficher o el contingut d'atres camps d'etiqueta i generar noms de ficher a partir d'etiquetes i canviar el nom de les carpetes a partir de les etiquetes. La conversió automàtica de majúscules i minúscules, i la substitució de cadenes ajuden a mantindre les etiquetes coherents.</p>
+    <p xml:lang="ca-valencia">Es poden establir juntes les etiquetes de múltiples fitxers. És possible generar etiquetes a partir de noms de fitxer o el contingut d'atres camps d'etiqueta i generar noms de fitxer a partir d'etiquetes i canviar el nom de les carpetes a partir de les etiquetes. La conversió automàtica de majúscules i minúscules, i la substitució de cadenes ajuden a mantindre les etiquetes coherents.</p>
     <p xml:lang="da">Mærker fra flere filer kan sættes sammen. Det er muligt at generere mærker ud fra filnavne eller indholdet af andre mærkefelter samt at generere filnavne fra mærker og omdøbe mapper ud fra mærker. Automatisk konvertering af versaler og erstatning af strenge hjælper med at holde mærkerne konsistente.</p>
     <p xml:lang="de">Die Tags von mehreren Dateien können gemeinsam festgelegt werden. Es ist möglich, Tags aus Dateinamen oder dem Inhalt anderer Tag-Felder und Dateinamen aus Tags zu generieren und Ordner aus Tags umzubenennen. Automatische Groß-/Kleinschreibung und die Ersetzung von Zeichenfolgen helfen dabei, Tags einheitlich zu halten.</p>
     <p xml:lang="el">Οι ετικέτες πολλών αρχείων μπορούν να ρυθμιστούν μαζί. Είναι δυνατή η παραγωγή ετικετών από ονόματα αρχείων ή από τα περιεχόμενα άλλων πεδίων ετικετών, η παραγωγή ονομάτων αρχείων από ετικέτες και η μετονομασία φακέλων από ετικέτες. Η αυτόματη μετατροπή μεταξύ κεφαλαίων και πεζών και η αντικατάσταση συμβολοσειρών βοηθούν στη διατήρηση των ετικετών σε συμφωνία.</p>
