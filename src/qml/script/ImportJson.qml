@@ -99,7 +99,7 @@ Kid3Script {
       console.log("Read tags for %1 files from %2".
                   arg(obj.data.length).arg(importPath))
       for (var i = 0; i < obj.data.length; ++i) {
-        var filePath = obj.data[i].filePath
+        var filePath = obj.data[i]["File Path"]
         if (filePath) {
           files[filePath] = i
         }
