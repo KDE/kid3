@@ -930,6 +930,7 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
           genreStr.replace(nlSpaceRe, QLatin1String(""));
           genreStr = removeHtml(genreStr); // strip HTML tags and entities
           genreStr.remove(QLatin1String("RockStyle:"));
+          genreStr.remove(QLatin1String("PopStyle:"));
           if (genreStr.indexOf(QLatin1Char(',')) >= 0) {
             genreList += genreStr.split(QRegularExpression(QLatin1String(",\\s*")));
           } else {
