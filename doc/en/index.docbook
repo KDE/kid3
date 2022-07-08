@@ -1612,6 +1612,9 @@ or use a <guibutton>Format</guibutton> with values from the tags, <abbrev>e.g.</
 "<userinput>%{artist} - %{album}</userinput>" to have the artist and album
 name in the playlist file name. The format codes are the same as for
 <link linkend="export">Export</link>.
+The list of available formats can be edited in the <guilabel>Format</guilabel>
+section of the <guilabel>Files</guilabel> tab in the
+<link linkend="configure-kid3">settings</link>.
 <guibutton>Create new empty playlist</guibutton> will make an empty playlist
 with the given name.
 The extension depends on the playlist format.
@@ -2456,6 +2459,11 @@ filename</guibutton> in section <guilabel>Format</guilabel> open dialogs to
 edit the formats which are available in the <guilabel>Format</guilabel> combo
 boxes (with arrows up and down), which can be found in the
 <link linkend="file">File</link> section of the main window.
+</para>
+<para>
+The <guibutton>Playlist</guibutton> button can be used to edit the file name
+formats available in the <link linkend="create-playlist">Create Playlist</link>
+dialog.
 </para>
 <para>
 <guilabel>Filename Format</guilabel> contains options for the format of the

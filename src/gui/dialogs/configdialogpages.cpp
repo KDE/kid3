@@ -52,6 +52,7 @@
 #include "guiconfig.h"
 #include "networkconfig.h"
 #include "importconfig.h"
+#include "playlistconfig.h"
 #include "stringlistedit.h"
 #include "stringlisteditdialog.h"
 #include "configtable.h"
@@ -435,17 +436,24 @@ QWidget* ConfigDialogPages::createFilesPage()
   rightLayout->addWidget(fileListGroupBox);
 
   auto formatGroupBox = new QGroupBox(tr("Format"), filesPage);
-  auto formatLayout = new QHBoxLayout(formatGroupBox);
+  auto formatLayout = new QVBoxLayout(formatGroupBox);
+  auto filenameTagFormatLayout = new QHBoxLayout;
   auto editFormatsFromTagButton =
           new QPushButton(tr("Filename from tag") + QLatin1String("..."));
   connect(editFormatsFromTagButton, &QPushButton::clicked,
           this, &ConfigDialogPages::editFormatsFromTag);
-  formatLayout->addWidget(editFormatsFromTagButton);
+  filenameTagFormatLayout->addWidget(editFormatsFromTagButton);
   auto editFormatsToTagButton =
           new QPushButton(tr("Tag from filename") + QLatin1String("..."));
   connect(editFormatsToTagButton, &QPushButton::clicked,
           this, &ConfigDialogPages::editFormatsToTag);
-  formatLayout->addWidget(editFormatsToTagButton);
+  filenameTagFormatLayout->addWidget(editFormatsToTagButton);
+  formatLayout->addLayout(filenameTagFormatLayout);
+  auto editPlaylistFormatsButton =
+          new QPushButton(tr("Playlist") + QLatin1String("..."));
+  connect(editPlaylistFormatsButton, &QPushButton::clicked,
+          this, &ConfigDialogPages::editPlaylistFormats);
+  formatLayout->addWidget(editPlaylistFormatsButton);
   rightLayout->addWidget(formatGroupBox);
 
   rightLayout->addStretch();
@@ -489,6 +497,22 @@ void ConfigDialogPages::editFormatsToTag()
         m_fromFilenameFormats, tr("Tag from Filename"), parentWindow);
   if (dialog.exec() == QDialog::Accepted) {
     m_fromFilenameFormats = dialog.stringList();
+  }
+}
+
+/**
+ * Open dialog to edit playlist file name formats.
+ */
+void ConfigDialogPages::editPlaylistFormats()
+{
+  QWidget* parentWindow = nullptr;
+  if (auto button = qobject_cast<QPushButton*>(sender())) {
+    parentWindow = button->window();
+  }
+  StringListEditDialog dialog(
+        m_playlistFileNameFormats, tr("Playlist"), parentWindow);
+  if (dialog.exec() == QDialog::Accepted) {
+    m_playlistFileNameFormats = dialog.stringList();
   }
 }
 
@@ -624,8 +648,9 @@ void ConfigDialogPages::setDefaultConfig()
   networkCfg.setDefaultBrowser();
   ImportConfig importCfg;
   importCfg.setAvailablePlugins(ImportConfig::instance().availablePlugins());
+  PlaylistConfig playlistCfg;
   setConfigs(fnCfg, id3Cfg, tagCfg, fileCfg, userActionsCfg, guiCfg, networkCfg,
-            importCfg);
+            importCfg, playlistCfg);
 }
 
 /**
@@ -641,8 +666,9 @@ void ConfigDialogPages::setConfig()
   const GuiConfig& guiCfg = GuiConfig::instance();
   const NetworkConfig& networkCfg = NetworkConfig::instance();
   const ImportConfig& importCfg = ImportConfig::instance();
+  const PlaylistConfig& playlistCfg = PlaylistConfig::instance();
   setConfigs(fnCfg, id3Cfg, tagCfg, fileCfg, userActionsCfg, guiCfg, networkCfg,
-            importCfg);
+            importCfg, playlistCfg);
 }
 
 /**
@@ -652,7 +678,8 @@ void ConfigDialogPages::setConfigs(
     const FormatConfig& fnCfg, const FormatConfig& id3Cfg,
     const TagConfig& tagCfg, const FileConfig& fileCfg,
     const UserActionsConfig& userActionsCfg, const GuiConfig& guiCfg,
-    const NetworkConfig& networkCfg, const ImportConfig& importCfg)
+    const NetworkConfig& networkCfg, const ImportConfig& importCfg,
+    const PlaylistConfig& playlistCfg)
 {
   m_fnFormatBox->fromFormatConfig(fnCfg);
   m_tagFormatBox->fromFormatConfig(id3Cfg);
@@ -672,6 +699,7 @@ void ConfigDialogPages::setConfigs(
   m_fileTextEncodingComboBox->setCurrentIndex(fileCfg.textEncodingIndex());
   m_toFilenameFormats = fileCfg.toFilenameFormats();
   m_fromFilenameFormats = fileCfg.fromFilenameFormats();
+  m_playlistFileNameFormats = playlistCfg.fileNameFormats();
   m_onlyCustomGenresCheckBox->setChecked(tagCfg.onlyCustomGenres());
   m_genresEditModel->setStringList(tagCfg.customGenres());
   m_customFramesEditModel->setStringList(
@@ -774,6 +802,7 @@ void ConfigDialogPages::getConfig() const
   GuiConfig& guiCfg = GuiConfig::instance();
   NetworkConfig& networkCfg = NetworkConfig::instance();
   ImportConfig& importCfg = ImportConfig::instance();
+  PlaylistConfig& playlistCfg = PlaylistConfig::instance();
 
   m_fnFormatBox->toFormatConfig(fnCfg);
   m_tagFormatBox->toFormatConfig(id3Cfg);
@@ -792,6 +821,7 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setTextEncodingIndex(m_fileTextEncodingComboBox->currentIndex());
   fileCfg.setToFilenameFormats(m_toFilenameFormats);
   fileCfg.setFromFilenameFormats(m_fromFilenameFormats);
+  playlistCfg.setFileNameFormats(m_playlistFileNameFormats);
   tagCfg.setOnlyCustomGenres(m_onlyCustomGenresCheckBox->isChecked());
   tagCfg.setCustomGenres(m_genresEditModel->stringList());
   tagCfg.setCustomFrames(TagConfig::customFrameNamesFromDisplayNames(

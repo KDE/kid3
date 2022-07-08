@@ -147,13 +147,6 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   m_fileNameFormatButton->setText(tr("&Format:"));
   m_fileNameFormatComboBox->setEditable(true);
   m_fileNameFormatComboBox->setEnabled(false);
-  m_fileNameFormatComboBox->addItems({
-    QLatin1String("%{artist} - %{album}"),
-    QLatin1String(R"(%{artist} - %{"["year"] "}%{album})"),
-    QLatin1String("%{album}"),
-    QLatin1String("playlist_%{artist}_-_%{album}"),
-    QLatin1String("playlist")
-  });
   connect(m_fileNameFormatButton, &QAbstractButton::toggled,
           m_fileNameFormatComboBox, &QWidget::setEnabled);
   m_fileNameForEmptyButton->setText(tr("Create ne&w empty playlist:"));
@@ -252,6 +245,8 @@ void PlaylistDialog::readConfig()
   m_writeListButton->setChecked(!playlistCfg.writeInfo());
   m_locationComboBox->setCurrentIndex(playlistCfg.location());
   m_formatComboBox->setCurrentIndex(playlistCfg.format());
+  m_fileNameFormatComboBox->clear();
+  m_fileNameFormatComboBox->addItems(playlistCfg.fileNameFormats());
   m_fileNameFormatComboBox->setEditText(
     playlistCfg.fileNameFormat());
   m_sortTagFieldComboBox->setEditText(playlistCfg.sortTagField());

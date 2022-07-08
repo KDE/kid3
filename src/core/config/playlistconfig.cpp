@@ -30,19 +30,34 @@
 
 int PlaylistConfig::s_index = -1;
 
+namespace {
+
+/** Default file name format list */
+const char* defaultFileNameFormats[] = {
+  "%{artist} - %{album}",
+ R"(%{artist} - %{"["year"] "}%{album})",
+  "%{album}",
+  "playlist_%{artist}_-_%{album}",
+  "playlist",
+  nullptr
+};
+
+}
+
 /**
  * Constructor.
  */
 PlaylistConfig::PlaylistConfig()
   : StoredConfig<PlaylistConfig>(QLatin1String("Playlist")),
     m_location(PL_CurrentDirectory), m_format(PF_M3U),
-    m_fileNameFormat(QLatin1String("%{artist} - %{album}")),
+    m_fileNameFormat(QLatin1String(defaultFileNameFormats[0])),
     m_sortTagField(QLatin1String("%{track.3}")),
     m_infoFormat(QLatin1String("%{artist} - %{title}")),
     m_useFileNameFormat(false),
     m_onlySelectedFiles(false),
     m_useSortTagField(false), m_useFullPath(false), m_writeInfo(false)
 {
+  initFormatListsIfEmpty();
 }
 
 /**
@@ -54,6 +69,7 @@ PlaylistConfig::PlaylistConfig(const PlaylistConfig& other)
     m_location(other.m_location),
     m_format(other.m_format),
     m_fileNameFormat(other.m_fileNameFormat),
+    m_fileNameFormatItems(other.m_fileNameFormatItems),
     m_sortTagField(other.m_sortTagField),
     m_infoFormat(other.m_infoFormat),
     m_useFileNameFormat(other.m_useFileNameFormat),
@@ -75,6 +91,7 @@ PlaylistConfig& PlaylistConfig::operator=(const PlaylistConfig& other)
     m_location = other.m_location;
     m_format = other.m_format;
     m_fileNameFormat = other.m_fileNameFormat;
+    m_fileNameFormatItems = other.m_fileNameFormatItems;
     m_sortTagField = other.m_sortTagField;
     m_infoFormat = other.m_infoFormat;
     m_useFileNameFormat = other.m_useFileNameFormat;
@@ -107,6 +124,7 @@ void PlaylistConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("Format"),
                    QVariant(static_cast<int>(m_format)));
   config->setValue(QLatin1String("FileNameFormat"), QVariant(m_fileNameFormat));
+  config->setValue(QLatin1String("FileNameFormatItems"), QVariant(m_fileNameFormatItems));
   config->setValue(QLatin1String("SortTagField"), QVariant(m_sortTagField));
   config->setValue(QLatin1String("InfoFormat"), QVariant(m_infoFormat));
   config->endGroup();
@@ -139,6 +157,8 @@ void PlaylistConfig::readFromConfig(ISettings* config)
     static_cast<int>(m_format)).toInt());
   m_fileNameFormat = config->value(QLatin1String("FileNameFormat"),
                                    m_fileNameFormat).toString();
+  m_fileNameFormatItems = config->value(QLatin1String("FileNameFormatItems"),
+                                        m_fileNameFormatItems).toStringList();
   m_sortTagField = config->value(QLatin1String("SortTagField"),
                                  m_sortTagField).toString();
   m_infoFormat = config->value(QLatin1String("InfoFormat"),
@@ -148,7 +168,19 @@ void PlaylistConfig::readFromConfig(ISettings* config)
   m_windowGeometry = config->value(QLatin1String("WindowGeometry"),
                                    m_windowGeometry).toByteArray();
   config->endGroup();
+
+  initFormatListsIfEmpty();
 }
+
+void PlaylistConfig::initFormatListsIfEmpty()
+{
+  if (m_fileNameFormatItems.size() <= 1) {
+    for (const char** sl = defaultFileNameFormats; *sl != nullptr; ++sl) {
+      m_fileNameFormatItems += QString::fromLatin1(*sl);
+    }
+  }
+}
+
 
 void PlaylistConfig::setLocation(PlaylistLocation location)
 {
@@ -171,6 +203,15 @@ void PlaylistConfig::setFileNameFormat(const QString& fileNameFormat)
   if (m_fileNameFormat != fileNameFormat) {
     m_fileNameFormat = fileNameFormat;
     emit fileNameFormatChanged(m_fileNameFormat);
+  }
+}
+
+void PlaylistConfig::setFileNameFormats(const QStringList& fileNameFormatItems)
+{
+  if (m_fileNameFormatItems != fileNameFormatItems) {
+    m_fileNameFormatItems = fileNameFormatItems;
+    m_fileNameFormatItems.removeDuplicates();
+    emit fileNameFormatsChanged(m_fileNameFormatItems);
   }
 }
 

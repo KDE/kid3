@@ -49,6 +49,7 @@ class UserActionsConfig;
 class GuiConfig;
 class NetworkConfig;
 class ImportConfig;
+class PlaylistConfig;
 class IPlatformTools;
 
 /**
@@ -116,6 +117,7 @@ public slots:
 private slots:
   void editFormatsFromTag();
   void editFormatsToTag();
+  void editPlaylistFormats();
   void onCustomFramesEditModelChanged();
 
 private:
@@ -126,7 +128,8 @@ private:
       const FormatConfig& fnCfg, const FormatConfig& id3Cfg,
       const TagConfig& tagCfg, const FileConfig& fileCfg,
       const UserActionsConfig& userActionsCfg, const GuiConfig& guiCfg,
-      const NetworkConfig& networkCfg, const ImportConfig& importCfg);
+      const NetworkConfig& networkCfg, const ImportConfig& importCfg,
+      const PlaylistConfig& playlistCfg);
 
   void getQuickAccessFramesConfig(QList<int>& frameTypes,
                                   quint64& frameMask) const;
@@ -220,4 +223,6 @@ private:
   QStringList m_toFilenameFormats;
   /** Available formats for tag from filename */
   QStringList m_fromFilenameFormats;
+  /** Available playlist file name formats */
+  QStringList m_playlistFileNameFormats;
 };

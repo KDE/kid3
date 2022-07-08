@@ -143,6 +143,14 @@ public:
   /** Set playlist file name format. */
   void setFileNameFormat(const QString& fileNameFormat);
 
+  /** Get playlist file name formats. */
+  QStringList fileNameFormats() const {
+    return m_fileNameFormatItems;
+  }
+
+  /** Set playlist file name formats. */
+  void setFileNameFormats(const QStringList& fileNameFormatItems);
+
   /** Get tag field used for sorting. */
   QString sortTagField() const { return m_sortTagField; }
 
@@ -222,6 +230,9 @@ signals:
   /** Emitted when @a fileNameFormat changed. */
   void fileNameFormatChanged(const QString& fileNameFormat);
 
+  /** Emitted when @a fileNameFormats changed. */
+  void fileNameFormatsChanged(const QStringList& fileNameFormats);
+
   /** Emitted when @a sortTagField changed. */
   void sortTagFieldChanged(const QString& sortTagField);
 
@@ -249,6 +260,8 @@ signals:
 private:
   friend PlaylistConfig& StoredConfig<PlaylistConfig>::instance();
 
+  void initFormatListsIfEmpty();
+
   void setLocationInt(int location) {
     setLocation(static_cast<PlaylistLocation>(location));
   }
@@ -260,6 +273,7 @@ private:
   PlaylistLocation m_location;
   PlaylistFormat m_format;
   QString m_fileNameFormat;
+  QStringList m_fileNameFormatItems;
   QString m_sortTagField;
   QString m_infoFormat;
   QByteArray m_windowGeometry;
