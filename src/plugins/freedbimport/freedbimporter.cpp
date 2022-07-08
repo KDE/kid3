@@ -324,6 +324,35 @@ void FreedbImporter::sendFindQuery(
   const ServerImporterConfig*,
   const QString& artist, const QString& album)
 {
+  // If an URL is entered in the first search field, its result will be directly
+  // available in the album results list.
+  if (artist.startsWith(QLatin1String("https://gnudb.org/"))) {
+    const int catBegin = 18;
+    int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
+    if (catEnd > catBegin) {
+      static QStringList categories({
+        QLatin1String("blues"),
+        QLatin1String("classical"),
+        QLatin1String("country"),
+        QLatin1String("data"),
+        QLatin1String("folk"),
+        QLatin1String("jazz"),
+        QLatin1String("newage"),
+        QLatin1String("reggae"),
+        QLatin1String("rock"),
+        QLatin1String("soundtrack"),
+        QLatin1String("misc")
+      });
+      QString id = artist.mid(catEnd + 1);
+      for (const auto& category : categories) {
+        if (id.startsWith(category.mid(0, 2))) {
+          m_albumListModel->clear();
+          m_albumListModel->appendItem(artist, category, id.mid(2));
+          return;
+        }
+      }
+    }
+  }
   // At the moment, only www.gnudb.org has a working search
   // so we always use this server for find queries.
   sendRequest(QString::fromLatin1(gnudbServer), QLatin1String("/search/") +

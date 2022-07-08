@@ -1135,6 +1135,11 @@ When satisfied with the displayed tracks, they
 can be imported by terminating the import dialog with
 <guibutton>OK</guibutton>.
 </para>
+<para>
+If you already have a search result open in the web browser, you can enter the
+URL into the first search field. The result will then appear in the album list
+and can be directly imported into &kid3;.
+</para>
 <para id="import-discogs">
 A search on the Discogs server can be performed using
 <guibutton>Discogs</guibutton>. As in the <guibutton>gnudb.org</guibutton> dialog,

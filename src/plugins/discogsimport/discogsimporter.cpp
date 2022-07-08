@@ -1473,6 +1473,20 @@ void DiscogsImporter::sendFindQuery(
   const ServerImporterConfig* cfg,
   const QString& artist, const QString& album)
 {
+  // If an URL is entered in the first search field, its result will be directly
+  // available in the album results list.
+  if (artist.startsWith(QLatin1String("https://www.discogs.com/"))) {
+    const int catBegin = 24;
+    int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
+    if (catEnd > catBegin) {
+      m_htmlImpl->albumListModel()->clear();
+      m_htmlImpl->albumListModel()->appendItem(
+            artist,
+            artist.mid(catBegin, catEnd - catBegin),
+            artist.mid(catEnd + 1));
+      return;
+    }
+  }
   m_impl = selectImpl(cfg);
   m_impl->sendFindQuery(cfg, artist, album);
 }

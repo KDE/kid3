@@ -319,6 +319,20 @@ void AmazonImporter::sendFindQuery(
   const ServerImporterConfig* cfg,
   const QString& artist, const QString& album)
 {
+  // If an URL is entered in the first search field, its result will be directly
+  // available in the album results list.
+  if (artist.startsWith(QLatin1String("https://www.amazon.com/"))) {
+    const int catBegin = 23;
+    int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
+    if (catEnd > catBegin) {
+      m_albumListModel->clear();
+      m_albumListModel->appendItem(
+            artist,
+            artist.mid(catBegin, catEnd - catBegin),
+            artist.mid(catEnd + 1));
+      return;
+    }
+  }
   /*
    * Query looks like this:
    * http://www.amazon.com/gp/search/ref=sr_adv_m_pop/?search-alias=popular&field-artist=amon+amarth&field-title=the+avenger

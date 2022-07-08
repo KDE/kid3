@@ -614,6 +614,20 @@ void MusicBrainzImporter::sendFindQuery(
   const QString& artist, const QString& album)
 {
   Q_UNUSED(cfg)
+  // If an URL is entered in the first search field, its result will be directly
+  // available in the album results list.
+  if (artist.startsWith(QLatin1String("https://musicbrainz.org/"))) {
+    const int catBegin = 24;
+    int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
+    if (catEnd > catBegin) {
+      m_albumListModel->clear();
+      m_albumListModel->appendItem(
+            artist,
+            artist.mid(catBegin, catEnd - catBegin),
+            artist.mid(catEnd + 1));
+      return;
+    }
+  }
   /*
    * Query looks like this:
    * http://musicbrainz.org/ws/2/release?query=artist:wizard%20AND%20release:odin
