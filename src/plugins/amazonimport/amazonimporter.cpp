@@ -59,6 +59,9 @@ AmazonImporter::AmazonImporter(
   : ServerImporter(netMgr, trackDataModel)
 {
   setObjectName(QLatin1String("AmazonImporter"));
+  m_headers["User-Agent"] =
+      "Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.2) "
+      "Gecko/20090729 Firefox/3.5.2 GTB5";
 }
 
 /**
@@ -107,10 +110,9 @@ void AmazonImporter::parseFindResults(const QByteArray& searchStr)
   QString str = QString::fromUtf8(searchStr);
   QRegularExpression catIdTitleRe(
         QLatin1String(R"(href="[^"]+/(dp|ASIN|images|product|-)/([A-Z0-9]+))"
-            R"([^"]+">[\s\n]*<span[^>]*>([^<]+)</span>)"
+            R"([^"]+">.*<span[^>]*>([^<]+)</span>)"
             R"((?:[\s\n]*(?:</a>|</h2>|<div[^>]*>|<span[^>]*>))*by </span>)"
             R"([\s\n]*<(?:a|span)[^>]*>([^<]+)</)"));
-  QRegularExpression nextElementRe(QLatin1String(">([^<]+)<"));
 
   str.remove(QLatin1Char('\r'));
   m_albumListModel->clear();
@@ -134,34 +136,15 @@ void AmazonImporter::parseFindResults(const QByteArray& searchStr)
 void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
 {
   /*
-    title (empty lines removed):
-<span id="productTitle" class="a-size-large">The Avenger</span>
-<span class="author notFaded" data-width="">
-<a class="a-link-normal" href="/Amon-Amarth/e/B000APIBHO/ref=dp_byline_cont_music_1">Amon Amarth</a>
-</span>
+<span id="productTitle" class="a-size-large product-title-word-break">        The Avenger         </span>
+<span class="author(..)<a class="a-link-normal" href="/Amon-Amarth/e/B000APIBHO/ref=dp_byline_cont_music_1">Amon Amarth</a>
 
-    details (empty lines removed):
-<a name="productDetails" id="productDetails"></a>
-<hr noshade="noshade" size="1" class="bucketDivider" />
-<table cellpadding="0" cellspacing="0" border="0">
-  <tr>
-    <td class="bucket">
-<h2>Product Details</h2>
-  <div class="content">
-<ul>
-<li><b>Audio CD</b>  (November 2, 1999)</li>
-<li><b>Original Release Date:</b> November 2, 1999</li>
-<li><b>Number of Discs:</b> 1</li>
-<li><b>Label:</b> Metal Blade</li>
+<h2>Track Listings</h2>(..)<tr> <td>1</td> <td>Bleed for Ancient Gods</td> </tr>
+  <tr> <td>2</td> <td>The Last with Pagan Blood</td>(..)
 
-    tracks:
-<tr class='rowEven'><td class="playCol"><a href="/gp/dmusic/media/sample.m3u/ref=dm_mu_dp_trk1_smpl/175-1810673-7649752?ie=UTF8&catalogItemType=track&ASIN=B0016OAHCK&DownloadLocation=CD" onclick='return cd_trackPreviewPressed("B0016OAHCK");'><img src="http://g-ecx.images-amazon.com/images/G/01/digital/music/dp/play-control-2._V223646478_.gif" width="19" alt="listen" id="cd_trackPreviewB0016OAHCK" title="listen" height="19" border="0" /></a></td><td class="titleCol">&nbsp; 1. <a href="http://www.amazon.com/gp/product/B0016OAHCK/ref=dm_mu_dp_trk1/175-1810673-7649752">Bleed For Ancient Gods</a></td><td class="runtimeCol"> 4:31</td><td class="priceCol">$0.99</td><td class="buyCol">
-
-    alternatively (empty lines removed):
-<tr class="listRowEven">
-<td>
-1. Before the Devil Knows You're Dead
-</td>
+<h2>Product details</h2>(..)
+<span class="a-text-bold">Manufacturer(..)</span> <span>Metal Blade</span>
+<span class="a-text-bold">Date First Available(..)</span> <span>April 4, 2009</span>
    */
   QString str = QString::fromUtf8(albumStr);
   FrameCollection framesHdr;
@@ -169,9 +152,9 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   // search for 'dmusicProductTitle', next element after '>' until ' [' or '<' => album
   int end = 0;
   int start = str.indexOf(
-      QLatin1String("data-feature-name=\"dmusicProductTitle\""));
+      QLatin1String("<span id=\"productTitle\""));
   if (start >= 0 && standardTags) {
-    start = str.indexOf(QLatin1Char('>'), start + 39);
+    start = str.indexOf(QLatin1Char('>'), start + 23);
     if (start >= 0) {
       end = str.indexOf(QLatin1Char('<'), start);
       if (end > start) {
@@ -183,7 +166,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
               replaceHtmlEntities(str.mid(start + 1, end - start - 1)
                                   .trimmed()));
         // next 'ArtistLinkSection'
-        start = str.indexOf(QLatin1String("id=\"ArtistLinkSection"), end);
+        start = str.indexOf(QLatin1String("<span class=\"author"), end);
         if (start >= 0) {
           end = str.indexOf(QLatin1Char('>'), start);
           if (end > start) {
@@ -208,34 +191,17 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     }
   }
 
-  // search for 'ProductInfoReleaseDate', text contains year
-  start = str.indexOf(
-      QLatin1String("id=\"ProductInfoReleaseDate"));
-  if (start >= 0 && standardTags) {
-    start = str.indexOf(QLatin1Char('>'), start + 26);
-    if (start >= 0) {
-      end = str.indexOf(QLatin1Char('<'), start);
-      if (end > start) {
-        QRegularExpression yearRe(QLatin1String(R"(.*(\d{4}).*)"));
-        auto match = yearRe.match(str.mid(start, end));
-        if (match.hasMatch()) {
-          framesHdr.setYear(match.captured(1).toInt());
-        }
-      }
-    }
-  }
-
   // search for >Product Details<, >Original Release Date:<, >Label:<
   const bool additionalTags = getAdditionalTags();
   QString albumArtist;
   start = str.indexOf(QLatin1String(">Product details<"));
   if (start >= 0) {
     QRegularExpression yearRe(
-          QLatin1String(R"(>Date First Available\s*:.*?)"
+          QLatin1String(R"(>Date First Available.*?)"
                         R"(<span>[^<]*(\d{4})[^<]*</span>)"),
           QRegularExpression::DotMatchesEverythingOption);
     QRegularExpression labelRe(
-          QLatin1String(R"(>Manufacturer\s*:.*?<span>([^<]+)</span>)"),
+          QLatin1String(R"(>Manufacturer.*?<span>([^<]+)</span>)"),
           QRegularExpression::DotMatchesEverythingOption);
     QRegularExpressionMatch match;
     if (additionalTags) {
@@ -254,7 +220,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
   trackDataVector.setCoverArtUrl(QUrl());
   if (getCoverArt()) {
     QRegularExpression imgSrcRe(
-          QLatin1String("data-feature-name=\"digitalMusicProductImage\">\\s*"
+          QLatin1String("id=\"imgTagWrapperId\"[^>]*>\\s*"
                         "<img[^>]*src=\"([^\"]+)\""),
           QRegularExpression::DotMatchesEverythingOption);
     auto match = imgSrcRe.match(str);
@@ -263,60 +229,34 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     }
   }
 
-  start = str.indexOf(QLatin1String("id=\"dmusic_tracklist"));
+  start = str.indexOf(QLatin1String("<h2>Track Listings</h2>"));
   if (start >= 0) {
-    QRegularExpression trackNumberRe(
-          QLatin1String(R"(id="trackNumber.*?>(\d+)</div>)"),
-          QRegularExpression::DotMatchesEverythingOption);
-    QRegularExpression titleRe(
-          QLatin1String(R"(id="dmusic_tracklist_track_title.*?>([^<]+)</a>)"),
-          QRegularExpression::DotMatchesEverythingOption);
-    QRegularExpression durationRe(
-          QLatin1String(R"(id="dmusic_tracklist_duration.*?>\s*(\d+):(\d+)\s*</span>)"),
-          QRegularExpression::DotMatchesEverythingOption);
-    QRegularExpression artistRe(
-          QLatin1String(R"(>\s*by\s*</span>[^>]+>([^<]+)</)"));
+    QRegularExpression trackNumberTitleRe(
+          QLatin1String(R"(<td>(\d+)</td>\s*<td>([^<]+?)(?:\s*\[?(\d+):(\d+)\]?\s*)?</td>)"));
     FrameCollection frames(framesHdr);
     auto it = trackDataVector.begin();
     bool atTrackDataListEnd = (it == trackDataVector.end());
     while (start >= 0) {
-      start = str.indexOf(QLatin1String("<tr id=\"dmusic_tracklist_player_row"),
-                          start);
+      start = str.indexOf(QLatin1String("<tr"), start);
       if (start >= 0) {
         end = str.indexOf(QLatin1String("</tr>"), start);
         if (end > start) {
           QString trackRow = str.mid(start, end - start);
           start = end + 5;
-          QString title, artist;
+          QString title;
           int trackNr = 0;
           int duration = 0;
-          auto match = trackNumberRe.match(trackRow);
+          auto match = trackNumberTitleRe.match(trackRow);
           if (match.hasMatch()) {
             trackNr = match.captured(1).toInt();
-          }
-          match = titleRe.match(trackRow);
-          if (match.hasMatch()) {
-            title = match.captured(1).trimmed();
-          }
-          match = durationRe.match(trackRow);
-          if (match.hasMatch()) {
-            duration = match.captured(1).toInt() * 60 +
-              match.captured(2).toInt();
-          }
-          match = artistRe.match(trackRow);
-          if (match.hasMatch()) {
-            artist = match.captured(1).trimmed();
+            title = match.captured(2).remove(QLatin1String("[*]")).trimmed();
+            duration = match.captured(3).toInt() * 60 +
+              match.captured(4).toInt();
           }
           if (!title.isEmpty()) {
             if (standardTags) {
               frames.setTitle(removeExplicit(replaceHtmlEntities(title)));
               frames.setTrack(trackNr);
-              if (!artist.isEmpty()) {
-                frames.setArtist(replaceHtmlEntities(artist));
-                if (additionalTags) {
-                  frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
-                }
-              }
             }
             if (atTrackDataListEnd) {
               ImportTrackData trackData;
@@ -384,9 +324,9 @@ void AmazonImporter::sendFindQuery(
    * http://www.amazon.com/gp/search/ref=sr_adv_m_pop/?search-alias=popular&field-artist=amon+amarth&field-title=the+avenger
    */
   sendRequest(cfg->server(),
-              QLatin1String("/s?i=digital-music&k=") +
+              QLatin1String("/s?i=music-intl-ship&k=") +
               encodeUrlQuery(artist + QLatin1Char(' ') + album),
-              QLatin1String("https"));
+              QLatin1String("https"), m_headers);
 }
 
 /**
@@ -405,5 +345,5 @@ void AmazonImporter::sendTrackListQuery(
    * http://www.amazon.com/dp/B001VROVHO
    */
   sendRequest(cfg->server(), QLatin1Char('/') + cat + QLatin1Char('/') + id,
-              QLatin1String("https"));
+              QLatin1String("https"), m_headers);
 }
