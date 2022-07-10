@@ -1,4 +1,4 @@
-From 078f997f8fd7ddba46780961af0c92820b25a4e3 Mon Sep 17 00:00:00 2001
+From 541ea4c7f7032d62ecb58616885aa609499797ad Mon Sep 17 00:00:00 2001
 From: Urs Fleisch <ufleisch@users.sourceforge.net>
 Date: Sun, 19 Apr 2020 11:13:55 +0200
 Subject: Support large files over 2GB
@@ -86,7 +86,7 @@ index ebbf949b..d527815f 100644
        void analyzeCurrent(File *file);
        void analyzeOld(File *file);
 diff --git a/taglib/ape/apetag.cpp b/taglib/ape/apetag.cpp
-index 79e1d5cc..15a9c4ea 100644
+index 4235f73e..3cf91b2e 100644
 --- a/taglib/ape/apetag.cpp
 +++ b/taglib/ape/apetag.cpp
 @@ -80,7 +80,7 @@ public:
@@ -98,15 +98,15 @@ index 79e1d5cc..15a9c4ea 100644
  
    Footer footer;
    ItemListMap itemListMap;
-@@ -96,7 +96,7 @@ APE::Tag::Tag() :
+@@ -95,7 +95,7 @@ APE::Tag::Tag() :
  {
  }
  
 -APE::Tag::Tag(TagLib::File *file, long footerLocation) :
 +APE::Tag::Tag(TagLib::File *file, offset_t footerLocation) :
-   TagLib::Tag(),
    d(new TagPrivate())
  {
+   d->file = file;
 diff --git a/taglib/ape/apetag.h b/taglib/ape/apetag.h
 index f4d4fba6..b5a2eb87 100644
 --- a/taglib/ape/apetag.h
@@ -121,7 +121,7 @@ index f4d4fba6..b5a2eb87 100644
        /*!
         * Destroys this Tag instance.
 diff --git a/taglib/flac/flacfile.cpp b/taglib/flac/flacfile.cpp
-index ada215db..3f4accab 100644
+index a71d688b..b86d1883 100644
 --- a/taglib/flac/flacfile.cpp
 +++ b/taglib/flac/flacfile.cpp
 @@ -79,10 +79,10 @@ public:
@@ -233,10 +233,10 @@ index 743e5872..75e8ecb4 100644
        class PropertiesPrivate;
        PropertiesPrivate *d;
 diff --git a/taglib/mp4/mp4atom.cpp b/taglib/mp4/mp4atom.cpp
-index 20709212..bff3ab46 100644
+index 140ed12b..87428364 100644
 --- a/taglib/mp4/mp4atom.cpp
 +++ b/taglib/mp4/mp4atom.cpp
-@@ -156,7 +156,7 @@ MP4::Atoms::Atoms(File *file)
+@@ -174,7 +174,7 @@ MP4::Atoms::Atoms(File *file)
    atoms.setAutoDelete(true);
  
    file->seek(0, File::End);
@@ -246,7 +246,7 @@ index 20709212..bff3ab46 100644
    while(file->tell() + 8 <= end) {
      MP4::Atom *atom = new MP4::Atom(file);
 diff --git a/taglib/mp4/mp4atom.h b/taglib/mp4/mp4atom.h
-index cbb0d10a..53bc16a6 100644
+index 5e234cce..ee2ad6fb 100644
 --- a/taglib/mp4/mp4atom.h
 +++ b/taglib/mp4/mp4atom.h
 @@ -82,8 +82,8 @@ namespace TagLib {
@@ -261,10 +261,10 @@ index cbb0d10a..53bc16a6 100644
        AtomList children;
      private:
 diff --git a/taglib/mp4/mp4tag.cpp b/taglib/mp4/mp4tag.cpp
-index 87ac1852..3d5b2113 100644
+index 758475b9..9e6ebe19 100644
 --- a/taglib/mp4/mp4tag.cpp
 +++ b/taglib/mp4/mp4tag.cpp
-@@ -570,7 +570,7 @@ MP4::Tag::updateParents(const AtomList &path, long delta, int ignore)
+@@ -583,7 +583,7 @@ MP4::Tag::updateParents(const AtomList &path, long delta, int ignore)
  }
  
  void
@@ -273,7 +273,7 @@ index 87ac1852..3d5b2113 100644
  {
    MP4::Atom *moov = d->atoms->find("moov");
    if(moov) {
-@@ -654,7 +654,7 @@ MP4::Tag::saveNew(ByteVector data)
+@@ -667,7 +667,7 @@ MP4::Tag::saveNew(ByteVector data)
      data = renderAtom("udta", data);
    }
  
@@ -282,7 +282,7 @@ index 87ac1852..3d5b2113 100644
    d->file->insert(data, offset, 0);
  
    updateParents(path, data.size());
-@@ -672,8 +672,8 @@ MP4::Tag::saveExisting(ByteVector data, const AtomList &path)
+@@ -685,8 +685,8 @@ MP4::Tag::saveExisting(ByteVector data, const AtomList &path)
    AtomList::ConstIterator it = path.end();
  
    MP4::Atom *ilst = *(--it);
@@ -294,10 +294,10 @@ index 87ac1852..3d5b2113 100644
    MP4::Atom *meta = *(--it);
    AtomList::ConstIterator index = meta->children.find(ilst);
 diff --git a/taglib/mp4/mp4tag.h b/taglib/mp4/mp4tag.h
-index ccee8e06..026dd743 100644
+index 2f551140..8a3308bb 100644
 --- a/taglib/mp4/mp4tag.h
 +++ b/taglib/mp4/mp4tag.h
-@@ -146,7 +146,7 @@ namespace TagLib {
+@@ -151,7 +151,7 @@ namespace TagLib {
          ByteVector renderCovr(const ByteVector &name, const Item &item) const;
  
          void updateParents(const AtomList &path, long delta, int ignore = 0);
@@ -337,7 +337,7 @@ index 0ffaf893..0e36a1f8 100644
      if(d->APELocation >= 0)
        streamLength = d->APELocation;
 diff --git a/taglib/mpc/mpcproperties.cpp b/taglib/mpc/mpcproperties.cpp
-index 21de6d49..809165d9 100644
+index effaabed..724e5c7d 100644
 --- a/taglib/mpc/mpcproperties.cpp
 +++ b/taglib/mpc/mpcproperties.cpp
 @@ -66,14 +66,14 @@ public:
@@ -359,7 +359,7 @@ index 21de6d49..809165d9 100644
  {
 @@ -203,7 +203,7 @@ namespace
    const unsigned short sftable [8] = { 44100, 48000, 37800, 32000, 0, 0, 0, 0 };
- }
+ }  // namespace
  
 -void MPC::Properties::readSV8(File *file, long streamLength)
 +void MPC::Properties::readSV8(File *file, offset_t streamLength)
@@ -374,7 +374,7 @@ index 21de6d49..809165d9 100644
 +void MPC::Properties::readSV7(const ByteVector &data, offset_t streamLength)
  {
    if(data.startsWith("MP+")) {
-     d->version = data[3] & 15;
+     if(data.size() < 4)
 diff --git a/taglib/mpc/mpcproperties.h b/taglib/mpc/mpcproperties.h
 index 9a902dc9..439de74e 100644
 --- a/taglib/mpc/mpcproperties.h
@@ -407,7 +407,7 @@ index 9a902dc9..439de74e 100644
        class PropertiesPrivate;
        PropertiesPrivate *d;
 diff --git a/taglib/mpeg/id3v1/id3v1tag.cpp b/taglib/mpeg/id3v1/id3v1tag.cpp
-index ca930411..4d26b3a4 100644
+index 358a9595..24ac1794 100644
 --- a/taglib/mpeg/id3v1/id3v1tag.cpp
 +++ b/taglib/mpeg/id3v1/id3v1tag.cpp
 @@ -48,7 +48,7 @@ public:
@@ -419,15 +419,15 @@ index ca930411..4d26b3a4 100644
  
    String title;
    String artist;
-@@ -90,7 +90,7 @@ ID3v1::Tag::Tag() :
+@@ -88,7 +88,7 @@ ID3v1::Tag::Tag() :
  {
  }
  
 -ID3v1::Tag::Tag(File *file, long tagOffset) :
 +ID3v1::Tag::Tag(File *file, offset_t tagOffset) :
-   TagLib::Tag(),
    d(new TagPrivate())
  {
+   d->file = file;
 diff --git a/taglib/mpeg/id3v1/id3v1tag.h b/taglib/mpeg/id3v1/id3v1tag.h
 index b61f06af..55ab63ff 100644
 --- a/taglib/mpeg/id3v1/id3v1tag.h
@@ -442,7 +442,7 @@ index b61f06af..55ab63ff 100644
        /*!
         * Destroys this Tag instance.
 diff --git a/taglib/mpeg/id3v2/id3v2tag.cpp b/taglib/mpeg/id3v2/id3v2tag.cpp
-index 54dddf72..cec886b9 100644
+index 156c6d5e..2c1e8a72 100644
 --- a/taglib/mpeg/id3v2/id3v2tag.cpp
 +++ b/taglib/mpeg/id3v2/id3v2tag.cpp
 @@ -88,7 +88,7 @@ public:
@@ -454,15 +454,15 @@ index 54dddf72..cec886b9 100644
  
    Header header;
    ExtendedHeader *extendedHeader;
-@@ -126,7 +126,7 @@ ID3v2::Tag::Tag() :
+@@ -125,7 +125,7 @@ ID3v2::Tag::Tag() :
    d->factory = FrameFactory::instance();
  }
  
 -ID3v2::Tag::Tag(File *file, long tagOffset, const FrameFactory *factory) :
 +ID3v2::Tag::Tag(File *file, offset_t tagOffset, const FrameFactory *factory) :
-   TagLib::Tag(),
    d(new TagPrivate())
  {
+   d->factory = factory;
 diff --git a/taglib/mpeg/id3v2/id3v2tag.h b/taglib/mpeg/id3v2/id3v2tag.h
 index 74d1df1e..60b5c2e8 100644
 --- a/taglib/mpeg/id3v2/id3v2tag.h
@@ -477,7 +477,7 @@ index 74d1df1e..60b5c2e8 100644
  
        /*!
 diff --git a/taglib/mpeg/mpegfile.cpp b/taglib/mpeg/mpegfile.cpp
-index a2ce02a7..5212760d 100644
+index 5f14e49d..da64f6ea 100644
 --- a/taglib/mpeg/mpegfile.cpp
 +++ b/taglib/mpeg/mpegfile.cpp
 @@ -63,13 +63,13 @@ public:
@@ -724,10 +724,10 @@ index b2686e45..0e5e1ac4 100644
        /*!
         * Returns whether or not the file on disk actually has a XiphComment.
 diff --git a/taglib/ogg/oggfile.cpp b/taglib/ogg/oggfile.cpp
-index c36e4d46..aa284a3b 100644
+index 1f2cce93..05059ec8 100644
 --- a/taglib/ogg/oggfile.cpp
 +++ b/taglib/ogg/oggfile.cpp
-@@ -130,7 +130,7 @@ void Ogg::File::setPacket(unsigned int i, const ByteVector &p)
+@@ -129,7 +129,7 @@ void Ogg::File::setPacket(unsigned int i, const ByteVector &p)
  const Ogg::PageHeader *Ogg::File::firstPageHeader()
  {
    if(!d->firstPageHeader) {
@@ -736,7 +736,7 @@ index c36e4d46..aa284a3b 100644
      if(firstPageHeaderOffset < 0)
        return 0;
  
-@@ -143,7 +143,7 @@ const Ogg::PageHeader *Ogg::File::firstPageHeader()
+@@ -142,7 +142,7 @@ const Ogg::PageHeader *Ogg::File::firstPageHeader()
  const Ogg::PageHeader *Ogg::File::lastPageHeader()
  {
    if(!d->lastPageHeader) {
@@ -745,7 +745,7 @@ index c36e4d46..aa284a3b 100644
      if(lastPageHeaderOffset < 0)
        return 0;
  
-@@ -193,7 +193,7 @@ bool Ogg::File::readPages(unsigned int i)
+@@ -192,7 +192,7 @@ bool Ogg::File::readPages(unsigned int i)
  {
    while(true) {
      unsigned int packetIndex;
@@ -754,7 +754,7 @@ index c36e4d46..aa284a3b 100644
  
      if(d->pages.isEmpty()) {
        packetIndex = 0;
-@@ -276,8 +276,8 @@ void Ogg::File::writePacket(unsigned int i, const ByteVector &packet)
+@@ -275,8 +275,8 @@ void Ogg::File::writePacket(unsigned int i, const ByteVector &packet)
    for(it = pages.begin(); it != pages.end(); ++it)
      data.append((*it)->render());
  
@@ -766,7 +766,7 @@ index c36e4d46..aa284a3b 100644
    insert(data, originalOffset, originalLength);
  
 diff --git a/taglib/ogg/oggpage.cpp b/taglib/ogg/oggpage.cpp
-index 414d3d53..12186062 100644
+index 8cd15a5c..d43b0194 100644
 --- a/taglib/ogg/oggpage.cpp
 +++ b/taglib/ogg/oggpage.cpp
 @@ -37,14 +37,14 @@ using namespace TagLib;
@@ -989,10 +989,10 @@ index 5c606b4a..cf821baf 100644
        /*!
         * Update the global RIFF size based on the current internal structure.
 diff --git a/taglib/tagutils.cpp b/taglib/tagutils.cpp
-index d6d92406..82dc2fa2 100644
+index 5fcd12aa..27154dc3 100644
 --- a/taglib/tagutils.cpp
 +++ b/taglib/tagutils.cpp
-@@ -33,13 +33,13 @@
+@@ -33,7 +33,7 @@
  
  using namespace TagLib;
  
@@ -1001,14 +1001,24 @@ index d6d92406..82dc2fa2 100644
  {
    if(!file->isValid())
      return -1;
+@@ -42,14 +42,14 @@ long Utils::findID3v1(File *file)
  
-   file->seek(-128, File::End);
--  const long p = file->tell();
-+  const offset_t p = file->tell();
+   if (file->length() >= 131) {
+     file->seek(-131, File::End);
+-    const long p = file->tell() + 3;
++    const offset_t p = file->tell() + 3;
+     const TagLib::ByteVector data = file->readBlock(8);
  
-   if(file->readBlock(3) == ID3v1::Tag::fileIdentifier())
-     return p;
-@@ -47,7 +47,7 @@ long Utils::findID3v1(File *file)
+     if(data.containsAt(ID3v1::Tag::fileIdentifier(), 3) && (data != APE::Tag::fileIdentifier()))
+       return p;
+   } else {
+     file->seek(-128, File::End);
+-    const long p = file->tell();
++    const offset_t p = file->tell();
+ 
+     if(file->readBlock(3) == ID3v1::Tag::fileIdentifier())
+       return p;
+@@ -58,7 +58,7 @@ long Utils::findID3v1(File *file)
    return -1;
  }
  
@@ -1017,7 +1027,7 @@ index d6d92406..82dc2fa2 100644
  {
    if(!file->isValid())
      return -1;
-@@ -60,7 +60,7 @@ long Utils::findID3v2(File *file)
+@@ -71,7 +71,7 @@ long Utils::findID3v2(File *file)
    return -1;
  }
  
@@ -1026,7 +1036,7 @@ index d6d92406..82dc2fa2 100644
  {
    if(!file->isValid())
      return -1;
-@@ -70,7 +70,7 @@ long Utils::findAPE(File *file, long id3v1Location)
+@@ -81,7 +81,7 @@ long Utils::findAPE(File *file, long id3v1Location)
    else
      file->seek(-32, File::End);
  
@@ -1035,7 +1045,7 @@ index d6d92406..82dc2fa2 100644
  
    if(file->readBlock(8) == APE::Tag::fileIdentifier())
      return p;
-@@ -79,13 +79,13 @@ long Utils::findAPE(File *file, long id3v1Location)
+@@ -90,13 +90,13 @@ long Utils::findAPE(File *file, long id3v1Location)
  }
  
  ByteVector TagLib::Utils::readHeader(IOStream *stream, unsigned int length,
@@ -1237,10 +1247,10 @@ index 84327c46..78ebfd4a 100644
      ByteVector *data();
  
 diff --git a/taglib/toolkit/tfile.cpp b/taglib/toolkit/tfile.cpp
-index aff1684d..3985885c 100644
+index b7d0be4d..be2bf39e 100644
 --- a/taglib/toolkit/tfile.cpp
 +++ b/taglib/toolkit/tfile.cpp
-@@ -233,14 +233,14 @@ void File::writeBlock(const ByteVector &data)
+@@ -232,14 +232,14 @@ void File::writeBlock(const ByteVector &data)
    d->stream->writeBlock(data);
  }
  
@@ -1257,7 +1267,7 @@ index aff1684d..3985885c 100644
    ByteVector buffer;
  
    // These variables are used to keep track of a partial match that happens at
-@@ -252,7 +252,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
+@@ -251,7 +251,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
    // Save the location of the current read pointer.  We will restore the
    // position using seek() before all returns.
  
@@ -1266,7 +1276,7 @@ index aff1684d..3985885c 100644
  
    // Start the search at the offset.
  
-@@ -329,7 +329,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
+@@ -328,7 +328,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
  }
  
  
@@ -1275,7 +1285,7 @@ index aff1684d..3985885c 100644
  {
    if(!d->stream || pattern.size() > bufferSize())
        return -1;
-@@ -349,7 +349,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+@@ -348,7 +348,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
    // Save the location of the current read pointer.  We will restore the
    // position using seek() before all returns.
  
@@ -1284,7 +1294,7 @@ index aff1684d..3985885c 100644
  
    // Start the search at the offset.
  
-@@ -357,7 +357,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+@@ -356,7 +356,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
      fromOffset = length();
  
    long bufferLength = bufferSize();
@@ -1293,7 +1303,7 @@ index aff1684d..3985885c 100644
  
    // See the notes in find() for an explanation of this algorithm.
  
-@@ -403,12 +403,12 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+@@ -402,12 +402,12 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
    return -1;
  }
  
@@ -1308,7 +1318,7 @@ index aff1684d..3985885c 100644
  {
    d->stream->removeBlock(start, length);
  }
-@@ -428,12 +428,12 @@ bool File::isValid() const
+@@ -427,12 +427,12 @@ bool File::isValid() const
    return isOpen() && d->valid;
  }
  
@@ -1323,7 +1333,7 @@ index aff1684d..3985885c 100644
  {
    d->stream->truncate(length);
  }
-@@ -443,12 +443,12 @@ void File::clear()
+@@ -442,12 +442,12 @@ void File::clear()
    d->stream->clear();
  }
  
@@ -1416,7 +1426,7 @@ index bdc4f124..4c87fb36 100644
      /*!
       * Returns the buffer size that is used for internal buffering.
 diff --git a/taglib/toolkit/tfilestream.cpp b/taglib/toolkit/tfilestream.cpp
-index 0ea3be5b..81cadace 100644
+index 06aabbd8..73d66663 100644
 --- a/taglib/toolkit/tfilestream.cpp
 +++ b/taglib/toolkit/tfilestream.cpp
 @@ -233,7 +233,7 @@ void FileStream::writeBlock(const ByteVector &data)
@@ -1733,7 +1743,7 @@ index 56b99393..af63c491 100644
      if(d->APELocation >= 0)
        streamLength = d->APELocation;
 diff --git a/taglib/wavpack/wavpackproperties.cpp b/taglib/wavpack/wavpackproperties.cpp
-index d5808be5..5cc061e2 100644
+index 1dd2a054..cc65f2d0 100644
 --- a/taglib/wavpack/wavpackproperties.cpp
 +++ b/taglib/wavpack/wavpackproperties.cpp
 @@ -66,14 +66,14 @@ public:
@@ -1755,7 +1765,7 @@ index d5808be5..5cc061e2 100644
  {
 @@ -257,9 +257,9 @@ namespace
  
- }
+ }  // namespace
  
 -void WavPack::Properties::read(File *file, long streamLength)
 +void WavPack::Properties::read(File *file, offset_t streamLength)
@@ -1809,10 +1819,10 @@ index e6acdcc3..e169c5e4 100644
        class PropertiesPrivate;
        PropertiesPrivate *d;
 diff --git a/taglib/xm/xmfile.cpp b/taglib/xm/xmfile.cpp
-index 0455338d..09948166 100644
+index 61a554c8..e5cd6156 100644
 --- a/taglib/xm/xmfile.cpp
 +++ b/taglib/xm/xmfile.cpp
-@@ -586,7 +586,7 @@ void XM::File::read(bool)
+@@ -591,7 +591,7 @@ void XM::File::read(bool)
      unsigned int count = 4 + instrument.read(*this, instrumentHeaderSize - 4U);
      READ_ASSERT(count == std::min(instrumentHeaderSize, (unsigned long)instrument.size() + 4));
  

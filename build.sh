@@ -345,15 +345,15 @@ libvorbis_version=1.3.7
 libvorbis_patchlevel=1
 ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
-ffmpeg_version=4.4.1
-ffmpeg_patchlevel=1
-libflac_version=1.3.3
+ffmpeg_version=5.0.1
+ffmpeg_patchlevel=3
+libflac_version=1.3.4
 libflac_patchlevel=2
 id3lib_version=3.8.3
 id3lib_patchlevel=16.3
 taglib_version=1.12
-taglib_githash=c4a0855f42c05ad9fab8915f27439c8194b6bb94
-chromaprint_version=1.5.0
+taglib_githash=0470c2894d07523af11f1ac4e2fa7ce85ced26fe
+chromaprint_version=1.5.1
 chromaprint_patchlevel=2
 mp4v2_version=2.1.1
 
@@ -1415,7 +1415,7 @@ else #  cross-android
 
     # The zlib library path was added for MinGW-builds GCC 4.7.2.
     cd chromaprint-${chromaprint_version}/
-    test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF $CHROMAPRINT_ZLIB_OPTION -DFFMPEG_ROOT=$thisdir/ffmpeg-${ffmpeg_version}/inst/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF $CHROMAPRINT_ZLIB_OPTION -DFFMPEG_ROOT=$thisdir/ffmpeg-${ffmpeg_version}/inst/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
     make VERBOSE=1
     mkdir -p inst
     make install DESTDIR=`pwd`/inst
