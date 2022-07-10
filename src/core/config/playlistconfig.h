@@ -43,6 +43,9 @@ class KID3_CORE_EXPORT PlaylistConfig : public StoredConfig<PlaylistConfig> {
   /** Playlist file name format */
   Q_PROPERTY(QString fileNameFormat READ fileNameFormat WRITE setFileNameFormat
              NOTIFY fileNameFormatChanged)
+  /** Playlist file name formats */
+  Q_PROPERTY(QStringList fileNameFormats READ fileNameFormats WRITE setFileNameFormats
+             NOTIFY fileNameFormatsChanged)
   /** Tag field used for sorting */
   Q_PROPERTY(QString sortTagField READ sortTagField WRITE setSortTagField
              NOTIFY sortTagFieldChanged)
