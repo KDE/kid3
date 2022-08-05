@@ -26,15 +26,56 @@ import Kid3 1.0
 Kid3Script {
   onRun: {
     var obj = {data: []}
+    var selectedFramesV1 = null
+    var selectedFramesV2 = null
+    var selectedFramesV3 = null
+
+    /**
+     * Get list of frame names which are selected in frame table.
+     * @param tagNr Frame.Tag_1, Frame.Tag_2, or Frame.Tag_3
+     * @return selected frame names, null if all frames are selected.
+     */
+    function getSelectedFrames(tagNr) {
+      var checked = []
+      var frameModel = app.tag(tagNr).frameModel
+      var numRows = frameModel.rowCount()
+      for (var row = 0; row < numRows; ++row) {
+        var name = script.getRoleData(frameModel, row, "name")
+        if (script.getRoleData(frameModel, row, "checkState") === Qt.Checked) {
+          checked.push(name)
+        }
+      }
+      return checked.length < numRows ? checked : null
+    }
+
+    /**
+     * Remove all frames from tags which are not included in @a selectedFrames.
+     * @param tags object with frame names as keys
+     * @param selectedFrames array with keys which will not be removed,
+     * if null, nothing will be removed
+     */
+    function removeUnselectedFrames(tags, selectedFrames) {
+      if (selectedFrames) {
+        for (var name in tags) {
+          if (tags.hasOwnProperty(name)) {
+            if (!selectedFrames.includes(name)) {
+              delete tags[name]
+            }
+          }
+        }
+      }
+    }
 
     function doWork() {
       var tags
       var prop
       if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
         tags = app.getAllFrames(tagv2)
+        removeUnselectedFrames(tags, selectedFramesV2)
       }
       if (app.selectionInfo.tag(Frame.Tag_1).tagFormat) {
         var tagsV1 = app.getAllFrames(tagv1)
+        removeUnselectedFrames(tagsV1, selectedFramesV1)
         if (typeof tags === "undefined") {
           tags = {}
         }
@@ -44,6 +85,7 @@ Kid3Script {
       }
       if (app.selectionInfo.tag(Frame.Tag_3).tagFormat) {
         var tagsV3 = app.getAllFrames(Frame.TagV3)
+        removeUnselectedFrames(tagsV3, selectedFramesV3)
         if (typeof tags === "undefined") {
           tags = {}
         }
@@ -52,6 +94,14 @@ Kid3Script {
         }
       }
       if (tags) {
+        // Feel free to add additional elements, but you may have to exclude
+        // them in ImportJson.qml too.
+        // tags["Duration"] = app.selectionInfo.formatString(Frame.Tag_2, "%{duration}")
+        // tags["Bitrate"] = app.selectionInfo.formatString(Frame.Tag_2, "%{bitrate}")
+        // tags["Mode"] = app.selectionInfo.formatString(Frame.Tag_2, "%{mode}")
+        // tags["Codec"] = app.selectionInfo.formatString(Frame.Tag_2, "%{codec}")
+        // tags["Directory"] = app.selectionInfo.formatString(Frame.Tag_2, "%{dirname}")
+        // tags["File"] = app.selectionInfo.formatString(Frame.Tag_2, "%{file}")
         obj.data.push(tags)
         tags["File Path"] = app.selectionInfo.filePath
       }
@@ -81,6 +131,10 @@ Kid3Script {
     }
 
     function startWork() {
+      selectedFramesV1 = getSelectedFrames(Frame.Tag_1)
+      selectedFramesV2 = getSelectedFrames(Frame.Tag_2)
+      selectedFramesV3 = getSelectedFrames(Frame.Tag_3)
+
       app.expandFileListFinished.disconnect(startWork)
       console.log("Reading tags")
       app.firstFile()
