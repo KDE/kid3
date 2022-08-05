@@ -4,21 +4,21 @@ Sat Aug  6 07:14:23 CEST 2022  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* New:
 	  + Support DSDIFF (DFF) files.
-      + MP4: Support for audio book chapters, only with Mp4v2Metadata plugin.
-      + Norwegian Nynorsk translation.
+	  + MP4: Support for audio book chapters, only with Mp4v2Metadata plugin.
+	  + Norwegian Nynorsk translation.
 
 	* Improved:
-      + Allow playlist file name formats to be edited.
-      + URLs with search results from web browser can be entered in the import
-        dialogs (Amazon, Discogs, gnudb.org, MusicBrainz).
+	  + Allow playlist file name formats to be edited.
+	  + URLs with search results from web browser can be entered in the import
+	    dialogs (Amazon, Discogs, gnudb.org, MusicBrainz).
 	  + New style for macOS icon.
-      + kid3-cli: Encoding detection for text file import and export.
-      + kid3-cli: Set rating as star count with 'set ratingstars'.
-      + Build with latest mp4v2 library.
+	  + kid3-cli: Encoding detection for text file import and export.
+	  + kid3-cli: Set rating as star count with 'set ratingstars'.
+	  + Build with latest mp4v2 library.
 
 	* Fixed:
 	  + Wrong frames are changed if track number is changed when importing.
-      + MP4: Editing of free form atoms with four letter names.
+	  + MP4: Editing of free form atoms with four letter names.
 	  + Amazon import.
 
 Sat Jan 15 09:01:43 CET 2022  Urs Fleisch  <ufleisch@users.sourceforge.net>
