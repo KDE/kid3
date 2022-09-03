@@ -850,7 +850,9 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
       } else {
         dirPath = QDir(path).absolutePath();
       }
-      QStringList dirPathComponents = dirPath.split(QDir::separator());
+      // absolutePath() returns paths with '/' separators also on Windows
+      // where QDir::separator() is '\'.
+      QStringList dirPathComponents = dirPath.split(QLatin1Char('/'));
       if (dirComponents.isEmpty()) {
         dirComponents = dirPathComponents;
       } else {
