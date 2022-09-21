@@ -540,12 +540,15 @@ SaveCommand::SaveCommand(Kid3Cli* processor)
 
 void SaveCommand::startCommand()
 {
-  QStringList errorFiles = cli()->app()->saveDirectory();
+  QStringList errorDescriptions;
+  const QStringList errorFiles = cli()->app()->saveDirectory(&errorDescriptions);
   if (errorFiles.isEmpty()) {
     cli()->updateSelection();
   } else {
     setError(tr("Error while writing file:\n") +
-             errorFiles.join(QLatin1String("\n")));
+             Kid3Application::mergeStringLists(errorFiles, errorDescriptions,
+                                               QLatin1String(": "))
+             .join(QLatin1String("\n")));
   }
 }
 

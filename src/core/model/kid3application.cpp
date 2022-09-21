@@ -25,6 +25,8 @@
  */
 
 #include "kid3application.h"
+#include <cerrno>
+#include <cstring>
 #if QT_VERSION >= 0x060000
 #include <QStringConverter>
 #else
@@ -1027,9 +1029,14 @@ QModelIndex Kid3Application::currentOrRootIndex() const
  * Save all changed files.
  * longRunningOperationProgress() is emitted while saving files.
  *
+ * @param errorDescriptions if not NULL, a list with error descriptions
+ * corresponding to the errored files in the returned file list
+ * is returned here. Null strings are used where no error description
+ * is available.
+ *
  * @return list of files with error, empty if ok.
  */
-QStringList Kid3Application::saveDirectory()
+QStringList Kid3Application::saveDirectory(QStringList* errorDescriptions)
 {
   QStringList errorFiles;
   int numFiles = 0, totalFiles = 0;
@@ -1044,6 +1051,9 @@ QStringList Kid3Application::saveDirectory()
   bool aborted = false;
   emit longRunningOperationProgress(operationName, -1, totalFiles, &aborted);
 
+  if (errorDescriptions) {
+    errorDescriptions->clear();
+  }
   TaggedFileIterator it(m_fileProxyModelRootIndex);
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
@@ -1053,6 +1063,9 @@ QStringList Kid3Application::saveDirectory()
       taggedFile->setFilename(fileName);
     }
     bool renamed = false;
+    if (errorDescriptions) {
+      errno = 0;
+    }
     if (taggedFile->isChanged() &&
         !taggedFile->writeTags(false, &renamed,
                                FileConfig::instance().preserveTime())) {
@@ -1087,6 +1100,17 @@ QStringList Kid3Application::saveDirectory()
       }
       QString errorMsg = taggedFile->getAbsFilename();
       errorFiles.push_back(errorMsg);
+      if (errorDescriptions) {
+        QString errorDescription;
+        const int errnum = errno;
+        if (errnum) {
+          const char* errdesc = ::strerror(errnum);
+          if (errdesc) {
+            errorDescription = QString::fromUtf8(errdesc);
+          }
+        }
+        errorDescriptions->append(errorDescription);
+      }
     }
     ++numFiles;
     emit longRunningOperationProgress(operationName, numFiles, totalFiles,
@@ -1103,6 +1127,54 @@ QStringList Kid3Application::saveDirectory()
                                     &aborted);
 
   return errorFiles;
+}
+
+/**
+ * Save all changed files.
+ * longRunningOperationProgress() is emitted while saving files.
+ *
+ * @return list of files with error, empty if ok.
+ */
+QStringList Kid3Application::saveDirectory()
+{
+  return saveDirectory(nullptr);
+}
+
+/**
+ * Merge entries of two string lists.
+ *
+ * Combine two string lists to a resulting list with all strings from
+ * @a leftStrs having the corresponding string from @a rightStrs appended
+ * if available. A @a separator can be given to join the two parts.
+ * The @a rightStrs can contain fewer elements than @a leftStrs, the
+ * resulting string will then be only the element from @a leftStrs.
+ * This function can be used to add details to an error message, e.g.
+ * mergeStringLists(errorMsgs, errorDescriptions, ": ").
+ *
+ * @param leftStrs strings for left part
+ * @param rightStrs strings for right part
+ * @param separator separator between left and right parts
+ * @return string list with combined left and right parts.
+ */
+QStringList Kid3Application::mergeStringLists(
+    const QStringList& leftStrs, const QStringList& rightStrs,
+    const QString& separator)
+{
+  QStringList result;
+  result.reserve(leftStrs.size());
+  int i = 0;
+  for (QString leftStr : leftStrs) {
+    if (i < rightStrs.size()) {
+      const QString& rightStr = rightStrs.at(i);
+      if (!rightStr.isEmpty()) {
+        leftStr += separator;
+        leftStr += rightStr;
+      }
+    }
+    result.append(leftStr);
+    ++i;
+  }
+  return result;
 }
 
 /**

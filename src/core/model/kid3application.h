@@ -405,9 +405,42 @@ public:
    * Save all changed files.
    * longRunningOperationProgress() is emitted while saving files.
    *
+   * @param errorDescriptions if not NULL, a list with error descriptions
+   * corresponding to the errored files in the returned file list
+   * is returned here. Null strings are used where no error description
+   * is available.
+   *
+   * @return list of files with error, empty if ok.
+   */
+  QStringList saveDirectory(QStringList* errorDescriptions);
+
+  /**
+   * Save all changed files.
+   * longRunningOperationProgress() is emitted while saving files.
+   *
    * @return list of files with error, empty if ok.
    */
   Q_INVOKABLE QStringList saveDirectory();
+
+  /**
+   * Merge entries of two string lists.
+   *
+   * Combine two string lists to a resulting list with all strings from
+   * @a leftStrs having the corresponding string from @a rightStrs appended
+   * if available. A @a separator can be given to join the two parts.
+   * The @a rightStrs can contain fewer elements than @a leftStrs, the
+   * resulting string will then be only the element from @a leftStrs.
+   * This function can be used to add details to an error message, e.g.
+   * mergeStringLists(errorMsgs, errorDescriptions, ": ").
+   *
+   * @param leftStrs strings for left part
+   * @param rightStrs strings for right part
+   * @param separator separator between left and right parts
+   * @return string list with combined left and right parts.
+   */
+  static QStringList mergeStringLists(
+      const QStringList& leftStrs, const QStringList& rightStrs,
+      const QString& separator);
 
   /**
    * Update tags of selected files to contain contents of frame models.

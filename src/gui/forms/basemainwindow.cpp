@@ -346,7 +346,8 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
   m_app->deleteAudioPlayer();
 #endif
 
-  const QStringList errorFiles = m_app->saveDirectory();
+  QStringList errorDescriptions;
+  const QStringList errorFiles = m_app->saveDirectory(&errorDescriptions);
 
   if (!errorFiles.empty()) {
     QStringList errorMsgs, notWritableFiles;
@@ -360,6 +361,8 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
         errorMsgs.append(fileInfo.fileName());
       }
     }
+    errorMsgs = Kid3Application::mergeStringLists(errorMsgs, errorDescriptions,
+                                                  QLatin1String(": "));
     if (notWritableFiles.isEmpty()) {
       m_platformTools->errorList(
         m_w, tr("Error while writing file:\n"),
