@@ -55,33 +55,26 @@ void TestAmazonImporter::testQueryAlbums()
 
 void TestAmazonImporter::testQueryTracks()
 {
-  queryTracks(QLatin1String("dp"), QLatin1String("B00UXOEPU4"));
+  queryTracks(QLatin1String("dp"), QLatin1String("B00U1GQ4D0"));
 
   QStringList titles;
-  titles << QLatin1String("The Prophecy (Remastered)")
-         << QLatin1String("Betrayer (Remastered)")
-         << QLatin1String("Dead Hope (Remastered)")
-         << QLatin1String("Dark God (Remastered)")
-         << QLatin1String("Lokis Punishment (Remastered)")
-         << QLatin1String("Beginning of the End (Remastered)")
-         << QLatin1String("Thor's Hammer (Remastered)")
-         << QLatin1String("Hall of Odin (Remastered)")
-         << QLatin1String("The Powergod (Remastered)")
-         << QLatin1String("March of the Einheriers (Remastered)")
-         << QLatin1String("End of All (Remastered)")
-         << QLatin1String("Ultimate War (Remastered (Bonus Track))")
-         << QLatin1String("Golden Dawn (Remastered (Bonus Track))");
-  QStringList lengths;
-  lengths << QLatin1String("5:17") << QLatin1String("4:51")
-          << QLatin1String("6:00") << QLatin1String("5:41")
-          << QLatin1String("5:08") << QLatin1String("4:00")
-          << QLatin1String("5:00") << QLatin1String("5:05")
-          << QLatin1String("5:20") << QLatin1String("5:39")
-          << QLatin1String("3:54") << QLatin1String("4:54")
-          << QLatin1String("5:08");
-  QCOMPARE(m_trackDataModel->rowCount(), 13);
+  titles << QLatin1String("The Prophecy")
+         << QLatin1String("Betrayer")
+         << QLatin1String("Dead Hope")
+         << QLatin1String("Dark God")
+         << QLatin1String("Loki S Punishment")
+         << QLatin1String("Beginning of the End")
+         << QLatin1String("Thor S Hammer")
+         << QLatin1String("Hall of Odin")
+         << QLatin1String("The Powergod")
+         << QLatin1String("March of the Einheriers")
+         << QLatin1String("End of All")
+         << QLatin1String("Ultimate War (Bonus Track)")
+         << QLatin1String("Golden Dawn (Bonus Track)")
+         << QLatin1String("Betrayer (video bonus track)");
+  QCOMPARE(m_trackDataModel->rowCount(), 14);
   for (int row = 0; row < 13; ++row) {
-    QCOMPARE(m_trackDataModel->index(row, 0).data().toString(), lengths.at(row));
+    QCOMPARE(m_trackDataModel->index(row, 0).data().toString(), "");
     QCOMPARE(m_trackDataModel->index(row, 3).data().toInt(), row + 1);
     QCOMPARE(m_trackDataModel->index(row, 4).data().toString(), titles.at(row));
     QCOMPARE(m_trackDataModel->index(row, 5).data().toString(),
