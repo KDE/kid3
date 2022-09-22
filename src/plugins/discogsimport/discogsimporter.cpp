@@ -740,7 +740,7 @@ void DiscogsImporter::HtmlImpl::parseFindResults(const QByteArray& searchStr)
   // <a class="search_result_title " href="/Amon-Amarth-The-Avenger/release/761529-Amon-Amarth-The-Avenger" data-followable="true">The Avenger</a>
   QString str = QString::fromUtf8(searchStr);
   QRegularExpression idTitleRe(QLatin1String(
-      "<a href=\"/artist/[^>]+?>([^<]+?)</a>[^-]*?-"
+      "href=\"/artist/[^>]+?>([^<]+?)</a>[^-]*?-"
       "\\s*?<a class=\"search_result_title[ \"]+?href=\"/([^/]*?/?release)/"
       "([0-9]+-[^\"]+?)\"[^>]*?>([^<]+?)</a>(.*?card_actions)"),
        QRegularExpression::DotMatchesEverythingOption);
