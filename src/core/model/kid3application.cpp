@@ -995,7 +995,7 @@ void Kid3Application::unloadAllTags()
       taggedFile->closeFileHandle();
     }
   }
-#if defined Q_OS_LINUX && !defined Q_OS_ANDROID
+#if defined Q_OS_LINUX && defined __GLIBC__
   if (::malloc_trim(0)) {
     qDebug("Memory released by malloc_trim()");
   }
