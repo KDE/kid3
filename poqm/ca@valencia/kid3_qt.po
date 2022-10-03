@@ -4688,12 +4688,12 @@ msgstr "Ordena pel camp de l'e&tiqueta"
 #: src/gui/dialogs/playlistdialog.cpp:191
 msgctxt "PlaylistDialog|"
 msgid "Use &relative path for files in playlist"
-msgstr "Utilitza un camí &relatiu per als fitxers a la llista de reproducció"
+msgstr "Utilitza un camí &relatiu per als fitxers en la llista de reproducció"
 
 #: src/gui/dialogs/playlistdialog.cpp:193
 msgctxt "PlaylistDialog|"
 msgid "Use full p&ath for files in playlist"
-msgstr "Utilitza un c&amí absolut per als fitxers a la llista de reproducció"
+msgstr "Utilitza un c&amí absolut per als fitxers en la llista de reproducció"
 
 #: src/gui/dialogs/playlistdialog.cpp:194
 msgctxt "PlaylistDialog|"

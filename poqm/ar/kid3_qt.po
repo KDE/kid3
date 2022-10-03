@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2022-09-20 20:47+0400\n"
+"PO-Revision-Date: 2022-10-02 20:01+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -3996,7 +3996,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:304
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
-msgstr ""
+msgstr "أطر |&مخصوصة"
 
 #: src/gui/dialogs/configdialogpages.cpp:319
 msgctxt "ConfigDialogPages|"
@@ -4076,7 +4076,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:401
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
-msgstr ""
+msgstr "اسم &ملف الغلاف:"
 
 #: src/gui/dialogs/configdialogpages.cpp:402
 msgctxt "ConfigDialogPages|"
