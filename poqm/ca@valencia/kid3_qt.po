@@ -718,7 +718,7 @@ msgstr "Crea una llista de reproducció M3U"
 #: src/app/kde/kdemainwindow.cpp:281
 msgctxt "KdeMainWindow|"
 msgid "Apply &Filename Format"
-msgstr "Aplica el format del nom de &fitxer"
+msgstr "Aplica el format del nom de fi&txer"
 
 #: src/app/kde/kdemainwindow.cpp:282
 msgctxt "KdeMainWindow|"
@@ -749,7 +749,7 @@ msgstr "Aplica la codificació del text"
 #: src/app/kde/kdemainwindow.cpp:293
 msgctxt "KdeMainWindow|"
 msgid "&Rename Folder..."
-msgstr "&Canvia el nom de la carpeta..."
+msgstr "Ca&nvia el nom de la carpeta..."
 
 #: src/app/kde/kdemainwindow.cpp:294
 msgctxt "KdeMainWindow|"
@@ -839,7 +839,7 @@ msgstr "Selecciona tots els fitxers en la carpeta actual"
 #: src/app/kde/kdemainwindow.cpp:341
 msgctxt "KdeMainWindow|"
 msgid "&Invert Selection"
-msgstr "&Invertix la selecció"
+msgstr "I&nvertix la selecció"
 
 #: src/app/kde/kdemainwindow.cpp:345
 msgctxt "KdeMainWindow|"
@@ -932,7 +932,7 @@ msgstr "Llista de fitxers"
 #: src/app/kde/kdemainwindow.cpp:428
 msgctxt "KdeMainWindow|"
 msgid "&Rename"
-msgstr "&Canvia el nom"
+msgstr "Ca&nvia el nom"
 
 #: src/app/kde/kdemainwindow.cpp:437
 msgctxt "KdeMainWindow|"
@@ -1002,7 +1002,7 @@ msgstr "E&tiquetes"
 #: src/app/qt/configdialog.cpp:71
 msgctxt "ConfigDialog|"
 msgid "&Files"
-msgstr "&Fitxers"
+msgstr "Fi&txers"
 
 #: src/app/qt/configdialog.cpp:72
 msgctxt "ConfigDialog|"
@@ -1084,7 +1084,7 @@ msgstr "D'ac&ord"
 #: src/app/qt/configdialog.cpp:167
 msgctxt "ConfigDialog|"
 msgid "&Cancel"
-msgstr "&Cancel·la"
+msgstr "C&ancel·la"
 
 #: src/app/qt/configdialog.cpp:279
 #, qt-format
@@ -1095,7 +1095,7 @@ msgstr "La drecera «%1» ja es troba assignada a «%2»."
 #: src/app/qt/kid3mainwindow.cpp:109
 msgctxt "Kid3MainWindow|"
 msgid "&File"
-msgstr "&Fitxer"
+msgstr "Fi&txer"
 
 #: src/app/qt/kid3mainwindow.cpp:113
 msgctxt "Kid3MainWindow|"
@@ -1105,7 +1105,7 @@ msgstr "Obri alguns fitxers"
 #: src/app/qt/kid3mainwindow.cpp:114
 msgctxt "Kid3MainWindow|"
 msgid "&Open..."
-msgstr "&Obri..."
+msgstr "O&bri..."
 
 #: src/app/qt/kid3mainwindow.cpp:128
 msgctxt "Kid3MainWindow|"
@@ -1282,7 +1282,7 @@ msgstr "Selecciona-ho tot a la &carpeta"
 #: src/app/qt/kid3mainwindow.cpp:357
 msgctxt "Kid3MainWindow|"
 msgid "&Invert Selection"
-msgstr "&Invertix la selecció"
+msgstr "I&nvertix la selecció"
 
 #: src/app/qt/kid3mainwindow.cpp:365
 msgctxt "Kid3MainWindow|"
@@ -1322,7 +1322,7 @@ msgstr "Busca i substituïx"
 #: src/app/qt/kid3mainwindow.cpp:407
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
-msgstr "&Substituïx..."
+msgstr "Su&bstituïx..."
 
 #: src/app/qt/kid3mainwindow.cpp:419
 msgctxt "Kid3MainWindow|"
@@ -1337,7 +1337,7 @@ msgstr "Aplica el format del nom de fitxer"
 #: src/app/qt/kid3mainwindow.cpp:423
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Filename Format"
-msgstr "Aplica el format del nom de &fitxer"
+msgstr "Aplica el format del nom de fi&txer"
 
 #: src/app/qt/kid3mainwindow.cpp:432
 msgctxt "Kid3MainWindow|"
@@ -1368,7 +1368,7 @@ msgstr "Canvia el nom de la carpeta"
 #: src/app/qt/kid3mainwindow.cpp:452
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
-msgstr "&Canvia el nom de la carpeta..."
+msgstr "Ca&nvia el nom de la carpeta..."
 
 #: src/app/qt/kid3mainwindow.cpp:460
 msgctxt "Kid3MainWindow|"
@@ -1576,7 +1576,7 @@ msgstr "Llista de fitxers"
 #: src/app/qt/kid3mainwindow.cpp:706
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
-msgstr "&Canvia el nom"
+msgstr "Ca&nvia el nom"
 
 #: src/app/qt/kid3mainwindow.cpp:713
 msgctxt "Kid3MainWindow|"
@@ -3897,7 +3897,7 @@ msgstr "Ex&plora"
 #: src/gui/dialogs/browsecoverartdialog.cpp:145
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Cancel"
-msgstr "&Cancel·la"
+msgstr "C&ancel·la"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:177
 msgctxt "BrowseCoverArtDialog|"
@@ -4193,7 +4193,7 @@ msgstr "&Servidor intermediari:"
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
-msgstr "&Utilitza autenticació amb el servidor intermediari"
+msgstr "Utilit&za autenticació amb el servidor intermediari"
 
 #: src/gui/dialogs/configdialogpages.cpp:567
 msgctxt "ConfigDialogPages|"
@@ -4254,7 +4254,7 @@ msgstr "&Exporta..."
 #: src/gui/dialogs/editframefieldsdialog.cpp:1140
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
-msgstr "&Visualitza..."
+msgstr "Vi&sualitza..."
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1316
 msgctxt "EditFrameFieldsDialog|"
@@ -4264,7 +4264,7 @@ msgstr "D'ac&ord"
 #: src/gui/dialogs/editframefieldsdialog.cpp:1317
 msgctxt "EditFrameFieldsDialog|"
 msgid "&Cancel"
-msgstr "&Cancel·la"
+msgstr "C&ancel·la"
 
 #: src/gui/dialogs/exportdialog.cpp:68
 msgctxt "ExportDialog|"
@@ -4416,12 +4416,12 @@ msgstr "Bu&sca"
 #: src/gui/dialogs/findreplacedialog.cpp:69
 msgctxt "FindReplaceDialog|"
 msgid "Re&place:"
-msgstr "&Substituïx:"
+msgstr "Su&bstituïx:"
 
 #: src/gui/dialogs/findreplacedialog.cpp:76
 msgctxt "FindReplaceDialog|"
 msgid "&Replace"
-msgstr "&Substituïx"
+msgstr "Su&bstituïx"
 
 #: src/gui/dialogs/findreplacedialog.cpp:79
 msgctxt "FindReplaceDialog|"
@@ -4561,7 +4561,7 @@ msgstr "D'ac&ord"
 #: src/gui/dialogs/importdialog.cpp:249
 msgctxt "ImportDialog|"
 msgid "&Cancel"
-msgstr "&Cancel·la"
+msgstr "C&ancel·la"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:50
 #: src/qml/app/NumberTracksDialog.qml:32
@@ -4607,7 +4607,7 @@ msgstr "D'ac&ord"
 #: src/gui/dialogs/numbertracksdialog.cpp:123
 msgctxt "NumberTracksDialog|"
 msgid "&Cancel"
-msgstr "&Cancel·la"
+msgstr "C&ancel·la"
 
 #: src/gui/dialogs/playlistdialog.cpp:56
 msgctxt "PlaylistDialog|"
@@ -4723,7 +4723,7 @@ msgstr "D'ac&ord"
 #: src/gui/dialogs/playlistdialog.cpp:222
 msgctxt "PlaylistDialog|"
 msgid "&Cancel"
-msgstr "&Cancel·la"
+msgstr "C&ancel·la"
 
 #: src/gui/dialogs/playlisteditdialog.cpp:114
 msgctxt "PlaylistEditDialog|"
@@ -4903,7 +4903,7 @@ msgstr "&Aplica"
 #: src/gui/dialogs/servertrackimportdialog.cpp:121
 msgctxt "ServerTrackImportDialog|"
 msgid "&Cancel"
-msgstr "&Cancel·la"
+msgstr "C&ancel·la"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:229
 #: src/gui/dialogs/servertrackimportdialog.cpp:368
@@ -5248,12 +5248,12 @@ msgstr "Tan&ca"
 #: src/gui/forms/filelist.cpp:359 src/gui/forms/filelist.cpp:363
 msgctxt "FileList|"
 msgid "&Expand all"
-msgstr "&Expandix-ho tot"
+msgstr "Ex&pandix-ho tot"
 
 #: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:364
 msgctxt "FileList|"
 msgid "&Collapse all"
-msgstr "&Reduïx-ho tot"
+msgstr "Red&uix-ho tot"
 
 #: src/gui/forms/filelist.cpp:374 src/gui/forms/filelist.cpp:376
 msgctxt "FileList|"
@@ -5268,7 +5268,7 @@ msgstr "E&dita"
 #: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
 msgctxt "FileList|"
 msgid "&Open"
-msgstr "&Obri"
+msgstr "O&bri"
 
 #: src/gui/forms/filelist.cpp:388 src/gui/forms/filelist.cpp:392
 msgctxt "FileList|"
@@ -5294,7 +5294,7 @@ msgstr "Kid3"
 #: src/gui/forms/kid3form.cpp:1244
 msgctxt "Kid3Form|"
 msgid "F&ile"
-msgstr "&Fitxer"
+msgstr "Fi&txer"
 
 #: src/gui/forms/kid3form.cpp:346
 msgctxt "Kid3Form|"
@@ -5450,7 +5450,7 @@ msgstr "Obri la carpeta actual"
 #: src/gui/widgets/abstractlistedit.cpp:50
 msgctxt "AbstractListEdit|"
 msgid "&Add..."
-msgstr "&Afig..."
+msgstr "Afi&g..."
 
 #: src/gui/widgets/abstractlistedit.cpp:51
 msgctxt "AbstractListEdit|"
@@ -5495,7 +5495,7 @@ msgstr "Desplaçament final"
 #: src/gui/widgets/configtable.cpp:41
 msgctxt "ConfigTable|"
 msgid "&Add"
-msgstr "&Afig"
+msgstr "Afi&g"
 
 #: src/gui/widgets/configtable.cpp:141
 msgctxt "ConfigTable|"
@@ -5555,7 +5555,7 @@ msgstr "Configuració regional:"
 #: src/gui/widgets/formatlistedit.cpp:83
 msgctxt "FormatListEdit|"
 msgid "&Add"
-msgstr "&Afig"
+msgstr "Afi&g"
 
 #: src/gui/widgets/formatlistedit.cpp:85
 msgctxt "FormatListEdit|"
@@ -5647,7 +5647,7 @@ msgstr "Volum: %1%"
 #: src/gui/widgets/progresswidget.cpp:56
 msgctxt "ProgressWidget|"
 msgid "&Cancel"
-msgstr "&Cancel·la"
+msgstr "C&ancel·la"
 
 #: src/gui/widgets/stringlistedit.cpp:52
 msgctxt "StringListEdit|"
@@ -5687,7 +5687,7 @@ msgstr "Seleccioneu l'ID del marc"
 #: src/gui/widgets/tablemodeledit.cpp:35
 msgctxt "TableModelEdit|"
 msgid "&Add"
-msgstr "&Afig"
+msgstr "Afi&g"
 
 #: src/gui/widgets/tableofcontentseditor.cpp:43
 msgctxt "TableOfContentsEditor|"
@@ -5707,7 +5707,7 @@ msgstr "Validació"
 #: src/gui/widgets/timeeventeditor.cpp:120
 msgctxt "TimeEventEditor|"
 msgid "&Add"
-msgstr "&Afig"
+msgstr "Afi&g"
 
 #: src/gui/widgets/timeeventeditor.cpp:122
 msgctxt "TimeEventEditor|"
@@ -5772,7 +5772,7 @@ msgstr "&Neteja"
 #: src/gui/widgets/timeeventeditor.cpp:478
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
-msgstr "&Afig un desplaçament..."
+msgstr "Afi&g un desplaçament..."
 
 #: src/gui/widgets/timeeventeditor.cpp:480
 msgctxt "TimeEventEditor|"
