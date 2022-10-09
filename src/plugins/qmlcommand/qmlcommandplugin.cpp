@@ -76,7 +76,13 @@ void QmlCommandPlugin::cleanup()
   if (m_qmlView) {
     m_qmlView->close();
   }
-  delete m_qmlView;
+  if (!m_qmlEngine) {
+    // If both m_qmlEngine and m_qmlView have been constructed, deleting both
+    // will result in a crash upon termination (Bug 457655). This happens when
+    // using both a @qml user action (e.g. TitleCase.qml) and a @qmlview
+    // user action (QmlConsole.qml). Do not delete m_qmlView in such a case.
+    delete m_qmlView;
+  }
   m_qmlView = nullptr;
   delete m_qmlEngine;
   m_qmlEngine = nullptr;
