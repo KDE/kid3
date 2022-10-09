@@ -11,7 +11,6 @@
 set -e
 docdir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 podir=$docdir/po
-docsdir=$docdir/docs
 branch=${1:-trunk}
 svn_path_prefix="svn://anonsvn.kde.org/home/kde/$branch/l10n-kf5"
 svn_folder="docmessages/kid3"
@@ -35,7 +34,7 @@ for lang in $(cat $subdirs); do
   fi
   svn -q export "$svn_path_prefix/$lang/$svn_docs_folder/index.docbook" $dbfile >/dev/null 2>&1 || true
   if test -e $dbfile; then
-    target_dir="$docsdir/$lang"
+    target_dir="$podir/$lang/docs/kid3"
     mkdir -p $target_dir
     mv -f $dbfile $target_dir
     echo "Downloaded docs/$lang"

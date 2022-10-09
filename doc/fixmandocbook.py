@@ -55,6 +55,8 @@ if __name__ == '__main__':
         lang = sys.argv[1]
         if os.path.isfile(lang):
             lang = os.path.split(os.path.dirname(lang))[1]
+            if lang == 'kid3':
+                lang = os.path.normpath(sys.argv[1]).split(os.path.sep)[-4]
         else:
             del sys.argv[1]
     fix_man_docbook(lang)

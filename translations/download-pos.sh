@@ -46,7 +46,6 @@ if ! test -f po/en/kid3_qt.po || $force_en; then
     mkdir -p po enpo
     extract-messages.sh
     cd -
-    rm -rf ../po
     if test -f ../enpo/kid3_qt.po; then
       mkdir -p po/en
       mv ../enpo/kid3_qt.po po/en/
@@ -55,6 +54,7 @@ if ! test -f po/en/kid3_qt.po || $force_en; then
       exit 1
     fi
     rmdir ../enpo
+    rm -f ../po/kid3_qt.pot
   else
     echo "ERROR: po/en/kid3_qt.po is missing and extract-messages.sh not found in PATH."
     echo "Get svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/scripts and add it to the PATH!"

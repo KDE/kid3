@@ -24,7 +24,7 @@ foreach(_lang ${_languages})
     message(FATAL_ERROR "${_url}: ${_status}")
   endif()
   set(_url "${_urlprefix}/${_lang}/docs/kid3/kid3/index.docbook")
-  file(DOWNLOAD ${_url} "${_docsdir}/${_lang}/index.docbook"
+  file(DOWNLOAD ${_url} "${_podir}/${_lang}/docs/kid3/index.docbook"
     HTTPHEADER "${_hdr}"
     STATUS _status)
   if(NOT _status MATCHES "^0;")
