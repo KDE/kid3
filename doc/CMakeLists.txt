@@ -1,7 +1,11 @@
 set(_languages ca de it nl pt ru sv uk)
 
 # Use -DDOWNLOAD_POS=ON to download the translations directly from SVN.
-if(DOWNLOAD_POS)
+if(DOWNLOAD_POS STREQUAL "REMOVE")
+  message(STATUS "Removing po, docs")
+  file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/po")
+  file(REMOVE_RECURSE "${CMAKE_CURRENT_SOURCE_DIR}/docs")
+elseif(DOWNLOAD_POS)
   execute_process(COMMAND ${CMAKE_COMMAND}
     -P "${CMAKE_CURRENT_SOURCE_DIR}/download-pos.cmake" "${_languages}"
     RESULT_VARIABLE result)
@@ -140,16 +144,18 @@ os.execv('$<TARGET_FILE:KF5::meinproc5>', args)
 ")
 endif()
 
+list(APPEND _languages en)
 if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/po")
-  list(APPEND _languages en)
+  set(_po_dir ${CMAKE_CURRENT_SOURCE_DIR}/po)
+  message(WARNING "Using custom translations from ${_po_dir}")
 else()
-  set(_languages en)
+  set(_po_dir ${CMAKE_SOURCE_DIR}/po)
 endif()
 foreach(_lang ${_languages})
   if(_lang STREQUAL "en")
     set(_dir ${CMAKE_CURRENT_SOURCE_DIR}/en)
   else()
-    set(_dir ${CMAKE_CURRENT_SOURCE_DIR}/po/${_lang}/docs/kid3)
+    set(_dir ${_po_dir}/${_lang}/docs/kid3)
   endif()
 
   if(BUILD_KDE_APP)
