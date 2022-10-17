@@ -957,7 +957,7 @@ msgstr "Configuració - Kid3"
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
 msgid "folder to open"
-msgstr "carpeta que s'obrirà"
+msgstr "carpeta que s'ha d'obrir"
 
 #: src/app/kde/mainkde.cpp:134
 msgctxt "@default|"
