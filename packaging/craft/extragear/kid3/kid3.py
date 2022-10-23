@@ -36,7 +36,7 @@ class Package(CMakePackageBase):
         self.subinfo.options.configure.args += ' -DWITH_MP4V2=OFF -DWITH_QML=ON'
         self.subinfo.options.configure.args += ' -DWITH_APPS="Qt;CLI"'
         if self.buildTarget == 'master':
-            self.subinfo.options.configure.args += ' -DDOWNLOAD_POS=ON'
+            self.subinfo.options.configure.args += ' -DDOWNLOAD_POS=REMOVE'
         if CraftCore.compiler.isMacOS:
             self.subinfo.options.configure.args += ' -DWITH_DOCBOOKDIR=' + \
                 os.path.join(CraftStandardDirs.craftRoot(),
