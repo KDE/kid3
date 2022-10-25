@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2022-10-02 20:01+0400\n"
+"PO-Revision-Date: 2022-10-24 22:36+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -68,7 +68,7 @@ msgstr "%1 غير موجود"
 #: src/app/cli/clicommand.cpp:509
 msgctxt "PwdCommand|"
 msgid "Print the filename of the current folder"
-msgstr ""
+msgstr "اطبع اسم الملف للمجلد الحالي"
 
 #: src/app/cli/clicommand.cpp:525
 msgctxt "LsCommand|"
@@ -611,7 +611,7 @@ msgstr "يُفَعِّل/يُعَطِّل شريط الحالة"
 #: src/app/kde/kdemainwindow.cpp:188
 msgctxt "KdeMainWindow|"
 msgid "Preferences dialog"
-msgstr ""
+msgstr "حواري التفضيلات"
 
 #: src/app/kde/kdemainwindow.cpp:191
 msgctxt "KdeMainWindow|"
@@ -1032,17 +1032,17 @@ msgstr "النظام"
 #: src/app/qt/configdialog.cpp:122
 msgctxt "ConfigDialog|"
 msgid "Use custom app&lication font"
-msgstr ""
+msgstr "استعمل خط &تطبيق مخصص"
 
 #: src/app/qt/configdialog.cpp:124
 msgctxt "ConfigDialog|"
 msgid "A&pplication Font..."
-msgstr ""
+msgstr "&خط التطبيق…"
 
 #: src/app/qt/configdialog.cpp:126
 msgctxt "ConfigDialog|"
 msgid "Use custom application &style"
-msgstr ""
+msgstr "استعمل &نمط تطبيق مخصص"
 
 #: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
 msgctxt "ConfigDialog|"
@@ -1052,7 +1052,7 @@ msgstr "مجهول"
 #: src/app/qt/configdialog.cpp:151
 msgctxt "ConfigDialog|"
 msgid "Use native system file &dialogs"
-msgstr ""
+msgstr "استعمل &حواريات الملف الخاصة بالنظام"
 
 #: src/app/qt/configdialog.cpp:155
 msgctxt "ConfigDialog|"
@@ -1083,7 +1083,7 @@ msgstr "أل&غِ"
 #, qt-format
 msgctxt "ConfigDialog|"
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr ""
+msgstr "عُين اختصار لوحة المفاتيح '%1' إلى '%2' فعلاً."
 
 #: src/app/qt/kid3mainwindow.cpp:109
 msgctxt "Kid3MainWindow|"
@@ -1103,7 +1103,7 @@ msgstr "ا&فتح..."
 #: src/app/qt/kid3mainwindow.cpp:128
 msgctxt "Kid3MainWindow|"
 msgid "Opens a recently used folder"
-msgstr ""
+msgstr "تفتح المجلد المستخدم مؤخراً"
 
 #: src/app/qt/kid3mainwindow.cpp:129
 msgctxt "Kid3MainWindow|"
@@ -1148,7 +1148,7 @@ msgstr "ا&حفظ"
 #: src/app/qt/kid3mainwindow.cpp:184
 msgctxt "Kid3MainWindow|"
 msgid "Reverts the changes of all or the selected files"
-msgstr ""
+msgstr "يسترجع جميع التغيرات أو الملفات المحددة"
 
 #: src/app/qt/kid3mainwindow.cpp:185
 msgctxt "Kid3MainWindow|"
@@ -2820,7 +2820,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:161
 msgctxt "@default|"
 msgid "Subtitle"
-msgstr "عنوان فرعيّ"
+msgstr "الترجمة"
 
 #: src/core/tags/frame.cpp:162
 msgctxt "@default|"

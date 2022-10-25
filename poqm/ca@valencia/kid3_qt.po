@@ -3902,7 +3902,7 @@ msgstr "C&ancel·la"
 #: src/gui/dialogs/browsecoverartdialog.cpp:177
 msgctxt "BrowseCoverArtDialog|"
 msgid "Click Browse to start"
-msgstr "Feu clic a Explora per a començar"
+msgstr "Feu clic en Explora per a començar"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:183
 msgctxt "BrowseCoverArtDialog|"
