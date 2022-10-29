@@ -25,7 +25,6 @@
  */
 
 #include "taglibfile.h"
-#include "taglibconfig.h"
 #include <QDir>
 #include <QString>
 #if QT_VERSION >= 0x060000
@@ -1567,7 +1566,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             mp4Tag->itemListMap().erase("covr");
 #endif
           }
-#ifdef HAVE_TAGLIB_MP4FILE_STRIP
+#if TAGLIB_VERSION >= 0x010d00
           TagLib::MP4::File* mp4File;
           if ((force || isTagChanged(Frame::Tag_2)) && mp4Tag->isEmpty() &&
               (mp4File = dynamic_cast<TagLib::MP4::File*>(file)) != nullptr) {

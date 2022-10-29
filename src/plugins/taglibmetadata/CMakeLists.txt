@@ -3,8 +3,6 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
 
   find_package(TagLib REQUIRED)
 
-  configure_file(taglibconfig.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/taglibconfig.h)
-
   set(plugin_NAME TaglibMetadata)
 
   string(TOLOWER ${plugin_NAME} plugin_TARGET)
