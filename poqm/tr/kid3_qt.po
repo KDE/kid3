@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2022-10-18 06:05+0300\n"
+"PO-Revision-Date: 2022-10-28 13:30+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.1\n"
+"X-Generator: Lokalize 22.08.2\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Language: tr\n"
 "X-Source-Language: en\n"
@@ -2868,7 +2868,7 @@ msgstr "Ses tarama nokta"
 #: src/core/tags/frame.cpp:189
 msgctxt "@default|"
 msgid "Chapter"
-msgstr "Bölüm"
+msgstr "Fasıl"
 
 #: src/core/tags/frame.cpp:190
 msgctxt "@default|"
@@ -3384,7 +3384,7 @@ msgstr "XID"
 #: src/core/tags/frame.cpp:326
 msgctxt "@default|"
 msgid "Chapters"
-msgstr "Bölümler"
+msgstr "Fasıllar"
 
 #: src/core/tags/frame.cpp:327
 msgctxt "@default|"
@@ -6273,7 +6273,7 @@ msgstr "ASPI - Ses tarama nokta indeksi"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2327
 msgctxt "@default|"
 msgid "CHAP - Chapter"
-msgstr "CHAP - Bölüm"
+msgstr "CHAP - Fasıl"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2332
 msgctxt "@default|"
