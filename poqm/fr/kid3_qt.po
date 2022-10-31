@@ -6488,7 +6488,7 @@ msgstr "Réception"
 #: src/qml/app/BatchImportPage.qml:56
 msgctxt "BatchImportPage|"
 msgid "Data received"
-msgstr "Donnée reçues"
+msgstr "Données reçues"
 
 #: src/qml/app/BatchImportPage.qml:59
 msgctxt "BatchImportPage|"
@@ -7180,7 +7180,7 @@ msgstr "À étiquette %1"
 #, qt-format
 msgctxt "TagCollapsible|"
 msgid "From Tag %1"
-msgstr "Depuis étiquette %1"
+msgstr "Depuis l'étiquette %1"
 
 #: src/qml/app/TagCollapsible.qml:102
 msgctxt "TagCollapsible|"
