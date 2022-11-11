@@ -829,7 +829,7 @@ msgstr "Oculta automàticament les etiquetes"
 #: src/app/kde/kdemainwindow.cpp:337
 msgctxt "KdeMainWindow|"
 msgid "Select All in &Folder"
-msgstr "Selecciona-ho tot a la &carpeta"
+msgstr "Selecciona-ho tot en la &carpeta"
 
 #: src/app/kde/kdemainwindow.cpp:338
 msgctxt "KdeMainWindow|"
@@ -1277,7 +1277,7 @@ msgstr "Selecciona tots els fitxers en la carpeta actual"
 #: src/app/qt/kid3mainwindow.cpp:349
 msgctxt "Kid3MainWindow|"
 msgid "Select All in &Folder"
-msgstr "Selecciona-ho tot a la &carpeta"
+msgstr "Selecciona-ho tot en la &carpeta"
 
 #: src/app/qt/kid3mainwindow.cpp:357
 msgctxt "Kid3MainWindow|"
