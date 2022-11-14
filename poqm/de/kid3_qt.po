@@ -2,7 +2,7 @@
 # This file is put in the public domain.
 #
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
-# Frank Steinmetzger <Warp_7@gmx.de>, 2011.
+# Frank Steinmetzger <Warp_7@gmx.de>, 2011, 2022.
 # Burkhard Lück <lueck@hube-lueck.de>, 2020, 2021.
 # Frederik Schwarzer <schwarzer@kde.org>, 2022.
 msgid ""
@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2022-08-20 20:39+0200\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"PO-Revision-Date: 2022-11-10 20:29+0100\n"
+"Last-Translator: Frank Steinmetzger <dev-kde@felsenfleischer.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.08.3\n"
 "X-Qt-Contexts: true\n"
 
 #: src/app/cli/clicommand.cpp:350
@@ -329,7 +329,6 @@ msgid "Configure Kid3"
 msgstr "Kid3 einrichten"
 
 #: src/app/cli/clicommand.cpp:1296
-#, fuzzy
 msgctxt "ConfigCommand|"
 msgid "Group.Option Value"
 msgstr "Gruppe.Option Wert"
@@ -352,10 +351,9 @@ msgid "Execute command"
 msgstr "Befehl ausführen"
 
 #: src/app/cli/clicommand.cpp:1425
-#, fuzzy
 msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
-msgstr "Programmdatei [Argumente]"
+msgstr "Ausführbare Datei [Argumente]"
 
 #: src/app/cli/clicommand.cpp:1454
 msgctxt "ExecuteCommand|"
