@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2022-11-21 22:30+0300\n"
+"PO-Revision-Date: 2022-11-22 17:23+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -934,7 +934,7 @@ msgstr "Dosya Listesi"
 #: src/app/kde/kdemainwindow.cpp:428
 msgctxt "KdeMainWindow|"
 msgid "&Rename"
-msgstr "Ad Değişti&r"
+msgstr "Yeniden Adlandır&r"
 
 #: src/app/kde/kdemainwindow.cpp:437
 msgctxt "KdeMainWindow|"
@@ -1576,7 +1576,7 @@ msgstr "Dosya Listesi"
 #: src/app/qt/kid3mainwindow.cpp:706
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
-msgstr "Ad Değişti&r"
+msgstr "Yeniden Adlandır&r"
 
 #: src/app/qt/kid3mainwindow.cpp:713
 msgctxt "Kid3MainWindow|"
@@ -4202,7 +4202,7 @@ msgstr "&Vekil sunucu parolası:"
 #: src/gui/dialogs/configdialogpages.cpp:605
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
-msgstr "&Üstveri Eklentileri ve Öncelik"
+msgstr "&Üst Veri Eklentileri ve Öncelik"
 
 #: src/gui/dialogs/configdialogpages.cpp:617
 msgctxt "ConfigDialogPages|"
@@ -4344,7 +4344,7 @@ msgstr "&Önizleme"
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
 msgid "&Filter:"
-msgstr "&Süz:"
+msgstr "S&üz:"
 
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
