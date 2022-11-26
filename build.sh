@@ -337,20 +337,20 @@ verify_not_in_srcdir
 target=${*:-libs package}
 
 qt_version=5.15.2
-zlib_version=1.2.8
-zlib_patchlevel=5
+zlib_version=1.2.13
+zlib_patchlevel=1
 libogg_version=1.3.4
 libogg_patchlevel=0.1
 libvorbis_version=1.3.7
 libvorbis_patchlevel=1
 ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
-ffmpeg_version=5.1
-ffmpeg_patchlevel=3
-libflac_version=1.3.4
+ffmpeg_version=5.1.2
+ffmpeg_patchlevel=1
+libflac_version=1.4.2+ds
 libflac_patchlevel=2
 id3lib_version=3.8.3
-id3lib_patchlevel=16.3
+id3lib_patchlevel=17
 taglib_version=1.13
 chromaprint_version=1.5.1
 chromaprint_patchlevel=2
@@ -446,7 +446,7 @@ if [[ $target = *"libs"* ]]; then
 if test "$compiler" = "gcc-debug"; then
   export CFLAGS="-fPIC"
   export CXXFLAGS="-fPIC"
-  FLAC_BUILD_OPTION="--enable-debug"
+  FLAC_BUILD_OPTION="--enable-debug=yes"
   ID3LIB_BUILD_OPTION="--enable-debug=minimum"
   AV_BUILD_OPTION="--enable-debug=3 --enable-pic --extra-ldexeflags=-pie"
   CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=Debug"
@@ -455,12 +455,12 @@ elif test "$compiler" = "gcc-self-contained"; then
   export CXX=$gcc_self_contained_cxx
   export CFLAGS="-O2 -fPIC"
   export CXXFLAGS="-O2 -fPIC"
-  FLAC_BUILD_OPTION="--enable-debug"
+  FLAC_BUILD_OPTION="--enable-debug=info CFLAGS=-O2 CXXFLAGS=-O2"
   ID3LIB_BUILD_OPTION="--enable-debug=minimum"
   AV_BUILD_OPTION="--enable-debug=1 --enable-pic --extra-ldexeflags=-pie"
   CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=RelWithDebInfo"
 else
-  FLAC_BUILD_OPTION="--enable-debug"
+  FLAC_BUILD_OPTION="--enable-debug=info CFLAGS=-O2 CXXFLAGS=-O2"
   ID3LIB_BUILD_OPTION="--enable-debug=minimum"
   AV_BUILD_OPTION="--enable-debug=1"
   CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=RelWithDebInfo"
@@ -510,7 +510,7 @@ fi
 
 if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
   # Build zlib only for Windows.
-  ZLIB_ROOT_PATH="$thisdir/zlib-$zlib_version/inst/usr/local"
+  ZLIB_ROOT_PATH="$thisdir/zlib-${zlib_version}.dfsg/inst/usr/local"
   TAGLIB_ZLIB_ROOT_OPTION="-DZLIB_ROOT=${ZLIB_ROOT_PATH}"
   CHROMAPRINT_ZLIB_OPTION="-DEXTRA_LIBS=\"-L${ZLIB_ROOT_PATH}/lib -lz\""
 fi
@@ -626,8 +626,8 @@ if test "$compiler" != "cross-android"; then
   if test -n "$ZLIB_ROOT_PATH"; then
     test -f zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz ||
       $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz
-    test -f zlib_${zlib_version}.dfsg.orig.tar.gz ||
-      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.gz
+    test -f zlib_${zlib_version}.dfsg.orig.tar.bz2 ||
+      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.bz2
   fi
 
   test -f ffmpeg_${ffmpeg_version}.orig.tar.xz ||
@@ -872,8 +872,8 @@ if test "$compiler" != "cross-android"; then
     if ! test -d zlib-${zlib_version}; then
       echo "### Extracting zlib"
 
-      tar xzf source/zlib_${zlib_version}.dfsg.orig.tar.gz
-      cd zlib-${zlib_version}/
+      tar xjf source/zlib_${zlib_version}.dfsg.orig.tar.bz2
+      cd zlib-${zlib_version}.dfsg/
 
       tar xJf ../source/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz || true
       echo Can be ignored: Cannot create symlink to debian.series
@@ -906,11 +906,11 @@ if test "$compiler" != "cross-android"; then
     cd ..
   fi
 
-  if ! test -d flac-${libflac_version}; then
+  if ! test -d flac-${libflac_version%+ds*}; then
     echo "### Extracting libflac"
 
     tar xJf source/flac_${libflac_version}.orig.tar.xz
-    cd flac-${libflac_version}/
+    cd flac-${libflac_version%+ds*}/
     tar xJf ../source/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     patch -p1 <$srcdir/packaging/patches/flac-1.2.1-00-size_t_max.patch
@@ -1079,8 +1079,8 @@ if test "$compiler" = "cross-android"; then
 else #  cross-android
 
   if test "$1" = "clean"; then
-    for d in zlib-${zlib_version} libogg-${libogg_version} \
-             libvorbis-${libvorbis_version} flac-${libflac_version} \
+    for d in zlib-${zlib_version}.dfsg libogg-${libogg_version} \
+             libvorbis-${libvorbis_version} flac-${libflac_version%+ds*} \
              id3lib-${id3lib_version} taglib-${taglib_version} \
              ffmpeg-${ffmpeg_version} chromaprint-${chromaprint_version} \
              mp4v2-${mp4v2_version}; do
@@ -1135,20 +1135,20 @@ else #  cross-android
     tar xmzf bin/openssl-${openssl_version}.tgz -C $BUILDROOT
   fi
 
-  if test -n "$ZLIB_ROOT_PATH" && test ! -d zlib-${zlib_version}/inst; then
+  if test -n "$ZLIB_ROOT_PATH" && test ! -d zlib-${zlib_version}.dfsg/inst; then
     echo "### Building zlib"
 
-    cd zlib-${zlib_version}/
+    cd zlib-${zlib_version}.dfsg/
+    mkdir -p inst/usr/local
     if test $kernel = "MINGW"; then
-      make -f win32/Makefile.gcc
-      make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
+      CFLAGS="$CFLAGS -g -O3 -Wall -DNO_FSEEKO" ./configure --static
+      make install prefix=`pwd`/inst/usr/local
     elif test "$compiler" = "cross-mingw"; then
-      make -f win32/Makefile.gcc LOC=-g PREFIX=${_crossprefix}
-      make install -f win32/Makefile.gcc INCLUDE_PATH=`pwd`/inst/usr/local/include LIBRARY_PATH=`pwd`/inst/usr/local/lib BINARY_PATH=`pwd`/inst/usr/local/bin
+      CHOST=${_crossprefix} CFLAGS="$CFLAGS -g -O3 -Wall -DNO_FSEEKO" ./configure --static
+      make install prefix=`pwd`/inst/usr/local
     else
       CFLAGS="$CFLAGS -g -O3 -Wall -DNO_FSEEKO" ./configure --static
       sed 's/LIBS=$(STATICLIB) $(SHAREDLIB) $(SHAREDLIBV)/LIBS=$(STATICLIB)/' Makefile >Makefile.inst
-      mkdir -p inst/usr/local
       make install -f Makefile.inst prefix=`pwd`/inst/usr/local
     fi
     cd inst
@@ -1189,10 +1189,10 @@ else #  cross-android
     tar xmzf bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
   fi
 
-  if test ! -d flac-${libflac_version}/inst; then
+  if test ! -d flac-${libflac_version%+ds*}/inst; then
     echo "### Building libflac"
 
-    cd flac-${libflac_version}/
+    cd flac-${libflac_version%+ds*}/
     autoreconf -i
     configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local --disable-thorough-tests --disable-doxygen-docs --disable-xmms-plugin $FLAC_BUILD_OPTION $CONFIGURE_OPTIONS"
     if test $kernel = "Darwin"; then
