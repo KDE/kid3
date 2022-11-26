@@ -4246,7 +4246,7 @@ QString TagLibFile::getVorbisName(const Frame& frame) const
   } else if (type <= Frame::FT_LastFrame) {
     return QString::fromLatin1(getVorbisNameFromType(type));
   } else {
-    return frame.getName().remove(QLatin1Char('=')).toUpper();
+    return fixUpTagKey(frame.getName(), TT_Vorbis).toUpper();
   }
 }
 
@@ -4291,7 +4291,8 @@ QString getApeName(const Frame& frame)
   } else if (type <= Frame::FT_LastFrame) {
     return QString::fromLatin1(getVorbisNameFromType(type));
   } else {
-    return frame.getName().toUpper();
+    return TaggedFile::fixUpTagKey(frame.getName(),
+                                   TaggedFile::TT_Ape).toUpper();
   }
 }
 
@@ -4583,7 +4584,8 @@ void getMp4TypeForFrame(const Frame& frame, TagLib::String& name,
     }
   } else {
     Frame::Type type;
-    name = toTString(frame.getInternalName());
+    name = toTString(TaggedFile::fixUpTagKey(frame.getInternalName(),
+                                             TaggedFile::TT_Mp4));
     getMp4TypeForName(name, type, value);
   }
 }
@@ -4839,7 +4841,8 @@ void getAsfTypeForFrame(const Frame& frame, TagLib::String& name,
     }
   } else {
     Frame::Type type;
-    name = toTString(frame.getInternalName());
+    name = toTString(TaggedFile::fixUpTagKey(frame.getInternalName(),
+                                             TaggedFile::TT_Asf));
     getAsfTypeForName(name, type, value);
   }
 }

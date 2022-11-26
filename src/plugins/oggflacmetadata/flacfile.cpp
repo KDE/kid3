@@ -559,7 +559,7 @@ void FlacFile::setVorbisComment(FLAC::Metadata::VorbisComment* vc)
   // then our comments are appended
   auto it = m_comments.begin(); // clazy:exclude=detaching-member
   while (it != m_comments.end()) {
-    QString name((*it).getName());
+    QString name = fixUpTagKey(it->getName(), TT_Vorbis);
     QString value((*it).getValue());
     if (!value.isEmpty()) {
       // The number of bytes - not characters - has to be passed to the

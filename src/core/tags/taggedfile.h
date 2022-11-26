@@ -51,6 +51,18 @@ public:
     TF_OggFlac     = 1 << 5  /**< Supports Ogg FLAC files */
   };
 
+  /** Tag type. */
+  enum TagType {
+    TT_Unknown,
+    TT_Id3v1,
+    TT_Id3v2,
+    TT_Vorbis,
+    TT_Ape,
+    TT_Mp4,
+    TT_Asf,
+    TT_Info
+  };
+
   /** Information about file. */
   struct KID3_CORE_EXPORT DetailInfo {
     /** Channel mode. */
@@ -486,6 +498,18 @@ public:
    * @return number, 0 if parsing failed, -1 if str is null
    */
   static int splitNumberAndTotal(const QString& str, int* total=nullptr);
+
+  /**
+   * Fix up a key to be valid.
+   * If the key contains new line characters because it is coming from an ID3
+   * frame (e.g. "COMM - COMMENTS\nDescription"), the description part is taken.
+   * Illegal characters depending on @a tagType are removed.
+   *
+   * @param key key which might have invalid characters.
+   * @param tagType tag type
+   * @return key which can be used for tag type.
+   */
+  static QString fixUpTagKey(const QString& key, TagType tagType);
 
   /**
    * Get access and modification time of file.

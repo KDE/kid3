@@ -302,18 +302,6 @@ private:
   friend void TagLibFileInternal::fixUpTagLibFrameValue(
       const TagLibFile* self, Frame::Type frameType, QString& value);
 
-  /** Tag type for cached information. */
-  enum TagType {
-    TT_Unknown,
-    TT_Id3v1,
-    TT_Id3v2,
-    TT_Vorbis,
-    TT_Ape,
-    TT_Mp4,
-    TT_Asf,
-    TT_Info
-  };
-
   TagLibFile(const TagLibFile&);
   TagLibFile& operator=(const TagLibFile&);
 

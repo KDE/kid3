@@ -272,7 +272,7 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
               ::vorbis_comment_init(vc);
               auto it = m_comments.begin(); // clazy:exclude=detaching-member
               while (it != m_comments.end()) {
-                QString name((*it).getName());
+                QString name = fixUpTagKey(it->getName(), TT_Vorbis);
                 QString value((*it).getValue());
                 if (!value.isEmpty()) {
                   ::vorbis_comment_add_tag(

@@ -1336,7 +1336,7 @@ bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         return false;
       }
     }
-    QString name(frame.getInternalName());
+    QString name = fixUpTagKey(frame.getInternalName(), TT_Mp4);
     auto it = m_metadata.find(name); // clazy:exclude=detaching-member
     if (it != m_metadata.end()) {
       if (frame.getType() != Frame::FT_Picture) {
@@ -1440,7 +1440,7 @@ bool M4aFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
         frame.setExtendedType(Frame::ExtendedType(type, name));
       }
     }
-    name = frame.getInternalName();
+    name = fixUpTagKey(frame.getInternalName(), TT_Mp4);
     m_metadata[name] = frame.getValue().toUtf8();
     markTagChanged(Frame::Tag_2, type);
     return true;

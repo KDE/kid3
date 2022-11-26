@@ -719,6 +719,64 @@ int TaggedFile::splitNumberAndTotal(const QString& str, int* total)
 }
 
 /**
+ * Fix up a key to be valid.
+ * If the key contains new line characters because it is coming from an ID3
+ * frame (e.g. "COMM - COMMENTS\nDescription"), the description part is taken.
+ * Illegal characters depending on @a tagType are removed.
+ *
+ * @param key key which might have invalid characters.
+ * @param tagType tag type
+ * @return key which can be used for tag type.
+ */
+QString TaggedFile::fixUpTagKey(const QString& key, TagType tagType)
+{
+  int len = key.length();
+  int i = key.indexOf(QLatin1Char('\n'));
+  if (i < 0) {
+    // key does not contain '\n' => 0..len
+    i = 0;
+  } else if (i >= len - 1) {
+    // '\n' at end of key => 0..len-1
+    i = 0;
+    --len;
+  } else {
+    // key contains '\n' at i => i+1..len
+    ++i;
+  }
+
+  // Allowed characters depending on tag type:
+  // TT_Vorbis: != '=' && >= 0x20 && <= 0x7D
+  // TT_Ape: >= 0x20 && <= 0x7E
+  QChar forbidden;
+  QChar firstAllowed;
+  QChar lastAllowed;
+  if (tagType == TT_Vorbis) {
+    forbidden = QLatin1Char('=');
+    firstAllowed = QLatin1Char('\x20');
+    lastAllowed = QLatin1Char('\x7d');
+  } else if (tagType == TT_Ape) {
+    firstAllowed = QLatin1Char('\x20');
+    lastAllowed = QLatin1Char('\x7e');
+  }
+
+  QString result;
+  result.reserve(len - i);
+  if (forbidden.isNull() && firstAllowed.isNull() && lastAllowed.isNull()) {
+    result = key.mid(i, len - i);
+  } else {
+    while (i < len) {
+      QChar ch = key.at(i);
+      if (ch != forbidden &&
+          ch >= firstAllowed && ch <= lastAllowed) {
+        result.append(ch);
+      }
+      ++i;
+    }
+  }
+  return result;
+}
+
+/**
  * Get the total number of tracks in the directory.
  *
  * @return total number of tracks, -1 if unavailable.
