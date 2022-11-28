@@ -6470,7 +6470,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED – adresse til podkast-kjelde"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6695
+#: src/plugins/taglibmetadata/taglibfile.cpp:6698
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "Karakterinformasjon"
