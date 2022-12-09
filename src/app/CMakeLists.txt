@@ -40,8 +40,6 @@ if(BUILD_KDE_APP)
     endif()
   endif()
 
-  ki18n_install(${CMAKE_SOURCE_DIR}/po)
-
   kde_enable_exceptions()
   add_subdirectory(kde)
   ecm_install_icons(ICONS
