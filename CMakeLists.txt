@@ -502,8 +502,6 @@ add_subdirectory(src)
 add_subdirectory(doc)
 add_subdirectory(translations)
 
-ki18n_install(po)
-
 if(ANDROID)
   add_subdirectory(android)
 endif()
