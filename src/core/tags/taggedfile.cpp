@@ -467,12 +467,14 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
       const int braceExprLen = closingBracePos - percentIdx + prefixLen - 1;
       if (!useCustomCaptures) {
         QString capture(QLatin1String(
-                          (code == QLatin1String("track number") ||
-                           code == QLatin1String("date") ||
-                           code == QLatin1String("disc number") ||
-                           code == QLatin1String("bpm"))
-                          ? "(\\d{1,4})"
-                          : "([^-_\\./ ](?:[^/]*[^-_/ ])?)"));
+                          code == QLatin1String("track number")
+                          ? "([A-Za-z]?\\d+[A-Za-z]?)"
+                          : code == QLatin1String("date")
+                            ? "(\\d{1,4}[\\dT :-]*)"
+                            : (code == QLatin1String("disc number") ||
+                               code == QLatin1String("bpm"))
+                              ? "(\\d{1,4})"
+                              : "([^-_\\./ ](?:[^/]*[^-_/ ])?)"));
         pattern.replace(percentIdx, braceExprLen, capture);
         percentIdx += capture.length();
       } else {
