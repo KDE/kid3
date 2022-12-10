@@ -273,6 +273,13 @@ void UserActionsConfig::setDefaultUserActions(bool upgradeOnly)
             QLatin1String("@qml %{qmlpath}/script/ImportJson.qml"),
             false, true));
   }
+  if (!upgradeOnly || ConfigStore::getConfigVersion() < 8) {
+    m_contextMenuCommands.push_back(
+      UserActionsConfig::MenuCommand(
+            QLatin1String("Fix ID3v2 Standard Violations"),
+            QLatin1String("@qml %{qmlpath}/script/FixId3v2StandardViolations.qml"),
+            false, true));
+  }
 #endif
 }
 

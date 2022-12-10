@@ -40,8 +40,9 @@ namespace {
  * 5: 3.8.3
  * 6: 3.8.5
  * 7: 3.9.0
+ * 8: 3.9.3
  */
-const int CONFIG_VERSION = 7;
+const int CONFIG_VERSION = 8;
 
 }
 
