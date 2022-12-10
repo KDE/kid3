@@ -51,7 +51,8 @@ public:
     FieldIdsRole =  Qt::UserRole + 7,
     FieldValuesRole =  Qt::UserRole + 8,
     CompletionsRole =  Qt::UserRole + 9,
-    NoticeRole =  Qt::UserRole + 10
+    NoticeRole =  Qt::UserRole + 10,
+    NoticeWarningRole =  Qt::UserRole + 11
   };
 
   /** Column indices. */

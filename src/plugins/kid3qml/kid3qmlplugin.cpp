@@ -186,6 +186,8 @@ void Kid3QmlPlugin::registerTypes(const char *uri)
     qmlRegisterType<CheckableListModel>(uri, 1, 0, "CheckableListModel");
     qmlRegisterUncreatableType<Frame>(uri, 1, 0, "Frame",
                                       QLatin1String("Only enum container"));
+    qmlRegisterUncreatableType<FrameNotice>(uri, 1, 0, "FrameNotice",
+                                          QLatin1String("Only enum container"));
     qmlRegisterUncreatableType<FormatConfig>(
           uri, 1, 0, "FormatConfig", QLatin1String("Only enum container"));
     qmlRegisterUncreatableType<PlaylistConfig>(

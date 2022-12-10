@@ -84,6 +84,12 @@ public:
   operator bool() const { return m_warning != None; }
 
   /**
+   * Get warning of notice.
+   * @return warning.
+   */
+  Warning getWarning() const { return m_warning; }
+
+  /**
    * Get translated description of notice.
    * @return description, empty if none.
    */

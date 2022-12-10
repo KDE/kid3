@@ -47,6 +47,7 @@ QHash<int,QByteArray> getRoleHash()
   roles[FrameTableModel::FieldValuesRole] = "fieldValues";
   roles[FrameTableModel::CompletionsRole] = "completions";
   roles[FrameTableModel::NoticeRole] = "notice";
+  roles[FrameTableModel::NoticeWarningRole] = "noticeWarning";
   return roles;
 }
 
@@ -107,7 +108,7 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
   }
   if (((role == Qt::BackgroundRole || role == Qt::ToolTipRole) &&
        index.column() == CI_Value) ||
-      (role == TruncatedRole || role == NoticeRole)) {
+      (role == TruncatedRole || role == NoticeRole || role == NoticeWarningRole)) {
     isTruncated = (static_cast<unsigned>(index.row()) < sizeof(m_markedRows) * 8 &&
         (m_markedRows & (1ULL << index.row())) != 0) || it->isMarked();
   }
@@ -234,6 +235,10 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
       toolTip = notice.getDescription();
     }
     return toolTip;
+  } else if (role == NoticeWarningRole) {
+    return isTruncated ? (it->isMarked() ? it->getNotice().getWarning()
+                                         : FrameNotice::Truncated)
+                       : FrameNotice::None;
   }
   return QVariant();
 }
