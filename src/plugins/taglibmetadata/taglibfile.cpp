@@ -127,9 +127,16 @@ TagLib::String toTString(const QString& s)
 {
   int len = s.length();
   QVarLengthArray<wchar_t> a(len + 1);
-  wchar_t* ws = a.data();
-  len = s.toWCharArray(ws);
-  ws[len] = 0;
+  wchar_t* const ws = a.data();
+  // Do not use `len = s.toWCharArray(ws); ws[len] = 0;`, this would construct
+  // an array with UCS-4 encoded wide characters (if not on Windows), which
+  // is not compatible with TagLib, which expects only 16 bit characters.
+  // This works for Basic Multilingual Plane only, but not for surrogate pairs.
+  wchar_t* wsPtr = ws;
+  for (auto it = s.constBegin(); it != s.constEnd(); ++it) {
+    *wsPtr++ = it->unicode();
+  }
+  *wsPtr = 0;
   return TagLib::String(ws);
 }
 
