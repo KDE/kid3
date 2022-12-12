@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2022-12-10 18:24+0300\n"
+"PO-Revision-Date: 2022-12-11 20:34+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.0\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Language: tr\n"
 "X-Source-Language: en\n"
@@ -1706,7 +1706,7 @@ msgstr "Cümlenin ilk harfi büyük"
 #: src/core/config/formatconfig.cpp:499
 msgctxt "@default|"
 msgid "All first letters uppercase"
-msgstr "Kelimelerin ilk harfi büyük"
+msgstr "Tüm ilk harfler büyük"
 
 #: src/core/config/formatconfig.cpp:514
 msgctxt "FormatConfig|"
@@ -3043,7 +3043,7 @@ msgstr "Zaman"
 #: src/core/tags/frame.cpp:230
 msgctxt "@default|"
 msgid "Podcast Keywords"
-msgstr "Podcast anahtar kelimeler"
+msgstr "Podcast Anahtar Sözcükleri"
 
 #: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:287
 msgctxt "@default|"
@@ -6373,7 +6373,7 @@ msgstr "TIPL - İlgili kişi listesi"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2400
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
-msgstr "TKWD - Podcast anahtar kelimeler"
+msgstr "TKWD - Podcast Anahtar Sözcükleri"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2404
 msgctxt "@default|"
