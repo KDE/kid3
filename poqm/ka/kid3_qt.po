@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: src/app/cli/clicommand.cpp:350
 msgctxt "CliCommand|"
@@ -26,7 +26,7 @@ msgstr "დახმარება"
 #: src/app/cli/clicommand.cpp:395
 msgctxt "HelpCommand|"
 msgid "Command name"
-msgstr ""
+msgstr "ბრძანების სახელი"
 
 #: src/app/cli/clicommand.cpp:406
 msgctxt "TimeoutCommand|"
@@ -124,7 +124,7 @@ msgstr "დაბრუნება"
 #: src/app/cli/clicommand.cpp:675
 msgctxt "ImportCommand|"
 msgid "Import from file"
-msgstr ""
+msgstr "ფაილიდან შემოტანა"
 
 #: src/app/cli/clicommand.cpp:677
 msgctxt "ImportCommand|"
@@ -595,7 +595,7 @@ msgstr "ძებნა და ჩანაცვლება"
 #: src/app/kde/kdemainwindow.cpp:164
 msgctxt "KdeMainWindow|"
 msgid "Configure Shortcuts"
-msgstr ""
+msgstr "მალსახმობების მორგება"
 
 #: src/app/kde/kdemainwindow.cpp:172
 msgctxt "KdeMainWindow|"
@@ -625,7 +625,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:199
 msgctxt "KdeMainWindow|"
 msgid "Re&load"
-msgstr ""
+msgstr "&თავიდან ჩატვირთვა"
 
 #: src/app/kde/kdemainwindow.cpp:200
 msgctxt "KdeMainWindow|"
@@ -742,7 +742,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:293
 msgctxt "KdeMainWindow|"
 msgid "&Rename Folder..."
-msgstr ""
+msgstr "საქაღალდის სახელის &შეცვლა..."
 
 #: src/app/kde/kdemainwindow.cpp:294
 msgctxt "KdeMainWindow|"
@@ -900,7 +900,7 @@ msgstr "ფოკუსი"
 #: src/app/kde/kdemainwindow.cpp:403
 msgctxt "KdeMainWindow|"
 msgid "Frames:"
-msgstr ""
+msgstr "კადრები:"
 
 #: src/app/kde/kdemainwindow.cpp:404
 msgctxt "KdeMainWindow|"
@@ -1127,7 +1127,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:149
 msgctxt "Kid3MainWindow|"
 msgid "Re&load"
-msgstr ""
+msgstr "&თავიდან ჩატვირთვა"
 
 #: src/app/qt/kid3mainwindow.cpp:160
 msgctxt "Kid3MainWindow|"
@@ -1152,7 +1152,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:185
 msgctxt "Kid3MainWindow|"
 msgid "Re&vert"
-msgstr ""
+msgstr "&დაბრუნება"
 
 #: src/app/qt/kid3mainwindow.cpp:199
 msgctxt "Kid3MainWindow|"
@@ -1359,7 +1359,7 @@ msgstr "საქაღალდის სახელის შეცვლა"
 #: src/app/qt/kid3mainwindow.cpp:452
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
-msgstr ""
+msgstr "საქაღალდის სახელის &შეცვლა..."
 
 #: src/app/qt/kid3mainwindow.cpp:460
 msgctxt "Kid3MainWindow|"
@@ -1434,7 +1434,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:531
 msgctxt "Kid3MainWindow|"
 msgid "Show St&atusbar"
-msgstr ""
+msgstr "სტატუსის &ზოლის ჩვენება"
 
 #: src/app/qt/kid3mainwindow.cpp:540
 msgctxt "Kid3MainWindow|"
@@ -2267,7 +2267,7 @@ msgstr ""
 #: src/core/model/filefilter.cpp:127
 msgctxt "@default|"
 msgid "Logical AND"
-msgstr ""
+msgstr "ლოგიკური და"
 
 #: src/core/model/filefilter.cpp:132
 msgctxt "@default|"
@@ -2643,7 +2643,7 @@ msgstr "მოვლენები"
 #: src/core/tags/frame.cpp:97
 msgctxt "@default|"
 msgid "Chord"
-msgstr ""
+msgstr "სეგმენტი"
 
 #: src/core/tags/frame.cpp:98
 msgctxt "@default|"
@@ -2663,7 +2663,7 @@ msgstr "ალბომი შემსრულებელი"
 #: src/core/tags/frame.cpp:127
 msgctxt "@default|"
 msgid "Arranger"
-msgstr ""
+msgstr "ხმის რეჟისორი"
 
 #: src/core/tags/frame.cpp:128
 msgctxt "@default|"
@@ -2683,7 +2683,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:131
 msgctxt "@default|"
 msgid "Compilation"
-msgstr ""
+msgstr "ნაკრები"
 
 #: src/core/tags/frame.cpp:132 src/core/tags/pictureframe.cpp:52
 msgctxt "@default|"
@@ -2694,7 +2694,7 @@ msgstr "კომპოზიტორი"
 #: src/core/tags/pictureframe.cpp:50
 msgctxt "@default|"
 msgid "Conductor"
-msgstr ""
+msgstr "დირიჟორი"
 
 #: src/core/tags/frame.cpp:134
 msgctxt "@default|"
@@ -2815,7 +2815,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:160
 msgctxt "@default|"
 msgid "Sort Name"
-msgstr ""
+msgstr "სახელით დალაგება"
 
 #: src/core/tags/frame.cpp:161
 msgctxt "@default|"
@@ -2935,7 +2935,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:206 src/core/tags/frame.cpp:303
 msgctxt "@default|"
 msgid "Podcast"
-msgstr ""
+msgstr "პოდკასტი"
 
 #: src/core/tags/frame.cpp:207
 msgctxt "@default|"
@@ -3146,7 +3146,7 @@ msgstr "კოდირება"
 #: src/core/tags/frame.cpp:258
 msgctxt "@default|"
 msgid "Engineer"
-msgstr ""
+msgstr "ინჟინერი"
 
 #: src/core/tags/frame.cpp:259
 msgctxt "@default|"
@@ -3191,7 +3191,7 @@ msgstr "დებარეობა"
 #: src/core/tags/frame.cpp:267
 msgctxt "@default|"
 msgid "Opus"
-msgstr ""
+msgstr "Opus"
 
 #: src/core/tags/frame.cpp:269
 msgctxt "@default|"
@@ -3206,7 +3206,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:271
 msgctxt "@default|"
 msgid "Producer"
-msgstr ""
+msgstr "პროდუსერი"
 
 #: src/core/tags/frame.cpp:272
 msgctxt "@default|"
@@ -3296,7 +3296,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:306
 msgctxt "@default|"
 msgid "Purchase Date"
-msgstr ""
+msgstr "შეძენის თარიღი"
 
 #: src/core/tags/frame.cpp:307
 msgctxt "@default|"
@@ -3356,7 +3356,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Podcast URL"
-msgstr ""
+msgstr "პოდკასტის URL"
 
 #: src/core/tags/frame.cpp:323
 msgctxt "@default|"
@@ -3376,7 +3376,7 @@ msgstr "XID"
 #: src/core/tags/frame.cpp:326
 msgctxt "@default|"
 msgid "Chapters"
-msgstr ""
+msgstr "თავები"
 
 #: src/core/tags/frame.cpp:327
 msgctxt "@default|"
@@ -3669,7 +3669,7 @@ msgstr "სიჩქარე"
 #: src/core/tags/trackdata.cpp:269
 msgctxt "@default|"
 msgid "Samplerate"
-msgstr ""
+msgstr "სემპლებისსიჩქარე"
 
 #: src/core/tags/trackdata.cpp:276
 msgctxt "@default|"
@@ -6490,7 +6490,7 @@ msgstr "შეცდომა"
 #: src/qml/app/BatchImportPage.qml:104
 msgctxt "BatchImportPage|"
 msgid "Start"
-msgstr ""
+msgstr "დასაწყისი"
 
 #: src/qml/app/BatchImportPage.qml:126
 msgctxt "BatchImportPage|"
