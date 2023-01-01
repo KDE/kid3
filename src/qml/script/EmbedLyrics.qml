@@ -25,6 +25,17 @@ import Kid3 1.1
 
 Kid3Script {
   onRun: {
+    function replaceHtmlEntities(str) {
+      str = str.replace(/<br[ \/]*>/gmi, "\n")
+      str = str.replace(/\s*<\/p>\s*<p>\s*/gmi, "\n")
+      str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, "")
+      str = str.replace(/&#\d+;/gm, function(s) {
+        return String.fromCharCode(parseInt(s.substring(
+          2, s.length - 1)))
+      })
+      return str
+    }
+
     var lyricFetchers = {
       "makeitpersonal": {
         getUrl: function(artist, title) {
@@ -41,16 +52,6 @@ Kid3Script {
                    ":" + encodeURIComponent(title)
         },
         parseResponse: function(resp) {
-          function replaceHtmlEntities(str) {
-            str = str.replace(/<br[ \/]*>/gmi, "\n");
-            str = str.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, "");
-            str = str.replace(/&#\d+;/gm, function(s) {
-              return String.fromCharCode(parseInt(s.substring(
-                2, s.length - 1)))
-            })
-            return str
-          }
-
           var begin = resp.indexOf("<div class='lyricbox'>")
           if (begin !== -1) {
             begin += 22
@@ -63,9 +64,28 @@ Kid3Script {
           }
           return ""
         }
+      },
+      "www.letras.com": {
+        getUrl: function(artist, title) {
+          return "https://www.letras.com/" + encodeURIComponent(artist) +
+                   "/" + encodeURIComponent(title)
+        },
+        parseResponse: function(resp) {
+          var begin = resp.indexOf('<div class="cnt-letra">')
+          if (begin !== -1) {
+            begin += 23
+            var end = resp.indexOf("</div>", begin)
+            var txt = resp.substring(begin, end).trim()
+            if (txt.substring(0, 3) === "<p>") {
+              txt = replaceHtmlEntities(txt)
+              return txt
+            }
+          }
+          return ""
+        }
       }
     }
-    var usedFetchers = ["makeitpersonal", "lyrics.wikia.com"]
+    var usedFetchers = ["www.letras.com"]
     var currentFetcherIdx = 0
 
     function toNextFile() {

@@ -151,8 +151,8 @@ void UserActionsConfig::setDefaultUserActions(bool upgradeOnly)
                                      QLatin1String("@beginmenu")));
     m_contextMenuCommands.push_back(
       UserActionsConfig::MenuCommand(
-            QLatin1String("LyricWiki"),
-            QLatin1String("%{browser} http://lyricwiki.org/%u{artist}:%u{title}")));
+            QLatin1String("Letras"),
+            QLatin1String("%{browser} https://www.letras.com/%u{artist}/%u{title}")));
   }
 #ifdef HAVE_QML
   if (!upgradeOnly || ConfigStore::getConfigVersion() < 2) {
