@@ -1,3 +1,23 @@
+Thu Jan 12 12:15:43 CET 2023  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.9.3
+
+	* New:
+	  + User action script to fix ID3v2 standard violations.
+
+	* Improved:
+	  + Accept letters in track numbers when setting tags from filename.
+	  + Embed lyrics: Use letras.com instead of lyrics.wikia.com.
+
+	* Fixed:
+	  + Crash upon termination when qml and qmlview actions have been used.
+	  + Abort when invalid keys are used for FLAC Vorbis comments.
+	  + Use of non-BMP Unicode characters with TagLib.
+	  + Error description when saving files fails.
+	  + Discogs import.
+	  + Building with Musl libc.
+	  + Windows: Handling of common path in multiple command line arguments.
+
 Sat Aug  6 07:14:23 CEST 2022  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.9.2
