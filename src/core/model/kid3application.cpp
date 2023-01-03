@@ -836,9 +836,16 @@ bool Kid3Application::openDirectory(const QStringList& paths, bool fileCheck)
   bool ok = true;
   QStringList filePaths;
   QStringList dirComponents;
-  for (const QString& path : pathList) {
+  for (QString path : pathList) {
     if (!path.isEmpty()) {
       QFileInfo fileInfo(path);
+      if (path.startsWith(QLatin1Char(':')) && !fileInfo.exists()) {
+        // QFileInfo assumes that paths starting with a colon are absolute
+        // and denote a QResource. Since no such file was found, try again
+        // with a relative path to a file starting with a colon.
+        path = QLatin1String("./") + path;
+        fileInfo.setFile(path);
+      }
       if (fileCheck && !fileInfo.exists()) {
         ok = false;
         break;
