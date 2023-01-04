@@ -424,6 +424,12 @@ bool Kid3Cli::selectFile(const QStringList& paths)
   FileProxyModel* model = m_app->getFileProxyModel();
   for (const QString& fileName : paths) {
     QModelIndex index = model->index(fileName);
+    if (!index.isValid() && fileName.startsWith(QLatin1Char(':'))) {
+      // The FileSystemModel considers paths starting with a colon as invalid,
+      // retry with a relative path. See also comment about QResource in
+      // Kid3Application::openDirectory().
+      index = model->index(QLatin1String("./") + fileName);
+    }
     if (index.isValid()) {
       m_app->getFileSelectionModel()->setCurrentIndex(
             index, QItemSelectionModel::Select | QItemSelectionModel::Rows);
