@@ -2395,17 +2395,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Andmed"
 
-#: src/core/model/kid3application.cpp:1050
+#: src/core/model/kid3application.cpp:1057
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "Kataloogi salvestamine ..."
 
-#: src/core/model/kid3application.cpp:1260
+#: src/core/model/kid3application.cpp:1267
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Valik"
 
-#: src/core/model/kid3application.cpp:3473
+#: src/core/model/kid3application.cpp:3480
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "Kõik failid"

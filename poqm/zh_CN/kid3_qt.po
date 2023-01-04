@@ -2380,17 +2380,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "数据"
 
-#: src/core/model/kid3application.cpp:1050
+#: src/core/model/kid3application.cpp:1057
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "保存目录..."
 
-#: src/core/model/kid3application.cpp:1260
+#: src/core/model/kid3application.cpp:1267
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "选择"
 
-#: src/core/model/kid3application.cpp:3473
+#: src/core/model/kid3application.cpp:3480
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "全部文件"
