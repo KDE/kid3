@@ -329,13 +329,13 @@ msgstr ""
 #, qt-format
 msgctxt "ConfigCommand|"
 msgid "%1 does not exist"
-msgstr ""
+msgstr "%1 არ არსებობს"
 
 #: src/app/cli/clicommand.cpp:1350 src/app/cli/clicommand.cpp:1370
 #, qt-format
 msgctxt "ConfigCommand|"
 msgid "Invalid value %1"
-msgstr ""
+msgstr "არასწორი მნიშვნელობა %1"
 
 #: src/app/cli/clicommand.cpp:1424
 msgctxt "ExecuteCommand|"
@@ -408,23 +408,23 @@ msgctxt "Kid3Cli|"
 msgid "Available Commands"
 msgstr "ხელმისაწვდომი ბრძანებები"
 
-#: src/app/cli/kid3cli.cpp:754
+#: src/app/cli/kid3cli.cpp:760
 msgctxt "Kid3Cli|"
 msgid "Usage:"
 msgstr "გამოყენება:"
 
-#: src/app/cli/kid3cli.cpp:772
+#: src/app/cli/kid3cli.cpp:778
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "%1 does not exist"
 msgstr "%1 არ არსებობს"
 
-#: src/app/cli/kid3cli.cpp:802
+#: src/app/cli/kid3cli.cpp:808
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
 msgstr "ფაილში ჩაწერის შეცდომა:\n"
 
-#: src/app/cli/kid3cli.cpp:822
+#: src/app/cli/kid3cli.cpp:828
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
@@ -1615,9 +1615,10 @@ msgid "Kid3 Handbook"
 msgstr ""
 
 #: src/app/qt/recentfilesmenu.cpp:120
+#, fuzzy
 msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
-msgstr ""
+msgstr "&სიის გასუფთავება"
 
 #: src/app/qt/shortcutsdelegate.cpp:190
 msgctxt "ShortcutsDelegateEditor|"
@@ -2763,9 +2764,10 @@ msgid "Original Artist"
 msgstr "ორიგინალი შემსრულებელი"
 
 #: src/core/tags/frame.cpp:149
+#, fuzzy
 msgctxt "@default|"
 msgid "Original Date"
-msgstr ""
+msgstr "საწყისი თარიღი"
 
 #: src/core/tags/frame.cpp:151
 msgctxt "@default|"
@@ -2873,9 +2875,10 @@ msgid "Table of Contents"
 msgstr "სარჩევი"
 
 #: src/core/tags/frame.cpp:192
+#, fuzzy
 msgctxt "@default|"
 msgid "Encryption Method"
-msgstr ""
+msgstr "დაშიფვრის მეთოდი"
 
 #: src/core/tags/frame.cpp:193 src/core/tags/frame.cpp:194
 msgctxt "@default|"

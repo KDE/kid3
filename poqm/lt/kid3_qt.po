@@ -406,23 +406,23 @@ msgctxt "Kid3Cli|"
 msgid "Available Commands"
 msgstr ""
 
-#: src/app/cli/kid3cli.cpp:754
+#: src/app/cli/kid3cli.cpp:760
 msgctxt "Kid3Cli|"
 msgid "Usage:"
 msgstr ""
 
-#: src/app/cli/kid3cli.cpp:772
+#: src/app/cli/kid3cli.cpp:778
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "%1 does not exist"
 msgstr ""
 
-#: src/app/cli/kid3cli.cpp:802
+#: src/app/cli/kid3cli.cpp:808
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
 msgstr ""
 
-#: src/app/cli/kid3cli.cpp:822
+#: src/app/cli/kid3cli.cpp:828
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
