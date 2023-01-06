@@ -56,7 +56,7 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:475
 msgctxt "CdCommand|"
 msgid "Change folder"
-msgstr ""
+msgstr "საქაღალდის შეცვლა"
 
 #: src/app/cli/clicommand.cpp:489
 #, qt-format
@@ -77,7 +77,7 @@ msgstr "საქაღალდეების სია"
 #: src/app/cli/clicommand.cpp:537
 msgctxt "SaveCommand|"
 msgid "Saves the changed files"
-msgstr ""
+msgstr "შეცვლილი ფაილების შენახვა"
 
 #: src/app/cli/clicommand.cpp:548
 msgctxt "SaveCommand|"
@@ -186,7 +186,7 @@ msgstr "ხელმისაწვდომია"
 #: src/app/cli/clicommand.cpp:818
 msgctxt "AlbumArtCommand|"
 msgid "Download album cover artwork"
-msgstr ""
+msgstr "ალბომის ყდის სურათის გადმოწერა"
 
 #: src/app/cli/clicommand.cpp:862
 msgctxt "ExportCommand|"
@@ -227,12 +227,12 @@ msgstr "შეცდომა"
 #: src/app/cli/clicommand.cpp:914
 msgctxt "FilenameFormatCommand|"
 msgid "Apply filename format"
-msgstr ""
+msgstr "ფაილის სახელის ფორმატის გადატარება"
 
 #: src/app/cli/clicommand.cpp:925
 msgctxt "TagFormatCommand|"
 msgid "Apply tag format"
-msgstr ""
+msgstr "ჭდის ფორმატის გადატარება"
 
 #: src/app/cli/clicommand.cpp:937
 msgctxt "TextEncodingCommand|"
@@ -288,17 +288,17 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:1179
 msgctxt "TagToFilenameCommand|"
 msgid "Filename from tag"
-msgstr ""
+msgstr "ფაილის სახელი ჭდიდან"
 
 #: src/app/cli/clicommand.cpp:1209
 msgctxt "FilenameToTagCommand|"
 msgid "Tag from filename"
-msgstr ""
+msgstr "ჭდე ფაილის სახელიდან"
 
 #: src/app/cli/clicommand.cpp:1239
 msgctxt "TagToOtherTagCommand|"
 msgid "Tag to other tag"
-msgstr ""
+msgstr "ჭდე სხვა ჭდეში"
 
 #: src/app/cli/clicommand.cpp:1256
 msgctxt "CopyCommand|"
@@ -318,12 +318,12 @@ msgstr "წაშლა"
 #: src/app/cli/clicommand.cpp:1295
 msgctxt "ConfigCommand|"
 msgid "Configure Kid3"
-msgstr ""
+msgstr "Kid3-ის მორგება"
 
 #: src/app/cli/clicommand.cpp:1296
 msgctxt "ConfigCommand|"
 msgid "Group.Option Value"
-msgstr ""
+msgstr "Group.Option -ის მნიშვნელობა"
 
 #: src/app/cli/clicommand.cpp:1317 src/app/cli/clicommand.cpp:1323
 #, qt-format
@@ -345,12 +345,12 @@ msgstr "ბრძანების შესრულება"
 #: src/app/cli/clicommand.cpp:1425
 msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
-msgstr ""
+msgstr "გამშვები ფაილი[არგუმენტები]"
 
 #: src/app/cli/clicommand.cpp:1454
 msgctxt "ExecuteCommand|"
 msgid "Could not execute "
-msgstr ""
+msgstr "გაშვების შეცდომა "
 
 #: src/app/cli/jsoncliformatter.cpp:190 src/app/cli/jsoncliformatter.cpp:193
 #, qt-format
@@ -401,7 +401,7 @@ msgstr "ფორმატი"
 #: src/app/cli/kid3cli.cpp:311
 msgctxt "Kid3Cli|"
 msgid "Command specific"
-msgstr ""
+msgstr "ბრძანების სპეციფიკურ"
 
 #: src/app/cli/kid3cli.cpp:312
 msgctxt "Kid3Cli|"
@@ -428,7 +428,7 @@ msgstr "ფაილში ჩაწერის შეცდომა:\n"
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
-msgstr ""
+msgstr "უცნობი ბრძანება '%1', -h დახმარებისთვის."
 
 #: src/app/cli/textcliformatter.cpp:181 src/app/cli/textcliformatter.cpp:184
 #, qt-format
@@ -565,7 +565,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:113
 msgctxt "KdeMainWindow|"
 msgid "Saves the changed files"
-msgstr ""
+msgstr "შეცვლილი ფაილების შენახვა"
 
 #: src/app/kde/kdemainwindow.cpp:121
 msgctxt "KdeMainWindow|"
@@ -605,22 +605,22 @@ msgstr "ხელსაწყოთა ზოლების გამართ�
 #: src/app/kde/kdemainwindow.cpp:180
 msgctxt "KdeMainWindow|"
 msgid "Enables/disables the statusbar"
-msgstr ""
+msgstr "სტატუსის ზოლის ჩართ/გამორთ"
 
 #: src/app/kde/kdemainwindow.cpp:188
 msgctxt "KdeMainWindow|"
 msgid "Preferences dialog"
-msgstr ""
+msgstr "პარამეტრების ფანჯარა"
 
 #: src/app/kde/kdemainwindow.cpp:191
 msgctxt "KdeMainWindow|"
 msgid "O&pen Folder..."
-msgstr ""
+msgstr "&საქაღალდის გახსნა..."
 
 #: src/app/kde/kdemainwindow.cpp:192
 msgctxt "KdeMainWindow|"
 msgid "Opens a folder"
-msgstr ""
+msgstr "საქარლდის გახსნა"
 
 #: src/app/kde/kdemainwindow.cpp:199
 msgctxt "KdeMainWindow|"
@@ -630,7 +630,7 @@ msgstr "&თავიდან ჩატვირთვა"
 #: src/app/kde/kdemainwindow.cpp:200
 msgctxt "KdeMainWindow|"
 msgid "Reload folder"
-msgstr ""
+msgstr "საქაღალდის თავიდან ჩატვირთვა"
 
 #: src/app/kde/kdemainwindow.cpp:211
 msgctxt "KdeMainWindow|"
@@ -645,34 +645,34 @@ msgstr "&შემოტანა..."
 #: src/app/kde/kdemainwindow.cpp:217
 msgctxt "KdeMainWindow|"
 msgid "Import from file or clipboard"
-msgstr ""
+msgstr "ფაილიდან ან ბუფერიდან შემოტანა"
 
 #: src/app/kde/kdemainwindow.cpp:232 src/app/kde/kdemainwindow.cpp:249
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1..."
-msgstr ""
+msgstr "%1-დან შემოტანა..."
 
 #: src/app/kde/kdemainwindow.cpp:234 src/app/kde/kdemainwindow.cpp:250
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1"
-msgstr ""
+msgstr "%1-დან შემოტანა"
 
 #: src/app/kde/kdemainwindow.cpp:257
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags..."
-msgstr ""
+msgstr "ჭდეებიდან შემოტანა..."
 
 #: src/app/kde/kdemainwindow.cpp:258
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags"
-msgstr ""
+msgstr "ჭდეებიდან შემოტანა"
 
 #: src/app/kde/kdemainwindow.cpp:262
 msgctxt "KdeMainWindow|"
 msgid "Automatic I&mport..."
-msgstr ""
+msgstr "&ავტომატური შემოტანა..."
 
 #: src/app/kde/kdemainwindow.cpp:263
 msgctxt "KdeMainWindow|"
@@ -682,32 +682,32 @@ msgstr "ავტომატური შემოტანა"
 #: src/app/kde/kdemainwindow.cpp:267
 msgctxt "KdeMainWindow|"
 msgid "&Browse Cover Art..."
-msgstr ""
+msgstr "ყდის სურათის &დათვალიერება..."
 
 #: src/app/kde/kdemainwindow.cpp:268
 msgctxt "KdeMainWindow|"
 msgid "Browse album cover artwork"
-msgstr ""
+msgstr "ალბომის ყდის სურათების დათვალიერება"
 
 #: src/app/kde/kdemainwindow.cpp:272
 msgctxt "KdeMainWindow|"
 msgid "&Export..."
-msgstr ""
+msgstr "&გატანა..."
 
 #: src/app/kde/kdemainwindow.cpp:273
 msgctxt "KdeMainWindow|"
 msgid "Export to file or clipboard"
-msgstr ""
+msgstr "ფაილში ან ბუფერში გატანა"
 
 #: src/app/kde/kdemainwindow.cpp:277
 msgctxt "KdeMainWindow|"
 msgid "&Create Playlist..."
-msgstr ""
+msgstr "&დასაკრავი სიის შექმნა..."
 
 #: src/app/kde/kdemainwindow.cpp:278
 msgctxt "KdeMainWindow|"
 msgid "Create M3U Playlist"
-msgstr ""
+msgstr "M3U დასაკრავი სიის შექმნა"
 
 #: src/app/kde/kdemainwindow.cpp:281
 msgctxt "KdeMainWindow|"
@@ -847,12 +847,12 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:352
 msgctxt "KdeMainWindow|"
 msgid "&Next File"
-msgstr ""
+msgstr "&შემდეგი ფაილი"
 
 #: src/app/kde/kdemainwindow.cpp:353
 msgctxt "KdeMainWindow|"
 msgid "Select next file"
-msgstr ""
+msgstr "აირჩიეთ შემდეგი ფაილი"
 
 #: src/app/kde/kdemainwindow.cpp:365
 #, qt-format
@@ -869,12 +869,12 @@ msgstr "ფაილის სახელი"
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "From Tag %1"
-msgstr ""
+msgstr "ჭდიდან %1"
 
 #: src/app/kde/kdemainwindow.cpp:373
 msgctxt "KdeMainWindow|"
 msgid "From Filename"
-msgstr ""
+msgstr "ფაილის სახელიდან"
 
 #: src/app/kde/kdemainwindow.cpp:386
 msgctxt "KdeMainWindow|"
@@ -945,17 +945,17 @@ msgstr "სექცია"
 #: src/app/kde/kdemainwindow.cpp:661
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
-msgstr ""
+msgstr "Kid3-ის მორგება"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
 msgid "folder to open"
-msgstr ""
+msgstr "გასახსნელი საქაღალდე"
 
 #: src/app/kde/mainkde.cpp:134
 msgctxt "@default|"
 msgid "Audio Tag Editor"
-msgstr ""
+msgstr "აუდიო ჭდის რედაქტორი"
 
 #: src/app/qt/browserdialog.cpp:91
 msgctxt "BrowserDialog|"
@@ -1036,7 +1036,7 @@ msgstr ""
 #: src/app/qt/configdialog.cpp:124
 msgctxt "ConfigDialog|"
 msgid "A&pplication Font..."
-msgstr ""
+msgstr "&აპლიკაციის ფონტი..."
 
 #: src/app/qt/configdialog.cpp:126
 msgctxt "ConfigDialog|"
@@ -1112,17 +1112,17 @@ msgstr "ბოლოს გახსნილი ფაილების გა
 #: src/app/qt/kid3mainwindow.cpp:136
 msgctxt "Kid3MainWindow|"
 msgid "Opens a folder"
-msgstr ""
+msgstr "საქარლდის გახსნა"
 
 #: src/app/qt/kid3mainwindow.cpp:137
 msgctxt "Kid3MainWindow|"
 msgid "O&pen Folder..."
-msgstr ""
+msgstr "&საქაღალდის გახსნა..."
 
 #: src/app/qt/kid3mainwindow.cpp:148
 msgctxt "Kid3MainWindow|"
 msgid "Reload folder"
-msgstr ""
+msgstr "საქაღალდის თავიდან ჩატვირთვა"
 
 #: src/app/qt/kid3mainwindow.cpp:149
 msgctxt "Kid3MainWindow|"
@@ -1137,12 +1137,12 @@ msgstr "გამოტვირთვა"
 #: src/app/qt/kid3mainwindow.cpp:170
 msgctxt "Kid3MainWindow|"
 msgid "Saves the changed files"
-msgstr ""
+msgstr "შეცვლილი ფაილების შენახვა"
 
 #: src/app/qt/kid3mainwindow.cpp:171
 msgctxt "Kid3MainWindow|"
 msgid "&Save"
-msgstr ""
+msgstr "&შენახვა"
 
 #: src/app/qt/kid3mainwindow.cpp:184
 msgctxt "Kid3MainWindow|"
@@ -1157,7 +1157,7 @@ msgstr "&დაბრუნება"
 #: src/app/qt/kid3mainwindow.cpp:199
 msgctxt "Kid3MainWindow|"
 msgid "Import from file or clipboard"
-msgstr ""
+msgstr "ფაილიდან ან ბუფერიდან შემოტანა"
 
 #: src/app/qt/kid3mainwindow.cpp:200
 msgctxt "Kid3MainWindow|"
@@ -1168,23 +1168,23 @@ msgstr "&შემოტანა..."
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1"
-msgstr ""
+msgstr "%1-დან შემოტანა"
 
 #: src/app/qt/kid3mainwindow.cpp:222 src/app/qt/kid3mainwindow.cpp:243
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1..."
-msgstr ""
+msgstr "%1-დან შემოტანა..."
 
 #: src/app/qt/kid3mainwindow.cpp:253
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags"
-msgstr ""
+msgstr "ჭდეებიდან შემოტანა"
 
 #: src/app/qt/kid3mainwindow.cpp:254
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags..."
-msgstr ""
+msgstr "ჭდეებიდან შემოტანა..."
 
 #: src/app/qt/kid3mainwindow.cpp:262
 msgctxt "Kid3MainWindow|"
@@ -1194,22 +1194,22 @@ msgstr "ავტომატური შემოტანა"
 #: src/app/qt/kid3mainwindow.cpp:263
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
-msgstr ""
+msgstr "&ავტომატური შემოტანა..."
 
 #: src/app/qt/kid3mainwindow.cpp:271
 msgctxt "Kid3MainWindow|"
 msgid "Browse album cover artwork"
-msgstr ""
+msgstr "ალბომის ყდის სურათების დათვალიერება"
 
 #: src/app/qt/kid3mainwindow.cpp:272
 msgctxt "Kid3MainWindow|"
 msgid "&Browse Cover Art..."
-msgstr ""
+msgstr "ყდის სურათის &დათვალიერება..."
 
 #: src/app/qt/kid3mainwindow.cpp:281
 msgctxt "Kid3MainWindow|"
 msgid "Export to file or clipboard"
-msgstr ""
+msgstr "ფაილში ან ბუფერში გატანა"
 
 #: src/app/qt/kid3mainwindow.cpp:282
 msgctxt "Kid3MainWindow|"
@@ -1219,12 +1219,12 @@ msgstr "&გატანა..."
 #: src/app/qt/kid3mainwindow.cpp:292
 msgctxt "Kid3MainWindow|"
 msgid "Create M3U Playlist"
-msgstr ""
+msgstr "M3U დასაკრავი სიის შექმნა"
 
 #: src/app/qt/kid3mainwindow.cpp:293
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
-msgstr ""
+msgstr "&დასაკრავი სიის შექმნა..."
 
 #: src/app/qt/kid3mainwindow.cpp:306
 msgctxt "Kid3MainWindow|"
@@ -1284,17 +1284,17 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:366
 msgctxt "Kid3MainWindow|"
 msgid "&Previous File"
-msgstr ""
+msgstr "&წინა ფაილი"
 
 #: src/app/qt/kid3mainwindow.cpp:378
 msgctxt "Kid3MainWindow|"
 msgid "Select next file"
-msgstr ""
+msgstr "აირჩიეთ შემდეგი ფაილი"
 
 #: src/app/qt/kid3mainwindow.cpp:379
 msgctxt "Kid3MainWindow|"
 msgid "&Next File"
-msgstr ""
+msgstr "&შემდეგი ფაილი"
 
 #: src/app/qt/kid3mainwindow.cpp:392
 msgctxt "Kid3MainWindow|"
@@ -1364,12 +1364,12 @@ msgstr "საქაღალდის სახელის &შეცვლა
 #: src/app/qt/kid3mainwindow.cpp:460
 msgctxt "Kid3MainWindow|"
 msgid "Number Tracks"
-msgstr ""
+msgstr "ტრეკების რაოდენობა"
 
 #: src/app/qt/kid3mainwindow.cpp:461
 msgctxt "Kid3MainWindow|"
 msgid "&Number Tracks..."
-msgstr ""
+msgstr "&ტრეკების რაოდენობა..."
 
 #: src/app/qt/kid3mainwindow.cpp:469
 msgctxt "Kid3MainWindow|"
@@ -1429,7 +1429,7 @@ msgstr "&პანელის ჩვენება"
 #: src/app/qt/kid3mainwindow.cpp:530
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the statusbar"
-msgstr ""
+msgstr "სტატუსის ზოლის ჩართ/გამორთ"
 
 #: src/app/qt/kid3mainwindow.cpp:531
 msgctxt "Kid3MainWindow|"
@@ -1439,12 +1439,12 @@ msgstr "სტატუსის &ზოლის ჩვენება"
 #: src/app/qt/kid3mainwindow.cpp:540
 msgctxt "Kid3MainWindow|"
 msgid "Show Picture"
-msgstr ""
+msgstr "სურათის ჩვენება"
 
 #: src/app/qt/kid3mainwindow.cpp:541
 msgctxt "Kid3MainWindow|"
 msgid "Show &Picture"
-msgstr ""
+msgstr "სურათის &ჩვენება"
 
 #: src/app/qt/kid3mainwindow.cpp:550
 msgctxt "Kid3MainWindow|"
@@ -1459,7 +1459,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:560
 msgctxt "Kid3MainWindow|"
 msgid "Configure Kid3"
-msgstr ""
+msgstr "Kid3-ის მორგება"
 
 #: src/app/qt/kid3mainwindow.cpp:561
 msgctxt "Kid3MainWindow|"
@@ -1510,7 +1510,7 @@ msgstr "ფაილის სახელი"
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "From Tag %1"
-msgstr ""
+msgstr "ჭდიდან %1"
 
 #: src/app/qt/kid3mainwindow.cpp:655 src/app/qt/kid3mainwindow.cpp:698
 #: src/app/qt/kid3mainwindow.cpp:703 src/app/qt/kid3mainwindow.cpp:721
@@ -1527,7 +1527,7 @@ msgstr "%1-ის ჭდე"
 #: src/app/qt/kid3mainwindow.cpp:667
 msgctxt "Kid3MainWindow|"
 msgid "From Filename"
-msgstr ""
+msgstr "ფაილის სახელიდან"
 
 #: src/app/qt/kid3mainwindow.cpp:678
 msgctxt "Kid3MainWindow|"
@@ -1592,7 +1592,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:906
 msgctxt "Kid3MainWindow|"
 msgid "Audio Tag Editor"
-msgstr ""
+msgstr "აუდიო ჭდის რედაქტორი"
 
 #: src/app/qt/kid3mainwindow.cpp:911
 msgctxt "Kid3MainWindow|"
@@ -1602,7 +1602,7 @@ msgstr "ლიცენზია"
 #: src/app/qt/kid3mainwindow.cpp:929
 msgctxt "Kid3MainWindow|"
 msgid "Configure - Kid3"
-msgstr ""
+msgstr "Kid3-ის მორგება"
 
 #: src/app/qt/kid3mainwindow.cpp:973 src/app/qt/kid3mainwindow.cpp:985
 msgctxt "Kid3MainWindow|"
@@ -1615,7 +1615,6 @@ msgid "Kid3 Handbook"
 msgstr ""
 
 #: src/app/qt/recentfilesmenu.cpp:120
-#, fuzzy
 msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
 msgstr "&სიის გასუფთავება"
@@ -1734,7 +1733,7 @@ msgstr "სიზუსტე"
 #: src/core/import/batchimporter.cpp:340
 msgctxt "BatchImporter|"
 msgid "Unknown"
-msgstr ""
+msgstr "Unknown"
 
 #: src/core/import/batchimporter.cpp:415
 msgctxt "BatchImporter|"
@@ -2764,7 +2763,6 @@ msgid "Original Artist"
 msgstr "ორიგინალი შემსრულებელი"
 
 #: src/core/tags/frame.cpp:149
-#, fuzzy
 msgctxt "@default|"
 msgid "Original Date"
 msgstr "საწყისი თარიღი"
@@ -2875,7 +2873,6 @@ msgid "Table of Contents"
 msgstr "სარჩევი"
 
 #: src/core/tags/frame.cpp:192
-#, fuzzy
 msgctxt "@default|"
 msgid "Encryption Method"
 msgstr "დაშიფვრის მეთოდი"
@@ -4119,12 +4116,12 @@ msgstr "ფორმატი"
 #: src/gui/dialogs/configdialogpages.cpp:442
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
-msgstr ""
+msgstr "ფაილის სახელი ჭდიდან"
 
 #: src/gui/dialogs/configdialogpages.cpp:447
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
-msgstr ""
+msgstr "ჭდე ფაილის სახელიდან"
 
 #: src/gui/dialogs/configdialogpages.cpp:453
 #: src/gui/dialogs/configdialogpages.cpp:513
@@ -4909,7 +4906,7 @@ msgstr ""
 #: src/gui/dialogs/tagimportdialog.cpp:52
 msgctxt "TagImportDialog|"
 msgid "Import from Tags"
-msgstr ""
+msgstr "ჭდეებიდან შემოტანა"
 
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
@@ -5261,7 +5258,7 @@ msgstr "შესრულება "
 #: src/gui/forms/filelist.cpp:572
 msgctxt "FileList|"
 msgid "Could not execute "
-msgstr ""
+msgstr "გაშვების შეცდომა "
 
 #: src/gui/forms/kid3form.cpp:280
 msgctxt "Kid3Form|"
@@ -5323,7 +5320,7 @@ msgstr ""
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "From Tag %1"
-msgstr ""
+msgstr "ჭდიდან %1"
 
 #: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:533
 msgctxt "Kid3Form|"
@@ -6422,7 +6419,7 @@ msgstr ""
 #: src/qml/app/AboutDialog.qml:39
 msgctxt "AboutDialog|"
 msgid "Audio Tag Editor"
-msgstr ""
+msgstr "აუდიო ჭდის რედაქტორი"
 
 #: src/qml/app/AboutDialog.qml:44
 msgctxt "AboutDialog|"
@@ -7144,7 +7141,7 @@ msgstr ""
 #: src/qml/app/TagCollapsible.qml:87
 msgctxt "TagCollapsible|"
 msgid "From Filename"
-msgstr ""
+msgstr "ფაილის სახელიდან"
 
 #: src/qml/app/TagCollapsible.qml:91
 #, qt-format
@@ -7156,7 +7153,7 @@ msgstr ""
 #, qt-format
 msgctxt "TagCollapsible|"
 msgid "From Tag %1"
-msgstr ""
+msgstr "ჭდიდან %1"
 
 #: src/qml/app/TagCollapsible.qml:102
 msgctxt "TagCollapsible|"
