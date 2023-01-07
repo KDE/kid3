@@ -418,23 +418,23 @@ msgctxt "Kid3Cli|"
 msgid "Available Commands"
 msgstr "Tilgjengelege kommandoar"
 
-#: src/app/cli/kid3cli.cpp:754
+#: src/app/cli/kid3cli.cpp:760
 msgctxt "Kid3Cli|"
 msgid "Usage:"
 msgstr "Bruk:"
 
-#: src/app/cli/kid3cli.cpp:772
+#: src/app/cli/kid3cli.cpp:778
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "%1 does not exist"
 msgstr "%1 finst ikkje"
 
-#: src/app/cli/kid3cli.cpp:802
+#: src/app/cli/kid3cli.cpp:808
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
 msgstr "Feil ved skriving til fil:\n"
 
-#: src/app/cli/kid3cli.cpp:822
+#: src/app/cli/kid3cli.cpp:828
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
@@ -2409,17 +2409,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Data"
 
-#: src/core/model/kid3application.cpp:1050
+#: src/core/model/kid3application.cpp:1057
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "Lagrar mappe …"
 
-#: src/core/model/kid3application.cpp:1260
+#: src/core/model/kid3application.cpp:1267
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Utval"
 
-#: src/core/model/kid3application.cpp:3473
+#: src/core/model/kid3application.cpp:3480
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "Alle filer"

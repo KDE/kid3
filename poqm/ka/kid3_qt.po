@@ -31,7 +31,7 @@ msgstr "ბრძანების სახელი"
 #: src/app/cli/clicommand.cpp:406
 msgctxt "TimeoutCommand|"
 msgid "Overwrite timeout"
-msgstr ""
+msgstr "თავზე გადაწერის მოლოდინის დრო"
 
 #: src/app/cli/clicommand.cpp:407
 msgctxt "TimeoutCommand|"
@@ -46,12 +46,12 @@ msgstr "აპლიკაციიდან გასვლა"
 #: src/app/cli/clicommand.cpp:457
 msgctxt "QuitCommand|"
 msgid "The current folder has been modified."
-msgstr ""
+msgstr "მიმდინარე საქაღალდე შეიცვალა."
 
 #: src/app/cli/clicommand.cpp:459
 msgctxt "QuitCommand|"
 msgid "Type 'exit force' to quit."
-msgstr ""
+msgstr "გასასვლელად აკრიფეთ 'exit force'."
 
 #: src/app/cli/clicommand.cpp:475
 msgctxt "CdCommand|"
@@ -67,7 +67,7 @@ msgstr "%1 არ არსებობს"
 #: src/app/cli/clicommand.cpp:509
 msgctxt "PwdCommand|"
 msgid "Print the filename of the current folder"
-msgstr ""
+msgstr "მიმდინარე საქაღალდის ფაილის სახელის გამოტანა"
 
 #: src/app/cli/clicommand.cpp:525
 msgctxt "LsCommand|"
@@ -103,18 +103,18 @@ msgstr "აირჩიეთ ჭდე"
 #: src/app/cli/clicommand.cpp:607
 msgctxt "GetCommand|"
 msgid "Get tag frame"
-msgstr ""
+msgstr "ჭდის კადრის მიღება"
 
 #: src/app/cli/clicommand.cpp:635
 msgctxt "SetCommand|"
 msgid "Set tag frame"
-msgstr ""
+msgstr "ჭდის კადრის დაყენება"
 
 #: src/app/cli/clicommand.cpp:653
 #, qt-format
 msgctxt "SetCommand|"
 msgid "Could not set \"%1\" for %2"
-msgstr ""
+msgstr "\"%1\"-ის %2-თვის დაყენება შეუძლებელია"
 
 #: src/app/cli/clicommand.cpp:663
 msgctxt "RevertCommand|"
@@ -237,7 +237,7 @@ msgstr "ჭდის ფორმატის გადატარება"
 #: src/app/cli/clicommand.cpp:937
 msgctxt "TextEncodingCommand|"
 msgid "Apply text encoding"
-msgstr ""
+msgstr "ტექსტის კოდირების გადატარება"
 
 #: src/app/cli/clicommand.cpp:948
 msgctxt "RenameDirectoryCommand|"
@@ -247,7 +247,7 @@ msgstr "საქაღალდის სახელის შეცვლა"
 #: src/app/cli/clicommand.cpp:1040
 msgctxt "NumberTracksCommand|"
 msgid "Number tracks"
-msgstr ""
+msgstr "ტრეკების დანომრვა"
 
 #: src/app/cli/clicommand.cpp:1041
 msgctxt "NumberTracksCommand|"
@@ -278,12 +278,12 @@ msgstr "ხელმისაწვდომია"
 #: src/app/cli/clicommand.cpp:1157
 msgctxt "ToId3v24Command|"
 msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr ""
+msgstr "ID3v2.3-ის ID3v2.4-ში გადაყვანა"
 
 #: src/app/cli/clicommand.cpp:1168
 msgctxt "ToId3v23Command|"
 msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr ""
+msgstr "ID3v2.4-ის ID3v2.3-ში გადაყვანა"
 
 #: src/app/cli/clicommand.cpp:1179
 msgctxt "TagToFilenameCommand|"
@@ -434,7 +434,7 @@ msgstr "უცნობი ბრძანება '%1', -h დახმარ�
 #, qt-format
 msgctxt "TextCliFormatter|"
 msgid "Unknown command '%1'. Type 'help' for help."
-msgstr ""
+msgstr "უცნობი ბრძანება '%1'. დახმარებისთვის აკრიფეთ 'help'."
 
 #: src/app/cli/textcliformatter.cpp:204
 msgctxt "TextCliFormatter|"
@@ -555,12 +555,12 @@ msgstr "ფაილების გახსნა"
 #: src/app/kde/kdemainwindow.cpp:94
 msgctxt "KdeMainWindow|"
 msgid "Opens a recently used folder"
-msgstr ""
+msgstr "ამჟამად გამოყენებული საქაღალდის გახსნა"
 
 #: src/app/kde/kdemainwindow.cpp:103
 msgctxt "KdeMainWindow|"
 msgid "Reverts the changes of all or the selected files"
-msgstr ""
+msgstr "ყველა ან მონიშნულ ფაილებში ცვლილებების დაბრუნება"
 
 #: src/app/kde/kdemainwindow.cpp:113
 msgctxt "KdeMainWindow|"
@@ -712,32 +712,32 @@ msgstr "M3U დასაკრავი სიის შექმნა"
 #: src/app/kde/kdemainwindow.cpp:281
 msgctxt "KdeMainWindow|"
 msgid "Apply &Filename Format"
-msgstr ""
+msgstr "&ფაილის სახელის ფორმატის გადატარება"
 
 #: src/app/kde/kdemainwindow.cpp:282
 msgctxt "KdeMainWindow|"
 msgid "Apply Filename Format"
-msgstr ""
+msgstr "ფაილის სახელის ფორმატის გადატარება"
 
 #: src/app/kde/kdemainwindow.cpp:285
 msgctxt "KdeMainWindow|"
 msgid "Apply &Tag Format"
-msgstr ""
+msgstr "&ჭდის ფორმატის გადატარება"
 
 #: src/app/kde/kdemainwindow.cpp:286
 msgctxt "KdeMainWindow|"
 msgid "Apply Tag Format"
-msgstr ""
+msgstr "ჭდის ფორმატის გადატარება"
 
 #: src/app/kde/kdemainwindow.cpp:289
 msgctxt "KdeMainWindow|"
 msgid "Apply Text &Encoding"
-msgstr ""
+msgstr "ტექსტის &კოდირების გადატარება"
 
 #: src/app/kde/kdemainwindow.cpp:290
 msgctxt "KdeMainWindow|"
 msgid "Apply Text Encoding"
-msgstr ""
+msgstr "ტექსტის კოდირების გადატარება"
 
 #: src/app/kde/kdemainwindow.cpp:293
 msgctxt "KdeMainWindow|"
@@ -752,12 +752,12 @@ msgstr "საქაღალდის სახელის შეცვლა"
 #: src/app/kde/kdemainwindow.cpp:297
 msgctxt "KdeMainWindow|"
 msgid "&Number Tracks..."
-msgstr ""
+msgstr "&ტრეკების რაოდენობა..."
 
 #: src/app/kde/kdemainwindow.cpp:298
 msgctxt "KdeMainWindow|"
 msgid "Number Tracks"
-msgstr ""
+msgstr "ტრეკების რაოდენობა"
 
 #: src/app/kde/kdemainwindow.cpp:301
 msgctxt "KdeMainWindow|"
@@ -772,22 +772,22 @@ msgstr "ფილტრი"
 #: src/app/kde/kdemainwindow.cpp:307
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr ""
+msgstr "ID3v2.3-ის ID3v2.&4-ში გადაყვან"
 
 #: src/app/kde/kdemainwindow.cpp:308
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr ""
+msgstr "ID3v2.3-ის ID3v2.4-ში გადაყვანა"
 
 #: src/app/kde/kdemainwindow.cpp:312
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr ""
+msgstr "ID3v2.4-ის ID3v2.&3-ში გადაყვანა"
 
 #: src/app/kde/kdemainwindow.cpp:313
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr ""
+msgstr "ID3v2.4-ის ID3v2.3-ში გადაყვანა"
 
 #: src/app/kde/kdemainwindow.cpp:320
 msgctxt "KdeMainWindow|"
@@ -802,47 +802,47 @@ msgstr "დაკვრა"
 #: src/app/kde/kdemainwindow.cpp:325
 msgctxt "KdeMainWindow|"
 msgid "Show &Picture"
-msgstr ""
+msgstr "სურათის &ჩვენება"
 
 #: src/app/kde/kdemainwindow.cpp:326
 msgctxt "KdeMainWindow|"
 msgid "Show Picture"
-msgstr ""
+msgstr "სურათის ჩვენება"
 
 #: src/app/kde/kdemainwindow.cpp:331
 msgctxt "KdeMainWindow|"
 msgid "Auto &Hide Tags"
-msgstr ""
+msgstr "&ჭდეების ავტომატური დამალვა"
 
 #: src/app/kde/kdemainwindow.cpp:332
 msgctxt "KdeMainWindow|"
 msgid "Auto Hide Tags"
-msgstr ""
+msgstr "ჭდეების ავტომატური დამალვა"
 
 #: src/app/kde/kdemainwindow.cpp:337
 msgctxt "KdeMainWindow|"
 msgid "Select All in &Folder"
-msgstr ""
+msgstr "&საქაღალდეში ყველაფრის მონიშვნა"
 
 #: src/app/kde/kdemainwindow.cpp:338
 msgctxt "KdeMainWindow|"
 msgid "Select all files in the current folder"
-msgstr ""
+msgstr "მიმდინარე საქაღალდეში ყველაფრის მონიშვნა"
 
 #: src/app/kde/kdemainwindow.cpp:341
 msgctxt "KdeMainWindow|"
 msgid "&Invert Selection"
-msgstr ""
+msgstr "მონიშვნის &ინვერსია"
 
 #: src/app/kde/kdemainwindow.cpp:345
 msgctxt "KdeMainWindow|"
 msgid "&Previous File"
-msgstr ""
+msgstr "&წინა ფაილი"
 
 #: src/app/kde/kdemainwindow.cpp:346
 msgctxt "KdeMainWindow|"
 msgid "Select previous file"
-msgstr ""
+msgstr "წინა ფაილის არჩევა"
 
 #: src/app/kde/kdemainwindow.cpp:352
 msgctxt "KdeMainWindow|"
@@ -1102,7 +1102,7 @@ msgstr "&გახსნა..."
 #: src/app/qt/kid3mainwindow.cpp:128
 msgctxt "Kid3MainWindow|"
 msgid "Opens a recently used folder"
-msgstr ""
+msgstr "ამჟამად გამოყენებული საქაღალდის გახსნა"
 
 #: src/app/qt/kid3mainwindow.cpp:129
 msgctxt "Kid3MainWindow|"
@@ -1147,7 +1147,7 @@ msgstr "&შენახვა"
 #: src/app/qt/kid3mainwindow.cpp:184
 msgctxt "Kid3MainWindow|"
 msgid "Reverts the changes of all or the selected files"
-msgstr ""
+msgstr "ყველა ან მონიშნულ ფაილებში ცვლილებების დაბრუნება"
 
 #: src/app/qt/kid3mainwindow.cpp:185
 msgctxt "Kid3MainWindow|"
@@ -1264,22 +1264,22 @@ msgstr "&მონიშვნის მოხსნა"
 #: src/app/qt/kid3mainwindow.cpp:348
 msgctxt "Kid3MainWindow|"
 msgid "Select all files in the current folder"
-msgstr ""
+msgstr "მიმდინარე საქაღალდეში ყველაფრის მონიშვნა"
 
 #: src/app/qt/kid3mainwindow.cpp:349
 msgctxt "Kid3MainWindow|"
 msgid "Select All in &Folder"
-msgstr ""
+msgstr "&საქაღალდეში ყველაფრის მონიშვნა"
 
 #: src/app/qt/kid3mainwindow.cpp:357
 msgctxt "Kid3MainWindow|"
 msgid "&Invert Selection"
-msgstr ""
+msgstr "მონიშვნის &ინვერსია"
 
 #: src/app/qt/kid3mainwindow.cpp:365
 msgctxt "Kid3MainWindow|"
 msgid "Select previous file"
-msgstr ""
+msgstr "წინა ფაილის არჩევა"
 
 #: src/app/qt/kid3mainwindow.cpp:366
 msgctxt "Kid3MainWindow|"
@@ -1324,32 +1324,32 @@ msgstr "&ხელსაწყოები"
 #: src/app/qt/kid3mainwindow.cpp:422
 msgctxt "Kid3MainWindow|"
 msgid "Apply Filename Format"
-msgstr ""
+msgstr "ფაილის სახელის ფორმატის გადატარება"
 
 #: src/app/qt/kid3mainwindow.cpp:423
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Filename Format"
-msgstr ""
+msgstr "&ფაილის სახელის ფორმატის გადატარება"
 
 #: src/app/qt/kid3mainwindow.cpp:432
 msgctxt "Kid3MainWindow|"
 msgid "Apply Tag Format"
-msgstr ""
+msgstr "ჭდის ფორმატის გადატარება"
 
 #: src/app/qt/kid3mainwindow.cpp:433
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Tag Format"
-msgstr ""
+msgstr "&ჭდის ფორმატის გადატარება"
 
 #: src/app/qt/kid3mainwindow.cpp:441
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text Encoding"
-msgstr ""
+msgstr "ტექსტის კოდირების გადატარება"
 
 #: src/app/qt/kid3mainwindow.cpp:442
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text &Encoding"
-msgstr ""
+msgstr "ტექსტის &კოდირების გადატარება"
 
 #: src/app/qt/kid3mainwindow.cpp:451
 msgctxt "Kid3MainWindow|"
@@ -1384,22 +1384,22 @@ msgstr "&ფილტრი..."
 #: src/app/qt/kid3mainwindow.cpp:481
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr ""
+msgstr "ID3v2.3-ის ID3v2.4-ში გადაყვანა"
 
 #: src/app/qt/kid3mainwindow.cpp:482
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr ""
+msgstr "ID3v2.3-ის ID3v2.&4-ში გადაყვან"
 
 #: src/app/qt/kid3mainwindow.cpp:491
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr ""
+msgstr "ID3v2.4-ის ID3v2.3-ში გადაყვანა"
 
 #: src/app/qt/kid3mainwindow.cpp:492
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr ""
+msgstr "ID3v2.4-ის ID3v2.&3-ში გადაყვანა"
 
 #: src/app/qt/kid3mainwindow.cpp:504
 msgctxt "Kid3MainWindow|"
@@ -1449,12 +1449,12 @@ msgstr "სურათის &ჩვენება"
 #: src/app/qt/kid3mainwindow.cpp:550
 msgctxt "Kid3MainWindow|"
 msgid "Auto Hide Tags"
-msgstr ""
+msgstr "ჭდეების ავტომატური დამალვა"
 
 #: src/app/qt/kid3mainwindow.cpp:551
 msgctxt "Kid3MainWindow|"
 msgid "Auto &Hide Tags"
-msgstr ""
+msgstr "&ჭდეების ავტომატური დამალვა"
 
 #: src/app/qt/kid3mainwindow.cpp:560
 msgctxt "Kid3MainWindow|"
@@ -1978,25 +1978,25 @@ msgstr ""
 #, qt-format
 msgctxt "@default|"
 msgid "%1 already exists\n"
-msgstr ""
+msgstr "%1 უკვე არსებობს\n"
 
 #: src/core/model/dirrenamer.cpp:345
 #, qt-format
 msgctxt "@default|"
 msgid "%1 is not a file\n"
-msgstr ""
+msgstr "%1 ფაილი არაა\n"
 
 #: src/core/model/dirrenamer.cpp:366
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 already exists\n"
-msgstr ""
+msgstr "%1 უკვე არსებობს\n"
 
 #: src/core/model/dirrenamer.cpp:372
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 is not a file\n"
-msgstr ""
+msgstr "%1 ფაილი არაა\n"
 
 #: src/core/model/dirrenamer.cpp:624
 msgctxt "DirRenamer|"
@@ -3880,7 +3880,7 @@ msgstr "&პარამეტრების შენახვა"
 #: src/gui/dialogs/browsecoverartdialog.cpp:144
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Browse"
-msgstr ""
+msgstr "&არჩევა"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:145
 msgctxt "BrowseCoverArtDialog|"
@@ -4551,7 +4551,7 @@ msgstr "&შეწყვეტა"
 #: src/qml/app/NumberTracksDialog.qml:32
 msgctxt "NumberTracksDialog|"
 msgid "Number Tracks"
-msgstr ""
+msgstr "ტრეკების რაოდენობა"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:55
 msgctxt "NumberTracksDialog|"
@@ -6739,7 +6739,7 @@ msgstr "საქაღალდის სახელის შეცვლა"
 #: src/qml/app/MainPage.qml:211
 msgctxt "MainPage|"
 msgid "Number Tracks"
-msgstr ""
+msgstr "ტრეკების რაოდენობა"
 
 #: src/qml/app/MainPage.qml:220
 msgctxt "MainPage|"
@@ -6749,27 +6749,27 @@ msgstr "ფილტრი"
 #: src/qml/app/MainPage.qml:229
 msgctxt "MainPage|"
 msgid "Apply Filename Format"
-msgstr ""
+msgstr "ფაილის სახელის ფორმატის გადატარება"
 
 #: src/qml/app/MainPage.qml:233
 msgctxt "MainPage|"
 msgid "Apply Tag Format"
-msgstr ""
+msgstr "ჭდის ფორმატის გადატარება"
 
 #: src/qml/app/MainPage.qml:237
 msgctxt "MainPage|"
 msgid "Apply Text Encoding"
-msgstr ""
+msgstr "ტექსტის კოდირების გადატარება"
 
 #: src/qml/app/MainPage.qml:241
 msgctxt "MainPage|"
 msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr ""
+msgstr "ID3v2.3-ის ID3v2.4-ში გადაყვანა"
 
 #: src/qml/app/MainPage.qml:245
 msgctxt "MainPage|"
 msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr ""
+msgstr "ID3v2.4-ის ID3v2.3-ში გადაყვანა"
 
 #: src/qml/app/MainPage.qml:249
 msgctxt "MainPage|"
