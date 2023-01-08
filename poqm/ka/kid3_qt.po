@@ -1464,7 +1464,7 @@ msgstr "Kid3-ის მორგება"
 #: src/app/qt/kid3mainwindow.cpp:561
 msgctxt "Kid3MainWindow|"
 msgid "&Configure Kid3..."
-msgstr ""
+msgstr "&Kid3-ის მორგება..."
 
 #: src/app/qt/kid3mainwindow.cpp:575
 msgctxt "Kid3MainWindow|"
@@ -1474,22 +1474,22 @@ msgstr "&დახმარება"
 #: src/app/qt/kid3mainwindow.cpp:578
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 Handbook"
-msgstr ""
+msgstr "Kid3 -ის სახელმძღვანელო"
 
 #: src/app/qt/kid3mainwindow.cpp:579
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 &Handbook"
-msgstr ""
+msgstr "Kid3 -ის &სახელმძღვანელო"
 
 #: src/app/qt/kid3mainwindow.cpp:590
 msgctxt "Kid3MainWindow|"
 msgid "About Kid3"
-msgstr ""
+msgstr "Kid3-ის შესახებ"
 
 #: src/app/qt/kid3mainwindow.cpp:591
 msgctxt "Kid3MainWindow|"
 msgid "&About Kid3"
-msgstr ""
+msgstr "Kid3-ის &შესახებ"
 
 #: src/app/qt/kid3mainwindow.cpp:604
 msgctxt "Kid3MainWindow|"
@@ -1587,7 +1587,7 @@ msgstr "სექცია"
 #: src/app/qt/kid3mainwindow.cpp:811
 msgctxt "Kid3MainWindow|"
 msgid " [modified]"
-msgstr ""
+msgstr " [შეცვლილი]"
 
 #: src/app/qt/kid3mainwindow.cpp:906
 msgctxt "Kid3MainWindow|"
@@ -1612,7 +1612,7 @@ msgstr "მომხმარებლის ქმედებები"
 #: src/app/qt/platformtools.cpp:129
 msgctxt "@default|"
 msgid "Kid3 Handbook"
-msgstr ""
+msgstr "Kid3 -ის სახელმძღვანელო"
 
 #: src/app/qt/recentfilesmenu.cpp:120
 msgctxt "RecentFilesMenu|"
@@ -1658,17 +1658,17 @@ msgstr "სიზუსტე"
 #: src/core/config/batchimportsourcesmodel.cpp:170
 msgctxt "BatchImportSourcesModel|"
 msgid "Standard Tags"
-msgstr ""
+msgstr "სტანდარტული ჭდეები"
 
 #: src/core/config/batchimportsourcesmodel.cpp:172
 msgctxt "BatchImportSourcesModel|"
 msgid "Additional Tags"
-msgstr ""
+msgstr "დამატებით ჭდეები"
 
 #: src/core/config/batchimportsourcesmodel.cpp:174
 msgctxt "BatchImportSourcesModel|"
 msgid "Cover Art"
-msgstr ""
+msgstr "ყდის სურათი"
 
 #: src/core/config/fileconfig.cpp:181
 msgctxt "Kid3Application|"
@@ -1683,22 +1683,22 @@ msgstr "ცვლილებების გარეშე"
 #: src/core/config/formatconfig.cpp:496
 msgctxt "@default|"
 msgid "All lowercase"
-msgstr ""
+msgstr "ყველა დაბალი რეგისტრითა"
 
 #: src/core/config/formatconfig.cpp:497
 msgctxt "@default|"
 msgid "All uppercase"
-msgstr ""
+msgstr "ყველა მაღალი რეგისტრით"
 
 #: src/core/config/formatconfig.cpp:498
 msgctxt "@default|"
 msgid "First letter uppercase"
-msgstr ""
+msgstr "პირველი სიმბოლო მაღალ რეგისტრიში"
 
 #: src/core/config/formatconfig.cpp:499
 msgctxt "@default|"
 msgid "All first letters uppercase"
-msgstr ""
+msgstr "ყველა პირველი სიმბოლო მაღალ რეგისტრში"
 
 #: src/core/config/formatconfig.cpp:514
 msgctxt "FormatConfig|"
@@ -1738,13 +1738,13 @@ msgstr "Unknown"
 #: src/core/import/batchimporter.cpp:415
 msgctxt "BatchImporter|"
 msgid "Invalid File"
-msgstr ""
+msgstr "არასწორი ფაილი"
 
 #: src/core/import/httpclient.cpp:91
 #, qt-format
 msgctxt "@default|"
 msgid "Data received: %1"
-msgstr ""
+msgstr "მიღებული მონაცემები: %1"
 
 #: src/core/import/httpclient.cpp:102
 msgctxt "HttpClient|"
@@ -1760,12 +1760,12 @@ msgstr "შეცდომა"
 #, qt-format
 msgctxt "HttpClient|"
 msgid "Data received: %1"
-msgstr ""
+msgstr "მიღებული მონაცემები: %1"
 
 #: src/core/import/httpclient.cpp:230
 msgctxt "HttpClient|"
 msgid "Request sent..."
-msgstr ""
+msgstr "მოთხოვნა გაგზავნილია..."
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
 #: src/core/tags/frame.cpp:1970
@@ -1883,13 +1883,13 @@ msgstr "Browser-ი"
 #: src/core/model/commandformatreplacer.cpp:174
 msgctxt "@default|"
 msgid "QML base folder"
-msgstr ""
+msgstr "QML საბაზისო საქაღალდე"
 
 #: src/core/model/commandformatreplacer.cpp:181
 #: src/gui/dialogs/browsecoverartdialog.cpp:61
 msgctxt "@default|"
 msgid "Encode as URL"
-msgstr ""
+msgstr "ბმულად კოდირება"
 
 #: src/core/model/commandformatreplacer.cpp:187
 msgctxt "@default|"
@@ -1899,12 +1899,12 @@ msgstr "--- გამყოფი ---"
 #: src/core/model/commandformatreplacer.cpp:193
 msgctxt "@default|"
 msgid "Begin of submenu"
-msgstr ""
+msgstr "ქვემენიუს დასაწყისი"
 
 #: src/core/model/commandformatreplacer.cpp:199
 msgctxt "@default|"
 msgid "End of submenu"
-msgstr ""
+msgstr "ქვემენიუს დასასრული"
 
 #: src/core/model/commandstablemodel.cpp:165
 msgctxt "CommandsTableModel|"
@@ -1930,25 +1930,25 @@ msgstr "ბრძანება"
 #, qt-format
 msgctxt "@default|"
 msgid "Create folder %1 failed\n"
-msgstr ""
+msgstr "საქაღალდის %1 შექმნის შეცდომა\n"
 
 #: src/core/model/dirrenamer.cpp:280
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "Create folder %1 failed\n"
-msgstr ""
+msgstr "საქაღალდის %1 შექმნის შეცდომა\n"
 
 #: src/core/model/dirrenamer.cpp:287
 #, qt-format
 msgctxt "@default|"
 msgid "File %1 already exists\n"
-msgstr ""
+msgstr "ფაილი %1 უკვე არსებობს\n"
 
 #: src/core/model/dirrenamer.cpp:289
 #, qt-format
 msgctxt "@default|"
 msgid "%1 is not a folder\n"
-msgstr ""
+msgstr "%1 საქაღალდე არაა\n"
 
 #: src/core/model/dirrenamer.cpp:291
 #, qt-format
@@ -1960,13 +1960,13 @@ msgstr ""
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "File %1 already exists\n"
-msgstr ""
+msgstr "ფაილი %1 უკვე არსებობს\n"
 
 #: src/core/model/dirrenamer.cpp:316
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 is not a folder\n"
-msgstr ""
+msgstr "%1 საქაღალდე არაა\n"
 
 #: src/core/model/dirrenamer.cpp:336 src/core/model/dirrenamer.cpp:385
 #, qt-format
@@ -2001,7 +2001,7 @@ msgstr "%1 ფაილი არაა\n"
 #: src/core/model/dirrenamer.cpp:624
 msgctxt "DirRenamer|"
 msgid "New folder name is too different\n"
-msgstr ""
+msgstr "ახალი საქაღალდის სახელი ძალიან განსხვავებულია\n"
 
 #: src/core/model/dirrenamer.cpp:690
 msgctxt "@default|"
@@ -2046,7 +2046,7 @@ msgstr ""
 #: src/core/model/eventtimingcode.cpp:40
 msgctxt "@default|"
 msgid "main part start"
-msgstr ""
+msgstr "მთავარი ნაწილის დასაწყისი"
 
 #: src/core/model/eventtimingcode.cpp:41
 msgctxt "@default|"
@@ -2061,7 +2061,7 @@ msgstr ""
 #: src/core/model/eventtimingcode.cpp:43
 msgctxt "@default|"
 msgid "verse start"
-msgstr ""
+msgstr "ლექსის დასაწყისი"
 
 #: src/core/model/eventtimingcode.cpp:44
 msgctxt "@default|"
@@ -2071,12 +2071,12 @@ msgstr ""
 #: src/core/model/eventtimingcode.cpp:45
 msgctxt "@default|"
 msgid "interlude start"
-msgstr ""
+msgstr "ინტერლუდის დასაწყისი"
 
 #: src/core/model/eventtimingcode.cpp:46
 msgctxt "@default|"
 msgid "theme start"
-msgstr ""
+msgstr "თემის დასაწყისი"
 
 #: src/core/model/eventtimingcode.cpp:47
 msgctxt "@default|"
@@ -2242,12 +2242,12 @@ msgstr ""
 #: src/core/model/filefilter.cpp:95 src/core/tags/trackdata.cpp:251
 msgctxt "@default|"
 msgid "Tag 1"
-msgstr ""
+msgstr "ჭდე 1"
 
 #: src/core/model/filefilter.cpp:101 src/core/tags/trackdata.cpp:255
 msgctxt "@default|"
 msgid "Tag 2"
-msgstr ""
+msgstr "ჭდე 2"
 
 #: src/core/model/filefilter.cpp:108
 msgctxt "@default|"
@@ -2478,7 +2478,7 @@ msgstr "ხანგრძლივობა"
 #: src/core/tags/frame.cpp:46
 msgctxt "@default|"
 msgid "Text Encoding"
-msgstr ""
+msgstr "ტექსტის კოდირება:"
 
 #: src/core/tags/frame.cpp:47
 msgctxt "@default|"
@@ -2494,7 +2494,7 @@ msgstr "მონაცემები"
 #: src/core/tags/frame.cpp:252 src/core/tags/frame.cpp:298
 msgctxt "@default|"
 msgid "Description"
-msgstr ""
+msgstr "აღწერა"
 
 #: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:321
 msgctxt "@default|"
@@ -2519,12 +2519,12 @@ msgstr "ენა"
 #: src/core/tags/frame.cpp:56
 msgctxt "@default|"
 msgid "Picture Type"
-msgstr ""
+msgstr "სურათის ტიპი"
 
 #: src/core/tags/frame.cpp:57
 msgctxt "@default|"
 msgid "Image format"
-msgstr ""
+msgstr "გამოსახულების ფორმატი"
 
 #: src/core/tags/frame.cpp:58
 msgctxt "@default|"
@@ -2545,12 +2545,12 @@ msgstr "იდენტიფიკატორი"
 #: src/core/tags/frame.cpp:212
 msgctxt "@default|"
 msgid "Volume Adjustment"
-msgstr ""
+msgstr "ხმის მორგება"
 
 #: src/core/tags/frame.cpp:62
 msgctxt "@default|"
 msgid "Number of Bits"
-msgstr ""
+msgstr "ბიტების რაოდენობა"
 
 #: src/core/tags/frame.cpp:63
 msgctxt "@default|"
@@ -4651,7 +4651,7 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:167
 msgctxt "PlaylistDialog|"
 msgid "For&mat:"
-msgstr ""
+msgstr "&ფორმატი:"
 
 #: src/gui/dialogs/playlistdialog.cpp:171
 msgctxt "PlaylistDialog|"
