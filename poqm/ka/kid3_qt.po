@@ -2036,12 +2036,12 @@ msgstr ""
 #: src/core/model/eventtimingcode.cpp:38
 msgctxt "@default|"
 msgid "end of initial silence"
-msgstr ""
+msgstr "საწყისი სიჩუმის დასასრული"
 
 #: src/core/model/eventtimingcode.cpp:39
 msgctxt "@default|"
 msgid "intro start"
-msgstr ""
+msgstr "შესავლის დასაწყისი"
 
 #: src/core/model/eventtimingcode.cpp:40
 msgctxt "@default|"
@@ -2111,7 +2111,7 @@ msgstr ""
 #: src/core/model/eventtimingcode.cpp:53
 msgctxt "@default|"
 msgid "intro end"
-msgstr ""
+msgstr "შესავლის დასასრული"
 
 #: src/core/model/eventtimingcode.cpp:54
 msgctxt "@default|"
@@ -2422,7 +2422,7 @@ msgstr "შეცვლის თარიღი"
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
 msgid "Search finished"
-msgstr ""
+msgstr "ძებნა დასრულდა"
 
 #: src/core/model/tagsearcher.cpp:464
 msgctxt "TagSearcher|"
@@ -2443,7 +2443,7 @@ msgstr "დრო"
 #: src/core/model/timeeventmodel.cpp:125
 msgctxt "TimeEventModel|"
 msgid "Event Code"
-msgstr ""
+msgstr "მოვლენის კოდი"
 
 #: src/core/model/timeeventmodel.cpp:127
 msgctxt "TimeEventModel|"
@@ -2458,7 +2458,7 @@ msgstr "ტრეკი"
 #: src/core/model/trackdatamodel.cpp:184
 msgctxt "TrackDataModel|"
 msgid "Absolute path to file"
-msgstr ""
+msgstr "აბსოლუტური ბილიკი ფაილამდე"
 
 #: src/core/model/trackdatamodel.cpp:186
 msgctxt "TrackDataModel|"
@@ -2478,7 +2478,7 @@ msgstr "ხანგრძლივობა"
 #: src/core/tags/frame.cpp:46
 msgctxt "@default|"
 msgid "Text Encoding"
-msgstr "ტექსტის კოდირება:"
+msgstr "ტექსტის კოდირება"
 
 #: src/core/tags/frame.cpp:47
 msgctxt "@default|"
@@ -2678,7 +2678,7 @@ msgstr "BPM"
 #: src/core/tags/frame.cpp:130
 msgctxt "@default|"
 msgid "Catalog Number"
-msgstr ""
+msgstr "კატალოგის ნომერი"
 
 #: src/core/tags/frame.cpp:131
 msgctxt "@default|"
@@ -2709,17 +2709,17 @@ msgstr "დისკის ნომერი"
 #: src/core/tags/frame.cpp:136 src/core/tags/frame.cpp:256
 msgctxt "@default|"
 msgid "Encoded-by"
-msgstr ""
+msgstr "ენკოდერის სახელი"
 
 #: src/core/tags/frame.cpp:137 src/core/tags/frame.cpp:255
 msgctxt "@default|"
 msgid "Encoder Settings"
-msgstr ""
+msgstr "ენკოდერის მორგება"
 
 #: src/core/tags/frame.cpp:138 src/core/tags/frame.cpp:220
 msgctxt "@default|"
 msgid "Encoding Time"
-msgstr ""
+msgstr "კოდირების დრო"
 
 #: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:198
 #: src/core/tags/frame.cpp:251
@@ -2755,7 +2755,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:147
 msgctxt "@default|"
 msgid "Original Album"
-msgstr ""
+msgstr "საწყისი ალბომი"
 
 #: src/core/tags/frame.cpp:148 src/core/tags/frame.cpp:268
 msgctxt "@default|"
@@ -2785,7 +2785,7 @@ msgstr "გამომცემელი"
 #: src/core/tags/frame.cpp:154
 msgctxt "@default|"
 msgid "Release Country"
-msgstr ""
+msgstr "გამოცემის ქვეყაან"
 
 #: src/core/tags/frame.cpp:155 src/core/tags/frame.cpp:274
 msgctxt "@default|"
@@ -2795,7 +2795,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:156
 msgctxt "@default|"
 msgid "Sort Album"
-msgstr ""
+msgstr "ალბომის დალაგება"
 
 #: src/core/tags/frame.cpp:157 src/core/tags/frame.cpp:283
 msgctxt "@default|"
@@ -2830,12 +2830,12 @@ msgstr "ვებგვერდი"
 #: src/core/tags/frame.cpp:163
 msgctxt "@default|"
 msgid "WWW Audio File"
-msgstr ""
+msgstr "WWW აუდიო ფაილი"
 
 #: src/core/tags/frame.cpp:164
 msgctxt "@default|"
 msgid "WWW Audio Source"
-msgstr ""
+msgstr "WWW აუდიო წყარო"
 
 #: src/core/tags/frame.cpp:165
 msgctxt "@default|"
@@ -2850,7 +2850,7 @@ msgstr "სამუშაო"
 #: src/core/tags/frame.cpp:187
 msgctxt "@default|"
 msgid "Audio Encryption"
-msgstr ""
+msgstr "აუდიოს დაშიფვრა"
 
 #: src/core/tags/frame.cpp:188
 msgctxt "@default|"
@@ -2905,7 +2905,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:200
 msgctxt "@default|"
 msgid "Music CD Identifier"
-msgstr ""
+msgstr "მუსიკალური დისკის იდენტიფიკატორი"
 
 #: src/core/tags/frame.cpp:201
 msgctxt "@default|"
@@ -3040,12 +3040,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:287
 msgctxt "@default|"
 msgid "Original Filename"
-msgstr ""
+msgstr "ორიგინალური ფაილის სახელი"
 
 #: src/core/tags/frame.cpp:233
 msgctxt "@default|"
 msgid "File Owner"
-msgstr ""
+msgstr "ფაილის მფლობელი"
 
 #: src/core/tags/frame.cpp:234
 msgctxt "@default|"
@@ -3131,7 +3131,7 @@ msgstr "კონტაქტი"
 #: src/core/tags/frame.cpp:253 src/core/tags/frame.cpp:275
 msgctxt "@default|"
 msgid "Total Discs"
-msgstr ""
+msgstr "სულ დისკები"
 
 #: src/core/tags/frame.cpp:254
 msgctxt "@default|"
@@ -3156,7 +3156,7 @@ msgstr "ანსამბლი"
 #: src/core/tags/frame.cpp:260
 msgctxt "@default|"
 msgid "Guest Artist"
-msgstr ""
+msgstr "სტუმარი შემსრულებელი"
 
 #: src/core/tags/frame.cpp:261 src/core/tags/trackdata.cpp:264
 msgctxt "@default|"
@@ -3176,7 +3176,7 @@ msgstr "ჭდე"
 #: src/core/tags/frame.cpp:264
 msgctxt "@default|"
 msgid "Label Number"
-msgstr ""
+msgstr "ჭდის ნომერი"
 
 #: src/core/tags/frame.cpp:265
 msgctxt "@default|"
@@ -3201,7 +3201,7 @@ msgstr "ორგანიზაცია"
 #: src/core/tags/frame.cpp:270
 msgctxt "@default|"
 msgid "Part Number"
-msgstr ""
+msgstr "ნაწილის ნომერი"
 
 #: src/core/tags/frame.cpp:271
 msgctxt "@default|"
@@ -3211,12 +3211,12 @@ msgstr "პროდუსერი"
 #: src/core/tags/frame.cpp:272
 msgctxt "@default|"
 msgid "Product Number"
-msgstr ""
+msgstr "პროდუქტის ნომერი"
 
 #: src/core/tags/frame.cpp:276 src/core/tags/frame.cpp:277
 msgctxt "@default|"
 msgid "Total Tracks"
-msgstr ""
+msgstr "სულ ტრეკები"
 
 #: src/core/tags/frame.cpp:280
 msgctxt "@default|"
@@ -3241,7 +3241,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:290
 msgctxt "@default|"
 msgid "User Rating"
-msgstr ""
+msgstr "მომხმარებლის შეფასება"
 
 #: src/core/tags/frame.cpp:292
 msgctxt "@default|"
@@ -3256,7 +3256,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:294
 msgctxt "@default|"
 msgid "Artist ID"
-msgstr ""
+msgstr "შემსრულებლის ID"
 
 #: src/core/tags/frame.cpp:295
 msgctxt "@default|"
@@ -3266,17 +3266,17 @@ msgstr "კატეგორია"
 #: src/core/tags/frame.cpp:296
 msgctxt "@default|"
 msgid "Catalog ID"
-msgstr ""
+msgstr "კატალოგის ID"
 
 #: src/core/tags/frame.cpp:299
 msgctxt "@default|"
 msgid "Genre ID"
-msgstr ""
+msgstr "ჟანრის ID"
 
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "HD Video"
-msgstr ""
+msgstr "HD ვიდეო"
 
 #: src/core/tags/frame.cpp:301
 msgctxt "@default|"
@@ -3286,12 +3286,12 @@ msgstr "საკვანძო სიტყვა"
 #: src/core/tags/frame.cpp:302
 msgctxt "@default|"
 msgid "Long Description"
-msgstr ""
+msgstr "გრძელი აღწერა"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Album ID"
-msgstr ""
+msgstr "ალბომის ID"
 
 #: src/core/tags/frame.cpp:306
 msgctxt "@default|"
@@ -3634,7 +3634,7 @@ msgstr ""
 #: src/core/tags/trackdata.cpp:204
 msgctxt "@default|"
 msgid "Absolute path to file"
-msgstr ""
+msgstr "აბსოლუტური ბილიკი ფაილამდე"
 
 #: src/core/tags/trackdata.cpp:210
 msgctxt "@default|"
@@ -4716,7 +4716,7 @@ msgstr "დასაკრავი სია"
 #: src/gui/dialogs/playlisteditdialog.cpp:120
 msgctxt "PlaylistEditDialog|"
 msgid " [modified]"
-msgstr ""
+msgstr " [შეცვლილი]"
 
 #: src/gui/dialogs/playlisteditdialog.cpp:130
 msgctxt "PlaylistEditDialog|"
@@ -5545,7 +5545,7 @@ msgstr "ახალი"
 #: src/gui/widgets/frametable.cpp:68 src/gui/widgets/frametable.cpp:70
 msgctxt "FrameTable|"
 msgid "WWW Audio Source"
-msgstr ""
+msgstr "WWW აუდიო წყარო"
 
 #: src/gui/widgets/frametable.cpp:161
 msgctxt "FrameTable|"
@@ -6414,7 +6414,7 @@ msgstr ""
 #: src/qml/app/AboutDialog.qml:29
 msgctxt "AboutDialog|"
 msgid "About Kid3"
-msgstr ""
+msgstr "Kid3-ის შესახებ"
 
 #: src/qml/app/AboutDialog.qml:39
 msgctxt "AboutDialog|"
@@ -6500,12 +6500,12 @@ msgstr "დანიშნულება:"
 #: src/qml/app/BatchImportPage.qml:136
 msgctxt "BatchImportPage|"
 msgid "Tag 1"
-msgstr ""
+msgstr "ჭდე 1"
 
 #: src/qml/app/BatchImportPage.qml:137
 msgctxt "BatchImportPage|"
 msgid "Tag 2"
-msgstr ""
+msgstr "ჭდე 2"
 
 #: src/qml/app/BatchImportPage.qml:138
 msgctxt "BatchImportPage|"
@@ -6632,19 +6632,19 @@ msgstr "სიზუსტე"
 #: src/qml/app/ImportProfilesEditPage.qml:149
 msgctxt "ImportProfilesEditPage|"
 msgid "Standard Tags"
-msgstr ""
+msgstr "სტანდარტული ჭდეები"
 
 #: src/qml/app/ImportProfilesEditPage.qml:74
 #: src/qml/app/ImportProfilesEditPage.qml:154
 msgctxt "ImportProfilesEditPage|"
 msgid "Additional Tags"
-msgstr ""
+msgstr "დამატებით ჭდეები"
 
 #: src/qml/app/ImportProfilesEditPage.qml:77
 #: src/qml/app/ImportProfilesEditPage.qml:159
 msgctxt "ImportProfilesEditPage|"
 msgid "Cover Art"
-msgstr ""
+msgstr "ყდის სურათი"
 
 #: src/qml/app/ImportProfilesEditPage.qml:128
 msgctxt "ImportProfilesEditPage|"
@@ -6693,7 +6693,7 @@ msgstr ""
 #: src/qml/app/MainPage.qml:48
 msgctxt "MainPage|"
 msgid " [modified]"
-msgstr ""
+msgstr " [შეცვლილი]"
 
 #: src/qml/app/MainPage.qml:49
 #, qt-format
@@ -6794,12 +6794,12 @@ msgstr "დანიშნულება:"
 #: src/qml/app/NumberTracksDialog.qml:63
 msgctxt "NumberTracksDialog|"
 msgid "Tag 1"
-msgstr ""
+msgstr "ჭდე 1"
 
 #: src/qml/app/NumberTracksDialog.qml:64
 msgctxt "NumberTracksDialog|"
 msgid "Tag 2"
-msgstr ""
+msgstr "ჭდე 2"
 
 #: src/qml/app/NumberTracksDialog.qml:65
 msgctxt "NumberTracksDialog|"
