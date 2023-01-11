@@ -128,7 +128,7 @@ kid3 (${NEWVER}-0) unstable; urgency=low\n\n  * New upstream release.\n\n\
   sed -i "s/PROJECTVERSION=\"${OLDVER}\"/PROJECTVERSION=\"${NEWVER}\"/" translations/extract-merge.sh
   # kid3.spec is used by f-droid to detect a new version, it should be updated exactly before the release.
   if test "$4" = "--finalize"; then
-    sed -i "s/^Version:        ${OLDVER}$/Version:        ${NEWVER}/" kid3.spec
+    sed -i "s/^\(Version: \+\).*$/\1${NEWVER}/" kid3.spec
     OLDCODE=$(sed -n "s/ \+set(QT_ANDROID_APP_VERSION_CODE \([0-9]\+\))/\1/p" CMakeLists.txt)
     NEWCODE=$[ $OLDCODE + 1 ]
     sed -i "s/\( \+set(QT_ANDROID_APP_VERSION_CODE \)\([0-9]\+\))/\1$NEWCODE)/" CMakeLists.txt
