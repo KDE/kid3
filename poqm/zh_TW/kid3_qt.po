@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.7\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2022-02-12 02:10+0800\n"
+"PO-Revision-Date: 2023-01-11 01:17+0800\n"
 "Last-Translator: Chaoting Liu <brli@chakralinux.org>\n"
 "Language-Team: Chinese <kde-i18n-doc@kde.org>\n"
 "Language: zh_TW\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Language: zh_TW\n"
 "X-Source-Language: en\n"
 "X-Qt-Contexts: true\n"
@@ -113,12 +113,12 @@ msgstr "選取標籤"
 #: src/app/cli/clicommand.cpp:607
 msgctxt "GetCommand|"
 msgid "Get tag frame"
-msgstr "取得標籤框架"
+msgstr "取得標記的音框"
 
 #: src/app/cli/clicommand.cpp:635
 msgctxt "SetCommand|"
 msgid "Set tag frame"
-msgstr "設定標籤框架"
+msgstr "設定音框標籤"
 
 #: src/app/cli/clicommand.cpp:653
 #, qt-format
@@ -396,12 +396,12 @@ msgstr "標籤編號"
 #: src/app/cli/kid3cli.cpp:306
 msgctxt "Kid3Cli|"
 msgid "Frame name"
-msgstr "框架名稱"
+msgstr "音框名稱"
 
 #: src/app/cli/kid3cli.cpp:309
 msgctxt "Kid3Cli|"
 msgid "Frame value"
-msgstr "框架數值"
+msgstr "音框數值"
 
 #: src/app/cli/kid3cli.cpp:310
 msgctxt "Kid3Cli|"
@@ -645,7 +645,7 @@ msgstr "重新載入資料夾"
 #: src/app/kde/kdemainwindow.cpp:211
 msgctxt "KdeMainWindow|"
 msgid "Unload"
-msgstr "卸載"
+msgstr "取消載入"
 
 #: src/app/kde/kdemainwindow.cpp:216
 msgctxt "KdeMainWindow|"
@@ -910,7 +910,7 @@ msgstr "焦點"
 #: src/app/kde/kdemainwindow.cpp:403
 msgctxt "KdeMainWindow|"
 msgid "Frames:"
-msgstr "框架："
+msgstr "音框："
 
 #: src/app/kde/kdemainwindow.cpp:404
 msgctxt "KdeMainWindow|"
@@ -1061,7 +1061,7 @@ msgstr "未知"
 #: src/app/qt/configdialog.cpp:151
 msgctxt "ConfigDialog|"
 msgid "Use native system file &dialogs"
-msgstr "使用原生系統檔案對話框(&D)"
+msgstr "使用系統內建的檔案對話視窗(&D)"
 
 #: src/app/qt/configdialog.cpp:155
 msgctxt "ConfigDialog|"
@@ -1142,7 +1142,7 @@ msgstr "重新載入(&L)"
 #: src/app/qt/kid3mainwindow.cpp:160
 msgctxt "Kid3MainWindow|"
 msgid "Unload"
-msgstr "卸載"
+msgstr "取消載入"
 
 #: src/app/qt/kid3mainwindow.cpp:170
 msgctxt "Kid3MainWindow|"
@@ -2621,7 +2621,7 @@ msgstr "其他"
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"
 msgid "MPEG frames as unit"
-msgstr "以 MPEG 訊框為單位"
+msgstr "以 MPEG 音框為單位"
 
 #: src/core/tags/frame.cpp:87
 msgctxt "@default|"
@@ -3208,10 +3208,9 @@ msgid "Organization"
 msgstr "組織"
 
 #: src/core/tags/frame.cpp:270
-#, fuzzy
 msgctxt "@default|"
 msgid "Part Number"
-msgstr "生產​編號"
+msgstr "零件​編號"
 
 #: src/core/tags/frame.cpp:271
 msgctxt "@default|"
@@ -3384,9 +3383,6 @@ msgid "XID"
 msgstr "XID"
 
 #: src/core/tags/frame.cpp:326
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapters"
 msgstr "章節"
@@ -3409,12 +3405,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:330
 msgctxt "@default|"
 msgid "Dimensions"
-msgstr "尺寸"
+msgstr "幾何尺寸"
 
 #: src/core/tags/frame.cpp:331
 msgctxt "@default|"
 msgid "Dots Per Inch"
-msgstr "解析度"
+msgstr "解析度（點/英吋）"
 
 #: src/core/tags/frame.cpp:332
 msgctxt "@default|"
@@ -3542,7 +3538,7 @@ msgstr ""
 #: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
-msgstr "不是一個合法的 ISO 639-2 語言碼"
+msgstr "必須是符合 ISO 639-2 規範的三碼小寫語言代號"
 
 #: src/core/tags/framenotice.cpp:203
 msgctxt "@default|"
@@ -3552,7 +3548,7 @@ msgstr "必須是 ISRC 代碼，12 個字元"
 #: src/core/tags/framenotice.cpp:204
 msgctxt "@default|"
 msgid "Must be list of strings separated by '|'"
-msgstr "必須是一組由 “|” 隔開的字串"
+msgstr "必須是一組由 「|」 隔開的字串清單"
 
 #: src/core/tags/framenotice.cpp:205
 msgctxt "@default|"
@@ -3954,12 +3950,12 @@ msgstr "在 &WAV 檔案中寫入小寫 id3 標籤"
 #: src/gui/dialogs/configdialogpages.cpp:203
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
-msgstr "违反标准的标准(&K)"
+msgstr "標注違反標準的地方(&K)"
 
 #: src/gui/dialogs/configdialogpages.cpp:222
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
-msgstr "使用新標籤版本(&V):"
+msgstr "新標籤使用的版本(&V):"
 
 #: src/gui/dialogs/configdialogpages.cpp:226
 msgctxt "ConfigDialogPages|"
@@ -4138,9 +4134,6 @@ msgstr "標籤從檔名"
 
 #: src/gui/dialogs/configdialogpages.cpp:453
 #: src/gui/dialogs/configdialogpages.cpp:513
-#, fuzzy
-#| msgctxt "PlaylistEditDialog|"
-#| msgid "Playlist"
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "播放清單"
@@ -4178,7 +4171,7 @@ msgstr "內文選單指令(&M)"
 #: src/gui/dialogs/configdialogpages.cpp:540
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
-msgstr "雙擊上播放(&P)"
+msgstr "對檔案按兩下直接播放(&P)"
 
 #: src/gui/dialogs/configdialogpages.cpp:561
 msgctxt "ConfigDialogPages|"
@@ -5507,12 +5500,9 @@ msgid "&Clear row"
 msgstr "清除列(&C)"
 
 #: src/gui/widgets/filenameformatbox.cpp:46
-#, fuzzy
-#| msgctxt "PlaylistDialog|"
-#| msgid "Same as &folder name"
 msgctxt "FilenameFormatBox|"
 msgid "Use for playlist and folder names"
-msgstr "與資料夾同名(&D)"
+msgstr "用於清單與資料夾名稱(&D)"
 
 #: src/gui/widgets/filenameformatbox.cpp:47
 msgctxt "FilenameFormatBox|"
@@ -5769,7 +5759,7 @@ msgstr "清除(&l)"
 #: src/gui/widgets/timeeventeditor.cpp:478
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
-msgstr "無法執行"
+msgstr "插入延遲(&A)⋯"
 
 #: src/gui/widgets/timeeventeditor.cpp:480
 msgctxt "TimeEventEditor|"
@@ -6533,9 +6523,6 @@ msgid "Tag 2"
 msgstr "標籤 2"
 
 #: src/qml/app/BatchImportPage.qml:138
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "Tag &3"
 msgctxt "BatchImportPage|"
 msgid "Tag 3"
 msgstr "標籤 &3"
@@ -6546,9 +6533,6 @@ msgid "Tag 1 and Tag 2"
 msgstr "標籤 1 與 標籤 2"
 
 #: src/qml/app/BatchImportPage.qml:140
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "All Tags"
 msgctxt "BatchImportPage|"
 msgid "All Tags"
 msgstr "所有標籤"
@@ -6835,9 +6819,6 @@ msgid "Tag 2"
 msgstr "標籤 2"
 
 #: src/qml/app/NumberTracksDialog.qml:65
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "Tag &3"
 msgctxt "NumberTracksDialog|"
 msgid "Tag 3"
 msgstr "標籤 &3"
@@ -6848,9 +6829,6 @@ msgid "Tag 1 and Tag 2"
 msgstr "標籤 1 與 標籤 2"
 
 #: src/qml/app/NumberTracksDialog.qml:67
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "All Tags"
 msgctxt "NumberTracksDialog|"
 msgid "All Tags"
 msgstr "所有標籤"
@@ -6917,17 +6895,11 @@ msgid "From Tag 2"
 msgstr "從標籤 2"
 
 #: src/qml/app/RenameDirectoryPage.qml:132
-#, fuzzy
-#| msgctxt "RenameDirectoryPage|"
-#| msgid "From Tag 1"
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 3"
-msgstr "從標籤 1"
+msgstr "從標籤 3"
 
 #: src/qml/app/RenameDirectoryPage.qml:133
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "All Tags"
 msgctxt "RenameDirectoryPage|"
 msgid "All Tags"
 msgstr "所有標籤"
@@ -7068,20 +7040,14 @@ msgid "String Replacement"
 msgstr "字詞替換"
 
 #: src/qml/app/SettingsPage.qml:174
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "Custom &Genres"
 msgctxt "SettingsPage|"
 msgid "Custom frames"
-msgstr "自訂曲風(&G)"
+msgstr "自訂音框"
 
 #: src/qml/app/SettingsPage.qml:176
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "Custom &Genres"
 msgctxt "SettingsPage|"
 msgid "Custom Frames"
-msgstr "自訂曲風(&G)"
+msgstr "自訂音框"
 
 #: src/qml/app/SettingsPage.qml:189
 msgctxt "SettingsPage|"
@@ -7109,12 +7075,9 @@ msgid "Automatically apply format"
 msgstr "自動套用格式"
 
 #: src/qml/app/SettingsPage.qml:228
-#, fuzzy
-#| msgctxt "PlaylistDialog|"
-#| msgid "Same as &folder name"
 msgctxt "SettingsPage|"
 msgid "Use for playlist and folder names"
-msgstr "與資料夾同名(&D)"
+msgstr "用於清單與資料夾名稱"
 
 #: src/qml/app/SettingsPage.qml:233
 msgctxt "SettingsPage|"
