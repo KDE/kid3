@@ -5,9 +5,9 @@ import sys
 
 
 def fix_appdata():
-    for line in fileinput.input():
-        line = line.replace('kid3.desktop', 'kid3-qt.desktop')
-        sys.stdout.write(line)
+    for line in fileinput.input(mode='rb'):
+        line = line.replace(b'kid3.desktop', b'kid3-qt.desktop')
+        sys.stdout.buffer.write(line)
 
 if __name__ == '__main__':
     fix_appdata()
