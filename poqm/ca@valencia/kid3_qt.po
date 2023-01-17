@@ -2723,7 +2723,7 @@ msgstr "Codificat per"
 #: src/core/tags/frame.cpp:137 src/core/tags/frame.cpp:255
 msgctxt "@default|"
 msgid "Encoder Settings"
-msgstr "Configuració del codificador"
+msgstr "Configureu el codificador"
 
 #: src/core/tags/frame.cpp:138 src/core/tags/frame.cpp:220
 msgctxt "@default|"
@@ -4612,7 +4612,7 @@ msgstr "C&ancel·la"
 #: src/gui/dialogs/playlistdialog.cpp:56
 msgctxt "PlaylistDialog|"
 msgid "Create Playlist"
-msgstr "Creació d'una llista de reproducció"
+msgstr "Creeu una llista de reproducció"
 
 #: src/gui/dialogs/playlistdialog.cpp:144
 msgctxt "PlaylistDialog|"
