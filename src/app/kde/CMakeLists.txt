@@ -12,6 +12,6 @@ if(NOT MSVC)
 endif()
 
 install(TARGETS kid3 DESTINATION ${BIN_INSTALL_DIR})
-install(FILES ../org.kde.kid3.desktop DESTINATION ${XDG_APPS_INSTALL_DIR})
+install(PROGRAMS ../org.kde.kid3.desktop DESTINATION ${KDE_INSTALL_APPDIR})
 install(FILES ../org.kde.kid3.appdata.xml DESTINATION "${WITH_DATAROOTDIR}/metainfo")
 install(FILES kid3ui.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kid3)

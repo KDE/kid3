@@ -49,7 +49,7 @@ if(BUILD_KDE_APP)
     32-apps-kid3.png
     48-apps-kid3.png
     64-apps-kid3.png
-    DESTINATION ${ICON_INSTALL_DIR}
+    DESTINATION ${KDE_INSTALL_ICONDIR}
     THEME hicolor
   )
 endif()
