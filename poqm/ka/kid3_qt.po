@@ -2146,82 +2146,82 @@ msgstr ""
 #: src/core/model/eventtimingcode.cpp:60
 msgctxt "@default|"
 msgid "not predefined synch 0"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია 0"
 
 #: src/core/model/eventtimingcode.cpp:61
 msgctxt "@default|"
 msgid "not predefined synch 1"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია 1"
 
 #: src/core/model/eventtimingcode.cpp:62
 msgctxt "@default|"
 msgid "not predefined synch 2"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია 2"
 
 #: src/core/model/eventtimingcode.cpp:63
 msgctxt "@default|"
 msgid "not predefined synch 3"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია 3"
 
 #: src/core/model/eventtimingcode.cpp:64
 msgctxt "@default|"
 msgid "not predefined synch 4"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია 4"
 
 #: src/core/model/eventtimingcode.cpp:65
 msgctxt "@default|"
 msgid "not predefined synch 5"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია 5"
 
 #: src/core/model/eventtimingcode.cpp:66
 msgctxt "@default|"
 msgid "not predefined synch 6"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია 6"
 
 #: src/core/model/eventtimingcode.cpp:67
 msgctxt "@default|"
 msgid "not predefined synch 7"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია 7"
 
 #: src/core/model/eventtimingcode.cpp:68
 msgctxt "@default|"
 msgid "not predefined synch 8"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია 8"
 
 #: src/core/model/eventtimingcode.cpp:69
 msgctxt "@default|"
 msgid "not predefined synch 9"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია 9"
 
 #: src/core/model/eventtimingcode.cpp:70
 msgctxt "@default|"
 msgid "not predefined synch A"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია A"
 
 #: src/core/model/eventtimingcode.cpp:71
 msgctxt "@default|"
 msgid "not predefined synch B"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია B"
 
 #: src/core/model/eventtimingcode.cpp:72
 msgctxt "@default|"
 msgid "not predefined synch C"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია C"
 
 #: src/core/model/eventtimingcode.cpp:73
 msgctxt "@default|"
 msgid "not predefined synch D"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია D"
 
 #: src/core/model/eventtimingcode.cpp:74
 msgctxt "@default|"
 msgid "not predefined synch E"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია E"
 
 #: src/core/model/eventtimingcode.cpp:75
 msgctxt "@default|"
 msgid "not predefined synch F"
-msgstr ""
+msgstr "მომხმარებლის სინქრონიზაცია F"
 
 #: src/core/model/eventtimingcode.cpp:76
 msgctxt "@default|"
@@ -2272,7 +2272,7 @@ msgstr "ლოგიკური და"
 #: src/core/model/filefilter.cpp:132
 msgctxt "@default|"
 msgid "Logical OR"
-msgstr ""
+msgstr "ლოგიკური ან"
 
 #: src/core/model/filefilter.cpp:138
 msgctxt "@default|"
@@ -2596,7 +2596,7 @@ msgstr "თარიღი"
 #: src/core/tags/frame.cpp:72
 msgctxt "@default|"
 msgid "Seller"
-msgstr ""
+msgstr "გამყიდველი"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
@@ -2750,7 +2750,7 @@ msgstr "მედია"
 #: src/core/tags/frame.cpp:146 src/core/tags/frame.cpp:286
 msgctxt "@default|"
 msgid "Mood"
-msgstr ""
+msgstr "ხასიათი"
 
 #: src/core/tags/frame.cpp:147
 msgctxt "@default|"
@@ -2800,17 +2800,17 @@ msgstr "ალბომის დალაგება"
 #: src/core/tags/frame.cpp:157 src/core/tags/frame.cpp:283
 msgctxt "@default|"
 msgid "Sort Album Artist"
-msgstr ""
+msgstr "ალბომის შემსრულებლით დალაგება"
 
 #: src/core/tags/frame.cpp:158
 msgctxt "@default|"
 msgid "Sort Artist"
-msgstr ""
+msgstr "შემსრულებლით დალაგება"
 
 #: src/core/tags/frame.cpp:159
 msgctxt "@default|"
 msgid "Sort Composer"
-msgstr ""
+msgstr "კომპოზიტორით დალაგება"
 
 #: src/core/tags/frame.cpp:160
 msgctxt "@default|"
@@ -2855,7 +2855,7 @@ msgstr "აუდიოს დაშიფვრა"
 #: src/core/tags/frame.cpp:188
 msgctxt "@default|"
 msgid "Audio Seek Point"
-msgstr ""
+msgstr "აუდიოს გადახვევის წერტილი"
 
 #: src/core/tags/frame.cpp:189
 msgctxt "@default|"
@@ -2865,7 +2865,7 @@ msgstr "თავი"
 #: src/core/tags/frame.cpp:190
 msgctxt "@default|"
 msgid "Commercial"
-msgstr ""
+msgstr "რეკლამა"
 
 #: src/core/tags/frame.cpp:191
 msgctxt "@default|"
@@ -2890,12 +2890,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:196
 msgctxt "@default|"
 msgid "General Object"
-msgstr ""
+msgstr "საერთო ობიექტი"
 
 #: src/core/tags/frame.cpp:197
 msgctxt "@default|"
 msgid "Group Identification"
-msgstr ""
+msgstr "ჯგუფით იდენტიფიკაცია"
 
 #: src/core/tags/frame.cpp:199
 msgctxt "@default|"
@@ -3055,17 +3055,17 @@ msgstr ""
 #: src/core/tags/frame.cpp:235 src/core/tags/frame.cpp:273
 msgctxt "@default|"
 msgid "Recording Date"
-msgstr ""
+msgstr "ჩანაწერის თარიღი"
 
 #: src/core/tags/frame.cpp:236
 msgctxt "@default|"
 msgid "Radio Station Name"
-msgstr ""
+msgstr "რადიოსადგურის სახელი"
 
 #: src/core/tags/frame.cpp:237
 msgctxt "@default|"
 msgid "Radio Station Owner"
-msgstr ""
+msgstr "რადიოსადგურის მფლობელი"
 
 #: src/core/tags/frame.cpp:238
 msgctxt "@default|"
@@ -3075,12 +3075,12 @@ msgstr "ზომა"
 #: src/core/tags/frame.cpp:239
 msgctxt "@default|"
 msgid "User-defined Text"
-msgstr ""
+msgstr "ხელით მითითებული ტექსტი"
 
 #: src/core/tags/frame.cpp:240
 msgctxt "@default|"
 msgid "Unique File Identifier"
-msgstr ""
+msgstr "უნიკალური ფაილის იდენტიფიკატორი"
 
 #: src/core/tags/frame.cpp:241
 msgctxt "@default|"
@@ -3095,7 +3095,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:243
 msgctxt "@default|"
 msgid "Copyright URL"
-msgstr ""
+msgstr "ლიცენზიის URL"
 
 #: src/core/tags/frame.cpp:244
 msgctxt "@default|"
@@ -3311,7 +3311,7 @@ msgstr "ქვეყნის კოდი"
 #: src/core/tags/frame.cpp:309
 msgctxt "@default|"
 msgid "Sort Show"
-msgstr ""
+msgstr "გადაცემებით დალაგება"
 
 #: src/core/tags/frame.cpp:310
 msgctxt "@default|"
@@ -3321,27 +3321,27 @@ msgstr "მატარებლის ტიპი"
 #: src/core/tags/frame.cpp:311
 msgctxt "@default|"
 msgid "TV Episode"
-msgstr ""
+msgstr "გადაცემის ეპიზოდი"
 
 #: src/core/tags/frame.cpp:312
 msgctxt "@default|"
 msgid "TV Episode Number"
-msgstr ""
+msgstr "გადაცემის ეპიზოდის ნომერი"
 
 #: src/core/tags/frame.cpp:313
 msgctxt "@default|"
 msgid "TV Network Name"
-msgstr ""
+msgstr "TV ქსელის სახელი"
 
 #: src/core/tags/frame.cpp:314
 msgctxt "@default|"
 msgid "TV Show Name"
-msgstr ""
+msgstr "TV გადაცემის სახელი"
 
 #: src/core/tags/frame.cpp:315
 msgctxt "@default|"
 msgid "TV Season"
-msgstr ""
+msgstr "TV სეზონი"
 
 #: src/core/tags/frame.cpp:319
 msgctxt "@default|"
@@ -3639,7 +3639,7 @@ msgstr "აბსოლუტური ბილიკი ფაილამდ�
 #: src/core/tags/trackdata.cpp:210
 msgctxt "@default|"
 msgid "Modification date"
-msgstr ""
+msgstr "ცვლილების თარიღი"
 
 #: src/core/tags/trackdata.cpp:216
 msgctxt "@default|"
@@ -3654,7 +3654,7 @@ msgstr "საქაღალდის სახელი"
 #: src/core/tags/trackdata.cpp:241
 msgctxt "@default|"
 msgid "Number of tracks"
-msgstr ""
+msgstr "ტრეკების რაოდენობა"
 
 #: src/core/tags/trackdata.cpp:246
 msgctxt "@default|"
@@ -3694,12 +3694,12 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:163
 msgctxt "BatchImportDialog|"
 msgid "Automatic Import"
-msgstr ""
+msgstr "ავტომატური შემოტანა"
 
 #: src/gui/dialogs/batchimportdialog.cpp:179
 msgctxt "BatchImportDialog|"
 msgid "D&estination:"
-msgstr ""
+msgstr "&სამიზნე:"
 
 #: src/gui/dialogs/batchimportdialog.cpp:194
 msgctxt "BatchImportDialog|"
@@ -3789,7 +3789,7 @@ msgstr "შეცდომა"
 #: src/gui/dialogs/batchimportdialog.cpp:524
 msgctxt "BatchImportDialog|"
 msgid "A&bort"
-msgstr ""
+msgstr "&გაუქმება"
 
 #: src/gui/dialogs/batchimportdialog.cpp:524
 msgctxt "BatchImportDialog|"
@@ -3799,7 +3799,7 @@ msgstr "&გაშვება"
 #: src/gui/dialogs/batchimportsourcedialog.cpp:44
 msgctxt "BatchImportSourceDialog|"
 msgid "Import Source"
-msgstr ""
+msgstr "შემოტანის წყარო"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:50
 msgctxt "BatchImportSourceDialog|"
@@ -3809,22 +3809,22 @@ msgstr "&სერვერი:"
 #: src/gui/dialogs/batchimportsourcedialog.cpp:58
 msgctxt "BatchImportSourceDialog|"
 msgid "&Accuracy:"
-msgstr ""
+msgstr "&სიზუსტე:"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:68
 msgctxt "BatchImportSourceDialog|"
 msgid "&Standard Tags"
-msgstr ""
+msgstr "&სტანდარტული ჭდეები"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:70
 msgctxt "BatchImportSourceDialog|"
 msgid "&Additional Tags"
-msgstr ""
+msgstr "&დამატებით ჭდეები"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:72
 msgctxt "BatchImportSourceDialog|"
 msgid "C&over Art"
-msgstr ""
+msgstr "&ყდის სურათი"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:83
 #: src/gui/dialogs/browsecoverartdialog.cpp:263
@@ -3865,7 +3865,7 @@ msgstr "დამთხვევა"
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
 msgid "Picture URL"
-msgstr ""
+msgstr "სურათის URL"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:130
 msgctxt "BrowseCoverArtDialog|"
@@ -4021,7 +4021,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:347
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
-msgstr ""
+msgstr "&ჭდის ფორმატი"
 
 #: src/gui/dialogs/configdialogpages.cpp:349
 msgctxt "ConfigDialogPages|"
@@ -4031,22 +4031,22 @@ msgstr "შეფასება"
 #: src/gui/dialogs/configdialogpages.cpp:359
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
-msgstr ""
+msgstr "ჭდე &1"
 
 #: src/gui/dialogs/configdialogpages.cpp:361
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
-msgstr ""
+msgstr "ჭდე &2"
 
 #: src/gui/dialogs/configdialogpages.cpp:362
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
-msgstr ""
+msgstr "ჭდე &3"
 
 #: src/gui/dialogs/configdialogpages.cpp:363
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
-msgstr ""
+msgstr "&ყველა ჭდე"
 
 #: src/gui/dialogs/configdialogpages.cpp:381
 msgctxt "ConfigDialogPages|"
@@ -4213,12 +4213,12 @@ msgstr "ასლები"
 #: src/gui/widgets/timeeventeditor.cpp:352
 msgctxt "@default|"
 msgid "All Files"
-msgstr ""
+msgstr "ყველა ფაილი"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1136
 msgctxt "BinaryOpenSave|"
 msgid "From Clip&board"
-msgstr ""
+msgstr "&ბუფერიდან"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1137
 msgctxt "BinaryOpenSave|"
@@ -4268,22 +4268,22 @@ msgstr "&თავსართი:"
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "&Tracks:"
-msgstr ""
+msgstr "&ტრეკები:"
 
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "F&ooter:"
-msgstr ""
+msgstr "&ბოლოსართი:"
 
 #: src/gui/dialogs/exportdialog.cpp:91
 msgctxt "ExportDialog|"
 msgid "To F&ile..."
-msgstr ""
+msgstr "&ფაილში..."
 
 #: src/gui/dialogs/exportdialog.cpp:96
 msgctxt "ExportDialog|"
 msgid "To Clip&board"
-msgstr ""
+msgstr "&ბუფერში"
 
 #: src/gui/dialogs/exportdialog.cpp:105
 msgctxt "ExportDialog|"
@@ -4339,7 +4339,7 @@ msgstr "&ფილტრი:"
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
 msgid "&Expression:"
-msgstr ""
+msgstr "&გამოსახულება:"
 
 #: src/gui/dialogs/filterdialog.cpp:75
 msgctxt "FilterDialog|"
@@ -4374,7 +4374,7 @@ msgstr "შეწყვეტილია"
 #: src/gui/dialogs/filterdialog.cpp:215
 msgctxt "FilterDialog|"
 msgid "A&bort"
-msgstr ""
+msgstr "&გაუქმება"
 
 #: src/gui/dialogs/filterdialog.cpp:215
 msgctxt "FilterDialog|"
@@ -4400,12 +4400,12 @@ msgstr "&ძებნა"
 #: src/gui/dialogs/findreplacedialog.cpp:69
 msgctxt "FindReplaceDialog|"
 msgid "Re&place:"
-msgstr ""
+msgstr "&ჩანაცვლება:"
 
 #: src/gui/dialogs/findreplacedialog.cpp:76
 msgctxt "FindReplaceDialog|"
 msgid "&Replace"
-msgstr ""
+msgstr "&ჩანაცვლება"
 
 #: src/gui/dialogs/findreplacedialog.cpp:79
 msgctxt "FindReplaceDialog|"
@@ -4415,7 +4415,7 @@ msgstr "ყველას &ჩანაცვლება"
 #: src/gui/dialogs/findreplacedialog.cpp:94
 msgctxt "FindReplaceDialog|"
 msgid "Options"
-msgstr ""
+msgstr "პარამეტრები"
 
 #: src/gui/dialogs/findreplacedialog.cpp:96
 msgctxt "FindReplaceDialog|"
@@ -4430,7 +4430,7 @@ msgstr "&უკან"
 #: src/gui/dialogs/findreplacedialog.cpp:100
 msgctxt "FindReplaceDialog|"
 msgid "Regular &expression"
-msgstr ""
+msgstr "&რეგულარული გამოსახულება"
 
 #: src/gui/dialogs/findreplacedialog.cpp:105
 msgctxt "FindReplaceDialog|"
@@ -4440,7 +4440,7 @@ msgstr "&ჭდეები"
 #: src/gui/dialogs/findreplacedialog.cpp:107
 msgctxt "FindReplaceDialog|"
 msgid "Select a&ll"
-msgstr ""
+msgstr "ყველაფრის მო&ნიშვნა"
 
 #: src/gui/dialogs/findreplacedialog.cpp:117
 msgctxt "FindReplaceDialog|"
@@ -4475,7 +4475,7 @@ msgstr "სიზუსტე:"
 #: src/gui/dialogs/importdialog.cpp:139
 msgctxt "ImportDialog|"
 msgid "Cover Art:"
-msgstr ""
+msgstr "ყდის სურათი:"
 
 #: src/gui/dialogs/importdialog.cpp:148
 msgctxt "ImportDialog|"
@@ -4495,7 +4495,7 @@ msgstr ""
 #: src/gui/dialogs/importdialog.cpp:176
 msgctxt "ImportDialog|"
 msgid "D&estination:"
-msgstr ""
+msgstr "&სამიზნე:"
 
 #: src/gui/dialogs/importdialog.cpp:190
 msgctxt "ImportDialog|"
@@ -4515,17 +4515,17 @@ msgstr ""
 #: src/gui/dialogs/importdialog.cpp:209
 msgctxt "ImportDialog|"
 msgid "&Length"
-msgstr ""
+msgstr "&ხანგრძლივობა"
 
 #: src/gui/dialogs/importdialog.cpp:212
 msgctxt "ImportDialog|"
 msgid "T&rack"
-msgstr ""
+msgstr "&ტრეკი"
 
 #: src/gui/dialogs/importdialog.cpp:215
 msgctxt "ImportDialog|"
 msgid "&Title"
-msgstr ""
+msgstr "&სათაური"
 
 #: src/gui/dialogs/importdialog.cpp:243
 msgctxt "ImportDialog|"
@@ -4813,17 +4813,17 @@ msgstr "&კოდი:"
 #: src/gui/dialogs/serverimportdialog.cpp:98
 msgctxt "ServerImportDialog|"
 msgid "&Standard Tags"
-msgstr ""
+msgstr "&სტანდარტული ჭდეები"
 
 #: src/gui/dialogs/serverimportdialog.cpp:99
 msgctxt "ServerImportDialog|"
 msgid "&Additional Tags"
-msgstr ""
+msgstr "&დამატებით ჭდეები"
 
 #: src/gui/dialogs/serverimportdialog.cpp:100
 msgctxt "ServerImportDialog|"
 msgid "C&over Art"
-msgstr ""
+msgstr "&ყდის სურათი"
 
 #: src/gui/dialogs/serverimportdialog.cpp:114
 msgctxt "ServerImportDialog|"
@@ -4889,7 +4889,7 @@ msgstr "&შეწყვეტა"
 #: src/gui/dialogs/servertrackimportdialog.cpp:368
 msgctxt "ServerTrackImportDialog|"
 msgid "No result"
-msgstr ""
+msgstr "შედეგის გარეშე"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:229
 #: src/gui/dialogs/servertrackimportdialog.cpp:234
@@ -4901,7 +4901,7 @@ msgstr "უცნობი"
 #: src/gui/dialogs/servertrackimportdialog.cpp:368
 msgctxt "ServerTrackImportDialog|"
 msgid "No result selected"
-msgstr ""
+msgstr "შედეგი მონიშნული არაა"
 
 #: src/gui/dialogs/tagimportdialog.cpp:52
 msgctxt "TagImportDialog|"
@@ -4926,7 +4926,7 @@ msgstr ""
 #: src/gui/dialogs/tagimportdialog.cpp:72
 msgctxt "TagImportDialog|"
 msgid "D&estination:"
-msgstr ""
+msgstr "&სამიზნე:"
 
 #: src/gui/dialogs/tagimportdialog.cpp:79
 msgctxt "TagImportDialog|"
@@ -4981,12 +4981,12 @@ msgstr "&პარამეტრების შენახვა"
 #: src/gui/dialogs/textimportdialog.cpp:80
 msgctxt "TextImportDialog|"
 msgid "From F&ile..."
-msgstr ""
+msgstr "&ფაილიდან..."
 
 #: src/gui/dialogs/textimportdialog.cpp:84
 msgctxt "TextImportDialog|"
 msgid "From Clip&board"
-msgstr ""
+msgstr "&ბუფერიდან"
 
 #: src/gui/dialogs/textimportdialog.cpp:88
 msgctxt "TextImportDialog|"
@@ -5001,7 +5001,7 @@ msgstr "ჩამოტვირთვა"
 #: src/gui/forms/basemainwindow.cpp:216
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
-msgstr ""
+msgstr "საქაღალდის გახსნა..."
 
 #: src/gui/forms/basemainwindow.cpp:276
 msgctxt "BaseMainWindowImpl|"
@@ -5012,7 +5012,7 @@ msgstr "შეწყვეტა"
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
-msgstr ""
+msgstr "%1 ჩაწერადი არაა"
 
 #: src/gui/forms/basemainwindow.cpp:368
 msgctxt "BaseMainWindowImpl|"
@@ -5061,24 +5061,24 @@ msgstr "გასვლა..."
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
 msgid_plural "%n folders"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%n საქაღალდე"
+msgstr[1] "%n საქაღალდე"
 
 #: src/gui/forms/basemainwindow.cpp:671
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
 msgid_plural "%n files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%n ფაილი"
+msgstr[1] "%n ფაილი"
 
 #: src/gui/forms/basemainwindow.cpp:676
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
 msgid_plural "%n selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%n მონიშნულია"
+msgstr[1] "%n მონიშნულია"
 
 #: src/gui/forms/basemainwindow.cpp:679
 msgctxt "BaseMainWindowImpl|"
@@ -5093,7 +5093,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:789
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
-msgstr ""
+msgstr "ფაილების გარეშე"
 
 #: src/gui/forms/basemainwindow.cpp:790
 msgctxt "BaseMainWindowImpl|"
@@ -5109,7 +5109,7 @@ msgstr "იმპორტი"
 #: src/gui/forms/basemainwindow.cpp:1543 src/gui/forms/basemainwindow.cpp:1552
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
-msgstr ""
+msgstr "სახელის გადარქმევის შეცდომა:\n"
 
 #: src/gui/forms/basemainwindow.cpp:1097
 msgctxt "BaseMainWindowImpl|"
@@ -5188,7 +5188,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:1626
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
-msgstr ""
+msgstr "ამ ფაილების ნაგვის ყუთში გადატანა შეუძლებელია"
 
 #: src/gui/forms/basemainwindow.cpp:1659
 msgctxt "BaseMainWindowImpl|"
@@ -5198,7 +5198,7 @@ msgstr "ყველას ამოკეცვა"
 #: src/gui/forms/basemainwindow.cpp:1771
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
-msgstr ""
+msgstr "&გაუქმება"
 
 #: src/gui/forms/configurabletreeview.cpp:51
 msgctxt "ConfigurableTreeView|"
@@ -5223,12 +5223,12 @@ msgstr "დაკე&ტვა"
 #: src/gui/forms/filelist.cpp:359 src/gui/forms/filelist.cpp:363
 msgctxt "FileList|"
 msgid "&Expand all"
-msgstr ""
+msgstr "&ყველას ამოკეცვა"
 
 #: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:364
 msgctxt "FileList|"
 msgid "&Collapse all"
-msgstr ""
+msgstr "&ყველას ჩაკეცვა"
 
 #: src/gui/forms/filelist.cpp:374 src/gui/forms/filelist.cpp:376
 msgctxt "FileList|"
@@ -5248,7 +5248,7 @@ msgstr "&გახსნა"
 #: src/gui/forms/filelist.cpp:388 src/gui/forms/filelist.cpp:392
 msgctxt "FileList|"
 msgid "Open Containing &Folder"
-msgstr ""
+msgstr "შემცველი საქაღალდის &გახსნა"
 
 #: src/gui/forms/filelist.cpp:563
 msgctxt "FileList|"
@@ -5314,7 +5314,7 @@ msgstr ""
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
-msgstr ""
+msgstr "ჭდე &%1"
 
 #: src/gui/forms/kid3form.cpp:469
 #, qt-format
@@ -5415,12 +5415,12 @@ msgstr "წაშლა"
 #: src/gui/forms/sectionactions.cpp:168
 msgctxt "SectionActions|"
 msgid "Open Parent Folder"
-msgstr ""
+msgstr "მშობელი საქაღალდის გახსნა"
 
 #: src/gui/forms/sectionactions.cpp:171
 msgctxt "SectionActions|"
 msgid "Open Current Folder"
-msgstr ""
+msgstr "მიმდინარე საქაღალდის გახსნა"
 
 #: src/gui/widgets/abstractlistedit.cpp:50
 msgctxt "AbstractListEdit|"
@@ -5460,12 +5460,12 @@ msgstr "დასრულების დრო"
 #: src/gui/widgets/chaptereditor.cpp:56
 msgctxt "ChapterEditor|"
 msgid "Start offset"
-msgstr ""
+msgstr "წანაცვლების საწყისი"
 
 #: src/gui/widgets/chaptereditor.cpp:57
 msgctxt "ChapterEditor|"
 msgid "End offset"
-msgstr ""
+msgstr "წანაცვლების დასასრული"
 
 #: src/gui/widgets/configtable.cpp:41
 msgctxt "ConfigTable|"
@@ -5475,17 +5475,17 @@ msgstr "&დამატება"
 #: src/gui/widgets/configtable.cpp:141
 msgctxt "ConfigTable|"
 msgid "&Insert row"
-msgstr ""
+msgstr "&მწკრივის ჩასმა"
 
 #: src/gui/widgets/configtable.cpp:145
 msgctxt "ConfigTable|"
 msgid "&Delete row"
-msgstr ""
+msgstr "&მწკრივის წაშლა"
 
 #: src/gui/widgets/configtable.cpp:149
 msgctxt "ConfigTable|"
 msgid "&Clear row"
-msgstr ""
+msgstr "&მწკრივის გასუფთავება"
 
 #: src/gui/widgets/filenameformatbox.cpp:46
 msgctxt "FilenameFormatBox|"
@@ -5495,7 +5495,7 @@ msgstr ""
 #: src/gui/widgets/filenameformatbox.cpp:47
 msgctxt "FilenameFormatBox|"
 msgid "Maximum length:"
-msgstr ""
+msgstr "მაქსიმალური სიგრძე:"
 
 #: src/gui/widgets/formatbox.cpp:48
 msgctxt "FormatBox|"
@@ -5560,7 +5560,7 @@ msgstr ""
 #: src/gui/widgets/imageviewer.cpp:49
 msgctxt "ImageViewer|"
 msgid "View Picture"
-msgstr ""
+msgstr "სურათის ნახვა"
 
 #: src/gui/widgets/imageviewer.cpp:55
 msgctxt "ImageViewer|"
@@ -5629,7 +5629,7 @@ msgstr "ჩანაწერის დამატება"
 #: src/gui/widgets/stringlistedit.cpp:72
 msgctxt "StringListEdit|"
 msgid "Edit Item"
-msgstr ""
+msgstr "ჩანაწერის ჩასწორება"
 
 #: src/gui/widgets/subframeseditor.cpp:66
 msgctxt "SubframesEditor|"
@@ -5689,7 +5689,7 @@ msgstr "&წაშლა"
 #: src/gui/widgets/timeeventeditor.cpp:124
 msgctxt "TimeEventEditor|"
 msgid "From Clip&board"
-msgstr ""
+msgstr "&ბუფერიდან"
 
 #: src/gui/widgets/timeeventeditor.cpp:126
 msgctxt "TimeEventEditor|"
@@ -5729,7 +5729,7 @@ msgstr "მილიწამი"
 #: src/gui/widgets/timeeventeditor.cpp:470
 msgctxt "TimeEventEditor|"
 msgid "&Insert row"
-msgstr ""
+msgstr "&მწკრივის ჩასმა"
 
 #: src/gui/widgets/timeeventeditor.cpp:474
 msgctxt "TimeEventEditor|"
@@ -6435,7 +6435,7 @@ msgstr ""
 #: src/qml/app/BatchImportPage.qml:32
 msgctxt "BatchImportPage|"
 msgid "Automatic Import"
-msgstr ""
+msgstr "ავტომატური შემოტანა"
 
 #: src/qml/app/BatchImportPage.qml:40
 msgctxt "BatchImportPage|"
@@ -6688,7 +6688,7 @@ msgstr ""
 #, qt-format
 msgctxt "Main|"
 msgid "%1 is not writable"
-msgstr ""
+msgstr "%1 ჩაწერადი არაა"
 
 #: src/qml/app/MainPage.qml:48
 msgctxt "MainPage|"
@@ -6724,7 +6724,7 @@ msgstr "პარამეტრები"
 #: src/qml/app/MainPage.qml:189
 msgctxt "MainPage|"
 msgid "Automatic Import"
-msgstr ""
+msgstr "ავტომატური შემოტანა"
 
 #: src/qml/app/MainPage.qml:198
 msgctxt "MainPage|"
