@@ -1031,7 +1031,7 @@ msgstr "სისტემა"
 #: src/app/qt/configdialog.cpp:122
 msgctxt "ConfigDialog|"
 msgid "Use custom app&lication font"
-msgstr ""
+msgstr "&აპლიკაციის ფონტის ხელით მითითება"
 
 #: src/app/qt/configdialog.cpp:124
 msgctxt "ConfigDialog|"
@@ -1041,7 +1041,7 @@ msgstr "&აპლიკაციის ფონტი..."
 #: src/app/qt/configdialog.cpp:126
 msgctxt "ConfigDialog|"
 msgid "Use custom application &style"
-msgstr ""
+msgstr "აპლიკაციის &სტილის ხელით მითითება"
 
 #: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
 msgctxt "ConfigDialog|"
@@ -1051,7 +1051,7 @@ msgstr "უცნობი"
 #: src/app/qt/configdialog.cpp:151
 msgctxt "ConfigDialog|"
 msgid "Use native system file &dialogs"
-msgstr ""
+msgstr "&სისტემური ფაილის ფანჯრების გამოყენება"
 
 #: src/app/qt/configdialog.cpp:155
 msgctxt "ConfigDialog|"
@@ -1954,7 +1954,7 @@ msgstr "%1 საქაღალდე არაა\n"
 #, qt-format
 msgctxt "@default|"
 msgid "Rename %1 to %2 failed\n"
-msgstr ""
+msgstr "%1-ის სახელის %2-ზე შეცვლის შეცდომა\n"
 
 #: src/core/model/dirrenamer.cpp:310
 #, qt-format
@@ -2051,12 +2051,12 @@ msgstr "მთავარი ნაწილის დასაწყისი"
 #: src/core/model/eventtimingcode.cpp:41
 msgctxt "@default|"
 msgid "outro start"
-msgstr ""
+msgstr "აუტროს დასაწყისი"
 
 #: src/core/model/eventtimingcode.cpp:42
 msgctxt "@default|"
 msgid "outro end"
-msgstr ""
+msgstr "აუტროს დასასრული"
 
 #: src/core/model/eventtimingcode.cpp:43
 msgctxt "@default|"
@@ -2066,7 +2066,7 @@ msgstr "ლექსის დასაწყისი"
 #: src/core/model/eventtimingcode.cpp:44
 msgctxt "@default|"
 msgid "refrain start"
-msgstr ""
+msgstr "მისამღერის დასაწყისი"
 
 #: src/core/model/eventtimingcode.cpp:45
 msgctxt "@default|"
@@ -2081,17 +2081,17 @@ msgstr "თემის დასაწყისი"
 #: src/core/model/eventtimingcode.cpp:47
 msgctxt "@default|"
 msgid "variation start"
-msgstr ""
+msgstr "ვარიაციის დასაწყისი"
 
 #: src/core/model/eventtimingcode.cpp:48
 msgctxt "@default|"
 msgid "key change"
-msgstr ""
+msgstr "ტონალობის შეცვლა"
 
 #: src/core/model/eventtimingcode.cpp:49
 msgctxt "@default|"
 msgid "time change"
-msgstr ""
+msgstr "დროის შეცვლა"
 
 #: src/core/model/eventtimingcode.cpp:50
 msgctxt "@default|"
@@ -2136,12 +2136,12 @@ msgstr ""
 #: src/core/model/eventtimingcode.cpp:58
 msgctxt "@default|"
 msgid "profanity"
-msgstr ""
+msgstr "არანორმატიული ლექსიკა"
 
 #: src/core/model/eventtimingcode.cpp:59
 msgctxt "@default|"
 msgid "profanity end"
-msgstr ""
+msgstr "არანორმატიული ლექსიკის დასასრული"
 
 #: src/core/model/eventtimingcode.cpp:60
 msgctxt "@default|"
@@ -3431,7 +3431,7 @@ msgstr "სიმკვეთრე"
 #: src/core/tags/frame.cpp:337
 msgctxt "@default|"
 msgid "Source Form"
-msgstr ""
+msgstr "საწყისი ფორმა"
 
 #: src/core/tags/frame.cpp:1181
 #, qt-format
@@ -3559,12 +3559,12 @@ msgstr ""
 #: src/core/tags/pictureframe.cpp:44
 msgctxt "@default|"
 msgid "Cover (front)"
-msgstr ""
+msgstr "ყდა (წინა)"
 
 #: src/core/tags/pictureframe.cpp:45
 msgctxt "@default|"
 msgid "Cover (back)"
-msgstr ""
+msgstr "ყდა (უკანა)"
 
 #: src/core/tags/pictureframe.cpp:46
 msgctxt "@default|"
