@@ -1969,10 +1969,10 @@ msgid "%1 is not a folder\n"
 msgstr "%1 საქაღალდე არაა\n"
 
 #: src/core/model/dirrenamer.cpp:336 src/core/model/dirrenamer.cpp:385
-#, qt-format
+#, fuzzy, qt-format
 msgctxt "DirRenamer|"
 msgid "Rename %1 to %2 failed\n"
-msgstr ""
+msgstr "%1-ის სახელის %2-ზე შეცვლის შეცდომა\n"
 
 #: src/core/model/dirrenamer.cpp:343
 #, qt-format
@@ -2382,7 +2382,7 @@ msgstr "მონაცემები"
 #: src/core/model/kid3application.cpp:1057
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
-msgstr ""
+msgstr "საქაღალდის შენახვა..."
 
 #: src/core/model/kid3application.cpp:1267
 msgctxt "Kid3Application|"
@@ -3971,7 +3971,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:246
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
-msgstr ""
+msgstr "&სურათის ველის სახელი:"
 
 #: src/gui/dialogs/configdialogpages.cpp:268
 msgctxt "ConfigDialogPages|"
@@ -4071,7 +4071,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:391
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
-msgstr ""
+msgstr "&ცვლილებების დანიშვნა"
 
 #: src/gui/dialogs/configdialogpages.cpp:401
 msgctxt "ConfigDialogPages|"
@@ -4152,7 +4152,7 @@ msgstr "Browser-ი"
 #: src/gui/dialogs/configdialogpages.cpp:528
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
-msgstr ""
+msgstr "ვებ &ბრაუზერი:"
 
 #: src/gui/dialogs/configdialogpages.cpp:537
 msgctxt "ConfigDialogPages|"
@@ -4197,7 +4197,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:617
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
-msgstr ""
+msgstr "&ხელმისაწვდომი დამატებები"
 
 #: src/gui/dialogs/configdialogpages.cpp:628
 msgctxt "ConfigDialogPages|"
@@ -4596,17 +4596,17 @@ msgstr "&შეწყვეტა"
 #: src/gui/dialogs/playlistdialog.cpp:56
 msgctxt "PlaylistDialog|"
 msgid "Create Playlist"
-msgstr ""
+msgstr "დასაკრავი სიის შექმნა"
 
 #: src/gui/dialogs/playlistdialog.cpp:144
 msgctxt "PlaylistDialog|"
 msgid "Playlist File Name"
-msgstr ""
+msgstr "დასაკრავი სიის სახელი"
 
 #: src/gui/dialogs/playlistdialog.cpp:145
 msgctxt "PlaylistDialog|"
 msgid "Same as &folder name"
-msgstr ""
+msgstr "იგივე, რაც &საქაღალდის სახელი"
 
 #: src/gui/dialogs/playlistdialog.cpp:147
 msgctxt "PlaylistDialog|"
@@ -4636,7 +4636,7 @@ msgstr "მიმდინარე საქაღალდე"
 #: src/gui/dialogs/playlistdialog.cpp:163
 msgctxt "PlaylistDialog|"
 msgid "Every folder"
-msgstr ""
+msgstr "ყოველი საქაღალდე"
 
 #: src/gui/dialogs/playlistdialog.cpp:164
 msgctxt "PlaylistDialog|"
@@ -5148,10 +5148,10 @@ msgid "Enter new file name:"
 msgstr ""
 
 #: src/gui/forms/basemainwindow.cpp:1544 src/gui/forms/basemainwindow.cpp:1553
-#, qt-format
+#, fuzzy, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
-msgstr ""
+msgstr "%1-ის სახელის %2-ზე შეცვლის შეცდომა\n"
 
 #: src/gui/forms/basemainwindow.cpp:1545
 msgctxt "BaseMainWindowImpl|"
@@ -5520,7 +5520,7 @@ msgstr "ვის"
 #: src/gui/widgets/formatbox.cpp:66
 msgctxt "FormatBox|"
 msgid "Case conversion:"
-msgstr ""
+msgstr "რეგისტრის გადაყვანა:"
 
 #: src/gui/widgets/formatbox.cpp:67
 msgctxt "FormatBox|"
@@ -5555,7 +5555,7 @@ msgstr "ყველაფრის &მონიშვნა"
 #: src/gui/widgets/frametable.cpp:163
 msgctxt "FrameTable|"
 msgid "&Deselect all"
-msgstr ""
+msgstr "&მონიშვნის მოხსნა"
 
 #: src/gui/widgets/imageviewer.cpp:49
 msgctxt "ImageViewer|"
@@ -5804,31 +5804,31 @@ msgstr ""
 #: src/plugins/freedbimport/freedbimporter.cpp:58
 msgctxt "@default|"
 msgid "gnudb.org"
-msgstr ""
+msgstr "gnudb.org"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:916
 #: src/plugins/taglibmetadata/taglibfile.cpp:2329
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
-msgstr ""
+msgstr "AENC - ხმის დაშიფვრა"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:917
 #: src/plugins/taglibmetadata/taglibfile.cpp:2330
 msgctxt "@default|"
 msgid "APIC - Attached picture"
-msgstr ""
+msgstr "APIC - მიმაგრებული სურათი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:919
 #: src/plugins/taglibmetadata/taglibfile.cpp:2335
 msgctxt "@default|"
 msgid "COMM - Comments"
-msgstr ""
+msgstr "COMM - კომენტარები"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:920
 #: src/plugins/taglibmetadata/taglibfile.cpp:2336
 msgctxt "@default|"
 msgid "COMR - Commercial"
-msgstr ""
+msgstr "COMR - რეკლამა"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:921
 #: src/plugins/taglibmetadata/taglibfile.cpp:2340
@@ -5963,18 +5963,18 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2377
 msgctxt "@default|"
 msgid "TCON - Content type"
-msgstr ""
+msgstr "TCON - შემცველობის ტიპი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:948
 #: src/plugins/taglibmetadata/taglibfile.cpp:2378
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
-msgstr ""
+msgstr "TCOP -საავტორო უფლებების შეტყობინება"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:949
 msgctxt "@default|"
 msgid "TDAT - Date"
-msgstr ""
+msgstr "TDAT - თარიღი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:951
 #: src/plugins/taglibmetadata/taglibfile.cpp:2383
@@ -5998,12 +5998,12 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2390
 msgctxt "@default|"
 msgid "TFLT - File type"
-msgstr ""
+msgstr "TFLT - ფაილის ტიპი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:960
 msgctxt "@default|"
 msgid "TIME - Time"
-msgstr ""
+msgstr "TIME - დრო"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:961
 #: src/plugins/taglibmetadata/taglibfile.cpp:2395
@@ -6039,13 +6039,13 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2403
 msgctxt "@default|"
 msgid "TLEN - Length"
-msgstr ""
+msgstr "TLEN - სიგრძე"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:968
 #: src/plugins/taglibmetadata/taglibfile.cpp:2405
 msgctxt "@default|"
 msgid "TMED - Media type"
-msgstr ""
+msgstr "TMED - მედიის ტიპი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:970
 #: src/plugins/taglibmetadata/taglibfile.cpp:2407
@@ -6057,7 +6057,7 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2408
 msgctxt "@default|"
 msgid "TOFN - Original filename"
-msgstr ""
+msgstr "TOFN - ორიგინალური ფაილის სახელი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:972
 #: src/plugins/taglibmetadata/taglibfile.cpp:2409
@@ -6116,7 +6116,7 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2418
 msgctxt "@default|"
 msgid "TPUB - Publisher"
-msgstr ""
+msgstr "TPUB - გამომცემელი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:983
 #: src/plugins/taglibmetadata/taglibfile.cpp:2419
@@ -6144,7 +6144,7 @@ msgstr ""
 #: src/plugins/id3libmetadata/mp3file.cpp:987
 msgctxt "@default|"
 msgid "TSIZ - Size"
-msgstr ""
+msgstr "TSIZ - ზომა"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:991
 #: src/plugins/taglibmetadata/taglibfile.cpp:2427
@@ -6167,7 +6167,7 @@ msgstr ""
 #: src/plugins/id3libmetadata/mp3file.cpp:995
 msgctxt "@default|"
 msgid "TYER - Year"
-msgstr ""
+msgstr "TYER - ზომა"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:996
 #: src/plugins/taglibmetadata/taglibfile.cpp:2431
@@ -6179,7 +6179,7 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2432
 msgctxt "@default|"
 msgid "USER - Terms of use"
-msgstr ""
+msgstr "USER - გამოყენების პირობები"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:998
 #: src/plugins/taglibmetadata/taglibfile.cpp:2433
@@ -6510,7 +6510,7 @@ msgstr "ჭდე 2"
 #: src/qml/app/BatchImportPage.qml:138
 msgctxt "BatchImportPage|"
 msgid "Tag 3"
-msgstr ""
+msgstr "ჭდე 3"
 
 #: src/qml/app/BatchImportPage.qml:139
 msgctxt "BatchImportPage|"
@@ -6804,7 +6804,7 @@ msgstr "ჭდე 2"
 #: src/qml/app/NumberTracksDialog.qml:65
 msgctxt "NumberTracksDialog|"
 msgid "Tag 3"
-msgstr ""
+msgstr "ჭდე 3"
 
 #: src/qml/app/NumberTracksDialog.qml:66
 msgctxt "NumberTracksDialog|"
@@ -6890,7 +6890,7 @@ msgstr "ყველა ჭდე"
 #: src/qml/app/RenameDirectoryPage.qml:144
 msgctxt "RenameDirectoryPage|"
 msgid "Format:"
-msgstr ""
+msgstr "ფორმატი:"
 
 #: src/qml/app/RenameDirectoryPage.qml:155
 msgctxt "RenameDirectoryPage|"
