@@ -1969,7 +1969,7 @@ msgid "%1 is not a folder\n"
 msgstr "%1 საქაღალდე არაა\n"
 
 #: src/core/model/dirrenamer.cpp:336 src/core/model/dirrenamer.cpp:385
-#, fuzzy, qt-format
+#, qt-format
 msgctxt "DirRenamer|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1-ის სახელის %2-ზე შეცვლის შეცდომა\n"
@@ -2131,7 +2131,7 @@ msgstr ""
 #: src/core/model/eventtimingcode.cpp:57
 msgctxt "@default|"
 msgid "theme end"
-msgstr ""
+msgstr "თემის დასასრული"
 
 #: src/core/model/eventtimingcode.cpp:58
 msgctxt "@default|"
@@ -2226,18 +2226,18 @@ msgstr "მომხმარებლის სინქრონიზაც�
 #: src/core/model/eventtimingcode.cpp:76
 msgctxt "@default|"
 msgid "audio end (start of silence)"
-msgstr ""
+msgstr "აუდიოს დასასრული (სიჩუმის დასაწყისი)"
 
 #: src/core/model/eventtimingcode.cpp:77
 msgctxt "@default|"
 msgid "audio file ends"
-msgstr ""
+msgstr "აუდიო ფაილი სრულდება"
 
 #: src/core/model/eventtimingcode.cpp:111
 #, qt-format
 msgctxt "@default|"
 msgid "reserved for future use %1"
-msgstr ""
+msgstr "დაკავებულია მომავალი მოხმარებისთვის %1"
 
 #: src/core/model/filefilter.cpp:95 src/core/tags/trackdata.cpp:251
 msgctxt "@default|"
@@ -2252,17 +2252,17 @@ msgstr "ჭდე 2"
 #: src/core/model/filefilter.cpp:108
 msgctxt "@default|"
 msgid "True if strings are equal"
-msgstr ""
+msgstr "ჭეშმარიტი, თუ სტრიქონები ტოლია"
 
 #: src/core/model/filefilter.cpp:114
 msgctxt "@default|"
 msgid "True if string contains substring"
-msgstr ""
+msgstr "ჭეშმარიტი, თუ სტრიქონი ქვესტრიქონს შეიცავს"
 
 #: src/core/model/filefilter.cpp:121
 msgctxt "@default|"
 msgid "True if string matches regexp"
-msgstr ""
+msgstr "ჭეშმარიტი, თუ სტრიქონი რეგგამოსს შეიცავს"
 
 #: src/core/model/filefilter.cpp:127
 msgctxt "@default|"
@@ -2277,7 +2277,7 @@ msgstr "ლოგიკური ან"
 #: src/core/model/filefilter.cpp:138
 msgctxt "@default|"
 msgid "Logical negation"
-msgstr ""
+msgstr "ლოგიკური უარყოფა"
 
 #: src/core/model/fileproxymodel.cpp:836
 msgctxt "FileProxyModel|"
@@ -5148,7 +5148,7 @@ msgid "Enter new file name:"
 msgstr ""
 
 #: src/gui/forms/basemainwindow.cpp:1544 src/gui/forms/basemainwindow.cpp:1553
-#, fuzzy, qt-format
+#, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1-ის სახელის %2-ზე შეცვლის შეცდომა\n"
@@ -6729,7 +6729,7 @@ msgstr "ავტომატური შემოტანა"
 #: src/qml/app/MainPage.qml:198
 msgctxt "MainPage|"
 msgid "Create Playlist"
-msgstr ""
+msgstr "დასაკრავი სიის შექმნა"
 
 #: src/qml/app/MainPage.qml:202
 msgctxt "MainPage|"
