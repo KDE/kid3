@@ -1197,6 +1197,9 @@ else #  cross-android
     configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local --disable-thorough-tests --disable-doxygen-docs --disable-xmms-plugin $FLAC_BUILD_OPTION $CONFIGURE_OPTIONS"
     if test $kernel = "Darwin"; then
       configure_args="$configure_args --disable-asm-optimizations"
+    elif test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
+      # Avoid having to ship with libssp-0.dll
+      configure_args="$configure_args --disable-stack-smash-protection --disable-fortify-source"
     fi
     test -f Makefile || ./configure $configure_args
     # On msys32, an error "changed before entering" occurred, can be fixed by
