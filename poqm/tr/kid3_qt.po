@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-01-18 22:31+0300\n"
+"PO-Revision-Date: 2023-01-30 00:49+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1116,7 +1116,7 @@ msgstr "Son kullanılan klasörü açar"
 #: src/app/qt/kid3mainwindow.cpp:129
 msgctxt "Kid3MainWindow|"
 msgid "Open &Recent"
-msgstr "&Son kullanılanı Aç"
+msgstr "&Son Kullanılanı Aç"
 
 #: src/app/qt/kid3mainwindow.cpp:136
 msgctxt "Kid3MainWindow|"
