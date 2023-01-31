@@ -2995,17 +2995,17 @@ msgstr ""
 #: src/core/tags/frame.cpp:222
 msgctxt "@default|"
 msgid "Playlist Delay"
-msgstr ""
+msgstr "დასაკრავი სიის დაყოვნება"
 
 #: src/core/tags/frame.cpp:223
 msgctxt "@default|"
 msgid "Original Release Time"
-msgstr ""
+msgstr "საწყისი რელიზის დრო"
 
 #: src/core/tags/frame.cpp:224
 msgctxt "@default|"
 msgid "Recording Time"
-msgstr ""
+msgstr "ჩაწერის დრო"
 
 #: src/core/tags/frame.cpp:225
 msgctxt "@default|"
@@ -3015,7 +3015,7 @@ msgstr "გათავისუფლების დრო"
 #: src/core/tags/frame.cpp:226
 msgctxt "@default|"
 msgid "Tagging Time"
-msgstr ""
+msgstr "ჭდის დადებსი დრო"
 
 #: src/core/tags/frame.cpp:227
 msgctxt "@default|"
@@ -3025,7 +3025,7 @@ msgstr "ფაილის ტიპი"
 #: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Podcast Identifier"
-msgstr ""
+msgstr "პოდკასტის იდენტიფიკატორი"
 
 #: src/core/tags/frame.cpp:229
 msgctxt "@default|"
@@ -3035,7 +3035,7 @@ msgstr "დრო"
 #: src/core/tags/frame.cpp:230
 msgctxt "@default|"
 msgid "Podcast Keywords"
-msgstr ""
+msgstr "პოდკასტის საკვანძო სიტყვები"
 
 #: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:287
 msgctxt "@default|"
@@ -3050,7 +3050,7 @@ msgstr "ფაილის მფლობელი"
 #: src/core/tags/frame.cpp:234
 msgctxt "@default|"
 msgid "Produced Notice"
-msgstr ""
+msgstr "ნაწარმოები შენშვნა"
 
 #: src/core/tags/frame.cpp:235 src/core/tags/frame.cpp:273
 msgctxt "@default|"
@@ -3090,7 +3090,7 @@ msgstr "გამოყენების პირობები"
 #: src/core/tags/frame.cpp:242 src/core/tags/frame.cpp:289
 msgctxt "@default|"
 msgid "Commercial URL"
-msgstr ""
+msgstr "რეკლამის ბმული"
 
 #: src/core/tags/frame.cpp:243
 msgctxt "@default|"
@@ -3100,12 +3100,12 @@ msgstr "ლიცენზიის URL"
 #: src/core/tags/frame.cpp:244
 msgctxt "@default|"
 msgid "Podcast Feed"
-msgstr ""
+msgstr "პოდკასტის ლენტა"
 
 #: src/core/tags/frame.cpp:245
 msgctxt "@default|"
 msgid "Official Radio Station"
-msgstr ""
+msgstr "ოფიციალური რადიოსადგური"
 
 #: src/core/tags/frame.cpp:246
 msgctxt "@default|"
@@ -3115,13 +3115,13 @@ msgstr "გადახდა"
 #: src/core/tags/frame.cpp:247
 msgctxt "@default|"
 msgid "Official Publisher"
-msgstr ""
+msgstr "ოფიციალური გამომცემელი"
 
 #: src/core/tags/frame.cpp:248 src/core/tags/frame.cpp:282
 #: src/core/tags/frame.cpp:291
 msgctxt "@default|"
 msgid "User-defined URL"
-msgstr ""
+msgstr "მომხმარებლის მიერ განსაზღვრული ბმული"
 
 #: src/core/tags/frame.cpp:250
 msgctxt "@default|"
@@ -3166,7 +3166,7 @@ msgstr "VBR"
 #: src/core/tags/frame.cpp:262 src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Gapless Playback"
-msgstr ""
+msgstr "პაუზის-გარეშე დაკვრა"
 
 #: src/core/tags/frame.cpp:263
 msgctxt "@default|"
@@ -3236,7 +3236,7 @@ msgstr "MCDI"
 #: src/core/tags/frame.cpp:288
 msgctxt "@default|"
 msgid "Original Lyricist"
-msgstr ""
+msgstr "საწყისი ლირიკოსი"
 
 #: src/core/tags/frame.cpp:290
 msgctxt "@default|"
@@ -3246,12 +3246,12 @@ msgstr "მომხმარებლის შეფასება"
 #: src/core/tags/frame.cpp:292
 msgctxt "@default|"
 msgid "Account Type"
-msgstr ""
+msgstr "ანგარიშის ტიპი"
 
 #: src/core/tags/frame.cpp:293
 msgctxt "@default|"
 msgid "Purchase Account"
-msgstr ""
+msgstr "ანგარიშის შეძენა"
 
 #: src/core/tags/frame.cpp:294
 msgctxt "@default|"
@@ -3346,7 +3346,7 @@ msgstr "TV სეზონი"
 #: src/core/tags/frame.cpp:319
 msgctxt "@default|"
 msgid "Movement Count"
-msgstr ""
+msgstr "სვლების რაოდენობა"
 
 #: src/core/tags/frame.cpp:320
 msgctxt "@default|"
@@ -3361,12 +3361,12 @@ msgstr "პოდკასტის URL"
 #: src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Podcast GUID"
-msgstr ""
+msgstr "პოდკასტის GUID"
 
 #: src/core/tags/frame.cpp:324
 msgctxt "@default|"
 msgid "Composer ID"
-msgstr ""
+msgstr "კომპოზიტორის ID"
 
 #: src/core/tags/frame.cpp:325
 msgctxt "@default|"
@@ -3381,7 +3381,7 @@ msgstr "თავები"
 #: src/core/tags/frame.cpp:327
 msgctxt "@default|"
 msgid "Archival Location"
-msgstr ""
+msgstr "არქივის მდებარეობა"
 
 #: src/core/tags/frame.cpp:328
 msgctxt "@default|"
@@ -3391,7 +3391,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:329
 msgctxt "@default|"
 msgid "Cropped"
-msgstr ""
+msgstr "ამოჭრილი"
 
 #: src/core/tags/frame.cpp:330
 msgctxt "@default|"
@@ -3457,7 +3457,7 @@ msgstr ""
 #: src/core/tags/framenotice.cpp:187
 msgctxt "@default|"
 msgid "Truncated"
-msgstr ""
+msgstr "წაკვეთილი"
 
 #: src/core/tags/framenotice.cpp:188
 msgctxt "@default|"
@@ -3472,7 +3472,7 @@ msgstr "უნიკალური უნდა იყოს"
 #: src/core/tags/framenotice.cpp:190
 msgctxt "@default|"
 msgid "New line is forbidden"
-msgstr ""
+msgstr "ახალი ხაზი აკრძალულია"
 
 #: src/core/tags/framenotice.cpp:191
 msgctxt "@default|"
@@ -5145,7 +5145,7 @@ msgstr "ფაილის გადარქმევა"
 #: src/gui/forms/basemainwindow.cpp:1507
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
-msgstr ""
+msgstr "შეიყვანეთ ახალი ფაილის სახელი:"
 
 #: src/gui/forms/basemainwindow.cpp:1544 src/gui/forms/basemainwindow.cpp:1553
 #, qt-format
@@ -5203,12 +5203,12 @@ msgstr "&გაუქმება"
 #: src/gui/forms/configurabletreeview.cpp:51
 msgctxt "ConfigurableTreeView|"
 msgid "Automatic Column Widths"
-msgstr ""
+msgstr "სვეტის ავტომატური სიგანეები"
 
 #: src/gui/forms/configurabletreeview.cpp:58
 msgctxt "ConfigurableTreeView|"
 msgid "Custom Column Widths"
-msgstr ""
+msgstr "სვეტის სიგანის ხელით მითითება"
 
 #: src/gui/forms/filelist.cpp:110
 msgctxt "FileList|"
@@ -5734,7 +5734,7 @@ msgstr "&მწკრივის ჩასმა"
 #: src/gui/widgets/timeeventeditor.cpp:474
 msgctxt "TimeEventEditor|"
 msgid "&Delete rows"
-msgstr ""
+msgstr "&მწკრივების წაშლა"
 
 #: src/gui/widgets/timeeventeditor.cpp:476
 msgctxt "TimeEventEditor|"
@@ -5744,7 +5744,7 @@ msgstr "გასუ&ფთავება"
 #: src/gui/widgets/timeeventeditor.cpp:478
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
-msgstr ""
+msgstr "&ნაცვლების დამატება..."
 
 #: src/gui/widgets/timeeventeditor.cpp:480
 msgctxt "TimeEventEditor|"
@@ -5759,22 +5759,22 @@ msgstr ""
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:285
 msgctxt "MusicBrainzClient|"
 msgid "Unrecognized"
-msgstr ""
+msgstr "უცნობი"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:296
 msgctxt "MusicBrainzClient|"
 msgid "Recognized"
-msgstr ""
+msgstr "ამოცნობილი"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:296
 msgctxt "MusicBrainzClient|"
 msgid "User Selection"
-msgstr ""
+msgstr "მომხმარებლის არჩევანი"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:318
 msgctxt "MusicBrainzClient|"
 msgid "ID Lookup"
-msgstr ""
+msgstr "ID-ის არჩევა"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:326
 msgctxt "MusicBrainzClient|"
@@ -5799,7 +5799,7 @@ msgstr "ამაზონი"
 #: src/plugins/discogsimport/discogsimporter.cpp:1431
 msgctxt "@default|"
 msgid "Discogs"
-msgstr ""
+msgstr "Discogs"
 
 #: src/plugins/freedbimport/freedbimporter.cpp:58
 msgctxt "@default|"
@@ -5834,12 +5834,12 @@ msgstr "COMR - რეკლამა"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2340
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
-msgstr ""
+msgstr "ENCR - დაშიფვრის მეთოდის რეგისტრაცია"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:923
 msgctxt "@default|"
 msgid "EQUA - Equalization"
-msgstr ""
+msgstr "EQUA - ეკვალიზაცია"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:924
 #: src/plugins/taglibmetadata/taglibfile.cpp:2342
@@ -6227,7 +6227,7 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2443
 msgctxt "@default|"
 msgid "WPAY - Payment"
-msgstr ""
+msgstr "WPAY - გადახდა"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:1006
 #: src/plugins/taglibmetadata/taglibfile.cpp:2444
@@ -6254,12 +6254,12 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2333
 msgctxt "@default|"
 msgid "CHAP - Chapter"
-msgstr ""
+msgstr "CHAP - თავი"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2338
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
-msgstr ""
+msgstr "CTOC - სარჩევი"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2341
 msgctxt "@default|"
@@ -6269,7 +6269,7 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2346
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
-msgstr ""
+msgstr "GRP1 - დაჯგუფება"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2352
 msgctxt "@default|"
@@ -6284,7 +6284,7 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2359
 msgctxt "@default|"
 msgid "PCST - Podcast"
-msgstr ""
+msgstr "PCST - პოდკასტი"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2364
 msgctxt "@default|"
@@ -6870,17 +6870,17 @@ msgstr ""
 #: src/qml/app/RenameDirectoryPage.qml:130
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 1"
-msgstr ""
+msgstr "ჭდიდან 1"
 
 #: src/qml/app/RenameDirectoryPage.qml:131
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 2"
-msgstr ""
+msgstr "ჭდიდან 2"
 
 #: src/qml/app/RenameDirectoryPage.qml:132
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 3"
-msgstr ""
+msgstr "ჭდიდან 3"
 
 #: src/qml/app/RenameDirectoryPage.qml:133
 msgctxt "RenameDirectoryPage|"
