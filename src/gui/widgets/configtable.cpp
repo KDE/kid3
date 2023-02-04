@@ -172,7 +172,7 @@ void ConfigTable::customContextMenu(const QPoint& pos)
  */
 void ConfigTable::addItem()
 {
-  addRow(getItemView()->model()->rowCount());
+  addRow(getItemView()->model()->rowCount() - 1);
 }
 
 /**
