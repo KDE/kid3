@@ -170,9 +170,18 @@ void FormatConfig::formatString(QString& str) const
       case AllUppercase:
         str = toUpper(str);
         break;
-      case FirstLetterUppercase:
-        str = toUpper(str.at(0)) + toLower(str.right(str.length() - 1));
+      case FirstLetterUppercase: {
+        const int strLen = str.length();
+        int firstLetterPos = 0;
+        while (firstLetterPos < strLen && !str.at(firstLetterPos).isLetter()) {
+          ++firstLetterPos;
+        }
+        if (firstLetterPos < strLen) {
+          str = toUpper(str.left(firstLetterPos + 1)) +
+                toLower(str.right(strLen - firstLetterPos - 1));
+        }
         break;
+      }
       case AllFirstLettersUppercase: {
         static const QString romanLetters(QLatin1String("IVXLCDM"));
         QString newstr;
