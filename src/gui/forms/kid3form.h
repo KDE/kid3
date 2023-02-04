@@ -486,7 +486,7 @@ private:
 /**
  * Facade to have a uniform interface for different tags.
  */
-class Kid3FormTagContext : public QObject {
+class KID3_GUI_EXPORT Kid3FormTagContext : public QObject {
   Q_OBJECT
 public:
   /**
