@@ -1790,7 +1790,7 @@ msgstr "შემსრულებელი"
 #: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1982
 msgctxt "@default|"
 msgid "Comment"
-msgstr "კომე_ნტარი"
+msgstr "კომენტარი"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
 #: src/core/tags/frame.cpp:1986
@@ -1868,7 +1868,7 @@ msgstr "ბმული"
 #: src/core/model/commandformatreplacer.cpp:157
 msgctxt "@default|"
 msgid "URLs"
-msgstr "URL_ები"
+msgstr "URL-ები"
 
 #: src/core/model/commandformatreplacer.cpp:163
 msgctxt "@default|"
@@ -3411,7 +3411,7 @@ msgstr "საკვანძო სიტყვები"
 #: src/core/tags/frame.cpp:333
 msgctxt "@default|"
 msgid "Lightness"
-msgstr "სიკა_შკაშე"
+msgstr "სიკაშკაშე"
 
 #: src/core/tags/frame.cpp:334
 msgctxt "@default|"
