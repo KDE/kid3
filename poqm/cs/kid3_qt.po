@@ -1683,32 +1683,32 @@ msgctxt "Kid3Application|"
 msgid "All Supported Files"
 msgstr "Všechny podporované soubory"
 
-#: src/core/config/formatconfig.cpp:495
+#: src/core/config/formatconfig.cpp:504
 msgctxt "@default|"
 msgid "No changes"
 msgstr "Žádné změny"
 
-#: src/core/config/formatconfig.cpp:496
+#: src/core/config/formatconfig.cpp:505
 msgctxt "@default|"
 msgid "All lowercase"
 msgstr "Vše malými písmeny"
 
-#: src/core/config/formatconfig.cpp:497
+#: src/core/config/formatconfig.cpp:506
 msgctxt "@default|"
 msgid "All uppercase"
 msgstr "Vše velkými písmeny"
 
-#: src/core/config/formatconfig.cpp:498
+#: src/core/config/formatconfig.cpp:507
 msgctxt "@default|"
 msgid "First letter uppercase"
 msgstr "První písmeno na velké"
 
-#: src/core/config/formatconfig.cpp:499
+#: src/core/config/formatconfig.cpp:508
 msgctxt "@default|"
 msgid "All first letters uppercase"
 msgstr "Všechna první písmena velká"
 
-#: src/core/config/formatconfig.cpp:514
+#: src/core/config/formatconfig.cpp:523
 msgctxt "FormatConfig|"
 msgid "None"
 msgstr "Žádný"

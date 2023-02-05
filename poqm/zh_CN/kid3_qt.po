@@ -1676,32 +1676,32 @@ msgctxt "Kid3Application|"
 msgid "All Supported Files"
 msgstr "支持的全部文件"
 
-#: src/core/config/formatconfig.cpp:495
+#: src/core/config/formatconfig.cpp:504
 msgctxt "@default|"
 msgid "No changes"
 msgstr "不转换"
 
-#: src/core/config/formatconfig.cpp:496
+#: src/core/config/formatconfig.cpp:505
 msgctxt "@default|"
 msgid "All lowercase"
 msgstr "全部小写"
 
-#: src/core/config/formatconfig.cpp:497
+#: src/core/config/formatconfig.cpp:506
 msgctxt "@default|"
 msgid "All uppercase"
 msgstr "全部大写"
 
-#: src/core/config/formatconfig.cpp:498
+#: src/core/config/formatconfig.cpp:507
 msgctxt "@default|"
 msgid "First letter uppercase"
 msgstr "首字母大写"
 
-#: src/core/config/formatconfig.cpp:499
+#: src/core/config/formatconfig.cpp:508
 msgctxt "@default|"
 msgid "All first letters uppercase"
 msgstr "全部首字母大写"
 
-#: src/core/config/formatconfig.cpp:514
+#: src/core/config/formatconfig.cpp:523
 msgctxt "FormatConfig|"
 msgid "None"
 msgstr "无"

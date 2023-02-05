@@ -1683,32 +1683,32 @@ msgctxt "Kid3Application|"
 msgid "All Supported Files"
 msgstr "Onartutako fitxategi guztiak"
 
-#: src/core/config/formatconfig.cpp:495
+#: src/core/config/formatconfig.cpp:504
 msgctxt "@default|"
 msgid "No changes"
 msgstr "Aldaketarik ez"
 
-#: src/core/config/formatconfig.cpp:496
+#: src/core/config/formatconfig.cpp:505
 msgctxt "@default|"
 msgid "All lowercase"
 msgstr "Dena letra xehez"
 
-#: src/core/config/formatconfig.cpp:497
+#: src/core/config/formatconfig.cpp:506
 msgctxt "@default|"
 msgid "All uppercase"
 msgstr "Dena letra larriz"
 
-#: src/core/config/formatconfig.cpp:498
+#: src/core/config/formatconfig.cpp:507
 msgctxt "@default|"
 msgid "First letter uppercase"
 msgstr "Lehen letra larria"
 
-#: src/core/config/formatconfig.cpp:499
+#: src/core/config/formatconfig.cpp:508
 msgctxt "@default|"
 msgid "All first letters uppercase"
 msgstr "Lehen letrak larriak"
 
-#: src/core/config/formatconfig.cpp:514
+#: src/core/config/formatconfig.cpp:523
 msgctxt "FormatConfig|"
 msgid "None"
 msgstr "Bat ere ez"
