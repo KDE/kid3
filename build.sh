@@ -182,14 +182,15 @@ fi # makearchive
 # kid3/build.sh rundocker $HOME/projects/kid3/src/build-all.sh
 # You need:
 # - Kid3 project checked out in ~/projects/kid3/src/kid3
+# - At least CMake 3.21 in /opt/cmake/bin/
 # Linux:
-# - Qt 5.15.2 Linux in ~/Development/Qt5.15.2-linux/5.15.2/gcc_64/
+# - Qt 6.4.2 Linux in ~/Development/Qt6.4.2-linux/6.4.2/gcc_64/
 # Windows:
-# - MinGW cross compiler in /opt/mxe/
-# - Qt 5.15.2 MinGW64 in ~/Development/Qt5.15.2-mingw64/5.15.2/mingw81_64/
+# - MinGW 11.2 cross compiler in /opt/mxe11/
+# - Qt 6.4.2 MinGW64 in ~/Development/Qt6.4.2-mingw64/6.4.2/mingw_64/
 # Mac:
 # - Mac cross compiler in /opt/osxcross/
-# - Qt 5.15.2 Mac in ~/Development/Qt5.15.2-mac/5.15.2/clang_64/
+# - Qt 6.4.2 Mac in ~/Development/Qt6.4.2-mac/6.4.2/macos/
 # Android:
 # - Java JDK 8 in /opt/jdk8/
 # - Android SDK in ~/Development/android/sdk/
@@ -205,19 +206,37 @@ if test "$1" = "makedocker"; then
 cd "$(dirname "${BASH_SOURCE[0]}")"
 set -e
 (cd linux_build && \
+   PATH=/opt/cmake/bin:$PATH \
    COMPILER=gcc-self-contained \
-   QTPREFIX=$HOME/Development/Qt5.15.2-linux/5.15.2/gcc_64 \
+   QTPREFIX=$HOME/Development/Qt6.4.2-linux/6.4.2/gcc_64 \
    ../kid3/build.sh)
 (cd mingw64_build && \
-   PATH=/opt/mxe/usr/bin:$PATH \
+   PATH=/opt/mxe11/usr/bin:/opt/cmake/bin:$PATH \
    COMPILER=cross-mingw \
-   QTPREFIX=$HOME/Development/Qt5.15.2-mingw64/5.15.2/mingw81_64 \
+   QTPREFIX=$HOME/Development/Qt6.4.2-mingw64/6.4.2/mingw_64 \
+   QTBINARYDIR=$HOME/Development/Qt6.4.2-linux/6.4.2/gcc_64/bin \
    ../kid3/build.sh)
 (cd macos_build && \
+   rm -f kid3/*-Darwin.dmg && \
+   PATH=/opt/cmake/bin:$PATH \
+   COMPILER=cross-macos \
+   QTPREFIX=$HOME/Development/Qt6.4.2-mac/6.4.2/macos \
+   OSXPREFIX=/opt/osxcross/target \
+   QTBINARYDIR=$HOME/Development/Qt6.4.2-linux/6.4.2/gcc_64/bin \
+   ../kid3/build.sh && \
+   fatdmg=(kid3/*-Darwin.dmg) && \
+   slimdmg=${fatdmg/-Darwin./-Darwin-amd64.} && \
+   PATH=$PATH:/opt/osxcross/target/bin \
+   ../kid3/macosx/mac-strip-arm64.sh $fatdmg $slimdmg)
+(cd macos_qt5_build && \
+   rm -f kid3/*-Darwin.dmg && \
    COMPILER=cross-macos \
    QTPREFIX=$HOME/Development/Qt5.15.2-mac/5.15.2/clang_64 \
    OSXPREFIX=/opt/osxcross/target \
-   ../kid3/build.sh)
+   ../kid3/build.sh && \
+   origdmg=(kid3/*-Darwin.dmg) && \
+   qt5dmg=${origdmg/-Darwin./-Darwin-Qt5.} && \
+   mv $origdmg $qt5dmg)
 (cd android_build && \
    COMPILER=cross-android \
    QTPREFIX=$HOME/Development/Qt5.12.12-android/5.12.12/android_armv7 \
@@ -250,13 +269,14 @@ libvorbis-dev libtag1-dev libchromaprint-dev libavformat-dev \
 libavcodec-dev docbook-xsl pkg-config libreadline-dev xsltproc \
 debian-keyring dput-ng python3-distro-info sudo curl less \
 locales ninja-build ccache p7zip-full genisoimage \
-clang llvm nasm lib32z1 chrpath libpulse-mainloop-glib0
+clang llvm nasm lib32z1 chrpath libpulse-mainloop-glib0 dmg2img archivemount
 ARG USER
 ARG UID
 RUN adduser --quiet --disabled-password --uid $UID --gecos "User" $USER && \
 echo "$USER:$USER" | chpasswd && usermod -aG sudo $USER && \
 locale-gen en_US.UTF-8 && \
-mkdir -p /home/$USER/projects/kid3 /home/$USER/Development
+mkdir -p /home/$USER/projects/kid3 /home/$USER/Development && \
+ln -s /proc/self/mounts /etc/mtab
 USER $USER
 CMD bash
 EOF
@@ -279,11 +299,13 @@ if test "$1" = "rundocker"; then
     USERNSARG=
   fi
   $DOCKER run $USERNSARG --rm -it -e LANG=C.UTF-8 \
+         --device /dev/fuse --cap-add SYS_ADMIN \
          -v $HOME/projects/kid3:$HOME/projects/kid3 \
          -v $HOME/.gradle:$HOME/.gradle \
          -v $HOME/.gnupg:$HOME/.gnupg:ro \
+         -v /opt/cmake:/opt/cmake:ro \
          -v /opt/osxcross:/opt/osxcross:ro \
-         -v /opt/mxe:/opt/mxe:ro \
+         -v /opt/mxe11:/opt/mxe11:ro \
          -v /opt/jdk8:/opt/jdk8:ro \
          -v $HOME/Development:$HOME/Development:ro ufleisch/kid3dev:bullseye "$@"
   exit 0
@@ -722,7 +744,7 @@ foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-
     )
   endif ()
 endforeach (_exe)
-foreach (_exe lupdate lrelease qtpaths androiddeployqt androidtestrunner lconvert)
+foreach (_exe lupdate lrelease windeployqt qtpaths androiddeployqt androidtestrunner lconvert)
   if (NOT TARGET Qt${qt_version_major}::\${_exe})
     add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
     set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
@@ -770,15 +792,17 @@ endif (POLICY CMP0025)
 
 set(QT_PREFIX $_qt_prefix)
 
-set (CMAKE_SYSTEM_NAME Darwin)
-set (CMAKE_C_COMPILER $osxprefix/lib/ccache/bin/${_crossprefix}clang)
-set (CMAKE_CXX_COMPILER $osxprefix/lib/ccache/bin/${_crossprefix}clang++)
-set (CMAKE_FIND_ROOT_PATH $osxprefix/${cross_host};$osxsdk/usr;$osxprefix/${cross_host};$osxsdk;$osxsdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers;\${QT_PREFIX};$thisdir/buildroot/usr/local)
-set (CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
-set (CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
-set (CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
-set (CMAKE_AR:FILEPATH ${_crossprefix}ar)
-set (CMAKE_RANLIB:FILEPATH ${_crossprefix}ranlib)
+set(CMAKE_SYSTEM_NAME Darwin)
+set(CMAKE_C_COMPILER $osxprefix/lib/ccache/bin/${_crossprefix}clang)
+set(CMAKE_CXX_COMPILER $osxprefix/lib/ccache/bin/${_crossprefix}clang++)
+set(CMAKE_FIND_ROOT_PATH $osxprefix/${cross_host};$osxsdk/usr;$osxprefix/${cross_host};$osxsdk;$osxsdk/System/Library/Frameworks/OpenGL.framework/Versions/A/Headers;\${QT_PREFIX};$thisdir/buildroot/usr/local)
+set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+set(CMAKE_AR:FILEPATH ${_crossprefix}ar)
+set(CMAKE_RANLIB:FILEPATH ${_crossprefix}ranlib)
+set(CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG "-Wl,-rpath,")
+set(CMAKE_SHARED_LIBRARY_RUNTIME_C_FLAG_SEP ":")
 
 EOF
     if test "$qt_version_major" = "6"; then
@@ -801,7 +825,7 @@ foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-
     )
   endif ()
 endforeach (_exe)
-foreach (_exe lupdate lrelease qtpaths androiddeployqt androidtestrunner lconvert)
+foreach (_exe lupdate lrelease macdeployqt qtpaths androiddeployqt androidtestrunner lconvert)
   if (NOT TARGET Qt${qt_version_major}::\${_exe})
     add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
     set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES

@@ -190,10 +190,16 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION ${plugin_dest_dir} OPTIONAL
       FILES_MATCHING PATTERN "libqmacstyle${CMAKE_SHARED_LIBRARY_SUFFIX}")
     if(HAVE_QTMULTIMEDIA)
-      install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
-        DESTINATION ${plugin_dest_dir}
-        FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                       PATTERN "*.dSYM" EXCLUDE)
+      if(QT_VERSION VERSION_GREATER_EQUAL 6.4)
+        install(DIRECTORY "${QT_PLUGINS_DIR}/multimedia"
+          DESTINATION ${plugin_dest_dir}
+          FILES_MATCHING PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      else()
+        install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+          DESTINATION ${plugin_dest_dir}
+          FILES_MATCHING PATTERN "libqavfmediaplayer${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                         PATTERN "*.dSYM" EXCLUDE)
+      endif()
     endif()
     if(QT_VERSION VERSION_GREATER_EQUAL 6.0)
       install(DIRECTORY "${QT_PLUGINS_DIR}/tls"
@@ -208,15 +214,21 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       DESTINATION ${plugin_dest_dir} OPTIONAL
       FILES_MATCHING PATTERN "qwindowsvistastyle${CMAKE_SHARED_LIBRARY_SUFFIX}")
     if(HAVE_QTMULTIMEDIA)
-      install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
-        DESTINATION ${plugin_dest_dir}
-        FILES_MATCHING PATTERN "dsengine${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      if(QT_VERSION VERSION_GREATER_EQUAL 6.4)
+        install(DIRECTORY "${QT_PLUGINS_DIR}/multimedia"
+          DESTINATION ${plugin_dest_dir}
+          FILES_MATCHING PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      else()
+        install(DIRECTORY "${QT_PLUGINS_DIR}/mediaservice"
+          DESTINATION ${plugin_dest_dir}
+          FILES_MATCHING PATTERN "dsengine${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      endif()
     endif()
     if(QT_VERSION VERSION_GREATER_EQUAL 6.0)
       install(DIRECTORY "${QT_PLUGINS_DIR}/tls"
         DESTINATION ${plugin_dest_dir}
         FILES_MATCHING PATTERN "*qopensslbackend${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                               "*qschannelbackend${CMAKE_SHARED_LIBRARY_SUFFIX}")
+                       PATTERN "*qschannelbackend${CMAKE_SHARED_LIBRARY_SUFFIX}")
     endif()
   elseif(LINUX_SELF_CONTAINED)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
@@ -239,6 +251,14 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
         DESTINATION ${plugin_dest_dir}
         FILES_MATCHING PATTERN "libqopensslbackend${CMAKE_SHARED_LIBRARY_SUFFIX}")
       CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/tls/libqopensslbackend${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      if(QT_VERSION VERSION_GREATER_EQUAL 6.4)
+        if(HAVE_QTMULTIMEDIA)
+          install(DIRECTORY "${QT_PLUGINS_DIR}/multimedia"
+            DESTINATION ${plugin_dest_dir}
+            FILES_MATCHING PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}")
+          CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/multimedia/libgstreamermediaplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
+        endif()
+      endif()
     endif()
     install(DIRECTORY "${QT_PLUGINS_DIR}/xcbglintegrations"
       DESTINATION ${plugin_dest_dir}
