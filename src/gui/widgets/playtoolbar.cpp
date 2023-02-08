@@ -78,7 +78,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
 
   QMediaPlayer* mediaPlayer = m_player->mediaPlayer();
   m_seekSlider = new QSlider(Qt::Horizontal, splitter);
-  m_seekSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+  m_seekSlider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
   m_seekSlider->setMinimum(0);
   // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
   int maximum = mediaPlayer->duration() / 1000;
