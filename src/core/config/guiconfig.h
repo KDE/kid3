@@ -87,6 +87,12 @@ class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig> {
   /** true to play file on double click */
   Q_PROPERTY(bool playOnDoubleClick READ playOnDoubleClick
              WRITE setPlayOnDoubleClick NOTIFY playOnDoubleClickChanged)
+  /** true if play tool bar is visible */
+  Q_PROPERTY(bool playToolBarVisible READ playToolBarVisible
+             WRITE setPlayToolBarVisible NOTIFY playToolBarVisibleChanged)
+  /** play tool bar docked area */
+  Q_PROPERTY(int playToolBarArea READ playToolBarArea
+             WRITE setPlayToolBarArea NOTIFY playToolBarAreaChanged)
   /** config window geometry */
   Q_PROPERTY(QByteArray configWindowGeometry READ configWindowGeometry
              WRITE setConfigWindowGeometry NOTIFY configWindowGeometryChanged)
@@ -222,6 +228,18 @@ public:
   /** Set if play file on double click is enabled. */
   void setPlayOnDoubleClick(bool playOnDoubleClick);
 
+  /** Check if play tool bar is visible. */
+  bool playToolBarVisible() const { return m_playToolBarVisible; }
+
+  /** Set if play tool bar is visible. */
+  void setPlayToolBarVisible(bool playToolBarVisible);
+
+  /** Get play tool bar docked area. */
+  int playToolBarArea() const { return m_playToolBarArea; }
+
+  /** Set play tool bar docked area. */
+  void setPlayToolBarArea(int playToolBarArea);
+
   /** Get config window geometry. */
   QByteArray configWindowGeometry() const { return m_configWindowGeometry; }
 
@@ -280,6 +298,12 @@ signals:
   /** Emitted when @a playOnDoubleClick changed. */
   void playOnDoubleClickChanged(bool playOnDoubleClick);
 
+  /** Emitted when @a playToolBarVisible changed. */
+  void playToolBarVisibleChanged(bool playToolBarVisible);
+
+  /** Emitted when @a playToolBarArea changed. */
+  void playToolBarAreaChanged(int playToolBarArea);
+
   /** Emitted when @a configWindowGeometry changed. */
   void configWindowGeometryChanged(const QByteArray& configWindowGeometry);
 
@@ -297,11 +321,13 @@ private:
   QList<int> m_splitterSizes;
   QList<int> m_vSplitterSizes;
   QByteArray m_configWindowGeometry;
+  int m_playToolBarArea;
   bool m_autoHideTags;
   bool m_hideFile;
   bool m_hideTag[Frame::Tag_NumValues];
   bool m_hidePicture;
   bool m_playOnDoubleClick;
+  bool m_playToolBarVisible;
   bool m_fileListCustomColumnWidthsEnabled;
   bool m_dirListCustomColumnWidthsEnabled;
 

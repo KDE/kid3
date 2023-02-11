@@ -491,6 +491,17 @@ private:
   void readOptions();
 
   /**
+   * Save state of play tool bar.
+   */
+  void savePlayToolBarConfig();
+
+  /**
+   * Restore state of play tool bar.
+   */
+  void readPlayToolBarConfig();
+
+
+  /**
    * Save all changed files.
    *
    * @param updateGui true to update GUI (controls, status, cursor)

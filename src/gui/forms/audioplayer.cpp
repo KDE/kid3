@@ -302,6 +302,12 @@ void AudioPlayer::setVolume(int volume)
  */
 void AudioPlayer::playOrPause()
 {
+  if (getFileCount() == 0) {
+    // The play tool bar was restored without a play list.
+    m_app->playAudio();
+    return;
+  }
+
 #if QT_VERSION >= 0x060200
   switch (m_mediaPlayer->playbackState())
 #else

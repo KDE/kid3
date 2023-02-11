@@ -39,10 +39,12 @@ GuiConfig::GuiConfig()
     m_fileListSortOrder(Qt::AscendingOrder),
     m_dirListSortColumn(0),
     m_dirListSortOrder(Qt::AscendingOrder),
+    m_playToolBarArea(Qt::BottomToolBarArea),
     m_autoHideTags(true),
     m_hideFile(false),
     m_hidePicture(false),
     m_playOnDoubleClick(false),
+    m_playToolBarVisible(false),
     m_fileListCustomColumnWidthsEnabled(true),
     m_dirListCustomColumnWidthsEnabled(true)
 {
@@ -68,6 +70,8 @@ void GuiConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("HidePicture"), QVariant(m_hidePicture));
   config->setValue(QLatin1String("PlayOnDoubleClick"),
                    QVariant(m_playOnDoubleClick));
+  config->setValue(QLatin1String("PlayToolBarVisible"),
+                   QVariant(m_playToolBarVisible));
   config->setValue(QLatin1String("FileListVisibleColumns"),
                    QVariant(intListToStringList(m_fileListVisibleColumns)));
   config->setValue(QLatin1String("FileListCustomColumnWidthsEnabled"),
@@ -103,6 +107,8 @@ void GuiConfig::writeToConfig(ISettings* config) const
     config->setValue(QLatin1String("VSplitterSize") + QString::number(i),
                      QVariant(*it));
   }
+  config->setValue(QLatin1String("PlayToolBarArea"),
+                   QVariant(m_playToolBarArea));
   config->setValue(QLatin1String("ConfigWindowGeometry"),
                    QVariant(m_configWindowGeometry));
   config->endGroup();
@@ -129,6 +135,8 @@ void GuiConfig::readFromConfig(ISettings* config)
                                 m_hidePicture).toBool();
   m_playOnDoubleClick = config->value(QLatin1String("PlayOnDoubleClick"),
                                       m_playOnDoubleClick).toBool();
+  m_playToolBarVisible = config->value(QLatin1String("PlayToolBarVisible"),
+                                       m_playToolBarVisible).toBool();
   m_fileListVisibleColumns = stringListToIntList(
         config->value(QLatin1String("FileListVisibleColumns"), QStringList())
         .toStringList());
@@ -188,6 +196,8 @@ void GuiConfig::readFromConfig(ISettings* config)
       break;
     }
   }
+  m_playToolBarArea = config->value(QLatin1String("PlayToolBarArea"),
+                                    m_playToolBarArea).toInt();
   m_configWindowGeometry = config->value(QLatin1String("ConfigWindowGeometry"),
                                          m_configWindowGeometry).toByteArray();
   config->endGroup();
@@ -328,6 +338,22 @@ void GuiConfig::setPlayOnDoubleClick(bool playOnDoubleClick)
   if (m_playOnDoubleClick != playOnDoubleClick) {
     m_playOnDoubleClick = playOnDoubleClick;
     emit playOnDoubleClickChanged(m_playOnDoubleClick);
+  }
+}
+
+void GuiConfig::setPlayToolBarVisible(bool playToolBarVisible)
+{
+  if (m_playToolBarVisible != playToolBarVisible) {
+    m_playToolBarVisible = playToolBarVisible;
+    emit playToolBarVisibleChanged(m_playToolBarVisible);
+  }
+}
+
+void GuiConfig::setPlayToolBarArea(int playToolBarArea)
+{
+  if (m_playToolBarArea != playToolBarArea) {
+    m_playToolBarArea = playToolBarArea;
+    emit playToolBarAreaChanged(m_playToolBarArea);
   }
 }
 

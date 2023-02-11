@@ -236,6 +236,7 @@ void BaseMainWindowImpl::onDirectoryOpened()
  */
 void BaseMainWindowImpl::saveOptions()
 {
+  savePlayToolBarConfig();
   m_self->saveConfig();
   m_form->saveConfig();
   m_app->saveConfig();
@@ -249,6 +250,36 @@ void BaseMainWindowImpl::readOptions()
   m_app->readConfig();
   m_self->readConfig();
   m_form->readConfig();
+  readPlayToolBarConfig();
+}
+
+void BaseMainWindowImpl::savePlayToolBarConfig()
+{
+#ifdef HAVE_QTMULTIMEDIA
+  GuiConfig& guiCfg = GuiConfig::instance();
+  if (m_playToolBar) {
+    guiCfg.setPlayToolBarVisible(m_playToolBar->isVisible());
+    guiCfg.setPlayToolBarArea(m_w->toolBarArea(m_playToolBar));
+  } else {
+    guiCfg.setPlayToolBarVisible(false);
+  }
+#endif
+}
+
+void BaseMainWindowImpl::readPlayToolBarConfig()
+{
+#ifdef HAVE_QTMULTIMEDIA
+  const GuiConfig& guiCfg = GuiConfig::instance();
+  if (guiCfg.playToolBarVisible()) {
+    showPlayToolBar();
+    if (m_playToolBar) {
+      int area = guiCfg.playToolBarArea();
+      if (area == Qt::BottomToolBarArea || area == Qt::TopToolBarArea) {
+        m_w->addToolBar(static_cast<Qt::ToolBarArea>(area), m_playToolBar);
+      }
+    }
+  }
+#endif
 }
 
 /**
