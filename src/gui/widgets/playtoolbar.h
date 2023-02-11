@@ -42,6 +42,12 @@ class QSlider;
 class PlayToolBar : public QToolBar {
   Q_OBJECT
 public:
+  /** What time is displayed in m_timeLcd. */
+  enum class TimeDisplayMode {
+    Elapsed,  /**< Elapsed time */
+    Remaining /**< Remaining time */
+  };
+
   /**
    * Constructor.
    *
@@ -54,6 +60,11 @@ public:
    * Destructor.
    */
   virtual ~PlayToolBar() override;
+
+  /**
+   * Toggle time display mode.
+   */
+  void toggleTimeDisplayMode();
 
 signals:
   /**
@@ -156,4 +167,7 @@ private:
   QAction* m_muteAction;
   QSlider* m_seekSlider;
   QSlider* m_volumeSlider;
+
+  qint64 m_duration;
+  TimeDisplayMode m_timeDisplayMode;
 };

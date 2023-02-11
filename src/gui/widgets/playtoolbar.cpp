@@ -46,6 +46,47 @@ namespace {
 
 const QString zeroTime(QLatin1String(" 0:00"));
 
+/**
+ * Event filter for click on time LCD.
+ */
+class TimeLcdClickHandler : public QObject {
+public:
+  /**
+   * Constructor.
+   * @param playToolBar play tool bar
+   */
+  explicit TimeLcdClickHandler(PlayToolBar* playToolBar)
+    : QObject(playToolBar), m_playToolBar(playToolBar) {}
+  virtual ~TimeLcdClickHandler() override = default;
+
+protected:
+  /**
+   * Event filter function, calls PlayToolBar::toggleTimeDisplayMode().
+   *
+   * @param obj watched object
+   * @param event event for object
+   *
+   * @return true if event is filtered.
+   */
+  virtual bool eventFilter(QObject* obj, QEvent* event) override;
+
+private:
+  Q_DISABLE_COPY(TimeLcdClickHandler)
+
+  PlayToolBar* m_playToolBar;
+};
+
+bool TimeLcdClickHandler::eventFilter(QObject* obj, QEvent* event)
+{
+  if (event->type() == QEvent::MouseButtonRelease) {
+    m_playToolBar->toggleTimeDisplayMode();
+    return true;
+  } else {
+    // standard event processing
+    return QObject::eventFilter(obj, event);
+  }
+}
+
 }
 
 /**
@@ -55,7 +96,8 @@ const QString zeroTime(QLatin1String(" 0:00"));
  * @param parent parent widget
  */
 PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
-  : QToolBar(parent), m_player(player)
+  : QToolBar(parent), m_player(player),
+    m_timeDisplayMode(TimeDisplayMode::Elapsed)
 {
   setObjectName(QLatin1String("Kid3Player"));
   setWindowTitle(tr("Play"));
@@ -80,8 +122,9 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   m_seekSlider = new QSlider(Qt::Horizontal, splitter);
   m_seekSlider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
   m_seekSlider->setMinimum(0);
+  m_duration = mediaPlayer->duration();
   // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
-  int maximum = mediaPlayer->duration() / 1000;
+  int maximum = m_duration / 1000;
   if (maximum > 0) {
     m_seekSlider->setMaximum(maximum);
   }
@@ -107,6 +150,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   m_timeLcd->setFrameStyle(QFrame::NoFrame);
   m_timeLcd->display(zeroTime);
   m_timeLcd->setDigitCount(7);
+  m_timeLcd->installEventFilter(new TimeLcdClickHandler(this));
 
   addAction(m_playOrPauseAction);
   addAction(m_stopAction);
@@ -179,18 +223,26 @@ void PlayToolBar::closeEvent(QCloseEvent*)
  */
 void PlayToolBar::tick(qint64 msec)
 {
-  int hours = msec / (60 * 60 * 1000);
-  int minutes = (msec / (60 * 1000)) % 60;
-  int seconds = (msec / 1000) % 60;
-  if (msec % 1000 >= 500) {
+  qint64 displayedMsecs = msec;
+  QString sign;
+  if (m_timeDisplayMode == TimeDisplayMode::Remaining) {
+    displayedMsecs = qAbs(m_duration - msec);
+    sign = QLatin1String("-");
+  }
+  int hours = displayedMsecs / (60 * 60 * 1000);
+  int minutes = (displayedMsecs / (60 * 1000)) % 60;
+  int seconds = (displayedMsecs / 1000) % 60;
+  if (displayedMsecs % 1000 >= 500) {
     ++seconds;
   }
   if (hours == 0) {
-    m_timeLcd->display(QString(QLatin1String("%1:%2"))
+    m_timeLcd->display(QString(QLatin1String("%1%2:%3"))
+                       .arg(sign)
                        .arg(minutes, 2, 10, QLatin1Char(' '))
                        .arg(seconds, 2, 10, QLatin1Char('0')));
   } else {
-    m_timeLcd->display(QString(QLatin1String("%1:%2:%3"))
+    m_timeLcd->display(QString(QLatin1String("%1%2:%3:%4"))
+                       .arg(sign)
                        .arg(hours, 2, 10, QLatin1Char(' '))
                        .arg(minutes, 2, 10, QLatin1Char('0'))
                        .arg(seconds, 2, 10, QLatin1Char('0')));
@@ -249,6 +301,7 @@ void PlayToolBar::error(QMediaPlayer::Error err)
  */
 void PlayToolBar::durationChanged(qint64 duration)
 {
+  m_duration = duration;
   int maximum = duration / 1000;
   // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
   if (maximum > 0) {
@@ -307,6 +360,15 @@ void PlayToolBar::toggleMute()
 }
 
 /**
+ * Toggle time display mode.
+ */
+void PlayToolBar::toggleTimeDisplayMode()
+{
+  m_timeDisplayMode = m_timeDisplayMode == TimeDisplayMode::Elapsed
+      ? TimeDisplayMode::Remaining : TimeDisplayMode::Elapsed;
+}
+
+/**
  * Update display and button state when the current track is changed.
  *
  * @param filePath path of currently played audio file
@@ -322,7 +384,8 @@ void  PlayToolBar::trackChanged(const QString& filePath,
   m_previousAction->setEnabled(hasPrevious);
   m_nextAction->setEnabled(hasNext);
 
-  int maximum = m_player->mediaPlayer()->duration() / 1000;
+  m_duration = m_player->mediaPlayer()->duration();
+  int maximum = m_duration / 1000;
   // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
   if (maximum > 0) {
     m_seekSlider->setMaximum(maximum);

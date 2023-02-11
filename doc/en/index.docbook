@@ -2129,6 +2129,9 @@ basic operations (<guibutton>Play/Pause</guibutton>,
 sliders for position and volume and a display of the current position.
 If multiple files are selected, the selected tracks are played, else all
 files will be played.
+</para><para>
+The time displayed can be toggled between elapsed and remaining time by
+clicking on the display.
 </para></listitem>
 </varlistentry>
 
