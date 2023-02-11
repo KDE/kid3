@@ -1290,6 +1290,12 @@ public slots:
 #endif
 
   /**
+   * Update state when file is about to be played.
+   * @param filePath path to file
+   */
+  void onAboutToPlay(const QString& filePath);
+
+  /**
    * Close the file handle of a tagged file.
    * @param filePath path to file
    */

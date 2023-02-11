@@ -1251,11 +1251,8 @@ void BaseMainWindowImpl::showPlayToolBar()
       connect(m_playToolBar, &PlayToolBar::closed,
               m_app, &Kid3Application::deactivateMprisInterface);
 #endif
-#ifdef Q_OS_WIN32
-      // Phonon on Windows cannot play if the file is open.
       connect(m_playToolBar, &PlayToolBar::aboutToPlay,
-              m_app, &Kid3Application::closeFileHandle);
-#endif
+              m_app, &Kid3Application::onAboutToPlay);
     }
   }
   m_playToolBar->show();

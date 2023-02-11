@@ -3995,6 +3995,21 @@ void Kid3Application::setPictureData(const QByteArray& data)
 }
 
 /**
+ * Update state when file is about to be played.
+ * @param filePath path to file
+ */
+void Kid3Application::onAboutToPlay(const QString& filePath)
+{
+#ifdef Q_OS_WIN32
+  // Phonon on Windows cannot play if the file is open.
+  closeFileHandle(filePath);
+#endif
+  if (GuiConfig::instance().selectFileOnPlayEnabled()) {
+    selectFile(filePath);
+  }
+}
+
+/**
  * Close the file handle of a tagged file.
  * @param filePath path to file
  */

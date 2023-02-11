@@ -44,6 +44,7 @@ GuiConfig::GuiConfig()
     m_hideFile(false),
     m_hidePicture(false),
     m_playOnDoubleClick(false),
+    m_selectFileOnPlayEnabled(false),
     m_playToolBarVisible(false),
     m_fileListCustomColumnWidthsEnabled(true),
     m_dirListCustomColumnWidthsEnabled(true)
@@ -70,6 +71,8 @@ void GuiConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("HidePicture"), QVariant(m_hidePicture));
   config->setValue(QLatin1String("PlayOnDoubleClick"),
                    QVariant(m_playOnDoubleClick));
+  config->setValue(QLatin1String("SelectFileOnPlayEnabled"),
+                   QVariant(m_selectFileOnPlayEnabled));
   config->setValue(QLatin1String("PlayToolBarVisible"),
                    QVariant(m_playToolBarVisible));
   config->setValue(QLatin1String("FileListVisibleColumns"),
@@ -135,6 +138,9 @@ void GuiConfig::readFromConfig(ISettings* config)
                                 m_hidePicture).toBool();
   m_playOnDoubleClick = config->value(QLatin1String("PlayOnDoubleClick"),
                                       m_playOnDoubleClick).toBool();
+  m_selectFileOnPlayEnabled =
+      config->value(QLatin1String("SelectFileOnPlayEnabled"),
+                    m_selectFileOnPlayEnabled).toBool();
   m_playToolBarVisible = config->value(QLatin1String("PlayToolBarVisible"),
                                        m_playToolBarVisible).toBool();
   m_fileListVisibleColumns = stringListToIntList(
@@ -338,6 +344,14 @@ void GuiConfig::setPlayOnDoubleClick(bool playOnDoubleClick)
   if (m_playOnDoubleClick != playOnDoubleClick) {
     m_playOnDoubleClick = playOnDoubleClick;
     emit playOnDoubleClickChanged(m_playOnDoubleClick);
+  }
+}
+
+void GuiConfig::setSelectFileOnPlayEnabled(bool selectFileOnPlayEnabled)
+{
+  if (m_selectFileOnPlayEnabled != selectFileOnPlayEnabled) {
+    m_selectFileOnPlayEnabled = selectFileOnPlayEnabled;
+    emit selectFileOnPlayEnabledChanged(m_selectFileOnPlayEnabled);
   }
 }
 

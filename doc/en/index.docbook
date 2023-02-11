@@ -434,6 +434,9 @@ see <link linkend="edit-playlist">Edit Playlist</link>.
 in the <guilabel>User Actions</guilabel> tab of
 <link linkend="configure-kid3">Configure &kid3;</link>. The playback on double
 click can also be activated there.
+</para><para>
+When <guilabel>Select file on play</guilabel> is activated, the currently
+played track is automatically selected in the file list.
 </para></listitem>
 </itemizedlist>
 </para>

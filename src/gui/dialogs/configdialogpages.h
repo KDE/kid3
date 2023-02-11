@@ -199,6 +199,8 @@ private:
   QComboBox* m_trackNameComboBox;
   /** Play on double click checkbox */
   QCheckBox* m_playOnDoubleClickCheckBox;
+  /** Select file on play checkbox */
+  QCheckBox* m_selectFileOnPlayCheckBox;
   /** Commands table */
   ConfigTable* m_commandsTable;
   /** Commands table model */

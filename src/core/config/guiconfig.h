@@ -87,6 +87,9 @@ class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig> {
   /** true to play file on double click */
   Q_PROPERTY(bool playOnDoubleClick READ playOnDoubleClick
              WRITE setPlayOnDoubleClick NOTIFY playOnDoubleClickChanged)
+  /** true to select file on play */
+  Q_PROPERTY(bool selectFileOnPlayEnabled READ selectFileOnPlayEnabled
+             WRITE setSelectFileOnPlayEnabled NOTIFY selectFileOnPlayEnabledChanged)
   /** true if play tool bar is visible */
   Q_PROPERTY(bool playToolBarVisible READ playToolBarVisible
              WRITE setPlayToolBarVisible NOTIFY playToolBarVisibleChanged)
@@ -228,6 +231,12 @@ public:
   /** Set if play file on double click is enabled. */
   void setPlayOnDoubleClick(bool playOnDoubleClick);
 
+  /** Check if select file on play is enabled. */
+  bool selectFileOnPlayEnabled() const { return m_selectFileOnPlayEnabled; }
+
+  /** Enable select file on play. */
+  void setSelectFileOnPlayEnabled(bool selectFileOnPlayEnabled);
+
   /** Check if play tool bar is visible. */
   bool playToolBarVisible() const { return m_playToolBarVisible; }
 
@@ -298,6 +307,9 @@ signals:
   /** Emitted when @a playOnDoubleClick changed. */
   void playOnDoubleClickChanged(bool playOnDoubleClick);
 
+  /** Emitted when @a selectFileOnPlayEnabled changed. */
+  void selectFileOnPlayEnabledChanged(bool selectFileOnPlayEnabled);
+
   /** Emitted when @a playToolBarVisible changed. */
   void playToolBarVisibleChanged(bool playToolBarVisible);
 
@@ -327,6 +339,7 @@ private:
   bool m_hideTag[Frame::Tag_NumValues];
   bool m_hidePicture;
   bool m_playOnDoubleClick;
+  bool m_selectFileOnPlayEnabled;
   bool m_playToolBarVisible;
   bool m_fileListCustomColumnWidthsEnabled;
   bool m_dirListCustomColumnWidthsEnabled;

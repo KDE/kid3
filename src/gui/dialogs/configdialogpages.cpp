@@ -148,6 +148,7 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
   m_customFramesEditModel(nullptr),
   m_quickAccessTagsModel(nullptr), m_starRatingMappingsModel(nullptr),
   m_trackNameComboBox(nullptr), m_playOnDoubleClickCheckBox(nullptr),
+  m_selectFileOnPlayCheckBox(nullptr),
   m_commandsTable(nullptr), m_commandsTableModel(nullptr),
   m_browserLineEdit(nullptr), m_proxyCheckBox(nullptr),
   m_proxyLineEdit(nullptr), m_proxyAuthenticationCheckBox(nullptr),
@@ -538,12 +539,15 @@ QWidget* ConfigDialogPages::createActionsPage()
                                               actionsPage);
   m_playOnDoubleClickCheckBox =
       new QCheckBox(tr("&Play on double click"), commandsGroupBox);
+  m_selectFileOnPlayCheckBox =
+      new QCheckBox(tr("&Select file on play"), commandsGroupBox);
   m_commandsTableModel = new CommandsTableModel(commandsGroupBox);
   m_commandsTable = new ConfigTable(m_commandsTableModel, commandsGroupBox);
   m_commandsTable->setHorizontalResizeModes(
     m_commandsTableModel->getHorizontalResizeModes());
   auto commandsLayout = new QVBoxLayout;
   commandsLayout->addWidget(m_playOnDoubleClickCheckBox);
+  commandsLayout->addWidget(m_selectFileOnPlayCheckBox);
   commandsLayout->addWidget(m_commandsTable);
   commandsGroupBox->setLayout(commandsLayout);
   vlayout->addWidget(commandsGroupBox);
@@ -734,6 +738,7 @@ void ConfigDialogPages::setConfigs(
   }
   m_browserLineEdit->setText(networkCfg.browser());
   m_playOnDoubleClickCheckBox->setChecked(guiCfg.playOnDoubleClick());
+  m_selectFileOnPlayCheckBox->setChecked(guiCfg.selectFileOnPlayEnabled());
   m_proxyCheckBox->setChecked(networkCfg.useProxy());
   m_proxyLineEdit->setText(networkCfg.proxy());
   m_proxyAuthenticationCheckBox->setChecked(networkCfg.useProxyAuthentication());
@@ -848,6 +853,7 @@ void ConfigDialogPages::getConfig() const
   tagCfg.setRiffTrackName(m_trackNameComboBox->currentText());
   networkCfg.setBrowser(m_browserLineEdit->text());
   guiCfg.setPlayOnDoubleClick(m_playOnDoubleClickCheckBox->isChecked());
+  guiCfg.setSelectFileOnPlayEnabled(m_selectFileOnPlayCheckBox->isChecked());
   networkCfg.setUseProxy(m_proxyCheckBox->isChecked());
   networkCfg.setProxy(m_proxyLineEdit->text());
   networkCfg.setUseProxyAuthentication(m_proxyAuthenticationCheckBox->isChecked());
