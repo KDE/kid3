@@ -3900,309 +3900,317 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "然后从浏览器把图片拖放到 Kid3。"
 
-#: src/gui/dialogs/configdialogpages.cpp:170
+#: src/gui/dialogs/configdialogpages.cpp:171
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:173
+#: src/gui/dialogs/configdialogpages.cpp:174
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "标记被截断的字段(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:175
-#: src/gui/dialogs/configdialogpages.cpp:204
+#: src/gui/dialogs/configdialogpages.cpp:176
+#: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "文本编码(&E)："
 
-#: src/gui/dialogs/configdialogpages.cpp:189
+#: src/gui/dialogs/configdialogpages.cpp:190
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:192
+#: src/gui/dialogs/configdialogpages.cpp:193
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "使用「音轨/音轨总数」的格式(&T)"
 
-#: src/gui/dialogs/configdialogpages.cpp:195
+#: src/gui/dialogs/configdialogpages.cpp:196
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "音轨编号位数(&D)："
 
-#: src/gui/dialogs/configdialogpages.cpp:199
+#: src/gui/dialogs/configdialogpages.cpp:200
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "将流派视做文本而非数字字符串(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:201
+#: src/gui/dialogs/configdialogpages.cpp:202
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "小写id3块&WAV文件"
 
-#: src/gui/dialogs/configdialogpages.cpp:203
+#: src/gui/dialogs/configdialogpages.cpp:204
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "违反标准的标准(&K)"
 
-#: src/gui/dialogs/configdialogpages.cpp:222
+#: src/gui/dialogs/configdialogpages.cpp:223
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "新标签使用的版本(&V)："
 
-#: src/gui/dialogs/configdialogpages.cpp:226
+#: src/gui/dialogs/configdialogpages.cpp:227
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:228
+#: src/gui/dialogs/configdialogpages.cpp:229
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:242
+#: src/gui/dialogs/configdialogpages.cpp:243
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:243
+#: src/gui/dialogs/configdialogpages.cpp:244
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "注释栏名称(&m)："
 
-#: src/gui/dialogs/configdialogpages.cpp:246
+#: src/gui/dialogs/configdialogpages.cpp:247
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "图片栏位名称(&P)："
 
-#: src/gui/dialogs/configdialogpages.cpp:268
+#: src/gui/dialogs/configdialogpages.cpp:269
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "图片"
 
-#: src/gui/dialogs/configdialogpages.cpp:271
+#: src/gui/dialogs/configdialogpages.cpp:272
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "标记，如果图像大于(字节)(&L)："
 
-#: src/gui/dialogs/configdialogpages.cpp:284
+#: src/gui/dialogs/configdialogpages.cpp:285
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "仅显示自定义流派(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:292
+#: src/gui/dialogs/configdialogpages.cpp:293
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "自定义流派(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:304
+#: src/gui/dialogs/configdialogpages.cpp:305
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "自定义帧(&R)"
 
-#: src/gui/dialogs/configdialogpages.cpp:319
+#: src/gui/dialogs/configdialogpages.cpp:320
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "拖动来安排他们的优先顺序"
 
-#: src/gui/dialogs/configdialogpages.cpp:322
+#: src/gui/dialogs/configdialogpages.cpp:323
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "快速访问标签(&Q)"
 
-#: src/gui/dialogs/configdialogpages.cpp:329
+#: src/gui/dialogs/configdialogpages.cpp:330
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF INFO"
 
-#: src/gui/dialogs/configdialogpages.cpp:330
+#: src/gui/dialogs/configdialogpages.cpp:331
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "音轨编号栏名称(&M)："
 
-#: src/gui/dialogs/configdialogpages.cpp:347
+#: src/gui/dialogs/configdialogpages.cpp:348
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "标签格式(&T)"
 
-#: src/gui/dialogs/configdialogpages.cpp:349
+#: src/gui/dialogs/configdialogpages.cpp:350
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "评分"
 
-#: src/gui/dialogs/configdialogpages.cpp:359
+#: src/gui/dialogs/configdialogpages.cpp:360
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "标签 &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:361
+#: src/gui/dialogs/configdialogpages.cpp:362
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "标签 &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:362
+#: src/gui/dialogs/configdialogpages.cpp:363
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "标签 &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:363
+#: src/gui/dialogs/configdialogpages.cpp:364
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "所有标签(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:381
+#: src/gui/dialogs/configdialogpages.cpp:382
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "启动"
 
-#: src/gui/dialogs/configdialogpages.cpp:382
+#: src/gui/dialogs/configdialogpages.cpp:383
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "加载上次打开的文件(&L)"
 
-#: src/gui/dialogs/configdialogpages.cpp:388
+#: src/gui/dialogs/configdialogpages.cpp:389
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "保存"
 
-#: src/gui/dialogs/configdialogpages.cpp:389
+#: src/gui/dialogs/configdialogpages.cpp:390
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "保存文件时间戳(&P)"
 
-#: src/gui/dialogs/configdialogpages.cpp:391
+#: src/gui/dialogs/configdialogpages.cpp:392
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "标记变更(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:401
+#: src/gui/dialogs/configdialogpages.cpp:402
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "专辑封面的文件名(&I)："
 
-#: src/gui/dialogs/configdialogpages.cpp:402
+#: src/gui/dialogs/configdialogpages.cpp:403
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "文本编码 (导出, 播放列表)(&E)："
 
-#: src/gui/dialogs/configdialogpages.cpp:407
+#: src/gui/dialogs/configdialogpages.cpp:408
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "文件列表"
 
-#: src/gui/dialogs/configdialogpages.cpp:408
+#: src/gui/dialogs/configdialogpages.cpp:409
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "过滤(&R)："
 
-#: src/gui/dialogs/configdialogpages.cpp:418
+#: src/gui/dialogs/configdialogpages.cpp:419
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "包含文件夹(&D)："
 
-#: src/gui/dialogs/configdialogpages.cpp:422
+#: src/gui/dialogs/configdialogpages.cpp:423
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "排除文件夹(&X)："
 
-#: src/gui/dialogs/configdialogpages.cpp:426
+#: src/gui/dialogs/configdialogpages.cpp:427
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "显示隐藏文件(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:438
+#: src/gui/dialogs/configdialogpages.cpp:439
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "格式"
 
-#: src/gui/dialogs/configdialogpages.cpp:442
+#: src/gui/dialogs/configdialogpages.cpp:443
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "由标签生成文件名"
 
-#: src/gui/dialogs/configdialogpages.cpp:447
+#: src/gui/dialogs/configdialogpages.cpp:448
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "由文件名生成标签"
 
-#: src/gui/dialogs/configdialogpages.cpp:453
-#: src/gui/dialogs/configdialogpages.cpp:513
+#: src/gui/dialogs/configdialogpages.cpp:454
+#: src/gui/dialogs/configdialogpages.cpp:514
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:465
+#: src/gui/dialogs/configdialogpages.cpp:466
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "文件名称格式(&F)"
 
-#: src/gui/dialogs/configdialogpages.cpp:481
+#: src/gui/dialogs/configdialogpages.cpp:482
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "由标签生成文件名"
 
-#: src/gui/dialogs/configdialogpages.cpp:497
+#: src/gui/dialogs/configdialogpages.cpp:498
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "由文件名生成标签"
 
-#: src/gui/dialogs/configdialogpages.cpp:527
+#: src/gui/dialogs/configdialogpages.cpp:528
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "浏览"
 
-#: src/gui/dialogs/configdialogpages.cpp:528
+#: src/gui/dialogs/configdialogpages.cpp:529
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "网页浏览器(&B)："
 
-#: src/gui/dialogs/configdialogpages.cpp:537
+#: src/gui/dialogs/configdialogpages.cpp:538
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "上下文菜单命令(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:540
+#: src/gui/dialogs/configdialogpages.cpp:541
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "双击播放(&P)"
 
-#: src/gui/dialogs/configdialogpages.cpp:561
+#: src/gui/dialogs/configdialogpages.cpp:543
+#, fuzzy
+#| msgctxt "SelectCommand|"
+#| msgid "Select file"
+msgctxt "ConfigDialogPages|"
+msgid "&Select file on play"
+msgstr "选择文件"
+
+#: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "代理服务器"
 
-#: src/gui/dialogs/configdialogpages.cpp:562
+#: src/gui/dialogs/configdialogpages.cpp:566
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "代理服务器(&P)："
 
-#: src/gui/dialogs/configdialogpages.cpp:565
+#: src/gui/dialogs/configdialogpages.cpp:569
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "代理服务器要认证(&U)"
 
-#: src/gui/dialogs/configdialogpages.cpp:567
+#: src/gui/dialogs/configdialogpages.cpp:571
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "代理服务器用户名(&n)："
 
-#: src/gui/dialogs/configdialogpages.cpp:571
+#: src/gui/dialogs/configdialogpages.cpp:575
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "代理服务器密码(&w)："
 
-#: src/gui/dialogs/configdialogpages.cpp:605
+#: src/gui/dialogs/configdialogpages.cpp:609
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "元数据插件和优先级(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:617
+#: src/gui/dialogs/configdialogpages.cpp:621
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "可用的插件(&V)"
 
-#: src/gui/dialogs/configdialogpages.cpp:628
+#: src/gui/dialogs/configdialogpages.cpp:632
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "修改在重启后才会生效！"
@@ -5008,36 +5016,36 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
 msgstr "打开目录..."
 
-#: src/gui/forms/basemainwindow.cpp:276
+#: src/gui/forms/basemainwindow.cpp:307
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
 msgstr "中止"
 
-#: src/gui/forms/basemainwindow.cpp:358
+#: src/gui/forms/basemainwindow.cpp:389
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
 msgstr "%1 无法写入"
 
-#: src/gui/forms/basemainwindow.cpp:368
+#: src/gui/forms/basemainwindow.cpp:399
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
 msgstr "写入文件时遇到错误：\n"
 
-#: src/gui/forms/basemainwindow.cpp:370 src/gui/forms/basemainwindow.cpp:376
-#: src/gui/forms/basemainwindow.cpp:1098 src/gui/forms/basemainwindow.cpp:1103
-#: src/gui/forms/basemainwindow.cpp:1542 src/gui/forms/basemainwindow.cpp:1551
-#: src/gui/forms/basemainwindow.cpp:1627
+#: src/gui/forms/basemainwindow.cpp:401 src/gui/forms/basemainwindow.cpp:407
+#: src/gui/forms/basemainwindow.cpp:1129 src/gui/forms/basemainwindow.cpp:1134
+#: src/gui/forms/basemainwindow.cpp:1570 src/gui/forms/basemainwindow.cpp:1579
+#: src/gui/forms/basemainwindow.cpp:1655
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "文件错误"
 
-#: src/gui/forms/basemainwindow.cpp:373
+#: src/gui/forms/basemainwindow.cpp:404
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "写入文件时遇到错误。必要时修改权限以使目标可写？"
 
-#: src/gui/forms/basemainwindow.cpp:427
+#: src/gui/forms/basemainwindow.cpp:458
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "The current folder has been modified.\n"
@@ -5046,12 +5054,12 @@ msgstr ""
 "当前目录已修改\n"
 "要保存吗？"
 
-#: src/gui/forms/basemainwindow.cpp:429 src/gui/forms/basemainwindow.cpp:470
+#: src/gui/forms/basemainwindow.cpp:460 src/gui/forms/basemainwindow.cpp:501
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
 msgstr "警告"
 
-#: src/gui/forms/basemainwindow.cpp:468
+#: src/gui/forms/basemainwindow.cpp:499
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "A playlist has been modified.\n"
@@ -5060,148 +5068,148 @@ msgstr ""
 "播放列表已被修改\n"
 "要保存吗？"
 
-#: src/gui/forms/basemainwindow.cpp:579
+#: src/gui/forms/basemainwindow.cpp:610
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
 msgstr "退出..."
 
-#: src/gui/forms/basemainwindow.cpp:666
+#: src/gui/forms/basemainwindow.cpp:697
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
 msgid_plural "%n folders"
 msgstr[0] "%n 文件夹"
 
-#: src/gui/forms/basemainwindow.cpp:671
+#: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
 msgid_plural "%n files"
 msgstr[0] "%n 个文件"
 
-#: src/gui/forms/basemainwindow.cpp:676
+#: src/gui/forms/basemainwindow.cpp:707
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
 msgid_plural "%n selected"
 msgstr[0] "%n 选中"
 
-#: src/gui/forms/basemainwindow.cpp:679
+#: src/gui/forms/basemainwindow.cpp:710
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
 msgstr "已就绪。"
 
-#: src/gui/forms/basemainwindow.cpp:741
+#: src/gui/forms/basemainwindow.cpp:772
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
 msgstr "创建播放列表..."
 
-#: src/gui/forms/basemainwindow.cpp:789
+#: src/gui/forms/basemainwindow.cpp:820
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
 msgstr "找不到檔案"
 
-#: src/gui/forms/basemainwindow.cpp:790
+#: src/gui/forms/basemainwindow.cpp:821
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
 msgstr "错误"
 
-#: src/gui/forms/basemainwindow.cpp:816
+#: src/gui/forms/basemainwindow.cpp:847
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
 msgstr "导入"
 
-#: src/gui/forms/basemainwindow.cpp:1096 src/gui/forms/basemainwindow.cpp:1102
-#: src/gui/forms/basemainwindow.cpp:1543 src/gui/forms/basemainwindow.cpp:1552
+#: src/gui/forms/basemainwindow.cpp:1127 src/gui/forms/basemainwindow.cpp:1133
+#: src/gui/forms/basemainwindow.cpp:1571 src/gui/forms/basemainwindow.cpp:1580
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "文件重命名发生错误：\n"
 
-#: src/gui/forms/basemainwindow.cpp:1097
+#: src/gui/forms/basemainwindow.cpp:1128
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
 msgstr "关闭目录后重试？"
 
-#: src/gui/forms/basemainwindow.cpp:1174
+#: src/gui/forms/basemainwindow.cpp:1205
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "过滤"
 
-#: src/gui/forms/basemainwindow.cpp:1245
+#: src/gui/forms/basemainwindow.cpp:1273
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " [已过滤 %1/%2]"
 
-#: src/gui/forms/basemainwindow.cpp:1359
+#: src/gui/forms/basemainwindow.cpp:1387
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "添加帧"
 
-#: src/gui/forms/basemainwindow.cpp:1360
+#: src/gui/forms/basemainwindow.cpp:1388
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "选择帧号"
 
-#: src/gui/forms/basemainwindow.cpp:1506
+#: src/gui/forms/basemainwindow.cpp:1534
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "文件重命名"
 
-#: src/gui/forms/basemainwindow.cpp:1507
+#: src/gui/forms/basemainwindow.cpp:1535
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "输入新的文件名："
 
-#: src/gui/forms/basemainwindow.cpp:1544 src/gui/forms/basemainwindow.cpp:1553
+#: src/gui/forms/basemainwindow.cpp:1572 src/gui/forms/basemainwindow.cpp:1581
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1 重命名为 %2 失败\n"
 
-#: src/gui/forms/basemainwindow.cpp:1545
+#: src/gui/forms/basemainwindow.cpp:1573
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "要在关闭文件夹后重试吗？"
 
-#: src/gui/forms/basemainwindow.cpp:1563
+#: src/gui/forms/basemainwindow.cpp:1591
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "您真的要将这 %1 项移到回收站吗？"
 
-#: src/gui/forms/basemainwindow.cpp:1592
+#: src/gui/forms/basemainwindow.cpp:1620
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "您真的要将这 %1 项移到回收站吗？"
 
-#: src/gui/forms/basemainwindow.cpp:1594
+#: src/gui/forms/basemainwindow.cpp:1622
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "您真的要将这项移到回收站吗？"
 
-#: src/gui/forms/basemainwindow.cpp:1596
+#: src/gui/forms/basemainwindow.cpp:1624
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "移至回收站"
 
-#: src/gui/forms/basemainwindow.cpp:1625
+#: src/gui/forms/basemainwindow.cpp:1653
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "目录必须为空。\n"
 
-#: src/gui/forms/basemainwindow.cpp:1626
+#: src/gui/forms/basemainwindow.cpp:1654
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "无法将这些文件移至回收站"
 
-#: src/gui/forms/basemainwindow.cpp:1659
+#: src/gui/forms/basemainwindow.cpp:1687
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "全部展开"
 
-#: src/gui/forms/basemainwindow.cpp:1771
+#: src/gui/forms/basemainwindow.cpp:1799
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "中止(&B)"
@@ -5584,42 +5592,42 @@ msgstr ""
 "专辑图片\n"
 "到此处"
 
-#: src/gui/widgets/playtoolbar.cpp:61
+#: src/gui/widgets/playtoolbar.cpp:103
 msgctxt "PlayToolBar|"
 msgid "Play"
 msgstr "播放"
 
-#: src/gui/widgets/playtoolbar.cpp:66
+#: src/gui/widgets/playtoolbar.cpp:108
 msgctxt "PlayToolBar|"
 msgid "Play/Pause"
 msgstr "播放/暂停"
 
-#: src/gui/widgets/playtoolbar.cpp:68
+#: src/gui/widgets/playtoolbar.cpp:110
 msgctxt "PlayToolBar|"
 msgid "Stop playback"
 msgstr "停止播放"
 
-#: src/gui/widgets/playtoolbar.cpp:70
+#: src/gui/widgets/playtoolbar.cpp:112
 msgctxt "PlayToolBar|"
 msgid "Previous Track"
 msgstr "上一音轨"
 
-#: src/gui/widgets/playtoolbar.cpp:72
+#: src/gui/widgets/playtoolbar.cpp:114
 msgctxt "PlayToolBar|"
 msgid "Next Track"
 msgstr "下一音轨"
 
-#: src/gui/widgets/playtoolbar.cpp:74
+#: src/gui/widgets/playtoolbar.cpp:116
 msgctxt "PlayToolBar|"
 msgid "Close"
 msgstr "关闭"
 
-#: src/gui/widgets/playtoolbar.cpp:91
+#: src/gui/widgets/playtoolbar.cpp:134
 msgctxt "PlayToolBar|"
 msgid "Mute"
 msgstr "静音"
 
-#: src/gui/widgets/playtoolbar.cpp:265
+#: src/gui/widgets/playtoolbar.cpp:318
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"

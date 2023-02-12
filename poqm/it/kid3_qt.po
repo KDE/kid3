@@ -3907,309 +3907,317 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Poi trascina l'immagine dal browser su Kid3."
 
-#: src/gui/dialogs/configdialogpages.cpp:170
+#: src/gui/dialogs/configdialogpages.cpp:171
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:173
+#: src/gui/dialogs/configdialogpages.cpp:174
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "E&videnzia i campi troncati"
 
-#: src/gui/dialogs/configdialogpages.cpp:175
-#: src/gui/dialogs/configdialogpages.cpp:204
+#: src/gui/dialogs/configdialogpages.cpp:176
+#: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "&Codifica del testo:"
 
-#: src/gui/dialogs/configdialogpages.cpp:189
+#: src/gui/dialogs/configdialogpages.cpp:190
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:192
+#: src/gui/dialogs/configdialogpages.cpp:193
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "Usa formato &traccia/numero totale delle tracce"
 
-#: src/gui/dialogs/configdialogpages.cpp:195
+#: src/gui/dialogs/configdialogpages.cpp:196
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "Cifre del &numero di traccia:"
 
-#: src/gui/dialogs/configdialogpages.cpp:199
+#: src/gui/dialogs/configdialogpages.cpp:200
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Genere come testo invece che numerico"
 
-#: src/gui/dialogs/configdialogpages.cpp:201
+#: src/gui/dialogs/configdialogpages.cpp:202
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "File &WAV con parte id3 minuscolo"
 
-#: src/gui/dialogs/configdialogpages.cpp:203
+#: src/gui/dialogs/configdialogpages.cpp:204
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "E&videnzia violazioni dello standard"
 
-#: src/gui/dialogs/configdialogpages.cpp:222
+#: src/gui/dialogs/configdialogpages.cpp:223
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "&Versione usata per i nuovi tag:"
 
-#: src/gui/dialogs/configdialogpages.cpp:226
+#: src/gui/dialogs/configdialogpages.cpp:227
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:228
+#: src/gui/dialogs/configdialogpages.cpp:229
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:242
+#: src/gui/dialogs/configdialogpages.cpp:243
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:243
+#: src/gui/dialogs/configdialogpages.cpp:244
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "No&me campo commento:"
 
-#: src/gui/dialogs/configdialogpages.cpp:246
+#: src/gui/dialogs/configdialogpages.cpp:247
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "&Immagine nome campo:"
 
-#: src/gui/dialogs/configdialogpages.cpp:268
+#: src/gui/dialogs/configdialogpages.cpp:269
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Immagine"
 
-#: src/gui/dialogs/configdialogpages.cpp:271
+#: src/gui/dialogs/configdialogpages.cpp:272
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "Evidenzia se più &grande di (byte):"
 
-#: src/gui/dialogs/configdialogpages.cpp:284
+#: src/gui/dialogs/configdialogpages.cpp:285
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "&Mostra solo generi personalizzati"
 
-#: src/gui/dialogs/configdialogpages.cpp:292
+#: src/gui/dialogs/configdialogpages.cpp:293
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "Generi per&sonalizzati"
 
-#: src/gui/dialogs/configdialogpages.cpp:304
+#: src/gui/dialogs/configdialogpages.cpp:305
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "F&rame personalizzati"
 
-#: src/gui/dialogs/configdialogpages.cpp:319
+#: src/gui/dialogs/configdialogpages.cpp:320
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "Trascina e rilascia per riordinare gli elementi"
 
-#: src/gui/dialogs/configdialogpages.cpp:322
+#: src/gui/dialogs/configdialogpages.cpp:323
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "Frame di accesso &rapido"
 
-#: src/gui/dialogs/configdialogpages.cpp:329
+#: src/gui/dialogs/configdialogpages.cpp:330
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF INFO"
 
-#: src/gui/dialogs/configdialogpages.cpp:330
+#: src/gui/dialogs/configdialogpages.cpp:331
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "Nu&mero traccia nome campo:"
 
-#: src/gui/dialogs/configdialogpages.cpp:347
+#: src/gui/dialogs/configdialogpages.cpp:348
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "Formato &tag"
 
-#: src/gui/dialogs/configdialogpages.cpp:349
+#: src/gui/dialogs/configdialogpages.cpp:350
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Valutazione"
 
-#: src/gui/dialogs/configdialogpages.cpp:359
+#: src/gui/dialogs/configdialogpages.cpp:360
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "Tag &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:361
+#: src/gui/dialogs/configdialogpages.cpp:362
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "Tag &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:362
+#: src/gui/dialogs/configdialogpages.cpp:363
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "Tag &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:363
+#: src/gui/dialogs/configdialogpages.cpp:364
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "Tutti &i tag"
 
-#: src/gui/dialogs/configdialogpages.cpp:381
+#: src/gui/dialogs/configdialogpages.cpp:382
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Avvio"
 
-#: src/gui/dialogs/configdialogpages.cpp:382
+#: src/gui/dialogs/configdialogpages.cpp:383
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "Carica gli &ultimi file aperti"
 
-#: src/gui/dialogs/configdialogpages.cpp:388
+#: src/gui/dialogs/configdialogpages.cpp:389
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Salva"
 
-#: src/gui/dialogs/configdialogpages.cpp:389
+#: src/gui/dialogs/configdialogpages.cpp:390
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "M&antieni data/ora del file"
 
-#: src/gui/dialogs/configdialogpages.cpp:391
+#: src/gui/dialogs/configdialogpages.cpp:392
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "E&videnzia le modifiche"
 
-#: src/gui/dialogs/configdialogpages.cpp:401
+#: src/gui/dialogs/configdialogpages.cpp:402
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "Nome f&ile per copertina:"
 
-#: src/gui/dialogs/configdialogpages.cpp:402
+#: src/gui/dialogs/configdialogpages.cpp:403
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Codifica t&esto (esportazione, scaletta):"
 
-#: src/gui/dialogs/configdialogpages.cpp:407
+#: src/gui/dialogs/configdialogpages.cpp:408
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Elenco dei file"
 
-#: src/gui/dialogs/configdialogpages.cpp:408
+#: src/gui/dialogs/configdialogpages.cpp:409
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Filt&ro:"
 
-#: src/gui/dialogs/configdialogpages.cpp:418
+#: src/gui/dialogs/configdialogpages.cpp:419
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "Inclu&di cartelle:"
 
-#: src/gui/dialogs/configdialogpages.cpp:422
+#: src/gui/dialogs/configdialogpages.cpp:423
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "E&scludi cartelle:"
 
-#: src/gui/dialogs/configdialogpages.cpp:426
+#: src/gui/dialogs/configdialogpages.cpp:427
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "&Mostra i file nascosti"
 
-#: src/gui/dialogs/configdialogpages.cpp:438
+#: src/gui/dialogs/configdialogpages.cpp:439
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Formato"
 
-#: src/gui/dialogs/configdialogpages.cpp:442
+#: src/gui/dialogs/configdialogpages.cpp:443
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "Nome file da tag"
 
-#: src/gui/dialogs/configdialogpages.cpp:447
+#: src/gui/dialogs/configdialogpages.cpp:448
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "Tag dal nome file"
 
-#: src/gui/dialogs/configdialogpages.cpp:453
-#: src/gui/dialogs/configdialogpages.cpp:513
+#: src/gui/dialogs/configdialogpages.cpp:454
+#: src/gui/dialogs/configdialogpages.cpp:514
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Scaletta"
 
-#: src/gui/dialogs/configdialogpages.cpp:465
+#: src/gui/dialogs/configdialogpages.cpp:466
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "Formato del nome &file"
 
-#: src/gui/dialogs/configdialogpages.cpp:481
+#: src/gui/dialogs/configdialogpages.cpp:482
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "Nome file da tag"
 
-#: src/gui/dialogs/configdialogpages.cpp:497
+#: src/gui/dialogs/configdialogpages.cpp:498
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "Tag dal nome file"
 
-#: src/gui/dialogs/configdialogpages.cpp:527
+#: src/gui/dialogs/configdialogpages.cpp:528
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Navigatore"
 
-#: src/gui/dialogs/configdialogpages.cpp:528
+#: src/gui/dialogs/configdialogpages.cpp:529
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "&Browser web:"
 
-#: src/gui/dialogs/configdialogpages.cpp:537
+#: src/gui/dialogs/configdialogpages.cpp:538
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "Comandi &menu contestuale"
 
-#: src/gui/dialogs/configdialogpages.cpp:540
+#: src/gui/dialogs/configdialogpages.cpp:541
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "&Riproduci al doppio clic"
 
-#: src/gui/dialogs/configdialogpages.cpp:561
+#: src/gui/dialogs/configdialogpages.cpp:543
+#, fuzzy
+#| msgctxt "SelectCommand|"
+#| msgid "Select file"
+msgctxt "ConfigDialogPages|"
+msgid "&Select file on play"
+msgstr "Seleziona file"
+
+#: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/gui/dialogs/configdialogpages.cpp:562
+#: src/gui/dialogs/configdialogpages.cpp:566
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Proxy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:565
+#: src/gui/dialogs/configdialogpages.cpp:569
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "&Usa autenticazione con proxy"
 
-#: src/gui/dialogs/configdialogpages.cpp:567
+#: src/gui/dialogs/configdialogpages.cpp:571
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "&Nome utente proxy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:571
+#: src/gui/dialogs/configdialogpages.cpp:575
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "Pass&word proxy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:605
+#: src/gui/dialogs/configdialogpages.cpp:609
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "Estensioni &metadati && priorità"
 
-#: src/gui/dialogs/configdialogpages.cpp:617
+#: src/gui/dialogs/configdialogpages.cpp:621
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "Estensioni &disponibili"
 
-#: src/gui/dialogs/configdialogpages.cpp:628
+#: src/gui/dialogs/configdialogpages.cpp:632
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "Le modifiche saranno applicate dopo il riavvio."
@@ -5015,36 +5023,36 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
 msgstr "Apertura cartella..."
 
-#: src/gui/forms/basemainwindow.cpp:276
+#: src/gui/forms/basemainwindow.cpp:307
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
 msgstr "Interrompi"
 
-#: src/gui/forms/basemainwindow.cpp:358
+#: src/gui/forms/basemainwindow.cpp:389
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
 msgstr "%1 non è scrivibile"
 
-#: src/gui/forms/basemainwindow.cpp:368
+#: src/gui/forms/basemainwindow.cpp:399
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
 msgstr "Errore durante la scrittura del file:\n"
 
-#: src/gui/forms/basemainwindow.cpp:370 src/gui/forms/basemainwindow.cpp:376
-#: src/gui/forms/basemainwindow.cpp:1098 src/gui/forms/basemainwindow.cpp:1103
-#: src/gui/forms/basemainwindow.cpp:1542 src/gui/forms/basemainwindow.cpp:1551
-#: src/gui/forms/basemainwindow.cpp:1627
+#: src/gui/forms/basemainwindow.cpp:401 src/gui/forms/basemainwindow.cpp:407
+#: src/gui/forms/basemainwindow.cpp:1129 src/gui/forms/basemainwindow.cpp:1134
+#: src/gui/forms/basemainwindow.cpp:1570 src/gui/forms/basemainwindow.cpp:1579
+#: src/gui/forms/basemainwindow.cpp:1655
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "Errore del file"
 
-#: src/gui/forms/basemainwindow.cpp:373
+#: src/gui/forms/basemainwindow.cpp:404
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "Errore durante la scrittura del file. Vuoi correggere i permessi?"
 
-#: src/gui/forms/basemainwindow.cpp:427
+#: src/gui/forms/basemainwindow.cpp:458
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "The current folder has been modified.\n"
@@ -5053,12 +5061,12 @@ msgstr ""
 "La cartella corrente è stata modificata.\n"
 "Vuoi salvarla?"
 
-#: src/gui/forms/basemainwindow.cpp:429 src/gui/forms/basemainwindow.cpp:470
+#: src/gui/forms/basemainwindow.cpp:460 src/gui/forms/basemainwindow.cpp:501
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
 msgstr "Avviso"
 
-#: src/gui/forms/basemainwindow.cpp:468
+#: src/gui/forms/basemainwindow.cpp:499
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "A playlist has been modified.\n"
@@ -5067,12 +5075,12 @@ msgstr ""
 "È stata modificata una scaletta.\n"
 "Vuoi salvarla?"
 
-#: src/gui/forms/basemainwindow.cpp:579
+#: src/gui/forms/basemainwindow.cpp:610
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
 msgstr "Uscita..."
 
-#: src/gui/forms/basemainwindow.cpp:666
+#: src/gui/forms/basemainwindow.cpp:697
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
@@ -5080,7 +5088,7 @@ msgid_plural "%n folders"
 msgstr[0] "%n cartella"
 msgstr[1] "%n cartelle"
 
-#: src/gui/forms/basemainwindow.cpp:671
+#: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
@@ -5088,7 +5096,7 @@ msgid_plural "%n files"
 msgstr[0] "%n file"
 msgstr[1] "%n file"
 
-#: src/gui/forms/basemainwindow.cpp:676
+#: src/gui/forms/basemainwindow.cpp:707
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
@@ -5096,122 +5104,122 @@ msgid_plural "%n selected"
 msgstr[0] "%n selezionato"
 msgstr[1] "%n selezionati"
 
-#: src/gui/forms/basemainwindow.cpp:679
+#: src/gui/forms/basemainwindow.cpp:710
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
 msgstr "Pronto."
 
-#: src/gui/forms/basemainwindow.cpp:741
+#: src/gui/forms/basemainwindow.cpp:772
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
 msgstr "Creazione scaletta..."
 
-#: src/gui/forms/basemainwindow.cpp:789
+#: src/gui/forms/basemainwindow.cpp:820
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
 msgstr "File non trovati"
 
-#: src/gui/forms/basemainwindow.cpp:790
+#: src/gui/forms/basemainwindow.cpp:821
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
 msgstr "Errore"
 
-#: src/gui/forms/basemainwindow.cpp:816
+#: src/gui/forms/basemainwindow.cpp:847
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
 msgstr "Importa"
 
-#: src/gui/forms/basemainwindow.cpp:1096 src/gui/forms/basemainwindow.cpp:1102
-#: src/gui/forms/basemainwindow.cpp:1543 src/gui/forms/basemainwindow.cpp:1552
+#: src/gui/forms/basemainwindow.cpp:1127 src/gui/forms/basemainwindow.cpp:1133
+#: src/gui/forms/basemainwindow.cpp:1571 src/gui/forms/basemainwindow.cpp:1580
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "Errore durante la rinomina:\n"
 
-#: src/gui/forms/basemainwindow.cpp:1097
+#: src/gui/forms/basemainwindow.cpp:1128
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
 msgstr "Riprova dopo la chiusura delle cartelle?"
 
-#: src/gui/forms/basemainwindow.cpp:1174
+#: src/gui/forms/basemainwindow.cpp:1205
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/gui/forms/basemainwindow.cpp:1245
+#: src/gui/forms/basemainwindow.cpp:1273
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " [filtrato %1/%2]"
 
-#: src/gui/forms/basemainwindow.cpp:1359
+#: src/gui/forms/basemainwindow.cpp:1387
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "Aggiungi frame"
 
-#: src/gui/forms/basemainwindow.cpp:1360
+#: src/gui/forms/basemainwindow.cpp:1388
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "Seleziona l'ID del frame"
 
-#: src/gui/forms/basemainwindow.cpp:1506
+#: src/gui/forms/basemainwindow.cpp:1534
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "Rinomina file"
 
-#: src/gui/forms/basemainwindow.cpp:1507
+#: src/gui/forms/basemainwindow.cpp:1535
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "Digita il nuovo nome file:"
 
-#: src/gui/forms/basemainwindow.cpp:1544 src/gui/forms/basemainwindow.cpp:1553
+#: src/gui/forms/basemainwindow.cpp:1572 src/gui/forms/basemainwindow.cpp:1581
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "Rinomina di %1 in %2 non riuscita\n"
 
-#: src/gui/forms/basemainwindow.cpp:1545
+#: src/gui/forms/basemainwindow.cpp:1573
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "Riprova dopo la chiusura delle cartelle?"
 
-#: src/gui/forms/basemainwindow.cpp:1563
+#: src/gui/forms/basemainwindow.cpp:1591
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Vuoi davvero cestinare questi %1 elementi?"
 
-#: src/gui/forms/basemainwindow.cpp:1592
+#: src/gui/forms/basemainwindow.cpp:1620
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Vuoi davvero cestinare questi %1 elementi?"
 
-#: src/gui/forms/basemainwindow.cpp:1594
+#: src/gui/forms/basemainwindow.cpp:1622
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "Vuoi davvero cestinare questo elemento?"
 
-#: src/gui/forms/basemainwindow.cpp:1596
+#: src/gui/forms/basemainwindow.cpp:1624
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "Cestina"
 
-#: src/gui/forms/basemainwindow.cpp:1625
+#: src/gui/forms/basemainwindow.cpp:1653
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "La cartella deve essere vuota.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1626
+#: src/gui/forms/basemainwindow.cpp:1654
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "Impossibile spostare questi file nel cestino"
 
-#: src/gui/forms/basemainwindow.cpp:1659
+#: src/gui/forms/basemainwindow.cpp:1687
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "Espandi tutto"
 
-#: src/gui/forms/basemainwindow.cpp:1771
+#: src/gui/forms/basemainwindow.cpp:1799
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "Inte&rrompi"
@@ -5594,42 +5602,42 @@ msgstr ""
 "la copertina\n"
 "dell'album"
 
-#: src/gui/widgets/playtoolbar.cpp:61
+#: src/gui/widgets/playtoolbar.cpp:103
 msgctxt "PlayToolBar|"
 msgid "Play"
 msgstr "Riproduci"
 
-#: src/gui/widgets/playtoolbar.cpp:66
+#: src/gui/widgets/playtoolbar.cpp:108
 msgctxt "PlayToolBar|"
 msgid "Play/Pause"
 msgstr "Riproduci/Pausa"
 
-#: src/gui/widgets/playtoolbar.cpp:68
+#: src/gui/widgets/playtoolbar.cpp:110
 msgctxt "PlayToolBar|"
 msgid "Stop playback"
 msgstr "Interrompi la riproduzione"
 
-#: src/gui/widgets/playtoolbar.cpp:70
+#: src/gui/widgets/playtoolbar.cpp:112
 msgctxt "PlayToolBar|"
 msgid "Previous Track"
 msgstr "Traccia precedente"
 
-#: src/gui/widgets/playtoolbar.cpp:72
+#: src/gui/widgets/playtoolbar.cpp:114
 msgctxt "PlayToolBar|"
 msgid "Next Track"
 msgstr "Traccia successiva"
 
-#: src/gui/widgets/playtoolbar.cpp:74
+#: src/gui/widgets/playtoolbar.cpp:116
 msgctxt "PlayToolBar|"
 msgid "Close"
 msgstr "Chiudi"
 
-#: src/gui/widgets/playtoolbar.cpp:91
+#: src/gui/widgets/playtoolbar.cpp:134
 msgctxt "PlayToolBar|"
 msgid "Mute"
 msgstr "Muto"
 
-#: src/gui/widgets/playtoolbar.cpp:265
+#: src/gui/widgets/playtoolbar.cpp:318
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
