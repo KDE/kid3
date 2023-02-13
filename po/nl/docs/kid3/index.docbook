@@ -722,6 +722,10 @@ end manpage include-->
 > van <link linkend="configure-kid3"
 >&kid3; configureren</link
 >. Het afspelen bij dubbelklikken kan ook daar geactiveerd worden. </para
+><para
+>Wanneer <guilabel
+>Bestand selecteren dat wordt afgespeeld</guilabel
+> is geactiveerd is de nu afspelende track automatisch geselecteerd in de bestandenlijst. </para
 ></listitem>
 </itemizedlist>
 </para>
@@ -4232,6 +4236,8 @@ end manpage include-->
 >, <guibutton
 >Afsluiten</guibutton
 >), schuifregelaars voor positie en volume en een weergave van de huidige positie. Als meerdere bestanden zijn geselecteerd, zullen de geselecteerde tracks worden afgespeeld, anders zullen alle bestanden worden afgespeeld. </para
+><para
+>De getoonde tijd kan gewisseld worden tussen verlopen en overblijvende tijd door te klikken op het beeld. </para
 ></listitem>
 </varlistentry>
 

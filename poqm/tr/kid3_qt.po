@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-02-05 12:27+0300\n"
+"PO-Revision-Date: 2023-02-12 10:38+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -35,12 +35,12 @@ msgstr "Yardım"
 #: src/app/cli/clicommand.cpp:395
 msgctxt "HelpCommand|"
 msgid "Command name"
-msgstr "Komut Adı"
+msgstr "Komut adı"
 
 #: src/app/cli/clicommand.cpp:406
 msgctxt "TimeoutCommand|"
 msgid "Overwrite timeout"
-msgstr "Zaman aşımı"
+msgstr "Üzerine yazım zaman aşımı"
 
 #: src/app/cli/clicommand.cpp:407
 msgctxt "TimeoutCommand|"
@@ -96,7 +96,7 @@ msgstr "Dosyaya yazılırken hata:\n"
 #: src/app/cli/clicommand.cpp:557
 msgctxt "SelectCommand|"
 msgid "Select file"
-msgstr "Dosya Seç"
+msgstr "Dosya seç"
 
 #: src/app/cli/clicommand.cpp:580
 #, qt-format
@@ -133,17 +133,17 @@ msgstr "Geri Al"
 #: src/app/cli/clicommand.cpp:675
 msgctxt "ImportCommand|"
 msgid "Import from file"
-msgstr "Dosya'dan Al"
+msgstr "Dosyadan içe aktar"
 
 #: src/app/cli/clicommand.cpp:677
 msgctxt "ImportCommand|"
 msgid "File path"
-msgstr "Dosya Yolu"
+msgstr "Dosya yolu"
 
 #: src/app/cli/clicommand.cpp:677
 msgctxt "ImportCommand|"
 msgid "Format name"
-msgstr "Biçim"
+msgstr "Biçim adı"
 
 #: src/app/cli/clicommand.cpp:678
 msgctxt "ImportCommand|"
@@ -164,7 +164,7 @@ msgstr "%1 bulunamadı."
 #: src/app/cli/clicommand.cpp:709
 msgctxt "ImportCommand|"
 msgid "Available"
-msgstr "Ulaşılabilir"
+msgstr "Kullanılabilir"
 
 #: src/app/cli/clicommand.cpp:720
 msgctxt "ImportCommand|"
@@ -174,12 +174,12 @@ msgstr "Hata"
 #: src/app/cli/clicommand.cpp:730
 msgctxt "BatchImportCommand|"
 msgid "Automatic import"
-msgstr "Otomatik al"
+msgstr "Otomatik içe aktar"
 
 #: src/app/cli/clicommand.cpp:731
 msgctxt "BatchImportCommand|"
 msgid "Profile name"
-msgstr "Profil Adı"
+msgstr "Profil adı"
 
 #: src/app/cli/clicommand.cpp:743
 #, qt-format
@@ -190,22 +190,22 @@ msgstr "%1 bulunamadı."
 #: src/app/cli/clicommand.cpp:745
 msgctxt "BatchImportCommand|"
 msgid "Available"
-msgstr "Ulaşılabilir"
+msgstr "Kullanılabilir"
 
 #: src/app/cli/clicommand.cpp:818
 msgctxt "AlbumArtCommand|"
 msgid "Download album cover artwork"
-msgstr "Kapak resimlerini al"
+msgstr "Kapak görselini indir"
 
 #: src/app/cli/clicommand.cpp:862
 msgctxt "ExportCommand|"
 msgid "Export to file"
-msgstr "Dosyaya aktar"
+msgstr "Dosyaya dışa aktar"
 
 #: src/app/cli/clicommand.cpp:863
 msgctxt "ExportCommand|"
 msgid "Format name"
-msgstr "Biçim"
+msgstr "Biçim adı"
 
 #: src/app/cli/clicommand.cpp:878
 #, qt-format
@@ -216,7 +216,7 @@ msgstr "%1 bulunamadı."
 #: src/app/cli/clicommand.cpp:880
 msgctxt "ExportCommand|"
 msgid "Available"
-msgstr "Ulaşılabilir"
+msgstr "Kullanılabilir"
 
 #: src/app/cli/clicommand.cpp:891
 msgctxt "ExportCommand|"
@@ -226,7 +226,7 @@ msgstr "Hata"
 #: src/app/cli/clicommand.cpp:900
 msgctxt "PlaylistCommand|"
 msgid "Create playlist"
-msgstr "Playlist Yarat"
+msgstr "Çalma Listesi Oluştur"
 
 #: src/app/cli/clicommand.cpp:907
 msgctxt "PlaylistCommand|"
@@ -282,7 +282,7 @@ msgstr "%1 bulunamadı."
 #: src/app/cli/clicommand.cpp:1083
 msgctxt "FilterCommand|"
 msgid "Available"
-msgstr "Ulaşılabilir"
+msgstr "Kullanılabilir"
 
 #: src/app/cli/clicommand.cpp:1157
 msgctxt "ToId3v24Command|"
@@ -415,7 +415,7 @@ msgstr "Komut"
 #: src/app/cli/kid3cli.cpp:312
 msgctxt "Kid3Cli|"
 msgid "Available Commands"
-msgstr "Uygun komutlar"
+msgstr "Kullanılabilir Komutlar"
 
 #: src/app/cli/kid3cli.cpp:760
 msgctxt "Kid3Cli|"
@@ -499,7 +499,7 @@ msgstr "Sorguluyor"
 #: src/app/cli/textcliformatter.cpp:314
 msgctxt "TextCliFormatter|"
 msgid "Fetching"
-msgstr "İndiriliyor"
+msgstr "Getiriliyor"
 
 #: src/app/cli/textcliformatter.cpp:316
 msgctxt "TextCliFormatter|"
@@ -649,54 +649,54 @@ msgstr "Kaldır"
 #: src/app/kde/kdemainwindow.cpp:216
 msgctxt "KdeMainWindow|"
 msgid "&Import..."
-msgstr "A&l..."
+msgstr "İç&e Aktar..."
 
 #: src/app/kde/kdemainwindow.cpp:217
 msgctxt "KdeMainWindow|"
 msgid "Import from file or clipboard"
-msgstr "Dosya veya Pano'dan Al"
+msgstr "Dosyadan veya panodan içe aktar"
 
 #: src/app/kde/kdemainwindow.cpp:232 src/app/kde/kdemainwindow.cpp:249
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1..."
-msgstr "%1'den Al..."
+msgstr "Şuradan içe aktar: %1..."
 
 #: src/app/kde/kdemainwindow.cpp:234 src/app/kde/kdemainwindow.cpp:250
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1"
-msgstr "%1'den Al"
+msgstr "Şuradan içe aktar: %1"
 
 #: src/app/kde/kdemainwindow.cpp:257
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags..."
-msgstr "Etiketlerden İçe Aktar..."
+msgstr "Etiketlerden içe aktar..."
 
 #: src/app/kde/kdemainwindow.cpp:258
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags"
-msgstr "Etiketlerden İçe Aktar"
+msgstr "Etiketlerden içe aktar"
 
 #: src/app/kde/kdemainwindow.cpp:262
 msgctxt "KdeMainWindow|"
 msgid "Automatic I&mport..."
-msgstr "Oto&matik al..."
+msgstr "Oto&matik İçe Aktar..."
 
 #: src/app/kde/kdemainwindow.cpp:263
 msgctxt "KdeMainWindow|"
 msgid "Automatic import"
-msgstr "Otomatik al"
+msgstr "Otomatik içe aktar"
 
 #: src/app/kde/kdemainwindow.cpp:267
 msgctxt "KdeMainWindow|"
 msgid "&Browse Cover Art..."
-msgstr "&Kapak Resimlerini Al..."
+msgstr "&Kapak Görsellerine Göz At..."
 
 #: src/app/kde/kdemainwindow.cpp:268
 msgctxt "KdeMainWindow|"
 msgid "Browse album cover artwork"
-msgstr "Kapak resimlerini al"
+msgstr "Kapak görseli ağına göz at"
 
 #: src/app/kde/kdemainwindow.cpp:272
 msgctxt "KdeMainWindow|"
@@ -706,17 +706,17 @@ msgstr "&Dışa Aktar..."
 #: src/app/kde/kdemainwindow.cpp:273
 msgctxt "KdeMainWindow|"
 msgid "Export to file or clipboard"
-msgstr "Dosya veya Panoya Ver"
+msgstr "Dosyaya veya panoya dışa aktar"
 
 #: src/app/kde/kdemainwindow.cpp:277
 msgctxt "KdeMainWindow|"
 msgid "&Create Playlist..."
-msgstr "Playlist &Yarat..."
+msgstr "Çalma Listesi &Oluştur..."
 
 #: src/app/kde/kdemainwindow.cpp:278
 msgctxt "KdeMainWindow|"
 msgid "Create M3U Playlist"
-msgstr "M3U Playlist Dosyası Yarat"
+msgstr "M3U Çalma Listesi Dosyası Oluştur"
 
 #: src/app/kde/kdemainwindow.cpp:281
 msgctxt "KdeMainWindow|"
@@ -1166,59 +1166,59 @@ msgstr "&Geri Al"
 #: src/app/qt/kid3mainwindow.cpp:199
 msgctxt "Kid3MainWindow|"
 msgid "Import from file or clipboard"
-msgstr "Dosya veya Pano'dan Al"
+msgstr "Dosyadan veya panodan içe aktar"
 
 #: src/app/qt/kid3mainwindow.cpp:200
 msgctxt "Kid3MainWindow|"
 msgid "&Import..."
-msgstr "A&l..."
+msgstr "İç&e Aktar..."
 
 #: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:242
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1"
-msgstr "%1'den Al"
+msgstr "Şuradan içe aktar: %1"
 
 #: src/app/qt/kid3mainwindow.cpp:222 src/app/qt/kid3mainwindow.cpp:243
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1..."
-msgstr "%1'den Al..."
+msgstr "Şuradan içe aktar: %1..."
 
 #: src/app/qt/kid3mainwindow.cpp:253
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags"
-msgstr "Etiketlerden İçe Aktar"
+msgstr "Etiketlerden içe aktar"
 
 #: src/app/qt/kid3mainwindow.cpp:254
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags..."
-msgstr "Etiketlerden İçe Aktar..."
+msgstr "Etiketlerden içe aktar..."
 
 #: src/app/qt/kid3mainwindow.cpp:262
 msgctxt "Kid3MainWindow|"
 msgid "Automatic import"
-msgstr "Otomatik al"
+msgstr "Otomatik içe aktar"
 
 #: src/app/qt/kid3mainwindow.cpp:263
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
-msgstr "Oto&matik al..."
+msgstr "Oto&matik İçe Aktar..."
 
 #: src/app/qt/kid3mainwindow.cpp:271
 msgctxt "Kid3MainWindow|"
 msgid "Browse album cover artwork"
-msgstr "Kapak resimlerini al"
+msgstr "Kapat görseli ağına göz at"
 
 #: src/app/qt/kid3mainwindow.cpp:272
 msgctxt "Kid3MainWindow|"
 msgid "&Browse Cover Art..."
-msgstr "&Kapak Resimlerini Al..."
+msgstr "&Kapak Görsellerine Göz At..."
 
 #: src/app/qt/kid3mainwindow.cpp:281
 msgctxt "Kid3MainWindow|"
 msgid "Export to file or clipboard"
-msgstr "Dosya veya Panoya Ver"
+msgstr "Dosyaya veya panoya dışa aktar"
 
 #: src/app/qt/kid3mainwindow.cpp:282
 msgctxt "Kid3MainWindow|"
@@ -1228,12 +1228,12 @@ msgstr "&Dışa Aktar..."
 #: src/app/qt/kid3mainwindow.cpp:292
 msgctxt "Kid3MainWindow|"
 msgid "Create M3U Playlist"
-msgstr "M3U Playlist Dosyası Yarat"
+msgstr "M3U Çalma Listesi Dosyası Oluştur"
 
 #: src/app/qt/kid3mainwindow.cpp:293
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
-msgstr "Playlist &Yarat..."
+msgstr "Çalma Listesi &Oluştur..."
 
 #: src/app/qt/kid3mainwindow.cpp:306
 msgctxt "Kid3MainWindow|"
@@ -1676,7 +1676,7 @@ msgstr "Ek Özellikler"
 #: src/core/config/batchimportsourcesmodel.cpp:174
 msgctxt "BatchImportSourcesModel|"
 msgid "Cover Art"
-msgstr "Albüm Kapağı"
+msgstr "Kapak Görseli"
 
 #: src/core/config/fileconfig.cpp:181
 msgctxt "Kid3Application|"
@@ -1815,7 +1815,7 @@ msgstr "Parça No"
 #: src/core/tags/frame.cpp:2004
 msgctxt "@default|"
 msgid "Genre"
-msgstr "Tarz"
+msgstr "Tür"
 
 #: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:231
 #: src/core/tags/trackdata.cpp:231
@@ -2532,7 +2532,7 @@ msgstr "Resim Türü"
 #: src/core/tags/frame.cpp:57
 msgctxt "@default|"
 msgid "Image format"
-msgstr "Görüntü Formatı"
+msgstr "Görsel biçimi"
 
 #: src/core/tags/frame.cpp:58
 msgctxt "@default|"
@@ -3279,7 +3279,7 @@ msgstr "Katalog Kimlik"
 #: src/core/tags/frame.cpp:299
 msgctxt "@default|"
 msgid "Genre ID"
-msgstr "Tarz Kimlik"
+msgstr "Tür Kimliği"
 
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
@@ -3769,7 +3769,7 @@ msgstr "Sorguluyor"
 #: src/gui/dialogs/batchimportdialog.cpp:491
 msgctxt "BatchImportDialog|"
 msgid "Fetching"
-msgstr "İndiriliyor"
+msgstr "Getiriliyor"
 
 #: src/gui/dialogs/batchimportdialog.cpp:494
 msgctxt "BatchImportDialog|"
@@ -3799,7 +3799,7 @@ msgstr "Hata"
 #: src/gui/dialogs/batchimportdialog.cpp:524
 msgctxt "BatchImportDialog|"
 msgid "A&bort"
-msgstr "İ&ptal"
+msgstr "İ&ptal Et"
 
 #: src/gui/dialogs/batchimportdialog.cpp:524
 msgctxt "BatchImportDialog|"
@@ -3834,13 +3834,13 @@ msgstr "&Ek Özellikler"
 #: src/gui/dialogs/batchimportsourcedialog.cpp:72
 msgctxt "BatchImportSourceDialog|"
 msgid "C&over Art"
-msgstr "&Albüm Kapağı"
+msgstr "&Kapak Görseli"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:83
 #: src/gui/dialogs/browsecoverartdialog.cpp:263
 msgctxt "BrowseCoverArtDialog|"
 msgid "Browse Cover Art"
-msgstr "Kapak Resimlerini Al"
+msgstr "Kapak Görsellerine Göz At"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:92
 msgctxt "BrowseCoverArtDialog|"
@@ -3941,7 +3941,7 @@ msgstr "&Hane sayısı:"
 #: src/gui/dialogs/configdialogpages.cpp:200
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
-msgstr "Tarzı sayısal dizi yerine metin olarak göster"
+msgstr "Türü, sayısal dizi yerine metin olarak göster"
 
 #: src/gui/dialogs/configdialogpages.cpp:202
 msgctxt "ConfigDialogPages|"
@@ -3996,12 +3996,12 @@ msgstr "Şundan da&ha büyükse imle:"
 #: src/gui/dialogs/configdialogpages.cpp:285
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
-msgstr "&Yalnızca özel tarzları göster"
+msgstr "&Yalnızca özel türleri göster"
 
 #: src/gui/dialogs/configdialogpages.cpp:293
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
-msgstr "Ö&zel Tarzlar"
+msgstr "Ö&zel Türler"
 
 #: src/gui/dialogs/configdialogpages.cpp:305
 msgctxt "ConfigDialogPages|"
@@ -4091,7 +4091,7 @@ msgstr "Albüm kapağı &için dosya adı:"
 #: src/gui/dialogs/configdialogpages.cpp:403
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
-msgstr "M&etin kodlama (Dışa aktar, playlist):"
+msgstr "M&etin kodlama (Dışa Aktar, Çalma Listesi):"
 
 #: src/gui/dialogs/configdialogpages.cpp:408
 msgctxt "ConfigDialogPages|"
@@ -4175,12 +4175,9 @@ msgid "&Play on double click"
 msgstr "&Çift tıklayın çal"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
-#, fuzzy
-#| msgctxt "SelectCommand|"
-#| msgid "Select file"
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "Dosya Seç"
+msgstr "Çalma sırasında dosya &seç"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
@@ -4215,7 +4212,7 @@ msgstr "&Üst Veri Eklentileri ve Öncelik"
 #: src/gui/dialogs/configdialogpages.cpp:621
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
-msgstr "&Kullanılabilir eklentiler"
+msgstr "&Kullanılabilir Eklentiler"
 
 #: src/gui/dialogs/configdialogpages.cpp:632
 msgctxt "ConfigDialogPages|"
@@ -4281,7 +4278,7 @@ msgstr "&Biçim:"
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "H&eader:"
-msgstr "&Üst Bilgi:"
+msgstr "&Üstbilgi:"
 
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
@@ -4291,7 +4288,7 @@ msgstr "Pa&rçalar:"
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "F&ooter:"
-msgstr "Al&tlık:"
+msgstr "Al&tbilgi:"
 
 #: src/gui/dialogs/exportdialog.cpp:91
 msgctxt "ExportDialog|"
@@ -4493,7 +4490,7 @@ msgstr "Doğruluk:"
 #: src/gui/dialogs/importdialog.cpp:139
 msgctxt "ImportDialog|"
 msgid "Cover Art:"
-msgstr "Albüm Kapağı:"
+msgstr "Kapak Görseli:"
 
 #: src/gui/dialogs/importdialog.cpp:148
 msgctxt "ImportDialog|"
@@ -4614,12 +4611,12 @@ msgstr "İ&ptal"
 #: src/gui/dialogs/playlistdialog.cpp:56
 msgctxt "PlaylistDialog|"
 msgid "Create Playlist"
-msgstr "Playlist Yarat"
+msgstr "Çalma Listesi Oluştur"
 
 #: src/gui/dialogs/playlistdialog.cpp:144
 msgctxt "PlaylistDialog|"
 msgid "Playlist File Name"
-msgstr "Çalma Listesi Dosya Adı"
+msgstr "Çalma Listesi Dosyası Adı"
 
 #: src/gui/dialogs/playlistdialog.cpp:145
 msgctxt "PlaylistDialog|"
@@ -4634,7 +4631,7 @@ msgstr "&Biçim:"
 #: src/gui/dialogs/playlistdialog.cpp:152
 msgctxt "PlaylistDialog|"
 msgid "Create ne&w empty playlist:"
-msgstr "&Yeni boş oynatma listesi oluştur:"
+msgstr "&Yeni boş çalma listesi oluştur:"
 
 #: src/gui/dialogs/playlistdialog.cpp:153
 msgctxt "PlaylistDialog|"
@@ -4644,7 +4641,7 @@ msgstr "Yeni"
 #: src/gui/dialogs/playlistdialog.cpp:159
 msgctxt "PlaylistDialog|"
 msgid "Cr&eate in:"
-msgstr "&Oluşturulacak:"
+msgstr "&Şurada oluştur:"
 
 #: src/gui/dialogs/playlistdialog.cpp:162
 msgctxt "PlaylistDialog|"
@@ -4747,7 +4744,7 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
-"Bir oynatma listesi değiştirildi.\n"
+"Bir çalma listesi değiştirildi.\n"
 "Kaydetmek istiyor musunuz?"
 
 #: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:95
@@ -4843,7 +4840,7 @@ msgstr "&Ek Etiketler"
 #: src/gui/dialogs/serverimportdialog.cpp:100
 msgctxt "ServerImportDialog|"
 msgid "C&over Art"
-msgstr "&Albüm Kapağı"
+msgstr "&Kapak Görseli"
 
 #: src/gui/dialogs/serverimportdialog.cpp:114
 msgctxt "ServerImportDialog|"
@@ -4971,7 +4968,7 @@ msgstr "&Kapat"
 #: src/gui/dialogs/textimportdialog.cpp:58
 msgctxt "TextImportDialog|"
 msgid "Import from File/Clipboard"
-msgstr "Dosya veya Pano'dan Al"
+msgstr "Dosya veya Pano'dan İçe Aktar"
 
 #: src/gui/dialogs/textimportdialog.cpp:65
 msgctxt "TextImportDialog|"
@@ -4981,7 +4978,7 @@ msgstr "Biçim:"
 #: src/gui/dialogs/textimportdialog.cpp:65
 msgctxt "TextImportDialog|"
 msgid "Header:"
-msgstr "Üst Bilgi:"
+msgstr "Üstbilgi:"
 
 #: src/gui/dialogs/textimportdialog.cpp:65
 msgctxt "TextImportDialog|"
@@ -5072,7 +5069,7 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
-"Bir oynatma listesi değiştirildi.\n"
+"Bir çalma listesi değiştirildi.\n"
 "Kaydetmek istiyor musunuz?"
 
 #: src/gui/forms/basemainwindow.cpp:610
@@ -5101,8 +5098,8 @@ msgstr[1] "%n dosya"
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
 msgid_plural "%n selected"
-msgstr[0] "%n seçildi"
-msgstr[1] "%n seçildi"
+msgstr[0] "%n seçili"
+msgstr[1] "%n seçili"
 
 #: src/gui/forms/basemainwindow.cpp:710
 msgctxt "BaseMainWindowImpl|"
@@ -5112,7 +5109,7 @@ msgstr "Hazır."
 #: src/gui/forms/basemainwindow.cpp:772
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
-msgstr "Playlist Yaratılıyor..."
+msgstr "Çalma Listesi Oluşturuluyor..."
 
 #: src/gui/forms/basemainwindow.cpp:820
 msgctxt "BaseMainWindowImpl|"
@@ -5127,7 +5124,7 @@ msgstr "Hata"
 #: src/gui/forms/basemainwindow.cpp:847
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
-msgstr "Al"
+msgstr "İçe Aktar"
 
 #: src/gui/forms/basemainwindow.cpp:1127 src/gui/forms/basemainwindow.cpp:1133
 #: src/gui/forms/basemainwindow.cpp:1571 src/gui/forms/basemainwindow.cpp:1580
@@ -5159,7 +5156,7 @@ msgstr "Çerçeve Ekle"
 #: src/gui/forms/basemainwindow.cpp:1388
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
-msgstr "Çerçeve numarasını seç"
+msgstr "Çerçeve kimliğini seç"
 
 #: src/gui/forms/basemainwindow.cpp:1534
 msgctxt "BaseMainWindowImpl|"
@@ -5180,7 +5177,7 @@ msgstr "%1 adı %2 olarak değiştirilemedi\n"
 #: src/gui/forms/basemainwindow.cpp:1573
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
-msgstr "Klasörleri kapattıktan sonra yeniden dene?"
+msgstr "Klasörler kapatıldıktan sonra yeniden denensin mi?"
 
 #: src/gui/forms/basemainwindow.cpp:1591
 #, qt-format
@@ -5321,7 +5318,7 @@ msgstr "Etiket %1"
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Filename from Tag %1"
-msgstr "Etiket %1 konumundan dosya adı"
+msgstr "%1 etiketi konumundan dosya adı"
 
 #: src/gui/forms/kid3form.cpp:411
 msgctxt "Kid3Form|"
@@ -5332,7 +5329,7 @@ msgstr "Şuraya:"
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
-msgstr "Dosya adından etiket %1"
+msgstr "Şunu dosya adından etiketle: %1"
 
 #: src/gui/forms/kid3form.cpp:440 src/gui/forms/kid3form.cpp:891
 #, qt-format
@@ -5439,7 +5436,7 @@ msgstr "Sil"
 #: src/gui/forms/sectionactions.cpp:168
 msgctxt "SectionActions|"
 msgid "Open Parent Folder"
-msgstr "İlgili Klasörü Aç"
+msgstr "Üst Klasörü Aç"
 
 #: src/gui/forms/sectionactions.cpp:171
 msgctxt "SectionActions|"
@@ -5584,7 +5581,7 @@ msgstr "Tümünün Seçimini Ka&ldır"
 #: src/gui/widgets/imageviewer.cpp:49
 msgctxt "ImageViewer|"
 msgid "View Picture"
-msgstr "Resmi Göster"
+msgstr "Resmi Görüntüle"
 
 #: src/gui/widgets/imageviewer.cpp:55
 msgctxt "ImageViewer|"
@@ -5721,7 +5718,7 @@ msgstr "&Panodan"
 #: src/gui/widgets/timeeventeditor.cpp:126
 msgctxt "TimeEventEditor|"
 msgid "&Import..."
-msgstr "A&l..."
+msgstr "İç&e Aktar..."
 
 #: src/gui/widgets/timeeventeditor.cpp:128
 msgctxt "TimeEventEditor|"
@@ -5801,7 +5798,7 @@ msgstr "Kullanıcı Seçimi"
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:318
 msgctxt "MusicBrainzClient|"
 msgid "ID Lookup"
-msgstr "ID Görünümü"
+msgstr "Kimlik Arama"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:326
 msgctxt "MusicBrainzClient|"
@@ -5816,7 +5813,7 @@ msgstr "Parmak İzinden"
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:355
 msgctxt "MusicBrainzClient|"
 msgid "Metadata Lookup"
-msgstr "Meta-verisi Oku"
+msgstr "Üst Veri Arama"
 
 #: src/plugins/amazonimport/amazonimporter.cpp:72
 msgctxt "@default|"
@@ -6007,7 +6004,7 @@ msgstr "TDAT - Tarih"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2383
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
-msgstr "TDLY - Şarkı listesi gecikmesi"
+msgstr "TDLY - Çalma listesi gecikmesi"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:957
 #: src/plugins/taglibmetadata/taglibfile.cpp:2388
@@ -6488,7 +6485,7 @@ msgstr "Sorguluyor"
 #: src/qml/app/BatchImportPage.qml:53
 msgctxt "BatchImportPage|"
 msgid "Fetching"
-msgstr "İndiriliyor"
+msgstr "Getiriliyor"
 
 #: src/qml/app/BatchImportPage.qml:56
 msgctxt "BatchImportPage|"
@@ -6628,7 +6625,7 @@ msgstr "Dışa Aktar"
 #: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
 msgctxt "FrameEditDialog|"
 msgid "Import"
-msgstr "Al"
+msgstr "İçe Aktar"
 
 #: src/qml/app/FrameSelectDialog.qml:38
 msgctxt "FrameSelectDialog|"
@@ -6672,7 +6669,7 @@ msgstr "Ek Özellikler"
 #: src/qml/app/ImportProfilesEditPage.qml:159
 msgctxt "ImportProfilesEditPage|"
 msgid "Cover Art"
-msgstr "Albüm Kapağı"
+msgstr "Kapak Görseli"
 
 #: src/qml/app/ImportProfilesEditPage.qml:128
 msgctxt "ImportProfilesEditPage|"
@@ -6754,12 +6751,12 @@ msgstr "Ayarlar"
 #: src/qml/app/MainPage.qml:189
 msgctxt "MainPage|"
 msgid "Automatic Import"
-msgstr "Otomatik al"
+msgstr "Otomatik İçe Aktar"
 
 #: src/qml/app/MainPage.qml:198
 msgctxt "MainPage|"
 msgid "Create Playlist"
-msgstr "Playlist Yarat"
+msgstr "Çalma Listesi Oluştur"
 
 #: src/qml/app/MainPage.qml:202
 msgctxt "MainPage|"
@@ -6980,7 +6977,7 @@ msgstr "Parça/Toplam Parça Sayısı biçimini kullan"
 #: src/qml/app/SettingsPage.qml:70
 msgctxt "SettingsPage|"
 msgid "Genre as text instead of numeric string"
-msgstr "Tarzı sayısal dizi yerine metin olarak göster"
+msgstr "Türü, sayısal dizi yerine metin olarak göster"
 
 #: src/qml/app/SettingsPage.qml:75
 msgctxt "SettingsPage|"
@@ -7020,17 +7017,17 @@ msgstr "Resim izin verilen en büyük boyuttan büyükse imle"
 #: src/qml/app/SettingsPage.qml:122
 msgctxt "SettingsPage|"
 msgid "Picture maximum size (bytes)"
-msgstr "Maksimum boyut (bayt)"
+msgstr "En büyük resim boyutu (bayt)"
 
 #: src/qml/app/SettingsPage.qml:127
 msgctxt "SettingsPage|"
 msgid "Show only custom genres"
-msgstr "Yalnızca özel tarzları göster"
+msgstr "Yalnızca özel türleri göster"
 
 #: src/qml/app/SettingsPage.qml:131
 msgctxt "SettingsPage|"
 msgid "Custom Genres"
-msgstr "Özel Tarzlar"
+msgstr "Özel Türler"
 
 #: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:243
 msgctxt "SettingsPage|"
@@ -7110,7 +7107,7 @@ msgstr "Albüm kapağı için dosya adı"
 #: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
-msgstr "Playlist karakter kodlaması"
+msgstr "Çalma listesi karakter kodlaması"
 
 #: src/qml/app/SettingsPage.qml:286
 msgctxt "SettingsPage|"

@@ -744,6 +744,10 @@ end manpage include-->
 > de <link linkend="configure-kid3"
 >Configura el &kid3;</link
 >. La reproducció amb doble clic també es pot activar allà. </para
+><para
+>Quan s'activa <guilabel
+>Selecciona el fitxer en reproducció</guilabel
+>, la peça actual en reproducció se selecciona automàticament en la llista de fitxers. </para
 ></listitem>
 </itemizedlist>
 </para>
@@ -4242,6 +4246,8 @@ end manpage include-->
 >, <guibutton
 >Tanca</guibutton
 >), controls lliscants per a la posició i el volum, i una vista de la posició actual. Si se seleccionen múltiples fitxers, es reproduiran les peces seleccionades. En cas contrari, es reproduiran tots els fitxers. </para
+><para
+>El temps mostrat es pot alternar entre el temps transcorregut i el temps restant fent clic a la pantalla. </para
 ></listitem>
 </varlistentry>
 

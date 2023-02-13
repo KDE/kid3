@@ -3,13 +3,13 @@
 #
 #
 # Martin Srebotnjak <miles@filmsi.net>, 2021, 2022.
-# Matjaž Jeran <matjaz.jeran@amis.net>, 2022.
+# Matjaž Jeran <matjaz.jeran@amis.net>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3 Trunk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-03-28 00:39+0000\n"
-"PO-Revision-Date: 2022-07-11 08:19+0200\n"
+"PO-Revision-Date: 2023-02-12 18:29+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
 "%100<=4 ? 2 : 3);\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Lokalize 22.04.1\n"
+"X-Generator: Lokalize 22.12.2\n"
 "X-Language: sl_SI\n"
 "X-Source-Language: C\n"
 "X-Poedit-SourceCharset: ISO-8859-1\n"
@@ -4177,12 +4177,9 @@ msgid "&Play on double click"
 msgstr "&Predvajaj ob dvojnem kliku"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
-#, fuzzy
-#| msgctxt "SelectCommand|"
-#| msgid "Select file"
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "Izberite datoteko"
+msgstr "Izberite datoteko na predvajanju"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
