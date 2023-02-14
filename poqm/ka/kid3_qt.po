@@ -3599,12 +3599,12 @@ msgstr ""
 #: src/core/tags/pictureframe.cpp:55
 msgctxt "@default|"
 msgid "During recording"
-msgstr ""
+msgstr "ჩაწერისას"
 
 #: src/core/tags/pictureframe.cpp:56
 msgctxt "@default|"
 msgid "During performance"
-msgstr ""
+msgstr "შესრულებისას"
 
 #: src/core/tags/pictureframe.cpp:57
 msgctxt "@default|"
@@ -3911,7 +3911,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
-msgstr ""
+msgstr "ტექსტის &კოდირება:"
 
 #: src/gui/dialogs/configdialogpages.cpp:190
 msgctxt "ConfigDialogPages|"
@@ -4076,7 +4076,7 @@ msgstr "&ცვლილებების დანიშვნა"
 #: src/gui/dialogs/configdialogpages.cpp:402
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
-msgstr ""
+msgstr "ყდის &ფაილის სახელი:"
 
 #: src/gui/dialogs/configdialogpages.cpp:403
 msgctxt "ConfigDialogPages|"
@@ -4096,17 +4096,17 @@ msgstr "&ფილტრი:"
 #: src/gui/dialogs/configdialogpages.cpp:419
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
-msgstr ""
+msgstr "&საქაღალდის ჩათვლით:"
 
 #: src/gui/dialogs/configdialogpages.cpp:423
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
-msgstr ""
+msgstr "საქაღალდის &გამორიცხვა:"
 
 #: src/gui/dialogs/configdialogpages.cpp:427
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
-msgstr ""
+msgstr "დამალული ფაილების &ჩვენება"
 
 #: src/gui/dialogs/configdialogpages.cpp:439
 msgctxt "ConfigDialogPages|"
@@ -4132,17 +4132,17 @@ msgstr "დასაკრავი სია"
 #: src/gui/dialogs/configdialogpages.cpp:466
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
-msgstr ""
+msgstr "&ფაილის სახელის ფორმატი"
 
 #: src/gui/dialogs/configdialogpages.cpp:482
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
-msgstr ""
+msgstr "ფაილის სახელი ჭდიდან"
 
 #: src/gui/dialogs/configdialogpages.cpp:498
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
-msgstr ""
+msgstr "ჭდე ფაილის სახელიდან"
 
 #: src/gui/dialogs/configdialogpages.cpp:528
 msgctxt "ConfigDialogPages|"
@@ -4157,7 +4157,7 @@ msgstr "ვებ &ბრაუზერი:"
 #: src/gui/dialogs/configdialogpages.cpp:538
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
-msgstr ""
+msgstr "კონტექსტური &მენიუს ბრძანებები"
 
 #: src/gui/dialogs/configdialogpages.cpp:541
 msgctxt "ConfigDialogPages|"
@@ -4165,12 +4165,9 @@ msgid "&Play on double click"
 msgstr ""
 
 #: src/gui/dialogs/configdialogpages.cpp:543
-#, fuzzy
-#| msgctxt "SelectCommand|"
-#| msgid "Select file"
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "აირჩიეთ ფაილი"
+msgstr "&აირჩიეთ დასაკრავი ფაილი"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
@@ -4190,12 +4187,12 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:571
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
-msgstr ""
+msgstr "პროქსის მომხმარებლის &სახელი:"
 
 #: src/gui/dialogs/configdialogpages.cpp:575
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
-msgstr ""
+msgstr "პროქსის &პაროლი:"
 
 #: src/gui/dialogs/configdialogpages.cpp:609
 msgctxt "ConfigDialogPages|"
@@ -4493,12 +4490,12 @@ msgstr ""
 #: src/gui/dialogs/importdialog.cpp:151
 msgctxt "ImportDialog|"
 msgid "From T&ags..."
-msgstr ""
+msgstr "&ჭდეებიდან..."
 
 #: src/gui/dialogs/importdialog.cpp:154
 msgctxt "ImportDialog|"
 msgid "&From Server..."
-msgstr ""
+msgstr "&სერვერიდან..."
 
 #: src/gui/dialogs/importdialog.cpp:176
 msgctxt "ImportDialog|"
@@ -4518,7 +4515,7 @@ msgstr ""
 #: src/gui/dialogs/importdialog.cpp:207
 msgctxt "ImportDialog|"
 msgid "Match with:"
-msgstr ""
+msgstr "ემთხვევა:"
 
 #: src/gui/dialogs/importdialog.cpp:209
 msgctxt "ImportDialog|"
@@ -4564,7 +4561,7 @@ msgstr "ტრეკების რაოდენობა"
 #: src/gui/dialogs/numbertracksdialog.cpp:55
 msgctxt "NumberTracksDialog|"
 msgid "Start &number:"
-msgstr ""
+msgstr "საწყისი &რიცხვი:"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:67
 msgctxt "NumberTracksDialog|"
@@ -5138,7 +5135,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:1387
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
-msgstr ""
+msgstr "კადრის დამატება"
 
 #: src/gui/forms/basemainwindow.cpp:1388
 msgctxt "BaseMainWindowImpl|"
@@ -5513,7 +5510,7 @@ msgstr ""
 #: src/gui/widgets/formatbox.cpp:56
 msgctxt "FormatBox|"
 msgid "String replacement:"
-msgstr ""
+msgstr "სტრიქონის ჩანაცვლება:"
 
 #: src/gui/widgets/formatbox.cpp:58
 msgctxt "FormatBox|"
@@ -5657,7 +5654,7 @@ msgstr "წაშლა"
 #: src/gui/widgets/subframeseditor.cpp:129
 msgctxt "SubframesEditor|"
 msgid "Add Frame"
-msgstr ""
+msgstr "კადრის დამატება"
 
 #: src/gui/widgets/subframeseditor.cpp:130
 msgctxt "SubframesEditor|"
@@ -6041,7 +6038,7 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibfile.cpp:2402
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
-msgstr ""
+msgstr "TLAN - ენ(ები/ა)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:966
 #: src/plugins/taglibmetadata/taglibfile.cpp:2403
@@ -6252,7 +6249,7 @@ msgstr ""
 #: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
 msgctxt "@default|"
 msgid "MusicBrainz Release"
-msgstr ""
+msgstr "MusicBrainz რელიზი"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2331
 msgctxt "@default|"
@@ -6613,7 +6610,7 @@ msgstr "იმპორტი"
 #: src/qml/app/FrameSelectDialog.qml:38
 msgctxt "FrameSelectDialog|"
 msgid "Add Frame"
-msgstr ""
+msgstr "კადრის დამატება"
 
 #: src/qml/app/FrameSelectDialog.qml:47
 msgctxt "FrameSelectDialog|"
@@ -7098,7 +7095,7 @@ msgstr ""
 #: src/qml/app/SettingsPage.qml:296
 msgctxt "SettingsPage|"
 msgid "Filename from Tag"
-msgstr ""
+msgstr "ფაილის სახელი ჭდიდან"
 
 #: src/qml/app/SettingsPage.qml:311
 msgctxt "SettingsPage|"
@@ -7108,7 +7105,7 @@ msgstr ""
 #: src/qml/app/SettingsPage.qml:321
 msgctxt "SettingsPage|"
 msgid "Tag from Filename"
-msgstr ""
+msgstr "ჭდე ფაილის სახელიდან"
 
 #: src/qml/app/SettingsPage.qml:405
 msgctxt "SettingsPage|"

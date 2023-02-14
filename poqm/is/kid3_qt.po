@@ -1,8 +1,8 @@
-# Sveinn í Felli <sv1@fellsnet.is>, 2021, 2022.
+# Sveinn í Felli <sv1@fellsnet.is>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2022-08-04 11:19+0000\n"
+"PO-Revision-Date: 2023-02-13 17:19+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: src/app/cli/clicommand.cpp:350
 msgctxt "CliCommand|"
@@ -4166,12 +4166,9 @@ msgid "&Play on double click"
 msgstr "S&pila með að tvísmella"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
-#, fuzzy
-#| msgctxt "SelectCommand|"
-#| msgid "Select file"
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "Veldu skrá"
+msgstr "Velja &skrá við afspilun"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
