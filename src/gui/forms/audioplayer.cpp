@@ -255,7 +255,8 @@ void AudioPlayer::onStateChanged()
    */
   void AudioPlayer::onMediaStatusChanged(int status)
   {
-    if (status == QMediaPlayer::EndOfMedia) {
+    if (status == QMediaPlayer::EndOfMedia &&
+        m_mediaPlaylist->currentIndex() + 1 < m_mediaPlaylist->mediaCount()) {
       m_mediaPlaylist->next();
       m_mediaPlayer->play();
     }
