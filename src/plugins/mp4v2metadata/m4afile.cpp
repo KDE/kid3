@@ -735,7 +735,12 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
   }
 
   if (m_fileRead && (force || isTagChanged(Frame::Tag_2))) {
-    QByteArray fn = QFile::encodeName(fnStr);
+    QByteArray fn =
+#ifdef Q_OS_WIN32
+        fnStr.toUtf8();
+#else
+        QFile::encodeName(fnStr);
+#endif
 
     // store time stamp if it has to be preserved
     quint64 actime = 0, modtime = 0;
