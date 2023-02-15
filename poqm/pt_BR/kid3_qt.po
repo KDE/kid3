@@ -1,9 +1,9 @@
-# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2020, 2021, 2022.
+# Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2020, 2021, 2022, 2023.
 # Frederico Gonçalves Guimarães <frederico@teia.bio.br>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2022-07-12 11:59-0300\n"
+"PO-Revision-Date: 2023-02-14 10:52-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -4169,12 +4169,9 @@ msgid "&Play on double click"
 msgstr "Reproduzir com du&plo clique"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
-#, fuzzy
-#| msgctxt "SelectCommand|"
-#| msgid "Select file"
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "Selecione o arquivo"
+msgstr "&Selecionar arquivo ao reproduzir"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
