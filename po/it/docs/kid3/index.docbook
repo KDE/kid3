@@ -740,6 +740,10 @@ end manpage include-->
 > di <link linkend="configure-kid3"
 >Configura &kid3;</link
 >. Qui è anche possibile attivare la riproduzione con doppio clic. </para
+><para
+>Quando <guilabel
+>Seleziona file in riproduzione</guilabel
+> è attiva, il brano attualmente riprodotto viene selezionato automaticamente nell'elenco dei file. </para
 ></listitem>
 </itemizedlist>
 </para>
@@ -4294,6 +4298,8 @@ end manpage include-->
 >, <guibutton
 >Chiudi</guibutton
 >), cursori per posizione e volume e un indicatore della posizione attuale. Se si selezionati più file, le tracce selezionate sono riprodotte, altrimenti saranno riprodotti tutti i file. </para
+><para
+>Il tempo visualizzato può essere commutato tra tempo trascorso e tempo rimanente facendo clic sullo schermo. </para
 ></listitem>
 </varlistentry>
 
