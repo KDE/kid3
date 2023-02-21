@@ -2288,10 +2288,11 @@ void Mp3File::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 void Mp3File::addFieldList(Frame::TagNumber tagNr, Frame& frame) const
 {
   if (tagNr == Frame::Tag_2 && frame.fieldList().isEmpty()) {
-    ID3_Frame* id3Frame = createId3FrameFromFrame(frame);
-    getFieldsFromId3Frame(id3Frame, frame.fieldList());
-    frame.setFieldListFromValue();
-    delete id3Frame;
+    if (ID3_Frame* id3Frame = createId3FrameFromFrame(frame)) {
+      getFieldsFromId3Frame(id3Frame, frame.fieldList());
+      frame.setFieldListFromValue();
+      delete id3Frame;
+    }
   }
 }
 
