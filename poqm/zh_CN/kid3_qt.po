@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
-"PO-Revision-Date: 2023-02-15 11:04\n"
+"PO-Revision-Date: 2023-02-24 12:43\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -932,7 +932,7 @@ msgstr "重命名(&R)"
 #: src/app/kde/kdemainwindow.cpp:437
 msgctxt "KdeMainWindow|"
 msgid "&Move to Trash"
-msgstr "移至回收站(&M)"
+msgstr "移动到回收站(&M)"
 
 #: src/app/kde/kdemainwindow.cpp:443
 msgctxt "KdeMainWindow|"
@@ -1574,7 +1574,7 @@ msgstr "重命名(&R)"
 #: src/app/qt/kid3mainwindow.cpp:713
 msgctxt "Kid3MainWindow|"
 msgid "&Move to Trash"
-msgstr "移至回收站(&M)"
+msgstr "移动到回收站(&M)"
 
 #: src/app/qt/kid3mainwindow.cpp:720
 msgctxt "Kid3MainWindow|"
@@ -5189,7 +5189,7 @@ msgstr "您真的要将这项移到回收站吗？"
 #: src/gui/forms/basemainwindow.cpp:1624
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
-msgstr "移至回收站"
+msgstr "移动到回收站"
 
 #: src/gui/forms/basemainwindow.cpp:1653
 msgctxt "BaseMainWindowImpl|"
@@ -5199,7 +5199,7 @@ msgstr "目录必须为空。\n"
 #: src/gui/forms/basemainwindow.cpp:1654
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
-msgstr "无法将这些文件移至回收站"
+msgstr "无法将这些文件移动到回收站"
 
 #: src/gui/forms/basemainwindow.cpp:1687
 msgctxt "BaseMainWindowImpl|"
@@ -5259,7 +5259,7 @@ msgstr "打开(&O)"
 #: src/gui/forms/filelist.cpp:388 src/gui/forms/filelist.cpp:392
 msgctxt "FileList|"
 msgid "Open Containing &Folder"
-msgstr "打开包含的文件夹(&F)"
+msgstr "打开所在文件夹(&F)"
 
 #: src/gui/forms/filelist.cpp:563
 msgctxt "FileList|"
