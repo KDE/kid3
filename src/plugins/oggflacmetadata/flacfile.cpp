@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 04 Oct 2005
  *
- * Copyright (C) 2005-2013  Urs Fleisch
+ * Copyright (C) 2005-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -427,7 +427,8 @@ bool FlacFile::hasTag(Frame::TagNumber tagNr) const
 bool FlacFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
-    if (frame.getType() == Frame::FT_Picture) {
+    Frame::ExtendedType extendedType = frame.getExtendedType();
+    if (extendedType.getType() == Frame::FT_Picture) {
       int index = Frame::fromNegativeIndex(frame.getIndex());
       if (index >= 0 && index < static_cast<int>(m_pictures.size())) {
         auto it = m_pictures.begin() + index;
@@ -438,7 +439,7 @@ bool FlacFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             it->setValueChanged(false);
           } else {
             *it = newFrame;
-            markTagChanged(Frame::Tag_2, Frame::FT_Picture);
+            markTagChanged(Frame::Tag_2, extendedType);
           }
           return true;
         }
@@ -459,7 +460,8 @@ bool FlacFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 bool FlacFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
-    if (frame.getType() == Frame::FT_Picture) {
+    Frame::ExtendedType extendedType = frame.getExtendedType();
+    if (extendedType.getType() == Frame::FT_Picture) {
       if (frame.getFieldList().empty()) {
         PictureFrame::setFields(
               frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
@@ -469,7 +471,7 @@ bool FlacFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
       PictureFrame::setDescription(frame, frame.getValue());
       frame.setIndex(Frame::toNegativeIndex(m_pictures.size()));
       m_pictures.push_back(frame);
-      markTagChanged(Frame::Tag_2, Frame::FT_Picture);
+      markTagChanged(Frame::Tag_2, extendedType);
       return true;
     }
   }
@@ -487,11 +489,12 @@ bool FlacFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 bool FlacFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
-    if (frame.getType() == Frame::FT_Picture) {
+    Frame::ExtendedType extendedType = frame.getExtendedType();
+    if (extendedType.getType() == Frame::FT_Picture) {
       int index = Frame::fromNegativeIndex(frame.getIndex());
       if (index >= 0 && index < static_cast<int>(m_pictures.size())) {
         m_pictures.removeAt(index);
-        markTagChanged(Frame::Tag_2, Frame::FT_Picture);
+        markTagChanged(Frame::Tag_2, extendedType);
         return true;
       }
     }
@@ -512,7 +515,7 @@ void FlacFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 
   if (flt.areAllEnabled() || flt.isEnabled(Frame::FT_Picture)) {
     m_pictures.clear();
-    markTagChanged(Frame::Tag_2, Frame::FT_Picture);
+    markTagChanged(Frame::Tag_2, Frame::ExtendedType(Frame::FT_Picture));
   }
   OggFile::deleteFrames(tagNr, flt);
 }

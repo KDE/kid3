@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 01 May 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -101,10 +101,15 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
   bool isModified = false, isTruncated = false;
   if ((role == Qt::BackgroundRole && index.column() == CI_Enable) ||
       role == ModifiedRole) {
+    Frame::ExtendedType extendedType = it->getExtendedType();
+    Frame::Type type = extendedType.getType();
     isModified = FileConfig::instance().markChanges() &&
       (it->isValueChanged() ||
-      (static_cast<unsigned>((*it).getType()) < sizeof(m_changedFrames) * 8 &&
-       (m_changedFrames & (1ULL << (*it).getType())) != 0));
+       (type != Frame::FT_Other &&
+        static_cast<unsigned>(type) < sizeof(m_changedFrames) * 8 &&
+        (m_changedFrames & (1ULL << type)) != 0) ||
+       (type == Frame::FT_Other &&
+        m_changedOtherFrameNames.contains(extendedType.getInternalName())));
   }
   if (((role == Qt::BackgroundRole || role == Qt::ToolTipRole) &&
        index.column() == CI_Value) ||
@@ -441,26 +446,55 @@ void FrameTableModel::markRows(quint64 rowMask)
 
 /**
  * Mark changed frames.
- * @param frameMask mask with bits of frame types to mark
+ * @param types frame types to mark
  */
-void FrameTableModel::markChangedFrames(quint64 frameMask)
+void FrameTableModel::markChangedFrames(const QList<Frame::ExtendedType>& types)
 {
-  quint64 changedBits = m_changedFrames ^ frameMask;
-  m_changedFrames = frameMask;
+  quint64 mask = 0;
+  QSet<QString> changedOtherFrameNames;
+  changedOtherFrameNames.clear();
+  for (const auto& extendedType : types) {
+    Frame::Type type = extendedType.getType();
+    mask |= 1ULL << type;
+    if (type == Frame::FT_Other) {
+      const QString internalName = extendedType.getInternalName();
+      if (!internalName.isEmpty()) {
+        changedOtherFrameNames.insert(internalName);
+      }
+    }
+  }
+
+  quint64 changedBits = m_changedFrames ^ mask;
+  m_changedFrames = mask;
+  QSet<QString> addedNames = changedOtherFrameNames - m_changedOtherFrameNames;
+  QSet<QString> removedNames = m_changedOtherFrameNames - changedOtherFrameNames;
+  m_changedOtherFrameNames.swap(changedOtherFrameNames);
 
   // Emit a change signal for all indexes affected by the change.
-  if (!FileConfig::instance().markChanges() || !changedBits)
+  if (!FileConfig::instance().markChanges() ||
+      (!changedBits && addedNames.isEmpty() && removedNames.isEmpty()))
     return;
 
   const FrameCollection& frameCollection = frames();
   auto it = frameCollection.cbegin();
   int row = 0;
   for (; it != frameCollection.cend(); ++it, ++row) {
-    if (it->isValueChanged() ||
-        (static_cast<unsigned>((*it).getType()) < sizeof(changedBits) * 8 &&
-         (changedBits & (1ULL << (*it).getType())) != 0)) {
-      QModelIndex idx = index(row, CI_Enable);
-      emit dataChanged(idx, idx);
+    Frame::ExtendedType extendedType = it->getExtendedType();
+    Frame::Type type = extendedType.getType();
+    if (type != Frame::FT_Other) {
+      if (it->isValueChanged() ||
+          (static_cast<unsigned>(type) < sizeof(changedBits) * 8 &&
+           (changedBits & (1ULL << type)) != 0)) {
+        QModelIndex idx = index(row, CI_Enable);
+        emit dataChanged(idx, idx);
+      }
+    } else {
+      const QString name = extendedType.getInternalName();
+      if (it->isValueChanged() ||
+          addedNames.contains(name) || removedNames.contains(name)) {
+        QModelIndex idx = index(row, CI_Enable);
+        emit dataChanged(idx, idx);
+      }
     }
   }
 }

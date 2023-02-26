@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -103,7 +103,7 @@ void TaggedFileSelection::endAddTaggedFiles()
     if (FileConfig::instance().markChanges()) {
       m_framesModel[tagNr]->markChangedFrames(m_state.m_singleFile
                                ? m_state.m_singleFile->getChangedFrames(tagNr)
-                               : 0);
+                               : QList<Frame::ExtendedType>());
     }
     if (m_state.hasTag(tagNr) != m_lastState.hasTag(tagNr)) {
       emit m_tagContext[tagNr]->hasTagChanged(m_state.hasTag(tagNr));

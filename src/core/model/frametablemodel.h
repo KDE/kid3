@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 01 May 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -28,6 +28,7 @@
 
 #include <QAbstractTableModel>
 #include <QVector>
+#include <QSet>
 #include <QBitArray>
 #include "frame.h"
 #include "kid3api.h"
@@ -184,9 +185,9 @@ public:
 
   /**
    * Mark changed frames.
-   * @param frameMask mask with bits of frame types to mark
+   * @param types frame types to mark
    */
-  void markChangedFrames(quint64 frameMask);
+  void markChangedFrames(const QList<Frame::ExtendedType>& types);
 
   /**
    * Get frame for index.
@@ -332,6 +333,7 @@ private:
   QBitArray m_frameSelected;
   quint64 m_markedRows;
   quint64 m_changedFrames;
+  QSet<QString> m_changedOtherFrameNames;
   FrameCollection m_frames;
   QVector<FrameCollection::iterator> m_frameOfRow;
   QHash<Frame::ExtendedType, QSet<QString>> m_differentValues;

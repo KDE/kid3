@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jul 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -752,7 +752,7 @@ void Kid3Application::applyChangedConfiguration()
       m_framesModel[tagNr]->markRows(0);
     }
     if (!fileCfg.markChanges()) {
-      m_framesModel[tagNr]->markChangedFrames(0);
+      m_framesModel[tagNr]->markChangedFrames(QList<Frame::ExtendedType>());
     }
     m_genreModel[tagNr]->init();
   }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Sep 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -268,7 +268,7 @@ protected:
    * @param type frame type
    */
   void setTextField(const QString& name, const QString& value,
-                    Frame::Type type);
+                    const Frame::ExtendedType& type);
 
 protected:
   /** true if file has been read. */

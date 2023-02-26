@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Sep 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -264,13 +264,21 @@ void TaggedFile::undoRevertChangedFilename()
  * Mark tag as changed.
  *
  * @param tagNr tag number
- * @param type type of changed frame
+ * @param extendedType type of changed frame
  */
-void TaggedFile::markTagChanged(Frame::TagNumber tagNr, Frame::Type type)
+void TaggedFile::markTagChanged(Frame::TagNumber tagNr,
+                                const Frame::ExtendedType& extendedType)
 {
+  Frame::Type type = extendedType.getType();
   m_changed[tagNr] = true;
   if (static_cast<unsigned>(type) < sizeof(m_changedFrames[tagNr]) * 8) {
     m_changedFrames[tagNr] |= (1ULL << type);
+  }
+  if (type == Frame::FT_Other) {
+    const QString internalName = extendedType.getInternalName();
+    if (!internalName.isEmpty()) {
+      m_changedOtherFrameNames[tagNr].insert(internalName);
+    }
   }
   updateModifiedState();
 }
@@ -282,17 +290,67 @@ void TaggedFile::markTagChanged(Frame::TagNumber tagNr, Frame::Type type)
 void TaggedFile::markTagUnchanged(Frame::TagNumber tagNr) {
   m_changed[tagNr] = false;
   m_changedFrames[tagNr] = 0;
+  m_changedOtherFrameNames[tagNr].clear();
   clearTrunctionFlags(tagNr);
   updateModifiedState();
 }
 
 /**
- * Set the mask of the frame types changed in tag.
+ * Get the types of the changed frames in a tag.
  * @param tagNr tag number
- * @param mask mask of frame types
+ * @return types of changed frames.
  */
-void TaggedFile::setChangedFrames(Frame::TagNumber tagNr, quint64 mask) {
-  m_changedFrames[tagNr] = mask;
+QList<Frame::ExtendedType> TaggedFile::getChangedFrames(
+    Frame::TagNumber tagNr) const {
+  QList<Frame::ExtendedType> types;
+  if (tagNr < Frame::Tag_NumValues) {
+    const QSet<QString> changedOtherFrameNames = m_changedOtherFrameNames[tagNr];
+    const quint64 changedFrames = m_changedFrames[tagNr];
+    quint64 mask;
+    int i;
+    for (i = Frame::FT_FirstFrame, mask = 1ULL;
+         i <= Frame::FT_LastFrame;
+         ++i, mask <<= 1) {
+      if (changedFrames & mask) {
+        types.append(Frame::ExtendedType(
+                       static_cast<Frame::Type>(i), QString()));
+      }
+    }
+    if (!changedOtherFrameNames.isEmpty()) {
+      for (const QString& name : changedOtherFrameNames) {
+        types.append(Frame::ExtendedType(Frame::FT_Other, name));
+      }
+    } else if (changedFrames & (1ULL << Frame::FT_Other)) {
+      types.append(Frame::ExtendedType(Frame::FT_Other, QString()));
+    }
+    if (changedFrames & (1ULL << Frame::FT_UnknownFrame)) {
+      types.append(Frame::ExtendedType());
+    }
+  }
+  return types;
+}
+
+/**
+ * Set the types of the changed frames in a tag.
+ * @param tagNr tag number
+ * @param types types of changed frames
+ */
+void TaggedFile::setChangedFrames(Frame::TagNumber tagNr,
+                                  const QList<Frame::ExtendedType>& types) {
+  quint64& mask = m_changedFrames[tagNr];
+  QSet<QString>& changedOtherFrameNames = m_changedOtherFrameNames[tagNr];
+  mask = 0;
+  changedOtherFrameNames.clear();
+  for (const auto& extendedType : types) {
+    Frame::Type type = extendedType.getType();
+    mask |= 1ULL << type;
+    if (type == Frame::FT_Other) {
+      const QString internalName = extendedType.getInternalName();
+      if (!internalName.isEmpty()) {
+        changedOtherFrameNames.insert(internalName);
+      }
+    }
+  }
   m_changed[tagNr] = mask != 0;
   updateModifiedState();
 }

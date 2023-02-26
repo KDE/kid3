@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Sep 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -76,7 +76,8 @@ void FrameEditorObject::onFrameEditFinished(FrameObjectModel* frame)
   if (frame) {
     m_editFrame = frame->getFrame();
     if (m_editFrameTaggedFile->setFrame(m_tagNr, m_editFrame)) {
-      m_editFrameTaggedFile->markTagChanged(m_tagNr, m_editFrame.getType());
+      m_editFrameTaggedFile->markTagChanged(m_tagNr,
+                                            m_editFrame.getExtendedType());
     }
     emit frameEdited(m_tagNr, &m_editFrame);
   } else {

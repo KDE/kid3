@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -1490,7 +1490,7 @@ void BaseMainWindowImpl::onEditFrameDialogFinished(int result)
       }
       if (m_editFrameTaggedFile->setFrame(m_editFrameTagNr, m_editFrame)) {
         m_editFrameTaggedFile->markTagChanged(m_editFrameTagNr,
-                                              m_editFrame.getType());
+                                              m_editFrame.getExtendedType());
       }
     }
   }

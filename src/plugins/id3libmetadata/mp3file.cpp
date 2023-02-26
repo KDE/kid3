@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -1600,7 +1600,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           if ((fld = id3Frame->GetField(ID3FN_URL)) != nullptr) {
             if (getString(fld) != value) {
               fld->Set(value.toLatin1().data());
-              markTagChanged(Frame::Tag_2, frame.getType());
+              markTagChanged(Frame::Tag_2, frame.getExtendedType());
             }
             return true;
           } else if ((fld = id3Frame->GetField(ID3FN_TEXT)) != nullptr ||
@@ -1643,11 +1643,11 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
                 encfld->Set(newEnc);
               }
               fld->SetEncoding(newEnc);
-              markTagChanged(Frame::Tag_2, frame.getType());
+              markTagChanged(Frame::Tag_2, frame.getExtendedType());
             }
             if (getString(fld) != value) {
               setString(fld, value);
-              markTagChanged(Frame::Tag_2, frame.getType());
+              markTagChanged(Frame::Tag_2, frame.getExtendedType());
             }
             return true;
           } else if (id3Frame->GetID() == ID3FID_PRIVATE &&
@@ -1663,7 +1663,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
               if (newData != oldData) {
                 fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
                          newData.size());
-                markTagChanged(Frame::Tag_2, frame.getType());
+                markTagChanged(Frame::Tag_2, frame.getExtendedType());
               }
               return true;
             }
@@ -1677,7 +1677,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
               if (newData != oldData) {
                 fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
                          static_cast<size_t>(newData.size()));
-                markTagChanged(Frame::Tag_2, frame.getType());
+                markTagChanged(Frame::Tag_2, frame.getExtendedType());
               }
               return true;
             }
@@ -1692,7 +1692,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
               if (newData != oldData) {
                 fld->Set(reinterpret_cast<const unsigned char*>(newData.data()),
                          static_cast<size_t>(newData.size()));
-                markTagChanged(Frame::Tag_2, frame.getType());
+                markTagChanged(Frame::Tag_2, frame.getExtendedType());
               }
               return true;
             }
@@ -1700,13 +1700,13 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
                      (fld = id3Frame->GetField(ID3FN_RATING)) != nullptr) {
             if (getString(fld) != value) {
               fld->Set(value.toInt());
-              markTagChanged(Frame::Tag_2, frame.getType());
+              markTagChanged(Frame::Tag_2, frame.getExtendedType());
             }
             return true;
           }
         } else {
           setId3v2Frame(id3Frame, frame);
-          markTagChanged(Frame::Tag_2, frame.getType());
+          markTagChanged(Frame::Tag_2, frame.getExtendedType());
           return true;
         }
       }
@@ -1766,7 +1766,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     if (getTextField(tag, frameId, codec) != str &&
         setTextField(tag, frameId, str, allowUnicode, true, true, codec)) {
 #endif
-      markTagChanged(tagNr, type);
+      markTagChanged(tagNr, Frame::ExtendedType(type));
       QString s = checkTruncation(tagNr, str, 1ULL << type,
                                   type == Frame::FT_Comment ? 28 : 30);
       if (!s.isNull())
@@ -1782,7 +1782,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
   {
     int num = frame.getValueAsNumber();
     if (setYear(tag, num)) {
-      markTagChanged(tagNr, type);
+      markTagChanged(tagNr, Frame::ExtendedType(type));
     }
     break;
   }
@@ -1793,7 +1793,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
       if (!str.isNull()) {
         int num = Genres::getNumber(str);
         if (setGenreNum(tag, num)) {
-          markTagChanged(tagNr, type);
+          markTagChanged(tagNr, Frame::ExtendedType(type));
         }
         // if the string cannot be converted to a number, set the truncation flag
         checkTruncation(tagNr, num == 0xff && !str.isEmpty() ? 1 : 0,
@@ -1810,7 +1810,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         if (num >= 0 && num != 0xff) {
           if (getGenreNum(tag) != num &&
               setGenreNum(tag, num)) {
-            markTagChanged(tagNr, type);
+            markTagChanged(tagNr, Frame::ExtendedType(type));
           }
         } else {
 #if QT_VERSION >= 0x060000
@@ -1820,7 +1820,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           if (getTextField(tag, frameId, codec) != str &&
               setTextField(tag, frameId, str, allowUnicode, true, true, codec)) {
 #endif
-            markTagChanged(tagNr, type);
+            markTagChanged(tagNr, Frame::ExtendedType(type));
           }
         }
       }
@@ -1832,7 +1832,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     if (tagNr == Frame::Tag_1) {
       int num = frame.getValueAsNumber();
       if (setTrackNum(tag, num)) {
-        markTagChanged(tagNr, type);
+        markTagChanged(tagNr, Frame::ExtendedType(type));
         int n = checkTruncation(tagNr, num, 1ULL << type);
         if (n != -1) setTrackNum(tag, n);
       }
@@ -1841,7 +1841,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
       int numTracks;
       int num = splitNumberAndTotal(str, &numTracks);
       if (setTrackNum(tag, num, numTracks)) {
-        markTagChanged(tagNr, type);
+        markTagChanged(tagNr, Frame::ExtendedType(type));
       }
     }
     break;
@@ -2016,7 +2016,7 @@ bool Mp3File::addFrame(Frame::TagNumber tagNr, Frame& frame)
         getFieldsFromId3Frame(id3Frame, frame.fieldList());
         frame.setFieldListFromValue();
       }
-      markTagChanged(Frame::Tag_2, frame.getType());
+      markTagChanged(Frame::Tag_2, frame.getExtendedType());
       return true;
     }
   }
@@ -2042,7 +2042,7 @@ bool Mp3File::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
       ID3_Frame* id3Frame = getId3v2Frame(m_tagV2.data(), index);
       if (id3Frame) {
         m_tagV2->RemoveFrame(id3Frame);
-        markTagChanged(Frame::Tag_2, frame.getType());
+        markTagChanged(Frame::Tag_2, frame.getExtendedType());
         return true;
       }
     }
@@ -2178,7 +2178,7 @@ void Mp3File::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 #pragma GCC diagnostic pop
 #endif
 #endif
-        markTagChanged(Frame::Tag_1, Frame::FT_UnknownFrame);
+        markTagChanged(Frame::Tag_1, Frame::ExtendedType());
         clearTrunctionFlags(Frame::Tag_1);
       } else {
         TaggedFile::deleteFrames(Frame::Tag_1, flt);
@@ -2206,7 +2206,7 @@ void Mp3File::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 #pragma GCC diagnostic pop
 #endif
 #endif
-        markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
+        markTagChanged(Frame::Tag_2, Frame::ExtendedType());
       } else {
         ID3_Tag::Iterator* iter = m_tagV2->CreateIterator();
         ID3_Frame* id3Frame;
@@ -2230,7 +2230,7 @@ void Mp3File::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
   #pragma GCC diagnostic pop
   #endif
   #endif
-        markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
+        markTagChanged(Frame::Tag_2, Frame::ExtendedType());
       }
     }
   }

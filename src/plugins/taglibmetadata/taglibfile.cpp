@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Sep 2006
  *
- * Copyright (C) 2006-2022  Urs Fleisch
+ * Copyright (C) 2006-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -4684,7 +4684,7 @@ void TagLibFile::setMp4Frame(const Frame& frame, TagLib::MP4::Tag* mp4Tag)
 #else
     mp4Tag->itemListMap()[name] = item;
 #endif
-    markTagChanged(Frame::Tag_2, frame.getType());
+    markTagChanged(Frame::Tag_2, frame.getExtendedType());
   }
 }
 
@@ -5247,12 +5247,13 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           // However when removing the old frame and adding a new frame,
           // the indices of all frames get invalid.
           setId3v2Frame(this, frameList[index], frame);
-          markTagChanged(tagNr, frame.getType());
+          markTagChanged(tagNr, frame.getExtendedType());
           return true;
         }
       } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) != nullptr) {
         QString frameValue(frame.getValue());
-        if (frame.getType() == Frame::FT_Picture) {
+        Frame::ExtendedType extendedType = frame.getExtendedType();
+        if (extendedType.getType() == Frame::FT_Picture) {
           if (m_pictures.isRead()) {
             int idx = Frame::fromNegativeIndex(frame.getIndex());
             if (idx >= 0 && idx < m_pictures.size()) {
@@ -5262,7 +5263,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
                 m_pictures[idx].setValueChanged(false);
               } else {
                 m_pictures[idx] = newFrame;
-                markTagChanged(tagNr, Frame::FT_Picture);
+                markTagChanged(tagNr, extendedType);
               }
               return true;
             } else {
@@ -5319,7 +5320,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             oggTag->addField("TRACKTOTAL", TagLib::String::number(numTracks), true);
           }
         }
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
       } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != nullptr) {
         if (frame.getType() == Frame::FT_Picture) {
@@ -5337,10 +5338,11 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           apeTag->addValue(toTString(getApeName(frame)),
                            toTString(frame.getValue()));
         }
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
-        if (frame.getType() == Frame::FT_Picture) {
+        Frame::ExtendedType extendedType = frame.getExtendedType();
+        if (extendedType.getType() == Frame::FT_Picture) {
           if (m_pictures.isRead()) {
             int idx = Frame::fromNegativeIndex(frame.getIndex());
             if (idx >= 0 && idx < m_pictures.size()) {
@@ -5349,7 +5351,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
                 m_pictures[idx].setValueChanged(false);
               } else {
                 m_pictures[idx] = newFrame;
-                markTagChanged(tagNr, Frame::FT_Picture);
+                markTagChanged(tagNr, extendedType);
               }
               return true;
             } else {
@@ -5410,13 +5412,13 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             }
           }
         }
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
 #if TAGLIB_VERSION >= 0x010a00
       } else if (auto infoTag =
                  dynamic_cast<TagLib::RIFF::Info::Tag*>(m_tag[tagNr])) {
         infoTag->setFieldText(getInfoName(frame), toTString(frame.getValue()));
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
 #endif
       }
@@ -5475,13 +5477,13 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
       if (tagNr == Frame::Tag_Id3v1) {
         if (num >= 0 && num != static_cast<int>(oldNum)) {
           tag->setYear(num);
-          markTagChanged(tagNr, type);
+          markTagChanged(tagNr, Frame::ExtendedType(type));
         }
       } else {
         if (num > 0 && num != static_cast<int>(oldNum) &&
             getDefaultTextEncoding() == TagLib::String::Latin1) {
           tag->setYear(num);
-          markTagChanged(tagNr, type);
+          markTagChanged(tagNr, Frame::ExtendedType(type));
         } else if (num == 0 || num != static_cast<int>(oldNum)){
           QString yearStr;
           if (num != 0) {
@@ -5520,7 +5522,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           if (!ok) {
             tag->setYear(num);
           }
-          markTagChanged(tagNr, type);
+          markTagChanged(tagNr, Frame::ExtendedType(type));
         }
       }
     } else if (type == Frame::FT_Track) {
@@ -5579,7 +5581,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             }
           }
         }
-        markTagChanged(tagNr, type);
+        markTagChanged(tagNr, Frame::ExtendedType(type));
       }
     } else {
       if (!(tstr == oldTstr)) {
@@ -5669,7 +5671,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             return false;
           }
         }
-        markTagChanged(tagNr, type);
+        markTagChanged(tagNr, Frame::ExtendedType(type));
       }
     }
   }
@@ -5901,7 +5903,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 #ifdef Q_OS_WIN32
           delete id3Frame;
 #endif
-          markTagChanged(tagNr, frame.getType());
+          markTagChanged(tagNr, frame.getExtendedType());
           return true;
         }
       } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) != nullptr) {
@@ -5917,7 +5919,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
             PictureFrame::setDescription(frame, value);
             frame.setIndex(Frame::toNegativeIndex(m_pictures.size()));
             m_pictures.append(frame);
-            markTagChanged(tagNr, Frame::FT_Picture);
+            markTagChanged(tagNr, frame.getExtendedType());
             return true;
           } else {
             PictureFrame::getFieldsToBase64(frame, value);
@@ -5945,7 +5947,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
           index += (*it).second.size();
         }
         frame.setIndex(found ? index : -1);
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
       } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != nullptr) {
         if (frame.getType() == Frame::FT_Picture &&
@@ -5992,7 +5994,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
           ++index;
         }
         frame.setIndex(found ? index : -1);
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
         if (frame.getType() == Frame::FT_Picture) {
@@ -6002,7 +6004,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
           if (m_pictures.isRead()) {
             frame.setIndex(Frame::toNegativeIndex(m_pictures.size()));
             m_pictures.append(frame);
-            markTagChanged(tagNr, Frame::FT_Picture);
+            markTagChanged(tagNr, frame.getExtendedType());
             return true;
           }
         }
@@ -6033,7 +6035,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
           ++index;
         }
         frame.setIndex(found ? index : -1);
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
       } else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tag[tagNr])) != nullptr) {
         if (frame.getType() == Frame::FT_Picture &&
@@ -6069,7 +6071,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
           index += (*it).second.size();
         }
         frame.setIndex(found ? index : -1);
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
 #if TAGLIB_VERSION >= 0x010a00
       } else if (auto infoTag =
@@ -6093,7 +6095,7 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
           ++index;
         }
         frame.setIndex(found ? index : -1);
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
 #endif
       }
@@ -6131,7 +6133,7 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
         const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
         if (index >= 0 && index < static_cast<int>(frameList.size())) {
           id3v2Tag->removeFrame(frameList[index]);
-          markTagChanged(tagNr, frame.getType());
+          markTagChanged(tagNr, frame.getExtendedType());
           return true;
         }
       } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) != nullptr) {
@@ -6145,7 +6147,7 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
                 m_pictures[idx].setIndex(Frame::toNegativeIndex(idx));
                 ++idx;
               }
-              markTagChanged(tagNr, Frame::FT_Picture);
+              markTagChanged(tagNr, frame.getExtendedType());
               return true;
             }
           } else {
@@ -6159,12 +6161,12 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 #else
         oggTag->removeField(key, toTString(frameValue));
 #endif
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
       } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != nullptr) {
         TagLib::String key = toTString(frame.getInternalName());
         apeTag->removeItem(key);
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
       } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
         if (frame.getType() == Frame::FT_Picture) {
@@ -6176,7 +6178,7 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
                 m_pictures[idx].setIndex(Frame::toNegativeIndex(idx));
                 ++idx;
               }
-              markTagChanged(tagNr, Frame::FT_Picture);
+              markTagChanged(tagNr, frame.getExtendedType());
               return true;
             }
           }
@@ -6188,7 +6190,7 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 #else
         mp4Tag->itemListMap().erase(name);
 #endif
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
       } else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tag[tagNr])) != nullptr) {
         switch (index) {
@@ -6237,7 +6239,7 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
             }
           }
         }
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
 #if TAGLIB_VERSION >= 0x010a00
       } else if (auto infoTag =
@@ -6245,7 +6247,7 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
         QByteArray ba = frame.getInternalName().toLatin1();
         TagLib::ByteVector id(ba.constData(), ba.size());
         infoTag->removeField(id);
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
 #endif
       }
@@ -6341,7 +6343,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
                it != frameList.end();) {
             id3v2Tag->removeFrame(*it++, true);
           }
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) !=
                    nullptr) {
           const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
@@ -6354,14 +6356,14 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 #endif
           }
           m_pictures.clear();
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != nullptr) {
           const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
           for (auto it = itemListMap.begin();
                it != itemListMap.end();) {
             apeTag->removeItem((*it++).first);
           }
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
 #if TAGLIB_VERSION >= 0x010b01
           const auto& itemMap = mp4Tag->itemMap();
@@ -6372,7 +6374,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
           mp4Tag->itemListMap().clear();
 #endif
           m_pictures.clear();
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tag[tagNr])) != nullptr) {
           asfTag->setTitle("");
           asfTag->setArtist("");
@@ -6380,7 +6382,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
           asfTag->setCopyright("");
           asfTag->setRating("");
           asfTag->attributeListMap().clear();
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
 #if TAGLIB_VERSION >= 0x010a00
         } else if (auto infoTag =
                    dynamic_cast<TagLib::RIFF::Info::Tag*>(m_tag[tagNr])) {
@@ -6388,7 +6390,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
           for (auto it = itemListMap.begin(); it != itemListMap.end(); ++it) {
             infoTag->removeField((*it).first);
           }
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
 #endif
         } else {
           TaggedFile::deleteFrames(tagNr, flt);
@@ -6405,7 +6407,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
               ++it;
             }
           }
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) !=
                    nullptr) {
           const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
@@ -6425,7 +6427,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
           if (flt.isEnabled(Frame::FT_Picture)) {
             m_pictures.clear();
           }
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != nullptr) {
           const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
           for (auto it = itemListMap.begin();
@@ -6437,7 +6439,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
               ++it;
             }
           }
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
 #if TAGLIB_VERSION >= 0x010b01
           const auto& itemMap = mp4Tag->itemMap();
@@ -6472,7 +6474,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
           if (flt.isEnabled(Frame::FT_Picture)) {
             m_pictures.clear();
           }
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tag[tagNr])) != nullptr) {
           if (flt.isEnabled(Frame::FT_Title))
             asfTag->setTitle("");
@@ -6498,7 +6500,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
               ++it;
             }
           }
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
 #if TAGLIB_VERSION >= 0x010a00
         } else if (auto infoTag =
                    dynamic_cast<TagLib::RIFF::Info::Tag*>(m_tag[tagNr])) {
@@ -6510,7 +6512,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
               infoTag->removeField(id);
             }
           }
-          markTagChanged(tagNr, Frame::FT_UnknownFrame);
+          markTagChanged(tagNr, Frame::ExtendedType());
 #endif
         } else {
           TaggedFile::deleteFrames(tagNr, flt);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Sep 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -29,6 +29,7 @@
 #include <QString>
 #include <QStringList>
 #include <QList>
+#include <QSet>
 #include <QPersistentModelIndex>
 #include "frame.h"
 
@@ -405,9 +406,10 @@ public:
    * Mark tag as changed.
    *
    * @param tagNr tag number
-   * @param type type of changed frame
+   * @param extendedType type of changed frame
    */
-  void markTagChanged(Frame::TagNumber tagNr, Frame::Type type);
+  void markTagChanged(Frame::TagNumber tagNr,
+                      const Frame::ExtendedType& extendedType);
 
   /**
    * Mark tag as unchanged.
@@ -416,20 +418,19 @@ public:
   void markTagUnchanged(Frame::TagNumber tagNr);
 
   /**
-   * Get the mask of the frame types changed in tag.
+   * Get the types of the changed frames in a tag.
    * @param tagNr tag number
-   * @return mask of frame types.
+   * @return types of changed frames.
    */
-  quint64 getChangedFrames(Frame::TagNumber tagNr) const {
-    return tagNr < Frame::Tag_NumValues ? m_changedFrames[tagNr] : 0;
-  }
+  QList<Frame::ExtendedType> getChangedFrames(Frame::TagNumber tagNr) const;
 
   /**
-   * Set the mask of the frame types changed in tag.
+   * Set the types of the changed frames in a tag.
    * @param tagNr tag number
-   * @param mask mask of frame types
+   * @param types types of changed frames
    */
-  void setChangedFrames(Frame::TagNumber tagNr, quint64 mask);
+  void setChangedFrames(Frame::TagNumber tagNr,
+                        const QList<Frame::ExtendedType>& types);
 
   /**
    * Get the truncation flags.
@@ -674,6 +675,8 @@ private:
   QString m_newFilename;
   /** File name reverted because file was not writable */
   QString m_revertedFilename;
+  /** The names of changed tag frames of type Frame::FT_Other */
+  QSet<QString> m_changedOtherFrameNames[Frame::Tag_NumValues];
   /** changed tag frame types */
   quint64 m_changedFrames[Frame::Tag_NumValues];
   /** Truncation flags. */

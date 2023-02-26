@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Oct 2007
  *
- * Copyright (C) 2007-2018  Urs Fleisch
+ * Copyright (C) 2007-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -1120,7 +1120,7 @@ void M4aFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
   if (flt.areAllEnabled()) {
     m_metadata.clear();
     m_extraFrames.clear();
-    markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
+    markTagChanged(Frame::Tag_2, Frame::ExtendedType());
   } else {
     bool changed = false;
     for (auto it = m_metadata.begin(); it != m_metadata.end();) { // clazy:exclude=detaching-member
@@ -1150,7 +1150,7 @@ void M4aFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
       }
     }
     if (changed) {
-      markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
+      markTagChanged(Frame::Tag_2, Frame::ExtendedType());
     }
   }
 }
@@ -1185,7 +1185,7 @@ QString M4aFile::getTextField(const QString& name) const
  * @param type frame type
  */
 void M4aFile::setTextField(const QString& name, const QString& value,
-                           Frame::Type type)
+                           const Frame::ExtendedType& type)
 {
   if (m_fileRead && !value.isNull()) {
     QByteArray str = value.toUtf8();
@@ -1334,7 +1334,7 @@ bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           m_extraFrames[idx].setValueChanged(false);
         } else {
           m_extraFrames[idx] = newFrame;
-          markTagChanged(tagNr, frame.getType());
+          markTagChanged(tagNr, frame.getExtendedType());
         }
         return true;
       } else {
@@ -1348,11 +1348,12 @@ bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         QByteArray str = frame.getValue().toUtf8();
         if (*it != str) {
           *it = str;
-          markTagChanged(Frame::Tag_2, frame.getType());
+          markTagChanged(Frame::Tag_2, frame.getExtendedType());
         }
       } else {
         if (PictureFrame::getData(frame, *it)) {
-          markTagChanged(Frame::Tag_2, Frame::FT_Picture);
+          markTagChanged(Frame::Tag_2,
+                         Frame::ExtendedType(Frame::FT_Picture, name));
         }
       }
       return true;
@@ -1375,10 +1376,14 @@ bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
       if (str != oldStr) {
         int genreNum = Genres::getNumber(str);
         if (genreNum != 255) {
-          setTextField(QLatin1String("gnre"), str, Frame::FT_Genre);
+          const QString genreName(QLatin1String("gnre"));
+          setTextField(genreName, str,
+                       Frame::ExtendedType(Frame::FT_Genre, genreName));
           m_metadata.remove(QLatin1String("\251gen"));
         } else {
-          setTextField(QLatin1String("\251gen"), str, Frame::FT_Genre);
+          const QString genreName(QLatin1String("\251gen"));
+          setTextField(genreName, str,
+                       Frame::ExtendedType(Frame::FT_Genre, genreName));
           m_metadata.remove(QLatin1String("gnre"));
         }
       }
@@ -1398,10 +1403,14 @@ bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         } else {
           str = QLatin1String("");
         }
-        setTextField(QLatin1String("trkn"), str, Frame::FT_Track);
+        const QString trackName(QLatin1String("trkn"));
+        setTextField(trackName, str,
+                     Frame::ExtendedType(Frame::FT_Track, trackName));
       }
     } else {
-      setTextField(getNameForType(type), frame.getValue(), type);
+      const QString fieldName = getNameForType(type);
+      setTextField(fieldName, frame.getValue(),
+                   Frame::ExtendedType(type, fieldName));
     }
   }
   return true;
@@ -1418,14 +1427,15 @@ bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 bool M4aFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
-    Frame::Type type = frame.getType();
+    Frame::ExtendedType extendedType = frame.getExtendedType();
+    Frame::Type type = extendedType.getType();
     if (type == Frame::FT_Picture) {
       if (frame.getFieldList().empty()) {
         PictureFrame::setFields(frame);
       }
       frame.setIndex(Frame::toNegativeIndex(m_extraFrames.size()));
       m_extraFrames.append(frame);
-      markTagChanged(tagNr, Frame::FT_Picture);
+      markTagChanged(tagNr, extendedType);
       return true;
     }
     if (type == Frame::FT_Other &&
@@ -1435,19 +1445,20 @@ bool M4aFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
       }
       frame.setIndex(Frame::toNegativeIndex(m_extraFrames.size()));
       m_extraFrames.append(frame);
-      markTagChanged(Frame::Tag_2, type);
+      markTagChanged(Frame::Tag_2, extendedType);
       return true;;
     }
     QString name;
     if (type != Frame::FT_Other) {
       name = getNameForType(type);
       if (!name.isEmpty()) {
-        frame.setExtendedType(Frame::ExtendedType(type, name));
+        extendedType = Frame::ExtendedType(type, name);
+        frame.setExtendedType(extendedType);
       }
     }
     name = fixUpTagKey(frame.getInternalName(), TT_Mp4);
     m_metadata[name] = frame.getValue().toUtf8();
-    markTagChanged(Frame::Tag_2, type);
+    markTagChanged(Frame::Tag_2, extendedType);
     return true;
   }
   return false;
@@ -1474,7 +1485,7 @@ bool M4aFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
           m_extraFrames[idx].setIndex(Frame::toNegativeIndex(idx));
           ++idx;
         }
-        markTagChanged(tagNr, frame.getType());
+        markTagChanged(tagNr, frame.getExtendedType());
         return true;
       }
     }
@@ -1482,7 +1493,7 @@ bool M4aFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
     auto it = m_metadata.find(name); // clazy:exclude=detaching-member
     if (it != m_metadata.end()) {
       m_metadata.erase(it);
-      markTagChanged(Frame::Tag_2, frame.getType());
+      markTagChanged(Frame::Tag_2, frame.getExtendedType());
       return true;
     }
   }

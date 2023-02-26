@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Sep 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -489,7 +489,7 @@ void OggFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 
   if (flt.areAllEnabled()) {
     m_comments.clear();
-    markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
+    markTagChanged(Frame::Tag_2, Frame::ExtendedType());
   } else {
     bool changed = false;
     for (auto it = m_comments.begin(); it != m_comments.end();) { // clazy:exclude=detaching-member
@@ -502,7 +502,7 @@ void OggFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
       }
     }
     if (changed) {
-      markTagChanged(Frame::Tag_2, Frame::FT_UnknownFrame);
+      markTagChanged(Frame::Tag_2, Frame::ExtendedType());
     }
   }
 }
@@ -532,7 +532,7 @@ QString OggFile::getTextField(const QString& name) const
  * @param type frame type
  */
 void OggFile::setTextField(const QString& name, const QString& value,
-                           Frame::Type type)
+                           const Frame::ExtendedType& type)
 {
   if (m_fileRead && !value.isNull() &&
       m_comments.setValue(name, value)) {
@@ -664,9 +664,11 @@ bool OggFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
       if (numTracks > 0) {
         QString numTracksStr = QString::number(numTracks);
         formatTrackNumberIfEnabled(numTracksStr, false);
-        if (getTextField(QLatin1String("TRACKTOTAL")) != numTracksStr) {
-          setTextField(QLatin1String("TRACKTOTAL"), numTracksStr, Frame::FT_Other);
-          markTagChanged(Frame::Tag_2, Frame::FT_Other);
+        const QString trackTotalName(QLatin1String("TRACKTOTAL"));
+        if (getTextField(trackTotalName) != numTracksStr) {
+          Frame::ExtendedType extendedType(Frame::FT_Other, trackTotalName);
+          setTextField(trackTotalName, numTracksStr, extendedType);
+          markTagChanged(Frame::Tag_2, extendedType);
         }
       }
     }
@@ -682,14 +684,16 @@ bool OggFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         if (!value.isEmpty() && frame.getInternalName() == QLatin1String("COVERART")) {
           QString mimeType;
           PictureFrame::getMimeType(frame, mimeType);
-          setTextField(QLatin1String("COVERARTMIME"), mimeType, Frame::FT_Other);
+          const QString coverArtMimeName(QLatin1String("COVERARTMIME"));
+          setTextField(coverArtMimeName, mimeType,
+                       Frame::ExtendedType(Frame::FT_Other, coverArtMimeName));
         }
       } else if (frame.getType() == Frame::FT_Track) {
         formatTrackNumberIfEnabled(value, false);
       }
       if (m_comments[index].getValue() != value) {
         m_comments[index].setValue(value);
-        markTagChanged(Frame::Tag_2, frame.getType());
+        markTagChanged(Frame::Tag_2, frame.getExtendedType());
       }
       return true;
     }
@@ -713,18 +717,23 @@ bool OggFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         } else {
           str = QLatin1String("");
         }
-        setTextField(QLatin1String("TRACKNUMBER"), str, Frame::FT_Track);
+        const QString trackNumberName(QLatin1String("TRACKNUMBER"));
+        setTextField(trackNumberName, str,
+                     Frame::ExtendedType(Frame::FT_Track, trackNumberName));
         if (numTracks > 0) {
           str.setNum(numTracks);
           formatTrackNumberIfEnabled(str, false);
-          setTextField(QLatin1String("TRACKTOTAL"), str, Frame::FT_Other);
+          const QString trackTotalName(QLatin1String("TRACKTOTAL"));
+          setTextField(trackTotalName, str,
+                       Frame::ExtendedType(Frame::FT_Other, trackTotalName));
         }
       }
     } else {
-      setTextField(type == Frame::FT_Comment
-                   ? getCommentFieldName()
-                   : QString::fromLatin1(getVorbisNameFromType(type)),
-                   frame.getValue(), type);
+      const QString fieldName = type == Frame::FT_Comment
+          ? getCommentFieldName()
+          : QString::fromLatin1(getVorbisNameFromType(type));
+      setTextField(fieldName,
+                   frame.getValue(), Frame::ExtendedType(type, fieldName));
     }
   }
   return true;
@@ -756,7 +765,7 @@ bool OggFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
     m_comments.push_back(OggFile::CommentField(name, value));
     frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
     frame.setIndex(m_comments.size() - 1);
-    markTagChanged(Frame::Tag_2, frame.getType());
+    markTagChanged(Frame::Tag_2, frame.getExtendedType());
     return true;
   }
   return false;
@@ -777,7 +786,7 @@ bool OggFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
     int index = frame.getIndex();
     if (index >= 0 && index < static_cast<int>(m_comments.size())) {
       m_comments.removeAt(index);
-      markTagChanged(Frame::Tag_2, frame.getType());
+      markTagChanged(Frame::Tag_2, frame.getExtendedType());
       return true;
     }
   }

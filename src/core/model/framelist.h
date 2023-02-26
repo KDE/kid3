@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2023  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -231,7 +231,7 @@ private:
   void setModelFromTaggedFile();
 
   /** Set of old changed frames stored while in the edit dialog */
-  quint64 m_oldChangedFrames;
+  QList<Frame::ExtendedType> m_oldChangedFrames;
   /** File containing tags */
   TaggedFile* m_taggedFile;
   /** Editor for frames */
