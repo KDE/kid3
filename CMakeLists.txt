@@ -346,6 +346,15 @@ endif()
 get_target_property(_qmakeLocation Qt${QT_VERSION_MAJOR}::qmake LOCATION)
 message(STATUS "Found Qt-Version ${QT_VERSION} (using ${_qmakeLocation})")
 
+# QT_MAJOR_VERSION is used for KDE, to use the same code for KF5 and KF6.
+if(NOT QT_MAJOR_VERSION)
+  if(QT_VERSION_MAJOR)
+    set(QT_MAJOR_VERSION ${QT_VERSION_MAJOR})
+  else()
+    set(QT_MAJOR_VERSION "5")
+  endif()
+endif()
+
 if(LINUX_SELF_CONTAINED)
   set(CPACK_INSTALL_PREFIX "")
   # Avoid GLIBC_2.14 not found errors on older systems like Debian Wheezy.

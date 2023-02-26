@@ -61,8 +61,12 @@ macro(kf5_create_handbook _docbook _lang)
   find_package(ECM REQUIRED NO_MODULE)
   set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
   include(KDEInstallDirs)
-  find_package(KF5 REQUIRED COMPONENTS DocTools)
+  find_package(KF${QT_MAJOR_VERSION} REQUIRED COMPONENTS DocTools)
   set(KDOCTOOLS_MEINPROC_EXECUTABLE ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.py)
+  if(QT_VERSION_MAJOR EQUAL 6 AND NOT HTML_INSTALL_DIR)
+    # TODO KF6: If there something defined?
+    set(HTML_INSTALL_DIR "${WITH_DATAROOTDIR}/doc/HTML")
+  endif()
   kdoctools_create_handbook(${_docbook} INSTALL_DESTINATION ${HTML_INSTALL_DIR}/${_lang} SUBDIR kid3)
 endmacro()
 
@@ -140,7 +144,7 @@ with open(docbook, 'rb') as in_fh:
         out_fh.write(line)
 out_fh.flush()
 args.append(out_fh.name)
-os.execv('$<TARGET_FILE:KF5::meinproc5>', args)
+os.execv('$<TARGET_FILE:KF${QT_MAJOR_VERSION}::meinproc5>', args)
 ")
 endif()
 

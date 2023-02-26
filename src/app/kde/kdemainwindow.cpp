@@ -625,12 +625,19 @@ void KdeMainWindow::slotFileOpenRecentUrl(const QUrl& url)
  */
 void KdeMainWindow::slotSettingsShortcuts()
 {
+#if KCONFIGWIDGETS_VERSION >= 0x05f000
+  KShortcutsDialog::showDialog(
+        actionCollection(),
+        KShortcutsEditor::LetterShortcutsAllowed, this);
+  impl()->applyChangedShortcuts();
+#else
   if (KShortcutsDialog::configure(
         actionCollection(),
         KShortcutsEditor::LetterShortcutsAllowed, this) ==
       QDialog::Accepted) {
     impl()->applyChangedShortcuts();
   }
+#endif
 }
 
 /**

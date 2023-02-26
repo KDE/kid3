@@ -25,8 +25,10 @@
  */
 
 #include "kdeplatformtools.h"
+#include <QCoreApplication>
 #include <QtConfig>
 #include <kconfig_version.h>
+#include <kwidgetsaddons_version.h>
 #include <KMessageBox>
 #include <KSharedConfig>
 #include <KIO/CopyJob>
@@ -191,6 +193,24 @@ void KdePlatformTools::errorList(QWidget* parent, const QString& text,
 int KdePlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
     const QString& caption)
 {
+#if KWIDGETSADDONS_VERSION >= 0x05f000
+  int rc = KMessageBox::warningTwoActionsCancel(parent, text, caption,
+    KGuiItem(QCoreApplication::translate("@default", "&Yes")),
+    KGuiItem(QCoreApplication::translate("@default", "&No")));
+  switch (rc) {
+  case KMessageBox::Ok:
+    return QMessageBox::Ok;
+  case KMessageBox::Cancel:
+    return QMessageBox::Cancel;
+  case KMessageBox::PrimaryAction:
+    return QMessageBox::Yes;
+  case KMessageBox::SecondaryAction:
+    return QMessageBox::No;
+  case KMessageBox::Continue:
+  default:
+    return QMessageBox::Ignore;
+  }
+#else
   int rc = KMessageBox::warningYesNoCancel(parent, text, caption);
   switch (rc) {
   case KMessageBox::Ok:
@@ -205,6 +225,7 @@ int KdePlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
   default:
     return QMessageBox::Ignore;
   }
+#endif
 }
 
 /**
@@ -218,6 +239,18 @@ int KdePlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
 int KdePlatformTools::warningYesNoList(QWidget* parent, const QString& text,
     const QStringList& strlist, const QString& caption)
 {
+#if KWIDGETSADDONS_VERSION >= 0x05f000
+  int rc = KMessageBox::warningTwoActionsList(parent, text, strlist, caption,
+    KGuiItem(QCoreApplication::translate("@default", "&Yes")),
+    KGuiItem(QCoreApplication::translate("@default", "&No")));
+  switch (rc) {
+  case KMessageBox::PrimaryAction:
+    return QMessageBox::Yes;
+  case KMessageBox::SecondaryAction:
+  default:
+    return QMessageBox::No;
+  }
+#else
   int rc = KMessageBox::warningYesNoList(parent, text, strlist, caption);
   switch (rc) {
   case KMessageBox::Yes:
@@ -226,6 +259,7 @@ int KdePlatformTools::warningYesNoList(QWidget* parent, const QString& text,
   default:
     return QMessageBox::No;
   }
+#endif
 }
 
 /**
