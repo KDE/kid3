@@ -959,10 +959,20 @@ msgctxt "KdeMainWindow|"
 msgid "Section"
 msgstr "Sektsioon"
 
-#: src/app/kde/kdemainwindow.cpp:661
+#: src/app/kde/kdemainwindow.cpp:668
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Seadistamine - Kid3"
+
+#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
+msgctxt "@default|"
+msgid "&Yes"
+msgstr ""
+
+#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
+msgctxt "@default|"
+msgid "&No"
+msgstr ""
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
@@ -2375,22 +2385,22 @@ msgctxt "FrameFieldObject|"
 msgid "Text"
 msgstr "Tekst"
 
-#: src/core/model/frametablemodel.cpp:138
+#: src/core/model/frametablemodel.cpp:143
 msgctxt "FrameTableModel|"
 msgid "Volume"
 msgstr "Helitugevus"
 
-#: src/core/model/frametablemodel.cpp:163
+#: src/core/model/frametablemodel.cpp:168
 msgctxt "FrameTableModel|"
 msgid "File ID"
 msgstr "Faili ID"
 
-#: src/core/model/frametablemodel.cpp:302
+#: src/core/model/frametablemodel.cpp:307
 msgctxt "FrameTableModel|"
 msgid "Name"
 msgstr "Nimi"
 
-#: src/core/model/frametablemodel.cpp:302
+#: src/core/model/frametablemodel.cpp:307
 msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Andmed"
@@ -6456,7 +6466,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - podcasti voog"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6705
+#: src/plugins/taglibmetadata/taglibfile.cpp:6707
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "Hinnanguteave"

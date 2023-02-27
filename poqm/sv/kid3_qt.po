@@ -942,10 +942,20 @@ msgctxt "KdeMainWindow|"
 msgid "Section"
 msgstr "Sektion"
 
-#: src/app/kde/kdemainwindow.cpp:661
+#: src/app/kde/kdemainwindow.cpp:668
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Anpassa - Kid3"
+
+#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
+msgctxt "@default|"
+msgid "&Yes"
+msgstr ""
+
+#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
+msgctxt "@default|"
+msgid "&No"
+msgstr ""
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
@@ -2358,22 +2368,22 @@ msgctxt "FrameFieldObject|"
 msgid "Text"
 msgstr "Text"
 
-#: src/core/model/frametablemodel.cpp:138
+#: src/core/model/frametablemodel.cpp:143
 msgctxt "FrameTableModel|"
 msgid "Volume"
 msgstr "Volym"
 
-#: src/core/model/frametablemodel.cpp:163
+#: src/core/model/frametablemodel.cpp:168
 msgctxt "FrameTableModel|"
 msgid "File ID"
 msgstr "Fil-id"
 
-#: src/core/model/frametablemodel.cpp:302
+#: src/core/model/frametablemodel.cpp:307
 msgctxt "FrameTableModel|"
 msgid "Name"
 msgstr "Namn"
 
-#: src/core/model/frametablemodel.cpp:302
+#: src/core/model/frametablemodel.cpp:307
 msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Data"
@@ -6424,7 +6434,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Podsändningskanal"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6705
+#: src/plugins/taglibmetadata/taglibfile.cpp:6707
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "Betygsinformation"
