@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-02-21 09:39+0100\n"
+"PO-Revision-Date: 2023-02-27 14:41+0100\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -959,12 +959,12 @@ msgstr "Nastavit Kid3"
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "&Ano"
 
 #: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "&Ne"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"

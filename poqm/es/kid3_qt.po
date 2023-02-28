@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-02-13 00:07+0100\n"
+"PO-Revision-Date: 2023-02-27 05:10+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -959,12 +959,12 @@ msgstr "Configurar - Kid3"
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "&Sí"
 
 #: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "&No"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"

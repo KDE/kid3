@@ -950,12 +950,12 @@ msgstr "Kid3-ის მორგება"
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "&დიახ"
 
 #: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "&არა"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
@@ -6716,7 +6716,7 @@ msgstr " [შეცვლილი]"
 #, qt-format
 msgctxt "MainPage|"
 msgid " [filtered %1/%2]"
-msgstr ""
+msgstr " [გაფილტრული %1/%2]"
 
 #: src/qml/app/MainPage.qml:95 src/qml/app/MainPage.qml:164
 msgctxt "MainPage|"
@@ -6801,7 +6801,7 @@ msgstr "გამოსვლა"
 #: src/qml/app/NumberTracksDialog.qml:48
 msgctxt "NumberTracksDialog|"
 msgid "Start number:"
-msgstr ""
+msgstr "საწყისი რიცხვი:"
 
 #: src/qml/app/NumberTracksDialog.qml:57
 msgctxt "NumberTracksDialog|"
@@ -6947,17 +6947,17 @@ msgstr "გარემოს იერსახე"
 #: src/qml/app/SettingsPage.qml:48
 msgctxt "SettingsPage|"
 msgid "Mark truncated fields"
-msgstr ""
+msgstr "წაკვეთილი ველების მონიშვნა"
 
 #: src/qml/app/SettingsPage.qml:53
 msgctxt "SettingsPage|"
 msgid "ID3v1 text encoding"
-msgstr ""
+msgstr "ID3v1 ტექსტის კოდირება"
 
 #: src/qml/app/SettingsPage.qml:59
 msgctxt "SettingsPage|"
 msgid "ID3v2 text encoding"
-msgstr ""
+msgstr "ID3v2 ტექსტის კოდირება"
 
 #: src/qml/app/SettingsPage.qml:65
 msgctxt "SettingsPage|"
@@ -6987,42 +6987,42 @@ msgstr ""
 #: src/qml/app/SettingsPage.qml:91
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis comment field name"
-msgstr ""
+msgstr "Ogg/Vorbis კომენტარის ველის სახელი"
 
 #: src/qml/app/SettingsPage.qml:101
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis picture field name"
-msgstr ""
+msgstr "Ogg/Vorbis სურათის ველის სახელი"
 
 #: src/qml/app/SettingsPage.qml:107
 msgctxt "SettingsPage|"
 msgid "RIFF track number field name"
-msgstr ""
+msgstr "RIFF ტრეკის ნომრის ველის სახელი"
 
 #: src/qml/app/SettingsPage.qml:117
 msgctxt "SettingsPage|"
 msgid "Mark if picture larger than maximum size"
-msgstr ""
+msgstr "მონიშვნა, თუ სურათის ზომა დასაშვებზე დიდია"
 
 #: src/qml/app/SettingsPage.qml:122
 msgctxt "SettingsPage|"
 msgid "Picture maximum size (bytes)"
-msgstr ""
+msgstr "სურათის მაქსიმალური ზომა (ბაიტებში)"
 
 #: src/qml/app/SettingsPage.qml:127
 msgctxt "SettingsPage|"
 msgid "Show only custom genres"
-msgstr ""
+msgstr "მხოლოდ ხელით მითითებული ჟანრების ჩვენება"
 
 #: src/qml/app/SettingsPage.qml:131
 msgctxt "SettingsPage|"
 msgid "Custom Genres"
-msgstr ""
+msgstr "ხელით მითითებული ჟანრები"
 
 #: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:243
 msgctxt "SettingsPage|"
 msgid "Case conversion"
-msgstr ""
+msgstr "რეგისტრის გადაყვანა"
 
 #: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:249
 msgctxt "SettingsPage|"
@@ -7032,12 +7032,12 @@ msgstr "ენა"
 #: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:260
 msgctxt "SettingsPage|"
 msgid "String replacement"
-msgstr ""
+msgstr "სტრიქონის ჩანაცვლება"
 
 #: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:264
 msgctxt "SettingsPage|"
 msgid "String Replacement"
-msgstr ""
+msgstr "სტრიქონის ჩანაცვლება"
 
 #: src/qml/app/SettingsPage.qml:174
 msgctxt "SettingsPage|"
@@ -7087,7 +7087,7 @@ msgstr ""
 #: src/qml/app/SettingsPage.qml:238
 msgctxt "SettingsPage|"
 msgid "Maximum length"
-msgstr ""
+msgstr "მაქსიმალური სიგრძე"
 
 #: src/qml/app/SettingsPage.qml:275
 msgctxt "SettingsPage|"
@@ -7137,7 +7137,7 @@ msgstr "თემა"
 #: src/qml/app/SettingsPage.qml:435
 msgctxt "SettingsPage|"
 msgid "Quick Access Frames"
-msgstr ""
+msgstr "სწრაფი წვდომის კადრები"
 
 #: src/qml/app/StringListEditPage.qml:85
 msgctxt "StringListEditPage|"
