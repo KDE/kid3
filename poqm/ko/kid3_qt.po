@@ -1,8 +1,8 @@
-# Shinjo Park <kde@peremen.name>, 2020, 2021, 2022.
+# Shinjo Park <kde@peremen.name>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2022-07-13 15:36+0200\n"
+"PO-Revision-Date: 2023-03-01 02:07+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -4176,12 +4176,9 @@ msgid "&Play on double click"
 msgstr "두 번 클릭할 때 재생(&P)"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
-#, fuzzy
-#| msgctxt "SelectCommand|"
-#| msgid "Select file"
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "파일 선택"
+msgstr "선택할 때 재생(&S)"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"

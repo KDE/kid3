@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2023-02-14 10:52-0300\n"
+"PO-Revision-Date: 2023-02-28 10:38-0300\n"
 "Last-Translator: Luiz Fernando Ranghetti <elchevive@opensuse.org>\n"
 "Language-Team: Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -953,12 +953,12 @@ msgstr "Configurar - Kid3"
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "&Sim"
 
 #: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "&Não"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
