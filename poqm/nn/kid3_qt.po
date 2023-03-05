@@ -1,10 +1,10 @@
 # Translation of kid3_qt to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2022.
+# Karl Ove Hufthammer <karl@huftis.org>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2022-07-12 09:23+0200\n"
+"PO-Revision-Date: 2023-03-04 16:19+0100\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.04.2\n"
+"X-Generator: Lokalize 22.12.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: qtrich\n"
@@ -961,12 +961,12 @@ msgstr "Set opp – Kid3"
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "&Ja"
 
 #: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "&Nei"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
@@ -4232,7 +4232,7 @@ msgstr "&Spel av ved dobbeltklikk"
 #: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr ""
+msgstr "&Vel fil ved avspeling"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
