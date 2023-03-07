@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "POT-Creation-Date: 2020-01-11 03:34+0100\n"
-"PO-Revision-Date: 2023-02-15 16:07+0000\n"
+"PO-Revision-Date: 2023-03-06 16:34+0000\n"
 "Last-Translator: José Nuno Coelho Pires <zepires@gmail.com>\n"
 "Language-Team: Portuguese <kde-i18n-pt@kde.org>\n"
 "Language: pt\n"
@@ -963,12 +963,12 @@ msgstr "Configurar - Kid3"
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "&Sim"
 
 #: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "&Não"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
