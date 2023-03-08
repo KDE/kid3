@@ -197,7 +197,7 @@ msgstr "Descarrega el treball artístic de la caràtula de l'àlbum"
 #: src/app/cli/clicommand.cpp:862
 msgctxt "ExportCommand|"
 msgid "Export to file"
-msgstr "Exporta a un fitxer"
+msgstr "Exporta cap a un fitxer"
 
 #: src/app/cli/clicommand.cpp:863
 msgctxt "ExportCommand|"
@@ -703,7 +703,7 @@ msgstr "&Exporta..."
 #: src/app/kde/kdemainwindow.cpp:273
 msgctxt "KdeMainWindow|"
 msgid "Export to file or clipboard"
-msgstr "Exporta a un fitxer o al porta-retalls"
+msgstr "Exporta cap a un fitxer o al porta-retalls"
 
 #: src/app/kde/kdemainwindow.cpp:277
 msgctxt "KdeMainWindow|"
@@ -1227,7 +1227,7 @@ msgstr "E&xplora les caràtules..."
 #: src/app/qt/kid3mainwindow.cpp:281
 msgctxt "Kid3MainWindow|"
 msgid "Export to file or clipboard"
-msgstr "Exporta a un fitxer o al porta-retalls"
+msgstr "Exporta cap a un fitxer o al porta-retalls"
 
 #: src/app/qt/kid3mainwindow.cpp:282
 msgctxt "Kid3MainWindow|"
