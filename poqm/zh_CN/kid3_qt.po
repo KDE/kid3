@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
-"PO-Revision-Date: 2023-02-24 12:43\n"
+"PO-Revision-Date: 2023-03-11 04:52\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -952,12 +952,12 @@ msgstr "配置 - Kid3"
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "是(&Y)"
 
 #: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "否(&N)"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
@@ -3387,7 +3387,7 @@ msgstr "XID"
 #: src/core/tags/frame.cpp:326
 msgctxt "@default|"
 msgid "Chapters"
-msgstr ""
+msgstr "章节"
 
 #: src/core/tags/frame.cpp:327
 msgctxt "@default|"
@@ -4140,7 +4140,7 @@ msgstr "由文件名生成标签"
 #: src/gui/dialogs/configdialogpages.cpp:514
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
-msgstr ""
+msgstr "播放列表"
 
 #: src/gui/dialogs/configdialogpages.cpp:466
 msgctxt "ConfigDialogPages|"
@@ -4180,7 +4180,7 @@ msgstr "双击播放(&P)"
 #: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr ""
+msgstr "播放时选择文件(&S)"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
