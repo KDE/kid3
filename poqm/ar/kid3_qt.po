@@ -3201,7 +3201,7 @@ msgstr "المكان"
 #: src/core/tags/frame.cpp:267
 msgctxt "@default|"
 msgid "Opus"
-msgstr "أوپوس"
+msgstr "أوبوس"
 
 #: src/core/tags/frame.cpp:269
 msgctxt "@default|"
