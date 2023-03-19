@@ -36,6 +36,26 @@
 #include "kid3settings.h"
 #include "mainwindowconfig.h"
 
+namespace {
+
+/**
+ * Get default dialog options according to configuration.
+ * @return file dialog options.
+ */
+QFileDialog::Options fileDialogOptions()
+{
+  QFileDialog::Options options;
+  if (MainWindowConfig::instance().dontUseNativeDialogs()) {
+    options |= QFileDialog::DontUseNativeDialog;
+  }
+#if QT_VERSION >= 0x050200
+  options |= QFileDialog::DontUseCustomDirectoryIcons;
+#endif
+  return options;
+}
+
+}
+
 /**
  * Constructor.
  */
@@ -227,9 +247,7 @@ QString PlatformTools::getOpenFileName(QWidget* parent, const QString& caption,
     const QString& dir, const QString& filter, QString* selectedFilter)
 {
   return QFileDialog::getOpenFileName(
-        parent, caption, dir, filter, selectedFilter,
-        MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options());
+        parent, caption, dir, filter, selectedFilter, fileDialogOptions());
 }
 
 /**
@@ -246,9 +264,7 @@ QStringList PlatformTools::getOpenFileNames(QWidget* parent,
     const QString& filter, QString* selectedFilter)
 {
   return QFileDialog::getOpenFileNames(
-        parent, caption, dir, filter, selectedFilter,
-        MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options());
+        parent, caption, dir, filter, selectedFilter, fileDialogOptions());
 }
 
 /**
@@ -264,9 +280,7 @@ QString PlatformTools::getSaveFileName(QWidget* parent, const QString& caption,
     const QString& dir, const QString& filter, QString* selectedFilter)
 {
   return QFileDialog::getSaveFileName(
-        parent, caption, dir, filter, selectedFilter,
-        MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options());
+        parent, caption, dir, filter, selectedFilter, fileDialogOptions());
 }
 
 /**
@@ -280,9 +294,7 @@ QString PlatformTools::getExistingDirectory(QWidget* parent,
     const QString& caption, const QString& startDir)
 {
   return QFileDialog::getExistingDirectory(parent, caption, startDir,
-      MainWindowConfig::instance().dontUseNativeDialogs()
-      ? QFileDialog::ShowDirsOnly | QFileDialog::DontUseNativeDialog
-      : QFileDialog::ShowDirsOnly);
+      fileDialogOptions() | QFileDialog::ShowDirsOnly);
 }
 
 /**
