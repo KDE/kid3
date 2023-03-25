@@ -27,8 +27,13 @@
 #include "androidutils.h"
 #ifdef Q_OS_ANDROID
 #include <jni.h>
+#if QT_VERSION >= 0x060000
+#include <QCoreApplication>
+#include <QJniObject>
+#else
 #include <QtAndroid>
 #include <QAndroidJniObject>
+#endif
 #endif
 
 AndroidUtils* AndroidUtils::s_self = nullptr;
@@ -42,7 +47,11 @@ AndroidUtils::AndroidUtils(QObject* parent) : QObject(parent)
 void AndroidUtils::checkPendingIntents()
 {
 #ifdef Q_OS_ANDROID
+#if QT_VERSION >= 0x060000
+  QJniObject activity = QNativeInterface::QAndroidApplication::context();
+#else
   QAndroidJniObject activity = QtAndroid::androidActivity();
+#endif
   if (activity.isValid()) {
     activity.callMethod<void>("checkPendingIntents");
   }

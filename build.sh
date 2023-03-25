@@ -418,7 +418,9 @@ else
   fi
 fi
 
-if test "$qt_nr" -ge 51204; then
+if test "$compiler" = "cross-android" && test "$qt_nr" -ge 60000; then
+  openssl_version=1.1.1t
+elif test "$qt_nr" -ge 51204; then
   # Since Qt 5.12.4, OpenSSL 1.1.1 is supported
   openssl_version=1.1.1g
 else
@@ -993,15 +995,17 @@ if test "$compiler" = "cross-android"; then
     echo "### Extracting openssl"
 
     tar xzf source/openssl-${openssl_version}.tar.gz
-    cp source/Setenv-android.sh openssl-${openssl_version}/
-    cd openssl-${openssl_version}/
-    sed -i 's/\r$//' Setenv-android.sh
-    test -n "$ANDROID_NDK_ROOT" && \
-      sed -i "s#^ANDROID_NDK_ROOT=.*#ANDROID_NDK_ROOT=$ANDROID_NDK_ROOT#" \
-        Setenv-android.sh
-    chmod +x Setenv-android.sh
-    patch -p0 <$srcdir/packaging/patches/openssl-1.1.1-android00-setenv.patch
-    cd ..
+    if test "$qt_nr" -lt 60000; then
+      cp source/Setenv-android.sh openssl-${openssl_version}/
+      cd openssl-${openssl_version}/
+      sed -i 's/\r$//' Setenv-android.sh
+      test -n "$ANDROID_NDK_ROOT" && \
+        sed -i "s#^ANDROID_NDK_ROOT=.*#ANDROID_NDK_ROOT=$ANDROID_NDK_ROOT#" \
+          Setenv-android.sh
+      chmod +x Setenv-android.sh
+      patch -p0 <$srcdir/packaging/patches/openssl-1.1.1-android00-setenv.patch
+      cd ..
+    fi
   fi
 
 elif test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" \
@@ -1051,36 +1055,44 @@ if test "$compiler" = "cross-android"; then
     echo "### Building OpenSSL"
 
     cd openssl-${openssl_version}/
-    if test "$_android_abi" = "x86"; then
-      sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=x86-4.9/; s/^_ANDROID_ARCH=.*$/_ANDROID_ARCH=arch-x86/' Setenv-android.sh
-    else
-      sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=arm-linux-androideabi-4.9/; s/^_ANDROID_ARCH=.*$/_ANDROID_ARCH=arch-arm/' Setenv-android.sh
-    fi
-    sed -i "s#^_ANDROID_NDK=.*#ANDROID_NDK_ROOT=$_android_ndk_root#" Setenv-android.sh
-    sed -i '/FIPS_SIG location/,/^fi$/ d' Setenv-android.sh
-    if test -d $_android_ndk_root/toolchains/llvm; then
-      sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=llvm/' Setenv-android.sh
-    fi
-    . ./Setenv-android.sh
-    if test "${openssl_version:0:3}" = "1.0"; then
-      ./Configure shared android
-    else
-      ANDROID_NDK_HOME=$ANDROID_NDK_ROOT ./Configure shared android-armeabi
-    fi
-    if test -d $_android_ndk_root/toolchains/llvm; then
+    if test "$qt_nr" -lt 60000; then
       if test "$_android_abi" = "x86"; then
-        sed -i 's/^CC=.*$/CC= i686-linux-android16-clang/; s/ -mandroid//' Makefile
+        sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=x86-4.9/; s/^_ANDROID_ARCH=.*$/_ANDROID_ARCH=arch-x86/' Setenv-android.sh
       else
-        sed -i 's/^CC=.*$/CC= armv7a-linux-androideabi16-clang/; s/ -mandroid//' Makefile
+        sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=arm-linux-androideabi-4.9/; s/^_ANDROID_ARCH=.*$/_ANDROID_ARCH=arch-arm/' Setenv-android.sh
       fi
-    fi
+      sed -i "s#^_ANDROID_NDK=.*#ANDROID_NDK_ROOT=$_android_ndk_root#" Setenv-android.sh
+      sed -i '/FIPS_SIG location/,/^fi$/ d' Setenv-android.sh
+      if test -d $_android_ndk_root/toolchains/llvm; then
+        sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=llvm/' Setenv-android.sh
+      fi
+      . ./Setenv-android.sh
+      if test "${openssl_version:0:3}" = "1.0"; then
+        ./Configure shared android
+      else
+        ANDROID_NDK_HOME=$ANDROID_NDK_ROOT ./Configure shared android-armeabi
+      fi
+      if test -d $_android_ndk_root/toolchains/llvm; then
+        if test "$_android_abi" = "x86"; then
+          sed -i 's/^CC=.*$/CC= i686-linux-android16-clang/; s/ -mandroid//' Makefile
+        else
+          sed -i 's/^CC=.*$/CC= armv7a-linux-androideabi16-clang/; s/ -mandroid//' Makefile
+        fi
+      fi
 
-    if test "${openssl_version:0:3}" = "1.0"; then
-      make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
-      _ssl_lib_suffix=.so
+      if test "${openssl_version:0:3}" = "1.0"; then
+        make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
+        _ssl_lib_suffix=.so
+      else
+        make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_1_1.so build_libs
+        _ssl_lib_suffix=_1_1.so
+      fi
     else
+      PATH=$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
+      ANDROID_NDK_HOME=$ANDROID_NDK_ROOT ./Configure shared android-arm
       make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_1_1.so build_libs
       _ssl_lib_suffix=_1_1.so
+      _android_prefix=llvm
     fi
     mkdir -p inst/usr/local/lib
     cp --dereference libssl${_ssl_lib_suffix} libcrypto${_ssl_lib_suffix} inst/usr/local/lib/
@@ -1469,7 +1481,7 @@ _android_keystore_alias=
 fi
 _buildprefix=\$(cd ..; pwd)/buildroot/usr/local
 # Pass -DQT_ANDROID_USE_GRADLE=ON to use Gradle instead of ANT.
-cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_EXTRA_LIBS_DIR=\$_buildprefix/lib -DANDROID_KEYSTORE_PATH=\$_android_keystore_path -DANDROID_KEYSTORE_ALIAS=\$_android_keystore_alias -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config -DCMAKE_MAKE_PROGRAM=make $srcdir
+cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_EXTRA_LIBS_DIR=\$_buildprefix/lib -DANDROID_KEYSTORE_PATH=\$_android_keystore_path -DANDROID_KEYSTORE_ALIAS=\$_android_keystore_alias -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DQT_HOST_PATH=${QTBINARYDIR%/bin} -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config -DCMAKE_MAKE_PROGRAM=make $srcdir
 EOF
       chmod +x kid3/run-cmake.sh
     fi
@@ -1631,9 +1643,12 @@ EOF
     dmg dmg uncompressed.dmg kid3-$_version-Darwin.dmg
     rm uncompressed.dmg
   elif test "$compiler" = "cross-android"; then
-    JAVA_HOME=$(grep _java_root= run-cmake.sh | cut -d'=' -f2) make apk
+    JAVA_HOME=$(grep _java_root= run-cmake.sh | cut -d'=' -f2) \
+    QT_ANDROID_KEYSTORE_PATH=$(grep ANDROID_KEYSTORE_PATH CMakeCache.txt | cut -d= -f2) \
+    QT_ANDROID_KEYSTORE_ALIAS=$(grep ANDROID_KEYSTORE_ALIAS CMakeCache.txt | cut -d= -f2) \
+    make apk
     _version=$(grep VERSION config.h | cut -d'"' -f2)
-    for prefix in android/build/outputs/apk/release/android-release android/build/outputs/apk/android-release android/bin/QtApp-release; do
+    for prefix in android/build/outputs/apk/release/android-release android/build/outputs/apk/android-release android/bin/QtApp-release src/app/qml/android-build/build/outputs/apk/release/android-build-release; do
       for suffix in signed unsigned; do
         _apkpath=${prefix}-${suffix}.apk
         if test -f $_apkpath; then

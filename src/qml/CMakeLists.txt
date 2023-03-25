@@ -1,3 +1,37 @@
+# Make sure to keep this in sync with qmlapp.qrc
+set(QMLAPP_QML_SOURCES
+  app/AboutDialog.qml
+  app/AbstractSettingsPage.qml
+  app/BatchImportPage.qml
+  app/Collapsible.qml
+  app/Empty.qml
+  app/FileCollapsible.qml
+  app/FileList.qml
+  app/FileSelectDialog.qml
+  app/FilterPage.qml
+  app/FrameDelegate.qml
+  app/FrameEditDialog.qml
+  app/FrameSelectDialog.qml
+  app/IconButton.qml
+  app/ImportProfilesEditPage.qml
+  app/Main.qml
+  app/MainPage.qml
+  app/MapEditPage.qml
+  app/MessageDialog.qml
+  app/NumberTracksDialog.qml
+  app/PictureCollapsible.qml
+  app/RenameDirectoryPage.qml
+  app/ScaledImage.qml
+  app/SettingsElement.qml
+  app/SettingsItem.qml
+  app/SettingsPage.qml
+  app/Standard.qml
+  app/StringListEditPage.qml
+  app/TagCollapsible.qml
+  app/ThinDivider.qml
+  app/UiConstants.qml
+  CACHE INTERNAL ""
+)
 if(NOT HAVE_QMLDIR_IN_QRC)
   # Before starting Qt Creator, export the environment variable
   # QML_IMPORT_PATH=<qtdir>/qml:<qtdir>/imports
@@ -37,37 +71,6 @@ if(NOT HAVE_QMLDIR_IN_QRC)
   )
   if(BUILD_QML_APP)
     # Only used to add the QML sources to the project.
-    add_custom_target(qmlapp-sources SOURCES
-      app/Main.qml
-      app/MainPage.qml
-      app/Collapsible.qml
-      app/FrameDelegate.qml
-      app/FrameEditDialog.qml
-      app/FrameSelectDialog.qml
-      app/MessageDialog.qml
-      app/UiConstants.qml
-      app/FileList.qml
-      app/FileCollapsible.qml
-      app/TagCollapsible.qml
-      app/PictureCollapsible.qml
-      app/FileSelectDialog.qml
-      app/RenameDirectoryPage.qml
-      app/NumberTracksDialog.qml
-      app/FilterPage.qml
-      app/BatchImportPage.qml
-      app/AbstractSettingsPage.qml
-      app/SettingsElement.qml
-      app/SettingsPage.qml
-      app/SettingsItem.qml
-      app/AboutDialog.qml
-      app/Empty.qml
-      app/Standard.qml
-      app/ThinDivider.qml
-      app/IconButton.qml
-      app/ThinDivider.qml
-      app/StringListEditPage.qml
-      app/MapEditPage.qml
-      app/ImportProfilesEditPage.qml
-    )
+    add_custom_target(qmlapp-sources SOURCES ${QMLAPP_QML_SOURCES})
   endif()
 endif()

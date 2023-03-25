@@ -195,7 +195,7 @@ endif()
 if(APPLE)
   target_link_libraries(kid3-core PUBLIC "-framework CoreServices")
 endif()
-if(ANDROID)
+if(ANDROID AND QT_VERSION_MAJOR LESS 6)
   target_link_libraries(kid3-core PUBLIC Qt${QT_VERSION_MAJOR}::AndroidExtras)
 endif()
 

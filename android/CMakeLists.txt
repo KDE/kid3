@@ -1,14 +1,29 @@
-include(qt-android-cmake/AddQtAndroidApk.cmake)
+if(QT_VERSION_MAJOR LESS 6)
+  set(KID3_ANDROID_MIN_SDK_VERSION 16)
+  set(KID3_ANDROID_TARGET_SDK_VERSION 22)
+  set(KID3_ANDROID_NAME "org.qtproject.qt5.android.bindings.QtApplication")
+  set(FIX_KID3ACTIVITY "import fileinput; [print(line, end='') for line in fileinput.input()]")
+  set(ANDROIDMANIFEST_XML_IN "AndroidManifest.xml.in")
+else()
+  set(KID3_ANDROID_MIN_SDK_VERSION 23)
+  set(KID3_ANDROID_TARGET_SDK_VERSION 30)
+  set(KID3_ANDROID_NAME "org.qtproject.qt.android.bindings.QtApplication")
+  set(FIX_KID3ACTIVITY "import fileinput; \
+    [print(line.replace('org.qtproject.qt5', 'org.qtproject.qt'), end='') \
+    for line in fileinput.input()]")
+  set(ANDROIDMANIFEST_XML_IN "AndroidManifest-qt6.xml.in")
+endif()
+
 set(QT_ANDROID_APP_PACKAGE_NAME "net.sourceforge.kid3")
 set(QT_ANDROID_APP_NAME "Kid3")
-set(QT_ANDROID_BUILD_TOOLS_REVISION "23.0.1")
 set(_androidPackageDir ${CMAKE_CURRENT_BINARY_DIR}/package)
-configure_file(AndroidManifest.xml.in
+configure_file(${ANDROIDMANIFEST_XML_IN}
                ${_androidPackageDir}/AndroidManifest.xml @ONLY)
 add_custom_command(OUTPUT ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java
   COMMAND ${CMAKE_COMMAND} -E make_directory ${_androidPackageDir}/src/net/sourceforge/kid3
-  COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/Kid3Activity.java
-          ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java
+  COMMAND ${PYTHON_EXECUTABLE} -c "${FIX_KID3ACTIVITY}"
+          ${CMAKE_CURRENT_SOURCE_DIR}/Kid3Activity.java
+          > ${_androidPackageDir}/src/net/sourceforge/kid3/Kid3Activity.java VERBATIM
   DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/Kid3Activity.java
 )
 set(_widths 32 48 64 128)
@@ -103,29 +118,93 @@ foreach(_qmlFile CheckIndicator.qml RadioIndicator.qml SwitchIndicator.qml)
   endif()
 endforeach()
 
-add_qt_android_apk(apk kid3-qml
-  NAME Kid3
-  PACKAGE_NAME "net.sourceforge.kid3"
-  DEPENDS kid3-core kid3-gui
-          musicbrainzimport discogsimport freedbimport amazonimport
-          taglibmetadata kid3qml Qt${QT_VERSION_MAJOR}::Svg
-          ${ANDROID_EXTRA_LIBS_DIR}/libssl_1_1.so ${ANDROID_EXTRA_LIBS_DIR}/libcrypto_1_1.so
-  DEPLOYMENT_DEPENDS ${_deploymentDepends}
-  PACKAGE_SOURCES ${_androidPackageDir}
-  KEYSTORE ${_keystorePathAlias}
-)
+if(QT_VERSION_MAJOR LESS 6)
+  include(qt-android-cmake/AddQtAndroidApk.cmake)
+  set(QT_ANDROID_BUILD_TOOLS_REVISION "23.0.1")
+  add_qt_android_apk(apk kid3-qml
+    NAME Kid3
+    PACKAGE_NAME "net.sourceforge.kid3"
+    DEPENDS kid3-core kid3-gui
+            musicbrainzimport discogsimport freedbimport amazonimport
+            taglibmetadata kid3qml Qt${QT_VERSION_MAJOR}::Svg
+            ${ANDROID_EXTRA_LIBS_DIR}/libssl_1_1.so ${ANDROID_EXTRA_LIBS_DIR}/libcrypto_1_1.so
+    DEPLOYMENT_DEPENDS ${_deploymentDepends}
+    PACKAGE_SOURCES ${_androidPackageDir}
+    KEYSTORE ${_keystorePathAlias}
+  )
 
-# Unfortunately, androiddeployqt performs the library stripping before copying
-# the android-extra-libs (after DEPENDS in the command above). The external
-# libraries have to be stripped by the linker before the package is built.
-set_property(TARGET musicbrainzimport APPEND PROPERTY LINK_FLAGS_RELEASE -s)
-set_property(TARGET discogsimport APPEND PROPERTY LINK_FLAGS_RELEASE -s)
-set_property(TARGET freedbimport APPEND PROPERTY LINK_FLAGS_RELEASE -s)
-set_property(TARGET amazonimport APPEND PROPERTY LINK_FLAGS_RELEASE -s)
-set_property(TARGET taglibmetadata APPEND PROPERTY LINK_FLAGS_RELEASE -s)
-set_property(TARGET kid3qml APPEND PROPERTY LINK_FLAGS_RELEASE -s)
-set_property(TARGET kid3-core APPEND PROPERTY LINK_FLAGS_RELEASE -s)
-set_property(TARGET kid3-gui APPEND PROPERTY LINK_FLAGS_RELEASE -s)
+  # Unfortunately, androiddeployqt performs the library stripping before copying
+  # the android-extra-libs (after DEPENDS in the command above). The external
+  # libraries have to be stripped by the linker before the package is built.
+  set_property(TARGET musicbrainzimport APPEND PROPERTY LINK_FLAGS_RELEASE -s)
+  set_property(TARGET discogsimport APPEND PROPERTY LINK_FLAGS_RELEASE -s)
+  set_property(TARGET freedbimport APPEND PROPERTY LINK_FLAGS_RELEASE -s)
+  set_property(TARGET amazonimport APPEND PROPERTY LINK_FLAGS_RELEASE -s)
+  set_property(TARGET taglibmetadata APPEND PROPERTY LINK_FLAGS_RELEASE -s)
+  set_property(TARGET kid3qml APPEND PROPERTY LINK_FLAGS_RELEASE -s)
+  set_property(TARGET kid3-core APPEND PROPERTY LINK_FLAGS_RELEASE -s)
+  set_property(TARGET kid3-gui APPEND PROPERTY LINK_FLAGS_RELEASE -s)
 
-add_dependencies(apk android-package musicbrainzimport discogsimport
-                 freedbimport amazonimport taglibmetadata kid3qml)
+  add_dependencies(apk android-package musicbrainzimport discogsimport
+                   freedbimport amazonimport taglibmetadata kid3qml)
+else(QT_VERSION_MAJOR LESS 6)
+  # qt_add_qml_module is needed to have the QML plugins included
+  set(_qmlFiles ${QMLAPP_QML_SOURCES})
+  list(TRANSFORM _qmlFiles PREPEND "../src/qml/")
+  qt_add_qml_module(kid3-qml
+      URI net.sourceforge.kid3
+      VERSION 1.1
+      QML_FILES ${_qmlFiles}
+      NO_PLUGIN_OPTIONAL
+      NO_GENERATE_PLUGIN_SOURCE
+      NO_GENERATE_QMLTYPES
+      NO_GENERATE_QMLDIR
+      NO_LINT
+      NO_CACHEGEN
+      NO_RESOURCE_TARGET_PATH
+  )
+
+  add_dependencies(kid3-qml android-package musicbrainzimport discogsimport
+                   freedbimport amazonimport taglibmetadata kid3qml)
+
+  cmake_policy(SET CMP0026 OLD) # allow use of the LOCATION target property
+  set(EXTRA_LIBS)
+  foreach(LIB kid3-qml kid3-core kid3-gui musicbrainzimport discogsimport
+      freedbimport amazonimport taglibmetadata kid3qml
+      ${ANDROID_EXTRA_LIBS_DIR}/libssl_1_1.so
+      ${ANDROID_EXTRA_LIBS_DIR}/libcrypto_1_1.so)
+    if(TARGET ${LIB})
+      if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+        get_property(LIB_PATH TARGET ${LIB} PROPERTY DEBUG_LOCATION)
+      else()
+        get_property(LIB_PATH TARGET ${LIB} PROPERTY LOCATION)
+      endif()
+      set(LIB ${LIB_PATH})
+    endif()
+    if(EXTRA_LIBS)
+      set(EXTRA_LIBS "${EXTRA_LIBS},${LIB}")
+    else()
+      set(EXTRA_LIBS "${LIB}")
+    endif()
+  endforeach()
+
+  set_target_properties(kid3-qml PROPERTIES
+    QT_ANDROID_DEPLOYMENT_DEPENDENCIES "${_deploymentDepends}"
+    QT_ANDROID_EXTRA_LIBS "${EXTRA_LIBS}"
+    QT_ANDROID_MIN_SDK_VERSION "${KID3_ANDROID_MIN_SDK_VERSION}"
+    QT_ANDROID_PACKAGE_SOURCE_DIR "${_androidPackageDir}"
+    QT_ANDROID_TARGET_SDK_VERSION "${KID3_ANDROID_TARGET_SDK_VERSION}"
+    QT_ANDROID_VERSION_NAME "${QT_ANDROID_APP_VERSION}"
+    QT_ANDROID_VERSION_CODE "${QT_ANDROID_APP_VERSION_CODE}"
+  )
+
+  # To sign the package when building the apk target, the enviroment variables
+  # QT_ANDROID_KEYSTORE_PATH and QT_ANDROID_KEYSTORE_ALIAS must be set.
+  # If QT_ANDROID_KEYSTORE_STORE_PASS is not set, the user has to enter the
+  # password.
+  if(CMAKE_BUILD_TYPE STREQUAL "Release" AND ANDROID_KEYSTORE_PATH AND ANDROID_KEYSTORE_ALIAS)
+    set(QT_ANDROID_SIGN_APK ON)
+  endif()
+
+  qt_finalize_target(kid3-qml)
+endif(QT_VERSION_MAJOR LESS 6)
