@@ -184,18 +184,18 @@ fi # makearchive
 # - Kid3 project checked out in ~/projects/kid3/src/kid3
 # - At least CMake 3.21 in /opt/cmake/bin/
 # Linux:
-# - Qt 6.4.2 Linux in ~/Development/Qt6.4.2-linux/6.4.2/gcc_64/
+# - Qt 6.4.3 Linux in ~/Development/Qt6.4.3-linux/6.4.3/gcc_64/
 # Windows:
 # - MinGW 11.2 cross compiler in /opt/mxe11/
-# - Qt 6.4.2 MinGW64 in ~/Development/Qt6.4.2-mingw64/6.4.2/mingw_64/
+# - Qt 6.4.3 MinGW64 in ~/Development/Qt6.4.3-mingw64/6.4.3/mingw_64/
 # Mac:
 # - Mac cross compiler in /opt/osxcross/
-# - Qt 6.4.2 Mac in ~/Development/Qt6.4.2-mac/6.4.2/macos/
+# - Qt 6.4.3 Mac in ~/Development/Qt6.4.3-mac/6.4.3/macos/
 # Android:
-# - Java JDK 8 in /opt/jdk8/
-# - Android SDK in ~/Development/android/sdk/
-# - Android NDK in ~/Development/android/sdk/android-ndk-r19c/
-# - Qt 5.12.12 Android in ~/Development/Qt5.12.12-android/5.12.12/android_armv7/
+# - Java JDK 17
+# - Android SDK in ~/Development/android-sdk/
+# - Android NDK in ~/Development/android-sdk/ndk/23.1.7779620/
+# - Qt 5.12.12 Android in ~/Development/Qt6.4.3-android/6.4.3/android_armv7/
 # - Sign key in ~/Development/ufleisch-release-key.keystore
 # - Gradle cache in ~/.gradle/
 if test "$1" = "makedocker"; then
@@ -208,21 +208,21 @@ set -e
 (cd linux_build && \
    PATH=/opt/cmake/bin:$PATH \
    COMPILER=gcc-self-contained \
-   QTPREFIX=$HOME/Development/Qt6.4.2-linux/6.4.2/gcc_64 \
+   QTPREFIX=$HOME/Development/Qt6.4.3-linux/6.4.3/gcc_64 \
    ../kid3/build.sh)
 (cd mingw64_build && \
    PATH=/opt/mxe11/usr/bin:/opt/cmake/bin:$PATH \
    COMPILER=cross-mingw \
-   QTPREFIX=$HOME/Development/Qt6.4.2-mingw64/6.4.2/mingw_64 \
-   QTBINARYDIR=$HOME/Development/Qt6.4.2-linux/6.4.2/gcc_64/bin \
+   QTPREFIX=$HOME/Development/Qt6.4.3-mingw64/6.4.3/mingw_64 \
+   QTBINARYDIR=$HOME/Development/Qt6.4.3-linux/6.4.3/gcc_64/bin \
    ../kid3/build.sh)
 (cd macos_build && \
    rm -f kid3/*-Darwin.dmg && \
    PATH=/opt/cmake/bin:$PATH \
    COMPILER=cross-macos \
-   QTPREFIX=$HOME/Development/Qt6.4.2-mac/6.4.2/macos \
+   QTPREFIX=$HOME/Development/Qt6.4.3-mac/6.4.3/macos \
    OSXPREFIX=/opt/osxcross/target \
-   QTBINARYDIR=$HOME/Development/Qt6.4.2-linux/6.4.2/gcc_64/bin \
+   QTBINARYDIR=$HOME/Development/Qt6.4.3-linux/6.4.3/gcc_64/bin \
    ../kid3/build.sh && \
    fatdmg=(kid3/*-Darwin.dmg) && \
    slimdmg=${fatdmg/-Darwin./-Darwin-amd64.} && \
@@ -238,11 +238,13 @@ set -e
    qt5dmg=${origdmg/-Darwin./-Darwin-Qt5.} && \
    mv $origdmg $qt5dmg)
 (cd android_build && \
+   PATH=/opt/cmake/bin:$PATH \
    COMPILER=cross-android \
-   QTPREFIX=$HOME/Development/Qt5.12.12-android/5.12.12/android_armv7 \
-   JAVA_HOME=/opt/jdk8 \
-   ANDROID_SDK_ROOT=$HOME/Development/android/sdk \
-   ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/android-ndk-r19c \
+   QTPREFIX=$HOME/Development/Qt6.4.3-android/6.4.3/android_armv7 \
+   QTBINARYDIR=$HOME/Development/Qt6.4.3-linux/6.4.3/gcc_64/bin \
+   JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 \
+   ANDROID_SDK_ROOT=$HOME/Development/android-sdk \
+   ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/23.1.7779620 \
    ../kid3/build.sh)
 EOF
     chmod +x build-all.sh
@@ -269,7 +271,8 @@ libvorbis-dev libtag1-dev libchromaprint-dev libavformat-dev \
 libavcodec-dev docbook-xsl pkg-config libreadline-dev xsltproc \
 debian-keyring dput-ng python3-distro-info sudo curl less \
 locales ninja-build ccache p7zip-full genisoimage \
-clang llvm nasm lib32z1 chrpath libpulse-mainloop-glib0 dmg2img archivemount
+clang llvm nasm lib32z1 chrpath libpulse-mainloop-glib0 dmg2img archivemount \
+openjdk-17-jre-headless
 ARG USER
 ARG UID
 RUN adduser --quiet --disabled-password --uid $UID --gecos "User" $USER && \
