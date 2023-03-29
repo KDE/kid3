@@ -1619,7 +1619,7 @@ msgctxt "Kid3MainWindow|"
 msgid "User Actions"
 msgstr "მომხმარებლის ქმედებები"
 
-#: src/app/qt/platformtools.cpp:129
+#: src/app/qt/platformtools.cpp:149
 msgctxt "@default|"
 msgid "Kid3 Handbook"
 msgstr "Kid3 -ის სახელმძღვანელო"
