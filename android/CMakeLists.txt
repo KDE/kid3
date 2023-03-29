@@ -6,7 +6,9 @@ if(QT_VERSION_MAJOR LESS 6)
   set(ANDROIDMANIFEST_XML_IN "AndroidManifest.xml.in")
 else()
   set(KID3_ANDROID_MIN_SDK_VERSION 23)
-  set(KID3_ANDROID_TARGET_SDK_VERSION 30)
+  # To avoid scoped storage with API 29+, we need access to real files.
+  # https://developer.android.com/about/versions/10/behavior-changes-10
+  set(KID3_ANDROID_TARGET_SDK_VERSION 28)
   set(KID3_ANDROID_NAME "org.qtproject.qt.android.bindings.QtApplication")
   set(FIX_KID3ACTIVITY "import fileinput; \
     [print(line.replace('org.qtproject.qt5', 'org.qtproject.qt'), end='') \
