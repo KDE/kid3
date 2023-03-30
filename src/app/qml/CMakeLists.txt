@@ -35,6 +35,8 @@ endif()
 
 if(ANDROID AND QT_VERSION_MAJOR GREATER_EQUAL 6)
   target_link_libraries(kid3-qml PRIVATE kid3-gui Qt${QT_VERSION_MAJOR}::QuickControls2 Qt${QT_VERSION_MAJOR}::Svg)
+  # for checkPermission(), requestPermission()
+  include_directories(${Qt${QT_VERSION_MAJOR}Core_PRIVATE_INCLUDE_DIRS})
 else()
   target_link_libraries(kid3-qml kid3-gui Qt${QT_VERSION_MAJOR}::QuickControls2)
   if(NOT MSVC)

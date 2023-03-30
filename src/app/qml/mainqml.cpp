@@ -34,6 +34,10 @@
 #endif
 #include <QQmlApplicationEngine>
 #include <QQuickStyle>
+#if QT_VERSION > 0x060200 && defined Q_OS_ANDROID
+#include <QtCore/private/qandroidextras_p.h>
+#include <QJniObject>
+#endif
 #include <typeinfo>
 #include "config.h"
 #include "loadtranslation.h"
@@ -95,6 +99,40 @@ bool Kid3QtApplication::notify(QObject* receiver, QEvent* event)
   return false;
 }
 
+#if QT_VERSION > 0x060200 && defined Q_OS_ANDROID
+/**
+ * Schedule a restart on Android in 100ms.
+ * https://www.kdab.com/qt-on-android-how-to-restart-your-application/
+ */
+void scheduleRestart()
+{
+  QJniObject activity = QNativeInterface::QAndroidApplication::context();
+  auto packageManager = activity.callObjectMethod(
+        "getPackageManager", "()Landroid/content/pm/PackageManager;");
+  auto activityIntent = packageManager.callObjectMethod(
+        "getLaunchIntentForPackage",
+        "(Ljava/lang/String;)Landroid/content/Intent;",
+        activity.callObjectMethod("getPackageName", "()Ljava/lang/String;")
+        .object());
+  auto pendingIntent = QJniObject::callStaticObjectMethod(
+        "android/app/PendingIntent", "getActivity",
+        "(Landroid/content/Context;ILandroid/content/Intent;I)Landroid/app/PendingIntent;",
+        activity.object(), jint(0), activityIntent.object(),
+        QJniObject::getStaticField<jint>("android/content/Intent",
+                                         "FLAG_ACTIVITY_CLEAR_TOP"));
+  auto alarmManager = activity.callObjectMethod(
+        "getSystemService", "(Ljava/lang/String;)Ljava/lang/Object;",
+        QJniObject::getStaticObjectField("android/content/Context",
+                                         "ALARM_SERVICE", "Ljava/lang/String;")
+        .object());
+  alarmManager.callMethod<void>(
+        "set", "(IJLandroid/app/PendingIntent;)V",
+        QJniObject::getStaticField<jint>("android/app/AlarmManager", "RTC"),
+        jlong(QDateTime::currentMSecsSinceEpoch() + 100),
+        pendingIntent.object());
+}
+#endif
+
 }
 
 /**
@@ -113,6 +151,20 @@ int main(int argc, char* argv[])
 #endif
 #ifdef HAVE_TRANSLATIONSDIR_IN_QRC
   Q_INIT_RESOURCE(translations);
+#endif
+
+#if QT_VERSION > 0x060200 && defined Q_OS_ANDROID
+  auto permissionResult =
+      QtAndroidPrivate::checkPermission(QtAndroidPrivate::Storage).result();
+  if (permissionResult != QtAndroidPrivate::Authorized) {
+    permissionResult =
+        QtAndroidPrivate::requestPermission(QtAndroidPrivate::Storage).result();
+    // Storage access works only after restart (?), so terminate now.
+    if (permissionResult == QtAndroidPrivate::Authorized) {
+      scheduleRestart();
+    }
+    return 0;
+  }
 #endif
 
   QCoreApplication::setApplicationName(QLatin1String("Kid3"));
