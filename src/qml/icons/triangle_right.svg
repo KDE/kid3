@@ -1,10 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-  <defs>
-    <linearGradient id="linearGradient4142">
-      <stop style="stop-color:#8b8b89;stop-opacity:1" offset="0" id="stop4144" />
-      <stop style="stop-color:#7b7b79;stop-opacity:0" offset="1" id="stop4146" />
-    </linearGradient>
-    <linearGradient xlink:href="#linearGradient4142" id="linearGradient6707" x1="7.8627458" y1="36.043335" x2="-5.5502152" y2="36.043335" gradientUnits="userSpaceOnUse" gradientTransform="translate(1.7793513,-26.097152)" />
-  </defs>
-  <path style="fill:url(#linearGradient6707);fill-opacity:1;stroke:#8a8a8a;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.85882354" d="m 3.8402279,16.446183 11.2583301,-6.4999997 -11.2583301,-6.5 0,12.9999997 z"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="svg10" width="18" height="18" version="1.1" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata id="metadata14">
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs id="defs6">
+  <linearGradient id="linearGradient6707" x1="7.8627" x2="-5.5502" y1="36.043" y2="36.043" gradientTransform="matrix(.61091 0 0 .61091 4.1493 -13.019)" gradientUnits="userSpaceOnUse">
+   <stop id="stop4144" stop-color="#8b8b89" offset="0"/>
+   <stop id="stop4146" stop-color="#7b7b79" stop-opacity="0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <path id="path8" d="m5.4083 12.971 6.8779-3.9709-6.8779-3.9709z" fill="url(#linearGradient6707)" stroke="#8a8a8a" stroke-opacity=".85882" stroke-width=".61091"/>
 </svg>
