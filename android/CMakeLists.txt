@@ -150,10 +150,14 @@ if(QT_VERSION_MAJOR LESS 6)
   add_dependencies(apk android-package musicbrainzimport discogsimport
                    freedbimport amazonimport taglibmetadata kid3qml)
 else(QT_VERSION_MAJOR LESS 6)
+
+  qt_add_executable(kid3apk MANUAL_FINALIZATION)
+  target_link_libraries(kid3apk PRIVATE kid3-qml Qt${QT_VERSION_MAJOR}::Svg)
+
   # qt_add_qml_module is needed to have the QML plugins included
   set(_qmlFiles ${QMLAPP_QML_SOURCES})
   list(TRANSFORM _qmlFiles PREPEND "../src/qml/")
-  qt_add_qml_module(kid3-qml
+  qt_add_qml_module(kid3apk
       URI net.sourceforge.kid3
       VERSION 1.1
       QML_FILES ${_qmlFiles}
@@ -166,12 +170,12 @@ else(QT_VERSION_MAJOR LESS 6)
       NO_RESOURCE_TARGET_PATH
   )
 
-  add_dependencies(kid3-qml android-package musicbrainzimport discogsimport
+  add_dependencies(kid3apk android-package musicbrainzimport discogsimport
                    freedbimport amazonimport taglibmetadata kid3qml)
 
   cmake_policy(SET CMP0026 OLD) # allow use of the LOCATION target property
   set(EXTRA_LIBS)
-  foreach(LIB kid3-qml kid3-core kid3-gui musicbrainzimport discogsimport
+  foreach(LIB kid3apk kid3-qml kid3-core kid3-gui musicbrainzimport discogsimport
       freedbimport amazonimport taglibmetadata kid3qml
       ${ANDROID_EXTRA_LIBS_DIR}/libssl_1_1.so
       ${ANDROID_EXTRA_LIBS_DIR}/libcrypto_1_1.so)
@@ -190,7 +194,7 @@ else(QT_VERSION_MAJOR LESS 6)
     endif()
   endforeach()
 
-  set_target_properties(kid3-qml PROPERTIES
+  set_target_properties(kid3apk PROPERTIES
     QT_ANDROID_DEPLOYMENT_DEPENDENCIES "${_deploymentDepends}"
     QT_ANDROID_EXTRA_LIBS "${EXTRA_LIBS}"
     QT_ANDROID_MIN_SDK_VERSION "${KID3_ANDROID_MIN_SDK_VERSION}"
@@ -208,5 +212,5 @@ else(QT_VERSION_MAJOR LESS 6)
     set(QT_ANDROID_SIGN_APK ON)
   endif()
 
-  qt_finalize_target(kid3-qml)
+  qt_finalize_target(kid3apk)
 endif(QT_VERSION_MAJOR LESS 6)

@@ -1651,7 +1651,7 @@ EOF
     QT_ANDROID_KEYSTORE_ALIAS=$(grep ANDROID_KEYSTORE_ALIAS CMakeCache.txt | cut -d= -f2) \
     make apk
     _version=$(grep VERSION config.h | cut -d'"' -f2)
-    for prefix in android/build/outputs/apk/release/android-release android/build/outputs/apk/android-release android/bin/QtApp-release src/app/qml/android-build/build/outputs/apk/release/android-build-release; do
+    for prefix in android/build/outputs/apk/release/android-release android/build/outputs/apk/android-release android/bin/QtApp-release android/android-build/build/outputs/apk/release/android-build-release; do
       for suffix in signed unsigned; do
         _apkpath=${prefix}-${suffix}.apk
         if test -f $_apkpath; then
