@@ -1,0 +1,20 @@
+# SPDX-FileCopyrightText: 2023 Urs Fleisch <ufleisch at users.sourceforge.net>
+# SPDX-License-Identifier: CC0-1.0
+
+Dependencies:
+- 'on': ['Linux', 'FreeBSD']
+  'require':
+    'frameworks/extra-cmake-modules':   '@stable'
+    'frameworks/kconfig':               '@stable'
+    'frameworks/kconfigwidgets':        '@stable'
+    'frameworks/kcoreaddons':           '@stable'
+    'frameworks/kio':                   '@stable'
+    'frameworks/kwidgetsaddons':        '@stable'
+    'frameworks/kxmlgui':               '@stable'
+
+Options:
+  use-ccache: True
+  cmake-options: '-DWITH_CHROMAPRINT=OFF -DWITH_READLINE=OFF'
+  require-passing-tests-on: [ '@all' ]
+  run-cppcheck: True
+  run-gcovr: False
