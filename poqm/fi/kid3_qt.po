@@ -1,7 +1,7 @@
 # Kid3 Finnish Translation.
 # This file is put in the public domain.
 #
-# Tommi Nieminen <translator@legisign.org>, 2009, 2020, 2021, 2022.
+# Tommi Nieminen <translator@legisign.org>, 2009, 2020, 2021, 2022, 2023.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2022-05-28 12:07+0300\n"
+"PO-Revision-Date: 2023-03-14 21:52+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: fi\n"
 "X-Source-Language: en\n"
@@ -959,12 +959,12 @@ msgstr "Kid3:n asetukset"
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "K&yllä"
 
 #: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "&Ei"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
@@ -3395,12 +3395,9 @@ msgid "XID"
 msgstr "XID"
 
 #: src/core/tags/frame.cpp:326
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapters"
-msgstr "Luku"
+msgstr "Luvut"
 
 #: src/core/tags/frame.cpp:327
 msgctxt "@default|"
@@ -4150,9 +4147,6 @@ msgstr "Tunniste tiedostonimestä"
 
 #: src/gui/dialogs/configdialogpages.cpp:454
 #: src/gui/dialogs/configdialogpages.cpp:514
-#, fuzzy
-#| msgctxt "PlaylistEditDialog|"
-#| msgid "Playlist"
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Soittolista"
