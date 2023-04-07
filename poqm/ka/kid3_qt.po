@@ -3998,7 +3998,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:285
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
-msgstr ""
+msgstr "&მხოლოდ ხელით მითითებული ჟანრების ჩვენება"
 
 #: src/gui/dialogs/configdialogpages.cpp:293
 msgctxt "ConfigDialogPages|"
@@ -4068,7 +4068,7 @@ msgstr "გაშვება"
 #: src/gui/dialogs/configdialogpages.cpp:383
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
-msgstr ""
+msgstr "ბოლოს გახსნილი ფაილის &ჩატვირთვა"
 
 #: src/gui/dialogs/configdialogpages.cpp:389
 msgctxt "ConfigDialogPages|"
@@ -4194,7 +4194,7 @@ msgstr "&პროქსი:"
 #: src/gui/dialogs/configdialogpages.cpp:569
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
-msgstr ""
+msgstr "პროქსის ავთენტიკაცია &სჭირდება"
 
 #: src/gui/dialogs/configdialogpages.cpp:571
 msgctxt "ConfigDialogPages|"
@@ -4209,7 +4209,7 @@ msgstr "პროქსის &პაროლი:"
 #: src/gui/dialogs/configdialogpages.cpp:609
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
-msgstr ""
+msgstr "&მეტამონაცემების დამატებები და პრიორიტეტი"
 
 #: src/gui/dialogs/configdialogpages.cpp:621
 msgctxt "ConfigDialogPages|"
@@ -4219,7 +4219,7 @@ msgstr "&ხელმისაწვდომი დამატებები"
 #: src/gui/dialogs/configdialogpages.cpp:632
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
-msgstr ""
+msgstr "ცვლილებების ძალაში შესასვლელად საჭიროა გადატვირთვა!"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:740
 msgctxt "@default|"
@@ -4522,7 +4522,7 @@ msgstr "დაბრუნება"
 #: src/gui/dialogs/importdialog.cpp:199
 msgctxt "ImportDialog|"
 msgid "Check maximum allowable time &difference (sec):"
-msgstr ""
+msgstr "მაქსიმალური დაშვებული &დროის სხვაობა (წმ):"
 
 #: src/gui/dialogs/importdialog.cpp:207
 msgctxt "ImportDialog|"
@@ -4643,7 +4643,7 @@ msgstr "ახალი"
 #: src/gui/dialogs/playlistdialog.cpp:159
 msgctxt "PlaylistDialog|"
 msgid "Cr&eate in:"
-msgstr ""
+msgstr "შექმნა &საქაღალდეში:"
 
 #: src/gui/dialogs/playlistdialog.cpp:162
 msgctxt "PlaylistDialog|"
@@ -5131,7 +5131,7 @@ msgstr "სახელის გადარქმევის შეცდო�
 #: src/gui/forms/basemainwindow.cpp:1128
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
-msgstr ""
+msgstr "ვცადო თავიდან კატალოგების დახურვის შემდეგ?"
 
 #: src/gui/forms/basemainwindow.cpp:1205
 msgctxt "BaseMainWindowImpl|"
@@ -5173,24 +5173,24 @@ msgstr "%1-ის სახელის %2-ზე შეცვლის შე�
 #: src/gui/forms/basemainwindow.cpp:1573
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
-msgstr ""
+msgstr "ვცადო თავიდან საქაღალდეების დახურვის შემდეგ?"
 
 #: src/gui/forms/basemainwindow.cpp:1591
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
-msgstr ""
+msgstr "მართლა გნებავთ ამ %1 ჩანაწერის ნაგავში გადატანა?"
 
 #: src/gui/forms/basemainwindow.cpp:1620
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
-msgstr ""
+msgstr "მართლა გნებავთ ამ %1 ჩანაწერის ნაგავში გადატანა?"
 
 #: src/gui/forms/basemainwindow.cpp:1622
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
-msgstr ""
+msgstr "მართლა გნებავთ ეს ჩანაწერი ნაგავში გადაიტანოთ?"
 
 #: src/gui/forms/basemainwindow.cpp:1624
 msgctxt "BaseMainWindowImpl|"
@@ -6694,7 +6694,7 @@ msgstr "ფაილში ჩაწერის შეცდომა:\n"
 #, qt-format
 msgctxt "Main|"
 msgid "SD card is only writable in %1"
-msgstr ""
+msgstr "SD ბარათი მხოლოდ %1-შია ჩაწერადი"
 
 #: src/qml/app/Main.qml:163
 msgctxt "Main|"
@@ -6977,12 +6977,12 @@ msgstr ""
 #: src/qml/app/SettingsPage.qml:80
 msgctxt "SettingsPage|"
 msgid "Version used for new ID3v2 tags"
-msgstr ""
+msgstr "ახალი ID3v2 ჭდეებისთვის გამოყენებული ვერსია"
 
 #: src/qml/app/SettingsPage.qml:86
 msgctxt "SettingsPage|"
 msgid "Track number digits"
-msgstr ""
+msgstr "ციფრების რაოდენობა ტრეკის სახელში"
 
 #: src/qml/app/SettingsPage.qml:91
 msgctxt "SettingsPage|"
@@ -7052,22 +7052,22 @@ msgstr ""
 #: src/qml/app/SettingsPage.qml:189
 msgctxt "SettingsPage|"
 msgid "Quick access frames"
-msgstr ""
+msgstr "სწრაფი წვდომის ფრეიმები"
 
 #: src/qml/app/SettingsPage.qml:208
 msgctxt "SettingsPage|"
 msgid "Load last-opened files"
-msgstr ""
+msgstr "ბოლოს გახსნილი ფაილის ჩატვირთვა"
 
 #: src/qml/app/SettingsPage.qml:213
 msgctxt "SettingsPage|"
 msgid "Preserve file timestamp"
-msgstr ""
+msgstr "ფაილის დროის შტამპის შენარჩუნება"
 
 #: src/qml/app/SettingsPage.qml:218
 msgctxt "SettingsPage|"
 msgid "Mark changes"
-msgstr ""
+msgstr "ცვლილებების დანიშვნა"
 
 #: src/qml/app/SettingsPage.qml:223
 msgctxt "SettingsPage|"
@@ -7082,7 +7082,7 @@ msgstr "დასაკრავი სიისა და საქაღალ
 #: src/qml/app/SettingsPage.qml:233
 msgctxt "SettingsPage|"
 msgid "Use maximum length"
-msgstr ""
+msgstr "მაქსიმალური სიგრძის გამოყენება"
 
 #: src/qml/app/SettingsPage.qml:238
 msgctxt "SettingsPage|"
@@ -7092,17 +7092,17 @@ msgstr "მაქსიმალური სიგრძე"
 #: src/qml/app/SettingsPage.qml:275
 msgctxt "SettingsPage|"
 msgid "Filename for cover"
-msgstr ""
+msgstr "ყდის ფაილის სახელი"
 
 #: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
-msgstr ""
+msgstr "დასაკრავი სიის ტექსტის კოდირება"
 
 #: src/qml/app/SettingsPage.qml:286
 msgctxt "SettingsPage|"
 msgid "To filename format"
-msgstr ""
+msgstr "ფაილის სახელის ფორმატში"
 
 #: src/qml/app/SettingsPage.qml:296
 msgctxt "SettingsPage|"
@@ -7112,7 +7112,7 @@ msgstr "ფაილის სახელი ჭდიდან"
 #: src/qml/app/SettingsPage.qml:311
 msgctxt "SettingsPage|"
 msgid "From filename format"
-msgstr ""
+msgstr "ფაილის სახელის ფორმატიდან"
 
 #: src/qml/app/SettingsPage.qml:321
 msgctxt "SettingsPage|"
