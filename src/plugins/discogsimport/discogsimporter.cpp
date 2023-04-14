@@ -78,8 +78,10 @@ QString getArtistString(const QJsonArray& artists)
       }
       artist += fixUpArtist((map.contains(QLatin1String("name"))
                              ? map.value(QLatin1String("name"))
-                             : map.value(QLatin1String("artist"))
-                               .toObject().value(QLatin1String("name")))
+                             : map.contains(QLatin1String("displayName"))
+                               ? map.value(QLatin1String("displayName"))
+                               : map.value(QLatin1String("artist"))
+                                 .toObject().value(QLatin1String("name")))
                             .toString());
       join = (map.contains(QLatin1String("join"))
               ? map.value(QLatin1String("join"))
@@ -408,10 +410,12 @@ void TrackInfo::addToFrames(FrameCollection& frames,
  * property when getting it from the HTML output
  * @param importer Discogs importer
  * @param trackDataModel track data model to update with imported data
+ * @param data optional top level data
  * @return true if at least one title was found.
  */
 bool parseJsonAlbumResults(const QJsonObject& map,
-    const DiscogsImporter* importer, TrackDataModel* trackDataModel)
+    const DiscogsImporter* importer, TrackDataModel* trackDataModel,
+    const QJsonObject& data = QJsonObject())
 {
   // releases have the format (JSON, simplified):
   // { "styles": ["Heavy Metal"],
@@ -591,6 +595,14 @@ bool parseJsonAlbumResults(const QJsonObject& map,
 
   for (const auto& val : trackList) {
     auto track = val.toObject();
+    if (track.size() == 1 && track.contains(QLatin1String("__ref")) &&
+        !data.isEmpty()) {
+      const QJsonObject trackRef = data.value(
+            track.value(QLatin1String("__ref")).toString()).toObject();
+      if (trackRef.contains(QLatin1String("title"))) {
+        track = trackRef;
+      }
+    }
 
     TrackInfo trackInfo(track);
 
@@ -841,7 +853,8 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
                              QJsonArray({QJsonObject({{QLatin1String("uri"),
                                                        imgUrl}})}));
             }
-            if (parseJsonAlbumResults(release, m_importer, trackDataModel())) {
+            if (parseJsonAlbumResults(release, m_importer, trackDataModel(),
+                                      data)) {
               return;
             }
           }
