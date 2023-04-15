@@ -17,11 +17,11 @@ include:
 # the build command, but it is hard coded to 'make -j 8', so the build folder
 # has to be cleaned manually.
 
-suse_tumbleweed_qt515:
-  before_script:
-    - git clone https://invent.kde.org/sysadmin/ci-utilities
-    - git clone https://invent.kde.org/sysadmin/repo-metadata ci-utilities/repo-metadata/
-    - rm -rf _build
+# suse_tumbleweed_qt515:
+#   before_script:
+#     - git clone https://invent.kde.org/sysadmin/ci-utilities
+#     - git clone https://invent.kde.org/sysadmin/repo-metadata ci-utilities/repo-metadata/
+#     - rm -rf _build
 
 suse_tumbleweed_qt64:
   before_script:
