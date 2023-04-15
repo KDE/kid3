@@ -6156,7 +6156,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1431
+#: src/plugins/discogsimport/discogsimporter.cpp:1444
 #, fuzzy
 msgctxt "@default|"
 msgid "Discogs"
