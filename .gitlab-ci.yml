@@ -2,7 +2,9 @@
 # SPDX-License-Identifier: CC0-1.0
 
 include:
-  - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/linux.yml
+# Building both Qt5 and Qt6 does not seem to work, probably they build
+# concurrently inside the same build folder, only build with Qt6 for now.
+#  - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/linux.yml
   - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/linux-qt6.yml
 #  - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/freebsd.yml
 #  - https://invent.kde.org/sysadmin/ci-utilities/raw/master/gitlab-templates/windows.yml
