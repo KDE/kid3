@@ -3312,6 +3312,13 @@ void setTextEncoding(TagLib::ID3v2::TextIdentificationFrame* f,
 }
 
 template <>
+void setTextEncoding(TagLib::ID3v2::UserTextIdentificationFrame* f,
+                     TagLib::String::Type enc)
+{
+  f->setTextEncoding(enc);
+}
+
+template <>
 void setTextEncoding(TagLib::ID3v2::AttachedPictureFrame* f,
                      TagLib::String::Type enc)
 {
