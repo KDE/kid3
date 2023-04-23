@@ -286,8 +286,10 @@ private:
 ExtraArtist::ExtraArtist(const QJsonObject& obj) :
   m_name(fixUpArtist((obj.contains(QLatin1String("name"))
                       ? obj.value(QLatin1String("name"))
-                      : obj.value(QLatin1String("artist"))
-                        .toObject().value(QLatin1String("name"))).toString())),
+                      : obj.contains(QLatin1String("displayName"))
+                        ? obj.value(QLatin1String("displayName"))
+                        : obj.value(QLatin1String("artist"))
+                          .toObject().value(QLatin1String("name"))).toString())),
   m_role((obj.contains(QLatin1String("role"))
           ? obj.value(QLatin1String("role"))
           : obj.value(QLatin1String("creditRole"))).toString().trimmed())
