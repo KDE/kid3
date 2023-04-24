@@ -5818,7 +5818,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1444
+#: src/plugins/discogsimport/discogsimporter.cpp:1446
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
@@ -6428,7 +6428,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - 팟캐스트 피드"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6707
+#: src/plugins/taglibmetadata/taglibfile.cpp:6714
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "등급 정보"

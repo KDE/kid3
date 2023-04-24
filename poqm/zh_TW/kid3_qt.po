@@ -5829,7 +5829,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1444
+#: src/plugins/discogsimport/discogsimporter.cpp:1446
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
@@ -6439,7 +6439,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED -  种子 Podcast"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6707
+#: src/plugins/taglibmetadata/taglibfile.cpp:6714
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "評分資訊"
