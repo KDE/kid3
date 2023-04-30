@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-03-04 08:41+0100\n"
+"PO-Revision-Date: 2023-04-29 11:22+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 22.12.3\n"
 "X-Language: pl\n"
 "X-Source-Language: en\n"
 
@@ -5508,7 +5508,7 @@ msgstr "Przesunięcie końca"
 #: src/gui/widgets/configtable.cpp:41
 msgctxt "ConfigTable|"
 msgid "&Add"
-msgstr "&Dodaj"
+msgstr "Dod&aj"
 
 #: src/gui/widgets/configtable.cpp:141
 msgctxt "ConfigTable|"
@@ -5553,7 +5553,7 @@ msgstr "Z"
 #: src/gui/widgets/formatbox.cpp:58
 msgctxt "FormatBox|"
 msgid "To"
-msgstr "Do"
+msgstr "Na"
 
 #: src/gui/widgets/formatbox.cpp:66
 msgctxt "FormatBox|"
