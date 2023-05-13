@@ -5613,42 +5613,51 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             break;
           case Frame::FT_Genre:
             if (tagNr == Frame::Tag_Id3v1) {
-              if (TagLib::ID3v1::genreIndex(tstr) == 255) {
-                static const struct {
-                  const char* newName;
-                  const char* oldName;
-                } alternativeGenreNames[] = {
-                  { "Avant-Garde", "Avantgarde" },
-                  { "Beat Music", "Beat" },
-                  { "Bebop", "Bebob" },
-                  { "Britpop", "BritPop" },
-                  { "Dancehall", "Dance Hall" },
-                  { "Dark Wave", "Darkwave" },
-                  { "Euro House", "Euro-House" },
-                  { "Eurotechno", "Euro-Techno" },
-                  { "Fast Fusion", "Fusion" },
-                  { "Folk Rock", "Folk/Rock" },
-                  { "Hip Hop", "Hip-Hop" },
-                  { "Jazz-Funk", "Jazz+Funk" },
-                  { "Pop-Funk", "Pop/Funk" },
-                  { "Synth-Pop", "Synthpop" },
-                  { "Worldbeat", "Negerpunk" }
-                };
-                static TagLib::Map<TagLib::String, TagLib::String> genreNameMap;
-                if (genreNameMap.isEmpty()) {
-                  // first time initialization
-                  for (const auto& agn : alternativeGenreNames) {
-                    genreNameMap.insert(agn.newName, agn.oldName);
+              const auto genres =
+                  tstr.split(Frame::stringListSeparator().toLatin1());
+              for (const auto& genre : genres) {
+                if (TagLib::ID3v1::genreIndex(genre) != 0xff) {
+                  tstr = genre;
+                  break;
+                } else {
+                  static const struct {
+                    const char* newName;
+                    const char* oldName;
+                  } alternativeGenreNames[] = {
+                    { "Avant-Garde", "Avantgarde" },
+                    { "Beat Music", "Beat" },
+                    { "Bebop", "Bebob" },
+                    { "Britpop", "BritPop" },
+                    { "Dancehall", "Dance Hall" },
+                    { "Dark Wave", "Darkwave" },
+                    { "Euro House", "Euro-House" },
+                    { "Eurotechno", "Euro-Techno" },
+                    { "Fast Fusion", "Fusion" },
+                    { "Folk Rock", "Folk/Rock" },
+                    { "Hip Hop", "Hip-Hop" },
+                    { "Jazz-Funk", "Jazz+Funk" },
+                    { "Pop-Funk", "Pop/Funk" },
+                    { "Synth-Pop", "Synthpop" },
+                    { "Worldbeat", "Negerpunk" }
+                  };
+                  static TagLib::Map<TagLib::String, TagLib::String> genreNameMap;
+                  if (genreNameMap.isEmpty()) {
+                    // first time initialization
+                    for (const auto& agn : alternativeGenreNames) {
+                      genreNameMap.insert(agn.newName, agn.oldName);
+                    }
                   }
-                }
-                auto it = genreNameMap.find(tstr);
-                if (it != genreNameMap.end()) {
-                  tstr = it->second;
+                  auto it = genreNameMap.find(tstr);
+                  if (it != genreNameMap.end()) {
+                    tstr = it->second;
+                    break;
+                  }
                 }
               }
               tag->setGenre(tstr);
               // if the string cannot be converted to a number, set the truncation flag
-              checkTruncation(tagNr, !str.isEmpty() && Genres::getNumber(str) == 0xff
+              checkTruncation(tagNr, !tstr.isEmpty() &&
+                              TagLib::ID3v1::genreIndex(tstr) == 0xff
                               ? 1 : 0, 1ULL << type, 0);
             } else {
               TagLib::ID3v2::TextIdentificationFrame* frame;

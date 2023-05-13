@@ -1791,7 +1791,14 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     QString str = frame.getValue();
     if (tagNr == Frame::Tag_1) {
       if (!str.isNull()) {
-        int num = Genres::getNumber(str);
+        const auto genres = str.split(Frame::stringListSeparator());
+        int num = 0xff;
+        for (const auto& genre : genres) {
+          num = Genres::getNumber(genre);
+          if (num != 0xff) {
+            break;
+          }
+        }
         if (setGenreNum(tag, num)) {
           markTagChanged(tagNr, Frame::ExtendedType(type));
         }
