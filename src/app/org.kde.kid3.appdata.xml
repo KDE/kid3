@@ -5,7 +5,7 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Kid3</name>
-  <name xml:lang="ar">كِد٣</name>
+  <name xml:lang="ar">كِد3</name>
   <name xml:lang="ca">Kid3</name>
   <name xml:lang="ca-valencia">Kid3</name>
   <name xml:lang="cs">Kid3</name>
@@ -76,7 +76,7 @@
       DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack,
       WMA, WAV, AIFF and tracker files.
     </p>
-    <p xml:lang="ar">باستخدام كِد٣ يمكنك تحرير وسوم في ملفات MP3 و Ogg/Vorbis و DSF و FLAC و Opus و MPCو APE و MP4/AAC و  MP2و  Speexو TrueAudio و WavPack و WMA و WAV و .AIFF</p>
+    <p xml:lang="ar">باستخدام كِد3 يمكنك تحرير وسوم في ملفات MP3 و Ogg/Vorbis و DSF و FLAC و Opus و MPCو APE و MP4/AAC و  MP2و  Speexو TrueAudio و WavPack و WMA و WAV و .AIFF</p>
     <p xml:lang="ca">Amb el Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes als fitxers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i del seguidor de peces.</p>
     <p xml:lang="ca-valencia">Amb Kid3, un editor per a les etiquetes de l'àudio, podreu editar les etiquetes en els fitxers MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i del seguidor de peces.</p>
     <p xml:lang="cs">Pomocí Kid3, editoru značek hudby, můžete upravovat značky v MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF a dalších souborech.</p>
@@ -213,7 +213,7 @@
     <screenshot type="default" width="1200" height="675">
       <image>https://kid3.kde.org/assets/img/screen169.png</image>
       <caption>Kid3 main window</caption>
-      <caption xml:lang="ar">النّافذة الرّئيسيّة لكِد٣</caption>
+      <caption xml:lang="ar">النّافذة الرّئيسيّة لكِد3</caption>
       <caption xml:lang="ca">Finestra principal del Kid3</caption>
       <caption xml:lang="ca-valencia">Finestra principal de Kid3</caption>
       <caption xml:lang="cs">Hlavní okno Kid3</caption>
