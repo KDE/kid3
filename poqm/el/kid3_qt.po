@@ -6446,7 +6446,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Ροή εκπομπής"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6714
+#: src/plugins/taglibmetadata/taglibfile.cpp:6723
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "Πληροφορίες αξιολόγησης"

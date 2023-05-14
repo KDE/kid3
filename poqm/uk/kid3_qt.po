@@ -6448,7 +6448,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED — подача трансляції"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6714
+#: src/plugins/taglibmetadata/taglibfile.cpp:6723
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "Дані щодо оцінки"

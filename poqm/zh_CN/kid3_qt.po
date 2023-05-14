@@ -6430,7 +6430,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - 饋流 Podcast"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6714
+#: src/plugins/taglibmetadata/taglibfile.cpp:6723
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "评分信息"

@@ -319,7 +319,7 @@ msgstr "أزل"
 #: src/app/cli/clicommand.cpp:1295
 msgctxt "ConfigCommand|"
 msgid "Configure Kid3"
-msgstr "اضبط - كِد٣"
+msgstr "اضبط - كِد3"
 
 #: src/app/cli/clicommand.cpp:1296
 msgctxt "ConfigCommand|"
@@ -946,7 +946,7 @@ msgstr "القسم"
 #: src/app/kde/kdemainwindow.cpp:668
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
-msgstr "اضبط - كِد٣"
+msgstr "اضبط - كِد3"
 
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
 msgctxt "@default|"
@@ -1470,12 +1470,12 @@ msgstr "أ&خف الوسوم آليًّا"
 #: src/app/qt/kid3mainwindow.cpp:560
 msgctxt "Kid3MainWindow|"
 msgid "Configure Kid3"
-msgstr "اضبط - كِد٣"
+msgstr "اضبط - كِد3"
 
 #: src/app/qt/kid3mainwindow.cpp:561
 msgctxt "Kid3MainWindow|"
 msgid "&Configure Kid3..."
-msgstr "&اضبط - كِد٣..."
+msgstr "&اضبط - كِد3..."
 
 #: src/app/qt/kid3mainwindow.cpp:575
 msgctxt "Kid3MainWindow|"
@@ -1485,22 +1485,22 @@ msgstr "م&ساعدة"
 #: src/app/qt/kid3mainwindow.cpp:578
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 Handbook"
-msgstr "كتيّب كِد٣"
+msgstr "كتيّب كِد3"
 
 #: src/app/qt/kid3mainwindow.cpp:579
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 &Handbook"
-msgstr "&كتيّب كِد٣"
+msgstr "&كتيّب كِد3"
 
 #: src/app/qt/kid3mainwindow.cpp:590
 msgctxt "Kid3MainWindow|"
 msgid "About Kid3"
-msgstr "حول كِد٣"
+msgstr "حول كِد3"
 
 #: src/app/qt/kid3mainwindow.cpp:591
 msgctxt "Kid3MainWindow|"
 msgid "&About Kid3"
-msgstr "&حول كِد٣"
+msgstr "&حول كِد3"
 
 #: src/app/qt/kid3mainwindow.cpp:604
 msgctxt "Kid3MainWindow|"
@@ -1613,7 +1613,7 @@ msgstr "الرخصة"
 #: src/app/qt/kid3mainwindow.cpp:929
 msgctxt "Kid3MainWindow|"
 msgid "Configure - Kid3"
-msgstr "اضبط - كِد٣"
+msgstr "اضبط - كِد3"
 
 #: src/app/qt/kid3mainwindow.cpp:973 src/app/qt/kid3mainwindow.cpp:985
 msgctxt "Kid3MainWindow|"
@@ -1623,7 +1623,7 @@ msgstr "إجراءات المستخدم"
 #: src/app/qt/platformtools.cpp:149
 msgctxt "@default|"
 msgid "Kid3 Handbook"
-msgstr "كتيّب كِد٣"
+msgstr "كتيّب كِد3"
 
 #: src/app/qt/recentfilesmenu.cpp:120
 msgctxt "RecentFilesMenu|"
@@ -2252,12 +2252,12 @@ msgstr ""
 #: src/core/model/filefilter.cpp:95 src/core/tags/trackdata.cpp:251
 msgctxt "@default|"
 msgid "Tag 1"
-msgstr "الوسم ١"
+msgstr "الوسم 1"
 
 #: src/core/model/filefilter.cpp:101 src/core/tags/trackdata.cpp:255
 msgctxt "@default|"
 msgid "Tag 2"
-msgstr "الوسم ٢"
+msgstr "الوسم 2"
 
 #: src/core/model/filefilter.cpp:108
 msgctxt "@default|"
@@ -3452,7 +3452,7 @@ msgstr "الوسم %1"
 #: src/core/tags/frame.cpp:1186
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
-msgstr "الوسم 2 والوسم ٢"
+msgstr "الوسم 2 والوسم 2"
 
 #: src/core/tags/frame.cpp:1190
 msgctxt "@default|"
@@ -4041,17 +4041,17 @@ msgstr "التّقييم"
 #: src/gui/dialogs/configdialogpages.cpp:360
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
-msgstr "الوسم &١"
+msgstr "الوسم &1"
 
 #: src/gui/dialogs/configdialogpages.cpp:362
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
-msgstr "الوسم &٢"
+msgstr "الوسم &2"
 
 #: src/gui/dialogs/configdialogpages.cpp:363
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
-msgstr "الوسم &٣"
+msgstr "الوسم &3"
 
 #: src/gui/dialogs/configdialogpages.cpp:364
 msgctxt "ConfigDialogPages|"
@@ -5293,7 +5293,7 @@ msgstr "تعذّر تنفيذ "
 #: src/gui/forms/kid3form.cpp:280
 msgctxt "Kid3Form|"
 msgid "Kid3"
-msgstr "كِد٣"
+msgstr "كِد3"
 
 #: src/gui/forms/kid3form.cpp:335 src/gui/forms/kid3form.cpp:1243
 #: src/gui/forms/kid3form.cpp:1244
@@ -6436,7 +6436,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6714
+#: src/plugins/taglibmetadata/taglibfile.cpp:6723
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr ""
@@ -6444,7 +6444,7 @@ msgstr ""
 #: src/qml/app/AboutDialog.qml:29
 msgctxt "AboutDialog|"
 msgid "About Kid3"
-msgstr "حول كِد٣"
+msgstr "حول كِد3"
 
 #: src/qml/app/AboutDialog.qml:39
 msgctxt "AboutDialog|"
@@ -6530,22 +6530,22 @@ msgstr "المقصد:"
 #: src/qml/app/BatchImportPage.qml:136
 msgctxt "BatchImportPage|"
 msgid "Tag 1"
-msgstr "الوسم ١"
+msgstr "الوسم 1"
 
 #: src/qml/app/BatchImportPage.qml:137
 msgctxt "BatchImportPage|"
 msgid "Tag 2"
-msgstr "الوسم ٢"
+msgstr "الوسم 2"
 
 #: src/qml/app/BatchImportPage.qml:138
 msgctxt "BatchImportPage|"
 msgid "Tag 3"
-msgstr "الوسم ١"
+msgstr "الوسم 1"
 
 #: src/qml/app/BatchImportPage.qml:139
 msgctxt "BatchImportPage|"
 msgid "Tag 1 and Tag 2"
-msgstr "الوسم 2 والوسم ٢"
+msgstr "الوسم 2 والوسم 2"
 
 #: src/qml/app/BatchImportPage.qml:140
 msgctxt "BatchImportPage|"
@@ -6824,22 +6824,22 @@ msgstr "المقصد:"
 #: src/qml/app/NumberTracksDialog.qml:63
 msgctxt "NumberTracksDialog|"
 msgid "Tag 1"
-msgstr "الوسم ١"
+msgstr "الوسم 1"
 
 #: src/qml/app/NumberTracksDialog.qml:64
 msgctxt "NumberTracksDialog|"
 msgid "Tag 2"
-msgstr "الوسم ١"
+msgstr "الوسم 1"
 
 #: src/qml/app/NumberTracksDialog.qml:65
 msgctxt "NumberTracksDialog|"
 msgid "Tag 3"
-msgstr "الوسم ٢"
+msgstr "الوسم 2"
 
 #: src/qml/app/NumberTracksDialog.qml:66
 msgctxt "NumberTracksDialog|"
 msgid "Tag 1 and Tag 2"
-msgstr "الوسم 2 والوسم ٢"
+msgstr "الوسم 2 والوسم 2"
 
 #: src/qml/app/NumberTracksDialog.qml:67
 msgctxt "NumberTracksDialog|"
@@ -6895,7 +6895,7 @@ msgstr "المصدر:"
 #: src/qml/app/RenameDirectoryPage.qml:129
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 2 and Tag 1"
-msgstr "من الوسم 1 والوسم ٢"
+msgstr "من الوسم 1 والوسم 2"
 
 #: src/qml/app/RenameDirectoryPage.qml:130
 msgctxt "RenameDirectoryPage|"

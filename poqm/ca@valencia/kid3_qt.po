@@ -6449,7 +6449,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Canal de podcast"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6714
+#: src/plugins/taglibmetadata/taglibfile.cpp:6723
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "Informació de la puntuació"
