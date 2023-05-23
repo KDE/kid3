@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-03-14 19:16+0300\n"
+"PO-Revision-Date: 2023-05-22 14:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.03.70\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Language: tr\n"
 "X-Source-Language: en\n"
@@ -2953,7 +2953,7 @@ msgstr "Çalma sayacı"
 #: src/core/tags/frame.cpp:206 src/core/tags/frame.cpp:303
 msgctxt "@default|"
 msgid "Podcast"
-msgstr "Podcast"
+msgstr "Pod Yayını"
 
 #: src/core/tags/frame.cpp:207
 msgctxt "@default|"
@@ -3003,12 +3003,12 @@ msgstr "Senkronize edilmiş tempo açıcıları"
 #: src/core/tags/frame.cpp:218
 msgctxt "@default|"
 msgid "Podcast Category"
-msgstr "Podcast Kategori"
+msgstr "Pod Yayını Kategorisi"
 
 #: src/core/tags/frame.cpp:221
 msgctxt "@default|"
 msgid "Podcast Description"
-msgstr "Podcast açıklama"
+msgstr "Pod Yayını Açıklaması"
 
 #: src/core/tags/frame.cpp:222
 msgctxt "@default|"
@@ -3043,7 +3043,7 @@ msgstr "Dosya türü"
 #: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Podcast Identifier"
-msgstr "Podcast tanımlayıcı"
+msgstr "Pod Yayını Tanımlayıcısı"
 
 #: src/core/tags/frame.cpp:229
 msgctxt "@default|"
@@ -3053,7 +3053,7 @@ msgstr "Zaman"
 #: src/core/tags/frame.cpp:230
 msgctxt "@default|"
 msgid "Podcast Keywords"
-msgstr "Podcast Anahtar Sözcükleri"
+msgstr "Pod Yayını Anahtar Sözcükleri"
 
 #: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:287
 msgctxt "@default|"
@@ -3118,7 +3118,7 @@ msgstr "Telif URL"
 #: src/core/tags/frame.cpp:244
 msgctxt "@default|"
 msgid "Podcast Feed"
-msgstr "Podcast besleme"
+msgstr "Pod Yayını Beslemesi"
 
 #: src/core/tags/frame.cpp:245
 msgctxt "@default|"
@@ -3374,12 +3374,12 @@ msgstr "Eser ve bölüm bilgisini kullan"
 #: src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Podcast URL"
-msgstr "Podcast URL"
+msgstr "Pod Yayını URL'si"
 
 #: src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Podcast GUID"
-msgstr "Podcast GUID"
+msgstr "Pod Yayını GUID'si"
 
 #: src/core/tags/frame.cpp:324
 msgctxt "@default|"
@@ -6318,7 +6318,7 @@ msgstr "MVNM - Bölüm adı"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2359
 msgctxt "@default|"
 msgid "PCST - Podcast"
-msgstr "PCST - Podcast"
+msgstr "PCST - Pod Yayını"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2364
 msgctxt "@default|"
@@ -6338,7 +6338,7 @@ msgstr "SIGN - İmza çerçevesi"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2373
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
-msgstr "TCAT - Podcast kategori"
+msgstr "TCAT - Pod yayını kategorisi"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2375
 msgctxt "@default|"
@@ -6353,7 +6353,7 @@ msgstr "TDEN - Sıkıştırma süresi"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2381
 msgctxt "@default|"
 msgid "TDES - Podcast description"
-msgstr "TDES - Podcast açıklama"
+msgstr "TDES - Pod yayını açıklaması"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2384
 msgctxt "@default|"
@@ -6378,7 +6378,7 @@ msgstr "TDTG - Etiketleme zamanı"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2392
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
-msgstr "TGID - Podcast tanımlayıcı"
+msgstr "TGID - Pod yayını tanımlayıcısı"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2394
 msgctxt "@default|"
@@ -6388,7 +6388,7 @@ msgstr "TIPL - İlgili kişi listesi"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2400
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
-msgstr "TKWD - Podcast Anahtar Sözcükleri"
+msgstr "TKWD - Pod yayını anahtar sözcükleri"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2404
 msgctxt "@default|"
@@ -6438,7 +6438,7 @@ msgstr "TSST - Alt yazı ayarla"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2437
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
-msgstr "WFED - Podcast besleme"
+msgstr "WFED - Pod yayını beslemesi"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:6723
 msgctxt "@default|"
