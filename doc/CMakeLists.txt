@@ -144,7 +144,7 @@ with open(docbook, 'rb') as in_fh:
         out_fh.write(line)
 out_fh.flush()
 args.append(out_fh.name)
-os.execv('$<TARGET_FILE:KF${QT_MAJOR_VERSION}::meinproc5>', args)
+os.execv('$<TARGET_FILE:KF${QT_MAJOR_VERSION}::meinproc${QT_MAJOR_VERSION}>', args)
 ")
 endif()
 
