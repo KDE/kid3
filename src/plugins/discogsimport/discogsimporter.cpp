@@ -466,8 +466,11 @@ bool parseJsonAlbumResults(const QJsonObject& map,
     // The genre can be found in "genre" or "style".
     // All genres found are checked for an ID3v1 number, starting with those
     // in the style field.
-    const auto genreList = map.value(QLatin1String("styles")).toArray() +
-        map.value(QLatin1String("genres")).toArray();
+    // Converted to QVariantList because adding two QJsonArray will add the
+    // second array as a single element to the first array.
+    const auto genreList =
+        map.value(QLatin1String("styles")).toArray().toVariantList() +
+        map.value(QLatin1String("genres")).toArray().toVariantList();
     QStringList genres, customGenres;
     for (const auto& val : genreList) {
       QString genre = val.toString().trimmed();
