@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-03-14 21:52+0200\n"
+"PO-Revision-Date: 2023-05-02 14:55+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: fi\n"
 "X-Source-Language: en\n"
@@ -332,7 +332,7 @@ msgstr "Kid3:n asetukset"
 #: src/app/cli/clicommand.cpp:1296
 msgctxt "ConfigCommand|"
 msgid "Group.Option Value"
-msgstr ""
+msgstr "Ryhmä.Valinta-arvo"
 
 #: src/app/cli/clicommand.cpp:1317 src/app/cli/clicommand.cpp:1323
 #, qt-format
@@ -2081,12 +2081,12 @@ msgstr ""
 #: src/core/model/eventtimingcode.cpp:43
 msgctxt "@default|"
 msgid "verse start"
-msgstr ""
+msgstr "säkeen alku"
 
 #: src/core/model/eventtimingcode.cpp:44
 msgctxt "@default|"
 msgid "refrain start"
-msgstr ""
+msgstr "kertosäkeen alku"
 
 #: src/core/model/eventtimingcode.cpp:45
 msgctxt "@default|"
@@ -2106,27 +2106,28 @@ msgstr "muunnelman alku"
 #: src/core/model/eventtimingcode.cpp:48
 msgctxt "@default|"
 msgid "key change"
-msgstr ""
+msgstr "sävellajin muutos"
 
 #: src/core/model/eventtimingcode.cpp:49
 msgctxt "@default|"
 msgid "time change"
 msgstr "ajan muutos"
 
+# Tiedä, olisiko tähän pitänyt säästää Kellogg’s-alluusio :)
 #: src/core/model/eventtimingcode.cpp:50
 msgctxt "@default|"
 msgid "momentary unwanted noise (Snap, Crackle & Pop)"
-msgstr ""
+msgstr "hetkellinen ei-toivottu häly (napsahdus, rahina tai poksahdus)"
 
 #: src/core/model/eventtimingcode.cpp:51
 msgctxt "@default|"
 msgid "sustained noise"
-msgstr ""
+msgstr "jatkuva häly"
 
 #: src/core/model/eventtimingcode.cpp:52
 msgctxt "@default|"
 msgid "sustained noise end"
-msgstr ""
+msgstr "jatkuvan hälyn loppu"
 
 #: src/core/model/eventtimingcode.cpp:53
 msgctxt "@default|"
@@ -2141,12 +2142,12 @@ msgstr "pääosan loppu"
 #: src/core/model/eventtimingcode.cpp:55
 msgctxt "@default|"
 msgid "verse end"
-msgstr ""
+msgstr "säkeen loppu"
 
 #: src/core/model/eventtimingcode.cpp:56
 msgctxt "@default|"
 msgid "refrain end"
-msgstr ""
+msgstr "kertosäkeen loppu"
 
 #: src/core/model/eventtimingcode.cpp:57
 msgctxt "@default|"
@@ -2156,12 +2157,12 @@ msgstr "teeman loppu"
 #: src/core/model/eventtimingcode.cpp:58
 msgctxt "@default|"
 msgid "profanity"
-msgstr ""
+msgstr "hävyttömyyksiä"
 
 #: src/core/model/eventtimingcode.cpp:59
 msgctxt "@default|"
 msgid "profanity end"
-msgstr ""
+msgstr "hävyttömyydet loppuvat"
 
 #: src/core/model/eventtimingcode.cpp:60
 msgctxt "@default|"
@@ -3546,6 +3547,8 @@ msgid ""
 "Must be musical key, 3 characters, A-G, b, #, m, o\n"
 "or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
+"Oltava nuotti – kolme merkkiä, A–G, b, #, m, o –\n"
+"tai Camelot-pyörän arvo 1A–12A, 1B–12B"
 
 #: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
@@ -4187,12 +4190,9 @@ msgid "&Play on double click"
 msgstr "&Soita kaksoisnapsauttamalla"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
-#, fuzzy
-#| msgctxt "SelectCommand|"
-#| msgid "Select file"
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "Valitse tiedosto"
+msgstr "&Valitse tiedosto toistettaessa"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
@@ -5706,10 +5706,9 @@ msgid "Top level"
 msgstr "Ylätaso"
 
 #: src/gui/widgets/tableofcontentseditor.cpp:45
-#, fuzzy
 msgctxt "TableOfContentsEditor|"
 msgid "Ordered"
-msgstr "Pakota kirjoitus"
+msgstr "Järjestetty"
 
 #: src/gui/widgets/tagformatbox.cpp:43
 msgctxt "TagFormatBox|"
@@ -5836,7 +5835,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1446
+#: src/plugins/discogsimport/discogsimporter.cpp:1449
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"

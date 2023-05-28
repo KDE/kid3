@@ -1,6 +1,9 @@
+# Fumiaki Okushi <fumiaki.okushi@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3_qt\n"
+"PO-Revision-Date: 2023-05-26 23:51-0700\n"
+"Last-Translator: Fumiaki Okushi <fumiaki.okushi@gmail.com>\n"
 "Language-Team: Japanese <kde-jp@kde.org>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -5074,6 +5077,7 @@ msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
 msgid_plural "%n folders"
 msgstr[0] ""
+msgstr[1] ""
 
 #: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
@@ -5081,6 +5085,7 @@ msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
 msgid_plural "%n files"
 msgstr[0] ""
+msgstr[1] ""
 
 #: src/gui/forms/basemainwindow.cpp:707
 #, qt-format
@@ -5088,6 +5093,7 @@ msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
 msgid_plural "%n selected"
 msgstr[0] ""
+msgstr[1] ""
 
 #: src/gui/forms/basemainwindow.cpp:710
 msgctxt "BaseMainWindowImpl|"
@@ -5805,7 +5811,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr ""
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1446
+#: src/plugins/discogsimport/discogsimporter.cpp:1449
 msgctxt "@default|"
 msgid "Discogs"
 msgstr ""

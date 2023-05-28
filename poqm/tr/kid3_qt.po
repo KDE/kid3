@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-05-22 14:05+0300\n"
+"PO-Revision-Date: 2023-05-28 00:11+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.03.70\n"
+"X-Generator: Lokalize 23.04.1\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Language: tr\n"
 "X-Source-Language: en\n"
@@ -2773,17 +2773,17 @@ msgstr "Duruş"
 #: src/core/tags/frame.cpp:147
 msgctxt "@default|"
 msgid "Original Album"
-msgstr "Asıl Albüm"
+msgstr "Özgün Albüm"
 
 #: src/core/tags/frame.cpp:148 src/core/tags/frame.cpp:268
 msgctxt "@default|"
 msgid "Original Artist"
-msgstr "Asıl Sanatçı"
+msgstr "Özgün Sanatçı"
 
 #: src/core/tags/frame.cpp:149
 msgctxt "@default|"
 msgid "Original Date"
-msgstr "Asıl Tarih"
+msgstr "Özgün Tarih"
 
 #: src/core/tags/frame.cpp:151
 msgctxt "@default|"
@@ -3018,7 +3018,7 @@ msgstr "Şarkı listesi gecikmesi"
 #: src/core/tags/frame.cpp:223
 msgctxt "@default|"
 msgid "Original Release Time"
-msgstr "Orjinal piyasaya çıkış zamanı"
+msgstr "Özgün Çıkış Zamanı"
 
 #: src/core/tags/frame.cpp:224
 msgctxt "@default|"
@@ -3058,7 +3058,7 @@ msgstr "Pod Yayını Anahtar Sözcükleri"
 #: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:287
 msgctxt "@default|"
 msgid "Original Filename"
-msgstr "Orjinal dosya adı"
+msgstr "Özgün Dosya Adı"
 
 #: src/core/tags/frame.cpp:233
 msgctxt "@default|"
@@ -3254,7 +3254,7 @@ msgstr "MCDI"
 #: src/core/tags/frame.cpp:288
 msgctxt "@default|"
 msgid "Original Lyricist"
-msgstr "Asıl söz yazarı"
+msgstr "Özgün Söz Yazarı"
 
 #: src/core/tags/frame.cpp:290
 msgctxt "@default|"
@@ -4182,12 +4182,12 @@ msgstr "Açılır &Menü Komutları"
 #: src/gui/dialogs/configdialogpages.cpp:541
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
-msgstr "&Çift tıklayın çal"
+msgstr "&Çift tıklamada çal"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "Çalma sırasında dosya &seç"
+msgstr "Çalarken dosyayı &seç"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
@@ -4741,7 +4741,7 @@ msgstr "Parça listesi"
 #: src/gui/dialogs/playlisteditdialog.cpp:120
 msgctxt "PlaylistEditDialog|"
 msgid " [modified]"
-msgstr " [değişti]"
+msgstr " [değiştirildi]"
 
 #: src/gui/dialogs/playlisteditdialog.cpp:130
 msgctxt "PlaylistEditDialog|"
@@ -5145,7 +5145,7 @@ msgstr "Yeniden adlandırırken hata:\n"
 #: src/gui/forms/basemainwindow.cpp:1128
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
-msgstr "Dizinleri kapattıktan sonra yeniden dene?"
+msgstr "Dizinleri kapattıktan sonra yeniden denensin mi?"
 
 #: src/gui/forms/basemainwindow.cpp:1205
 msgctxt "BaseMainWindowImpl|"
@@ -5778,7 +5778,7 @@ msgstr "Temiz&le"
 #: src/gui/widgets/timeeventeditor.cpp:478
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
-msgstr "&Ekle konum..."
+msgstr "Ofset &ekle..."
 
 #: src/gui/widgets/timeeventeditor.cpp:480
 msgctxt "TimeEventEditor|"
@@ -5830,7 +5830,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1446
+#: src/plugins/discogsimport/discogsimporter.cpp:1449
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
@@ -6085,30 +6085,30 @@ msgstr "TMED - Ortam türü"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2407
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - Orjinal Albüm / Film / Gösteri adı"
+msgstr "TOAL - Özgün albüm/film/dizi adı"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:971
 #: src/plugins/taglibmetadata/taglibfile.cpp:2408
 msgctxt "@default|"
 msgid "TOFN - Original filename"
-msgstr "TOFN - Orjinal dosya adı"
+msgstr "TOFN - Özgün dosya adı"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:972
 #: src/plugins/taglibmetadata/taglibfile.cpp:2409
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - Orjinal söz yazar(lar)ı"
+msgstr "TOLY - Özgün söz yazar(lar)ı"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:973
 #: src/plugins/taglibmetadata/taglibfile.cpp:2410
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - Orjinal sanatçı adı"
+msgstr "TOPE - Özgün sanatçı(lar)/söyleyen(ler)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:974
 msgctxt "@default|"
 msgid "TORY - Original release year"
-msgstr "TORY - Orjinal piyasaya çıkış yılı"
+msgstr "TORY - Özgün piyasaya çıkış yılı"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:975
 #: src/plugins/taglibmetadata/taglibfile.cpp:2411
@@ -6358,7 +6358,7 @@ msgstr "TDES - Pod yayını açıklaması"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2384
 msgctxt "@default|"
 msgid "TDOR - Original release time"
-msgstr "TDOR - Orjinal piyasaya çıkış zamanı"
+msgstr "TDOR - Özgün piyasaya çıkış zamanı"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2385
 msgctxt "@default|"
