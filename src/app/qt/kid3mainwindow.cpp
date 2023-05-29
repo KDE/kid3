@@ -560,8 +560,8 @@ void Kid3MainWindow::initActions()
   settingsConfigure->setStatusTip(tr("Configure Kid3"));
   settingsConfigure->setText(tr("&Configure Kid3..."));
   settingsConfigure->setIcon(QIcon::fromTheme(
-      QLatin1String("preferences-system"),
-      QIcon(QLatin1String(":/images/preferences-system.png"))));
+      QLatin1String("configure"),
+      QIcon(QLatin1String(":/images/configure.png"))));
   settingsConfigure->setShortcut(QKeySequence::Preferences);
   settingsConfigure->setMenuRole(QAction::PreferencesRole);
   settingsConfigure->setObjectName(QLatin1String("options_configure"));

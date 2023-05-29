@@ -2,8 +2,8 @@
   <qresource>
     <file>images/application-exit.png</file>
     <file>images/application-exit@2x.png</file>
-    <file>images/preferences-system.png</file>
-    <file>images/preferences-system@2x.png</file>
+    <file>images/configure.png</file>
+    <file>images/configure@2x.png</file>
     <file>images/document-export.png</file>
     <file>images/document-export@2x.png</file>
     <file>images/document-import.png</file>
