@@ -286,6 +286,35 @@
   <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
   <translation type="gettext">kid3</translation>
   <releases>
+    <release version="3.9.4" date="2023-07-09">
+      <description>
+        <p>New</p>
+        <ul>
+          <li>All the official binaries are built with Qt 6. For macOS, the Darwin-amd64.dmg file is now the Qt 6 version, whereas systems older than Mojave need the package Darwin-Qt5.dmg. The string replacement settings stored by Qt 6 are not compatible with Qt 5 because a different encoding is used.</li>
+          <li>Option "Select file on play" in "User Actions" settings tab.</li>
+        </ul>
+        <p>Improved</p>
+        <ul>
+          <li>Click on play tool bar time toggles between elapsed and remaining time.</li>
+          <li>The visibility and docked area of the play tool bar are restored.</li>
+          <li>ID3v1: When setting multiple genres, use first supported element.</li>
+          <li>Qt6: Use SVG icons for better performance in file list and dialog.</li>
+        </ul>
+        <p>Fixed</p>
+        <ul>
+          <li>Do not mark all non-unified frames as modified if any non-unified frame is changed.</li>
+          <li>Crash in Id3libMetadata when clicking Edit on unsupported frame.</li>
+          <li>Setting text encoding on TXXX frames with TaglibMetadata.</li>
+          <li>Skip non letter characters for first letter uppercase format.</li>
+          <li>Discogs import: Fix values in Artist, Arranger and Performer frames, use "genres" if "styles" is empty, fetch correct cover art.</li>
+          <li>Qt6: Crash when adding item to config table.</li>
+          <li>Qt6: Larger media player slider, do not repeat when last song has been played.</li>
+          <li>Windows, TaglibMetadata: Support files larger than 2 GB.</li>
+          <li>Windows, OggFlacMetadata: Build without libssp-0.dll.</li>
+          <li>Windows, Mp4v2Metadata: Fix saving with file names containing non ASCII characters.</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.9.3" date="2023-01-12"/>
     <release version="3.9.2" date="2022-08-06"/>
     <release version="3.9.1" date="2022-01-15"/>
