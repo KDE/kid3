@@ -1,7 +1,7 @@
 {
     "app-id": "org.kde.kid3",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-21.08",
+    "runtime-version": "5.15-22.08",
     "sdk": "org.kde.Sdk",
     "command": "kid3",
     "rename-icon": "kid3",
@@ -39,8 +39,14 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/acoustid/chromaprint/archive/v1.5.0.tar.gz",
-                    "sha256": "5c8e0d579cb3478900699110aa961c1552a422a18741cf67dd62136b1b877c7b"
+                    "url": "https://github.com/acoustid/chromaprint/archive/v1.5.1.tar.gz",
+                    "sha256": "a1aad8fa3b8b18b78d3755b3767faff9abb67242e01b478ec9a64e190f335e1c",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 286,
+                        "stable-only": true,
+                        "url-template": "https://github.com/acoustid/chromaprint/archive/v$version.tar.gz"
+                    }
                 }
             ]
         },
@@ -54,8 +60,14 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://taglib.org/releases/taglib-1.13.tar.gz",
-                    "sha256": "58f08b4db3dc31ed152c04896ee9172d22052bc7ef12888028c01d8b1d60ade0"
+                    "url": "https://taglib.github.io/releases/taglib-1.13.tar.gz",
+                    "sha256": "58f08b4db3dc31ed152c04896ee9172d22052bc7ef12888028c01d8b1d60ade0",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1982,
+                        "stable-only": true,
+                        "url-template": "https://taglib.github.io/releases/taglib-$version.tar.gz"
+                    }
                 }
             ]
         },
@@ -88,26 +100,22 @@
         },
         {
             "name": "mp4v2",
-            "buildsystem": "autotools",
-            "config-opts": [],
-            "cleanup": [ "/bin" ],
+            "buildsystem": "cmake-ninja",
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
+                "-DBUILD_UTILS=OFF"
+            ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/mp4v2/mp4v2-2.0.0.tar.bz2",
-                    "sha256": "0319b9a60b667cf10ee0ec7505eb7bdc0a2e21ca7a93db96ec5bd758e3428338"
-                },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0001-Fix_mp4tags_corruption.patch" },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0002-Fix_m4_error.patch" },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0003-Reproducible_build.patch" },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0004-Pointer_comparison.patch" },
-                { "type": "patch", "path": "../patches/mp4v2-1.0.0-0005-Cxx11_compiler.patch" }
+                    "url": "https://github.com/enzo1982/mp4v2/releases/download/v2.1.3/mp4v2-2.1.3.tar.bz2",
+                    "sha256": "033185c17bf3c5fdd94020c95f8325be2e5356558e3913c3d6547a85dd61f7f1"
+                }
             ]
         },
         {
             "name": "kid3",
             "buildsystem": "cmake-ninja",
-            "make-install-args": [ "check" ],
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DWITH_APPS=KDE;Qt;CLI",

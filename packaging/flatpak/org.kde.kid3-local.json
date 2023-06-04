@@ -2,7 +2,7 @@
     "app-id": "org.kde.kid3",
     "branch": "master",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-21.08",
+    "runtime-version": "5.15-22.08",
     "sdk": "org.kde.Sdk",
     "command": "kid3",
     "rename-icon": "kid3",
@@ -42,8 +42,14 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/acoustid/chromaprint/archive/v1.5.0.tar.gz",
-                    "sha256": "5c8e0d579cb3478900699110aa961c1552a422a18741cf67dd62136b1b877c7b"
+                    "url": "https://github.com/acoustid/chromaprint/archive/v1.5.1.tar.gz",
+                    "sha256": "a1aad8fa3b8b18b78d3755b3767faff9abb67242e01b478ec9a64e190f335e1c",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 286,
+                        "stable-only": true,
+                        "url-template": "https://github.com/acoustid/chromaprint/archive/v$version.tar.gz"
+                    }
                 }
             ]
         },
@@ -57,8 +63,14 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://taglib.org/releases/taglib-1.13.tar.gz",
-                    "sha256": "58f08b4db3dc31ed152c04896ee9172d22052bc7ef12888028c01d8b1d60ade0"
+                    "url": "https://taglib.github.io/releases/taglib-1.13.tar.gz",
+                    "sha256": "58f08b4db3dc31ed152c04896ee9172d22052bc7ef12888028c01d8b1d60ade0",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1982,
+                        "stable-only": true,
+                        "url-template": "https://taglib.github.io/releases/taglib-$version.tar.gz"
+                    }
                 }
             ]
         },
@@ -99,15 +111,14 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/enzo1982/mp4v2/releases/download/v2.1.1/mp4v2-2.1.1.tar.bz2",
-                    "sha256": "29420c62e56a2e527fd8979d59d05ed6d83ebe27e0e2c782c1ec19a3a402eaee"
+                    "url": "https://github.com/enzo1982/mp4v2/releases/download/v2.1.3/mp4v2-2.1.3.tar.bz2",
+                    "sha256": "033185c17bf3c5fdd94020c95f8325be2e5356558e3913c3d6547a85dd61f7f1"
                 }
             ]
         },
         {
             "name": "kid3",
             "buildsystem": "cmake-ninja",
-            "make-install-args": [ "check" ],
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DWITH_APPS=KDE;Qt;CLI",

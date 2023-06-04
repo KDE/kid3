@@ -370,17 +370,17 @@ libvorbis_version=1.3.7
 libvorbis_patchlevel=1
 ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
-ffmpeg_version=5.1.2
+ffmpeg_version=5.1.3
 ffmpeg_patchlevel=1
 libflac_version=1.4.2+ds
 libflac_patchlevel=2
 id3lib_version=3.8.3
-id3lib_patchlevel=17
+id3lib_patchlevel=18
 taglib_version=1.13
 taglib_githash=39e712796f2dd7336188ae690bc3837049f29aac
 chromaprint_version=1.5.1
 chromaprint_patchlevel=2
-mp4v2_version=2.1.1
+mp4v2_version=2.1.3
 
 # Try to find the configuration from an existing build.
 if test -z "$COMPILER"; then
