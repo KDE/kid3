@@ -377,6 +377,7 @@ libflac_patchlevel=2
 id3lib_version=3.8.3
 id3lib_patchlevel=17
 taglib_version=1.13
+taglib_githash=39e712796f2dd7336188ae690bc3837049f29aac
 chromaprint_version=1.5.1
 chromaprint_patchlevel=2
 mp4v2_version=2.1.1

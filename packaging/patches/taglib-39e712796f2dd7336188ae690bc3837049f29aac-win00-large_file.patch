@@ -1,4 +1,4 @@
-From 11b4a0852a641cf0e6ae4024e467044bac3cb432 Mon Sep 17 00:00:00 2001
+From 8569e324ba11ca61d908f5fdf4b234586dd69fa9 Mon Sep 17 00:00:00 2001
 From: Urs Fleisch <ufleisch@users.sourceforge.net>
 Date: Sun, 19 Apr 2020 11:13:55 +0200
 Subject: Support large files over 2GB
@@ -8,7 +8,7 @@ b01f45e141afa6a89aea319a2783f177e202fa1d
 https://github.com/taglib/taglib/pull/77
 
 diff --git a/taglib/ape/apefile.cpp b/taglib/ape/apefile.cpp
-index a10c1f64..290836bd 100644
+index 07057054..4d797d1e 100644
 --- a/taglib/ape/apefile.cpp
 +++ b/taglib/ape/apefile.cpp
 @@ -69,13 +69,13 @@ public:
@@ -38,7 +38,7 @@ index a10c1f64..290836bd 100644
      if(d->APELocation >= 0)
        streamLength = d->APELocation;
 diff --git a/taglib/ape/apeproperties.cpp b/taglib/ape/apeproperties.cpp
-index dee7e8c0..5a43445e 100644
+index ef99ad04..fe724c30 100644
 --- a/taglib/ape/apeproperties.cpp
 +++ b/taglib/ape/apeproperties.cpp
 @@ -70,7 +70,7 @@ APE::Properties::Properties(File *, ReadStyle style) :
@@ -52,7 +52,7 @@ index dee7e8c0..5a43445e 100644
  {
 @@ -142,10 +142,10 @@ namespace
    }
- }
+ } // namespace
  
 -void APE::Properties::read(File *file, long streamLength)
 +void APE::Properties::read(File *file, offset_t streamLength)
@@ -64,7 +64,7 @@ index dee7e8c0..5a43445e 100644
  
    // Next, we look for the descriptor.
 diff --git a/taglib/ape/apeproperties.h b/taglib/ape/apeproperties.h
-index c279b59b..1c03e070 100644
+index 8c67481a..d7ddaa30 100644
 --- a/taglib/ape/apeproperties.h
 +++ b/taglib/ape/apeproperties.h
 @@ -61,7 +61,7 @@ namespace TagLib {
@@ -108,7 +108,7 @@ index 4235f73e..3cf91b2e 100644
  {
    d->file = file;
 diff --git a/taglib/ape/apetag.h b/taglib/ape/apetag.h
-index f4d4fba6..b5a2eb87 100644
+index 01504291..4829379a 100644
 --- a/taglib/ape/apetag.h
 +++ b/taglib/ape/apetag.h
 @@ -66,7 +66,7 @@ namespace TagLib {
@@ -121,7 +121,7 @@ index f4d4fba6..b5a2eb87 100644
        /*!
         * Destroys this Tag instance.
 diff --git a/taglib/flac/flacfile.cpp b/taglib/flac/flacfile.cpp
-index a71d688b..b86d1883 100644
+index a71d688b..8ff99d89 100644
 --- a/taglib/flac/flacfile.cpp
 +++ b/taglib/flac/flacfile.cpp
 @@ -79,10 +79,10 @@ public:
@@ -148,6 +148,30 @@ index a71d688b..b86d1883 100644
    bool scanned;
  };
  
+@@ -219,8 +219,8 @@ bool FLAC::File::save()
+ 
+   // Compute the amount of padding, and append that to data.
+ 
+-  long originalLength = d->streamStart - d->flacStart;
+-  long paddingLength = originalLength - data.size() - 4;
++  offset_t originalLength = d->streamStart - d->flacStart;
++  offset_t paddingLength = originalLength - data.size() - 4;
+ 
+   if(paddingLength <= 0) {
+     paddingLength = MinPaddingLength;
+@@ -228,9 +228,9 @@ bool FLAC::File::save()
+   else {
+     // Padding won't increase beyond 1% of the file size or 1MB.
+ 
+-    long threshold = length() / 100;
+-    threshold = std::max(threshold, MinPaddingLength);
+-    threshold = std::min(threshold, MaxPaddingLegnth);
++    offset_t threshold = length() / 100;
++    threshold = std::max<offset_t>(threshold, MinPaddingLength);
++    threshold = std::min<offset_t>(threshold, MaxPaddingLegnth);
+ 
+     if(paddingLength > threshold)
+       paddingLength = MinPaddingLength;
 @@ -341,7 +341,7 @@ ByteVector FLAC::File::streamInfoData()
    return ByteVector();
  }
@@ -176,7 +200,7 @@ index a71d688b..b86d1883 100644
    if(d->ID3v2Location >= 0)
      nextBlockOffset = find("fLaC", d->ID3v2Location + d->ID3v2OriginalSize);
 diff --git a/taglib/flac/flacfile.h b/taglib/flac/flacfile.h
-index 9346d9b4..02901afc 100644
+index a43c68c6..05803767 100644
 --- a/taglib/flac/flacfile.h
 +++ b/taglib/flac/flacfile.h
 @@ -256,7 +256,7 @@ namespace TagLib {
@@ -211,7 +235,7 @@ index b947f039..a798940a 100644
    if(data.size() < 18) {
      debug("FLAC::Properties::read() - FLAC properties must contain at least 18 bytes.");
 diff --git a/taglib/flac/flacproperties.h b/taglib/flac/flacproperties.h
-index 17e00425..b4167986 100644
+index e58f9aea..c47e4493 100644
 --- a/taglib/flac/flacproperties.h
 +++ b/taglib/flac/flacproperties.h
 @@ -50,7 +50,7 @@ namespace TagLib {
@@ -233,10 +257,19 @@ index 17e00425..b4167986 100644
        class PropertiesPrivate;
        PropertiesPrivate *d;
 diff --git a/taglib/mp4/mp4atom.cpp b/taglib/mp4/mp4atom.cpp
-index 140ed12b..87428364 100644
+index 02e90f9c..edd615f2 100644
 --- a/taglib/mp4/mp4atom.cpp
 +++ b/taglib/mp4/mp4atom.cpp
-@@ -174,7 +174,7 @@ MP4::Atoms::Atoms(File *file)
+@@ -93,7 +93,7 @@ MP4::Atom::Atom(File *file)
+   for(int i = 0; i < numContainers; i++) {
+     if(name == containers[i]) {
+       if(name == "meta") {
+-        long posAfterMeta = file->tell();
++        offset_t posAfterMeta = file->tell();
+         ByteVector nextSize = file->readBlock(8).mid(4, 4);
+         static const char *const metaChildrenNames[] = {
+             "hdlr", "ilst", "mhdr", "ctry", "lang"
+@@ -182,7 +182,7 @@ MP4::Atoms::Atoms(File *file)
    atoms.setAutoDelete(true);
  
    file->seek(0, File::End);
@@ -246,10 +279,10 @@ index 140ed12b..87428364 100644
    while(file->tell() + 8 <= end) {
      MP4::Atom *atom = new MP4::Atom(file);
 diff --git a/taglib/mp4/mp4atom.h b/taglib/mp4/mp4atom.h
-index 5e234cce..ee2ad6fb 100644
+index 0a0669e4..48873cc9 100644
 --- a/taglib/mp4/mp4atom.h
 +++ b/taglib/mp4/mp4atom.h
-@@ -82,8 +82,8 @@ namespace TagLib {
+@@ -80,8 +80,8 @@ namespace TagLib {
        Atom *find(const char *name1, const char *name2 = 0, const char *name3 = 0, const char *name4 = 0);
        bool path(AtomList &path, const char *name1, const char *name2 = 0, const char *name3 = 0);
        AtomList findall(const char *name, bool recursive = false);
@@ -260,8 +293,21 @@ index 5e234cce..ee2ad6fb 100644
        TagLib::ByteVector name;
        AtomList children;
      private:
+diff --git a/taglib/mp4/mp4properties.cpp b/taglib/mp4/mp4properties.cpp
+index df628800..fa2ed147 100644
+--- a/taglib/mp4/mp4properties.cpp
++++ b/taglib/mp4/mp4properties.cpp
+@@ -38,7 +38,7 @@ namespace
+   {
+     long long totalLength = 0;
+     for(MP4::AtomList::ConstIterator it = list.begin(); it != list.end(); ++it) {
+-      long length = (*it)->length;
++      offset_t length = (*it)->length;
+       if(length == 0)
+         return 0; // for safety, see checkValid() in mp4file.cpp
+ 
 diff --git a/taglib/mp4/mp4tag.cpp b/taglib/mp4/mp4tag.cpp
-index 758475b9..9e6ebe19 100644
+index 946c789d..5ba83474 100644
 --- a/taglib/mp4/mp4tag.cpp
 +++ b/taglib/mp4/mp4tag.cpp
 @@ -583,7 +583,7 @@ MP4::Tag::updateParents(const AtomList &path, long delta, int ignore)
@@ -294,10 +340,10 @@ index 758475b9..9e6ebe19 100644
    MP4::Atom *meta = *(--it);
    AtomList::ConstIterator index = meta->children.find(ilst);
 diff --git a/taglib/mp4/mp4tag.h b/taglib/mp4/mp4tag.h
-index ab70e84b..3a151ceb 100644
+index 42b3d4b3..a4f78cf1 100644
 --- a/taglib/mp4/mp4tag.h
 +++ b/taglib/mp4/mp4tag.h
-@@ -151,7 +151,7 @@ namespace TagLib {
+@@ -149,7 +149,7 @@ namespace TagLib {
          ByteVector renderCovr(const ByteVector &name, const Item &item) const;
  
          void updateParents(const AtomList &path, long delta, int ignore = 0);
@@ -307,7 +353,7 @@ index ab70e84b..3a151ceb 100644
          void saveNew(ByteVector data);
          void saveExisting(ByteVector data, const AtomList &path);
 diff --git a/taglib/mpc/mpcfile.cpp b/taglib/mpc/mpcfile.cpp
-index 0ffaf893..0e36a1f8 100644
+index 4e955875..7070649b 100644
 --- a/taglib/mpc/mpcfile.cpp
 +++ b/taglib/mpc/mpcfile.cpp
 @@ -61,13 +61,13 @@ public:
@@ -376,7 +422,7 @@ index effaabed..724e5c7d 100644
    if(data.startsWith("MP+")) {
      if(data.size() < 4)
 diff --git a/taglib/mpc/mpcproperties.h b/taglib/mpc/mpcproperties.h
-index b7143ee8..c3b66b89 100644
+index 1db925d6..2c692735 100644
 --- a/taglib/mpc/mpcproperties.h
 +++ b/taglib/mpc/mpcproperties.h
 @@ -53,13 +53,13 @@ namespace TagLib {
@@ -407,7 +453,7 @@ index b7143ee8..c3b66b89 100644
        class PropertiesPrivate;
        PropertiesPrivate *d;
 diff --git a/taglib/mpeg/id3v1/id3v1tag.cpp b/taglib/mpeg/id3v1/id3v1tag.cpp
-index 358a9595..24ac1794 100644
+index 667adfa6..bdf1b9a8 100644
 --- a/taglib/mpeg/id3v1/id3v1tag.cpp
 +++ b/taglib/mpeg/id3v1/id3v1tag.cpp
 @@ -48,7 +48,7 @@ public:
@@ -429,7 +475,7 @@ index 358a9595..24ac1794 100644
  {
    d->file = file;
 diff --git a/taglib/mpeg/id3v1/id3v1tag.h b/taglib/mpeg/id3v1/id3v1tag.h
-index b61f06af..55ab63ff 100644
+index 5803312f..acdda66c 100644
 --- a/taglib/mpeg/id3v1/id3v1tag.h
 +++ b/taglib/mpeg/id3v1/id3v1tag.h
 @@ -114,7 +114,7 @@ namespace TagLib {
@@ -442,7 +488,7 @@ index b61f06af..55ab63ff 100644
        /*!
         * Destroys this Tag instance.
 diff --git a/taglib/mpeg/id3v2/id3v2tag.cpp b/taglib/mpeg/id3v2/id3v2tag.cpp
-index 156c6d5e..2c1e8a72 100644
+index f1930d0e..ba0ddb1e 100644
 --- a/taglib/mpeg/id3v2/id3v2tag.cpp
 +++ b/taglib/mpeg/id3v2/id3v2tag.cpp
 @@ -88,7 +88,7 @@ public:
@@ -463,8 +509,21 @@ index 156c6d5e..2c1e8a72 100644
    d(new TagPrivate())
  {
    d->factory = factory;
+@@ -686,9 +686,9 @@ ByteVector ID3v2::Tag::render(Version version) const
+   else {
+     // Padding won't increase beyond 1% of the file size or 1MB.
+ 
+-    long threshold = d->file ? d->file->length() / 100 : 0;
+-    threshold = std::max(threshold, MinPaddingSize);
+-    threshold = std::min(threshold, MaxPaddingSize);
++    offset_t threshold = d->file ? d->file->length() / 100 : 0;
++    threshold = std::max<offset_t>(threshold, MinPaddingSize);
++    threshold = std::min<offset_t>(threshold, MaxPaddingSize);
+ 
+     if(paddingSize > threshold)
+       paddingSize = MinPaddingSize;
 diff --git a/taglib/mpeg/id3v2/id3v2tag.h b/taglib/mpeg/id3v2/id3v2tag.h
-index 7b0f8367..3751118c 100644
+index b0b61749..1c7bcac9 100644
 --- a/taglib/mpeg/id3v2/id3v2tag.h
 +++ b/taglib/mpeg/id3v2/id3v2tag.h
 @@ -146,7 +146,7 @@ namespace TagLib {
@@ -477,7 +536,7 @@ index 7b0f8367..3751118c 100644
  
        /*!
 diff --git a/taglib/mpeg/mpegfile.cpp b/taglib/mpeg/mpegfile.cpp
-index 5f14e49d..da64f6ea 100644
+index efe8af2a..a852b939 100644
 --- a/taglib/mpeg/mpegfile.cpp
 +++ b/taglib/mpeg/mpegfile.cpp
 @@ -63,13 +63,13 @@ public:
@@ -522,7 +581,7 @@ index 5f14e49d..da64f6ea 100644
  {
    ByteVector frameSyncBytes(2, '\0');
  
-@@ -430,7 +430,7 @@ long MPEG::File::nextFrameOffset(long position)
+@@ -430,12 +430,12 @@ long MPEG::File::nextFrameOffset(long position)
    }
  }
  
@@ -531,15 +590,24 @@ index 5f14e49d..da64f6ea 100644
  {
    ByteVector frameSyncBytes(2, '\0');
  
-@@ -455,7 +455,7 @@ long MPEG::File::previousFrameOffset(long position)
+   while(position > 0) {
+-    const long bufferLength = std::min<long>(position, bufferSize());
++    const offset_t bufferLength = std::min<offset_t>(position, bufferSize());
+     position -= bufferLength;
+ 
+     seek(position);
+@@ -455,9 +455,9 @@ long MPEG::File::previousFrameOffset(long position)
    return -1;
  }
  
 -long MPEG::File::firstFrameOffset()
 +offset_t MPEG::File::firstFrameOffset()
  {
-   long position = 0;
+-  long position = 0;
++  offset_t position = 0;
  
+   if(hasID3v2Tag())
+     position = d->ID3v2Location + ID3v2Tag()->header()->completeTagSize();
 @@ -465,9 +465,9 @@ long MPEG::File::firstFrameOffset()
    return nextFrameOffset(position);
  }
@@ -562,7 +630,7 @@ index 5f14e49d..da64f6ea 100644
    if(!isValid())
      return -1;
 diff --git a/taglib/mpeg/mpegfile.h b/taglib/mpeg/mpegfile.h
-index 31cf34ce..1628ee82 100644
+index 381d89a0..2020f154 100644
 --- a/taglib/mpeg/mpegfile.h
 +++ b/taglib/mpeg/mpegfile.h
 @@ -322,24 +322,24 @@ namespace TagLib {
@@ -626,7 +694,7 @@ index 5a5015d6..b9405008 100644
    file->seek(offset);
    const ByteVector data = file->readBlock(4);
 diff --git a/taglib/mpeg/mpegheader.h b/taglib/mpeg/mpegheader.h
-index 35902cf2..b1f92510 100644
+index cb8eb251..3c260625 100644
 --- a/taglib/mpeg/mpegheader.h
 +++ b/taglib/mpeg/mpegheader.h
 @@ -61,7 +61,7 @@ namespace TagLib {
@@ -724,7 +792,7 @@ index b2686e45..0e5e1ac4 100644
        /*!
         * Returns whether or not the file on disk actually has a XiphComment.
 diff --git a/taglib/ogg/oggfile.cpp b/taglib/ogg/oggfile.cpp
-index 1f2cce93..05059ec8 100644
+index 1f2cce93..86063915 100644
 --- a/taglib/ogg/oggfile.cpp
 +++ b/taglib/ogg/oggfile.cpp
 @@ -129,7 +129,7 @@ void Ogg::File::setPacket(unsigned int i, const ByteVector &p)
@@ -765,8 +833,17 @@ index 1f2cce93..05059ec8 100644
  
    insert(data, originalOffset, originalLength);
  
+@@ -286,7 +286,7 @@ void Ogg::File::writePacket(unsigned int i, const ByteVector &packet)
+     = pages.back()->pageSequenceNumber() - lastPage->pageSequenceNumber();
+ 
+   if(numberOfNewPages != 0) {
+-    long pageOffset = originalOffset + data.size();
++    offset_t pageOffset = originalOffset + data.size();
+ 
+     while(true) {
+       Page page(this, pageOffset);
 diff --git a/taglib/ogg/oggpage.cpp b/taglib/ogg/oggpage.cpp
-index 8cd15a5c..d43b0194 100644
+index 869c357a..990b4c4f 100644
 --- a/taglib/ogg/oggpage.cpp
 +++ b/taglib/ogg/oggpage.cpp
 @@ -37,14 +37,14 @@ using namespace TagLib;
@@ -805,7 +882,7 @@ index 8cd15a5c..d43b0194 100644
    return d->fileOffset;
  }
 diff --git a/taglib/ogg/oggpage.h b/taglib/ogg/oggpage.h
-index af3fe2c9..3df200e8 100644
+index 4829b070..4ed704f6 100644
 --- a/taglib/ogg/oggpage.h
 +++ b/taglib/ogg/oggpage.h
 @@ -55,14 +55,14 @@ namespace TagLib {
@@ -826,7 +903,7 @@ index af3fe2c9..3df200e8 100644
        /*!
         * Returns a pointer to the header for this page.  This pointer will become
 diff --git a/taglib/ogg/oggpageheader.cpp b/taglib/ogg/oggpageheader.cpp
-index b867567c..cc645eaf 100644
+index 3c3c4ee1..10a1efc2 100644
 --- a/taglib/ogg/oggpageheader.cpp
 +++ b/taglib/ogg/oggpageheader.cpp
 @@ -66,7 +66,7 @@ public:
@@ -848,7 +925,7 @@ index b867567c..cc645eaf 100644
    file->seek(pageOffset);
  
 diff --git a/taglib/ogg/oggpageheader.h b/taglib/ogg/oggpageheader.h
-index 571155fc..d6c714c1 100644
+index d62feb3d..29709626 100644
 --- a/taglib/ogg/oggpageheader.h
 +++ b/taglib/ogg/oggpageheader.h
 @@ -52,7 +52,7 @@ namespace TagLib {
@@ -896,7 +973,7 @@ index b7a11cc6..fae184a0 100644
          // https://www.speex.org/docs/manual/speex-manual/node8.html
          for (unsigned int i = 0; i < 2; ++i) {
 diff --git a/taglib/ogg/vorbis/vorbisproperties.cpp b/taglib/ogg/vorbis/vorbisproperties.cpp
-index 4000c254..6f6c8907 100644
+index c2909204..b38e138a 100644
 --- a/taglib/ogg/vorbis/vorbisproperties.cpp
 +++ b/taglib/ogg/vorbis/vorbisproperties.cpp
 @@ -186,7 +186,7 @@ void Vorbis::Properties::read(File *file)
@@ -967,7 +1044,7 @@ index 005551f4..87ce7240 100644
    ByteVector combined;
  
 diff --git a/taglib/riff/rifffile.h b/taglib/riff/rifffile.h
-index 5c606b4a..cf821baf 100644
+index 1ed49503..314dc4d9 100644
 --- a/taglib/riff/rifffile.h
 +++ b/taglib/riff/rifffile.h
 @@ -71,7 +71,7 @@ namespace TagLib {
@@ -1063,7 +1140,7 @@ index 5fcd12aa..27154dc3 100644
    if(skipID3v2) {
      stream->seek(0);
 diff --git a/taglib/tagutils.h b/taglib/tagutils.h
-index 4488a32b..47d77246 100644
+index b7863494..c2bba562 100644
 --- a/taglib/tagutils.h
 +++ b/taglib/tagutils.h
 @@ -39,14 +39,14 @@ namespace TagLib {
@@ -1082,11 +1159,11 @@ index 4488a32b..47d77246 100644
      ByteVector readHeader(IOStream *stream, unsigned int length, bool skipID3v2,
 -                          long *headerOffset = 0);
 +                          offset_t *headerOffset = 0);
-   }
- }
+   }  // namespace Utils
+ }  // namespace TagLib
  
 diff --git a/taglib/toolkit/taglib.h b/taglib/toolkit/taglib.h
-index 8ea0b99b..2726cfb6 100644
+index 64ccf0a8..21e6d5ff 100644
 --- a/taglib/toolkit/taglib.h
 +++ b/taglib/toolkit/taglib.h
 @@ -54,6 +54,11 @@
@@ -1117,7 +1194,7 @@ index 8ea0b99b..2726cfb6 100644
     * Unfortunately std::wstring isn't defined on some systems, (i.e. GCC < 3)
     * so I'm providing something here that should be constant.
 diff --git a/taglib/toolkit/tbytevectorstream.cpp b/taglib/toolkit/tbytevectorstream.cpp
-index 333f528c..978fb23f 100644
+index bce3a7c6..09053597 100644
 --- a/taglib/toolkit/tbytevectorstream.cpp
 +++ b/taglib/toolkit/tbytevectorstream.cpp
 @@ -40,7 +40,7 @@ public:
@@ -1138,7 +1215,7 @@ index 333f528c..978fb23f 100644
  {
    long sizeDiff = data.size() - replace;
    if(sizeDiff < 0) {
-@@ -96,19 +96,19 @@ void ByteVectorStream::insert(const ByteVector &data, unsigned long start, unsig
+@@ -96,20 +96,20 @@ void ByteVectorStream::insert(const ByteVector &data, unsigned long start, unsig
    }
    else if(sizeDiff > 0) {
      truncate(length() + sizeDiff);
@@ -1158,12 +1235,14 @@ index 333f528c..978fb23f 100644
 -  unsigned long readPosition = start + length;
 -  unsigned long writePosition = start;
 -  if(readPosition < static_cast<unsigned long>(ByteVectorStream::length())) {
+-    unsigned long bytesToMove = ByteVectorStream::length() - readPosition;
 +  offset_t readPosition = start + length;
 +  offset_t writePosition = start;
 +  if(readPosition < ByteVectorStream::length()) {
-     unsigned long bytesToMove = ByteVectorStream::length() - readPosition;
++    offset_t bytesToMove = ByteVectorStream::length() - readPosition;
      memmove(d->data.data() + writePosition, d->data.data() + readPosition, bytesToMove);
      writePosition += bytesToMove;
+   }
 @@ -127,7 +127,7 @@ bool ByteVectorStream::isOpen() const
    return true;
  }
@@ -1195,7 +1274,7 @@ index 333f528c..978fb23f 100644
    d->data.resize(length);
  }
 diff --git a/taglib/toolkit/tbytevectorstream.h b/taglib/toolkit/tbytevectorstream.h
-index 84327c46..78ebfd4a 100644
+index 5aa8fcfd..8c2f4fa4 100644
 --- a/taglib/toolkit/tbytevectorstream.h
 +++ b/taglib/toolkit/tbytevectorstream.h
 @@ -81,7 +81,7 @@ namespace TagLib {
@@ -1247,10 +1326,10 @@ index 84327c46..78ebfd4a 100644
      ByteVector *data();
  
 diff --git a/taglib/toolkit/tfile.cpp b/taglib/toolkit/tfile.cpp
-index b7d0be4d..be2bf39e 100644
+index 4f7bf6e7..9fe31e16 100644
 --- a/taglib/toolkit/tfile.cpp
 +++ b/taglib/toolkit/tfile.cpp
-@@ -232,14 +232,14 @@ void File::writeBlock(const ByteVector &data)
+@@ -231,14 +231,14 @@ void File::writeBlock(const ByteVector &data)
    d->stream->writeBlock(data);
  }
  
@@ -1267,7 +1346,7 @@ index b7d0be4d..be2bf39e 100644
    ByteVector buffer;
  
    // These variables are used to keep track of a partial match that happens at
-@@ -251,7 +251,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
+@@ -250,7 +250,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
    // Save the location of the current read pointer.  We will restore the
    // position using seek() before all returns.
  
@@ -1276,7 +1355,7 @@ index b7d0be4d..be2bf39e 100644
  
    // Start the search at the offset.
  
-@@ -328,7 +328,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
+@@ -327,7 +327,7 @@ long File::find(const ByteVector &pattern, long fromOffset, const ByteVector &be
  }
  
  
@@ -1285,7 +1364,7 @@ index b7d0be4d..be2bf39e 100644
  {
    if(!d->stream || pattern.size() > bufferSize())
        return -1;
-@@ -348,7 +348,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+@@ -347,15 +347,15 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
    // Save the location of the current read pointer.  We will restore the
    // position using seek() before all returns.
  
@@ -1294,16 +1373,17 @@ index b7d0be4d..be2bf39e 100644
  
    // Start the search at the offset.
  
-@@ -356,7 +356,7 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+   if(fromOffset == 0)
      fromOffset = length();
  
-   long bufferLength = bufferSize();
+-  long bufferLength = bufferSize();
 -  long bufferOffset = fromOffset + pattern.size();
++  offset_t bufferLength = bufferSize();
 +  offset_t bufferOffset = fromOffset + pattern.size();
  
    // See the notes in find() for an explanation of this algorithm.
  
-@@ -402,12 +402,12 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
+@@ -401,12 +401,12 @@ long File::rfind(const ByteVector &pattern, long fromOffset, const ByteVector &b
    return -1;
  }
  
@@ -1318,14 +1398,14 @@ index b7d0be4d..be2bf39e 100644
  {
    d->stream->removeBlock(start, length);
  }
-@@ -427,12 +427,12 @@ bool File::isValid() const
+@@ -426,12 +426,12 @@ bool File::isValid() const
    return isOpen() && d->valid;
  }
  
 -void File::seek(long offset, Position p)
 +void File::seek(offset_t offset, Position p)
  {
-   d->stream->seek(offset, IOStream::Position(p));
+   d->stream->seek(offset, static_cast<IOStream::Position>(p));
  }
  
 -void File::truncate(long length)
@@ -1333,7 +1413,7 @@ index b7d0be4d..be2bf39e 100644
  {
    d->stream->truncate(length);
  }
-@@ -442,12 +442,12 @@ void File::clear()
+@@ -441,12 +441,12 @@ void File::clear()
    d->stream->clear();
  }
  
@@ -1349,7 +1429,7 @@ index b7d0be4d..be2bf39e 100644
    return d->stream->length();
  }
 diff --git a/taglib/toolkit/tfile.h b/taglib/toolkit/tfile.h
-index b9ac95ad..47e6c492 100644
+index bb8c2b30..c024c4e8 100644
 --- a/taglib/toolkit/tfile.h
 +++ b/taglib/toolkit/tfile.h
 @@ -180,8 +180,8 @@ namespace TagLib {
@@ -1426,7 +1506,7 @@ index b9ac95ad..47e6c492 100644
      /*!
       * Returns the buffer size that is used for internal buffering.
 diff --git a/taglib/toolkit/tfilestream.cpp b/taglib/toolkit/tfilestream.cpp
-index 989e1d23..676dcf40 100644
+index 989e1d23..85a859f9 100644
 --- a/taglib/toolkit/tfilestream.cpp
 +++ b/taglib/toolkit/tfilestream.cpp
 @@ -236,7 +236,7 @@ void FileStream::writeBlock(const ByteVector &data)
@@ -1515,6 +1595,17 @@ index 989e1d23..676dcf40 100644
  {
    if(!isOpen()) {
      debug("FileStream::length() -- invalid file.");
+@@ -454,8 +453,8 @@ long FileStream::length()
+ 
+   LARGE_INTEGER fileSize;
+ 
+-  if(GetFileSizeEx(d->file, &fileSize) && fileSize.QuadPart <= LONG_MAX) {
+-    return static_cast<long>(fileSize.QuadPart);
++  if(GetFileSizeEx(d->file, &fileSize)) {
++    return fileSize.QuadPart;
+   }
+   else {
+     debug("FileStream::length() -- Failed to get the file size.");
 @@ -464,10 +463,10 @@ long FileStream::length()
  
  #else
@@ -1543,7 +1634,7 @@ index 989e1d23..676dcf40 100644
    seek(length);
  
 diff --git a/taglib/toolkit/tfilestream.h b/taglib/toolkit/tfilestream.h
-index aa4d71b3..4f47b26e 100644
+index dd3b8652..6fee9f05 100644
 --- a/taglib/toolkit/tfilestream.h
 +++ b/taglib/toolkit/tfilestream.h
 @@ -92,7 +92,7 @@ namespace TagLib {
@@ -1595,7 +1686,7 @@ index aa4d71b3..4f47b26e 100644
    protected:
  
 diff --git a/taglib/toolkit/tiostream.h b/taglib/toolkit/tiostream.h
-index 11053164..25417fce 100644
+index 1972d935..e089aef8 100644
 --- a/taglib/toolkit/tiostream.h
 +++ b/taglib/toolkit/tiostream.h
 @@ -110,7 +110,7 @@ namespace TagLib {
@@ -1647,7 +1738,7 @@ index 11053164..25417fce 100644
    private:
      IOStream(const IOStream &);
 diff --git a/taglib/trueaudio/trueaudiofile.cpp b/taglib/trueaudio/trueaudiofile.cpp
-index e4de436e..6afd8a5d 100644
+index e1dd7b99..77b835ab 100644
 --- a/taglib/trueaudio/trueaudiofile.cpp
 +++ b/taglib/trueaudio/trueaudiofile.cpp
 @@ -63,10 +63,10 @@ public:
@@ -1695,10 +1786,10 @@ index 0aab2419..3a403848 100644
    if(data.size() < 4) {
      debug("TrueAudio::Properties::read() -- data is too short.");
 diff --git a/taglib/trueaudio/trueaudioproperties.h b/taglib/trueaudio/trueaudioproperties.h
-index bfef2bbe..7d8ff183 100644
+index 490fea8e..9a72a7e3 100644
 --- a/taglib/trueaudio/trueaudioproperties.h
 +++ b/taglib/trueaudio/trueaudioproperties.h
-@@ -54,7 +54,7 @@ namespace TagLib {
+@@ -52,7 +52,7 @@ namespace TagLib {
         * Create an instance of TrueAudio::Properties with the data read from the
         * ByteVector \a data.
         */
@@ -1707,7 +1798,7 @@ index bfef2bbe..7d8ff183 100644
  
        /*!
         * Destroys this TrueAudio::Properties instance.
-@@ -122,7 +122,7 @@ namespace TagLib {
+@@ -120,7 +120,7 @@ namespace TagLib {
        Properties(const Properties &);
        Properties &operator=(const Properties &);
  
@@ -1717,7 +1808,7 @@ index bfef2bbe..7d8ff183 100644
        class PropertiesPrivate;
        PropertiesPrivate *d;
 diff --git a/taglib/wavpack/wavpackfile.cpp b/taglib/wavpack/wavpackfile.cpp
-index 56b99393..af63c491 100644
+index 291e9b88..bdca24ca 100644
 --- a/taglib/wavpack/wavpackfile.cpp
 +++ b/taglib/wavpack/wavpackfile.cpp
 @@ -61,10 +61,10 @@ public:
@@ -1788,7 +1879,7 @@ index 1dd2a054..cc65f2d0 100644
    while (offset >= 32) {
      offset = file->rfind("wvpk", offset - 4);
 diff --git a/taglib/wavpack/wavpackproperties.h b/taglib/wavpack/wavpackproperties.h
-index fee714d0..56fe392e 100644
+index e1a481df..8360f9c9 100644
 --- a/taglib/wavpack/wavpackproperties.h
 +++ b/taglib/wavpack/wavpackproperties.h
 @@ -58,13 +58,13 @@ namespace TagLib {
@@ -1831,6 +1922,19 @@ index 61a554c8..e5cd6156 100644
      if(sampleCount > 0) {
        unsigned long sampleHeaderSize = 0;
        sumSampleCount += sampleCount;
+diff --git a/tests/plainfile.h b/tests/plainfile.h
+index 6147b56b..b42475f9 100644
+--- a/tests/plainfile.h
++++ b/tests/plainfile.h
+@@ -41,7 +41,7 @@ public:
+ 
+   ByteVector readAll() {
+     seek(0, End);
+-    long end = tell();
++    offset_t end = tell();
+     seek(0);
+     return readBlock(end);
+   }
 diff --git a/tests/test_aiff.cpp b/tests/test_aiff.cpp
 index 0337729f..03cc545e 100644
 --- a/tests/test_aiff.cpp
@@ -2045,10 +2149,10 @@ index c83f1e90..d5352b3c 100644
        f.seek(0x0100);
        CPPUNIT_ASSERT_EQUAL(audioStream, f.readBlock(4436));
 diff --git a/tests/test_id3v2.cpp b/tests/test_id3v2.cpp
-index b932a9a2..d25b89a8 100644
+index 36ddc436..9de2596d 100644
 --- a/tests/test_id3v2.cpp
 +++ b/tests/test_id3v2.cpp
-@@ -1506,14 +1506,14 @@ public:
+@@ -1553,14 +1553,14 @@ public:
      {
        MPEG::File f(newname.c_str());
        CPPUNIT_ASSERT(f.hasID3v2Tag());
@@ -2065,7 +2169,7 @@ index b932a9a2..d25b89a8 100644
      }
    }
  
-@@ -1571,7 +1571,7 @@ public:
+@@ -1618,7 +1618,7 @@ public:
      {
        MPEG::File f(copy.fileName().c_str());
        CPPUNIT_ASSERT(f.hasID3v2Tag());
@@ -2074,13 +2178,13 @@ index b932a9a2..d25b89a8 100644
        CPPUNIT_ASSERT_EQUAL((unsigned int)1505, f.ID3v2Tag()->header()->completeTagSize());
        CPPUNIT_ASSERT_EQUAL(String("Artist A"), f.ID3v2Tag()->artist());
        CPPUNIT_ASSERT_EQUAL(44100, f.audioProperties()->sampleRate());
-@@ -1642,4 +1642,3 @@ public:
+@@ -1689,4 +1689,3 @@ public:
  };
  
  CPPUNIT_TEST_SUITE_REGISTRATION(TestID3v2);
 -
 diff --git a/tests/test_mp4.cpp b/tests/test_mp4.cpp
-index 14b23e1f..7ff249a2 100644
+index 2ead2bab..5c6a9cbb 100644
 --- a/tests/test_mp4.cpp
 +++ b/tests/test_mp4.cpp
 @@ -298,7 +298,7 @@ public:
@@ -2101,7 +2205,7 @@ index 14b23e1f..7ff249a2 100644
      }
    }
  
-@@ -586,8 +586,8 @@ public:
+@@ -589,8 +589,8 @@ public:
      f.tag()->setTitle("0123456789");
      f.save();
      f.save();
@@ -2113,10 +2217,23 @@ index 14b23e1f..7ff249a2 100644
  
    void testWithZeroLengthAtom()
 diff --git a/tests/test_mpeg.cpp b/tests/test_mpeg.cpp
-index 7abc80db..a5fc99dc 100644
+index 03eb702b..bd3e316d 100644
 --- a/tests/test_mpeg.cpp
 +++ b/tests/test_mpeg.cpp
-@@ -256,20 +256,20 @@ public:
+@@ -119,10 +119,10 @@ public:
+     CPPUNIT_ASSERT_EQUAL(44100, f.audioProperties()->sampleRate());
+     CPPUNIT_ASSERT(!f.audioProperties()->xingHeader());
+ 
+-    const long last = f.lastFrameOffset();
++    offset_t last = f.lastFrameOffset();
+     const MPEG::Header lastHeader(&f, last, false);
+ 
+-    CPPUNIT_ASSERT_EQUAL(28213L, last);
++    CPPUNIT_ASSERT_EQUAL(static_cast<offset_t>(28213), last);
+     CPPUNIT_ASSERT_EQUAL(209, lastHeader.frameLength());
+   }
+ 
+@@ -258,20 +258,20 @@ public:
      {
        MPEG::File f(TEST_FILE_PATH_C("ape.mp3"));
        CPPUNIT_ASSERT(f.isValid());
@@ -2143,7 +2260,7 @@ index 7abc80db..a5fc99dc 100644
      }
    }
  
-@@ -415,7 +415,7 @@ public:
+@@ -418,7 +418,7 @@ public:
        f.save();
        f.ID3v2Tag(true)->setTitle(std::string(4096, 'X').c_str());
        f.save();
@@ -2152,7 +2269,7 @@ index 7abc80db..a5fc99dc 100644
      }
    }
  
-@@ -427,7 +427,7 @@ public:
+@@ -430,7 +430,7 @@ public:
      f.ID3v2Tag(true)->setTitle("0123456789");
      f.save();
      f.save();
@@ -2161,7 +2278,7 @@ index 7abc80db..a5fc99dc 100644
    }
  
    void testRepeatedSave3()
-@@ -521,8 +521,8 @@ public:
+@@ -524,8 +524,8 @@ public:
        MPEG::File f(copy.fileName().c_str());
        CPPUNIT_ASSERT(f.isValid());
        CPPUNIT_ASSERT(f.hasID3v2Tag());
@@ -2248,10 +2365,42 @@ index 9a49d239..d172e479 100644
        CPPUNIT_ASSERT_EQUAL(19U, f.packet(0).size());
        CPPUNIT_ASSERT_EQUAL(313U, f.packet(1).size());
 diff --git a/tests/test_riff.cpp b/tests/test_riff.cpp
-index f9a20dfb..24b82a5d 100644
+index f9a20dfb..0aeebde3 100644
 --- a/tests/test_riff.cpp
 +++ b/tests/test_riff.cpp
-@@ -124,7 +124,7 @@ public:
+@@ -40,7 +40,7 @@ public:
+   PublicRIFF(FileName file) : RIFF::File(file, BigEndian) {};
+   unsigned int riffSize() { return RIFF::File::riffSize(); };
+   unsigned int chunkCount() { return RIFF::File::chunkCount(); };
+-  unsigned int chunkOffset(unsigned int i) { return RIFF::File::chunkOffset(i); };
++  offset_t chunkOffset(unsigned int i) { return RIFF::File::chunkOffset(i); };
+   unsigned int chunkPadding(unsigned int i) { return RIFF::File::chunkPadding(i); };
+   unsigned int chunkDataSize(unsigned int i) { return RIFF::File::chunkDataSize(i); };
+   ByteVector chunkName(unsigned int i) { return RIFF::File::chunkName(i); };
+@@ -78,7 +78,7 @@ public:
+     {
+       PublicRIFF f(filename.c_str());
+       CPPUNIT_ASSERT_EQUAL(ByteVector("TEST"), f.chunkName(2));
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(0x1728 + 8), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(0x1728 + 8), f.chunkOffset(2));
+ 
+       f.setChunkData("TEST", "foo");
+     }
+@@ -87,7 +87,7 @@ public:
+       CPPUNIT_ASSERT_EQUAL(ByteVector("TEST"), f.chunkName(2));
+       CPPUNIT_ASSERT_EQUAL(ByteVector("foo"), f.chunkData(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(3), f.chunkDataSize(2));
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(0x1728 + 8), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(0x1728 + 8), f.chunkOffset(2));
+ 
+       f.setChunkData("SSND", "abcd");
+ 
+@@ -120,18 +120,18 @@ public:
+ 
+     {
+       PublicRIFF f(filename.c_str());
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(0xff0 + 8), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(0xff0 + 8), f.chunkOffset(2));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(311), f.chunkDataSize(2));
        CPPUNIT_ASSERT_EQUAL(ByteVector("SSND"), f.chunkName(2));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(1), f.chunkPadding(2));
@@ -2259,8 +2408,27 @@ index f9a20dfb..24b82a5d 100644
 +      CPPUNIT_ASSERT_EQUAL(static_cast<offset_t>(4400), f.length());
        CPPUNIT_ASSERT_EQUAL((unsigned int)(4399 - 8), f.riffSize());
        f.setChunkData("TEST", "abcd");
-       CPPUNIT_ASSERT_EQUAL((unsigned int)(4088), f.chunkOffset(2));
-@@ -147,7 +147,7 @@ public:
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4088), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4088), f.chunkOffset(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(311), f.chunkDataSize(2));
+       CPPUNIT_ASSERT_EQUAL(ByteVector("SSND"), f.chunkName(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(1), f.chunkPadding(2));
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4408), f.chunkOffset(3));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4408), f.chunkOffset(3));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(4), f.chunkDataSize(3));
+       CPPUNIT_ASSERT_EQUAL(ByteVector("TEST"), f.chunkName(3));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(0), f.chunkPadding(3));
+@@ -139,15 +139,15 @@ public:
+     }
+     {
+       PublicRIFF f(filename.c_str());
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4088), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4088), f.chunkOffset(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(311), f.chunkDataSize(2));
+       CPPUNIT_ASSERT_EQUAL(ByteVector("SSND"), f.chunkName(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(1), f.chunkPadding(2));
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4408), f.chunkOffset(3));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4408), f.chunkOffset(3));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(4), f.chunkDataSize(3));
        CPPUNIT_ASSERT_EQUAL(ByteVector("TEST"), f.chunkName(3));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(0), f.chunkPadding(3));
@@ -2269,7 +2437,12 @@ index f9a20dfb..24b82a5d 100644
      }
    }
  
-@@ -162,7 +162,7 @@ public:
+@@ -158,18 +158,18 @@ public:
+ 
+     {
+       PublicRIFF f(filename.c_str());
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(0xff0 + 8), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(0xff0 + 8), f.chunkOffset(2));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(311), f.chunkDataSize(2));
        CPPUNIT_ASSERT_EQUAL(ByteVector("SSND"), f.chunkName(2));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(0), f.chunkPadding(2));
@@ -2277,8 +2450,27 @@ index f9a20dfb..24b82a5d 100644
 +      CPPUNIT_ASSERT_EQUAL(static_cast<offset_t>(4399), f.length());
        CPPUNIT_ASSERT_EQUAL((unsigned int)(4399 - 8), f.riffSize());
        f.setChunkData("TEST", "abcd");
-       CPPUNIT_ASSERT_EQUAL((unsigned int)(4088), f.chunkOffset(2));
-@@ -185,7 +185,7 @@ public:
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4088), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4088), f.chunkOffset(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(311), f.chunkDataSize(2));
+       CPPUNIT_ASSERT_EQUAL(ByteVector("SSND"), f.chunkName(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(1), f.chunkPadding(2));
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4408), f.chunkOffset(3));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4408), f.chunkOffset(3));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(4), f.chunkDataSize(3));
+       CPPUNIT_ASSERT_EQUAL(ByteVector("TEST"), f.chunkName(3));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(0), f.chunkPadding(3));
+@@ -177,15 +177,15 @@ public:
+     }
+     {
+       PublicRIFF f(filename.c_str());
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4088), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4088), f.chunkOffset(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(311), f.chunkDataSize(2));
+       CPPUNIT_ASSERT_EQUAL(ByteVector("SSND"), f.chunkName(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(1), f.chunkPadding(2));
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4408), f.chunkOffset(3));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4408), f.chunkOffset(3));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(4), f.chunkDataSize(3));
        CPPUNIT_ASSERT_EQUAL(ByteVector("TEST"), f.chunkName(3));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(0), f.chunkPadding(3));
@@ -2287,7 +2479,12 @@ index f9a20dfb..24b82a5d 100644
      }
    }
  
-@@ -200,7 +200,7 @@ public:
+@@ -196,18 +196,18 @@ public:
+ 
+     {
+       PublicRIFF f(filename.c_str());
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(0xff0 + 8), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(0xff0 + 8), f.chunkOffset(2));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(311), f.chunkDataSize(2));
        CPPUNIT_ASSERT_EQUAL(ByteVector("SSND"), f.chunkName(2));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(0), f.chunkPadding(2));
@@ -2295,8 +2492,27 @@ index f9a20dfb..24b82a5d 100644
 +      CPPUNIT_ASSERT_EQUAL(static_cast<offset_t>(4399), f.length());
        CPPUNIT_ASSERT_EQUAL((unsigned int)(4399 - 8), f.riffSize());
        f.setChunkData("TEST", "abc");
-       CPPUNIT_ASSERT_EQUAL((unsigned int)(4088), f.chunkOffset(2));
-@@ -223,7 +223,7 @@ public:
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4088), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4088), f.chunkOffset(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(311), f.chunkDataSize(2));
+       CPPUNIT_ASSERT_EQUAL(ByteVector("SSND"), f.chunkName(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(1), f.chunkPadding(2));
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4408), f.chunkOffset(3));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4408), f.chunkOffset(3));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(3), f.chunkDataSize(3));
+       CPPUNIT_ASSERT_EQUAL(ByteVector("TEST"), f.chunkName(3));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(1), f.chunkPadding(3));
+@@ -215,15 +215,15 @@ public:
+     }
+     {
+       PublicRIFF f(filename.c_str());
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4088), f.chunkOffset(2));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4088), f.chunkOffset(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(311), f.chunkDataSize(2));
+       CPPUNIT_ASSERT_EQUAL(ByteVector("SSND"), f.chunkName(2));
+       CPPUNIT_ASSERT_EQUAL((unsigned int)(1), f.chunkPadding(2));
+-      CPPUNIT_ASSERT_EQUAL((unsigned int)(4408), f.chunkOffset(3));
++      CPPUNIT_ASSERT_EQUAL((offset_t)(4408), f.chunkOffset(3));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(3), f.chunkDataSize(3));
        CPPUNIT_ASSERT_EQUAL(ByteVector("TEST"), f.chunkName(3));
        CPPUNIT_ASSERT_EQUAL((unsigned int)(1), f.chunkPadding(3));
@@ -2305,51 +2521,75 @@ index f9a20dfb..24b82a5d 100644
      }
    }
  
-@@ -235,7 +235,7 @@ public:
+@@ -235,21 +235,21 @@ public:
      PublicRIFF f(filename.c_str());
  
      CPPUNIT_ASSERT_EQUAL(5928U, f.riffSize());
 -    CPPUNIT_ASSERT_EQUAL(5936L, f.length());
 +    CPPUNIT_ASSERT_EQUAL(static_cast<offset_t>(5936), f.length());
      CPPUNIT_ASSERT_EQUAL(ByteVector("COMM"), f.chunkName(0));
-     CPPUNIT_ASSERT_EQUAL((unsigned int)(0x000C + 8), f.chunkOffset(0));
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x000C + 8), f.chunkOffset(0));
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x000C + 8), f.chunkOffset(0));
      CPPUNIT_ASSERT_EQUAL(ByteVector("SSND"), f.chunkName(1));
-@@ -246,7 +246,7 @@ public:
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x0026 + 8), f.chunkOffset(1));
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x0026 + 8), f.chunkOffset(1));
+     CPPUNIT_ASSERT_EQUAL(ByteVector("TEST"), f.chunkName(2));
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x1728 + 8), f.chunkOffset(2));
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x1728 + 8), f.chunkOffset(2));
+ 
      const ByteVector data(0x400, ' ');
      f.setChunkData("SSND", data);
      CPPUNIT_ASSERT_EQUAL(1070U, f.riffSize());
 -    CPPUNIT_ASSERT_EQUAL(1078L, f.length());
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x000C + 8), f.chunkOffset(0));
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x0026 + 8), f.chunkOffset(1));
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x042E + 8), f.chunkOffset(2));
 +    CPPUNIT_ASSERT_EQUAL(static_cast<offset_t>(1078), f.length());
-     CPPUNIT_ASSERT_EQUAL((unsigned int)(0x000C + 8), f.chunkOffset(0));
-     CPPUNIT_ASSERT_EQUAL((unsigned int)(0x0026 + 8), f.chunkOffset(1));
-     CPPUNIT_ASSERT_EQUAL((unsigned int)(0x042E + 8), f.chunkOffset(2));
-@@ -260,7 +260,7 @@ public:
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x000C + 8), f.chunkOffset(0));
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x0026 + 8), f.chunkOffset(1));
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x042E + 8), f.chunkOffset(2));
+ 
+     f.seek(f.chunkOffset(0) - 8);
+     CPPUNIT_ASSERT_EQUAL(ByteVector("COMM"), f.readBlock(4));
+@@ -260,10 +260,10 @@ public:
  
      f.setChunkData(0, data);
      CPPUNIT_ASSERT_EQUAL(2076U, f.riffSize());
 -    CPPUNIT_ASSERT_EQUAL(2084L, f.length());
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x000C + 8), f.chunkOffset(0));
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x0414 + 8), f.chunkOffset(1));
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x081C + 8), f.chunkOffset(2));
 +    CPPUNIT_ASSERT_EQUAL(static_cast<offset_t>(2084), f.length());
-     CPPUNIT_ASSERT_EQUAL((unsigned int)(0x000C + 8), f.chunkOffset(0));
-     CPPUNIT_ASSERT_EQUAL((unsigned int)(0x0414 + 8), f.chunkOffset(1));
-     CPPUNIT_ASSERT_EQUAL((unsigned int)(0x081C + 8), f.chunkOffset(2));
-@@ -274,7 +274,7 @@ public:
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x000C + 8), f.chunkOffset(0));
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x0414 + 8), f.chunkOffset(1));
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x081C + 8), f.chunkOffset(2));
+ 
+     f.seek(f.chunkOffset(0) - 8);
+     CPPUNIT_ASSERT_EQUAL(ByteVector("COMM"), f.readBlock(4));
+@@ -274,9 +274,9 @@ public:
  
      f.removeChunk("SSND");
      CPPUNIT_ASSERT_EQUAL(1044U, f.riffSize());
 -    CPPUNIT_ASSERT_EQUAL(1052L, f.length());
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x000C + 8), f.chunkOffset(0));
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x0414 + 8), f.chunkOffset(1));
 +    CPPUNIT_ASSERT_EQUAL(static_cast<offset_t>(1052), f.length());
-     CPPUNIT_ASSERT_EQUAL((unsigned int)(0x000C + 8), f.chunkOffset(0));
-     CPPUNIT_ASSERT_EQUAL((unsigned int)(0x0414 + 8), f.chunkOffset(1));
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x000C + 8), f.chunkOffset(0));
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x0414 + 8), f.chunkOffset(1));
  
-@@ -285,7 +285,7 @@ public:
+     f.seek(f.chunkOffset(0) - 8);
+     CPPUNIT_ASSERT_EQUAL(ByteVector("COMM"), f.readBlock(4));
+@@ -285,8 +285,8 @@ public:
  
      f.removeChunk(0);
      CPPUNIT_ASSERT_EQUAL(12U, f.riffSize());
 -    CPPUNIT_ASSERT_EQUAL(20L, f.length());
+-    CPPUNIT_ASSERT_EQUAL((unsigned int)(0x000C + 8), f.chunkOffset(0));
 +    CPPUNIT_ASSERT_EQUAL(static_cast<offset_t>(20), f.length());
-     CPPUNIT_ASSERT_EQUAL((unsigned int)(0x000C + 8), f.chunkOffset(0));
++    CPPUNIT_ASSERT_EQUAL((offset_t)(0x000C + 8), f.chunkOffset(0));
  
      f.seek(f.chunkOffset(0) - 8);
+     CPPUNIT_ASSERT_EQUAL(ByteVector("TEST"), f.readBlock(4));
 @@ -295,4 +295,3 @@ public:
  };
  
