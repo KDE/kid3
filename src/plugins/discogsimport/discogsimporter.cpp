@@ -246,6 +246,21 @@ void addCredit(FrameCollection& frames, Frame::Type type, const QString& name)
 }
 
 /**
+ * Extract the URL from "fullsize.__ref" of an image JSON object.
+ * @param imageValue image JSON value
+ * @return image URL if present, else null.
+ */
+QString extractUrlFromImageValue(const QJsonValue& imageValue) {
+  QRegularExpression sourceUrlRe(
+        QLatin1String("\"sourceUrl\"\\s*:\\s*\"([^\"]+)\""));
+  QString ref = imageValue.toObject()
+      .value(QLatin1String("fullsize")).toObject()
+      .value(QLatin1String("__ref")).toString();
+  auto match = sourceUrlRe.match(ref);
+  return match.hasMatch() ? match.captured(1) : QString();
+}
+
+/**
  * Stores information about extra artists.
  * The information can be used to add frames to the appropriate tracks.
  */
@@ -829,6 +844,21 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
             }
           }
 
+          // There are multiple images in the embedded JSON,
+          // try to find the correct one.
+          if (!release.isEmpty()) {
+            for (auto it = release.constBegin(); it != release.constEnd(); ++it) {
+              QString imageRef;
+              if (it.key().startsWith(QLatin1String("images")) &&
+                  !(imageRef = it.value().toObject()
+                    .value(QLatin1String("edges")).toArray().first().toObject()
+                    .value(QLatin1String("node")).toObject()
+                    .value(QLatin1String("__ref")).toString()).isEmpty()) {
+                imgUrl = extractUrlFromImageValue(data.value(imageRef));
+              }
+            }
+          }
+
           for (auto it = data.constBegin(); it != data.constEnd(); ++it) {
             if (it.key().startsWith(QLatin1String("Release:"))) {
               QJsonValue releaseValue;
@@ -840,15 +870,7 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
               }
             } else if (it.key().startsWith(QLatin1String("Image:"))) {
               if (imgUrl.isEmpty()) {
-                QRegularExpression sourceUrlRe(
-                      QLatin1String("\"sourceUrl\"\\s*:\\s*\"([^\"]+)\""));
-                QString ref = it.value().toObject()
-                    .value(QLatin1String("fullsize")).toObject()
-                    .value(QLatin1String("__ref")).toString();
-                auto match = sourceUrlRe.match(ref);
-                if (match.hasMatch()) {
-                  imgUrl = match.captured(1);
-                }
+                imgUrl = extractUrlFromImageValue(it.value());
               }
             }
           }
