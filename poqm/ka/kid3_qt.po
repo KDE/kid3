@@ -5813,7 +5813,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "ამაზონი"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1449
+#: src/plugins/discogsimport/discogsimporter.cpp:1471
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"

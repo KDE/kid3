@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "PO-Revision-Date: 2023-02-27 19:01+0100\n"
-"Last-Translator: Xavier BESNARD <xavier.besnard]neuf.fr>\n"
+"Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -554,7 +554,7 @@ msgstr "Modules externes"
 #: src/app/kde/kdemainwindow.cpp:71 src/app/qt/kid3mainwindow.cpp:96
 msgctxt "@default|"
 msgid "Main Toolbar"
-msgstr "Barre d'outils principale"
+msgstr "Barre principale"
 
 #: src/app/kde/kdemainwindow.cpp:86
 msgctxt "KdeMainWindow|"
@@ -5835,7 +5835,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1449
+#: src/plugins/discogsimport/discogsimporter.cpp:1471
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
