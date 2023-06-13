@@ -238,8 +238,20 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
   elseif(LINUX_SELF_CONTAINED)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
       DESTINATION ${plugin_dest_dir}
-      FILES_MATCHING PATTERN "libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      FILES_MATCHING PATTERN "libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                     PATTERN "libqwayland-*${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    install(DIRECTORY "${QT_PLUGINS_DIR}/wayland-graphics-integration-client"
+      DESTINATION ${plugin_dest_dir}
+      FILES_MATCHING PATTERN "libqt-plugin-wayland-egl${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    install(DIRECTORY "${QT_PLUGINS_DIR}/wayland-shell-integration"
+      DESTINATION ${plugin_dest_dir}
+      FILES_MATCHING PATTERN "libxdg-shell${CMAKE_SHARED_LIBRARY_SUFFIX}")
+
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqwayland-generic${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqwayland-egl${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/wayland-graphics-integration-client/libqt-plugin-wayland-egl${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/wayland-shell-integration/libxdg-shell${CMAKE_SHARED_LIBRARY_SUFFIX}")
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforminputcontexts"
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libcomposeplatforminputcontextplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")

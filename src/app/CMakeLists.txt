@@ -12,7 +12,7 @@ endif()
 
 if(BUILD_KDE_APP)
   set(_cmakeInstallRpath "${CMAKE_INSTALL_RPATH}")
-  cmake_minimum_required(VERSION 3.3)
+  cmake_minimum_required(VERSION 3.16)
   find_package(ECM REQUIRED NO_MODULE)
   set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
   include(ECMInstallIcons)

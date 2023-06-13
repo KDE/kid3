@@ -16,14 +16,15 @@
 # pacman -S git patch make autoconf automake nasm libtool
 # Start the msys shell, add Qt and cmake to the path and start this script.
 #
-# export QTPREFIX=/c/Qt/5.12.8/mingw73_64
+# export QTPREFIX=/c/Qt/6.5.1/mingw_64
 # test -z "${PATH##$QTPREFIX*}" ||
 # PATH=$QTPREFIX/bin:$QTPREFIX/../../Tools/mingw730_64/bin:$QTPREFIX/../../Tools/mingw730_64/opt/bin:$PROGRAMFILES/CMake/bin:$PATH
 # ../kid3/build.sh
 #
 # You can also build a Windows version from Linux using the MinGW cross
 # compiler.
-# COMPILER=cross-mingw QTPREFIX=/path/to/Qt5.6.3-mingw/5.6.3/mingw49_32 ../kid3/build.sh
+# COMPILER=cross-mingw QTPREFIX=/path/to/Qt6.5.1-mingw64/6.5.1/mingw_64 \
+#   QTBINARYDIR=/path/to/Qt6.5.1-linux/6.5.1/gcc_64/bin ../kid3/build.sh
 #
 # For Mac:
 #
@@ -31,22 +32,28 @@
 # can be installed with Homebrew, for instance:
 # brew install cmake ninja autoconf automake libtool xz nasm docbook-xsl
 # Then call from a build directory
-# QTPREFIX=/path/to/Qt/5.9.7/clang_64 ../kid3/build.sh
+# QTPREFIX=/path/to/Qt/6.5.1/clang_64 ../kid3/build.sh
 #
 # You can also build a macOS version from Linux using the osxcross toolchain.
-# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 ../kid3/build.sh
+# COMPILER=cross-macos QTPREFIX=/path/to/Qt6.5.1-mac/6.5.1/macos ../kid3/build.sh
 # or
-# COMPILER=cross-macos QTPREFIX=/path/to/Qt5.9.7-mac/5.9.7/clang_64 QTBINARYDIR=/path/to/Qt5.9.7-linux/5.9.7/gcc_64/bin ../kid3/build.sh
+# COMPILER=cross-macos QTPREFIX=/path/to/Qt6.5.1-mac/6.5.1/macos \
+#   QTBINARYDIR=/path/to/Qt6.5.1-linux/6.5.1/gcc_64/bin ../kid3/build.sh
 #
 # For Android:
 #
-# Install Qt and a compatible Android SDK and NDK, for example Qt 5.9.7, NDK 10e or Qt 5.12.2, NDK 19c.
-# COMPILER=cross-android QTPREFIX=/path/to/Qt/5.9.7/android_armv7 ANDROID_SDK_ROOT=/path/to/sdk ANDROID_NDK_ROOT=/path/to/ndk-bundle ../build.sh
+# Install Qt and a compatible Android SDK and NDK, for example Qt 5.9.7,
+# NDK 10e or Qt 5.12.2, NDK 19c, or Qt 6.5.1, NDK 23.1.7779620.
+# COMPILER=cross-android QTPREFIX=/path/to/Qt/6.5.1/android_armv7 \
+#   QTBINARYDIR=/path/to/Qt6.5.1-linux/6.5.1/gcc_64/bin \
+#   ANDROID_SDK_ROOT=/path/to/sdk ANDROID_NDK_ROOT=/path/to/ndk/23.1.7779620 \
+#   ../kid3/build.sh
 #
 # For Linux:
 #
 # To build a self-contained Linux package use
-# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt5.15.2-linux/5.15.2/gcc_64 ../kid3/build.sh
+# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt6.5.1-linux/6.5.1/gcc_64 \
+#   ../kid3/build.sh
 #
 # When cross compiling make sure that the host Qt version is not larger than
 # the target Qt version, otherwise moc and plugins will fail. To provide
@@ -184,18 +191,18 @@ fi # makearchive
 # - Kid3 project checked out in ~/projects/kid3/src/kid3
 # - At least CMake 3.21 in /opt/cmake/bin/
 # Linux:
-# - Qt 6.4.3 Linux in ~/Development/Qt6.4.3-linux/6.4.3/gcc_64/
+# - Qt 6.5.1 Linux in ~/Development/Qt6.5.1-linux/6.5.1/gcc_64/
 # Windows:
 # - MinGW 11.2 cross compiler in /opt/mxe11/
-# - Qt 6.4.3 MinGW64 in ~/Development/Qt6.4.3-mingw64/6.4.3/mingw_64/
+# - Qt 6.5.1 MinGW64 in ~/Development/Qt6.5.1-mingw64/6.5.1/mingw_64/
 # Mac:
 # - Mac cross compiler in /opt/osxcross/
-# - Qt 6.4.3 Mac in ~/Development/Qt6.4.3-mac/6.4.3/macos/
+# - Qt 6.5.1 Mac in ~/Development/Qt6.5.1-mac/6.5.1/macos/
 # Android:
 # - Java JDK 17
 # - Android SDK in ~/Development/android-sdk/
 # - Android NDK in ~/Development/android-sdk/ndk/23.1.7779620/
-# - Qt 5.12.12 Android in ~/Development/Qt6.4.3-android/6.4.3/android_armv7/
+# - Qt 6.5.1 Android in ~/Development/Qt6.5.1-android/6.5.1/android_armv7/
 # - Sign key in ~/Development/ufleisch-release-key.keystore
 # - Gradle cache in ~/.gradle/
 if test "$1" = "makedocker"; then
@@ -208,21 +215,21 @@ set -e
 (cd linux_build && \
    PATH=/opt/cmake/bin:$PATH \
    COMPILER=gcc-self-contained \
-   QTPREFIX=$HOME/Development/Qt6.4.3-linux/6.4.3/gcc_64 \
+   QTPREFIX=$HOME/Development/Qt6.5.1-linux/6.5.1/gcc_64 \
    ../kid3/build.sh)
 (cd mingw64_build && \
    PATH=/opt/mxe11/usr/bin:/opt/cmake/bin:$PATH \
    COMPILER=cross-mingw \
-   QTPREFIX=$HOME/Development/Qt6.4.3-mingw64/6.4.3/mingw_64 \
-   QTBINARYDIR=$HOME/Development/Qt6.4.3-linux/6.4.3/gcc_64/bin \
+   QTPREFIX=$HOME/Development/Qt6.5.1-mingw64/6.5.1/mingw_64 \
+   QTBINARYDIR=$HOME/Development/Qt6.5.1-linux/6.5.1/gcc_64/bin \
    ../kid3/build.sh)
 (cd macos_build && \
    rm -f kid3/*-Darwin.dmg && \
    PATH=/opt/cmake/bin:$PATH \
    COMPILER=cross-macos \
-   QTPREFIX=$HOME/Development/Qt6.4.3-mac/6.4.3/macos \
+   QTPREFIX=$HOME/Development/Qt6.5.1-mac/6.5.1/macos \
    OSXPREFIX=/opt/osxcross/target \
-   QTBINARYDIR=$HOME/Development/Qt6.4.3-linux/6.4.3/gcc_64/bin \
+   QTBINARYDIR=$HOME/Development/Qt6.5.1-linux/6.5.1/gcc_64/bin \
    ../kid3/build.sh && \
    fatdmg=(kid3/*-Darwin.dmg) && \
    slimdmg=${fatdmg/-Darwin./-Darwin-amd64.} && \
@@ -240,8 +247,8 @@ set -e
 (cd android_build && \
    PATH=/opt/cmake/bin:$PATH \
    COMPILER=cross-android \
-   QTPREFIX=$HOME/Development/Qt6.4.3-android/6.4.3/android_armv7 \
-   QTBINARYDIR=$HOME/Development/Qt6.4.3-linux/6.4.3/gcc_64/bin \
+   QTPREFIX=$HOME/Development/Qt6.5.1-android/6.5.1/android_armv7 \
+   QTBINARYDIR=$HOME/Development/Qt6.5.1-linux/6.5.1/gcc_64/bin \
    JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 \
    ANDROID_SDK_ROOT=$HOME/Development/android-sdk \
    ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/23.1.7779620 \
@@ -272,7 +279,7 @@ libavcodec-dev docbook-xsl pkg-config libreadline-dev xsltproc \
 debian-keyring dput-ng python3-distro-info sudo curl less \
 locales ninja-build ccache p7zip-full genisoimage \
 clang llvm nasm lib32z1 chrpath libpulse-mainloop-glib0 dmg2img archivemount \
-openjdk-17-jre-headless
+openjdk-17-jre-headless libxcb-cursor0 libxrandr2
 ARG USER
 ARG UID
 RUN adduser --quiet --disabled-password --uid $UID --gecos "User" $USER && \
@@ -361,7 +368,7 @@ verify_not_in_srcdir
 
 target=${*:-libs package}
 
-qt_version=5.15.2
+qt_version=6.5.1
 zlib_version=1.2.13
 zlib_patchlevel=1
 libogg_version=1.3.4
@@ -516,6 +523,7 @@ if test $kernel = "MINGW"; then
   CONFIGURE_OPTIONS+=" --prefix=/usr/local"
 elif test $kernel = "Darwin"; then
   CMAKE_OPTIONS="-G \"Unix Makefiles\""
+  _macosx_version_min=10.7
 fi
 
 if test "$compiler" = "cross-mingw"; then
@@ -526,14 +534,19 @@ if test "$compiler" = "cross-mingw"; then
     export CXX=${_crossprefix}g++${_crosssuffix}
   fi
 elif test "$compiler" = "cross-macos"; then
-  CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_C_FLAGS=\"-O2 -mmacosx-version-min=10.7\" -DCMAKE_CXX_FLAGS=\"-O2 -mmacosx-version-min=10.7 -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_MODULE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_SHARED_LINKER_FLAGS=-stdlib=libc++"
+  if test "$qt_nr" -ge 60500; then
+    _macosx_version_min=10.15
+  else
+    _macosx_version_min=10.7
+  fi
+  CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_C_FLAGS=\"-O2 -mmacosx-version-min=${_macosx_version_min}\" -DCMAKE_CXX_FLAGS=\"-O2 -mmacosx-version-min=${_macosx_version_min} -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_MODULE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_SHARED_LINKER_FLAGS=-stdlib=libc++"
   CONFIGURE_OPTIONS="--host=${cross_host}"
   export CC=${_crossprefix}clang
   export CXX=${_crossprefix}clang++
   export AR=${_crossprefix}ar
-  export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7"
-  export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
-  export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
+  export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min}"
+  export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min} -stdlib=libc++"
+  export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=${_macosx_version_min} -stdlib=libc++"
 fi
 
 if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
@@ -558,10 +571,10 @@ if test $kernel = "Darwin"; then
     ARCH_FLAG="-Xarch_x86_64"
   fi
   if [[ $(sw_vers -productVersion) = 10.1* || $(sw_vers -productVersion) = 11.* ]]; then
-    CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.7\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_MODULE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_SHARED_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\""
-    export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7"
-    export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
-    export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=10.7 -stdlib=libc++"
+    CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min}\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min} -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_MODULE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_SHARED_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\""
+    export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min}"
+    export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min} -stdlib=libc++"
+    export LDFLAGS="$ARCH_FLAG -mmacosx-version-min=${_macosx_version_min} -stdlib=libc++"
   else
     CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=10.5 -fvisibility=hidden -fvisibility-inlines-hidden\""
     export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=10.5"
@@ -742,7 +755,7 @@ set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
 set(QT_MOC_EXECUTABLE  \${QT_LIBEXEC_DIR}/moc)
 set(QT_UIC_EXECUTABLE  \${QT_LIBEXEC_DIR}/uic)
 
-foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-pro lupdate-pro)
+foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-pro lupdate-pro tracepointgen)
   if (NOT TARGET Qt${qt_version_major}::\${_exe})
     add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
     set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
@@ -823,7 +836,7 @@ set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
 set(QT_MOC_EXECUTABLE  \${QT_LIBEXEC_DIR}/moc)
 set(QT_UIC_EXECUTABLE  \${QT_LIBEXEC_DIR}/uic)
 
-foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-pro lupdate-pro)
+foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-pro lupdate-pro tracepointgen)
   if (NOT TARGET Qt${qt_version_major}::\${_exe})
     add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
     set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
@@ -1652,7 +1665,7 @@ EOF
     QT_ANDROID_KEYSTORE_ALIAS=$(grep ANDROID_KEYSTORE_ALIAS CMakeCache.txt | cut -d= -f2) \
     make apk
     _version=$(grep VERSION config.h | cut -d'"' -f2)
-    for prefix in android/build/outputs/apk/release/android-release android/build/outputs/apk/android-release android/bin/QtApp-release android/android-build/build/outputs/apk/release/android-build-release; do
+    for prefix in android/build/outputs/apk/release/android-release android/build/outputs/apk/android-release android/bin/QtApp-release android/android-build/build/outputs/apk/release/android-build-release android/android-build/build/outputs/apk/debug/android-build-debug; do
       for suffix in signed unsigned; do
         _apkpath=${prefix}-${suffix}.apk
         if test -f $_apkpath; then

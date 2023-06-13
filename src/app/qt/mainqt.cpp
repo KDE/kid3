@@ -61,6 +61,10 @@ int main(int argc, char* argv[])
   Kid3QtApplication app(argc, argv);
   QCoreApplication::setApplicationName(QLatin1String("Kid3"));
 
+#if defined Q_OS_LINUX && QT_VERSION >= 0x050700
+  app.setDesktopFileName(QLatin1String("org.kde.kid3-qt.desktop"));
+#endif
+
 #ifdef Q_OS_MAC
   QDir dir(QApplication::applicationDirPath());
   dir.cdUp();
