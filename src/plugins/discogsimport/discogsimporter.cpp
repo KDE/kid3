@@ -415,6 +415,10 @@ void TrackInfo::addToFrames(FrameCollection& frames,
   if (additionalTags && !m_disc.isNull()) {
     frames.setValue(Frame::FT_Disc, m_disc);
   }
+  if (additionalTags && m_pos == 0 && !m_position.isEmpty()) {
+    // Support tracks which are not numeric, e.g. "A2"
+    frames.setValue(Frame::FT_Track, m_position);
+  }
   for (const auto& extraArtist : trackExtraArtists) {
     extraArtist.addToFrames(frames, m_position);
   }
@@ -577,7 +581,9 @@ bool parseJsonAlbumResults(const QJsonObject& map,
     if (!frames.getTitle().isEmpty()) {
       titleFound = true;
     }
-    if (frames.getTrack() == 0) {
+    if (frames.getValue(Frame::FT_Track).isEmpty()) {
+      // Track as string is used instead of "frames.getTrack() == 0" to support
+      // tracks like "A2"
       frames.setTrack(trackNr);
     }
     if (atTrackDataListEnd) {

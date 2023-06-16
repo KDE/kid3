@@ -306,7 +306,7 @@
           <li>Crash in Id3libMetadata when clicking Edit on unsupported frame.</li>
           <li>Setting text encoding on TXXX frames with TaglibMetadata.</li>
           <li>Skip non letter characters for first letter uppercase format.</li>
-          <li>Discogs import: Fix values in Artist, Arranger and Performer frames, use "genres" if "styles" is empty, fetch correct cover art.</li>
+          <li>Discogs import: Fix values in Artist, Arranger and Performer frames, use "genres" if "styles" is empty, fetch correct cover art, support vinyl track numbers like A1.</li>
           <li>Qt6: Crash when adding item to config table.</li>
           <li>Qt6: Larger media player slider, do not repeat when last song has been played.</li>
           <li>Windows, TaglibMetadata: Support files larger than 2 GB.</li>
