@@ -431,6 +431,8 @@ fi
 
 if test "$compiler" = "cross-android" && test "$qt_nr" -ge 60000; then
   openssl_version=1.1.1t
+elif test "$compiler" = "gcc-self-contained" && test "$qt_nr" -ge 60500; then
+  openssl_version=3.0.9
 elif test "$qt_nr" -ge 51204; then
   # Since Qt 5.12.4, OpenSSL 1.1.1 is supported
   openssl_version=1.1.1g
