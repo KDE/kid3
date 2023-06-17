@@ -151,14 +151,24 @@ public:
     return m_opened;
   }
 
-  int channels() const { return m_ptr->channels; }
+  int channels() const {
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(59, 37, 100)
+    return m_ptr->channels;
+#else
+    return m_ptr->ch_layout.nb_channels;
+#endif
+  }
 
   AVSampleFormat sampleFormat() const { return m_ptr->sample_fmt; }
 
   int sampleRate() const { return m_ptr->sample_rate; }
 
 #if defined HAVE_AVRESAMPLE || defined HAVE_SWRESAMPLE
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(59, 37, 100)
   uint64_t channelLayout() const { return m_ptr->channel_layout; }
+#else
+  const AVChannelLayout* channelLayout() const { return &m_ptr->ch_layout; }
+#endif
 #endif
 
   int decode(int16_t* samples, int* frameSize, AVPacket* pkt) {
@@ -206,14 +216,14 @@ public:
         ::avcodec_receive_frame(m_ptr, m_frame) == 0) {
       int planar = ::av_sample_fmt_is_planar(m_ptr->sample_fmt);
       int planeSize;
-      int dataSize = ::av_samples_get_buffer_size(&planeSize, m_ptr->channels,
+      int dataSize = ::av_samples_get_buffer_size(&planeSize, channels(),
                          m_frame->nb_samples, m_ptr->sample_fmt, 1);
       if (*frameSize < dataSize)
         return -1;
       ::memcpy(samples, m_frame->extended_data[0], planeSize);
-      if (planar && m_ptr->channels > 1) {
+      if (planar && channels() > 1) {
         uint8_t* out = reinterpret_cast<uint8_t*>(samples) + planeSize;
-        for (int ch = 1; ch < m_ptr->channels; ++ch) {
+        for (int ch = 1; ch < channels(); ++ch) {
           ::memcpy(out, m_frame->extended_data[ch], planeSize);
           out += planeSize;
         }
@@ -350,6 +360,7 @@ public:
   Converter(const Converter&) = delete;
   Converter& operator=(const Converter&) = delete;
 
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(59, 37, 100)
   bool createForCodec(const Codec& codecCtx) {
     int64_t channelLayout = codecCtx.channelLayout();
     if (!channelLayout) {
@@ -377,6 +388,28 @@ public:
 #endif
     return false;
   }
+#else
+  bool createForCodec(const Codec& codecCtx) {
+    AVChannelLayout channelLayout;
+    const AVChannelLayout* codecChannelLayout = codecCtx.channelLayout();
+    if (::av_channel_layout_check(codecChannelLayout)) {
+      ::av_channel_layout_copy(&channelLayout, codecChannelLayout);
+    } else {
+      ::av_channel_layout_default(&channelLayout, codecCtx.channels());
+    }
+    m_ptr = nullptr;
+    if (::swr_alloc_set_opts2(
+             &m_ptr, &channelLayout, AV_SAMPLE_FMT_S16, codecCtx.sampleRate(),
+             &channelLayout, codecCtx.sampleFormat(), codecCtx.sampleRate(),
+             0, nullptr) == 0) {
+      m_isOpen = ::swr_init(m_ptr) >= 0;
+      ::av_channel_layout_uninit(&channelLayout);
+      return m_isOpen;
+    }
+    ::av_channel_layout_uninit(&channelLayout);
+    return false;
+  }
+#endif
 
   int16_t* convert(const Codec& codecCtx,
                    int16_t* buffer1, int16_t* buffer2,
