@@ -429,9 +429,7 @@ else
   fi
 fi
 
-if test "$compiler" = "cross-android" && test "$qt_nr" -ge 60000; then
-  openssl_version=1.1.1t
-elif test "$compiler" = "gcc-self-contained" && test "$qt_nr" -ge 60500; then
+if test "$compiler" = "cross-android" -o "$compiler" = "gcc-self-contained" && test "$qt_nr" -ge 60000; then
   openssl_version=3.0.9
 elif test "$qt_nr" -ge 51204; then
   # Since Qt 5.12.4, OpenSSL 1.1.1 is supported
@@ -1108,9 +1106,10 @@ if test "$compiler" = "cross-android"; then
       fi
     else
       PATH=$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
+      sed -i 's/shared_extension => ".so",/shared_extension => "_3.so",/' Configurations/15-android.conf
       ANDROID_NDK_HOME=$ANDROID_NDK_ROOT ./Configure shared android-arm
-      make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_1_1.so build_libs
-      _ssl_lib_suffix=_1_1.so
+      make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_3.so build_libs
+      _ssl_lib_suffix=_3.so
       _android_prefix=llvm
     fi
     mkdir -p inst/usr/local/lib

@@ -124,6 +124,7 @@ else(QT_VERSION_MAJOR LESS 6)
       lib/libQt${QT_VERSION_MAJOR}OpenGL_armeabi-v7a.so lib/libQt${QT_VERSION_MAJOR}QmlModels_armeabi-v7a.so lib/libQt${QT_VERSION_MAJOR}QuickControls2Impl_armeabi-v7a.so
       lib/libQt${QT_VERSION_MAJOR}LabsFolderListModel_armeabi-v7a.so lib/libQt${QT_VERSION_MAJOR}QuickLayouts_armeabi-v7a.so
       plugins/networkinformation/libplugins_networkinformation_qandroidnetworkinformation_armeabi-v7a.so plugins/platforms/libplugins_platforms_qtforandroid_armeabi-v7a.so plugins/iconengines/libplugins_iconengines_qsvgicon_armeabi-v7a.so
+      plugins/tls/libplugins_tls_qopensslbackend_armeabi-v7a.so
       plugins/imageformats/libplugins_imageformats_qjpeg_armeabi-v7a.so
       plugins/imageformats/libplugins_imageformats_qsvg_armeabi-v7a.so
       lib/libQt${QT_VERSION_MAJOR}Multimedia_armeabi-v7a.so lib/libQt${QT_VERSION_MAJOR}Qml_armeabi-v7a.so
@@ -170,8 +171,8 @@ else(QT_VERSION_MAJOR LESS 6)
   set(EXTRA_LIBS)
   foreach(LIB kid3apk kid3-qml kid3-core kid3-gui musicbrainzimport discogsimport
       freedbimport amazonimport taglibmetadata kid3qml
-      ${ANDROID_EXTRA_LIBS_DIR}/libssl_1_1.so
-      ${ANDROID_EXTRA_LIBS_DIR}/libcrypto_1_1.so)
+      ${ANDROID_EXTRA_LIBS_DIR}/libssl_3.so
+      ${ANDROID_EXTRA_LIBS_DIR}/libcrypto_3.so)
     if(TARGET ${LIB})
       if(CMAKE_BUILD_TYPE STREQUAL "Debug")
         get_property(LIB_PATH TARGET ${LIB} PROPERTY DEBUG_LOCATION)
