@@ -275,6 +275,7 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
             FILES_MATCHING PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}")
           CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/multimedia/libgstreamermediaplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
         endif()
+        CHANGE_RPATH("\$ORIGIN/../../../.." "${plugin_dest_dir}/plugins/imports/QtQml/WorkerScript/libworkerscriptplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
       endif()
     endif()
     install(DIRECTORY "${QT_PLUGINS_DIR}/xcbglintegrations"
