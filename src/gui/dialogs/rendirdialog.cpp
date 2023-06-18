@@ -56,6 +56,11 @@ RenDirDialog::RenDirDialog(QWidget* parent, DirRenamer* dirRenamer)
   setModal(true);
   setWindowTitle(tr("Rename Folder"));
   setSizeGripEnabled(true);
+#ifdef Q_OS_WIN32
+  // The default on Windows with Qt 6.5.1 has a strange looking black rectangle
+  // with a left arrow at the top left of the wizard dialog.
+  setWizardStyle(ModernStyle);
+#endif
 
   auto mainPage = new QWizardPage;
 
