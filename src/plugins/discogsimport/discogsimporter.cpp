@@ -630,6 +630,12 @@ bool parseJsonAlbumResults(const QJsonObject& map,
       }
     }
 
+    // Do not include heading tracks
+    if (track.value(QLatin1String("trackType")).toString() ==
+        QLatin1String("HEADING")) {
+      continue;
+    }
+
     TrackInfo trackInfo(track);
 
     const auto artists((track.contains(QLatin1String("artists"))
