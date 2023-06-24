@@ -4757,62 +4757,62 @@ msgstr ""
 "È stata modificata una scaletta.\n"
 "Vuoi salvarla?"
 
-#: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:95
+#: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:100
 msgctxt "RenDirDialog|"
 msgid "Rename Folder"
 msgstr "Rinomina la cartella"
 
-#: src/gui/dialogs/rendirdialog.cpp:64
+#: src/gui/dialogs/rendirdialog.cpp:69
 msgctxt "RenDirDialog|"
 msgid "Format"
 msgstr "Formato"
 
-#: src/gui/dialogs/rendirdialog.cpp:69
+#: src/gui/dialogs/rendirdialog.cpp:74
 msgctxt "RenDirDialog|"
 msgid "Preview"
 msgstr "Anteprima"
 
-#: src/gui/dialogs/rendirdialog.cpp:73
+#: src/gui/dialogs/rendirdialog.cpp:78
 msgctxt "RenDirDialog|"
 msgid "&Save Settings"
 msgstr "&Salva impostazioni"
 
-#: src/gui/dialogs/rendirdialog.cpp:96
+#: src/gui/dialogs/rendirdialog.cpp:101
 msgctxt "RenDirDialog|"
 msgid "Create Folder"
 msgstr "Crea cartella"
 
-#: src/gui/dialogs/rendirdialog.cpp:97
+#: src/gui/dialogs/rendirdialog.cpp:102
 msgctxt "RenDirDialog|"
 msgid "&Action:"
 msgstr "&Azione:"
 
-#: src/gui/dialogs/rendirdialog.cpp:105
+#: src/gui/dialogs/rendirdialog.cpp:110
 msgctxt "RenDirDialog|"
 msgid "&Source:"
 msgstr "Ori&gine:"
 
-#: src/gui/dialogs/rendirdialog.cpp:117
+#: src/gui/dialogs/rendirdialog.cpp:122
 msgctxt "RenDirDialog|"
 msgid "&Edit..."
 msgstr "&Modifica..."
 
-#: src/gui/dialogs/rendirdialog.cpp:121
+#: src/gui/dialogs/rendirdialog.cpp:126
 msgctxt "RenDirDialog|"
 msgid "&Format:"
 msgstr "&Formato:"
 
-#: src/gui/dialogs/rendirdialog.cpp:133
+#: src/gui/dialogs/rendirdialog.cpp:138
 msgctxt "RenDirDialog|"
 msgid "From:"
 msgstr "Da:"
 
-#: src/gui/dialogs/rendirdialog.cpp:134
+#: src/gui/dialogs/rendirdialog.cpp:139
 msgctxt "RenDirDialog|"
 msgid "To:"
 msgstr "A:"
 
-#: src/gui/dialogs/rendirdialog.cpp:321
+#: src/gui/dialogs/rendirdialog.cpp:326
 msgctxt "RenDirDialog|"
 msgid "Folder Name from Tag"
 msgstr "Nome cartella da tag"
@@ -5830,7 +5830,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1477
+#: src/plugins/discogsimport/discogsimporter.cpp:1483
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
