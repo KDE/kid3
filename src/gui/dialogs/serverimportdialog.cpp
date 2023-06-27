@@ -59,7 +59,6 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   m_artistLineEdit = new QComboBox(this);
   m_albumLineEdit = new QComboBox(this);
   m_findButton = new QPushButton(tr("&Find"), this);
-  m_findButton->setAutoDefault(false);
   m_artistLineEdit->setEditable(true);
   m_artistLineEdit->setDuplicatesEnabled(false);
   m_albumLineEdit->setEditable(true);
@@ -212,6 +211,9 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
     } else {
       m_saveButton->hide();
     }
+
+    // Pressing Enter will trigger the Find button.
+    m_findButton->setDefault(true);
   }
 }
 
@@ -468,9 +470,13 @@ void ServerImportDialog::slotFind()
 {
   ServerImporterConfig cfg;
   getImportSourceConfig(&cfg);
-  if (m_source)
+  if (m_source) {
     m_source->find(&cfg, m_artistLineEdit->currentText(),
                    m_albumLineEdit->currentText());
+    // Pressing Enter will activate the selected album result and no longer
+    // the Find button.
+    m_findButton->setDefault(false);
+  }
 }
 
 /**

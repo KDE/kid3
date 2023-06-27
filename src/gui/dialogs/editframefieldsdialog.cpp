@@ -1318,7 +1318,6 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
   hlayout->addStretch();
   hlayout->addWidget(okButton);
   hlayout->addWidget(cancelButton);
-  okButton->setAutoDefault(false);
   cancelButton->setAutoDefault(false);
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);

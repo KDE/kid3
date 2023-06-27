@@ -245,7 +245,6 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   QPushButton* okButton = new QPushButton(tr("&OK"), this);
-  okButton->setAutoDefault(false);
   QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
   cancelButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
