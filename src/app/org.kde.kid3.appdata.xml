@@ -141,6 +141,7 @@
     <p xml:lang="uk">Передбачено можливість редагувати усі кадри у мітках ID3 файлів MP3. Передбачено можливість перетворення між форматами ID3v1.1, ID3v2.3 і ID3v2.4. Синхронізовані тексти пісень можна редагувати, імпортувати та експортувати до файлів караоке LRC.</p>
     <p xml:lang="x-test">xxAll frames in the ID3 tags of MP3 files can be edited, and it is possible to convert between ID3v1.1, ID3v2.3 and ID3v2.4. Synchronized lyrics can be edited, imported and exported to LRC Karaoke files.xx</p>
     <p xml:lang="zh-CN">可编辑 MP3 文件中 ID3 标签内的所有帧，并能在 ID3v1.1、ID3v2.3 和 ID3v2.4 转换。不仅能编辑同步歌词，还能导入或导出 LRC Karaoke 文件。</p>
+    <p xml:lang="zh-TW">MP3 檔案的 ID3 標籤中的所有音框都能夠編輯，也能夠在 ID3v1.1、ID3v2.3 及 ID3v2.4 之間轉換。提供對內嵌同步歌詞的編輯、匯入及輸出到卡拉 OK 用的 LRC 檔案的功能。</p>
     <p>
       The tags of multiple files can be set together. It is possible to
       generate tags from file names or the contents of other tag fields and to
@@ -176,6 +177,7 @@
     <p xml:lang="uk">Передбачено можливість встановлювати мітки для цілих наборів файлів. Передбачено можливість створювати мітки на основі назв файлів або вмісту інших полів міток і створювати назви файлів на основі міток і перейменовувати теки на основі міток. Автоматичне перетворення регістру символів та заміна рядків допоможуть вам у підтриманні однорідності міток у вашій збірці.</p>
     <p xml:lang="x-test">xxThe tags of multiple files can be set together. It is possible to generate tags from file names or the contents of other tag fields and to generate file names from tags and rename folders from tags. Automatic case conversion and string replacement help to keep tags consistent.xx</p>
     <p xml:lang="zh-CN">一同设置多个文件的标签。可从文件名或其他标签字段中的内容生成标签、根据标签生成文件名或根据标签重命名文件夹。并能通过自动转换大小写和字符串替换保持标签一致性。</p>
+    <p xml:lang="zh-TW">可以同時設定多個檔案的標籤。可以從檔案名稱或其他標籤欄位的內容產生新的標籤內容，也可以從標籤產生新的檔案名稱或是資料夾名稱。提供自動大小寫變換與字串取代，幫助標籤維持一致性。</p>
     <p>
       Album data can be imported from gnudb.org, MusicBrainz,
       Discogs, Amazon; automatic batch import is available for multiple
@@ -208,6 +210,7 @@
     <p xml:lang="uk">Передбачено можливість імпортування даних альбомів з gnudb.org, MusicBrainz, Discogs, Amazon. Можливе автоматичне пакетне імпортування для декількох тек одночасно. Передбачено можливість експортування даних та створення списків відтворення.</p>
     <p xml:lang="x-test">xxAlbum data can be imported from gnudb.org, MusicBrainz, Discogs, Amazon; automatic batch import is available for multiple folders. It is also possible to export data and generate play lists.xx</p>
     <p xml:lang="zh-CN">可从 gnudb.org、MusicBrainz、Discogs 或 Amazon 上导入专辑数据，还支持自动多文件夹批量导入功能。您还可导出数据并生成播放列表。</p>
+    <p xml:lang="zh-TW">可以從 gnudb.org、MusicBrainz、Discogs、Amazon 匯入專輯資料；可以為多個資料夾進行自動批次匯入。也提供匯出資料與產生播放清單的功能。</p>
   </description>
   <screenshots>
     <screenshot type="default" width="1200" height="675">
