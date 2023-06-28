@@ -4573,7 +4573,7 @@ msgctxt "ImportDialog|"
 msgid "&OK"
 msgstr "D'ac&ord"
 
-#: src/gui/dialogs/importdialog.cpp:249
+#: src/gui/dialogs/importdialog.cpp:248
 msgctxt "ImportDialog|"
 msgid "&Cancel"
 msgstr "&Cancel·la"
@@ -4829,53 +4829,53 @@ msgctxt "ServerImportDialog|"
 msgid "&Find"
 msgstr "&Cerca"
 
-#: src/gui/dialogs/serverimportdialog.cpp:76
+#: src/gui/dialogs/serverimportdialog.cpp:75
 msgctxt "ServerImportDialog|"
 msgid "&Server:"
 msgstr "&Servidor:"
 
-#: src/gui/dialogs/serverimportdialog.cpp:79
+#: src/gui/dialogs/serverimportdialog.cpp:78
 msgctxt "ServerImportDialog|"
 msgid "C&GI Path:"
 msgstr "Camí del C&GI:"
 
-#: src/gui/dialogs/serverimportdialog.cpp:90
+#: src/gui/dialogs/serverimportdialog.cpp:89
 msgctxt "ServerImportDialog|"
 msgid "&Token:"
 msgstr "&Testimoni:"
 
 # skip-rule: t-e_sola
-#: src/gui/dialogs/serverimportdialog.cpp:98
+#: src/gui/dialogs/serverimportdialog.cpp:97
 msgctxt "ServerImportDialog|"
 msgid "&Standard Tags"
 msgstr "Etiquetes e&stàndard"
 
-#: src/gui/dialogs/serverimportdialog.cpp:99
+#: src/gui/dialogs/serverimportdialog.cpp:98
 msgctxt "ServerImportDialog|"
 msgid "&Additional Tags"
 msgstr "Etiquetes &addicionals"
 
-#: src/gui/dialogs/serverimportdialog.cpp:100
+#: src/gui/dialogs/serverimportdialog.cpp:99
 msgctxt "ServerImportDialog|"
 msgid "C&over Art"
 msgstr "Ca&ràtula"
 
-#: src/gui/dialogs/serverimportdialog.cpp:114
+#: src/gui/dialogs/serverimportdialog.cpp:113
 msgctxt "ServerImportDialog|"
 msgid "&Help"
 msgstr "A&juda"
 
-#: src/gui/dialogs/serverimportdialog.cpp:116
+#: src/gui/dialogs/serverimportdialog.cpp:115
 msgctxt "ServerImportDialog|"
 msgid "&Save Settings"
 msgstr "De&sa la configuració"
 
-#: src/gui/dialogs/serverimportdialog.cpp:118
+#: src/gui/dialogs/serverimportdialog.cpp:117
 msgctxt "ServerImportDialog|"
 msgid "&Close"
 msgstr "Tan&ca"
 
-#: src/gui/dialogs/serverimportdialog.cpp:133
+#: src/gui/dialogs/serverimportdialog.cpp:132
 msgctxt "ServerImportDialog|"
 msgid "Ready."
 msgstr "Llest."

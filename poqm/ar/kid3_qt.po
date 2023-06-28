@@ -4560,7 +4560,7 @@ msgctxt "ImportDialog|"
 msgid "&OK"
 msgstr "&موافق"
 
-#: src/gui/dialogs/importdialog.cpp:249
+#: src/gui/dialogs/importdialog.cpp:248
 msgctxt "ImportDialog|"
 msgid "&Cancel"
 msgstr "أل&غِ"
@@ -4813,52 +4813,52 @@ msgctxt "ServerImportDialog|"
 msgid "&Find"
 msgstr "ا&عثر"
 
-#: src/gui/dialogs/serverimportdialog.cpp:76
+#: src/gui/dialogs/serverimportdialog.cpp:75
 msgctxt "ServerImportDialog|"
 msgid "&Server:"
 msgstr "ال&خادوم:"
 
-#: src/gui/dialogs/serverimportdialog.cpp:79
+#: src/gui/dialogs/serverimportdialog.cpp:78
 msgctxt "ServerImportDialog|"
 msgid "C&GI Path:"
 msgstr "&مسار CGI:"
 
-#: src/gui/dialogs/serverimportdialog.cpp:90
+#: src/gui/dialogs/serverimportdialog.cpp:89
 msgctxt "ServerImportDialog|"
 msgid "&Token:"
 msgstr "الرّ&مز:"
 
-#: src/gui/dialogs/serverimportdialog.cpp:98
+#: src/gui/dialogs/serverimportdialog.cpp:97
 msgctxt "ServerImportDialog|"
 msgid "&Standard Tags"
 msgstr "الوسوم ال&قياسية"
 
-#: src/gui/dialogs/serverimportdialog.cpp:99
+#: src/gui/dialogs/serverimportdialog.cpp:98
 msgctxt "ServerImportDialog|"
 msgid "&Additional Tags"
 msgstr "الو&سوم الإضافية"
 
-#: src/gui/dialogs/serverimportdialog.cpp:100
+#: src/gui/dialogs/serverimportdialog.cpp:99
 msgctxt "ServerImportDialog|"
 msgid "C&over Art"
 msgstr "&صورة الغلاف"
 
-#: src/gui/dialogs/serverimportdialog.cpp:114
+#: src/gui/dialogs/serverimportdialog.cpp:113
 msgctxt "ServerImportDialog|"
 msgid "&Help"
 msgstr "م&ساعدة"
 
-#: src/gui/dialogs/serverimportdialog.cpp:116
+#: src/gui/dialogs/serverimportdialog.cpp:115
 msgctxt "ServerImportDialog|"
 msgid "&Save Settings"
 msgstr "ا&حفظ الإعدادات"
 
-#: src/gui/dialogs/serverimportdialog.cpp:118
+#: src/gui/dialogs/serverimportdialog.cpp:117
 msgctxt "ServerImportDialog|"
 msgid "&Close"
 msgstr "أ&غلق"
 
-#: src/gui/dialogs/serverimportdialog.cpp:133
+#: src/gui/dialogs/serverimportdialog.cpp:132
 msgctxt "ServerImportDialog|"
 msgid "Ready."
 msgstr "جاهز."

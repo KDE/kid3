@@ -4703,7 +4703,7 @@ msgctxt "ImportDialog|"
 msgid "&OK"
 msgstr "&Ados"
 
-#: src/gui/dialogs/importdialog.cpp:249
+#: src/gui/dialogs/importdialog.cpp:248
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "&Cancel"
@@ -4992,57 +4992,57 @@ msgctxt "ServerImportDialog|"
 msgid "&Find"
 msgstr "&Bilatu"
 
-#: src/gui/dialogs/serverimportdialog.cpp:76
+#: src/gui/dialogs/serverimportdialog.cpp:75
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Server:"
 msgstr "&Zerbitzaria:"
 
-#: src/gui/dialogs/serverimportdialog.cpp:79
+#: src/gui/dialogs/serverimportdialog.cpp:78
 msgctxt "ServerImportDialog|"
 msgid "C&GI Path:"
 msgstr ""
 
-#: src/gui/dialogs/serverimportdialog.cpp:90
+#: src/gui/dialogs/serverimportdialog.cpp:89
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Token:"
 msgstr "&Tokena ..."
 
-#: src/gui/dialogs/serverimportdialog.cpp:98
+#: src/gui/dialogs/serverimportdialog.cpp:97
 msgctxt "ServerImportDialog|"
 msgid "&Standard Tags"
 msgstr ""
 
-#: src/gui/dialogs/serverimportdialog.cpp:99
+#: src/gui/dialogs/serverimportdialog.cpp:98
 msgctxt "ServerImportDialog|"
 msgid "&Additional Tags"
 msgstr ""
 
-#: src/gui/dialogs/serverimportdialog.cpp:100
+#: src/gui/dialogs/serverimportdialog.cpp:99
 msgctxt "ServerImportDialog|"
 msgid "C&over Art"
 msgstr ""
 
-#: src/gui/dialogs/serverimportdialog.cpp:114
+#: src/gui/dialogs/serverimportdialog.cpp:113
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/serverimportdialog.cpp:116
+#: src/gui/dialogs/serverimportdialog.cpp:115
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/serverimportdialog.cpp:118
+#: src/gui/dialogs/serverimportdialog.cpp:117
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Close"
 msgstr "&Itxi"
 
-#: src/gui/dialogs/serverimportdialog.cpp:133
+#: src/gui/dialogs/serverimportdialog.cpp:132
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "Ready."
