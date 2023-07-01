@@ -91,12 +91,16 @@ QString ServerImporter::replaceHtmlEntities(QString str)
 
   QRegularExpression numEntityRe(QLatin1String("&#(x?\\d+);"));
   auto it = numEntityRe.globalMatch(str);
+  int numCharsRemoved = 0;
   while (it.hasNext()) {
     auto match = it.next();
     QString codeStr = match.captured(1);
     int code = codeStr.startsWith(QLatin1Char('x'))
         ? codeStr.mid(1).toInt(nullptr, 16) : codeStr.toInt();
-    str.replace(match.capturedStart(), match.capturedLength(), QChar(code));
+    int pos = match.capturedStart() - numCharsRemoved;
+    int len = match.capturedLength();
+    str.replace(pos, len, QChar(code));
+    numCharsRemoved += len - 1;
   }
   return str;
 }
