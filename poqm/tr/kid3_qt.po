@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-06-26 22:26+0300\n"
+"PO-Revision-Date: 2023-07-04 00:53+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -6003,7 +6003,7 @@ msgstr "TCON - İçerik türü"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2378
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
-msgstr "TCOP - Telif hakkı mesajı"
+msgstr "TCOP - Telif hakkı iletisi"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:949
 msgctxt "@default|"
