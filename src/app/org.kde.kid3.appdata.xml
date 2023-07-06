@@ -13,6 +13,7 @@
   <name xml:lang="de">Kid3</name>
   <name xml:lang="el">Kid3</name>
   <name xml:lang="en-GB">Kid3</name>
+  <name xml:lang="eo">Kid3</name>
   <name xml:lang="es">Kid3</name>
   <name xml:lang="et">Kid3</name>
   <name xml:lang="eu">Kid3</name>
@@ -46,6 +47,7 @@
   <summary xml:lang="de">Metadaten von Audio-Dateien bearbeiten</summary>
   <summary xml:lang="el">Επεξεργασία μεταδεδομένων αρχείου ήχου </summary>
   <summary xml:lang="en-GB">Edit audio file metadata</summary>
+  <summary xml:lang="eo">Redaktu aŭdio-dosierajn metadatenojn</summary>
   <summary xml:lang="es">Edición de metadatos de archivos de sonido</summary>
   <summary xml:lang="et">Helifailide metaandmete muutmine</summary>
   <summary xml:lang="eu">Editatu audio fitxategietako metadatuak</summary>
@@ -224,6 +226,7 @@
       <caption xml:lang="de">Hauptfenster von Kid3</caption>
       <caption xml:lang="el">Kid3 κύριο παράθυρο</caption>
       <caption xml:lang="en-GB">Kid3 main window</caption>
+      <caption xml:lang="eo">Ĉefa fenestro de Kid3</caption>
       <caption xml:lang="es">Ventana principal de Kid3</caption>
       <caption xml:lang="et">Kid3 peaaken</caption>
       <caption xml:lang="eu">Kid3, leiho nagusia</caption>
@@ -262,6 +265,7 @@
   <developer_name xml:lang="de">Urs Fleisch</developer_name>
   <developer_name xml:lang="el">Urs Fleisch</developer_name>
   <developer_name xml:lang="en-GB">Urs Fleisch</developer_name>
+  <developer_name xml:lang="eo">Urs Fleisch</developer_name>
   <developer_name xml:lang="es">Urs Fleisch</developer_name>
   <developer_name xml:lang="et">Urs Fleisch</developer_name>
   <developer_name xml:lang="eu">Urs Fleisch</developer_name>
