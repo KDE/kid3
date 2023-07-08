@@ -112,7 +112,7 @@
        variable >= Frame::Tag_1; \
        variable = static_cast<Frame::TagNumber>(variable - 1))
 
-#ifdef TAGLIB_WITH_OFFSET_TYPE
+#if defined TAGLIB_WITH_OFFSET_TYPE || TAGLIB_VERSION >= 0x020000
 typedef TagLib::offset_t taglib_offset_t;
 typedef TagLib::offset_t taglib_uoffset_t;
 #else
@@ -2138,6 +2138,8 @@ void TagLibFile::readAudioProperties()
     if (audioProperties->channels() > 0) {
       m_detailInfo.channels = audioProperties->channels();
     }
+    // lengthInSeconds() does not work for DSF with TagLib 1.x, because
+    // it is not virtual.
     m_detailInfo.duration = audioProperties->length();
   } else {
     m_detailInfo.valid = false;

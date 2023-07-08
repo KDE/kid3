@@ -53,6 +53,8 @@ class DSFProperties : public TagLib::AudioProperties
   // Reimplementations.
 
   virtual int length() const override;
+  int lengthInSeconds() const;
+  int lengthInMilliseconds() const;
   virtual int bitrate() const override;
   virtual int sampleRate() const override;
   virtual int channels() const override;
