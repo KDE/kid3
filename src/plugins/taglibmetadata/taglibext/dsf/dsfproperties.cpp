@@ -65,13 +65,13 @@ public:
 // public members
 ////////////////////////////////////////////////////////////////////////////////
 
-DSFProperties::DSFProperties(DSFFile *file, 
-			     TagLib::AudioProperties::ReadStyle style) 
+DSFProperties::DSFProperties(DSFFile *file,
+                             TagLib::AudioProperties::ReadStyle style)
   : TagLib::AudioProperties(style)
 {
   d = new PropertiesPrivate(file, style);
 
-  if(file && file->isOpen()) 
+  if(file && file->isOpen())
     read();
 }
 
@@ -111,7 +111,7 @@ DSFHeader::ChannelType DSFProperties::channelType() const
   return d->channelType;
 }
 
-uint64_t DSFProperties::ID3v2Offset() const 
+uint64_t DSFProperties::ID3v2Offset() const
 {
   return d->ID3v2Offset;
 }
@@ -140,8 +140,8 @@ void DSFProperties::read()
   // Go to the beginning of the file
   d->file->seek(0);
 
-  DSFHeader h(d->file->readBlock(DSFHeader::DSD_HEADER_SIZE + 
-				 DSFHeader::FMT_HEADER_SIZE));
+  DSFHeader h(d->file->readBlock(DSFHeader::DSD_HEADER_SIZE +
+                                 DSFHeader::FMT_HEADER_SIZE));
 
   if (!h.isValid()) {
     debug("DSFProperties::read(): file header is not valid");

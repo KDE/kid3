@@ -79,5 +79,3 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img)
   connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
   vlayout->addLayout(hlayout);
 }
-
-

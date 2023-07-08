@@ -92,7 +92,7 @@ signals:
    * @param code error code, enum FingerprintCalculator::Error
    */
   void error(int code);
-  
+
   /**
    * Emitted when decoding finished successfully.
    * @param duration duration of stream in seconds

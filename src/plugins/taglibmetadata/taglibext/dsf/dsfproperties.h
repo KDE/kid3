@@ -42,8 +42,8 @@ class DSFProperties : public TagLib::AudioProperties
    * Create an instance of DSF::Properties with the data read from the
    * DSF::File \a file.
    */
-  DSFProperties(DSFFile *file, 
-		TagLib::AudioProperties::ReadStyle style = Average);
+  DSFProperties(DSFFile *file,
+                TagLib::AudioProperties::ReadStyle style = Average);
 
   /*!
    * Destroys this DSF Properties instance.

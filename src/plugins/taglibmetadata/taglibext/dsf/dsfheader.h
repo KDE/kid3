@@ -146,8 +146,8 @@ class DSFHeader
   inline uint64_t bytesToUInt64(const char *v, uint64_t offset = 0) {
     uint64_t res = 0;
     for (int i = 0; i < LONG_INT_SIZE; i++) {
-      res |= static_cast<uint64_t>(static_cast<unsigned char>(v[offset + i])) 
-	<< (i * 8);
+      res |= static_cast<uint64_t>(static_cast<unsigned char>(v[offset + i]))
+        << (i * 8);
     }
     return res;
   }

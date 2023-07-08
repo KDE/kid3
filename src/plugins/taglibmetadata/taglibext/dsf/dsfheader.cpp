@@ -52,7 +52,7 @@ public:
   uint64_t sampleCount;
   ChannelType channelType;
   unsigned short channelNum;
-  unsigned int sampleRate; 
+  unsigned int sampleRate;
   unsigned short bitsPerSample;
   uint64_t ID3v2Offset;
   uint64_t fileSize;
@@ -99,7 +99,7 @@ DSFHeader::ChannelType DSFHeader::channelType() const
   return d->channelType;
 }
 
-unsigned short DSFHeader::channelNum() const 
+unsigned short DSFHeader::channelNum() const
 {
   return d->channelNum;
 }
@@ -155,13 +155,13 @@ void DSFHeader::parse(const TagLib::ByteVector &data)
   // ******** DSD chunk header ********
   // DSD header chunk should start with "DSD ".
   //
-  if (hdr[0] != 'D' || hdr[1] != 'S' || hdr[2] != 'D' || hdr[3] != ' ') 
+  if (hdr[0] != 'D' || hdr[1] != 'S' || hdr[2] != 'D' || hdr[3] != ' ')
   {
     debug("DSD::Header::parse(): DSD header's first 4 bytes != 'DSD '");
     return;
   }
   offset += 4;
-  
+
   // The next 8 bytes contain the size of DSD header
   // (numerical data is stored in little endian)
   if (data.toLongLong(offset, false) != DSD_HEADER_SIZE)
@@ -179,13 +179,13 @@ void DSFHeader::parse(const TagLib::ByteVector &data)
   d->ID3v2Offset = bytesToUInt64(&hdr[0], offset);
   offset += LONG_INT_SIZE;
 
-  // 
+  //
   // ********* FMT chunk ********
   //
   // FMT header chunk should start with "fmt ".
   //
-  if (hdr[offset] != 'f' || hdr[offset + 1] != 'm' || 
-      hdr[offset + 2] != 't' || hdr[offset + 3] != ' ') 
+  if (hdr[offset] != 'f' || hdr[offset + 1] != 'm' ||
+      hdr[offset + 2] != 't' || hdr[offset + 3] != ' ')
   {
     debug("DSD::Header::parse(): FMT header's first 4 bytes != 'fmt '");
     return;

@@ -80,7 +80,7 @@ namespace
 class DSDIFFFile::FilePrivate
 {
 public:
-FilePrivate(TagLib::ID3v2::FrameFactory *frameFactory 
+FilePrivate(TagLib::ID3v2::FrameFactory *frameFactory
         = TagLib::ID3v2::FrameFactory::instance())
   : ID3v2FrameFactory(frameFactory),
     properties(0),
@@ -110,7 +110,7 @@ FilePrivate(TagLib::ID3v2::FrameFactory *frameFactory
 
   ChunkList chunks;
   ChunkList childChunks;
-  
+
   unsigned long long size;
   int childChunkIndex;
   /*
@@ -143,7 +143,7 @@ bool DSDIFFFile::isSupported(TagLib::IOStream *stream)
 // public members
 ////////////////////////////////////////////////////////////////////////////////
 
-DSDIFFFile::DSDIFFFile(TagLib::FileName file, 
+DSDIFFFile::DSDIFFFile(TagLib::FileName file,
     bool readProperties,
     TagLib::AudioProperties::ReadStyle propertiesStyle)
  : TagLib::File(file)
@@ -153,9 +153,9 @@ DSDIFFFile::DSDIFFFile(TagLib::FileName file,
     read(readProperties, propertiesStyle);
 }
 
-DSDIFFFile::DSDIFFFile(TagLib::FileName file, 
+DSDIFFFile::DSDIFFFile(TagLib::FileName file,
     TagLib::ID3v2::FrameFactory *frameFactory,
-    bool readProperties, 
+    bool readProperties,
     TagLib::AudioProperties::ReadStyle propertiesStyle)
   : TagLib::File(file)
 {
@@ -165,9 +165,9 @@ DSDIFFFile::DSDIFFFile(TagLib::FileName file,
     read(readProperties, propertiesStyle);
 }
 
-DSDIFFFile::DSDIFFFile(TagLib::IOStream *stream, 
+DSDIFFFile::DSDIFFFile(TagLib::IOStream *stream,
     TagLib::ID3v2::FrameFactory *frameFactory,
-    bool readProperties, 
+    bool readProperties,
     TagLib::AudioProperties::ReadStyle propertiesStyle)
   : TagLib::File(stream)
 {
@@ -798,4 +798,3 @@ void DSDIFFFile::writeChunk(const TagLib::ByteVector &name, const TagLib::ByteVe
 
   insert(combined, offset, replace);
 }
-

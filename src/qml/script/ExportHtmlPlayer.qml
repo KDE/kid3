@@ -115,8 +115,8 @@ Kid3Script {
 '}\n' +
 '\n' +
 'function loadUrl(newLocation) {\n' +
-'	window.location = newLocation;\n' +
-'	return false;\n' +
+'  window.location = newLocation;\n' +
+'  return false;\n' +
 '}\n' +
 '\n' +
 'audio.addEventListener("ended", function() {\n' +
@@ -142,7 +142,7 @@ Kid3Script {
 
     var trackData = []
     var dirName = "";
-    
+
     function doWork() {
       var fileName = app.selectionInfo.fileName
       var baseNameExt = splitFileName(fileName)

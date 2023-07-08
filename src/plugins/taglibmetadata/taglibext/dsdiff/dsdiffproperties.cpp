@@ -117,4 +117,3 @@ long long DSDIFFProperties::sampleCount() const
 {
   return d->sampleCount;
 }
-

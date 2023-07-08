@@ -51,7 +51,7 @@ public:
    * Destructor.
    */
   virtual ~PlaylistEditDialog() override;
-  
+
   /**
    * Get playlist model.
    * @return playlist model.

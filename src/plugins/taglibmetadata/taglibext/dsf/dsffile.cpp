@@ -42,8 +42,8 @@
 class DSFFile::FilePrivate
 {
 public:
-  FilePrivate(TagLib::ID3v2::FrameFactory *frameFactory 
-        = TagLib::ID3v2::FrameFactory::instance())
+  FilePrivate(TagLib::ID3v2::FrameFactory *frameFactory
+              = TagLib::ID3v2::FrameFactory::instance())
     : ID3v2FrameFactory(frameFactory),
       ID3v2Location(0),
       ID3v2OriginalSize(0),
@@ -73,11 +73,11 @@ public:
 
   DSFProperties *properties;
 
-  static inline TagLib::ByteVector& uint64ToVector(uint64_t num, 
-						   TagLib::ByteVector &v) 
+  static inline TagLib::ByteVector& uint64ToVector(uint64_t num,
+                                                   TagLib::ByteVector &v)
   {
     char raw[8];
-    
+
     for (int i = 0; i < 8; i++) {
       raw[i] = ((0xff << (i * 8)) & num) >> (i * 8);
     }
@@ -85,13 +85,13 @@ public:
     return v;
   }
 
-  // 
-  // ID3v2::Tag::render() fills up space previous occupied by 
-  // deleted frames with 0's, presumably to avoid rewriting 
-  // all audio data (in an mp3 file, the ID3v2 tag comes before the audio 
-  // data). 
+  //
+  // ID3v2::Tag::render() fills up space previous occupied by
+  // deleted frames with 0's, presumably to avoid rewriting
+  // all audio data (in an mp3 file, the ID3v2 tag comes before the audio
+  // data).
   // However in a DSD file the ID3v2 chunk is located at the end.
-  // 
+  //
   // This function attempts to shrink the ID3v2 Tag by replacing
   // the old ID3v2::Tag object with a new one to free up that space.
   //
@@ -112,7 +112,7 @@ void DSFFile::FilePrivate::shrinkTag() {
     tag->removeFrame(*it, false);  // Don't delete, just transfer the ownership
     ntag->addFrame(*it);
   }
-  
+
   delete tag;
   tag = ntag;
 }
@@ -123,7 +123,7 @@ void DSFFile::FilePrivate::shrinkTag() {
 ////////////////////////////////////////////////////////////////////////////////
 
 DSFFile::DSFFile(TagLib::FileName file, bool readProperties,
-		 TagLib::AudioProperties::ReadStyle propertiesStyle) 
+                 TagLib::AudioProperties::ReadStyle propertiesStyle)
   : TagLib::File(file)
 {
   d = new FilePrivate;
@@ -132,10 +132,10 @@ DSFFile::DSFFile(TagLib::FileName file, bool readProperties,
     read(readProperties, propertiesStyle);
 }
 
-DSFFile::DSFFile(TagLib::FileName file, 
-		 TagLib::ID3v2::FrameFactory *frameFactory,
-		 bool readProperties, 
-     TagLib::AudioProperties::ReadStyle propertiesStyle)
+DSFFile::DSFFile(TagLib::FileName file,
+                 TagLib::ID3v2::FrameFactory *frameFactory,
+                 bool readProperties,
+                 TagLib::AudioProperties::ReadStyle propertiesStyle)
   : TagLib::File(file)
 {
   d = new FilePrivate(frameFactory);
@@ -144,10 +144,10 @@ DSFFile::DSFFile(TagLib::FileName file,
     read(readProperties, propertiesStyle);
 }
 
-DSFFile::DSFFile(TagLib::IOStream *stream, 
-		 TagLib::ID3v2::FrameFactory *frameFactory,
-		 bool readProperties, 
-     TagLib::AudioProperties::ReadStyle propertiesStyle)
+DSFFile::DSFFile(TagLib::IOStream *stream,
+                 TagLib::ID3v2::FrameFactory *frameFactory,
+                 bool readProperties,
+                 TagLib::AudioProperties::ReadStyle propertiesStyle)
   : TagLib::File(stream)
 {
   d = new FilePrivate(frameFactory);
@@ -189,7 +189,7 @@ TagLib::AudioProperties *DSFFile::audioProperties() const
   return d->properties;
 }
 
-bool DSFFile::save() 
+bool DSFFile::save()
 {
   return save(4);
 }
@@ -216,7 +216,7 @@ bool DSFFile::save(int id3v2Version, bool shrink)
     uint64_t fileSize = d->fileSize + id3v2_v.size() - d->ID3v2OriginalSize;
     TagLib::ByteVector fileSize_v;
 
-    // Write new file size to DSD header 
+    // Write new file size to DSD header
     DSFFile::FilePrivate::uint64ToVector(fileSize, fileSize_v);
     insert(fileSize_v, 12, DSFHeader::LONG_INT_SIZE);
 
@@ -232,7 +232,7 @@ bool DSFFile::save(int id3v2Version, bool shrink)
 
     // Write ID3v2 to the end of the file
     insert(id3v2_v, d->ID3v2Location, d->ID3v2OriginalSize);
-    
+
     // Reset header info
     d->fileSize = fileSize;
     d->ID3v2OriginalSize = id3v2_v.size();
@@ -259,8 +259,8 @@ bool DSFFile::save(int id3v2Version, bool shrink)
 
   // Reinitialize properties because DSD header may have been changed
   delete d->properties;
-  d->properties = new DSFProperties(this, 
-				    TagLib::AudioProperties::Average);
+  d->properties = new DSFProperties(this,
+                                    TagLib::AudioProperties::Average);
 
   return success;
 }
@@ -292,8 +292,8 @@ bool DSFFile::secondSynchByte(char byte)
   return b.test(7) && b.test(6) && b.test(5);
 }
 
-void DSFFile::read(bool readProperties, 
-		   TagLib::AudioProperties::ReadStyle propertiesStyle)
+void DSFFile::read(bool readProperties,
+                   TagLib::AudioProperties::ReadStyle propertiesStyle)
 {
   if(readProperties)
     d->properties = new DSFProperties(this, propertiesStyle);

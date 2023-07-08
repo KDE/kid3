@@ -54,7 +54,7 @@ class DSFFile : public TagLib::File
    * in a future version.
    */
   DSFFile(TagLib::FileName file, bool readProperties = true,
-       TagLib::AudioProperties::ReadStyle propertiesStyle 
+       TagLib::AudioProperties::ReadStyle propertiesStyle
        = TagLib::AudioProperties::Average);
 
   /*!
@@ -69,8 +69,8 @@ class DSFFile : public TagLib::File
   // BIC: merge with the above constructor
   DSFFile(TagLib::FileName file, TagLib::ID3v2::FrameFactory *frameFactory,
        bool readProperties = true,
-       TagLib::AudioProperties::ReadStyle propertiesStyle 
-	  = TagLib::AudioProperties::Average);
+       TagLib::AudioProperties::ReadStyle propertiesStyle
+          = TagLib::AudioProperties::Average);
 
   /*!
    * Constructs an DSF file from \a stream.  If \a readProperties is true the
@@ -85,9 +85,9 @@ class DSFFile : public TagLib::File
    * \note In the current implementation, \a propertiesStyle is ignored.
    */
   DSFFile(TagLib::IOStream *stream, TagLib::ID3v2::FrameFactory *frameFactory,
-	  bool readProperties = true,
-	  TagLib::AudioProperties::ReadStyle propertiesStyle = 
-	  TagLib::AudioProperties::Average);
+          bool readProperties = true,
+          TagLib::AudioProperties::ReadStyle propertiesStyle =
+          TagLib::AudioProperties::Average);
 
   /*!
    * Destroys this instance of the File.
@@ -164,8 +164,8 @@ class DSFFile : public TagLib::File
    * if there is no valid ID3v2 tag.  If \a create is true it will create
    * an ID3v2 tag if one does not exist and returns a valid pointer.
    *
-   * \note This may return a valid pointer regardless of whether or not the 
-   * file on disk has an ID3v2 tag.  Use hasID3v2Tag() to check if the file 
+   * \note This may return a valid pointer regardless of whether or not the
+   * file on disk has an ID3v2 tag.  Use hasID3v2Tag() to check if the file
    * on disk actually has an ID3v2 tag.
    *
    * \note The Tag <b>is still</b> owned by the DSF::File and should not be
@@ -231,8 +231,8 @@ class DSFFile : public TagLib::File
   DSFFile &operator=(const DSFFile &);
 
   // Read the actual audio file for tags
-  void read(bool readProperties, 
-	    TagLib::AudioProperties::ReadStyle propertiesStyle);
+  void read(bool readProperties,
+            TagLib::AudioProperties::ReadStyle propertiesStyle);
 
   /*!
    * ID3V2 frames can be recognized by the bit pattern 11111111 111, so the
