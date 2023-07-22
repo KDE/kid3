@@ -326,6 +326,10 @@ void StarEditor::modifyStarCount(int starCount)
   if (m_starCount != starCount) {
     m_starCount = starCount;
     m_starCountEdited = true;
+  } else if (m_starCount == 1) {
+    // Set zero stars when clicking again on 1 star when 1 star is already set.
+    m_starCount = 0;
+    m_starCountEdited = true;
   }
 }
 
