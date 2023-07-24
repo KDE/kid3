@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2023-04-22 00:52+0200\n"
+"PO-Revision-Date: 2023-07-23 20:43+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -41,7 +41,7 @@ msgstr "시간"
 #: src/app/cli/clicommand.cpp:448
 msgctxt "QuitCommand|"
 msgid "Quit application"
-msgstr "프로그램 끝내기"
+msgstr "앱 끝내기"
 
 #: src/app/cli/clicommand.cpp:457
 msgctxt "QuitCommand|"
@@ -570,7 +570,7 @@ msgstr "변경된 파일 저장"
 #: src/app/kde/kdemainwindow.cpp:121
 msgctxt "KdeMainWindow|"
 msgid "Quits the application"
-msgstr "프로그램을 끝냅니다"
+msgstr "앱을 끝냅니다"
 
 #: src/app/kde/kdemainwindow.cpp:129
 msgctxt "KdeMainWindow|"
@@ -895,7 +895,7 @@ msgstr "삭제"
 #: src/app/kde/kdemainwindow.cpp:424 src/app/kde/kdemainwindow.cpp:443
 msgctxt "KdeMainWindow|"
 msgid "Focus"
-msgstr "초점"
+msgstr "포커스"
 
 #: src/app/kde/kdemainwindow.cpp:403
 msgctxt "KdeMainWindow|"
@@ -1041,7 +1041,7 @@ msgstr "시스템"
 #: src/app/qt/configdialog.cpp:122
 msgctxt "ConfigDialog|"
 msgid "Use custom app&lication font"
-msgstr "사용자 정의 프로그램 글꼴 사용(&L)"
+msgstr "사용자 정의 앱 글꼴 사용(&L)"
 
 #: src/app/qt/configdialog.cpp:124
 msgctxt "ConfigDialog|"
@@ -1051,7 +1051,7 @@ msgstr "프로그램 글꼴(&P)..."
 #: src/app/qt/configdialog.cpp:126
 msgctxt "ConfigDialog|"
 msgid "Use custom application &style"
-msgstr "사용자 정의 프로그램 스타일 사용(&S)"
+msgstr "사용자 정의 앱 스타일 사용(&S)"
 
 #: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
 msgctxt "ConfigDialog|"
@@ -1239,7 +1239,7 @@ msgstr "재생 목록 만들기(&C)..."
 #: src/app/qt/kid3mainwindow.cpp:306
 msgctxt "Kid3MainWindow|"
 msgid "Quits the application"
-msgstr "프로그램을 끝냅니다"
+msgstr "앱을 끝냅니다"
 
 #: src/app/qt/kid3mainwindow.cpp:307
 msgctxt "Kid3MainWindow|"
@@ -1526,7 +1526,7 @@ msgstr "태그 %1에서"
 #: src/app/qt/kid3mainwindow.cpp:703 src/app/qt/kid3mainwindow.cpp:721
 msgctxt "Kid3MainWindow|"
 msgid "Focus"
-msgstr "초점"
+msgstr "포커스"
 
 #: src/app/qt/kid3mainwindow.cpp:665
 #, qt-format
