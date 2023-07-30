@@ -549,6 +549,9 @@ endif()
 
 # To create a package, run cpack
 if(APPLE)
+  if(CMAKE_HOST_APPLE)
+    install(SCRIPT ${CMAKE_SOURCE_DIR}/macosx/mac-codesign.cmake)
+  endif()
   set(CPACK_BINARY_DRAGNDROP ON)
   set(CPACK_GENERATOR DragNDrop)
 elseif(WIN32)
