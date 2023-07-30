@@ -28,11 +28,10 @@
 #
 # For Mac:
 #
-# Install XCode with the command line tools and Qt. The other build dependencies
-# can be installed with Homebrew, for instance:
-# brew install cmake ninja autoconf automake libtool xz nasm docbook-xsl
+# The build dependencies can be installed with Homebrew, for instance:
+# brew install cmake ninja autoconf automake libtool xz nasm docbook-xsl qt
 # Then call from a build directory
-# QTPREFIX=/path/to/Qt/6.5.1/clang_64 ../kid3/build.sh
+# ../kid3/build.sh
 #
 # You can also build a macOS version from Linux using the osxcross toolchain.
 # COMPILER=cross-macos QTPREFIX=/path/to/Qt6.5.1-mac/6.5.1/macos ../kid3/build.sh
@@ -956,10 +955,6 @@ if test "$compiler" != "cross-android"; then
     tar xJf ../source/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     patch -p1 <$srcdir/packaging/patches/flac-1.2.1-00-size_t_max.patch
-    if test $kernel = "Darwin"; then
-      patch -p1 <$srcdir/packaging/patches/flac-1.2.1-mac00-fink.patch
-      patch -p0 <patches/nasm.h.patch
-    fi
     cd ..
   fi
 
@@ -1040,7 +1035,7 @@ test -d bin || mkdir bin
 
 _chocoInstall=${ChocolateyInstall//\\/\/}
 _chocoInstall=${_chocoInstall/C:/\/c}
-for d in "$DOCBOOK_XSL_DIR" /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-* /usr/local/Cellar/docbook-xsl/*/docbook-xsl /opt/local/share/xsl/docbook-xsl $_chocoInstall/lib/docbook-bundle/docbook-xsl-*; do
+for d in "$DOCBOOK_XSL_DIR" /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-* /usr/local/Cellar/docbook-xsl/*/docbook-xsl /opt/homebrew/Cellar/docbook-xsl/*/docbook-xsl /opt/local/share/xsl/docbook-xsl $_chocoInstall/lib/docbook-bundle/docbook-xsl-*; do
   if test -e $d/xhtml/docbook.xsl; then
     _docbook_xsl_dir=$d
     break
@@ -1267,7 +1262,7 @@ else #  cross-android
     tar xmzf bin/flac-${libflac_version}.tgz -C $BUILDROOT
   fi
 
-  if test ! -d id3lib-${id3lib_version}/inst; then
+  if test ! -d id3lib-${id3lib_version}/inst && ! test $kernel = "Darwin" -a $ARCH = "arm64"; then
     echo "### Building id3lib"
 
     cd id3lib-${id3lib_version}/
@@ -1538,6 +1533,12 @@ EOF
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
 cmake -GNinja -DCMAKE_CXX_COMPILER=${gcc_self_contained_cxx} -DCMAKE_C_COMPILER=${gcc_self_contained_cc} -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DBUILD_SHARED_LIBS=ON -DLINUX_SELF_CONTAINED=ON -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+EOF
+      elif test $kernel = "Darwin" -a $ARCH = "arm64"; then
+        _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
+        cat >kid3/run-cmake.sh <<EOF
+#!/bin/bash
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test $kernel = "Darwin"; then
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}

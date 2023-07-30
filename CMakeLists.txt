@@ -316,6 +316,11 @@ if(APPLE)
   if(_qtLibDir)
     set(QT_LIBRARY_DIR ${CMAKE_MATCH_1})
   endif()
+  # Fix to find dependencies when Homebrew Qt is installed in its own folder.
+  # You may have to "eval $(brew shellenv)" for HOMEBREW_PREFX to be set.
+  if(DEFINED ENV{HOMEBREW_PREFIX} AND QT_LIBRARY_DIR STREQUAL "$ENV{HOMEBREW_PREFIX}/opt/qt/lib")
+    set(QT_LIBRARY_DIR "$ENV{HOMEBREW_PREFIX}/lib")
+  endif()
 endif()
 if(TARGET Qt${QT_VERSION_MAJOR}::lupdate)
   get_target_property(QT_LUPDATE_EXECUTABLE Qt${QT_VERSION_MAJOR}::lupdate LOCATION)

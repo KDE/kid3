@@ -120,6 +120,15 @@ if(WIN32 OR APPLE OR LINUX_SELF_CONTAINED)
   get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)
   get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)
   set(QT_QML_DIR ${QT_QML_DIR}/qml)
+  # With Qt from Homebrew, the QML imports cannot be found from the qmake location,
+  # try with the qtquick2plugin location.
+  if(NOT EXISTS ${QT_QML_DIR}/QtQuick/Layouts)
+    if(TARGET Qt${QT_VERSION_MAJOR}::qtquick2plugin)
+      get_target_property(QT_QML_DIR Qt${QT_VERSION_MAJOR}::qtquick2plugin LOCATION)
+      get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)
+      get_filename_component(QT_QML_DIR ${QT_QML_DIR} PATH)
+    endif()
+  endif()
   if(APPLE)
     if(QT_VERSION VERSION_LESS 6.0)
       install(FILES "${QT_QML_DIR}/QtQuick.2/qmldir"
