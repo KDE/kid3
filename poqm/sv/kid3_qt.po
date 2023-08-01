@@ -1,8 +1,8 @@
-# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2020, 2021, 2022.
+# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2020, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2022-08-03 10:01+0200\n"
+"PO-Revision-Date: 2023-07-31 08:53+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -950,12 +950,12 @@ msgstr "Anpassa - Kid3"
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "&Ja"
 
 #: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "&Nej"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
@@ -4176,12 +4176,9 @@ msgid "&Play on double click"
 msgstr "S&pela vid dubbelklick"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
-#, fuzzy
-#| msgctxt "SelectCommand|"
-#| msgid "Select file"
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "Välj fil"
+msgstr "Välj fil vid &spela"
 
 #: src/gui/dialogs/configdialogpages.cpp:565
 msgctxt "ConfigDialogPages|"
