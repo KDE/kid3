@@ -49,7 +49,7 @@
 
 <copyright>
 <year
->2022</year>
+>2023</year>
 <holder
 >Urs Fleisch</holder>
 </copyright>
@@ -57,9 +57,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2022-08-06</date>
+>2023-07-09</date>
 <releaseinfo
->3.9.2</releaseinfo>
+>3.9.4</releaseinfo>
 
 <abstract>
 <para
@@ -736,6 +736,10 @@ end manpage include-->
 > i <link linkend="configure-kid3"
 >Anpassa &kid3;</link
 >. Uppspelning vid dubbelklick kan också aktiveras där. </para
+><para
+>När <guilabel
+>Välj fil vid spela</guilabel
+> är aktiverat, väljs spåret som för närvarande spelas automatiskt i fillistan. </para
 ></listitem>
 </itemizedlist>
 </para>
@@ -4244,6 +4248,8 @@ end manpage include-->
 >, <guibutton
 >Stäng</guibutton
 >), skjutreglage för position och volym, samt visning av aktuell position. Om flera filer är markerade, spelas de markerade spåren, annars spelas alla filer. </para
+><para
+>Tiden som visas kan ändras mellan förfluten och återstående tid genom att klicka på visad tid. </para
 ></listitem>
 </varlistentry>
 
