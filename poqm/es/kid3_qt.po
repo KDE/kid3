@@ -3,13 +3,13 @@
 #
 # Sergio Cambra García <sergio.cambra@hispalinux.es>, 2004.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-02-27 05:10+0100\n"
+"PO-Revision-Date: 2023-09-03 22:16+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.08.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Language: es\n"
 "X-Source-Language: en\n"
@@ -1328,12 +1328,12 @@ msgstr "&Buscar..."
 #: src/app/qt/kid3mainwindow.cpp:406
 msgctxt "Kid3MainWindow|"
 msgid "Find and replace"
-msgstr "Buscar y reemplazar"
+msgstr "Buscar y sustituir"
 
 #: src/app/qt/kid3mainwindow.cpp:407
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
-msgstr "&Reemplazar..."
+msgstr "&Sustituir..."
 
 #: src/app/qt/kid3mainwindow.cpp:419
 msgctxt "Kid3MainWindow|"
@@ -3875,7 +3875,7 @@ msgstr "URL:"
 #: src/gui/dialogs/browsecoverartdialog.cpp:118
 msgctxt "BrowseCoverArtDialog|"
 msgid "&URL extraction"
-msgstr "Reemplazar &URL"
+msgstr "Extracción de &URL"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
@@ -7054,12 +7054,12 @@ msgstr "Locale"
 #: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:260
 msgctxt "SettingsPage|"
 msgid "String replacement"
-msgstr "Reemplazar cadenas"
+msgstr "Sustitución de cadenas"
 
 #: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:264
 msgctxt "SettingsPage|"
 msgid "String Replacement"
-msgstr "Reemplazar cadenas"
+msgstr "Sustitución de cadenas"
 
 #: src/qml/app/SettingsPage.qml:174
 msgctxt "SettingsPage|"
