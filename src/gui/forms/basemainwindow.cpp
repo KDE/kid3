@@ -170,6 +170,24 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, &BaseMainWindowImpl::showOperationProgress);
   connect(m_app, &Kid3Application::aboutToPlayAudio,
           this, &BaseMainWindowImpl::showPlayToolBar);
+
+#ifdef HAVE_QTMULTIMEDIA
+  if (AudioPlayer* player =
+      qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
+    m_playToolBar = new PlayToolBar(player, m_w);
+    m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
+    m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar);
+    m_playToolBar->hide();
+    connect(m_playToolBar, &PlayToolBar::errorMessage,
+            this, &BaseMainWindowImpl::slotStatusMsg);
+#ifdef HAVE_QTDBUS
+    connect(m_playToolBar, &PlayToolBar::closed,
+            m_app, &Kid3Application::deactivateMprisInterface);
+#endif
+    connect(m_playToolBar, &PlayToolBar::aboutToPlay,
+            m_app, &Kid3Application::onAboutToPlay);
+  }
+#endif
 }
 
 /**
@@ -365,17 +383,6 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
     updateCurrentSelection();
     QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
   }
-
-#if defined Q_OS_WIN32 && defined HAVE_QTMULTIMEDIA
-  // Close player on Windows because it holds file handles which prevent
-  // files from being saved.
-  if (m_playToolBar) {
-    m_playToolBar->close();
-    delete m_playToolBar;
-    m_playToolBar = nullptr;
-  }
-  m_app->deleteAudioPlayer();
-#endif
 
   QStringList errorDescriptions;
   const QStringList errorFiles = m_app->saveDirectory(&errorDescriptions);
@@ -1239,24 +1246,21 @@ void BaseMainWindowImpl::slotPlayAudio()
 void BaseMainWindowImpl::showPlayToolBar()
 {
 #ifdef HAVE_QTMULTIMEDIA
-  if (!m_playToolBar) {
-    if (AudioPlayer* player =
-        qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
-      m_playToolBar = new PlayToolBar(player, m_w);
-      m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
-      m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar);
-      connect(m_playToolBar, &PlayToolBar::errorMessage,
-              this, &BaseMainWindowImpl::slotStatusMsg);
-#ifdef HAVE_QTDBUS
-      connect(m_playToolBar, &PlayToolBar::closed,
-              m_app, &Kid3Application::deactivateMprisInterface);
-#endif
-      connect(m_playToolBar, &PlayToolBar::aboutToPlay,
-              m_app, &Kid3Application::onAboutToPlay);
-    }
+  if (m_playToolBar) {
+    m_playToolBar->show();
   }
-  m_playToolBar->show();
 #endif
+}
+
+/**
+   * Get media player actions.
+   * @return list with named actions for "audio_play", "audio_stop",
+   * "audio_previous", "audio_next".
+   */
+QList<QAction*> BaseMainWindowImpl::mediaActions() const
+{
+  return m_playToolBar ? m_playToolBar->mediaActions()
+                       : QList<QAction*>();
 }
 
 /**

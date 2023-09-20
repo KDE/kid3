@@ -66,6 +66,13 @@ public:
    */
   void toggleTimeDisplayMode();
 
+  /**
+   * Get media player actions.
+   * @return list with named actions for "audio_play", "audio_stop",
+   * "audio_previous", "audio_next".
+   */
+  QList<QAction*> mediaActions() const;
+
 signals:
   /**
    * Emitted when an error occurs.

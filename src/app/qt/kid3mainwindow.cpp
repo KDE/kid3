@@ -625,6 +625,12 @@ void Kid3MainWindow::initActions()
   const UserActionsConfig& userActionsCfg = UserActionsConfig::instance();
   connect(&userActionsCfg, &UserActionsConfig::contextMenuCommandsChanged,
           fileList, &FileList::initUserActions);
+
+  const QString ctx = tr("Player");
+  const auto actions = impl()->mediaActions();
+  for (QAction* action : actions) {
+    m_shortcutsModel->registerAction(action, ctx);
+  }
 }
 
 /**

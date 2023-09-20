@@ -106,12 +106,20 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   m_pauseIcon = style()->standardIcon(QStyle::SP_MediaPause);
 
   m_playOrPauseAction = new QAction(m_playIcon, tr("Play/Pause"), this);
+  m_playOrPauseAction->setObjectName(QLatin1String("audio_play"));
+  m_playOrPauseAction->setShortcut(Qt::Key_MediaPlay);
   m_stopAction = new QAction(
     style()->standardIcon(QStyle::SP_MediaStop), tr("Stop playback"), this);
+  m_stopAction->setObjectName(QLatin1String("audio_stop"));
+  m_stopAction->setShortcut(Qt::Key_MediaStop);
   m_previousAction = new QAction(
     style()->standardIcon(QStyle::SP_MediaSkipBackward), tr("Previous Track"), this);
+  m_previousAction->setObjectName(QLatin1String("audio_previous"));
+  m_previousAction->setShortcut(Qt::Key_MediaPrevious);
   m_nextAction = new QAction(
     style()->standardIcon(QStyle::SP_MediaSkipForward), tr("Next Track"), this);
+  m_nextAction->setObjectName(QLatin1String("audio_next"));
+  m_nextAction->setShortcut(Qt::Key_MediaNext);
   QAction* closeAction = new QAction(
     style()->standardIcon(QStyle::SP_TitleBarCloseButton), tr("Close"), this);
 
@@ -366,6 +374,21 @@ void PlayToolBar::toggleTimeDisplayMode()
 {
   m_timeDisplayMode = m_timeDisplayMode == TimeDisplayMode::Elapsed
       ? TimeDisplayMode::Remaining : TimeDisplayMode::Elapsed;
+}
+
+/**
+ * Get media player actions.
+ * @return list with named actions for "audio_play", "audio_stop",
+ * "audio_previous", "audio_next".
+ */
+QList<QAction*> PlayToolBar::mediaActions() const
+{
+  return {
+      m_playOrPauseAction,
+      m_stopAction,
+      m_previousAction,
+      m_nextAction
+  };
 }
 
 /**

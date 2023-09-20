@@ -180,6 +180,13 @@ public:
   void applyChangedShortcuts();
 
   /**
+   * Get media player actions.
+   * @return list with named actions for "audio_play", "audio_stop",
+   * "audio_previous", "audio_next".
+   */
+  QList<QAction*> mediaActions() const;
+
+  /**
    * Access to application.
    * @return application.
    */

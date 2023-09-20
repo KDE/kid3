@@ -472,6 +472,13 @@ void KdeMainWindow::initActions()
     collection->addAction(std::get<0>(tpl), action);
   }
 
+  actionPrefix = tr("Player") + QLatin1String(": ");
+  const auto actions = impl()->mediaActions();
+  for (QAction* action : actions) {
+    action->setText(actionPrefix + action->text());
+    collection->addAction(action->objectName(), action);
+  }
+
   createGUI();
 }
 

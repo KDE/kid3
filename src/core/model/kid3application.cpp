@@ -659,22 +659,6 @@ QObject* Kid3Application::getAudioPlayer()
   return m_player;
 }
 
-/**
- * Delete audio player.
- */
-void Kid3Application::deleteAudioPlayer() {
-  if (m_player) {
-    QMetaObject::invokeMethod(m_player, "stop");
-#ifdef HAVE_QTDBUS
-    if (m_dbusEnabled) {
-      deactivateMprisInterface();
-    }
-#endif
-    delete m_player;
-    m_player = nullptr;
-  }
-}
-
 #ifdef HAVE_QTDBUS
 /**
  * Activate the MPRIS D-Bus Interface if not already active.

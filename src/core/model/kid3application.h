@@ -312,11 +312,6 @@ public:
   Q_INVOKABLE QObject* getAudioPlayer();
 
   /**
-   * Delete audio player.
-   */
-  void deleteAudioPlayer();
-
-  /**
    * Get context for tag.
    * @param tagNr tag number
    * @return tag context.
