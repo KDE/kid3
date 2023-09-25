@@ -79,8 +79,12 @@
 #include <tfilestream.h>
 #include <xmfile.h>
 #include <opusfile.h>
+#if TAGLIB_VERSION >= 0x020000
+#include <dsffile.h>
+#else
 #include "taglibext/dsf/dsffiletyperesolver.h"
 #include "taglibext/dsf/dsffile.h"
+#endif
 #include "taglibext/dsdiff/dsdifffiletyperesolver.h"
 #include "taglibext/dsdiff/dsdifffile.h"
 
@@ -617,7 +621,11 @@ TagLib::File* FileIOStream::createFromExtension(TagLib::IOStream* stream,
   if (ext == "XM")
     return new TagLib::XM::File(stream);
   if (ext == "DSF")
+#if TAGLIB_VERSION >= 0x020000
+    return new TagLib::DSF::File(stream);
+#else
     return new DSFFile(stream, TagLib::ID3v2::FrameFactory::instance());
+#endif
   if (ext == "DFF")
     return new DSDIFFFile(stream, TagLib::ID3v2::FrameFactory::instance());
   return nullptr;
@@ -955,7 +963,11 @@ void TagLibFile::readTags(bool force)
 #endif
     TagLib::TrueAudio::File* ttaFile;
     TagLib::RIFF::WAV::File* wavFile;
+#if TAGLIB_VERSION >= 0x020000
+    TagLib::DSF::File* dsfFile;
+#else
     DSFFile* dsfFile;
+#endif
     DSDIFFFile* dffFile;
     TagLib::APE::File* apeFile;
     m_fileExtension = QLatin1String(".mp3");
@@ -1076,12 +1088,20 @@ void TagLibFile::readTags(bool force)
         markTagUnchanged(Frame::Tag_2);
       }
 #endif
+#if TAGLIB_VERSION >= 0x020000
+    } else if ((dsfFile = dynamic_cast<TagLib::DSF::File*>(file)) != nullptr) {
+#else
     } else if ((dsfFile = dynamic_cast<DSFFile*>(file)) != nullptr) {
+#endif
       m_fileExtension = QLatin1String(".dsf");
       m_tag[Frame::Tag_1] = nullptr;
       markTagUnchanged(Frame::Tag_1);
       if (!m_tag[Frame::Tag_2]) {
+#if TAGLIB_VERSION >= 0x020000
+        TagLib::ID3v2::Tag* id3v2Tag = dsfFile->tag();
+#else
         TagLib::ID3v2::Tag* id3v2Tag = dsfFile->ID3v2Tag();
+#endif
         setId3v2VersionFromTag(id3v2Tag);
         m_tag[Frame::Tag_2] = id3v2Tag;
         markTagUnchanged(Frame::Tag_2);
@@ -1504,9 +1524,16 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             needsSave = false;
           }
         }
+#if TAGLIB_VERSION >= 0x020000
+        else if (auto dsfFile = dynamic_cast<TagLib::DSF::File*>(file)) {
+          setId3v2VersionOrDefault(id3v2Version);
+          if (dsfFile->save(m_id3v2Version == 4 ? TagLib::ID3v2::v4
+                                                : TagLib::ID3v2::v3)) {
+#else
         else if (auto dsfFile = dynamic_cast<DSFFile*>(file)) {
           setId3v2VersionOrDefault(id3v2Version);
           if (dsfFile->save(m_id3v2Version)) {
+#endif
             fileChanged = true;
             FOR_TAGLIB_TAGS(tagNr) {
               markTagUnchanged(tagNr);
@@ -1917,7 +1944,11 @@ void TagLibFile::readAudioProperties()
     TagLib::IT::Properties* itProperties;
     TagLib::XM::Properties* xmProperties;
     TagLib::Ogg::Opus::Properties* opusProperties;
+#if TAGLIB_VERSION >= 0x020000
+    TagLib::DSF::Properties* dsfProperties;
+#else
     DSFProperties* dsfProperties;
+#endif
     DSDIFFProperties* dffProperties;
     m_detailInfo.valid = true;
     if ((mpegProperties =
@@ -2124,10 +2155,17 @@ void TagLibFile::readAudioProperties()
           dynamic_cast<TagLib::Ogg::Opus::Properties*>(audioProperties)) != nullptr) {
       m_detailInfo.format = QString(QLatin1String("Opus %1"))
           .arg(opusProperties->opusVersion());
+#if TAGLIB_VERSION >= 0x020000
     } else if ((dsfProperties =
-          dynamic_cast<DSFProperties*>(audioProperties)) != nullptr) {
+                dynamic_cast<TagLib::DSF::Properties*>(audioProperties)) != nullptr) {
       m_detailInfo.format = QString(QLatin1String("DSF %1"))
-          .arg(dsfProperties->version());
+                                .arg(dsfProperties->formatVersion());
+#else
+    } else if ((dsfProperties =
+              dynamic_cast<DSFProperties*>(audioProperties)) != nullptr) {
+      m_detailInfo.format = QString(QLatin1String("DSF %1"))
+                                .arg(dsfProperties->version());
+#endif
     } else if ((dffProperties =
           dynamic_cast<DSDIFFProperties*>(audioProperties)) != nullptr) {
       m_detailInfo.format = QString(QLatin1String("DFF"));
@@ -2138,9 +2176,13 @@ void TagLibFile::readAudioProperties()
     if (audioProperties->channels() > 0) {
       m_detailInfo.channels = audioProperties->channels();
     }
+#if TAGLIB_VERSION >= 0x020000
+    m_detailInfo.duration = audioProperties->lengthInSeconds();
+#else
     // lengthInSeconds() does not work for DSF with TagLib 1.x, because
     // it is not virtual.
     m_detailInfo.duration = audioProperties->length();
+#endif
   } else {
     m_detailInfo.valid = false;
   }
