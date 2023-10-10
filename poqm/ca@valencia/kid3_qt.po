@@ -1651,7 +1651,8 @@ msgstr "Restablix"
 #: src/app/qt/shortcutsmodel.cpp:112
 msgctxt "ShortcutsModel|"
 msgid "Press F2 or double click to edit cell contents."
-msgstr "Premeu F2 o feu-hi doble clic per a editar el contingut de la cel·la."
+msgstr ""
+"Premeu «F2» o feu-hi doble clic per a editar el contingut de la cel·la."
 
 #: src/app/qt/shortcutsmodel.cpp:189
 msgctxt "ShortcutsModel|"
