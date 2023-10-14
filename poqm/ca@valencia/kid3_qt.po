@@ -937,7 +937,7 @@ msgstr "Ca&nvia el nom"
 #: src/app/kde/kdemainwindow.cpp:437
 msgctxt "KdeMainWindow|"
 msgid "&Move to Trash"
-msgstr "&Mou a la paperera"
+msgstr "&Mou cap a dins de la paperera"
 
 #: src/app/kde/kdemainwindow.cpp:443
 msgctxt "KdeMainWindow|"
@@ -1591,7 +1591,7 @@ msgstr "Ca&nvia el nom"
 #: src/app/qt/kid3mainwindow.cpp:713
 msgctxt "Kid3MainWindow|"
 msgid "&Move to Trash"
-msgstr "&Mou a la paperera"
+msgstr "&Mou cap a dins de la paperera"
 
 #: src/app/qt/kid3mainwindow.cpp:720
 msgctxt "Kid3MainWindow|"
@@ -5219,7 +5219,7 @@ msgstr "Segur que voleu moure este element a la paperera?"
 #: src/gui/forms/basemainwindow.cpp:1624
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
-msgstr "Mou a la paperera"
+msgstr "Mou cap a dins de la paperera"
 
 #: src/gui/forms/basemainwindow.cpp:1653
 msgctxt "BaseMainWindowImpl|"
