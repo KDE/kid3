@@ -81,12 +81,13 @@
 #include <opusfile.h>
 #if TAGLIB_VERSION >= 0x020000
 #include <dsffile.h>
+#include <dsdifffile.h>
 #else
 #include "taglibext/dsf/dsffiletyperesolver.h"
 #include "taglibext/dsf/dsffile.h"
-#endif
 #include "taglibext/dsdiff/dsdifffiletyperesolver.h"
 #include "taglibext/dsdiff/dsdifffile.h"
+#endif
 
 #if TAGLIB_VERSION >= 0x010a00
 #include <synchronizedlyricsframe.h>
@@ -627,7 +628,11 @@ TagLib::File* FileIOStream::createFromExtension(TagLib::IOStream* stream,
     return new DSFFile(stream, TagLib::ID3v2::FrameFactory::instance());
 #endif
   if (ext == "DFF")
+#if TAGLIB_VERSION >= 0x020000
+    return new TagLib::DSDIFF::File(stream);
+#else
     return new DSDIFFFile(stream, TagLib::ID3v2::FrameFactory::instance());
+#endif
   return nullptr;
 }
 
@@ -968,7 +973,11 @@ void TagLibFile::readTags(bool force)
 #else
     DSFFile* dsfFile;
 #endif
+#if TAGLIB_VERSION >= 0x020000
+    TagLib::DSDIFF::File* dffFile;
+#else
     DSDIFFFile* dffFile;
+#endif
     TagLib::APE::File* apeFile;
     m_fileExtension = QLatin1String(".mp3");
     m_isTagSupported[Frame::Tag_1] = false;
@@ -1106,7 +1115,11 @@ void TagLibFile::readTags(bool force)
         m_tag[Frame::Tag_2] = id3v2Tag;
         markTagUnchanged(Frame::Tag_2);
       }
+#if TAGLIB_VERSION >= 0x020000
+    } else if ((dffFile = dynamic_cast<TagLib::DSDIFF::File*>(file)) != nullptr) {
+#else
     } else if ((dffFile = dynamic_cast<DSDIFFFile*>(file)) != nullptr) {
+#endif
       m_fileExtension = QLatin1String(".dff");
       m_tag[Frame::Tag_1] = nullptr;
       markTagUnchanged(Frame::Tag_1);
@@ -1541,9 +1554,29 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
             needsSave = false;
           }
         }
+#if TAGLIB_VERSION >= 0x020000
+        else if (auto dffFile = dynamic_cast<TagLib::DSDIFF::File*>(file)) {
+          int saveMask = 0;
+          if (m_tag[Frame::Tag_2] && (force || isTagChanged(Frame::Tag_2))) {
+            if (m_tag[Frame::Tag_2]->isEmpty()) {
+              dffFile->strip(TagLib::DSDIFF::File::ID3v2);
+              fileChanged = true;
+              m_tag[Frame::Tag_2] = nullptr;
+              markTagUnchanged(Frame::Tag_2);
+              needsSave = false;
+            } else {
+              saveMask = TagLib::DSDIFF::File::ID3v2;
+            }
+          }
+          setId3v2VersionOrDefault(id3v2Version);
+          if (saveMask != 0 && dffFile->save(saveMask,
+                            TagLib::File::StripNone,
+                            m_id3v2Version == 4 ? TagLib::ID3v2::v4 : TagLib::ID3v2::v3)) {
+#else
         else if (auto dffFile = dynamic_cast<DSDIFFFile*>(file)) {
           setId3v2VersionOrDefault(id3v2Version);
           if (dffFile->save(m_id3v2Version)) {
+#endif
             fileChanged = true;
             FOR_TAGLIB_TAGS(tagNr) {
               markTagUnchanged(tagNr);
@@ -1946,10 +1979,11 @@ void TagLibFile::readAudioProperties()
     TagLib::Ogg::Opus::Properties* opusProperties;
 #if TAGLIB_VERSION >= 0x020000
     TagLib::DSF::Properties* dsfProperties;
+    TagLib::DSDIFF::Properties* dffProperties;
 #else
     DSFProperties* dsfProperties;
-#endif
     DSDIFFProperties* dffProperties;
+#endif
     m_detailInfo.valid = true;
     if ((mpegProperties =
          dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != nullptr) {
@@ -2160,15 +2194,18 @@ void TagLibFile::readAudioProperties()
                 dynamic_cast<TagLib::DSF::Properties*>(audioProperties)) != nullptr) {
       m_detailInfo.format = QString(QLatin1String("DSF %1"))
                                 .arg(dsfProperties->formatVersion());
+    } else if ((dffProperties =
+                dynamic_cast<TagLib::DSDIFF::Properties*>(audioProperties)) != nullptr) {
+      m_detailInfo.format = QString(QLatin1String("DFF"));
 #else
     } else if ((dsfProperties =
               dynamic_cast<DSFProperties*>(audioProperties)) != nullptr) {
       m_detailInfo.format = QString(QLatin1String("DSF %1"))
                                 .arg(dsfProperties->version());
-#endif
     } else if ((dffProperties =
-          dynamic_cast<DSDIFFProperties*>(audioProperties)) != nullptr) {
+                dynamic_cast<DSDIFFProperties*>(audioProperties)) != nullptr) {
       m_detailInfo.format = QString(QLatin1String("DFF"));
+#endif
     }
 
     m_detailInfo.bitrate = audioProperties->bitrate();
