@@ -112,7 +112,11 @@ parts:
         - python3
         - libkf5doctools-dev
         build-snaps:
-        - ffmpeg-2204
+        - ffmpeg-2204-sdk
+        stage-packages:
+        - libxinerama1
+        - libid3-3.8.3v5
+        - libflac++6v5
         stage-snaps:
         - ffmpeg-2204
         source: .
@@ -123,7 +127,7 @@ parts:
         - "-DENABLE_TESTING=OFF"
         - "-DBUILD_TESTING=OFF"
         - "-DKDE_SKIP_TEST_SETTINGS=ON"
-        - "-DCMAKE_FIND_ROOT_PATH=/usr\\;$CRAFT_STAGE\\;/snap/kf5-5-110-qt-5-15-11-core22-sdk/current"
+        - "-DCMAKE_FIND_ROOT_PATH=/usr\\;$CRAFT_STAGE\\;/snap/kf5-5-110-qt-5-15-11-core22-sdk/current\\;/snap/ffmpeg-2204-sdk/current"
         - "-DKDE_INSTALL_PLUGINDIR=/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins/"
         prime:
         - "-usr/lib/*/cmake/*"
