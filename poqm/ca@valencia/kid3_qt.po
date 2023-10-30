@@ -4838,7 +4838,7 @@ msgstr "&Servidor:"
 #: src/gui/dialogs/serverimportdialog.cpp:78
 msgctxt "ServerImportDialog|"
 msgid "C&GI Path:"
-msgstr "Camí del C&GI:"
+msgstr "Camí de C&GI:"
 
 #: src/gui/dialogs/serverimportdialog.cpp:89
 msgctxt "ServerImportDialog|"
@@ -5924,7 +5924,7 @@ msgstr "MCDI - Identificador del CD de música"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2352
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - Taula de busca de la ubicació en el MPEG"
+msgstr "MLLT - Taula de busca de la ubicació en MPEG"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:931
 #: src/plugins/taglibmetadata/taglibfile.cpp:2357
