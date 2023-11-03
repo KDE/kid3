@@ -104,8 +104,8 @@
 #endif
 #if TAGLIB_VERSION < 0x020000
 #include "taglibext/aac/aacfiletyperesolver.h"
-#endif
 #include "taglibext/mp2/mp2filetyperesolver.h"
+#endif
 
 /** for loop through all supported tag number values. */
 #define FOR_TAGLIB_TAGS(variable) \
@@ -7129,8 +7129,8 @@ private:
 
 #if TAGLIB_VERSION < 0x020000
   QScopedPointer<AACFileTypeResolver> m_aacFileTypeResolver;
-#endif
   QScopedPointer<MP2FileTypeResolver> m_mp2FileTypeResolver;
+#endif
   QScopedPointer<TextCodecStringHandler> m_textCodecStringHandler;
 };
 
@@ -7138,8 +7138,8 @@ private:
 TagLibInitializer::TagLibInitializer() :
 #if TAGLIB_VERSION < 0x020000
     m_aacFileTypeResolver(new AACFileTypeResolver),
-#endif
     m_mp2FileTypeResolver(new MP2FileTypeResolver),
+#endif
     m_textCodecStringHandler(new TextCodecStringHandler)
 {
 }
@@ -7148,8 +7148,8 @@ void TagLibInitializer::init()
 {
 #if TAGLIB_VERSION < 0x020000
   TagLib::FileRef::addFileTypeResolver(m_aacFileTypeResolver.data());
-#endif
   TagLib::FileRef::addFileTypeResolver(m_mp2FileTypeResolver.data());
+#endif
   TagLib::ID3v1::Tag::setStringHandler(m_textCodecStringHandler.data());
 }
 
