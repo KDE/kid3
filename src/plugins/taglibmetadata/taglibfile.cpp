@@ -102,7 +102,9 @@
 #if TAGLIB_VERSION >= 0x010b00
 #include <podcastframe.h>
 #endif
+#if TAGLIB_VERSION < 0x020000
 #include "taglibext/aac/aacfiletyperesolver.h"
+#endif
 #include "taglibext/mp2/mp2filetyperesolver.h"
 
 /** for loop through all supported tag number values. */
@@ -1987,10 +1989,12 @@ void TagLibFile::readAudioProperties()
     m_detailInfo.valid = true;
     if ((mpegProperties =
          dynamic_cast<TagLib::MPEG::Properties*>(audioProperties)) != nullptr) {
+#if TAGLIB_VERSION < 0x020000
       if (getFilename().right(4).toLower() == QLatin1String(".aac")) {
         m_detailInfo.format = QLatin1String("AAC");
         return;
       }
+#endif
       switch (mpegProperties->version()) {
         case TagLib::MPEG::Header::Version1:
           m_detailInfo.format = QLatin1String("MPEG 1 ");
@@ -2001,6 +2005,11 @@ void TagLibFile::readAudioProperties()
         case TagLib::MPEG::Header::Version2_5:
           m_detailInfo.format = QLatin1String("MPEG 2.5 ");
           break;
+#if TAGLIB_VERSION >= 0x020000
+        case TagLib::MPEG::Header::Version4:
+          m_detailInfo.format = QLatin1String("MPEG 4 ");
+          break;
+#endif
       }
       int layer = mpegProperties->layer();
       if (layer >= 1 && layer <= 3) {
@@ -2023,6 +2032,12 @@ void TagLibFile::readAudioProperties()
           m_detailInfo.channels = 1;
           break;
       }
+#if TAGLIB_VERSION >= 0x020000
+      if (mpegProperties->isADTS()) {
+        m_detailInfo.format += QLatin1String("ADTS");
+        m_detailInfo.channels = mpegProperties->channels();
+      }
+#endif
     } else if (dynamic_cast<TagLib::Vorbis::Properties*>(audioProperties) !=
                nullptr) {
       m_detailInfo.format = QLatin1String("Ogg Vorbis");
@@ -7112,14 +7127,18 @@ public:
 private:
   Q_DISABLE_COPY(TagLibInitializer)
 
+#if TAGLIB_VERSION < 0x020000
   QScopedPointer<AACFileTypeResolver> m_aacFileTypeResolver;
+#endif
   QScopedPointer<MP2FileTypeResolver> m_mp2FileTypeResolver;
   QScopedPointer<TextCodecStringHandler> m_textCodecStringHandler;
 };
 
 
-TagLibInitializer::TagLibInitializer()
-  : m_aacFileTypeResolver(new AACFileTypeResolver),
+TagLibInitializer::TagLibInitializer() :
+#if TAGLIB_VERSION < 0x020000
+    m_aacFileTypeResolver(new AACFileTypeResolver),
+#endif
     m_mp2FileTypeResolver(new MP2FileTypeResolver),
     m_textCodecStringHandler(new TextCodecStringHandler)
 {
@@ -7127,7 +7146,9 @@ TagLibInitializer::TagLibInitializer()
 
 void TagLibInitializer::init()
 {
+#if TAGLIB_VERSION < 0x020000
   TagLib::FileRef::addFileTypeResolver(m_aacFileTypeResolver.data());
+#endif
   TagLib::FileRef::addFileTypeResolver(m_mp2FileTypeResolver.data());
   TagLib::ID3v1::Tag::setStringHandler(m_textCodecStringHandler.data());
 }

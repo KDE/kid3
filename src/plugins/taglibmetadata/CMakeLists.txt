@@ -10,11 +10,11 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
   add_library(${plugin_TARGET}
     taglibmetadataplugin.cpp
     taglibfile.cpp
-    taglibext/aac/aacfiletyperesolver.cpp
     taglibext/mp2/mp2filetyperesolver.cpp
   )
   if(${TAGLIB_VERSION} VERSION_LESS 2.0.0)
     target_sources(${plugin_TARGET} PRIVATE
+      taglibext/aac/aacfiletyperesolver.cpp
       taglibext/dsf/dsffiletyperesolver.cpp
       taglibext/dsf/dsffile.cpp
       taglibext/dsf/dsfproperties.cpp
