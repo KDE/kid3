@@ -1,22 +1,22 @@
 # Kid3 French Translation.
 # This file is put in the public domain.
 #
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023 Xavier Besnard <xavier.besnard@neuf.fr>
 # pierre <pierresaliou@yahoo.fr>, 2006.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2006, 2007, 2008, 2009, 2010, 2011.
 # Johnny Jazeix <jazeix@gmail.com>, 2020.
-# Xavier Besnard <xavier.besnard@neuf.fr>, 2020, 2021, 2022.
 # Xavier BESNARD <xavier.besnard@neuf.fr>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
-"PO-Revision-Date: 2023-02-27 19:01+0100\n"
+"PO-Revision-Date: 2023-11-03 15:29+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: fr\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.08.2\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Language: fr\n"
 "X-Source-Language: en\n"
@@ -2667,7 +2667,7 @@ msgstr "Accord"
 #: src/core/tags/frame.cpp:98
 msgctxt "@default|"
 msgid "Trivia/pop up"
-msgstr "Trivia/pop up"
+msgstr "Trivia / Menu contextuel"
 
 #: src/core/tags/frame.cpp:123
 msgctxt "@default|"
@@ -2959,7 +2959,7 @@ msgstr "Podcast"
 #: src/core/tags/frame.cpp:207
 msgctxt "@default|"
 msgid "Popularimeter"
-msgstr "Popularimètre"
+msgstr "Mesureur de popularité"
 
 #: src/core/tags/frame.cpp:208
 msgctxt "@default|"
@@ -3526,7 +3526,7 @@ msgstr "Format est HHMM"
 #: src/core/tags/framenotice.cpp:197
 msgctxt "@default|"
 msgid "Format is YYYY"
-msgstr "Format est YYYY"
+msgstr "Le format est « AAAA »"
 
 #: src/core/tags/framenotice.cpp:198
 msgctxt "@default|"
@@ -3545,7 +3545,7 @@ msgid ""
 "or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
 "Doit être une tonalité, 3 caractères, A-G, b, #, m, o\n"
-"ou valeur de Camelot Wheel 1A-12A, 1B-12B"
+"ou valeur de « Camelot Wheel » 1A-12A, 1B-12B"
 
 #: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
@@ -5943,7 +5943,7 @@ msgstr "PCNT - Compteur d'écoutes"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2363
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
-msgstr "POPM - Popularimètre"
+msgstr "POPM - Mesureur de popularité"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:935
 #: src/plugins/taglibmetadata/taglibfile.cpp:2364
