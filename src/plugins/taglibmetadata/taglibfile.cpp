@@ -4465,7 +4465,11 @@ const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "pcst", Frame::FT_Other, MVT_Bool },
   { "keyw", Frame::FT_Other, MVT_String },
   { "catg", Frame::FT_Other, MVT_String },
+#if TAGLIB_VERSION >= 0x020000
+  { "hdvd", Frame::FT_Other, MVT_UInt },
+#else
   { "hdvd", Frame::FT_Other, MVT_Bool },
+#endif
   { "stik", Frame::FT_Other, MVT_Byte },
   { "rtng", Frame::FT_Other, MVT_Byte },
   { "apID", Frame::FT_Other, MVT_String },
