@@ -35,7 +35,6 @@
   <name xml:lang="sv">Kid3</name>
   <name xml:lang="tr">Kid3</name>
   <name xml:lang="uk">Kid3</name>
-  <name xml:lang="x-test">xxKid3xx</name>
   <name xml:lang="zh-CN">Kid3</name>
   <name xml:lang="zh-TW">Kid3</name>
   <summary>Edit audio file metadata</summary>
@@ -69,7 +68,6 @@
   <summary xml:lang="sv">Redigera metadata i ljudfiler</summary>
   <summary xml:lang="tr">Ses dosyası üstverisini düzenleyin</summary>
   <summary xml:lang="uk">Редагування метаданих звукових файлів</summary>
-  <summary xml:lang="x-test">xxEdit audio file metadataxx</summary>
   <summary xml:lang="zh-CN">编辑音频文件元数据</summary>
   <summary xml:lang="zh-TW">編輯音訊檔案中繼資料</summary>
   <description>
@@ -107,7 +105,6 @@
     <p xml:lang="sv">Med Kid3, en editor för ljudtaggar, kan du redigera taggar i MP3-, Ogg/Vorbis-, DSF-, FLAC-, Opus-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- och tracker-filer.</p>
     <p xml:lang="tr">Kid3 ses etiketi düzenleyicisi ile MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF ve izleyici dosyalardaki etiketleri düzenleyebilirsiniz.</p>
     <p xml:lang="uk">За допомогою Kid3, редактора міток звукових файлів, ви можете редагувати мітки у файлах MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF та tracker.</p>
-    <p xml:lang="x-test">xxWith Kid3, an audio tag editor, you can edit tags in MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF and tracker files.xx</p>
     <p xml:lang="zh-CN">Kid3 是一个音频标签编辑器，您可以使用它编辑 MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIF 和 Tracker 文件。</p>
     <p xml:lang="zh-TW">使用 Kid3 這個音訊標籤編輯器，即可編輯 MP3、Ogg/Vorbis、DSF、FLAC、Opus、MPC、APE、MP4/AAC、MP2、Speex、TrueAudio、WavPack、WMA、WAV、AIFF 和 tracker 檔案中的標籤。</p>
     <p>
@@ -143,7 +140,6 @@
     <p xml:lang="sv">Alla ramer i ID3-taggarna för MP3-filer kan redigeras, och det är möjligt att konvertera mellan ID3v1.1, ID3v2.3 och ID3v2.4. Synkroniserade sångtexter kan redigeras, importeras och exporteras till LRC Karaoke-filer.</p>
     <p xml:lang="tr">MP3 dosyalarındaki ID3 etiketlerinin tüm kareleri düzenlenebilir ve ID3v1.1, ID3v2.3 and ID3v2.4 arasında dönüştürülebilir. Uyuşturulan şarkı sözleri düzenlenebilir ve LRC Karaoke dosyası olarak içe/dışa aktarılabilir.</p>
     <p xml:lang="uk">Передбачено можливість редагувати усі кадри у мітках ID3 файлів MP3. Передбачено можливість перетворення між форматами ID3v1.1, ID3v2.3 і ID3v2.4. Синхронізовані тексти пісень можна редагувати, імпортувати та експортувати до файлів караоке LRC.</p>
-    <p xml:lang="x-test">xxAll frames in the ID3 tags of MP3 files can be edited, and it is possible to convert between ID3v1.1, ID3v2.3 and ID3v2.4. Synchronized lyrics can be edited, imported and exported to LRC Karaoke files.xx</p>
     <p xml:lang="zh-CN">可编辑 MP3 文件中 ID3 标签内的所有帧，并能在 ID3v1.1、ID3v2.3 和 ID3v2.4 转换。不仅能编辑同步歌词，还能导入或导出 LRC Karaoke 文件。</p>
     <p xml:lang="zh-TW">MP3 檔案的 ID3 標籤中的所有音框都能夠編輯，也能夠在 ID3v1.1、ID3v2.3 及 ID3v2.4 之間轉換。提供對內嵌同步歌詞的編輯、匯入及輸出到卡拉 OK 用的 LRC 檔案的功能。</p>
     <p>
@@ -180,7 +176,6 @@
     <p xml:lang="sv">Taggar för flera filer kan ställas in samtidigt. Det är möjligt att generera taggar från filnamn eller innehållet i andra taggfält, och att generera filnamn från taggar och byta namn på kataloger från taggar. Automatisk skiftlägeskonvertering och strängersättning hjälper till att hålla taggar konsekventa.</p>
     <p xml:lang="tr">Birden çok dosyanın etiketi bir araya getirilebilir. Dosya adlarından, diğer etiket alanlarının içeriğinden etiket oluşturulabilir. Etiketlerden dosya adları oluşturmak olanaklıdır ve etiketlerden klasörler yeniden adlandırılabilir. Otomatik harf dönüşümü ve dizi değişimi etiketleri düzgün tutmaya yardımcı olur.</p>
     <p xml:lang="uk">Передбачено можливість встановлювати мітки для цілих наборів файлів. Передбачено можливість створювати мітки на основі назв файлів або вмісту інших полів міток і створювати назви файлів на основі міток і перейменовувати теки на основі міток. Автоматичне перетворення регістру символів та заміна рядків допоможуть вам у підтриманні однорідності міток у вашій збірці.</p>
-    <p xml:lang="x-test">xxThe tags of multiple files can be set together. It is possible to generate tags from file names or the contents of other tag fields and to generate file names from tags and rename folders from tags. Automatic case conversion and string replacement help to keep tags consistent.xx</p>
     <p xml:lang="zh-CN">一同设置多个文件的标签。可从文件名或其他标签字段中的内容生成标签、根据标签生成文件名或根据标签重命名文件夹。并能通过自动转换大小写和字符串替换保持标签一致性。</p>
     <p xml:lang="zh-TW">可以同時設定多個檔案的標籤。可以從檔案名稱或其他標籤欄位的內容產生新的標籤內容，也可以從標籤產生新的檔案名稱或是資料夾名稱。提供自動大小寫變換與字串取代，幫助標籤維持一致性。</p>
     <p>
@@ -214,7 +209,6 @@
     <p xml:lang="sv">Albumdata kan importeras från gnudb.org, MusicBrainz, Discogs, eller Amazon. Automatisk import i bakgrunden är tillgänglig för flera kataloger. Det är också möjligt att exportera data och skapa spellistor.</p>
     <p xml:lang="tr">Albüm verisi gnudb.org, MusicBrainz, Discogs, Amazon konumlarından içe aktarılabilir; çoklu klasörler için otomatik toplu içe aktarım mevcuttur. Veri dışa aktarımı ve çalma listeleri oluşturma da olanaklıdır.</p>
     <p xml:lang="uk">Передбачено можливість імпортування даних альбомів з gnudb.org, MusicBrainz, Discogs, Amazon. Можливе автоматичне пакетне імпортування для декількох тек одночасно. Передбачено можливість експортування даних та створення списків відтворення.</p>
-    <p xml:lang="x-test">xxAlbum data can be imported from gnudb.org, MusicBrainz, Discogs, Amazon; automatic batch import is available for multiple folders. It is also possible to export data and generate play lists.xx</p>
     <p xml:lang="zh-CN">可从 gnudb.org、MusicBrainz、Discogs 或 Amazon 上导入专辑数据，还支持自动多文件夹批量导入功能。您还可导出数据并生成播放列表。</p>
     <p xml:lang="zh-TW">可以從 gnudb.org、MusicBrainz、Discogs、Amazon 匯入專輯資料；可以為多個資料夾進行自動批次匯入。也提供匯出資料與產生播放清單的功能。</p>
   </description>
@@ -252,7 +246,6 @@
       <caption xml:lang="sv">Huvudfönstret i Kid3</caption>
       <caption xml:lang="tr">Kid3 ana penceresi</caption>
       <caption xml:lang="uk">Головне вікно Kid3</caption>
-      <caption xml:lang="x-test">xxKid3 main windowxx</caption>
       <caption xml:lang="zh-CN">Kid3 主窗口</caption>
       <caption xml:lang="zh-TW">Kid3 主視窗</caption>
     </screenshot>
@@ -291,7 +284,6 @@
   <developer_name xml:lang="sv">Urs Fleisch</developer_name>
   <developer_name xml:lang="tr">Urs Fleisch</developer_name>
   <developer_name xml:lang="uk">Urs Fleisch</developer_name>
-  <developer_name xml:lang="x-test">xxUrs Fleischxx</developer_name>
   <developer_name xml:lang="zh-CN">Urs Fleisch</developer_name>
   <developer_name xml:lang="zh-TW">Urs Fleisch</developer_name>
   <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
