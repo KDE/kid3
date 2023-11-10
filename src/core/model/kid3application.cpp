@@ -2418,6 +2418,7 @@ void Kid3Application::dropLocalFiles(const QStringList& paths, bool isInternal)
     if (!dir.isEmpty()) {
       if (dir.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
           dir.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
+          dir.endsWith(QLatin1String(".webp"), Qt::CaseInsensitive) ||
           dir.endsWith(QLatin1String(".png"), Qt::CaseInsensitive)) {
         picturePaths.append(dir); // clazy:exclude=reserve-candidates
       } else {

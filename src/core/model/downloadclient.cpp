@@ -91,6 +91,7 @@ QUrl DownloadClient::getImageUrl(const QUrl& url)
   QString urlStr = url.toString();
   if (urlStr.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
       urlStr.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
+      urlStr.endsWith(QLatin1String(".webp"), Qt::CaseInsensitive) ||
       urlStr.endsWith(QLatin1String(".png"), Qt::CaseInsensitive))
     return url;
 
