@@ -115,9 +115,7 @@ void addInvolvedPeople(
 {
   QString value = frames.getValue(type);
   if (!value.isEmpty()) value += Frame::stringListSeparator();
-  value += involvement;
-  value += Frame::stringListSeparator();
-  value += involvee;
+  value += Frame::joinStringList({involvement, involvee});
   frames.setValue(type, value);
 }
 
@@ -504,7 +502,7 @@ bool parseJsonAlbumResults(const QJsonObject& map,
     }
     genres.append(customGenres);
     if (!genres.isEmpty()) {
-      framesHdr.setGenre(genres.join(Frame::stringListSeparator()));
+      framesHdr.setGenre(Frame::joinStringList(genres));
     }
   }
 
@@ -1006,7 +1004,7 @@ void DiscogsImporter::HtmlImpl::parseAlbumResults(const QByteArray& albumStr)
     genres.append(genreList);
     genres.removeDuplicates();
     if (!genres.isEmpty()) {
-      framesHdr.setGenre(genres.join(Frame::stringListSeparator()));
+      framesHdr.setGenre(Frame::joinStringList(genres));
     }
   }
 

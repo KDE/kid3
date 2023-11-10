@@ -318,7 +318,7 @@ QString getString(ID3_Field* field,
         // object, so I do not use it.
         text = fixUpUnicode(field->GetRawUnicodeText(),
                             field->Size() / sizeof(unicode_t));
-        text.replace(QLatin1Char('\0'), Frame::stringListSeparator());
+        text = Frame::joinStringList(text.split(QLatin1Char('\0')));
       }
     } else {
       // (ID3TE_IS_SINGLE_BYTE_ENC(enc))
@@ -335,14 +335,12 @@ QString getString(ID3_Field* field,
       } else {
         // if there are multiple items, put them into one string
         // separated by a special separator.
+        QStringList strs;
+        strs.reserve(numItems);
         for (size_t itemNr = 0; itemNr < numItems; ++itemNr) {
-          if (itemNr == 0) {
-            text = QString::fromLatin1(field->GetRawTextItem(0));
-          } else {
-            text += Frame::stringListSeparator();
-            text += QString::fromLatin1(field->GetRawTextItem(itemNr));
-          }
+          strs.append(QString::fromLatin1(field->GetRawTextItem(itemNr)));
         }
+        text = Frame::joinStringList(strs);
       }
     }
   }
@@ -570,7 +568,7 @@ void setString(ID3_Field* field, const QString& text,
 #endif
     }
   } else {
-    setStringList(field, text.split(Frame::stringListSeparator()));
+    setStringList(field, Frame::splitStringList(text));
   }
 }
 
@@ -1791,7 +1789,7 @@ bool Mp3File::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     QString str = frame.getValue();
     if (tagNr == Frame::Tag_1) {
       if (!str.isNull()) {
-        const auto genres = str.split(Frame::stringListSeparator());
+        const auto genres = Frame::splitStringList(str);
         int num = 0xff;
         for (const auto& genre : genres) {
           num = Genres::getNumber(genre);

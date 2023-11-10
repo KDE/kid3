@@ -154,6 +154,34 @@ inline QString toQString(const TagLib::String& s)
 }
 
 /**
+ * Convert TagLib::StringList @a tstrs to QString joining with
+ * Frame::stringListSeparator().
+ */
+QString joinToQString(const TagLib::StringList &tstrs)
+{
+  QStringList strs;
+  strs.reserve(tstrs.size());
+  for (const TagLib::String &tstr : tstrs) {
+    strs.append(toQString(tstr));
+  }
+  return Frame::joinStringList(strs);
+}
+
+/**
+ * Convert QString @a s to a TagLib::StringList splitting with
+ * Frame::stringListSeparator().
+ */
+TagLib::StringList splitToTStringList(const QString &s)
+{
+  const QStringList qstrs = Frame::splitStringList(s);
+  TagLib::StringList tstrs;
+  for (const QString &qstr : qstrs) {
+    tstrs.append(toTString(qstr));
+  }
+  return tstrs;
+}
+
+/**
  * Set a picture frame from a FLAC picture.
  *
  * @param pic FLAC picture
@@ -2405,7 +2433,7 @@ void fixUpTagLibFrameValue(const TagLibFile* self,
     // least two elements, otherwise it will not take the value over
     // to an IPLS frame. If there is a single value in such a case,
     // add a second element.
-    value += Frame::stringListSeparator();
+    value = Frame::joinStringList({value, QLatin1String("")});
   }
 }
 
@@ -2624,7 +2652,7 @@ QString getFieldsFromTextFrame(
   } else {
     // if there are multiple items, put them into one string
     // separated by a special separator.
-    text = toQString(tFrame->fieldList().toString(Frame::stringListSeparator().toLatin1()));
+    text = joinToQString(tFrame->fieldList());
   }
   field.m_id = Frame::ID_Text;
   if (type == Frame::FT_Genre) {
@@ -3716,7 +3744,7 @@ void setStringOrList(TagLib::ID3v2::TextIdentificationFrame* f,
   if (text.find(Frame::stringListSeparator().toLatin1()) == -1) {
     f->setText(text);
   } else {
-    f->setText(TagLib::StringList::split(text, Frame::stringListSeparator().toLatin1()));
+    f->setText(splitToTStringList(toQString(text)));
   }
 }
 
@@ -4719,8 +4747,7 @@ TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& name)
   switch (valueType) {
     case MVT_String:
       return TagLib::MP4::Item(
-            TagLib::StringList::split(toTString(frame.getValue()),
-                                      Frame::stringListSeparator().toLatin1()));
+        splitToTStringList(frame.getValue()));
     case MVT_Bool:
       return TagLib::MP4::Item(frame.getValue().toInt() != 0);
     case MVT_Int:
@@ -5713,8 +5740,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
             break;
           case Frame::FT_Genre:
             if (tagNr == Frame::Tag_Id3v1) {
-              const auto genres =
-                  tstr.split(Frame::stringListSeparator().toLatin1());
+              const auto genres = splitToTStringList(toQString(tstr));
               for (const auto& genre : genres) {
                 if (TagLib::ID3v1::genreIndex(genre) != 0xff) {
                   tstr = genre;
@@ -6749,8 +6775,7 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
             {
               TagLib::StringList strings = (*it).second.toStringList();
               value = strings.size() > 0
-                  ? toQString(strings.toString(
-                                Frame::stringListSeparator().toLatin1()))
+                  ? joinToQString(strings)
                   : QLatin1String("");
               break;
             }

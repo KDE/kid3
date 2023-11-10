@@ -766,6 +766,23 @@ public:
   static QLatin1Char stringListSeparator() { return QLatin1Char('|'); }
 
   /**
+   * Split a string into a string list using stringListSeparator().
+   * @param str string to split at stringListSeparator(), with support of
+   *            '\' as an escape character.
+   * @return list of strings split at separator character not prefixed with
+   *         escape character.
+   */
+  static QStringList splitStringList(const QString& str);
+
+  /**
+   * Join a string list using stringListSeparator().
+   * @param strs strings to join, if they contain the separator character,
+   *             it will be escaped with '\'.
+   * @return escaped strings joined by separator characters.
+   */
+  static QString joinStringList(const QStringList& strs);
+
+  /**
    * Convert string (e.g. "track/total number of tracks") to number.
    *
    * @param str string to convert

@@ -175,9 +175,7 @@ void addInvolvedPeople(
 {
   QString value = frames.getValue(type);
   if (!value.isEmpty()) value += Frame::stringListSeparator();
-  value += upperCaseFirstLetters(involvement);
-  value += Frame::stringListSeparator();
-  value += involvee;
+  value += Frame::joinStringList({upperCaseFirstLetters(involvement), involvee});
   frames.setValue(type, value);
 }
 
@@ -293,7 +291,7 @@ QString parseGenres(const QDomElement& element)
       }
     }
     genres.append(customGenres);
-    return genres.join(Frame::stringListSeparator());
+    return Frame::joinStringList(genres);
   }
   return QString();
 }

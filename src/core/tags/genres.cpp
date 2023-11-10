@@ -503,11 +503,7 @@ QString Genres::getNameString(const QString& str)
 {
   if (!str.isEmpty()) {
     QStringList genres;
-#if QT_VERSION >= 0x060000
-    const auto parts = str.split(Frame::stringListSeparator());
-#else
-    const auto parts = str.splitRef(Frame::stringListSeparator());
-#endif
+    const auto parts = Frame::splitStringList(str);
     for (const auto& part : parts) {
       auto s = part.trimmed();
       // First extract all genre codes which are in parentheses
@@ -521,11 +517,7 @@ QString Genres::getNameString(const QString& str)
         int n = genreCode.toInt(&ok);
         if (genreCode == QLatin1String("RX") ||
             genreCode == QLatin1String("CR")) {
-#if QT_VERSION >= 0x060000
           genres.append(genreCode);
-#else
-          genres.append(genreCode.toString());
-#endif
         } else if (ok && n >= 0 && n <= 0xff) {
           QString genreText = QString::fromLatin1(getName(n));
           if (!genreText.isEmpty()) {
@@ -544,16 +536,12 @@ QString Genres::getNameString(const QString& str)
             genres.append(genreText);
           }
         } else {
-#if QT_VERSION >= 0x060000
           genres.append(s);
-#else
-          genres.append(s.toString());
-#endif
         }
       }
     }
     genres.removeDuplicates();
-    return genres.join(Frame::stringListSeparator());
+    return Frame::joinStringList(genres);
   }
   return str;
 }
@@ -577,7 +565,7 @@ QString Genres::getNumberString(const QString& str, bool parentheses)
   QStringList genres;
   QString genreText;
 
-  const auto parts = str.split(Frame::stringListSeparator());
+  const auto parts = Frame::splitStringList(str);
   for (const auto& part : parts) {
     auto s = part.trimmed();
     bool ok;
@@ -595,7 +583,7 @@ QString Genres::getNumberString(const QString& str, bool parentheses)
     }
   }
   if (!parentheses) {
-    return genres.join(Frame::stringListSeparator());
+    return Frame::joinStringList(genres);
   } else {
     if (!genres.isEmpty()) {
       genreText.prepend(QLatin1Char('(') + genres.join(QLatin1String(")(")) +

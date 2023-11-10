@@ -484,6 +484,43 @@ void Frame::setFieldListFromValue()
 }
 
 /**
+ * Split a string into a string list using stringListSeparator().
+ * @param str string to split at stringListSeparator(), with support of
+ *            '\' as an escape character.
+ * @return list of strings split at separator character not prefixed with
+ *         escape character.
+ */
+QStringList Frame::splitStringList(const QString& str)
+{
+  static QRegularExpression separatorRe(
+      QLatin1String("(?<!\\\\)\\") + stringListSeparator());
+  static const QChar sep = stringListSeparator();
+  static const QString escSep = QLatin1String("\\") + stringListSeparator();
+  QStringList strs = str.split(separatorRe);
+  for (QString& str : strs) {
+    str.replace(escSep, sep);
+  }
+  return strs;
+}
+
+/**
+ * Join a string list using stringListSeparator().
+ * @param strs strings to join, if they contain the separator character,
+ *             it will be escaped with '\'.
+ * @return escaped strings joined by separator characters.
+ */
+QString Frame::joinStringList(const QStringList& strs)
+{
+  static const QChar sep = stringListSeparator();
+  static const QString escSep = QLatin1String("\\") + stringListSeparator();
+  QStringList escapedStrs(strs);
+  for (QString& str : escapedStrs) {
+    str.replace(sep, escSep);
+  }
+  return escapedStrs.join(sep);
+}
+
+/**
  * Convert string (e.g. "track/total number of tracks") to number.
  *
  * @param str string to convert
