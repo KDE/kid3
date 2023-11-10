@@ -42,7 +42,7 @@ Kid3Script {
           dirName = dirName.substring(0, dirName.length - fileName.length)
           if (dirName !== lastDir) {
             lastDir = dirName
-            var existingImageFiles = script.listDir(dirName, ["*.png", "*.jpg"])
+            var existingImageFiles = script.listDir(dirName, ["*.png", "*.jpg", "*.webp"])
             for (var i = 0; i < existingImageFiles.length; ++i) {
               var filePath = dirName + existingImageFiles[i]
               var fileData = script.readFile(filePath)
@@ -56,32 +56,31 @@ Kid3Script {
             console.log("Picture in %1 already exists in %2".
                         arg(fileName).arg(md5Map[md5]))
           } else {
-            var format = "jpg"
-            var img = script.dataToImage(data, format)
-            var imgProps = script.imageProperties(img)
-            if (!("width" in imgProps)) {
-              format = "png"
-              img = script.dataToImage(data, format)
-              imgProps = script.imageProperties(img)
-            }
-            if ("width" in imgProps) {
-              var fileBaseName = baseName
-              if (fileBaseName.indexOf("%") !== -1) {
-                fileBaseName = app.importFromTagsToSelection(
-                      Frame.Tag_2, baseName, "%{__return}(.+)")
-              }
-              var picPath = dirName + fileBaseName + "." + format
-              var picNr = 1
-              while (script.fileExists(picPath)) {
-                ++picNr
-                picPath = dirName + fileBaseName + picNr + "." + format
-              }
-              if (script.writeFile(picPath, data)) {
-                md5Map[md5] = picPath
-                console.log("Picture in %1 stored to %2".
-                            arg(fileName).arg(picPath))
-              } else {
-                console.log("Failed to write", picPath)
+            var formats = ["jpg", "png", "webp"]
+            for (var fmt in formats) {
+              var format = formats[fmt]
+              var img = script.dataToImage(data, format)
+              var imgProps = script.imageProperties(img)
+              if ("width" in imgProps) {
+                var fileBaseName = baseName
+                if (fileBaseName.indexOf("%") !== -1) {
+                  fileBaseName = app.importFromTagsToSelection(
+                        Frame.Tag_2, baseName, "%{__return}(.+)")
+                }
+                var picPath = dirName + fileBaseName + "." + format
+                var picNr = 1
+                while (script.fileExists(picPath)) {
+                  ++picNr
+                  picPath = dirName + fileBaseName + picNr + "." + format
+                }
+                if (script.writeFile(picPath, data)) {
+                  md5Map[md5] = picPath
+                  console.log("Picture in %1 stored to %2".
+                              arg(fileName).arg(picPath))
+                } else {
+                  console.log("Failed to write", picPath)
+                }
+                break
               }
             }
           }
