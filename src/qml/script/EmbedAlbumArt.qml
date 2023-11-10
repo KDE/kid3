@@ -36,7 +36,7 @@ Kid3Script {
         dirName = dirName.substring(0, dirName.length - fileName.length)
         if (dirName !== lastDir) {
           lastDir = dirName
-          var existingImageFiles = script.listDir(dirName, ["*.png", "*.jpg"])
+          var existingImageFiles = script.listDir(dirName, ["*.png", "*.jpg", "*.webp"])
           picName = ""
           picData = null
           if (existingImageFiles.indexOf(baseName) !== -1) {

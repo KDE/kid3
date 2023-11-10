@@ -32,29 +32,30 @@ Kid3Script {
       if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
         var data = app.getPictureData()
         if (script.getDataSize(data) !== 0) {
-          var format = "JPG"
-          var img = script.dataToImage(data, format)
-          var imgProps = script.imageProperties(img)
-          if (typeof imgProps.width === "undefined") {
-            format = "PNG"
-            img = script.dataToImage(data, format)
-            imgProps = script.imageProperties(img)
-          }
-          var width = imgProps.width, height = imgProps.height
-          if (width > maxPixels || height > maxPixels) {
-            if (width >= height) {
-              width = maxPixels; height = -1
-            } else {
-              width = -1; height = maxPixels
-            }
-            img = script.scaleImage(img, width, height)
-            imgProps = script.imageProperties(img)
-            data = script.dataFromImage(img, format)
-            if (script.getDataSize(data) !== 0) {
-              app.setPictureData(data)
-              console.log("Resized image to %1x%2 in %3".
-                          arg(imgProps.width).arg(imgProps.height).
-                          arg(app.selectionInfo.fileName))
+          var formats = ["jpg", "png", "webp"]
+          for (var fmt in formats) {
+            var format = formats[fmt]
+            var img = script.dataToImage(data, format)
+            var imgProps = script.imageProperties(img)
+            if ("width" in imgProps) {
+              var width = imgProps.width, height = imgProps.height
+              if (width > maxPixels || height > maxPixels) {
+                if (width >= height) {
+                  width = maxPixels; height = -1
+                } else {
+                  width = -1; height = maxPixels
+                }
+                img = script.scaleImage(img, width, height)
+                imgProps = script.imageProperties(img)
+                data = script.dataFromImage(img, format)
+                if (script.getDataSize(data) !== 0) {
+                  app.setPictureData(data)
+                  console.log("Resized image to %1x%2 in %3".
+                              arg(imgProps.width).arg(imgProps.height).
+                              arg(app.selectionInfo.fileName))
+                }
+              }
+              break
             }
           }
         }
