@@ -171,7 +171,7 @@ QIcon PlatformTools::iconFromTheme(const QString& name) const
 /**
  * Construct a name filter string suitable for file dialogs.
  * @param nameFilters list of description, filter pairs, e.g.
- * [("Images", "*.jpg *.jpeg *.png"), ("All Files", "*")].
+ * [("Images", "*.jpg *.jpeg *.png *.webp"), ("All Files", "*")].
  * @return name filter string.
  */
 QString PlatformTools::fileDialogNameFilter(

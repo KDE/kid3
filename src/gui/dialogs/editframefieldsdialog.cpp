@@ -742,7 +742,7 @@ QWidget* BinFieldControl::createWidget(QWidget* parent)
     m_bos->setFilter(m_platformTools->fileDialogNameFilter(
                QList<QPair<QString, QString> >()
                << qMakePair(QCoreApplication::translate("@default", imagesStr),
-                            QString(QLatin1String("*.jpg *.jpeg *.png")))
+                            QString(QLatin1String("*.jpg *.jpeg *.png *.webp")))
                << qMakePair(QCoreApplication::translate("@default",
                                                         allFilesStr),
                             QString(QLatin1Char('*')))));

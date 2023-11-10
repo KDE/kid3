@@ -110,7 +110,7 @@ bool ICorePlatformTools::hasGui() const
  * This function can be used to implement fileDialogNameFilter()
  * for QFileDialog.
  * @param nameFilters list of description, filter pairs, e.g.
- * [("Images", "*.jpg *.jpeg *.png"), ("All Files", "*")].
+ * [("Images", "*.jpg *.jpeg *.png *.webp"), ("All Files", "*")].
  * @return name filter string.
  */
 QString ICorePlatformTools::qtFileDialogNameFilter(

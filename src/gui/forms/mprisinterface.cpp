@@ -425,7 +425,8 @@ const
   if (m_coverArtDirName != dirPath) {
     m_coverArtDirName = dirPath;
     QStringList files = QDir(dirPath).entryList(
-        {QLatin1String("*.jpg"), QLatin1String("*.jpeg"),QLatin1String("*.png")},
+        {QLatin1String("*.jpg"), QLatin1String("*.jpeg"),
+         QLatin1String("*.png"), QLatin1String("*.webp")},
         QDir::Files);
     m_coverArtFileName = !files.isEmpty() ? files.first() : QString();
   }
