@@ -65,6 +65,7 @@ if(QT_VERSION_MAJOR LESS 6)
       plugins/bearer/libqandroidbearer.so plugins/platforms/android/libqtforandroid.so plugins/iconengines/libqsvgicon.so
       plugins/imageformats/libqjpeg.so
       plugins/imageformats/libqsvg.so
+      plugins/imageformats/libqwebp.so
       lib/libQt${QT_VERSION_MAJOR}Multimedia.so lib/libQt${QT_VERSION_MAJOR}Qml.so
       lib/libQt${QT_VERSION_MAJOR}Quick.so lib/libQt${QT_VERSION_MAJOR}Widgets.so lib/libQt${QT_VERSION_MAJOR}Svg.so
       lib/libQt${QT_VERSION_MAJOR}QuickControls2.so lib/libQt${QT_VERSION_MAJOR}QuickTemplates2.so lib/libQt${QT_VERSION_MAJOR}AndroidExtras.so
@@ -126,6 +127,7 @@ else(QT_VERSION_MAJOR LESS 6)
       plugins/networkinformation/libplugins_networkinformation_qandroidnetworkinformation_armeabi-v7a.so plugins/platforms/libplugins_platforms_qtforandroid_armeabi-v7a.so plugins/iconengines/libplugins_iconengines_qsvgicon_armeabi-v7a.so
       plugins/tls/libplugins_tls_qopensslbackend_armeabi-v7a.so
       plugins/imageformats/libplugins_imageformats_qjpeg_armeabi-v7a.so
+      plugins/imageformats/libplugins_imageformats_qwebp_armeabi-v7a.so
       plugins/imageformats/libplugins_imageformats_qsvg_armeabi-v7a.so
       lib/libQt${QT_VERSION_MAJOR}Multimedia_armeabi-v7a.so lib/libQt${QT_VERSION_MAJOR}Qml_armeabi-v7a.so
       lib/libQt${QT_VERSION_MAJOR}Quick_armeabi-v7a.so lib/libQt${QT_VERSION_MAJOR}Widgets_armeabi-v7a.so lib/libQt${QT_VERSION_MAJOR}Svg_armeabi-v7a.so

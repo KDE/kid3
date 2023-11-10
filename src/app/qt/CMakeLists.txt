@@ -171,11 +171,12 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
   endif()
   string(REPLACE "/./" "/" bundle_app ${bundle_app})
 
-  # Install Qt JPEG and SVG icon plugins
+  # Install Qt JPEG, WebP and SVG icon plugins
   install(DIRECTORY "${QT_PLUGINS_DIR}/imageformats"
     DESTINATION ${plugin_dest_dir}
     FILES_MATCHING PATTERN "*jpeg${CMAKE_SHARED_LIBRARY_SUFFIX}"
                    PATTERN "*jpeg4${CMAKE_SHARED_LIBRARY_SUFFIX}"
+                   PATTERN "*webp${CMAKE_SHARED_LIBRARY_SUFFIX}"
                    PATTERN "*.dSYM" EXCLUDE)
   install(DIRECTORY "${QT_PLUGINS_DIR}/iconengines"
     DESTINATION ${plugin_dest_dir}
@@ -184,6 +185,7 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
 
   if(LINUX_SELF_CONTAINED)
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/imageformats/libqjpeg${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/imageformats/libqwebp${CMAKE_SHARED_LIBRARY_SUFFIX}")
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/iconengines/libqsvgicon${CMAKE_SHARED_LIBRARY_SUFFIX}")
   endif()
   if(APPLE)
