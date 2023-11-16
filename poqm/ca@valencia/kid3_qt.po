@@ -611,7 +611,7 @@ msgstr "Configura les barres d'eines"
 #: src/app/kde/kdemainwindow.cpp:180
 msgctxt "KdeMainWindow|"
 msgid "Enables/disables the statusbar"
-msgstr "Activa/desactiva la barra d'estat"
+msgstr "Activa o desactiva la barra d'estat"
 
 #: src/app/kde/kdemainwindow.cpp:188
 msgctxt "KdeMainWindow|"
@@ -1438,7 +1438,7 @@ msgstr "Con&figuració"
 #: src/app/qt/kid3mainwindow.cpp:519
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the toolbar"
-msgstr "Activa/desactiva la barra d'eines"
+msgstr "Activa o desactiva la barra d'eines"
 
 #: src/app/qt/kid3mainwindow.cpp:520
 msgctxt "Kid3MainWindow|"
@@ -1448,7 +1448,7 @@ msgstr "Mostra la barra d'&eines"
 #: src/app/qt/kid3mainwindow.cpp:530
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the statusbar"
-msgstr "Activa/desactiva la barra d'estat"
+msgstr "Activa o desactiva la barra d'estat"
 
 #: src/app/qt/kid3mainwindow.cpp:531
 msgctxt "Kid3MainWindow|"
@@ -2955,7 +2955,7 @@ msgstr "Comptador de la reproducció"
 #: src/core/tags/frame.cpp:206 src/core/tags/frame.cpp:303
 msgctxt "@default|"
 msgid "Podcast"
-msgstr "Podcast"
+msgstr "Pòdcast"
 
 #: src/core/tags/frame.cpp:207
 msgctxt "@default|"
@@ -3005,12 +3005,12 @@ msgstr "Codis del ritme sincronitzat"
 #: src/core/tags/frame.cpp:218
 msgctxt "@default|"
 msgid "Podcast Category"
-msgstr "Categoria podcast"
+msgstr "Categoria pòdcast"
 
 #: src/core/tags/frame.cpp:221
 msgctxt "@default|"
 msgid "Podcast Description"
-msgstr "Descripció del podcast"
+msgstr "Descripció del pòdcast"
 
 #: src/core/tags/frame.cpp:222
 msgctxt "@default|"
@@ -3045,7 +3045,7 @@ msgstr "Tipus de fitxer"
 #: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Podcast Identifier"
-msgstr "Identificador del podcast"
+msgstr "Identificador del pòdcast"
 
 #: src/core/tags/frame.cpp:229
 msgctxt "@default|"
@@ -3055,7 +3055,7 @@ msgstr "Temps"
 #: src/core/tags/frame.cpp:230
 msgctxt "@default|"
 msgid "Podcast Keywords"
-msgstr "Paraules clau del podcast"
+msgstr "Paraules clau del pòdcast"
 
 #: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:287
 msgctxt "@default|"
@@ -3120,7 +3120,7 @@ msgstr "URL dels drets d'autoria"
 #: src/core/tags/frame.cpp:244
 msgctxt "@default|"
 msgid "Podcast Feed"
-msgstr "Canal de podcast"
+msgstr "Canal de pòdcast"
 
 #: src/core/tags/frame.cpp:245
 msgctxt "@default|"
@@ -3376,12 +3376,12 @@ msgstr "Mostra l'obra i el moviment"
 #: src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Podcast URL"
-msgstr "URL del podcast"
+msgstr "URL del pòdcast"
 
 #: src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Podcast GUID"
-msgstr "GUID del podcast"
+msgstr "GUID del pòdcast"
 
 #: src/core/tags/frame.cpp:324
 msgctxt "@default|"
@@ -5203,18 +5203,18 @@ msgstr "Voleu intentar-ho després de tancar les carpetes?"
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
-msgstr "Segur que voleu moure este %1 element a la paperera?"
+msgstr "Segur que voleu moure este %1 element cap a dins de la paperera?"
 
 #: src/gui/forms/basemainwindow.cpp:1620
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
-msgstr "Segur que voleu moure estos %1 elements a la paperera?"
+msgstr "Segur que voleu moure estos %1 elements cap a dins de la paperera?"
 
 #: src/gui/forms/basemainwindow.cpp:1622
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
-msgstr "Segur que voleu moure este element a la paperera?"
+msgstr "Segur que voleu moure este element cap a dins de la paperera?"
 
 #: src/gui/forms/basemainwindow.cpp:1624
 msgctxt "BaseMainWindowImpl|"
@@ -5229,7 +5229,7 @@ msgstr "La carpeta no pot estar buida.\n"
 #: src/gui/forms/basemainwindow.cpp:1654
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
-msgstr "No s'han pogut moure estos fitxers a la paperera"
+msgstr "No s'han pogut moure estos fitxers cap a dins de la paperera"
 
 #: src/gui/forms/basemainwindow.cpp:1687
 msgctxt "BaseMainWindowImpl|"
@@ -5536,7 +5536,7 @@ msgstr "Emprar-ho per als noms de llistes de reproducció i de carpetes"
 #: src/gui/widgets/filenameformatbox.cpp:47
 msgctxt "FilenameFormatBox|"
 msgid "Maximum length:"
-msgstr "Llargària màxima:"
+msgstr "Duració màxima:"
 
 #: src/gui/widgets/formatbox.cpp:48
 msgctxt "FormatBox|"
@@ -6328,7 +6328,7 @@ msgstr "MVNM - Nom del moviment"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2361
 msgctxt "@default|"
 msgid "PCST - Podcast"
-msgstr "PCST - Podcast"
+msgstr "PCST - Pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2366
 msgctxt "@default|"
@@ -6348,7 +6348,7 @@ msgstr "SIGN - Marc de signatura"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2375
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
-msgstr "TCAT - Categoria podcast"
+msgstr "TCAT - Categoria pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2377
 msgctxt "@default|"
@@ -6363,7 +6363,7 @@ msgstr "TDEN - Temps de la codificació"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2383
 msgctxt "@default|"
 msgid "TDES - Podcast description"
-msgstr "TDES - Descripció del podcast"
+msgstr "TDES - Descripció del pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2386
 msgctxt "@default|"
@@ -6388,7 +6388,7 @@ msgstr "TDTG - Temps de l'etiquetatge"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2394
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
-msgstr "TGID - Identificador del podcast"
+msgstr "TGID - Identificador del pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2396
 msgctxt "@default|"
@@ -6398,7 +6398,7 @@ msgstr "TIPL - Llista de les persones implicades"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2402
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
-msgstr "TKWD - Paraules clau del podcast"
+msgstr "TKWD - Paraules clau del pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2406
 msgctxt "@default|"
@@ -6448,7 +6448,7 @@ msgstr "TSST - Establix el subtítol"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2439
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
-msgstr "WFED - Canal de podcast"
+msgstr "WFED - Canal de pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:6725
 msgctxt "@default|"
