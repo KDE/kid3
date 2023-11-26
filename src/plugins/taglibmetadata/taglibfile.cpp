@@ -5469,8 +5469,10 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           }
           apeTag->setData(toTString(newName), data);
         } else {
-          apeTag->addValue(toTString(getApeName(frame)),
-                           toTString(frame.getValue()));
+          const auto key = toTString(getApeName(frame));
+          const auto values = splitToTStringList(frame.getValue());
+          apeTag->removeItem(key);
+          apeTag->setItem(key, TagLib::APE::Item(key, values));
         }
         markTagChanged(tagNr, frame.getExtendedType());
         return true;
@@ -6746,7 +6748,7 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
             values = (*it).second.toStringList();
           }
           Frame frame(type, values.size() > 0
-                      ? toQString(values.front()) : QLatin1String(""),
+                      ? joinToQString(values) : QLatin1String(""),
                       name, i++);
           if (type == Frame::FT_Picture) {
             TagLib::ByteVector data = (*it).second.binaryData();
