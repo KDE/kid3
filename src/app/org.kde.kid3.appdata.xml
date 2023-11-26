@@ -2,6 +2,7 @@
 <!-- Copyright 2014 Urs Fleisch <ufleisch_at_users.sourceforge.net> -->
 <component type="desktop">
   <id>org.kde.kid3.desktop</id>
+  <launchable type="desktop-id">org.kde.kid3.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
   <name>Kid3</name>
