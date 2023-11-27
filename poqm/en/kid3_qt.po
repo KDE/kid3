@@ -7,7 +7,7 @@ msgstr ""
 "X-Language: en\n"
 "X-Qt-Contexts: true\n"
 
-#: ../src/gui/forms/basemainwindow.cpp:697
+#: ../src/gui/forms/basemainwindow.cpp:704
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
@@ -15,7 +15,7 @@ msgid_plural "%n folders"
 msgstr[0] "%n folder"
 msgstr[1] "%n folders"
 
-#: ../src/gui/forms/basemainwindow.cpp:702
+#: ../src/gui/forms/basemainwindow.cpp:709
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
@@ -23,7 +23,7 @@ msgid_plural "%n files"
 msgstr[0] "%n file"
 msgstr[1] "%n files"
 
-#: ../src/gui/forms/basemainwindow.cpp:707
+#: ../src/gui/forms/basemainwindow.cpp:714
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"

@@ -951,7 +951,15 @@ msgctxt "KdeMainWindow|"
 msgid "Section"
 msgstr "Bölüm"
 
-#: src/app/kde/kdemainwindow.cpp:668
+#: src/app/kde/kdemainwindow.cpp:475
+#, fuzzy
+#| msgctxt "KdeMainWindow|"
+#| msgid "Play"
+msgctxt "KdeMainWindow|"
+msgid "Player"
+msgstr "Çal"
+
+#: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Yapılandır - Kid3"
@@ -1520,110 +1528,118 @@ msgctxt "Kid3MainWindow|"
 msgid "About &Qt"
 msgstr "&Qt Hakkında"
 
-#: src/app/qt/kid3mainwindow.cpp:647
+#: src/app/qt/kid3mainwindow.cpp:629
+#, fuzzy
+#| msgctxt "Kid3MainWindow|"
+#| msgid "Play"
+msgctxt "Kid3MainWindow|"
+msgid "Player"
+msgstr "Çal"
+
+#: src/app/qt/kid3mainwindow.cpp:653
 msgctxt "Kid3MainWindow|"
 msgid "Filename"
 msgstr "Dosya Adı"
 
-#: src/app/qt/kid3mainwindow.cpp:650 src/app/qt/kid3mainwindow.cpp:673
+#: src/app/qt/kid3mainwindow.cpp:656 src/app/qt/kid3mainwindow.cpp:679
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "From Tag %1"
 msgstr "Etiket %1 Konumundan"
 
-#: src/app/qt/kid3mainwindow.cpp:655 src/app/qt/kid3mainwindow.cpp:698
-#: src/app/qt/kid3mainwindow.cpp:703 src/app/qt/kid3mainwindow.cpp:721
+#: src/app/qt/kid3mainwindow.cpp:661 src/app/qt/kid3mainwindow.cpp:704
+#: src/app/qt/kid3mainwindow.cpp:709 src/app/qt/kid3mainwindow.cpp:727
 msgctxt "Kid3MainWindow|"
 msgid "Focus"
 msgstr "Odaklama"
 
-#: src/app/qt/kid3mainwindow.cpp:665
+#: src/app/qt/kid3mainwindow.cpp:671
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Tag %1"
 msgstr "Etiket %1"
 
-#: src/app/qt/kid3mainwindow.cpp:667
+#: src/app/qt/kid3mainwindow.cpp:673
 msgctxt "Kid3MainWindow|"
 msgid "From Filename"
 msgstr "Dosya adından"
 
-#: src/app/qt/kid3mainwindow.cpp:678
+#: src/app/qt/kid3mainwindow.cpp:684
 msgctxt "Kid3MainWindow|"
 msgid "Copy"
 msgstr "Kopyala"
 
-#: src/app/qt/kid3mainwindow.cpp:681
+#: src/app/qt/kid3mainwindow.cpp:687
 msgctxt "Kid3MainWindow|"
 msgid "Paste"
 msgstr "Yapıştır"
 
-#: src/app/qt/kid3mainwindow.cpp:684
+#: src/app/qt/kid3mainwindow.cpp:690
 msgctxt "Kid3MainWindow|"
 msgid "Remove"
 msgstr "Kaldır"
 
-#: src/app/qt/kid3mainwindow.cpp:688
+#: src/app/qt/kid3mainwindow.cpp:694
 msgctxt "Kid3MainWindow|"
 msgid "Edit"
 msgstr "Düzen"
 
-#: src/app/qt/kid3mainwindow.cpp:691
+#: src/app/qt/kid3mainwindow.cpp:697
 msgctxt "Kid3MainWindow|"
 msgid "Add"
 msgstr "Ekle"
 
-#: src/app/qt/kid3mainwindow.cpp:694
+#: src/app/qt/kid3mainwindow.cpp:700
 msgctxt "Kid3MainWindow|"
 msgid "Delete"
 msgstr "Sil"
 
-#: src/app/qt/kid3mainwindow.cpp:702
+#: src/app/qt/kid3mainwindow.cpp:708
 msgctxt "Kid3MainWindow|"
 msgid "File List"
 msgstr "Dosya Listesi"
 
-#: src/app/qt/kid3mainwindow.cpp:706
+#: src/app/qt/kid3mainwindow.cpp:712
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
 msgstr "Yeniden Adlandır&r"
 
-#: src/app/qt/kid3mainwindow.cpp:713
+#: src/app/qt/kid3mainwindow.cpp:719
 msgctxt "Kid3MainWindow|"
 msgid "&Move to Trash"
 msgstr "Çöp &Kutusuna Taşı"
 
-#: src/app/qt/kid3mainwindow.cpp:720
+#: src/app/qt/kid3mainwindow.cpp:726
 msgctxt "Kid3MainWindow|"
 msgid "Folder List"
 msgstr "Klasör Listesi"
 
-#: src/app/qt/kid3mainwindow.cpp:726
+#: src/app/qt/kid3mainwindow.cpp:732
 msgctxt "Kid3MainWindow|"
 msgid "Section"
 msgstr "Bölüm"
 
-#: src/app/qt/kid3mainwindow.cpp:811
+#: src/app/qt/kid3mainwindow.cpp:817
 msgctxt "Kid3MainWindow|"
 msgid " [modified]"
 msgstr " [değişti]"
 
-#: src/app/qt/kid3mainwindow.cpp:906
+#: src/app/qt/kid3mainwindow.cpp:912
 msgctxt "Kid3MainWindow|"
 msgid "Audio Tag Editor"
 msgstr "Etiket Düzenleyicisi"
 
-#: src/app/qt/kid3mainwindow.cpp:911
+#: src/app/qt/kid3mainwindow.cpp:917
 msgctxt "Kid3MainWindow|"
 msgid "License"
 msgstr "Lisans"
 
-#: src/app/qt/kid3mainwindow.cpp:929
+#: src/app/qt/kid3mainwindow.cpp:935
 msgctxt "Kid3MainWindow|"
 msgid "Configure - Kid3"
 msgstr "Yapılandır - Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:973 src/app/qt/kid3mainwindow.cpp:985
+#: src/app/qt/kid3mainwindow.cpp:979 src/app/qt/kid3mainwindow.cpp:991
 msgctxt "Kid3MainWindow|"
 msgid "User Actions"
 msgstr "Kullanıcı Eylemleri"
@@ -1786,43 +1802,43 @@ msgid "Request sent..."
 msgstr "İstek gönderildi..."
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:1970
+#: src/core/tags/frame.cpp:2007
 msgctxt "@default|"
 msgid "Title"
 msgstr "Şarkı Adı"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:1974
+#: src/core/tags/frame.cpp:2011
 msgctxt "@default|"
 msgid "Album"
 msgstr "Albüm"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:1978
+#: src/core/tags/frame.cpp:2015
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Sanatçı"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1982
+#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:2019
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Yorum"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:1986
+#: src/core/tags/frame.cpp:2023
 msgctxt "@default|"
 msgid "Year"
 msgstr "Yıl"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:1991
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2028
 msgctxt "@default|"
 msgid "Track"
 msgstr "Parça No"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2004
+#: src/core/tags/frame.cpp:2041
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Tür"
@@ -2397,17 +2413,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Veri"
 
-#: src/core/model/kid3application.cpp:1057
+#: src/core/model/kid3application.cpp:1041
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "Klasör kaydediliyor..."
 
-#: src/core/model/kid3application.cpp:1267
+#: src/core/model/kid3application.cpp:1251
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Seçim"
 
-#: src/core/model/kid3application.cpp:3480
+#: src/core/model/kid3application.cpp:3465
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "Tüm Dosyalar"
@@ -3451,23 +3467,23 @@ msgctxt "@default|"
 msgid "Source Form"
 msgstr "Kaynak Biçimi"
 
-#: src/core/tags/frame.cpp:1181
+#: src/core/tags/frame.cpp:1218
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "Tag %1"
 
-#: src/core/tags/frame.cpp:1186
+#: src/core/tags/frame.cpp:1223
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "Tag 1 ve Tag 2"
 
-#: src/core/tags/frame.cpp:1190
+#: src/core/tags/frame.cpp:1227
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "Tüm etiketler"
 
-#: src/core/tags/frame.cpp:2009
+#: src/core/tags/frame.cpp:2046
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "t1'i ekle/t2'yi ekle, boş değilse"
@@ -5025,41 +5041,41 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Download"
 msgstr "İndir"
 
-#: src/gui/forms/basemainwindow.cpp:216
+#: src/gui/forms/basemainwindow.cpp:234
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
 msgstr "Klasör açılıyor..."
 
-#: src/gui/forms/basemainwindow.cpp:307
+#: src/gui/forms/basemainwindow.cpp:325
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
 msgstr "İptal"
 
-#: src/gui/forms/basemainwindow.cpp:389
+#: src/gui/forms/basemainwindow.cpp:396
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
 msgstr "%1 dosyası yazılabilir değil"
 
-#: src/gui/forms/basemainwindow.cpp:399
+#: src/gui/forms/basemainwindow.cpp:406
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
 msgstr "Dosyaya yazılırken hata:\n"
 
-#: src/gui/forms/basemainwindow.cpp:401 src/gui/forms/basemainwindow.cpp:407
-#: src/gui/forms/basemainwindow.cpp:1129 src/gui/forms/basemainwindow.cpp:1134
-#: src/gui/forms/basemainwindow.cpp:1570 src/gui/forms/basemainwindow.cpp:1579
-#: src/gui/forms/basemainwindow.cpp:1655
+#: src/gui/forms/basemainwindow.cpp:408 src/gui/forms/basemainwindow.cpp:414
+#: src/gui/forms/basemainwindow.cpp:1136 src/gui/forms/basemainwindow.cpp:1141
+#: src/gui/forms/basemainwindow.cpp:1574 src/gui/forms/basemainwindow.cpp:1583
+#: src/gui/forms/basemainwindow.cpp:1659
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "Dosya Hatası"
 
-#: src/gui/forms/basemainwindow.cpp:404
+#: src/gui/forms/basemainwindow.cpp:411
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "Dosyaya yazılırken hata. İzinleri değiştirmek istiyor musunuz?"
 
-#: src/gui/forms/basemainwindow.cpp:458
+#: src/gui/forms/basemainwindow.cpp:465
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "The current folder has been modified.\n"
@@ -5068,12 +5084,12 @@ msgstr ""
 "Geçerli klasör değiştirildi.\n"
 "Kaydetmek istiyor musunuz?"
 
-#: src/gui/forms/basemainwindow.cpp:460 src/gui/forms/basemainwindow.cpp:501
+#: src/gui/forms/basemainwindow.cpp:467 src/gui/forms/basemainwindow.cpp:508
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
 msgstr "Uyarı"
 
-#: src/gui/forms/basemainwindow.cpp:499
+#: src/gui/forms/basemainwindow.cpp:506
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "A playlist has been modified.\n"
@@ -5082,12 +5098,12 @@ msgstr ""
 "Bir çalma listesi değiştirildi.\n"
 "Kaydetmek istiyor musunuz?"
 
-#: src/gui/forms/basemainwindow.cpp:610
+#: src/gui/forms/basemainwindow.cpp:617
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
 msgstr "Çıkılıyor..."
 
-#: src/gui/forms/basemainwindow.cpp:697
+#: src/gui/forms/basemainwindow.cpp:704
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
@@ -5095,7 +5111,7 @@ msgid_plural "%n folders"
 msgstr[0] "%n klasör"
 msgstr[1] "%n klasör"
 
-#: src/gui/forms/basemainwindow.cpp:702
+#: src/gui/forms/basemainwindow.cpp:709
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
@@ -5103,7 +5119,7 @@ msgid_plural "%n files"
 msgstr[0] "%n dosya"
 msgstr[1] "%n dosya"
 
-#: src/gui/forms/basemainwindow.cpp:707
+#: src/gui/forms/basemainwindow.cpp:714
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
@@ -5111,122 +5127,122 @@ msgid_plural "%n selected"
 msgstr[0] "%n seçili"
 msgstr[1] "%n seçili"
 
-#: src/gui/forms/basemainwindow.cpp:710
+#: src/gui/forms/basemainwindow.cpp:717
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
 msgstr "Hazır."
 
-#: src/gui/forms/basemainwindow.cpp:772
+#: src/gui/forms/basemainwindow.cpp:779
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
 msgstr "Çalma Listesi Oluşturuluyor..."
 
-#: src/gui/forms/basemainwindow.cpp:820
+#: src/gui/forms/basemainwindow.cpp:827
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
 msgstr "Dosyalar bulunamadı"
 
-#: src/gui/forms/basemainwindow.cpp:821
+#: src/gui/forms/basemainwindow.cpp:828
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
 msgstr "Hata"
 
-#: src/gui/forms/basemainwindow.cpp:847
+#: src/gui/forms/basemainwindow.cpp:854
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
 msgstr "İçe Aktar"
 
-#: src/gui/forms/basemainwindow.cpp:1127 src/gui/forms/basemainwindow.cpp:1133
-#: src/gui/forms/basemainwindow.cpp:1571 src/gui/forms/basemainwindow.cpp:1580
+#: src/gui/forms/basemainwindow.cpp:1134 src/gui/forms/basemainwindow.cpp:1140
+#: src/gui/forms/basemainwindow.cpp:1575 src/gui/forms/basemainwindow.cpp:1584
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "Yeniden adlandırırken hata:\n"
 
-#: src/gui/forms/basemainwindow.cpp:1128
+#: src/gui/forms/basemainwindow.cpp:1135
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
 msgstr "Dizinleri kapattıktan sonra yeniden denensin mi?"
 
-#: src/gui/forms/basemainwindow.cpp:1205
+#: src/gui/forms/basemainwindow.cpp:1212
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "Süzgeç"
 
-#: src/gui/forms/basemainwindow.cpp:1273
+#: src/gui/forms/basemainwindow.cpp:1277
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " [süzgeci %1/%2]"
 
-#: src/gui/forms/basemainwindow.cpp:1387
+#: src/gui/forms/basemainwindow.cpp:1391
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "Çerçeve Ekle"
 
-#: src/gui/forms/basemainwindow.cpp:1388
+#: src/gui/forms/basemainwindow.cpp:1392
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "Çerçeve kimliğini seç"
 
-#: src/gui/forms/basemainwindow.cpp:1534
+#: src/gui/forms/basemainwindow.cpp:1538
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "Dosya Adını Değiştir"
 
-#: src/gui/forms/basemainwindow.cpp:1535
+#: src/gui/forms/basemainwindow.cpp:1539
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "Lütfen yeni dosya adı yazın:"
 
-#: src/gui/forms/basemainwindow.cpp:1572 src/gui/forms/basemainwindow.cpp:1581
+#: src/gui/forms/basemainwindow.cpp:1576 src/gui/forms/basemainwindow.cpp:1585
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1 adı %2 olarak değiştirilemedi\n"
 
-#: src/gui/forms/basemainwindow.cpp:1573
+#: src/gui/forms/basemainwindow.cpp:1577
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "Klasörler kapatıldıktan sonra yeniden denensin mi?"
 
-#: src/gui/forms/basemainwindow.cpp:1591
+#: src/gui/forms/basemainwindow.cpp:1595
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "%1 ögeyi çöp kutusuna atmayı gerçekten istiyor musunuz?"
 
-#: src/gui/forms/basemainwindow.cpp:1620
+#: src/gui/forms/basemainwindow.cpp:1624
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "%1 ögeyi çöp kutusuna atmayı gerçekten istiyor musunuz?"
 
-#: src/gui/forms/basemainwindow.cpp:1622
+#: src/gui/forms/basemainwindow.cpp:1626
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "Bu ögeyi çöp kutusuna atmayı gerçekten istiyor musunuz?"
 
-#: src/gui/forms/basemainwindow.cpp:1624
+#: src/gui/forms/basemainwindow.cpp:1628
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "Çöp Kutusuna Taşı"
 
-#: src/gui/forms/basemainwindow.cpp:1653
+#: src/gui/forms/basemainwindow.cpp:1657
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "Klasör adı boş olmalıdır.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1654
+#: src/gui/forms/basemainwindow.cpp:1658
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "Bu dosyalar Çöp Kutusuna taşınamadı"
 
-#: src/gui/forms/basemainwindow.cpp:1687
+#: src/gui/forms/basemainwindow.cpp:1691
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "Tümünü Aç"
 
-#: src/gui/forms/basemainwindow.cpp:1799
+#: src/gui/forms/basemainwindow.cpp:1803
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "İ&ptal"
@@ -5619,32 +5635,32 @@ msgctxt "PlayToolBar|"
 msgid "Play/Pause"
 msgstr "Çal/Duraklat"
 
-#: src/gui/widgets/playtoolbar.cpp:110
+#: src/gui/widgets/playtoolbar.cpp:112
 msgctxt "PlayToolBar|"
 msgid "Stop playback"
 msgstr "Çalmayı durdur"
 
-#: src/gui/widgets/playtoolbar.cpp:112
+#: src/gui/widgets/playtoolbar.cpp:116
 msgctxt "PlayToolBar|"
 msgid "Previous Track"
 msgstr "Önceki Parça"
 
-#: src/gui/widgets/playtoolbar.cpp:114
+#: src/gui/widgets/playtoolbar.cpp:120
 msgctxt "PlayToolBar|"
 msgid "Next Track"
 msgstr "Sonraki Parça"
 
-#: src/gui/widgets/playtoolbar.cpp:116
+#: src/gui/widgets/playtoolbar.cpp:124
 msgctxt "PlayToolBar|"
 msgid "Close"
 msgstr "Kapat"
 
-#: src/gui/widgets/playtoolbar.cpp:134
+#: src/gui/widgets/playtoolbar.cpp:142
 msgctxt "PlayToolBar|"
 msgid "Mute"
 msgstr "Sessiz"
 
-#: src/gui/widgets/playtoolbar.cpp:318
+#: src/gui/widgets/playtoolbar.cpp:326
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
@@ -5830,7 +5846,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1483
+#: src/plugins/discogsimport/discogsimporter.cpp:1481
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
@@ -5840,437 +5856,437 @@ msgctxt "@default|"
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:916
-#: src/plugins/taglibmetadata/taglibfile.cpp:2331
+#: src/plugins/id3libmetadata/mp3file.cpp:914
+#: src/plugins/taglibmetadata/taglibfile.cpp:2453
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
 msgstr "AENC - Ses şifreleme"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:917
-#: src/plugins/taglibmetadata/taglibfile.cpp:2332
+#: src/plugins/id3libmetadata/mp3file.cpp:915
+#: src/plugins/taglibmetadata/taglibfile.cpp:2454
 msgctxt "@default|"
 msgid "APIC - Attached picture"
 msgstr "APIC - İliştirilmiş Resim"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:919
-#: src/plugins/taglibmetadata/taglibfile.cpp:2337
+#: src/plugins/id3libmetadata/mp3file.cpp:917
+#: src/plugins/taglibmetadata/taglibfile.cpp:2459
 msgctxt "@default|"
 msgid "COMM - Comments"
 msgstr "COMM - Yorumlar"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:920
-#: src/plugins/taglibmetadata/taglibfile.cpp:2338
+#: src/plugins/id3libmetadata/mp3file.cpp:918
+#: src/plugins/taglibmetadata/taglibfile.cpp:2460
 msgctxt "@default|"
 msgid "COMR - Commercial"
 msgstr "COMR - Ticari"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:921
-#: src/plugins/taglibmetadata/taglibfile.cpp:2342
+#: src/plugins/id3libmetadata/mp3file.cpp:919
+#: src/plugins/taglibmetadata/taglibfile.cpp:2464
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - Şifreleme yöntemi kaydı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:923
+#: src/plugins/id3libmetadata/mp3file.cpp:921
 msgctxt "@default|"
 msgid "EQUA - Equalization"
 msgstr "EQUA - Ekolayzır"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:924
-#: src/plugins/taglibmetadata/taglibfile.cpp:2344
+#: src/plugins/id3libmetadata/mp3file.cpp:922
+#: src/plugins/taglibmetadata/taglibfile.cpp:2466
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
 msgstr "ETCO - Olay zamanlama kodları"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:925
-#: src/plugins/taglibmetadata/taglibfile.cpp:2345
+#: src/plugins/id3libmetadata/mp3file.cpp:923
+#: src/plugins/taglibmetadata/taglibfile.cpp:2467
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB - Genel kapsülleme nesnesi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:926
-#: src/plugins/taglibmetadata/taglibfile.cpp:2346
+#: src/plugins/id3libmetadata/mp3file.cpp:924
+#: src/plugins/taglibmetadata/taglibfile.cpp:2468
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
 msgstr "GRID - Grup tanımlama kaydı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:927
+#: src/plugins/id3libmetadata/mp3file.cpp:925
 msgctxt "@default|"
 msgid "IPLS - Involved people list"
 msgstr "IPLS - İlgili kişi listesi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:928
-#: src/plugins/taglibmetadata/taglibfile.cpp:2350
+#: src/plugins/id3libmetadata/mp3file.cpp:926
+#: src/plugins/taglibmetadata/taglibfile.cpp:2472
 msgctxt "@default|"
 msgid "LINK - Linked information"
 msgstr "LINK - Bağlanmış bilgi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:929
-#: src/plugins/taglibmetadata/taglibfile.cpp:2351
+#: src/plugins/id3libmetadata/mp3file.cpp:927
+#: src/plugins/taglibmetadata/taglibfile.cpp:2473
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - Ses CD'si tanımlayıcı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:930
-#: src/plugins/taglibmetadata/taglibfile.cpp:2352
+#: src/plugins/id3libmetadata/mp3file.cpp:928
+#: src/plugins/taglibmetadata/taglibfile.cpp:2474
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT - MPEG konumu şema tablosu"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:931
-#: src/plugins/taglibmetadata/taglibfile.cpp:2357
+#: src/plugins/id3libmetadata/mp3file.cpp:929
+#: src/plugins/taglibmetadata/taglibfile.cpp:2479
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
 msgstr "OWNE - Sahip çerçeve"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:932
-#: src/plugins/taglibmetadata/taglibfile.cpp:2358
+#: src/plugins/id3libmetadata/mp3file.cpp:930
+#: src/plugins/taglibmetadata/taglibfile.cpp:2480
 msgctxt "@default|"
 msgid "PRIV - Private frame"
 msgstr "PRIV - Özel çerçeve"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:933
-#: src/plugins/taglibmetadata/taglibfile.cpp:2359
+#: src/plugins/id3libmetadata/mp3file.cpp:931
+#: src/plugins/taglibmetadata/taglibfile.cpp:2481
 msgctxt "@default|"
 msgid "PCNT - Play counter"
 msgstr "PCNT - Çalma sayacı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:934
-#: src/plugins/taglibmetadata/taglibfile.cpp:2363
+#: src/plugins/id3libmetadata/mp3file.cpp:932
+#: src/plugins/taglibmetadata/taglibfile.cpp:2485
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
 msgstr "POPM - Popülerlik ölçümü"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:935
-#: src/plugins/taglibmetadata/taglibfile.cpp:2364
+#: src/plugins/id3libmetadata/mp3file.cpp:933
+#: src/plugins/taglibmetadata/taglibfile.cpp:2486
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - Pozisyon senkronizasyon çerçevesi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:936
-#: src/plugins/taglibmetadata/taglibfile.cpp:2365
+#: src/plugins/id3libmetadata/mp3file.cpp:934
+#: src/plugins/taglibmetadata/taglibfile.cpp:2487
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - Önerilen tampon bellek boyutu"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:938
+#: src/plugins/id3libmetadata/mp3file.cpp:936
 msgctxt "@default|"
 msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD - Bağıl ses düzeyi ayarı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:939
-#: src/plugins/taglibmetadata/taglibfile.cpp:2367
+#: src/plugins/id3libmetadata/mp3file.cpp:937
+#: src/plugins/taglibmetadata/taglibfile.cpp:2489
 msgctxt "@default|"
 msgid "RVRB - Reverb"
 msgstr "RVRB - Reverb"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:942
-#: src/plugins/taglibmetadata/taglibfile.cpp:2370
+#: src/plugins/id3libmetadata/mp3file.cpp:940
+#: src/plugins/taglibmetadata/taglibfile.cpp:2492
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
 msgstr "SYLT - Senkronize edilmiş şarkı sözü/metin"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:943
-#: src/plugins/taglibmetadata/taglibfile.cpp:2371
+#: src/plugins/id3libmetadata/mp3file.cpp:941
+#: src/plugins/taglibmetadata/taglibfile.cpp:2493
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC - Senkronize edilmiş tempo açıcıları"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:944
-#: src/plugins/taglibmetadata/taglibfile.cpp:2372
+#: src/plugins/id3libmetadata/mp3file.cpp:942
+#: src/plugins/taglibmetadata/taglibfile.cpp:2494
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB - Albüm/Film/Gösteri Adı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:945
-#: src/plugins/taglibmetadata/taglibfile.cpp:2373
+#: src/plugins/id3libmetadata/mp3file.cpp:943
+#: src/plugins/taglibmetadata/taglibfile.cpp:2495
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM - BPM (Dakikada Vuruş Sayısı)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:946
-#: src/plugins/taglibmetadata/taglibfile.cpp:2378
+#: src/plugins/id3libmetadata/mp3file.cpp:944
+#: src/plugins/taglibmetadata/taglibfile.cpp:2500
 msgctxt "@default|"
 msgid "TCOM - Composer"
 msgstr "TCOM - Besteci"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:947
-#: src/plugins/taglibmetadata/taglibfile.cpp:2379
+#: src/plugins/id3libmetadata/mp3file.cpp:945
+#: src/plugins/taglibmetadata/taglibfile.cpp:2501
 msgctxt "@default|"
 msgid "TCON - Content type"
 msgstr "TCON - İçerik türü"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:948
-#: src/plugins/taglibmetadata/taglibfile.cpp:2380
+#: src/plugins/id3libmetadata/mp3file.cpp:946
+#: src/plugins/taglibmetadata/taglibfile.cpp:2502
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
 msgstr "TCOP - Telif hakkı iletisi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:949
+#: src/plugins/id3libmetadata/mp3file.cpp:947
 msgctxt "@default|"
 msgid "TDAT - Date"
 msgstr "TDAT - Tarih"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:951
-#: src/plugins/taglibmetadata/taglibfile.cpp:2385
+#: src/plugins/id3libmetadata/mp3file.cpp:949
+#: src/plugins/taglibmetadata/taglibfile.cpp:2507
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - Çalma listesi gecikmesi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:957
-#: src/plugins/taglibmetadata/taglibfile.cpp:2390
+#: src/plugins/id3libmetadata/mp3file.cpp:955
+#: src/plugins/taglibmetadata/taglibfile.cpp:2512
 msgctxt "@default|"
 msgid "TENC - Encoded by"
 msgstr "TENC - Sıkıştıran"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:958
-#: src/plugins/taglibmetadata/taglibfile.cpp:2391
+#: src/plugins/id3libmetadata/mp3file.cpp:956
+#: src/plugins/taglibmetadata/taglibfile.cpp:2513
 msgctxt "@default|"
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - Söz yazarı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:959
-#: src/plugins/taglibmetadata/taglibfile.cpp:2392
+#: src/plugins/id3libmetadata/mp3file.cpp:957
+#: src/plugins/taglibmetadata/taglibfile.cpp:2514
 msgctxt "@default|"
 msgid "TFLT - File type"
 msgstr "TFLT - Dosya türü"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:960
+#: src/plugins/id3libmetadata/mp3file.cpp:958
 msgctxt "@default|"
 msgid "TIME - Time"
 msgstr "TIME - Zaman"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:961
-#: src/plugins/taglibmetadata/taglibfile.cpp:2397
+#: src/plugins/id3libmetadata/mp3file.cpp:959
+#: src/plugins/taglibmetadata/taglibfile.cpp:2519
 msgctxt "@default|"
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - İçerik grubu açıklaması"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:962
-#: src/plugins/taglibmetadata/taglibfile.cpp:2398
+#: src/plugins/id3libmetadata/mp3file.cpp:960
+#: src/plugins/taglibmetadata/taglibfile.cpp:2520
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - Şarkı adı / İçerik açıklaması"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:963
-#: src/plugins/taglibmetadata/taglibfile.cpp:2399
+#: src/plugins/id3libmetadata/mp3file.cpp:961
+#: src/plugins/taglibmetadata/taglibfile.cpp:2521
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr "TIT3 - Alt yazı / Açıklama düzeltmesi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:964
-#: src/plugins/taglibmetadata/taglibfile.cpp:2400
+#: src/plugins/id3libmetadata/mp3file.cpp:962
+#: src/plugins/taglibmetadata/taglibfile.cpp:2522
 msgctxt "@default|"
 msgid "TKEY - Initial key"
 msgstr "TKEY - İlk anahtar"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:965
-#: src/plugins/taglibmetadata/taglibfile.cpp:2404
+#: src/plugins/id3libmetadata/mp3file.cpp:963
+#: src/plugins/taglibmetadata/taglibfile.cpp:2526
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
 msgstr "TLAN - Dil(ler)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:966
-#: src/plugins/taglibmetadata/taglibfile.cpp:2405
+#: src/plugins/id3libmetadata/mp3file.cpp:964
+#: src/plugins/taglibmetadata/taglibfile.cpp:2527
 msgctxt "@default|"
 msgid "TLEN - Length"
 msgstr "TLEN - Süre"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:968
-#: src/plugins/taglibmetadata/taglibfile.cpp:2407
+#: src/plugins/id3libmetadata/mp3file.cpp:966
+#: src/plugins/taglibmetadata/taglibfile.cpp:2529
 msgctxt "@default|"
 msgid "TMED - Media type"
 msgstr "TMED - Ortam türü"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:970
-#: src/plugins/taglibmetadata/taglibfile.cpp:2409
+#: src/plugins/id3libmetadata/mp3file.cpp:968
+#: src/plugins/taglibmetadata/taglibfile.cpp:2531
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL - Özgün albüm/film/dizi adı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:971
-#: src/plugins/taglibmetadata/taglibfile.cpp:2410
+#: src/plugins/id3libmetadata/mp3file.cpp:969
+#: src/plugins/taglibmetadata/taglibfile.cpp:2532
 msgctxt "@default|"
 msgid "TOFN - Original filename"
 msgstr "TOFN - Özgün dosya adı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:972
-#: src/plugins/taglibmetadata/taglibfile.cpp:2411
+#: src/plugins/id3libmetadata/mp3file.cpp:970
+#: src/plugins/taglibmetadata/taglibfile.cpp:2533
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY - Özgün söz yazar(lar)ı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:973
-#: src/plugins/taglibmetadata/taglibfile.cpp:2412
+#: src/plugins/id3libmetadata/mp3file.cpp:971
+#: src/plugins/taglibmetadata/taglibfile.cpp:2534
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE - Özgün sanatçı(lar)/söyleyen(ler)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:974
+#: src/plugins/id3libmetadata/mp3file.cpp:972
 msgctxt "@default|"
 msgid "TORY - Original release year"
 msgstr "TORY - Özgün piyasaya çıkış yılı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:975
-#: src/plugins/taglibmetadata/taglibfile.cpp:2413
+#: src/plugins/id3libmetadata/mp3file.cpp:973
+#: src/plugins/taglibmetadata/taglibfile.cpp:2535
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN - Dosyanın lisans sahibi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:976
-#: src/plugins/taglibmetadata/taglibfile.cpp:2414
+#: src/plugins/id3libmetadata/mp3file.cpp:974
+#: src/plugins/taglibmetadata/taglibfile.cpp:2536
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 - Ana sanatçı(lar) / Söyleyen(ler)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:977
-#: src/plugins/taglibmetadata/taglibfile.cpp:2415
+#: src/plugins/id3libmetadata/mp3file.cpp:975
+#: src/plugins/taglibmetadata/taglibfile.cpp:2537
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - Grup / Orkestra / Misafir Sanatçı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:978
-#: src/plugins/taglibmetadata/taglibfile.cpp:2416
+#: src/plugins/id3libmetadata/mp3file.cpp:976
+#: src/plugins/taglibmetadata/taglibfile.cpp:2538
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
 msgstr "TPE3 - Orkestra şefi / Söyleyen düzeltme"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:979
-#: src/plugins/taglibmetadata/taglibfile.cpp:2417
+#: src/plugins/id3libmetadata/mp3file.cpp:977
+#: src/plugins/taglibmetadata/taglibfile.cpp:2539
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr "TPE4 - Yorumlayan / Tekrar düzenleyen veya değiştiren"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:980
-#: src/plugins/taglibmetadata/taglibfile.cpp:2418
+#: src/plugins/id3libmetadata/mp3file.cpp:978
+#: src/plugins/taglibmetadata/taglibfile.cpp:2540
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
 msgstr "TPOS - Bir seri'nin parçası"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:982
-#: src/plugins/taglibmetadata/taglibfile.cpp:2420
+#: src/plugins/id3libmetadata/mp3file.cpp:980
+#: src/plugins/taglibmetadata/taglibfile.cpp:2542
 msgctxt "@default|"
 msgid "TPUB - Publisher"
 msgstr "TPUB - Yayımcı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:983
-#: src/plugins/taglibmetadata/taglibfile.cpp:2421
+#: src/plugins/id3libmetadata/mp3file.cpp:981
+#: src/plugins/taglibmetadata/taglibfile.cpp:2543
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - Seri'nin Parça / Konum Numarası"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:984
+#: src/plugins/id3libmetadata/mp3file.cpp:982
 msgctxt "@default|"
 msgid "TRDA - Recording dates"
 msgstr "TRDA - Kayıt tarihleri"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:985
-#: src/plugins/taglibmetadata/taglibfile.cpp:2422
+#: src/plugins/id3libmetadata/mp3file.cpp:983
+#: src/plugins/taglibmetadata/taglibfile.cpp:2544
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN - İnternet radyo istasyonu adı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:986
-#: src/plugins/taglibmetadata/taglibfile.cpp:2423
+#: src/plugins/id3libmetadata/mp3file.cpp:984
+#: src/plugins/taglibmetadata/taglibfile.cpp:2545
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO - İnternet radyo istasyonu sahibi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:987
+#: src/plugins/id3libmetadata/mp3file.cpp:985
 msgctxt "@default|"
 msgid "TSIZ - Size"
 msgstr "TSIZ - Büyüklük"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:991
-#: src/plugins/taglibmetadata/taglibfile.cpp:2429
+#: src/plugins/id3libmetadata/mp3file.cpp:989
+#: src/plugins/taglibmetadata/taglibfile.cpp:2551
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - ISRC (Uluslararası standart kayıt kodu)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:992
-#: src/plugins/taglibmetadata/taglibfile.cpp:2430
+#: src/plugins/id3libmetadata/mp3file.cpp:990
+#: src/plugins/taglibmetadata/taglibfile.cpp:2552
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - Sıkıştırma için kullanılan yazılım / donanım ve ayarlar"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:994
-#: src/plugins/taglibmetadata/taglibfile.cpp:2432
+#: src/plugins/id3libmetadata/mp3file.cpp:992
+#: src/plugins/taglibmetadata/taglibfile.cpp:2554
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
 msgstr "TXXX - Kullanıcı tanımlı metin bilgisi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:995
+#: src/plugins/id3libmetadata/mp3file.cpp:993
 msgctxt "@default|"
 msgid "TYER - Year"
 msgstr "TYER - Yıl"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:996
-#: src/plugins/taglibmetadata/taglibfile.cpp:2433
+#: src/plugins/id3libmetadata/mp3file.cpp:994
+#: src/plugins/taglibmetadata/taglibfile.cpp:2555
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
 msgstr "UFID - Benzersiz dosya tanımlayıcısı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:997
-#: src/plugins/taglibmetadata/taglibfile.cpp:2434
+#: src/plugins/id3libmetadata/mp3file.cpp:995
+#: src/plugins/taglibmetadata/taglibfile.cpp:2556
 msgctxt "@default|"
 msgid "USER - Terms of use"
 msgstr "USER - Kullanım şartları"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:998
-#: src/plugins/taglibmetadata/taglibfile.cpp:2435
+#: src/plugins/id3libmetadata/mp3file.cpp:996
+#: src/plugins/taglibmetadata/taglibfile.cpp:2557
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr "USLT - Senkronize edilmemiş söz çevrim yazısı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:999
-#: src/plugins/taglibmetadata/taglibfile.cpp:2436
+#: src/plugins/id3libmetadata/mp3file.cpp:997
+#: src/plugins/taglibmetadata/taglibfile.cpp:2558
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
 msgstr "WCOM - Ticari bilgi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1000
-#: src/plugins/taglibmetadata/taglibfile.cpp:2437
+#: src/plugins/id3libmetadata/mp3file.cpp:998
+#: src/plugins/taglibmetadata/taglibfile.cpp:2559
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - Telif Hakkı / Kanuni bilgi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1001
-#: src/plugins/taglibmetadata/taglibfile.cpp:2441
+#: src/plugins/id3libmetadata/mp3file.cpp:999
+#: src/plugins/taglibmetadata/taglibfile.cpp:2563
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF - Ses dosyasının resmi internet sitesi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1002
-#: src/plugins/taglibmetadata/taglibfile.cpp:2442
+#: src/plugins/id3libmetadata/mp3file.cpp:1000
+#: src/plugins/taglibmetadata/taglibfile.cpp:2564
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR - Sanatçının/Şarkıcının resmi web sitesi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1003
-#: src/plugins/taglibmetadata/taglibfile.cpp:2443
+#: src/plugins/id3libmetadata/mp3file.cpp:1001
+#: src/plugins/taglibmetadata/taglibfile.cpp:2565
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
 msgstr "WOAS - Ses dosyasının resmi internet adresi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1004
-#: src/plugins/taglibmetadata/taglibfile.cpp:2444
+#: src/plugins/id3libmetadata/mp3file.cpp:1002
+#: src/plugins/taglibmetadata/taglibfile.cpp:2566
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
 msgstr "WORS - İnternet radyo istasyonunun resmi adresi"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1005
-#: src/plugins/taglibmetadata/taglibfile.cpp:2445
+#: src/plugins/id3libmetadata/mp3file.cpp:1003
+#: src/plugins/taglibmetadata/taglibfile.cpp:2567
 msgctxt "@default|"
 msgid "WPAY - Payment"
 msgstr "WPAY - Ödeme"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1006
-#: src/plugins/taglibmetadata/taglibfile.cpp:2446
+#: src/plugins/id3libmetadata/mp3file.cpp:1004
+#: src/plugins/taglibmetadata/taglibfile.cpp:2568
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
 msgstr "WPUB - Resmi yayımcı"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1007
-#: src/plugins/taglibmetadata/taglibfile.cpp:2447
+#: src/plugins/id3libmetadata/mp3file.cpp:1005
+#: src/plugins/taglibmetadata/taglibfile.cpp:2569
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - Kullanıcı tanımlı URL bağlantısı"
@@ -6280,167 +6296,167 @@ msgctxt "@default|"
 msgid "MusicBrainz Release"
 msgstr "MusicBrainz Sürümünden"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2333
+#: src/plugins/taglibmetadata/taglibfile.cpp:2455
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - Ses tarama nokta indeksi"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2335
+#: src/plugins/taglibmetadata/taglibfile.cpp:2457
 msgctxt "@default|"
 msgid "CHAP - Chapter"
 msgstr "CHAP - Fasıl"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2340
+#: src/plugins/taglibmetadata/taglibfile.cpp:2462
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
 msgstr "CTOC - İçindekiler"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2343
+#: src/plugins/taglibmetadata/taglibfile.cpp:2465
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Ekolayzır (2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2348
+#: src/plugins/taglibmetadata/taglibfile.cpp:2470
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
 msgstr "GRP1 - Gruplama"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2354
+#: src/plugins/taglibmetadata/taglibfile.cpp:2476
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Bölüm numarası"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2355
+#: src/plugins/taglibmetadata/taglibfile.cpp:2477
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
 msgstr "MVNM - Bölüm adı"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2361
+#: src/plugins/taglibmetadata/taglibfile.cpp:2483
 msgctxt "@default|"
 msgid "PCST - Podcast"
 msgstr "PCST - Pod Yayını"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2366
+#: src/plugins/taglibmetadata/taglibfile.cpp:2488
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - Bağıl ses düzeyi ayarı (2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2368
+#: src/plugins/taglibmetadata/taglibfile.cpp:2490
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
 msgstr "SEEK - Tarama çerçevesi"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2369
+#: src/plugins/taglibmetadata/taglibfile.cpp:2491
 msgctxt "@default|"
 msgid "SIGN - Signature frame"
 msgstr "SIGN - İmza çerçevesi"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2375
+#: src/plugins/taglibmetadata/taglibfile.cpp:2497
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
 msgstr "TCAT - Pod yayını kategorisi"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2377
+#: src/plugins/taglibmetadata/taglibfile.cpp:2499
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - iTunes derleme"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2381
+#: src/plugins/taglibmetadata/taglibfile.cpp:2503
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Sıkıştırma süresi"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2383
+#: src/plugins/taglibmetadata/taglibfile.cpp:2505
 msgctxt "@default|"
 msgid "TDES - Podcast description"
 msgstr "TDES - Pod yayını açıklaması"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2386
+#: src/plugins/taglibmetadata/taglibfile.cpp:2508
 msgctxt "@default|"
 msgid "TDOR - Original release time"
 msgstr "TDOR - Özgün piyasaya çıkış zamanı"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2387
+#: src/plugins/taglibmetadata/taglibfile.cpp:2509
 msgctxt "@default|"
 msgid "TDRC - Recording time"
 msgstr "TDRC - Kayıt süresi"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2388
+#: src/plugins/taglibmetadata/taglibfile.cpp:2510
 msgctxt "@default|"
 msgid "TDRL - Release time"
 msgstr "TDRL - Piyasaya çıkış zamanı"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2389
+#: src/plugins/taglibmetadata/taglibfile.cpp:2511
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Etiketleme zamanı"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2394
+#: src/plugins/taglibmetadata/taglibfile.cpp:2516
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
 msgstr "TGID - Pod yayını tanımlayıcısı"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2396
+#: src/plugins/taglibmetadata/taglibfile.cpp:2518
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
 msgstr "TIPL - İlgili kişi listesi"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2402
+#: src/plugins/taglibmetadata/taglibfile.cpp:2524
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
 msgstr "TKWD - Pod yayını anahtar sözcükleri"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2406
+#: src/plugins/taglibmetadata/taglibfile.cpp:2528
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - Katkıda bulunan müzisyenler listesi"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2408
+#: src/plugins/taglibmetadata/taglibfile.cpp:2530
 msgctxt "@default|"
 msgid "TMOO - Mood"
 msgstr "TMOO - Duruş"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2419
+#: src/plugins/taglibmetadata/taglibfile.cpp:2541
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
 msgstr "TPRO - Üretilmiş uyarı"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2424
+#: src/plugins/taglibmetadata/taglibfile.cpp:2546
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 - Albüm Sanatçısı Sıralama Düzeni"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2425
+#: src/plugins/taglibmetadata/taglibfile.cpp:2547
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
 msgstr "TSOA - Albüm sıralaması"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2426
+#: src/plugins/taglibmetadata/taglibfile.cpp:2548
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
 msgstr "TSOC - Besteci sıralaması"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2427
+#: src/plugins/taglibmetadata/taglibfile.cpp:2549
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
 msgstr "TSOP - Söyleyen sıralaması"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2428
+#: src/plugins/taglibmetadata/taglibfile.cpp:2550
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
 msgstr "TSOT - Başlık sıralaması"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2431
+#: src/plugins/taglibmetadata/taglibfile.cpp:2553
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
 msgstr "TSST - Alt yazı ayarla"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2439
+#: src/plugins/taglibmetadata/taglibfile.cpp:2561
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Pod yayını beslemesi"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6725
+#: src/plugins/taglibmetadata/taglibfile.cpp:6850
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "Derecelendirme Bilgisi"

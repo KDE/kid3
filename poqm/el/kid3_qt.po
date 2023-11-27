@@ -942,7 +942,15 @@ msgctxt "KdeMainWindow|"
 msgid "Section"
 msgstr "Ενότητα"
 
-#: src/app/kde/kdemainwindow.cpp:668
+#: src/app/kde/kdemainwindow.cpp:475
+#, fuzzy
+#| msgctxt "KdeMainWindow|"
+#| msgid "Play"
+msgctxt "KdeMainWindow|"
+msgid "Player"
+msgstr "Αναπαραγωγή"
+
+#: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Διαμόρφωση - Kid3"
@@ -1511,110 +1519,118 @@ msgctxt "Kid3MainWindow|"
 msgid "About &Qt"
 msgstr "Σχετικά με την &Qt"
 
-#: src/app/qt/kid3mainwindow.cpp:647
+#: src/app/qt/kid3mainwindow.cpp:629
+#, fuzzy
+#| msgctxt "Kid3MainWindow|"
+#| msgid "Play"
+msgctxt "Kid3MainWindow|"
+msgid "Player"
+msgstr "Αναπαραγωγή"
+
+#: src/app/qt/kid3mainwindow.cpp:653
 msgctxt "Kid3MainWindow|"
 msgid "Filename"
 msgstr "Όνομα αρχείου"
 
-#: src/app/qt/kid3mainwindow.cpp:650 src/app/qt/kid3mainwindow.cpp:673
+#: src/app/qt/kid3mainwindow.cpp:656 src/app/qt/kid3mainwindow.cpp:679
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "From Tag %1"
 msgstr "Από την ετικέτα %1"
 
-#: src/app/qt/kid3mainwindow.cpp:655 src/app/qt/kid3mainwindow.cpp:698
-#: src/app/qt/kid3mainwindow.cpp:703 src/app/qt/kid3mainwindow.cpp:721
+#: src/app/qt/kid3mainwindow.cpp:661 src/app/qt/kid3mainwindow.cpp:704
+#: src/app/qt/kid3mainwindow.cpp:709 src/app/qt/kid3mainwindow.cpp:727
 msgctxt "Kid3MainWindow|"
 msgid "Focus"
 msgstr "Εστίαση"
 
-#: src/app/qt/kid3mainwindow.cpp:665
+#: src/app/qt/kid3mainwindow.cpp:671
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Tag %1"
 msgstr "Ετικέτα %1"
 
-#: src/app/qt/kid3mainwindow.cpp:667
+#: src/app/qt/kid3mainwindow.cpp:673
 msgctxt "Kid3MainWindow|"
 msgid "From Filename"
 msgstr "Από όνομα αρχείου"
 
-#: src/app/qt/kid3mainwindow.cpp:678
+#: src/app/qt/kid3mainwindow.cpp:684
 msgctxt "Kid3MainWindow|"
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: src/app/qt/kid3mainwindow.cpp:681
+#: src/app/qt/kid3mainwindow.cpp:687
 msgctxt "Kid3MainWindow|"
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: src/app/qt/kid3mainwindow.cpp:684
+#: src/app/qt/kid3mainwindow.cpp:690
 msgctxt "Kid3MainWindow|"
 msgid "Remove"
 msgstr "Αφαίρεση"
 
-#: src/app/qt/kid3mainwindow.cpp:688
+#: src/app/qt/kid3mainwindow.cpp:694
 msgctxt "Kid3MainWindow|"
 msgid "Edit"
 msgstr "Επεξεργασία"
 
-#: src/app/qt/kid3mainwindow.cpp:691
+#: src/app/qt/kid3mainwindow.cpp:697
 msgctxt "Kid3MainWindow|"
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: src/app/qt/kid3mainwindow.cpp:694
+#: src/app/qt/kid3mainwindow.cpp:700
 msgctxt "Kid3MainWindow|"
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: src/app/qt/kid3mainwindow.cpp:702
+#: src/app/qt/kid3mainwindow.cpp:708
 msgctxt "Kid3MainWindow|"
 msgid "File List"
 msgstr "Λίστα αρχείων"
 
-#: src/app/qt/kid3mainwindow.cpp:706
+#: src/app/qt/kid3mainwindow.cpp:712
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
 msgstr "&Μετονομασία"
 
-#: src/app/qt/kid3mainwindow.cpp:713
+#: src/app/qt/kid3mainwindow.cpp:719
 msgctxt "Kid3MainWindow|"
 msgid "&Move to Trash"
 msgstr "&Μετακίνηση στα απορρίμματα"
 
-#: src/app/qt/kid3mainwindow.cpp:720
+#: src/app/qt/kid3mainwindow.cpp:726
 msgctxt "Kid3MainWindow|"
 msgid "Folder List"
 msgstr "Λίστα φακέλων"
 
-#: src/app/qt/kid3mainwindow.cpp:726
+#: src/app/qt/kid3mainwindow.cpp:732
 msgctxt "Kid3MainWindow|"
 msgid "Section"
 msgstr "Ενότητα"
 
-#: src/app/qt/kid3mainwindow.cpp:811
+#: src/app/qt/kid3mainwindow.cpp:817
 msgctxt "Kid3MainWindow|"
 msgid " [modified]"
 msgstr " [τροποποιημένο]"
 
-#: src/app/qt/kid3mainwindow.cpp:906
+#: src/app/qt/kid3mainwindow.cpp:912
 msgctxt "Kid3MainWindow|"
 msgid "Audio Tag Editor"
 msgstr "Επεξεργαστής ετικέτας ήχου"
 
-#: src/app/qt/kid3mainwindow.cpp:911
+#: src/app/qt/kid3mainwindow.cpp:917
 msgctxt "Kid3MainWindow|"
 msgid "License"
 msgstr "Άδεια χρήσης"
 
-#: src/app/qt/kid3mainwindow.cpp:929
+#: src/app/qt/kid3mainwindow.cpp:935
 msgctxt "Kid3MainWindow|"
 msgid "Configure - Kid3"
 msgstr "Διαμόρφωση - Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:973 src/app/qt/kid3mainwindow.cpp:985
+#: src/app/qt/kid3mainwindow.cpp:979 src/app/qt/kid3mainwindow.cpp:991
 msgctxt "Kid3MainWindow|"
 msgid "User Actions"
 msgstr "Ενέργειες χρήστη"
@@ -1777,43 +1793,43 @@ msgid "Request sent..."
 msgstr "Αίτημα εστάλη..."
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:1970
+#: src/core/tags/frame.cpp:2007
 msgctxt "@default|"
 msgid "Title"
 msgstr "Τίτλος"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:1974
+#: src/core/tags/frame.cpp:2011
 msgctxt "@default|"
 msgid "Album"
 msgstr "Άλμπουμ"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:1978
+#: src/core/tags/frame.cpp:2015
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Καλλιτέχνης"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1982
+#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:2019
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Σχόλιο"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:1986
+#: src/core/tags/frame.cpp:2023
 msgctxt "@default|"
 msgid "Year"
 msgstr "Έτος"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:1991
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2028
 msgctxt "@default|"
 msgid "Track"
 msgstr "Κομμάτι"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2004
+#: src/core/tags/frame.cpp:2041
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Είδος"
@@ -2388,17 +2404,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Δεδομένα"
 
-#: src/core/model/kid3application.cpp:1057
+#: src/core/model/kid3application.cpp:1041
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "Γίνεται αποθήκευση φακέλου..."
 
-#: src/core/model/kid3application.cpp:1267
+#: src/core/model/kid3application.cpp:1251
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Επιλογή"
 
-#: src/core/model/kid3application.cpp:3480
+#: src/core/model/kid3application.cpp:3465
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "Όλα τα αρχεία"
@@ -3445,23 +3461,23 @@ msgctxt "@default|"
 msgid "Source Form"
 msgstr "Πηγή"
 
-#: src/core/tags/frame.cpp:1181
+#: src/core/tags/frame.cpp:1218
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "Ετικέτα %1"
 
-#: src/core/tags/frame.cpp:1186
+#: src/core/tags/frame.cpp:1223
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "Ετικέτα 1 και ετικέτα 2"
 
-#: src/core/tags/frame.cpp:1190
+#: src/core/tags/frame.cpp:1227
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "Όλες οι ετικέτες"
 
-#: src/core/tags/frame.cpp:2009
+#: src/core/tags/frame.cpp:2046
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "Εισαγωγή t1/προσθήκη t2 αν δεν είναι κενό"
@@ -5029,41 +5045,41 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Download"
 msgstr "Λήψη"
 
-#: src/gui/forms/basemainwindow.cpp:216
+#: src/gui/forms/basemainwindow.cpp:234
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
 msgstr "Άνοιγμα φακέλου..."
 
-#: src/gui/forms/basemainwindow.cpp:307
+#: src/gui/forms/basemainwindow.cpp:325
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
 msgstr "Εγκατάλειψη"
 
-#: src/gui/forms/basemainwindow.cpp:389
+#: src/gui/forms/basemainwindow.cpp:396
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
 msgstr "Το %1 δεν είναι εγγράψιμο"
 
-#: src/gui/forms/basemainwindow.cpp:399
+#: src/gui/forms/basemainwindow.cpp:406
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
 msgstr "Σφάλμα κατά την εγγραφή στο αρχείο:\n"
 
-#: src/gui/forms/basemainwindow.cpp:401 src/gui/forms/basemainwindow.cpp:407
-#: src/gui/forms/basemainwindow.cpp:1129 src/gui/forms/basemainwindow.cpp:1134
-#: src/gui/forms/basemainwindow.cpp:1570 src/gui/forms/basemainwindow.cpp:1579
-#: src/gui/forms/basemainwindow.cpp:1655
+#: src/gui/forms/basemainwindow.cpp:408 src/gui/forms/basemainwindow.cpp:414
+#: src/gui/forms/basemainwindow.cpp:1136 src/gui/forms/basemainwindow.cpp:1141
+#: src/gui/forms/basemainwindow.cpp:1574 src/gui/forms/basemainwindow.cpp:1583
+#: src/gui/forms/basemainwindow.cpp:1659
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "Σφάλμα αρχείου"
 
-#: src/gui/forms/basemainwindow.cpp:404
+#: src/gui/forms/basemainwindow.cpp:411
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "Σφάλμα κατά την εγγραφή στο αρχείο. Θέλετε να αλλάξετε τα δικαιώματα;"
 
-#: src/gui/forms/basemainwindow.cpp:458
+#: src/gui/forms/basemainwindow.cpp:465
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "The current folder has been modified.\n"
@@ -5072,12 +5088,12 @@ msgstr ""
 "Ο τρέχων φάκελος έχει τροποποιηθεί.\n"
 "Να αποθηκευθεί;"
 
-#: src/gui/forms/basemainwindow.cpp:460 src/gui/forms/basemainwindow.cpp:501
+#: src/gui/forms/basemainwindow.cpp:467 src/gui/forms/basemainwindow.cpp:508
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
 msgstr "Προειδοποίηση"
 
-#: src/gui/forms/basemainwindow.cpp:499
+#: src/gui/forms/basemainwindow.cpp:506
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "A playlist has been modified.\n"
@@ -5086,12 +5102,12 @@ msgstr ""
 "Η λίστα αναπαραγωγής έχει τροποποιηθεί.\n"
 "Να αποθηκευθεί;"
 
-#: src/gui/forms/basemainwindow.cpp:610
+#: src/gui/forms/basemainwindow.cpp:617
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
 msgstr "Έξοδος..."
 
-#: src/gui/forms/basemainwindow.cpp:697
+#: src/gui/forms/basemainwindow.cpp:704
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
@@ -5099,7 +5115,7 @@ msgid_plural "%n folders"
 msgstr[0] "%n φάκελοι"
 msgstr[1] "%n φάκελοι"
 
-#: src/gui/forms/basemainwindow.cpp:702
+#: src/gui/forms/basemainwindow.cpp:709
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
@@ -5107,7 +5123,7 @@ msgid_plural "%n files"
 msgstr[0] "%n αρχεία"
 msgstr[1] "%n αρχεία"
 
-#: src/gui/forms/basemainwindow.cpp:707
+#: src/gui/forms/basemainwindow.cpp:714
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
@@ -5115,124 +5131,124 @@ msgid_plural "%n selected"
 msgstr[0] "%n επιλέχθηκαν"
 msgstr[1] "%n επιλέχθηκαν"
 
-#: src/gui/forms/basemainwindow.cpp:710
+#: src/gui/forms/basemainwindow.cpp:717
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
 msgstr "Έτοιμο."
 
-#: src/gui/forms/basemainwindow.cpp:772
+#: src/gui/forms/basemainwindow.cpp:779
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
 msgstr "Δημιουργία λίστας αναπαραγωγής..."
 
-#: src/gui/forms/basemainwindow.cpp:820
+#: src/gui/forms/basemainwindow.cpp:827
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
 msgstr "Τα αρχεία δεν βρέθηκαν"
 
-#: src/gui/forms/basemainwindow.cpp:821
+#: src/gui/forms/basemainwindow.cpp:828
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: src/gui/forms/basemainwindow.cpp:847
+#: src/gui/forms/basemainwindow.cpp:854
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
 msgstr "Εισαγωγή"
 
-#: src/gui/forms/basemainwindow.cpp:1127 src/gui/forms/basemainwindow.cpp:1133
-#: src/gui/forms/basemainwindow.cpp:1571 src/gui/forms/basemainwindow.cpp:1580
+#: src/gui/forms/basemainwindow.cpp:1134 src/gui/forms/basemainwindow.cpp:1140
+#: src/gui/forms/basemainwindow.cpp:1575 src/gui/forms/basemainwindow.cpp:1584
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "Σφάλμα ενώ απομένει:\n"
 
-#: src/gui/forms/basemainwindow.cpp:1128
+#: src/gui/forms/basemainwindow.cpp:1135
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
 msgstr "Να γίνει προσπάθεια μετά το κλείσιμο των καταλόγων;"
 
-#: src/gui/forms/basemainwindow.cpp:1205
+#: src/gui/forms/basemainwindow.cpp:1212
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "Φίλτρο"
 
-#: src/gui/forms/basemainwindow.cpp:1273
+#: src/gui/forms/basemainwindow.cpp:1277
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " [φιλτραρισμένο %1/%2]"
 
-#: src/gui/forms/basemainwindow.cpp:1387
+#: src/gui/forms/basemainwindow.cpp:1391
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "Προσθήκη πλαισίου"
 
-#: src/gui/forms/basemainwindow.cpp:1388
+#: src/gui/forms/basemainwindow.cpp:1392
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "Επιλογή αναγνωριστικού για το πλαίσιο"
 
-#: src/gui/forms/basemainwindow.cpp:1534
+#: src/gui/forms/basemainwindow.cpp:1538
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "Μετονομασία αρχείου"
 
-#: src/gui/forms/basemainwindow.cpp:1535
+#: src/gui/forms/basemainwindow.cpp:1539
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "Δώστε όνομα αρχείου:"
 
-#: src/gui/forms/basemainwindow.cpp:1572 src/gui/forms/basemainwindow.cpp:1581
+#: src/gui/forms/basemainwindow.cpp:1576 src/gui/forms/basemainwindow.cpp:1585
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "Αποτυχία μετονομασίας του %1 σε %2\n"
 
-#: src/gui/forms/basemainwindow.cpp:1573
+#: src/gui/forms/basemainwindow.cpp:1577
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "Να γίνει προσπάθεια μετά το κλείσιμο των φακέλων;"
 
-#: src/gui/forms/basemainwindow.cpp:1591
+#: src/gui/forms/basemainwindow.cpp:1595
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr ""
 "Θέλετε πράγματι να μετακινήσετε αυτά τα %1 αντικείμενα στα απορρίμματα;"
 
-#: src/gui/forms/basemainwindow.cpp:1620
+#: src/gui/forms/basemainwindow.cpp:1624
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr ""
 "Θέλετε πράγματι να μετακινήσετε αυτά τα %1 αντικείμενα στα απορρίμματα;"
 
-#: src/gui/forms/basemainwindow.cpp:1622
+#: src/gui/forms/basemainwindow.cpp:1626
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "Θέλετε πράγματι να μετακινήσετε αυτό το αντικείμενο στα απορρίμματα;"
 
-#: src/gui/forms/basemainwindow.cpp:1624
+#: src/gui/forms/basemainwindow.cpp:1628
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "Μετακίνηση στα απορρίμματα"
 
-#: src/gui/forms/basemainwindow.cpp:1653
+#: src/gui/forms/basemainwindow.cpp:1657
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "Ο φάκελος πρέπει να είναι κενός.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1654
+#: src/gui/forms/basemainwindow.cpp:1658
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "Αδυναμία μετακίνησης αυτών των αρχείων στα απορρίμματα"
 
-#: src/gui/forms/basemainwindow.cpp:1687
+#: src/gui/forms/basemainwindow.cpp:1691
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "Επέκταση όλων"
 
-#: src/gui/forms/basemainwindow.cpp:1799
+#: src/gui/forms/basemainwindow.cpp:1803
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "Ε&γκατάλειψη"
@@ -5625,32 +5641,32 @@ msgctxt "PlayToolBar|"
 msgid "Play/Pause"
 msgstr "Αναπαραγωγή/παύση"
 
-#: src/gui/widgets/playtoolbar.cpp:110
+#: src/gui/widgets/playtoolbar.cpp:112
 msgctxt "PlayToolBar|"
 msgid "Stop playback"
 msgstr "Διακοπή αναπαραγωγής"
 
-#: src/gui/widgets/playtoolbar.cpp:112
+#: src/gui/widgets/playtoolbar.cpp:116
 msgctxt "PlayToolBar|"
 msgid "Previous Track"
 msgstr "Προηγούμενο κομμάτι"
 
-#: src/gui/widgets/playtoolbar.cpp:114
+#: src/gui/widgets/playtoolbar.cpp:120
 msgctxt "PlayToolBar|"
 msgid "Next Track"
 msgstr "Επόμενο κομμάτι"
 
-#: src/gui/widgets/playtoolbar.cpp:116
+#: src/gui/widgets/playtoolbar.cpp:124
 msgctxt "PlayToolBar|"
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: src/gui/widgets/playtoolbar.cpp:134
+#: src/gui/widgets/playtoolbar.cpp:142
 msgctxt "PlayToolBar|"
 msgid "Mute"
 msgstr "Σίγαση"
 
-#: src/gui/widgets/playtoolbar.cpp:318
+#: src/gui/widgets/playtoolbar.cpp:326
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
@@ -5836,7 +5852,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1483
+#: src/plugins/discogsimport/discogsimporter.cpp:1481
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
@@ -5846,437 +5862,437 @@ msgctxt "@default|"
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:916
-#: src/plugins/taglibmetadata/taglibfile.cpp:2331
+#: src/plugins/id3libmetadata/mp3file.cpp:914
+#: src/plugins/taglibmetadata/taglibfile.cpp:2453
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
 msgstr "AENC - Κρυπτογράφηση ήχου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:917
-#: src/plugins/taglibmetadata/taglibfile.cpp:2332
+#: src/plugins/id3libmetadata/mp3file.cpp:915
+#: src/plugins/taglibmetadata/taglibfile.cpp:2454
 msgctxt "@default|"
 msgid "APIC - Attached picture"
 msgstr "APIC - Προσβαλλόμενη φωτογραφία"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:919
-#: src/plugins/taglibmetadata/taglibfile.cpp:2337
+#: src/plugins/id3libmetadata/mp3file.cpp:917
+#: src/plugins/taglibmetadata/taglibfile.cpp:2459
 msgctxt "@default|"
 msgid "COMM - Comments"
 msgstr "COMM - Σχόλια"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:920
-#: src/plugins/taglibmetadata/taglibfile.cpp:2338
+#: src/plugins/id3libmetadata/mp3file.cpp:918
+#: src/plugins/taglibmetadata/taglibfile.cpp:2460
 msgctxt "@default|"
 msgid "COMR - Commercial"
 msgstr "COMR - Εμπορικό"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:921
-#: src/plugins/taglibmetadata/taglibfile.cpp:2342
+#: src/plugins/id3libmetadata/mp3file.cpp:919
+#: src/plugins/taglibmetadata/taglibfile.cpp:2464
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - Μέθοδος κρυπτογραφημένης εγγραφής"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:923
+#: src/plugins/id3libmetadata/mp3file.cpp:921
 msgctxt "@default|"
 msgid "EQUA - Equalization"
 msgstr "EQUA - Ισοστάθμιση"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:924
-#: src/plugins/taglibmetadata/taglibfile.cpp:2344
+#: src/plugins/id3libmetadata/mp3file.cpp:922
+#: src/plugins/taglibmetadata/taglibfile.cpp:2466
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
 msgstr "ETCO - Κωδικοί χρονομέτρησης γεγονότων"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:925
-#: src/plugins/taglibmetadata/taglibfile.cpp:2345
+#: src/plugins/id3libmetadata/mp3file.cpp:923
+#: src/plugins/taglibmetadata/taglibfile.cpp:2467
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB - Γενικό εμφωλευμένο αντικείμενο"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:926
-#: src/plugins/taglibmetadata/taglibfile.cpp:2346
+#: src/plugins/id3libmetadata/mp3file.cpp:924
+#: src/plugins/taglibmetadata/taglibfile.cpp:2468
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
 msgstr "GRID - Εγγραφή με ταυτότητα ομάδας"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:927
+#: src/plugins/id3libmetadata/mp3file.cpp:925
 msgctxt "@default|"
 msgid "IPLS - Involved people list"
 msgstr "IPLS - Λίστα εμπλεκομένων"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:928
-#: src/plugins/taglibmetadata/taglibfile.cpp:2350
+#: src/plugins/id3libmetadata/mp3file.cpp:926
+#: src/plugins/taglibmetadata/taglibfile.cpp:2472
 msgctxt "@default|"
 msgid "LINK - Linked information"
 msgstr "LINK - Διασυνδεδεμένη πληροφορία"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:929
-#: src/plugins/taglibmetadata/taglibfile.cpp:2351
+#: src/plugins/id3libmetadata/mp3file.cpp:927
+#: src/plugins/taglibmetadata/taglibfile.cpp:2473
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - Αναγνωριστικό μουσικού CD"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:930
-#: src/plugins/taglibmetadata/taglibfile.cpp:2352
+#: src/plugins/id3libmetadata/mp3file.cpp:928
+#: src/plugins/taglibmetadata/taglibfile.cpp:2474
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT - Πίνακας εύρεσης θέσης MPEG"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:931
-#: src/plugins/taglibmetadata/taglibfile.cpp:2357
+#: src/plugins/id3libmetadata/mp3file.cpp:929
+#: src/plugins/taglibmetadata/taglibfile.cpp:2479
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
 msgstr "OWNE - Ιδιοκτησιακό πλαίσιο"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:932
-#: src/plugins/taglibmetadata/taglibfile.cpp:2358
+#: src/plugins/id3libmetadata/mp3file.cpp:930
+#: src/plugins/taglibmetadata/taglibfile.cpp:2480
 msgctxt "@default|"
 msgid "PRIV - Private frame"
 msgstr "PRIV - Ιδιωτικό πλαίσιο"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:933
-#: src/plugins/taglibmetadata/taglibfile.cpp:2359
+#: src/plugins/id3libmetadata/mp3file.cpp:931
+#: src/plugins/taglibmetadata/taglibfile.cpp:2481
 msgctxt "@default|"
 msgid "PCNT - Play counter"
 msgstr "PCNT - Μετρητής αναπαραγωγής"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:934
-#: src/plugins/taglibmetadata/taglibfile.cpp:2363
+#: src/plugins/id3libmetadata/mp3file.cpp:932
+#: src/plugins/taglibmetadata/taglibfile.cpp:2485
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
 msgstr "POPM - Ακροαματικότητα"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:935
-#: src/plugins/taglibmetadata/taglibfile.cpp:2364
+#: src/plugins/id3libmetadata/mp3file.cpp:933
+#: src/plugins/taglibmetadata/taglibfile.cpp:2486
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - Πλαίσιο συγχρονισμού θέσης"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:936
-#: src/plugins/taglibmetadata/taglibfile.cpp:2365
+#: src/plugins/id3libmetadata/mp3file.cpp:934
+#: src/plugins/taglibmetadata/taglibfile.cpp:2487
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - Συνιστώμενο μέγεθος ενδιάμεσης μνήμης"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:938
+#: src/plugins/id3libmetadata/mp3file.cpp:936
 msgctxt "@default|"
 msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD - Σχετική προσαρμογή έντασης"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:939
-#: src/plugins/taglibmetadata/taglibfile.cpp:2367
+#: src/plugins/id3libmetadata/mp3file.cpp:937
+#: src/plugins/taglibmetadata/taglibfile.cpp:2489
 msgctxt "@default|"
 msgid "RVRB - Reverb"
 msgstr "RVRB - Αντήχηση"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:942
-#: src/plugins/taglibmetadata/taglibfile.cpp:2370
+#: src/plugins/id3libmetadata/mp3file.cpp:940
+#: src/plugins/taglibmetadata/taglibfile.cpp:2492
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
 msgstr "SYLT - Συγχρονισμένο κείμενο/στίχοι"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:943
-#: src/plugins/taglibmetadata/taglibfile.cpp:2371
+#: src/plugins/id3libmetadata/mp3file.cpp:941
+#: src/plugins/taglibmetadata/taglibfile.cpp:2493
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC - Συγχρονισμένοι ρυθμικοί κωδικοί"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:944
-#: src/plugins/taglibmetadata/taglibfile.cpp:2372
+#: src/plugins/id3libmetadata/mp3file.cpp:942
+#: src/plugins/taglibmetadata/taglibfile.cpp:2494
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB - Τίτλος άλμπουμ/ταινίας/παράστασης"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:945
-#: src/plugins/taglibmetadata/taglibfile.cpp:2373
+#: src/plugins/id3libmetadata/mp3file.cpp:943
+#: src/plugins/taglibmetadata/taglibfile.cpp:2495
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM - BPM (παλμοί ανά λεπτό)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:946
-#: src/plugins/taglibmetadata/taglibfile.cpp:2378
+#: src/plugins/id3libmetadata/mp3file.cpp:944
+#: src/plugins/taglibmetadata/taglibfile.cpp:2500
 msgctxt "@default|"
 msgid "TCOM - Composer"
 msgstr "TCOM - Συνθέτης"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:947
-#: src/plugins/taglibmetadata/taglibfile.cpp:2379
+#: src/plugins/id3libmetadata/mp3file.cpp:945
+#: src/plugins/taglibmetadata/taglibfile.cpp:2501
 msgctxt "@default|"
 msgid "TCON - Content type"
 msgstr "TCON - Τύπος περιεχομένου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:948
-#: src/plugins/taglibmetadata/taglibfile.cpp:2380
+#: src/plugins/id3libmetadata/mp3file.cpp:946
+#: src/plugins/taglibmetadata/taglibfile.cpp:2502
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
 msgstr "TCOP - Μήνυμα copyright"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:949
+#: src/plugins/id3libmetadata/mp3file.cpp:947
 msgctxt "@default|"
 msgid "TDAT - Date"
 msgstr "TDAT - Ημερομηνία"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:951
-#: src/plugins/taglibmetadata/taglibfile.cpp:2385
+#: src/plugins/id3libmetadata/mp3file.cpp:949
+#: src/plugins/taglibmetadata/taglibfile.cpp:2507
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - Καθυστέρηση λίστας αναπαραγωγής"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:957
-#: src/plugins/taglibmetadata/taglibfile.cpp:2390
+#: src/plugins/id3libmetadata/mp3file.cpp:955
+#: src/plugins/taglibmetadata/taglibfile.cpp:2512
 msgctxt "@default|"
 msgid "TENC - Encoded by"
 msgstr "TENC - Κωδικοποιημένο με"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:958
-#: src/plugins/taglibmetadata/taglibfile.cpp:2391
+#: src/plugins/id3libmetadata/mp3file.cpp:956
+#: src/plugins/taglibmetadata/taglibfile.cpp:2513
 msgctxt "@default|"
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - Στιχουργός/συγγραφέας κειμένου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:959
-#: src/plugins/taglibmetadata/taglibfile.cpp:2392
+#: src/plugins/id3libmetadata/mp3file.cpp:957
+#: src/plugins/taglibmetadata/taglibfile.cpp:2514
 msgctxt "@default|"
 msgid "TFLT - File type"
 msgstr "TFLT - Τύπος αρχείου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:960
+#: src/plugins/id3libmetadata/mp3file.cpp:958
 msgctxt "@default|"
 msgid "TIME - Time"
 msgstr "TIME - Χρόνος"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:961
-#: src/plugins/taglibmetadata/taglibfile.cpp:2397
+#: src/plugins/id3libmetadata/mp3file.cpp:959
+#: src/plugins/taglibmetadata/taglibfile.cpp:2519
 msgctxt "@default|"
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - Περιγραφή ομάδας περιεχομένων"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:962
-#: src/plugins/taglibmetadata/taglibfile.cpp:2398
+#: src/plugins/id3libmetadata/mp3file.cpp:960
+#: src/plugins/taglibmetadata/taglibfile.cpp:2520
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - Περιγραφή τίτλου/τραγουδιού/περιεχομένου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:963
-#: src/plugins/taglibmetadata/taglibfile.cpp:2399
+#: src/plugins/id3libmetadata/mp3file.cpp:961
+#: src/plugins/taglibmetadata/taglibfile.cpp:2521
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr "TIT3 - Τελειοποίηση υποτίτλου/περιγραφής"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:964
-#: src/plugins/taglibmetadata/taglibfile.cpp:2400
+#: src/plugins/id3libmetadata/mp3file.cpp:962
+#: src/plugins/taglibmetadata/taglibfile.cpp:2522
 msgctxt "@default|"
 msgid "TKEY - Initial key"
 msgstr "TKEY - Αρχικό κλειδί"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:965
-#: src/plugins/taglibmetadata/taglibfile.cpp:2404
+#: src/plugins/id3libmetadata/mp3file.cpp:963
+#: src/plugins/taglibmetadata/taglibfile.cpp:2526
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
 msgstr "TLAN - Γλώσσες"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:966
-#: src/plugins/taglibmetadata/taglibfile.cpp:2405
+#: src/plugins/id3libmetadata/mp3file.cpp:964
+#: src/plugins/taglibmetadata/taglibfile.cpp:2527
 msgctxt "@default|"
 msgid "TLEN - Length"
 msgstr "TLEN - Μήκος"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:968
-#: src/plugins/taglibmetadata/taglibfile.cpp:2407
+#: src/plugins/id3libmetadata/mp3file.cpp:966
+#: src/plugins/taglibmetadata/taglibfile.cpp:2529
 msgctxt "@default|"
 msgid "TMED - Media type"
 msgstr "TMED - Τύπος πολυμέσων"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:970
-#: src/plugins/taglibmetadata/taglibfile.cpp:2409
+#: src/plugins/id3libmetadata/mp3file.cpp:968
+#: src/plugins/taglibmetadata/taglibfile.cpp:2531
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL - Αρχικός τίτλος άλμπουμ/ταινίας/παράστασης"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:971
-#: src/plugins/taglibmetadata/taglibfile.cpp:2410
+#: src/plugins/id3libmetadata/mp3file.cpp:969
+#: src/plugins/taglibmetadata/taglibfile.cpp:2532
 msgctxt "@default|"
 msgid "TOFN - Original filename"
 msgstr "TOFN - Αρχικό όνομα αρχείου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:972
-#: src/plugins/taglibmetadata/taglibfile.cpp:2411
+#: src/plugins/id3libmetadata/mp3file.cpp:970
+#: src/plugins/taglibmetadata/taglibfile.cpp:2533
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY - Αρχικοί στιχουργοί/συγγραφείς κειμένων"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:973
-#: src/plugins/taglibmetadata/taglibfile.cpp:2412
+#: src/plugins/id3libmetadata/mp3file.cpp:971
+#: src/plugins/taglibmetadata/taglibfile.cpp:2534
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE - Αρχικοί καλλιτέχνες/ερμηνευτές"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:974
+#: src/plugins/id3libmetadata/mp3file.cpp:972
 msgctxt "@default|"
 msgid "TORY - Original release year"
 msgstr "TORY - Αρχικό έτος έκδοσης"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:975
-#: src/plugins/taglibmetadata/taglibfile.cpp:2413
+#: src/plugins/id3libmetadata/mp3file.cpp:973
+#: src/plugins/taglibmetadata/taglibfile.cpp:2535
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN - Κάτοχος/δικαιούχος αρχείου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:976
-#: src/plugins/taglibmetadata/taglibfile.cpp:2414
+#: src/plugins/id3libmetadata/mp3file.cpp:974
+#: src/plugins/taglibmetadata/taglibfile.cpp:2536
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 - Κορυφαίοι ερμηνευτές/σολίστ"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:977
-#: src/plugins/taglibmetadata/taglibfile.cpp:2415
+#: src/plugins/id3libmetadata/mp3file.cpp:975
+#: src/plugins/taglibmetadata/taglibfile.cpp:2537
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - Συγκρότημα/ορχήστρα/συνοδεία"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:978
-#: src/plugins/taglibmetadata/taglibfile.cpp:2416
+#: src/plugins/id3libmetadata/mp3file.cpp:976
+#: src/plugins/taglibmetadata/taglibfile.cpp:2538
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
 msgstr "TPE3 - Τελειοποίηση μαέστρου/ερμηνευτή"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:979
-#: src/plugins/taglibmetadata/taglibfile.cpp:2417
+#: src/plugins/id3libmetadata/mp3file.cpp:977
+#: src/plugins/taglibmetadata/taglibfile.cpp:2539
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr "TPE4 - Ερμηνευμένο, μιξαρισμένο ή διαφορετικά τροποποιημένο από"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:980
-#: src/plugins/taglibmetadata/taglibfile.cpp:2418
+#: src/plugins/id3libmetadata/mp3file.cpp:978
+#: src/plugins/taglibmetadata/taglibfile.cpp:2540
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
 msgstr "TPOS - Μέρος συνόλου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:982
-#: src/plugins/taglibmetadata/taglibfile.cpp:2420
+#: src/plugins/id3libmetadata/mp3file.cpp:980
+#: src/plugins/taglibmetadata/taglibfile.cpp:2542
 msgctxt "@default|"
 msgid "TPUB - Publisher"
 msgstr "TPUB - Εκδότης"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:983
-#: src/plugins/taglibmetadata/taglibfile.cpp:2421
+#: src/plugins/id3libmetadata/mp3file.cpp:981
+#: src/plugins/taglibmetadata/taglibfile.cpp:2543
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - Αριθμός κομματιού/Θέση στο σύνολο"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:984
+#: src/plugins/id3libmetadata/mp3file.cpp:982
 msgctxt "@default|"
 msgid "TRDA - Recording dates"
 msgstr "TRDA - Ημερομηνίες εγγραφής"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:985
-#: src/plugins/taglibmetadata/taglibfile.cpp:2422
+#: src/plugins/id3libmetadata/mp3file.cpp:983
+#: src/plugins/taglibmetadata/taglibfile.cpp:2544
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN - Όνομα διαδικτυακού ραδιοφωνικού σταθμού"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:986
-#: src/plugins/taglibmetadata/taglibfile.cpp:2423
+#: src/plugins/id3libmetadata/mp3file.cpp:984
+#: src/plugins/taglibmetadata/taglibfile.cpp:2545
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO - Ιδιοκτήτης διαδικτυακού ραδιοφωνικού σταθμού"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:987
+#: src/plugins/id3libmetadata/mp3file.cpp:985
 msgctxt "@default|"
 msgid "TSIZ - Size"
 msgstr "TSIZ - Μέγεθος"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:991
-#: src/plugins/taglibmetadata/taglibfile.cpp:2429
+#: src/plugins/id3libmetadata/mp3file.cpp:989
+#: src/plugins/taglibmetadata/taglibfile.cpp:2551
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - ISRC (διεθνές πρότυπος κώδικας ηχογραφήσεων)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:992
-#: src/plugins/taglibmetadata/taglibfile.cpp:2430
+#: src/plugins/id3libmetadata/mp3file.cpp:990
+#: src/plugins/taglibmetadata/taglibfile.cpp:2552
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - Λογισμικό/υλικό και ρυθμίσεις για την κωδικοποίηση"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:994
-#: src/plugins/taglibmetadata/taglibfile.cpp:2432
+#: src/plugins/id3libmetadata/mp3file.cpp:992
+#: src/plugins/taglibmetadata/taglibfile.cpp:2554
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
 msgstr "TXXX - Κείμενο πληροφοριών ορισμένο από τον χρήστη"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:995
+#: src/plugins/id3libmetadata/mp3file.cpp:993
 msgctxt "@default|"
 msgid "TYER - Year"
 msgstr "TYER - Έτος"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:996
-#: src/plugins/taglibmetadata/taglibfile.cpp:2433
+#: src/plugins/id3libmetadata/mp3file.cpp:994
+#: src/plugins/taglibmetadata/taglibfile.cpp:2555
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
 msgstr "UFID - Μοναδικό αναγνωριστικό αρχείου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:997
-#: src/plugins/taglibmetadata/taglibfile.cpp:2434
+#: src/plugins/id3libmetadata/mp3file.cpp:995
+#: src/plugins/taglibmetadata/taglibfile.cpp:2556
 msgctxt "@default|"
 msgid "USER - Terms of use"
 msgstr "USER - Όροι χρήσης"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:998
-#: src/plugins/taglibmetadata/taglibfile.cpp:2435
+#: src/plugins/id3libmetadata/mp3file.cpp:996
+#: src/plugins/taglibmetadata/taglibfile.cpp:2557
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr "USLT - Μη συγχρονισμένο αντίγραφο στίχων/κειμένου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:999
-#: src/plugins/taglibmetadata/taglibfile.cpp:2436
+#: src/plugins/id3libmetadata/mp3file.cpp:997
+#: src/plugins/taglibmetadata/taglibfile.cpp:2558
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
 msgstr "WCOM - Πληροφορίες εμπορικού ενδιαφέροντος"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1000
-#: src/plugins/taglibmetadata/taglibfile.cpp:2437
+#: src/plugins/id3libmetadata/mp3file.cpp:998
+#: src/plugins/taglibmetadata/taglibfile.cpp:2559
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - Copyright/νομικές πληροφορίες"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1001
-#: src/plugins/taglibmetadata/taglibfile.cpp:2441
+#: src/plugins/id3libmetadata/mp3file.cpp:999
+#: src/plugins/taglibmetadata/taglibfile.cpp:2563
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF - Επίσημη ιστοσελίδα αρχείου ήχου"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1002
-#: src/plugins/taglibmetadata/taglibfile.cpp:2442
+#: src/plugins/id3libmetadata/mp3file.cpp:1000
+#: src/plugins/taglibmetadata/taglibfile.cpp:2564
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR - Επίσημη ιστοσελίδα καλλιτέχνη/ερμηνευτή"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1003
-#: src/plugins/taglibmetadata/taglibfile.cpp:2443
+#: src/plugins/id3libmetadata/mp3file.cpp:1001
+#: src/plugins/taglibmetadata/taglibfile.cpp:2565
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
 msgstr "WOAS - Επίσημη ιστοσελίδα ηχητικής πηγής"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1004
-#: src/plugins/taglibmetadata/taglibfile.cpp:2444
+#: src/plugins/id3libmetadata/mp3file.cpp:1002
+#: src/plugins/taglibmetadata/taglibfile.cpp:2566
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
 msgstr "WORS - Επίσημη σελίδα διαδικτυακού ραδιοφωνικού σταθμού"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1005
-#: src/plugins/taglibmetadata/taglibfile.cpp:2445
+#: src/plugins/id3libmetadata/mp3file.cpp:1003
+#: src/plugins/taglibmetadata/taglibfile.cpp:2567
 msgctxt "@default|"
 msgid "WPAY - Payment"
 msgstr "WPAY - Πληρωμή"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1006
-#: src/plugins/taglibmetadata/taglibfile.cpp:2446
+#: src/plugins/id3libmetadata/mp3file.cpp:1004
+#: src/plugins/taglibmetadata/taglibfile.cpp:2568
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
 msgstr "WPUB - Επίσημη ιστοσελίδα εκδότη"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1007
-#: src/plugins/taglibmetadata/taglibfile.cpp:2447
+#: src/plugins/id3libmetadata/mp3file.cpp:1005
+#: src/plugins/taglibmetadata/taglibfile.cpp:2569
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - Δεσμός URL ορισμένος από τον χρήστη"
@@ -6286,167 +6302,167 @@ msgctxt "@default|"
 msgid "MusicBrainz Release"
 msgstr "Έκδοση MusicBrainz"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2333
+#: src/plugins/taglibmetadata/taglibfile.cpp:2455
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - Δείκτης σημείου αναζήτησης ήχου"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2335
+#: src/plugins/taglibmetadata/taglibfile.cpp:2457
 msgctxt "@default|"
 msgid "CHAP - Chapter"
 msgstr "CHAP - Κεφάλαιο"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2340
+#: src/plugins/taglibmetadata/taglibfile.cpp:2462
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
 msgstr "CTOC - Πίνακας περιεχομένων"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2343
+#: src/plugins/taglibmetadata/taglibfile.cpp:2465
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Ισοστάθμιση (2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2348
+#: src/plugins/taglibmetadata/taglibfile.cpp:2470
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
 msgstr "GRP1 - Ομαδοποίηση"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2354
+#: src/plugins/taglibmetadata/taglibfile.cpp:2476
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Αριθμός κίνησης"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2355
+#: src/plugins/taglibmetadata/taglibfile.cpp:2477
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
 msgstr "MVNM - Όνομα κίνησης"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2361
+#: src/plugins/taglibmetadata/taglibfile.cpp:2483
 msgctxt "@default|"
 msgid "PCST - Podcast"
 msgstr "PCST - Εκπομπή"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2366
+#: src/plugins/taglibmetadata/taglibfile.cpp:2488
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - Σχετική προσαρμογή έντασης (2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2368
+#: src/plugins/taglibmetadata/taglibfile.cpp:2490
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
 msgstr "SEEK - Πλαίσιο αναζήτησης"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2369
+#: src/plugins/taglibmetadata/taglibfile.cpp:2491
 msgctxt "@default|"
 msgid "SIGN - Signature frame"
 msgstr "SIGN - Πλαίσιο υπογραφής"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2375
+#: src/plugins/taglibmetadata/taglibfile.cpp:2497
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
 msgstr "TCAT - Κατηγορία εκπομπής"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2377
+#: src/plugins/taglibmetadata/taglibfile.cpp:2499
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - Ένδειξη συλλογής iTunes"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2381
+#: src/plugins/taglibmetadata/taglibfile.cpp:2503
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Χρόνος κωδικοποίησης"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2383
+#: src/plugins/taglibmetadata/taglibfile.cpp:2505
 msgctxt "@default|"
 msgid "TDES - Podcast description"
 msgstr "TDES - Περιγραφή εκπομπής"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2386
+#: src/plugins/taglibmetadata/taglibfile.cpp:2508
 msgctxt "@default|"
 msgid "TDOR - Original release time"
 msgstr "TDOR - Χρόνος αρχικής έκδοσης"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2387
+#: src/plugins/taglibmetadata/taglibfile.cpp:2509
 msgctxt "@default|"
 msgid "TDRC - Recording time"
 msgstr "TDRC - Χρόνος εγγραφής"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2388
+#: src/plugins/taglibmetadata/taglibfile.cpp:2510
 msgctxt "@default|"
 msgid "TDRL - Release time"
 msgstr "TDRL - Χρόνος έκδοσης"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2389
+#: src/plugins/taglibmetadata/taglibfile.cpp:2511
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Χρόνος δημιουργίας ετικετών"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2394
+#: src/plugins/taglibmetadata/taglibfile.cpp:2516
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
 msgstr "TGID - Αναγνωριστικό εκπομπής"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2396
+#: src/plugins/taglibmetadata/taglibfile.cpp:2518
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
 msgstr "TIPL - Λίστα εμπλεκομένων"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2402
+#: src/plugins/taglibmetadata/taglibfile.cpp:2524
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
 msgstr "TKWD - Λέξεις-κλειδιά εκπομπής"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2406
+#: src/plugins/taglibmetadata/taglibfile.cpp:2528
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - Λίστα μουσικών στους τίτλους τέλους"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2408
+#: src/plugins/taglibmetadata/taglibfile.cpp:2530
 msgctxt "@default|"
 msgid "TMOO - Mood"
 msgstr "TMOO - Διάθεση"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2419
+#: src/plugins/taglibmetadata/taglibfile.cpp:2541
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
 msgstr "TPRO - Παραγόμενη σημείωση"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2424
+#: src/plugins/taglibmetadata/taglibfile.cpp:2546
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 - Σειρά ταξινόμησης καλλιτεχνών άλμπουμ"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2425
+#: src/plugins/taglibmetadata/taglibfile.cpp:2547
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
 msgstr "TSOA - Σειρά ταξινόμησης άλμπουμ"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2426
+#: src/plugins/taglibmetadata/taglibfile.cpp:2548
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
 msgstr "TSOC - Σειρά ταξινόμησης συνθετών"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2427
+#: src/plugins/taglibmetadata/taglibfile.cpp:2549
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
 msgstr "TSOP - Σειρά ταξινόμησης ερμηνευτών"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2428
+#: src/plugins/taglibmetadata/taglibfile.cpp:2550
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
 msgstr "TSOT - Σειρά ταξινόμησης τίτλων"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2431
+#: src/plugins/taglibmetadata/taglibfile.cpp:2553
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
 msgstr "TSST - Ρύθμιση υποτίτλου"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2439
+#: src/plugins/taglibmetadata/taglibfile.cpp:2561
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Ροή εκπομπής"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6725
+#: src/plugins/taglibmetadata/taglibfile.cpp:6850
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "Πληροφορίες αξιολόγησης"
