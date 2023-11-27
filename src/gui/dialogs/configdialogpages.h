@@ -28,6 +28,7 @@
 
 #include <QObject>
 #include "kid3api.h"
+#include "config.h"
 
 class QCheckBox;
 class QString;
@@ -201,6 +202,10 @@ private:
   QCheckBox* m_playOnDoubleClickCheckBox;
   /** Select file on play checkbox */
   QCheckBox* m_selectFileOnPlayCheckBox;
+#if defined HAVE_QTMULTIMEDIA && QT_VERSION >= 0x060200
+  /** Audio outputs combo box */
+  QComboBox* m_audioOutputComboBox;
+#endif
   /** Commands table */
   ConfigTable* m_commandsTable;
   /** Commands table model */

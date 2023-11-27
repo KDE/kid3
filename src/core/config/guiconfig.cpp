@@ -75,6 +75,8 @@ void GuiConfig::writeToConfig(ISettings* config) const
                    QVariant(m_selectFileOnPlayEnabled));
   config->setValue(QLatin1String("PlayToolBarVisible"),
                    QVariant(m_playToolBarVisible));
+  config->setValue(QLatin1String("PreferredAudioOutput"),
+                   QVariant(m_preferredAudioOutput));
   config->setValue(QLatin1String("FileListVisibleColumns"),
                    QVariant(intListToStringList(m_fileListVisibleColumns)));
   config->setValue(QLatin1String("FileListCustomColumnWidthsEnabled"),
@@ -143,6 +145,8 @@ void GuiConfig::readFromConfig(ISettings* config)
                     m_selectFileOnPlayEnabled).toBool();
   m_playToolBarVisible = config->value(QLatin1String("PlayToolBarVisible"),
                                        m_playToolBarVisible).toBool();
+  m_preferredAudioOutput = config->value(QLatin1String("PreferredAudioOutput"),
+                                         m_preferredAudioOutput).toString();
   m_fileListVisibleColumns = stringListToIntList(
         config->value(QLatin1String("FileListVisibleColumns"), QStringList())
         .toStringList());
@@ -360,6 +364,14 @@ void GuiConfig::setPlayToolBarVisible(bool playToolBarVisible)
   if (m_playToolBarVisible != playToolBarVisible) {
     m_playToolBarVisible = playToolBarVisible;
     emit playToolBarVisibleChanged(m_playToolBarVisible);
+  }
+}
+
+void GuiConfig::setPreferredAudioOutput(const QString& preferredAudioOutput)
+{
+  if (m_preferredAudioOutput != preferredAudioOutput) {
+    m_preferredAudioOutput = preferredAudioOutput;
+    emit preferredAudioOutputChanged(m_preferredAudioOutput);
   }
 }
 

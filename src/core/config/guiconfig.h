@@ -93,6 +93,9 @@ class KID3_CORE_EXPORT GuiConfig : public StoredConfig<GuiConfig> {
   /** true if play tool bar is visible */
   Q_PROPERTY(bool playToolBarVisible READ playToolBarVisible
              WRITE setPlayToolBarVisible NOTIFY playToolBarVisibleChanged)
+  /** preferred audio output description and ID */
+  Q_PROPERTY(QString preferredAudioOutput READ preferredAudioOutput
+             WRITE setPreferredAudioOutput NOTIFY preferredAudioOutputChanged)
   /** play tool bar docked area */
   Q_PROPERTY(int playToolBarArea READ playToolBarArea
              WRITE setPlayToolBarArea NOTIFY playToolBarAreaChanged)
@@ -243,6 +246,12 @@ public:
   /** Set if play tool bar is visible. */
   void setPlayToolBarVisible(bool playToolBarVisible);
 
+  /** Get name and ID of preferred audio output. */
+  QString preferredAudioOutput() const { return m_preferredAudioOutput; }
+
+  /** Set name and ID of preferred audio output. */
+  void setPreferredAudioOutput(const QString& preferredAudioOutput);
+
   /** Get play tool bar docked area. */
   int playToolBarArea() const { return m_playToolBarArea; }
 
@@ -313,6 +322,9 @@ signals:
   /** Emitted when @a playToolBarVisible changed. */
   void playToolBarVisibleChanged(bool playToolBarVisible);
 
+  /** Emitted when @a preferredAudioOutput changed. */
+  void preferredAudioOutputChanged(const QString& preferredAudioOutput);
+
   /** Emitted when @a playToolBarArea changed. */
   void playToolBarAreaChanged(int playToolBarArea);
 
@@ -333,6 +345,7 @@ private:
   QList<int> m_splitterSizes;
   QList<int> m_vSplitterSizes;
   QByteArray m_configWindowGeometry;
+  QString m_preferredAudioOutput;
   int m_playToolBarArea;
   bool m_autoHideTags;
   bool m_hideFile;

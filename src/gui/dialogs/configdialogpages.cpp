@@ -42,6 +42,10 @@
 #include <QGroupBox>
 #include <QStringListModel>
 #include <QStandardItemModel>
+#if defined HAVE_QTMULTIMEDIA && QT_VERSION >= 0x060200
+#include <QMediaDevices>
+#include <QAudioDevice>
+#endif
 #include "formatconfig.h"
 #include "filenameformatbox.h"
 #include "tagformatbox.h"
@@ -149,6 +153,9 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
   m_quickAccessTagsModel(nullptr), m_starRatingMappingsModel(nullptr),
   m_trackNameComboBox(nullptr), m_playOnDoubleClickCheckBox(nullptr),
   m_selectFileOnPlayCheckBox(nullptr),
+#if defined HAVE_QTMULTIMEDIA && QT_VERSION >= 0x060200
+  m_audioOutputComboBox(nullptr),
+#endif
   m_commandsTable(nullptr), m_commandsTableModel(nullptr),
   m_browserLineEdit(nullptr), m_proxyCheckBox(nullptr),
   m_proxyLineEdit(nullptr), m_proxyAuthenticationCheckBox(nullptr),
@@ -541,6 +548,19 @@ QWidget* ConfigDialogPages::createActionsPage()
       new QCheckBox(tr("&Play on double click"), commandsGroupBox);
   m_selectFileOnPlayCheckBox =
       new QCheckBox(tr("&Select file on play"), commandsGroupBox);
+#if defined HAVE_QTMULTIMEDIA && QT_VERSION >= 0x060200
+  auto audioOutputLayout = new QHBoxLayout;
+  QLabel* audioOutputLabel = new QLabel(tr("A&udio output:"), commandsGroupBox);
+  m_audioOutputComboBox = new QComboBox(commandsGroupBox);
+  m_audioOutputComboBox->addItem(tr("System"));
+  const auto audioOutputs = QMediaDevices::audioOutputs();
+  for (const auto& audioOutput : audioOutputs) {
+    m_audioOutputComboBox->addItem(audioOutput.description(), audioOutput.id());
+  }
+  audioOutputLabel->setBuddy(m_audioOutputComboBox);
+  audioOutputLayout->addWidget(audioOutputLabel);
+  audioOutputLayout->addWidget(m_audioOutputComboBox, 1);
+#endif
   m_commandsTableModel = new CommandsTableModel(commandsGroupBox);
   m_commandsTable = new ConfigTable(m_commandsTableModel, commandsGroupBox);
   m_commandsTable->setHorizontalResizeModes(
@@ -548,6 +568,9 @@ QWidget* ConfigDialogPages::createActionsPage()
   auto commandsLayout = new QVBoxLayout;
   commandsLayout->addWidget(m_playOnDoubleClickCheckBox);
   commandsLayout->addWidget(m_selectFileOnPlayCheckBox);
+#if defined HAVE_QTMULTIMEDIA && QT_VERSION >= 0x060200
+  commandsLayout->addLayout(audioOutputLayout);
+#endif
   commandsLayout->addWidget(m_commandsTable);
   commandsGroupBox->setLayout(commandsLayout);
   vlayout->addWidget(commandsGroupBox);
@@ -739,6 +762,21 @@ void ConfigDialogPages::setConfigs(
   m_browserLineEdit->setText(networkCfg.browser());
   m_playOnDoubleClickCheckBox->setChecked(guiCfg.playOnDoubleClick());
   m_selectFileOnPlayCheckBox->setChecked(guiCfg.selectFileOnPlayEnabled());
+#if defined HAVE_QTMULTIMEDIA && QT_VERSION >= 0x060200
+  int audioOutputIndex = 0;
+  QString text = guiCfg.preferredAudioOutput();
+  if (text.endsWith(QLatin1Char(']'))) {
+    int idPos = text.lastIndexOf(QLatin1Char('['));
+    if (idPos != -1) {
+      audioOutputIndex = m_audioOutputComboBox->findData(
+          text.mid(idPos + 1, text.length() - idPos - 2).toLatin1());
+      if (audioOutputIndex == -1) {
+        audioOutputIndex = 0;
+      }
+    }
+  }
+  m_audioOutputComboBox->setCurrentIndex(audioOutputIndex);
+#endif
   m_proxyCheckBox->setChecked(networkCfg.useProxy());
   m_proxyLineEdit->setText(networkCfg.proxy());
   m_proxyAuthenticationCheckBox->setChecked(networkCfg.useProxyAuthentication());
@@ -854,6 +892,13 @@ void ConfigDialogPages::getConfig() const
   networkCfg.setBrowser(m_browserLineEdit->text());
   guiCfg.setPlayOnDoubleClick(m_playOnDoubleClickCheckBox->isChecked());
   guiCfg.setSelectFileOnPlayEnabled(m_selectFileOnPlayCheckBox->isChecked());
+#if defined HAVE_QTMULTIMEDIA && QT_VERSION >= 0x060200
+  guiCfg.setPreferredAudioOutput(m_audioOutputComboBox->currentData().isNull()
+    ? QString()
+    : m_audioOutputComboBox->currentText() + QLatin1String(" [") +
+        QLatin1String(m_audioOutputComboBox->currentData().toByteArray()) +
+        QLatin1Char(']'));
+#endif
   networkCfg.setUseProxy(m_proxyCheckBox->isChecked());
   networkCfg.setProxy(m_proxyLineEdit->text());
   networkCfg.setUseProxyAuthentication(m_proxyAuthenticationCheckBox->isChecked());

@@ -31,6 +31,9 @@
 #include <QMediaPlayer>
 #if QT_VERSION >= 0x060200
 #include <QAudioOutput>
+#include <QAudioDevice>
+#include <QMediaDevices>
+#include "guiconfig.h"
 #else
 #include <QMediaPlaylist>
 #endif
@@ -107,7 +110,10 @@ AudioPlayer::AudioPlayer(Kid3Application* app) : QObject(app),
   m_mediaPlayer = new QMediaPlayer(this);
 #if QT_VERSION >= 0x060200
   m_mediaPlaylist = new MediaPlaylist(this);
+  m_mediaDevices = new QMediaDevices(this);
   m_audioOutput = new QAudioOutput(this);
+  const GuiConfig& guiCfg = GuiConfig::instance();
+  setPreferredAudioOutput();
   m_mediaPlayer->setAudioOutput(m_audioOutput);
   connect(m_mediaPlayer, &QMediaPlayer::positionChanged,
           this, &AudioPlayer::positionChanged);
@@ -117,6 +123,10 @@ AudioPlayer::AudioPlayer(Kid3Application* app) : QObject(app),
           this, &AudioPlayer::onMediaStatusChanged);
   connect(m_audioOutput, &QAudioOutput::volumeChanged,
           this, &AudioPlayer::volumeChanged);
+  connect(m_mediaDevices, &QMediaDevices::audioOutputsChanged,
+          this, &AudioPlayer::setPreferredAudioOutput);
+  connect(&guiCfg, &GuiConfig::preferredAudioOutputChanged,
+          this, &AudioPlayer::setPreferredAudioOutput);
 #else
   m_mediaPlaylist = new QMediaPlaylist(m_mediaPlayer);
   m_mediaPlayer->setPlaylist(m_mediaPlaylist);
@@ -249,18 +259,67 @@ void AudioPlayer::onStateChanged()
 }
 
 #if QT_VERSION >= 0x060200
-  /**
-   * Go to next track when end of media reached.
-   * @param status media status (QMediaPlayer::MediaStatus)
-   */
-  void AudioPlayer::onMediaStatusChanged(int status)
-  {
-    if (status == QMediaPlayer::EndOfMedia &&
-        m_mediaPlaylist->currentIndex() + 1 < m_mediaPlaylist->mediaCount()) {
-      m_mediaPlaylist->next();
-      m_mediaPlayer->play();
+/**
+ * Go to next track when end of media reached.
+ * @param status media status (QMediaPlayer::MediaStatus)
+ */
+void AudioPlayer::onMediaStatusChanged(int status)
+{
+  if (status == QMediaPlayer::EndOfMedia &&
+      m_mediaPlaylist->currentIndex() + 1 < m_mediaPlaylist->mediaCount()) {
+    m_mediaPlaylist->next();
+    m_mediaPlayer->play();
+  }
+}
+
+/**
+ * Set the output device to the preferred audio output.
+ */
+void AudioPlayer::setPreferredAudioOutput()
+{
+  const GuiConfig& guiCfg = GuiConfig::instance();
+  QString description = guiCfg.preferredAudioOutput();
+  QByteArray preferredId;
+  if (description.endsWith(QLatin1Char(']'))) {
+    int idPos = description.lastIndexOf(QLatin1Char('['));
+    if (idPos != -1) {
+      preferredId = description.mid(idPos + 1,
+                           description.length() - idPos - 2).toLatin1();
     }
   }
+
+  QAudioDevice defaultAudioOutput = QMediaDevices::defaultAudioOutput();
+  QByteArray defaultId = defaultAudioOutput.id();
+  QList<QAudioDevice> audioOutputs = QMediaDevices::audioOutputs();
+  int preferredIndex = -1;
+  int defaultIndex = -1;
+  for (int i = 0; i < audioOutputs.size(); ++i) {
+    QByteArray id = audioOutputs.at(i).id();
+    if (preferredId == id) {
+      preferredIndex = i;
+    }
+    if (defaultId == id) {
+      defaultIndex = i;
+    }
+  }
+
+  QAudioDevice currentAudioOutput = m_audioOutput->device();
+  if (preferredIndex >= 0 && preferredIndex < audioOutputs.size()) {
+    if (currentAudioOutput.id() != preferredId) {
+      qDebug("Changing audio output to %s", qPrintable(preferredId));
+      m_audioOutput->setDevice(audioOutputs.at(preferredIndex));
+    }
+  } else if (defaultIndex >= 0 && defaultIndex < audioOutputs.size()) {
+    if (currentAudioOutput.id() != defaultId) {
+      qDebug("Changing audio output to default %s", qPrintable(defaultId));
+      m_audioOutput->setDevice(audioOutputs.at(defaultIndex));
+    }
+  } else if (!audioOutputs.isEmpty()) {
+    qDebug("Falling back to first audio output %s", qPrintable(audioOutputs.first().id()));
+    m_audioOutput->setDevice(audioOutputs.first());
+  }
+}
+
 #endif
 
 /**

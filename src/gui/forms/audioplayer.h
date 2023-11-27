@@ -35,6 +35,7 @@ class Kid3Application;
 class TaggedFile;
 #if QT_VERSION >= 0x060200
 class QAudioOutput;
+class QMediaDevices;
 class MediaPlaylist;
 #else
 class QMediaPlaylist;
@@ -234,6 +235,11 @@ private slots:
    * @param status media status (QMediaPlayer::MediaStatus)
    */
   void onMediaStatusChanged(int status);
+
+  /**
+   * Set the output device to the preferred audio output.
+   */
+  void setPreferredAudioOutput();
 #endif
 
 private:
@@ -242,6 +248,7 @@ private:
 #if QT_VERSION >= 0x060200
   MediaPlaylist* m_mediaPlaylist;
   QAudioOutput* m_audioOutput;
+  QMediaDevices* m_mediaDevices;
 #else
   QMediaPlaylist* m_mediaPlaylist;
 #endif
