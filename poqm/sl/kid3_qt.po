@@ -3,13 +3,13 @@
 #
 #
 # Martin Srebotnjak <miles@filmsi.net>, 2021, 2022.
-# Matjaž Jeran <matjaz.jeran@amis.net>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023 Matjaž Jeran <matjaz.jeran@amis.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3 Trunk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-03-28 00:39+0000\n"
-"PO-Revision-Date: 2023-02-27 08:15+0100\n"
+"PO-Revision-Date: 2023-11-28 10:21+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
 "%100<=4 ? 2 : 3);\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Lokalize 22.12.2\n"
+"X-Generator: Lokalize 23.08.3\n"
 "X-Language: sl_SI\n"
 "X-Source-Language: C\n"
 "X-Poedit-SourceCharset: ISO-8859-1\n"
@@ -954,12 +954,9 @@ msgid "Section"
 msgstr "Odsek"
 
 #: src/app/kde/kdemainwindow.cpp:475
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Play"
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr "Predvajaj"
+msgstr "Predvajalnik"
 
 #: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
@@ -1531,12 +1528,9 @@ msgid "About &Qt"
 msgstr "O &Qt"
 
 #: src/app/qt/kid3mainwindow.cpp:629
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Play"
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr "Predvajaj"
+msgstr "Predvajalnik"
 
 #: src/app/qt/kid3mainwindow.cpp:653
 msgctxt "Kid3MainWindow|"
