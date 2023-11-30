@@ -3931,316 +3931,329 @@ msgstr ""
 "Llavors arrossegueu la imatge des del navegador cap a dins de la finestra "
 "del Kid3."
 
-#: src/gui/dialogs/configdialogpages.cpp:171
+#: src/gui/dialogs/configdialogpages.cpp:178
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3 versió 1"
 
-#: src/gui/dialogs/configdialogpages.cpp:174
+#: src/gui/dialogs/configdialogpages.cpp:181
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "&Marca els camps truncats"
 
-#: src/gui/dialogs/configdialogpages.cpp:176
-#: src/gui/dialogs/configdialogpages.cpp:205
+#: src/gui/dialogs/configdialogpages.cpp:183
+#: src/gui/dialogs/configdialogpages.cpp:212
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "Codificació del t&ext:"
 
-#: src/gui/dialogs/configdialogpages.cpp:190
+#: src/gui/dialogs/configdialogpages.cpp:197
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3 versió 2"
 
-#: src/gui/dialogs/configdialogpages.cpp:193
+#: src/gui/dialogs/configdialogpages.cpp:200
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "Empra el nombre de peces/&total del format de les peces"
 
-#: src/gui/dialogs/configdialogpages.cpp:196
+#: src/gui/dialogs/configdialogpages.cpp:203
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "&Dígits del número de la peça:"
 
-#: src/gui/dialogs/configdialogpages.cpp:200
+#: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Genera com a text en lloc d'una cadena numèrica"
 
-#: src/gui/dialogs/configdialogpages.cpp:202
+#: src/gui/dialogs/configdialogpages.cpp:209
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "Fitxers &WAV amb el bloc id3 en minúscules"
 
-#: src/gui/dialogs/configdialogpages.cpp:204
+#: src/gui/dialogs/configdialogpages.cpp:211
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "Mar&ca les infraccions de l'estàndard"
 
-#: src/gui/dialogs/configdialogpages.cpp:223
+#: src/gui/dialogs/configdialogpages.cpp:230
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "&Versió per a les etiquetes noves:"
 
-#: src/gui/dialogs/configdialogpages.cpp:227
+#: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3 versió 2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:229
+#: src/gui/dialogs/configdialogpages.cpp:236
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3 versió 2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:243
+#: src/gui/dialogs/configdialogpages.cpp:250
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:244
+#: src/gui/dialogs/configdialogpages.cpp:251
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "Nom del camp de co&mentari:"
 
-#: src/gui/dialogs/configdialogpages.cpp:247
+#: src/gui/dialogs/configdialogpages.cpp:254
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "Nom del camp de la imat&ge:"
 
-#: src/gui/dialogs/configdialogpages.cpp:269
+#: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Imatge"
 
-#: src/gui/dialogs/configdialogpages.cpp:272
+#: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "Marca si és més &gran que (bytes):"
 
-#: src/gui/dialogs/configdialogpages.cpp:285
+#: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "Mo&stra només els gèneres personalitzats"
 
-#: src/gui/dialogs/configdialogpages.cpp:293
+#: src/gui/dialogs/configdialogpages.cpp:300
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "Gèneres per&sonalitzats"
 
-#: src/gui/dialogs/configdialogpages.cpp:305
+#: src/gui/dialogs/configdialogpages.cpp:312
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "Ma&rcs personalitzats"
 
-#: src/gui/dialogs/configdialogpages.cpp:320
+#: src/gui/dialogs/configdialogpages.cpp:327
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "Empreu arrossegar i deixar per a reordenar els elements"
 
-#: src/gui/dialogs/configdialogpages.cpp:323
+#: src/gui/dialogs/configdialogpages.cpp:330
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "Marcs d'accés &ràpid"
 
-#: src/gui/dialogs/configdialogpages.cpp:330
+#: src/gui/dialogs/configdialogpages.cpp:337
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "INFORMACIÓ RIFF"
 
-#: src/gui/dialogs/configdialogpages.cpp:331
+#: src/gui/dialogs/configdialogpages.cpp:338
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "Nom de camp del nú&mero de la peça:"
 
 # skip-rule: t-e_sola
-#: src/gui/dialogs/configdialogpages.cpp:348
+#: src/gui/dialogs/configdialogpages.cpp:355
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "Format de l'e&tiqueta"
 
-#: src/gui/dialogs/configdialogpages.cpp:350
+#: src/gui/dialogs/configdialogpages.cpp:357
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Puntuació"
 
-#: src/gui/dialogs/configdialogpages.cpp:360
+#: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "Etiqueta &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:362
+#: src/gui/dialogs/configdialogpages.cpp:369
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "Etiqueta &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:363
+#: src/gui/dialogs/configdialogpages.cpp:370
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "Etiqueta &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:364
+#: src/gui/dialogs/configdialogpages.cpp:371
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "Totes les eti&quetes"
 
-#: src/gui/dialogs/configdialogpages.cpp:382
+#: src/gui/dialogs/configdialogpages.cpp:389
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Inici"
 
-#: src/gui/dialogs/configdialogpages.cpp:383
+#: src/gui/dialogs/configdialogpages.cpp:390
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "Ca&rrega els últims fitxers oberts"
 
-#: src/gui/dialogs/configdialogpages.cpp:389
+#: src/gui/dialogs/configdialogpages.cpp:396
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Desa"
 
-#: src/gui/dialogs/configdialogpages.cpp:390
+#: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "&Conserva la marca de temps del fitxer"
 
-#: src/gui/dialogs/configdialogpages.cpp:392
+#: src/gui/dialogs/configdialogpages.cpp:399
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "&Marca els canvis"
 
-#: src/gui/dialogs/configdialogpages.cpp:402
+#: src/gui/dialogs/configdialogpages.cpp:409
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "Nom de f&itxer per a la caràtula:"
 
-#: src/gui/dialogs/configdialogpages.cpp:403
+#: src/gui/dialogs/configdialogpages.cpp:410
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Codificació del t&ext (Exporta, Llista de reproducció):"
 
-#: src/gui/dialogs/configdialogpages.cpp:408
+#: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Llista de fitxers"
 
-#: src/gui/dialogs/configdialogpages.cpp:409
+#: src/gui/dialogs/configdialogpages.cpp:416
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Filt&re:"
 
-#: src/gui/dialogs/configdialogpages.cpp:419
+#: src/gui/dialogs/configdialogpages.cpp:426
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "Carpetes a incl&oure:"
 
 # skip-rule: t-e_sola
-#: src/gui/dialogs/configdialogpages.cpp:423
+#: src/gui/dialogs/configdialogpages.cpp:430
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "Carpetes a e&xcloure:"
 
-#: src/gui/dialogs/configdialogpages.cpp:427
+#: src/gui/dialogs/configdialogpages.cpp:434
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "Mostra els fitxers &ocults"
 
-#: src/gui/dialogs/configdialogpages.cpp:439
+#: src/gui/dialogs/configdialogpages.cpp:446
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Format"
 
-#: src/gui/dialogs/configdialogpages.cpp:443
+#: src/gui/dialogs/configdialogpages.cpp:450
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "Nom del fitxer des de l'etiqueta"
 
-#: src/gui/dialogs/configdialogpages.cpp:448
+#: src/gui/dialogs/configdialogpages.cpp:455
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "Etiqueta des del nom de fitxer"
 
-#: src/gui/dialogs/configdialogpages.cpp:454
-#: src/gui/dialogs/configdialogpages.cpp:514
+#: src/gui/dialogs/configdialogpages.cpp:461
+#: src/gui/dialogs/configdialogpages.cpp:521
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Llista de reproducció"
 
-#: src/gui/dialogs/configdialogpages.cpp:466
+#: src/gui/dialogs/configdialogpages.cpp:473
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "&Format del nom de fitxer"
 
-#: src/gui/dialogs/configdialogpages.cpp:482
+#: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "Nom del fitxer des de l'etiqueta"
 
-#: src/gui/dialogs/configdialogpages.cpp:498
+#: src/gui/dialogs/configdialogpages.cpp:505
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "Etiqueta des del nom de fitxer"
 
-#: src/gui/dialogs/configdialogpages.cpp:528
+#: src/gui/dialogs/configdialogpages.cpp:535
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Navegador"
 
-#: src/gui/dialogs/configdialogpages.cpp:529
+#: src/gui/dialogs/configdialogpages.cpp:536
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "Na&vegador web:"
 
-#: src/gui/dialogs/configdialogpages.cpp:538
+#: src/gui/dialogs/configdialogpages.cpp:545
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "Ordres del &menú contextual"
 
-#: src/gui/dialogs/configdialogpages.cpp:541
+#: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "Re&produeix en fer doble clic"
 
-#: src/gui/dialogs/configdialogpages.cpp:543
+#: src/gui/dialogs/configdialogpages.cpp:550
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "&Selecciona el fitxer en reproducció"
 
-#: src/gui/dialogs/configdialogpages.cpp:565
+#: src/gui/dialogs/configdialogpages.cpp:553
+msgctxt "ConfigDialogPages|"
+msgid "A&udio output:"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:555
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "System"
+msgctxt "ConfigDialogPages|"
+msgid "System"
+msgstr "Sistema"
+
+#: src/gui/dialogs/configdialogpages.cpp:588
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Intermediari"
 
-#: src/gui/dialogs/configdialogpages.cpp:566
+#: src/gui/dialogs/configdialogpages.cpp:589
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Servidor intermediari:"
 
-#: src/gui/dialogs/configdialogpages.cpp:569
+#: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "&Usa autenticació amb el servidor intermediari"
 
-#: src/gui/dialogs/configdialogpages.cpp:571
+#: src/gui/dialogs/configdialogpages.cpp:594
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "&Nom d'usuari al servidor intermediari:"
 
-#: src/gui/dialogs/configdialogpages.cpp:575
+#: src/gui/dialogs/configdialogpages.cpp:598
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "Contrasen&ya al servidor intermediari:"
 
-#: src/gui/dialogs/configdialogpages.cpp:609
+#: src/gui/dialogs/configdialogpages.cpp:632
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "Co&nnectors de metadades i prioritat"
 
-#: src/gui/dialogs/configdialogpages.cpp:621
+#: src/gui/dialogs/configdialogpages.cpp:644
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "Connectors dispo&nibles"
 
-#: src/gui/dialogs/configdialogpages.cpp:632
+#: src/gui/dialogs/configdialogpages.cpp:655
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "Els canvis només tindran efecte en el següent reinici!"

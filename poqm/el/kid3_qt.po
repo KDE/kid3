@@ -3928,98 +3928,98 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Έπειτα έλκυσε την εικόνα από τον περιηγητή στο Kid3."
 
-#: src/gui/dialogs/configdialogpages.cpp:171
+#: src/gui/dialogs/configdialogpages.cpp:178
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:174
+#: src/gui/dialogs/configdialogpages.cpp:181
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "Σήμανση σε αποκομμένα πεδία"
 
-#: src/gui/dialogs/configdialogpages.cpp:176
-#: src/gui/dialogs/configdialogpages.cpp:205
+#: src/gui/dialogs/configdialogpages.cpp:183
+#: src/gui/dialogs/configdialogpages.cpp:212
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "Κωδικοποίηση κ&ειμένου:"
 
-#: src/gui/dialogs/configdialogpages.cpp:190
+#: src/gui/dialogs/configdialogpages.cpp:197
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:193
+#: src/gui/dialogs/configdialogpages.cpp:200
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "Τύπος χρήσης καταμέτρησης κομμα&τιών/συνόλου κομματιών"
 
-#: src/gui/dialogs/configdialogpages.cpp:196
+#: src/gui/dialogs/configdialogpages.cpp:203
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "Ψηφία αρι&θμού κομματιών:"
 
-#: src/gui/dialogs/configdialogpages.cpp:200
+#: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "Εί&δος ως κείμενο αντί αριθμητικής συμβολοσειράς"
 
-#: src/gui/dialogs/configdialogpages.cpp:202
+#: src/gui/dialogs/configdialogpages.cpp:209
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "&WAV αρχεία με πεζό id3 τμήμα"
 
-#: src/gui/dialogs/configdialogpages.cpp:204
+#: src/gui/dialogs/configdialogpages.cpp:211
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "Σήμανση τυπι&κών παραβιάσεων"
 
-#: src/gui/dialogs/configdialogpages.cpp:223
+#: src/gui/dialogs/configdialogpages.cpp:230
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "Έκδ&οση για τις νέες ετικέτες:"
 
-#: src/gui/dialogs/configdialogpages.cpp:227
+#: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:229
+#: src/gui/dialogs/configdialogpages.cpp:236
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:243
+#: src/gui/dialogs/configdialogpages.cpp:250
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:244
+#: src/gui/dialogs/configdialogpages.cpp:251
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "Όνο&μα αρχείου για το σχόλιο:"
 
-#: src/gui/dialogs/configdialogpages.cpp:247
+#: src/gui/dialogs/configdialogpages.cpp:254
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "Ό&νομα αρχείου για τη φωτογραφία:"
 
-#: src/gui/dialogs/configdialogpages.cpp:269
+#: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Φωτογραφία"
 
-#: src/gui/dialogs/configdialogpages.cpp:272
+#: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "Να σημειωθεί αν είναι μεγα&λύτερο από (bytes):"
 
-#: src/gui/dialogs/configdialogpages.cpp:285
+#: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "Να εμφανίζονται μόνο προ&σαρμοσμένα είδη"
 
-#: src/gui/dialogs/configdialogpages.cpp:293
+#: src/gui/dialogs/configdialogpages.cpp:300
 #, fuzzy
 #| msgctxt "SettingsPage|"
 #| msgid "Custom Genres"
@@ -4027,138 +4027,138 @@ msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "Προσαρμοσμένα είδη"
 
-#: src/gui/dialogs/configdialogpages.cpp:305
+#: src/gui/dialogs/configdialogpages.cpp:312
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "Προσα&ρμοσμένα πλαίσια"
 
-#: src/gui/dialogs/configdialogpages.cpp:320
+#: src/gui/dialogs/configdialogpages.cpp:327
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "Χρήση έλκυσης και απόθεσης για αναδιάταξη των αντικειμένων"
 
-#: src/gui/dialogs/configdialogpages.cpp:323
+#: src/gui/dialogs/configdialogpages.cpp:330
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "Π&λαίσια γρήγορης πρόσβασης"
 
-#: src/gui/dialogs/configdialogpages.cpp:330
+#: src/gui/dialogs/configdialogpages.cpp:337
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF INFO"
 
-#: src/gui/dialogs/configdialogpages.cpp:331
+#: src/gui/dialogs/configdialogpages.cpp:338
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "Όνομα πεδίου αριθ&μού κομματιών:"
 
-#: src/gui/dialogs/configdialogpages.cpp:348
+#: src/gui/dialogs/configdialogpages.cpp:355
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "Μορφή ε&τικέτας"
 
-#: src/gui/dialogs/configdialogpages.cpp:350
+#: src/gui/dialogs/configdialogpages.cpp:357
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Αξιολόγηση"
 
-#: src/gui/dialogs/configdialogpages.cpp:360
+#: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "Ετικέτα &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:362
+#: src/gui/dialogs/configdialogpages.cpp:369
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "Ετικέτα &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:363
+#: src/gui/dialogs/configdialogpages.cpp:370
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "Ετικέτα &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:364
+#: src/gui/dialogs/configdialogpages.cpp:371
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "Όλες οι ετι&κέτες"
 
-#: src/gui/dialogs/configdialogpages.cpp:382
+#: src/gui/dialogs/configdialogpages.cpp:389
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Εκκίνηση"
 
-#: src/gui/dialogs/configdialogpages.cpp:383
+#: src/gui/dialogs/configdialogpages.cpp:390
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "&Φόρτωση πρόσφατα ανοιγμένων αρχείων"
 
-#: src/gui/dialogs/configdialogpages.cpp:389
+#: src/gui/dialogs/configdialogpages.cpp:396
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: src/gui/dialogs/configdialogpages.cpp:390
+#: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "&Διατήρηση χρονοσφραγίδας αρχείου"
 
-#: src/gui/dialogs/configdialogpages.cpp:392
+#: src/gui/dialogs/configdialogpages.cpp:399
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "Ση&μείωση αλλαγών"
 
-#: src/gui/dialogs/configdialogpages.cpp:402
+#: src/gui/dialogs/configdialogpages.cpp:409
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "Όν&ομα αρχείου για το εξώφυλλο:"
 
-#: src/gui/dialogs/configdialogpages.cpp:403
+#: src/gui/dialogs/configdialogpages.cpp:410
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Κωδικοποίηση κ&ειμένου (Εξαγωγή, λίστα αναπαραγωγής):"
 
-#: src/gui/dialogs/configdialogpages.cpp:408
+#: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Λίστα αρχείων"
 
-#: src/gui/dialogs/configdialogpages.cpp:409
+#: src/gui/dialogs/configdialogpages.cpp:416
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Φίλτ&ρο:"
 
-#: src/gui/dialogs/configdialogpages.cpp:419
+#: src/gui/dialogs/configdialogpages.cpp:426
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "Συμπε&ρίληψη φακέλων:"
 
-#: src/gui/dialogs/configdialogpages.cpp:423
+#: src/gui/dialogs/configdialogpages.cpp:430
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "Απο&κλεισμός φακέλων:"
 
-#: src/gui/dialogs/configdialogpages.cpp:427
+#: src/gui/dialogs/configdialogpages.cpp:434
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "Εμφάνι&ση κρυφών αρχείων"
 
-#: src/gui/dialogs/configdialogpages.cpp:439
+#: src/gui/dialogs/configdialogpages.cpp:446
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Τύπος"
 
-#: src/gui/dialogs/configdialogpages.cpp:443
+#: src/gui/dialogs/configdialogpages.cpp:450
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "Όνομα αρχείου από ετικέτα"
 
-#: src/gui/dialogs/configdialogpages.cpp:448
+#: src/gui/dialogs/configdialogpages.cpp:455
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "Ετικέτα από όνομα αρχείου"
 
-#: src/gui/dialogs/configdialogpages.cpp:454
-#: src/gui/dialogs/configdialogpages.cpp:514
+#: src/gui/dialogs/configdialogpages.cpp:461
+#: src/gui/dialogs/configdialogpages.cpp:521
 #, fuzzy
 #| msgctxt "PlaylistEditDialog|"
 #| msgid "Playlist"
@@ -4166,42 +4166,42 @@ msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Λίστα αναπαραγωγής"
 
-#: src/gui/dialogs/configdialogpages.cpp:466
+#: src/gui/dialogs/configdialogpages.cpp:473
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "&Τύπος ονόματος αρχείου"
 
-#: src/gui/dialogs/configdialogpages.cpp:482
+#: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "Όνομα αρχείου από ετικέτα"
 
-#: src/gui/dialogs/configdialogpages.cpp:498
+#: src/gui/dialogs/configdialogpages.cpp:505
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "Ετικέτα από όνομα αρχείου"
 
-#: src/gui/dialogs/configdialogpages.cpp:528
+#: src/gui/dialogs/configdialogpages.cpp:535
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Περιηγητής"
 
-#: src/gui/dialogs/configdialogpages.cpp:529
+#: src/gui/dialogs/configdialogpages.cpp:536
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "&Περιηγητής ιστού:"
 
-#: src/gui/dialogs/configdialogpages.cpp:538
+#: src/gui/dialogs/configdialogpages.cpp:545
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "Εντολές &μενού"
 
-#: src/gui/dialogs/configdialogpages.cpp:541
+#: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "Ανα&παραγωγή με διπλό κλικ"
 
-#: src/gui/dialogs/configdialogpages.cpp:543
+#: src/gui/dialogs/configdialogpages.cpp:550
 #, fuzzy
 #| msgctxt "SelectCommand|"
 #| msgid "Select file"
@@ -4209,42 +4209,55 @@ msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "Επιλογή αρχείου"
 
-#: src/gui/dialogs/configdialogpages.cpp:565
+#: src/gui/dialogs/configdialogpages.cpp:553
+msgctxt "ConfigDialogPages|"
+msgid "A&udio output:"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:555
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "System"
+msgctxt "ConfigDialogPages|"
+msgid "System"
+msgstr "Σύστημα"
+
+#: src/gui/dialogs/configdialogpages.cpp:588
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Διαμεσολαβητής:"
 
-#: src/gui/dialogs/configdialogpages.cpp:566
+#: src/gui/dialogs/configdialogpages.cpp:589
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Διαμεσολαβητής:"
 
-#: src/gui/dialogs/configdialogpages.cpp:569
+#: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "&Χρήση ταυτοποίησης με διαμεσολαβητή"
 
-#: src/gui/dialogs/configdialogpages.cpp:571
+#: src/gui/dialogs/configdialogpages.cpp:594
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "Ό&νομα χρήστη διαμεσολαβητή:"
 
-#: src/gui/dialogs/configdialogpages.cpp:575
+#: src/gui/dialogs/configdialogpages.cpp:598
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "Κωδικό&ς πρόσβασης διαμεσολαβητή:"
 
-#: src/gui/dialogs/configdialogpages.cpp:609
+#: src/gui/dialogs/configdialogpages.cpp:632
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "Πρόσθετα &μεταδεδομένων && προτεραιότητα"
 
-#: src/gui/dialogs/configdialogpages.cpp:621
+#: src/gui/dialogs/configdialogpages.cpp:644
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "Δ&ιαθέσιμα πρόσθετα"
 
-#: src/gui/dialogs/configdialogpages.cpp:632
+#: src/gui/dialogs/configdialogpages.cpp:655
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "Οι αλλαγές ενεργοποιούνται μόνο με επανεκκίνηση!"

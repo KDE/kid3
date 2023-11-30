@@ -3924,314 +3924,327 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "그 다음 파일 브라우저에서 Kid3으로 그림 파일을 드래그하십시오."
 
-#: src/gui/dialogs/configdialogpages.cpp:171
+#: src/gui/dialogs/configdialogpages.cpp:178
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:174
+#: src/gui/dialogs/configdialogpages.cpp:181
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "잘린 필드 표시(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:176
-#: src/gui/dialogs/configdialogpages.cpp:205
+#: src/gui/dialogs/configdialogpages.cpp:183
+#: src/gui/dialogs/configdialogpages.cpp:212
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "텍스트 인코딩(&E):"
 
-#: src/gui/dialogs/configdialogpages.cpp:190
+#: src/gui/dialogs/configdialogpages.cpp:197
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:193
+#: src/gui/dialogs/configdialogpages.cpp:200
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "트랙 번호/총 트랙 수 형식 사용(&T)"
 
-#: src/gui/dialogs/configdialogpages.cpp:196
+#: src/gui/dialogs/configdialogpages.cpp:203
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "트랙 번호 자릿수(&D):"
 
-#: src/gui/dialogs/configdialogpages.cpp:200
+#: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "숫자 대신 텍스트로 장르 기록(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:202
+#: src/gui/dialogs/configdialogpages.cpp:209
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "WAV 파일에 소문자 ID3 청크 사용(&W)"
 
-#: src/gui/dialogs/configdialogpages.cpp:204
+#: src/gui/dialogs/configdialogpages.cpp:211
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "표준 위반 표시(&K)"
 
-#: src/gui/dialogs/configdialogpages.cpp:223
+#: src/gui/dialogs/configdialogpages.cpp:230
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "새 태그에 사용할 버전(&V):"
 
-#: src/gui/dialogs/configdialogpages.cpp:227
+#: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:229
+#: src/gui/dialogs/configdialogpages.cpp:236
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:243
+#: src/gui/dialogs/configdialogpages.cpp:250
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:244
+#: src/gui/dialogs/configdialogpages.cpp:251
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "설명 필드 이름(&M):"
 
-#: src/gui/dialogs/configdialogpages.cpp:247
+#: src/gui/dialogs/configdialogpages.cpp:254
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "그림 필드 이름(&P):"
 
-#: src/gui/dialogs/configdialogpages.cpp:269
+#: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "그림"
 
-#: src/gui/dialogs/configdialogpages.cpp:272
+#: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "다음 바이트보다 큰 경우 표시(&L):"
 
-#: src/gui/dialogs/configdialogpages.cpp:285
+#: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "사용자 정의 장르만 표시(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:293
+#: src/gui/dialogs/configdialogpages.cpp:300
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "사용자 정의 장르(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:305
+#: src/gui/dialogs/configdialogpages.cpp:312
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "사용자 정의 프레임(&R)"
 
-#: src/gui/dialogs/configdialogpages.cpp:320
+#: src/gui/dialogs/configdialogpages.cpp:327
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "드래그 앤 드롭으로 항목 순서를 바꾸십시오"
 
-#: src/gui/dialogs/configdialogpages.cpp:323
+#: src/gui/dialogs/configdialogpages.cpp:330
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "빠른 접근 프레임(&Q)"
 
-#: src/gui/dialogs/configdialogpages.cpp:330
+#: src/gui/dialogs/configdialogpages.cpp:337
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF 정보"
 
-#: src/gui/dialogs/configdialogpages.cpp:331
+#: src/gui/dialogs/configdialogpages.cpp:338
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "트랙 번호 필드 이름(&M):"
 
-#: src/gui/dialogs/configdialogpages.cpp:348
+#: src/gui/dialogs/configdialogpages.cpp:355
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "태그 형식(&T)"
 
-#: src/gui/dialogs/configdialogpages.cpp:350
+#: src/gui/dialogs/configdialogpages.cpp:357
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "별점"
 
-#: src/gui/dialogs/configdialogpages.cpp:360
+#: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "태그 1(&1)"
 
-#: src/gui/dialogs/configdialogpages.cpp:362
+#: src/gui/dialogs/configdialogpages.cpp:369
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "태그 2(&2)"
 
-#: src/gui/dialogs/configdialogpages.cpp:363
+#: src/gui/dialogs/configdialogpages.cpp:370
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "태그 3(&3)"
 
-#: src/gui/dialogs/configdialogpages.cpp:364
+#: src/gui/dialogs/configdialogpages.cpp:371
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "모든 태그(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:382
+#: src/gui/dialogs/configdialogpages.cpp:389
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "시작"
 
-#: src/gui/dialogs/configdialogpages.cpp:383
+#: src/gui/dialogs/configdialogpages.cpp:390
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "마지막으로 불러온 파일 열기(&L)"
 
-#: src/gui/dialogs/configdialogpages.cpp:389
+#: src/gui/dialogs/configdialogpages.cpp:396
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "저장"
 
-#: src/gui/dialogs/configdialogpages.cpp:390
+#: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "파일 타임스탬프 유지(&P)"
 
-#: src/gui/dialogs/configdialogpages.cpp:392
+#: src/gui/dialogs/configdialogpages.cpp:399
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "변경 사항 표시(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:402
+#: src/gui/dialogs/configdialogpages.cpp:409
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "앨범 커버 파일 이름(&I):"
 
-#: src/gui/dialogs/configdialogpages.cpp:403
+#: src/gui/dialogs/configdialogpages.cpp:410
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "텍스트 인코딩(내보내기, 재생 목록)(&E):"
 
-#: src/gui/dialogs/configdialogpages.cpp:408
+#: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "파일 목록"
 
-#: src/gui/dialogs/configdialogpages.cpp:409
+#: src/gui/dialogs/configdialogpages.cpp:416
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "필터(&R):"
 
-#: src/gui/dialogs/configdialogpages.cpp:419
+#: src/gui/dialogs/configdialogpages.cpp:426
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "포함할 폴더(&D):"
 
-#: src/gui/dialogs/configdialogpages.cpp:423
+#: src/gui/dialogs/configdialogpages.cpp:430
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "제외할 폴더(&X):"
 
-#: src/gui/dialogs/configdialogpages.cpp:427
+#: src/gui/dialogs/configdialogpages.cpp:434
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "숨겨진 파일 표시(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:439
+#: src/gui/dialogs/configdialogpages.cpp:446
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "형식"
 
-#: src/gui/dialogs/configdialogpages.cpp:443
+#: src/gui/dialogs/configdialogpages.cpp:450
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "태그에서 파일 이름으로"
 
-#: src/gui/dialogs/configdialogpages.cpp:448
+#: src/gui/dialogs/configdialogpages.cpp:455
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "파일 이름에서 태그로"
 
-#: src/gui/dialogs/configdialogpages.cpp:454
-#: src/gui/dialogs/configdialogpages.cpp:514
+#: src/gui/dialogs/configdialogpages.cpp:461
+#: src/gui/dialogs/configdialogpages.cpp:521
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "재생 목록"
 
-#: src/gui/dialogs/configdialogpages.cpp:466
+#: src/gui/dialogs/configdialogpages.cpp:473
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "파일 이름 형식(&F)"
 
-#: src/gui/dialogs/configdialogpages.cpp:482
+#: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "태그에서 파일 이름으로"
 
-#: src/gui/dialogs/configdialogpages.cpp:498
+#: src/gui/dialogs/configdialogpages.cpp:505
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "파일 이름에서 태그로"
 
-#: src/gui/dialogs/configdialogpages.cpp:528
+#: src/gui/dialogs/configdialogpages.cpp:535
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "탐색기"
 
-#: src/gui/dialogs/configdialogpages.cpp:529
+#: src/gui/dialogs/configdialogpages.cpp:536
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "웹 브라우저(&B):"
 
-#: src/gui/dialogs/configdialogpages.cpp:538
+#: src/gui/dialogs/configdialogpages.cpp:545
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "콘텍스트 메뉴 명령(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:541
+#: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "두 번 클릭할 때 재생(&P)"
 
-#: src/gui/dialogs/configdialogpages.cpp:543
+#: src/gui/dialogs/configdialogpages.cpp:550
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "선택할 때 재생(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:565
+#: src/gui/dialogs/configdialogpages.cpp:553
+msgctxt "ConfigDialogPages|"
+msgid "A&udio output:"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:555
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "System"
+msgctxt "ConfigDialogPages|"
+msgid "System"
+msgstr "시스템"
+
+#: src/gui/dialogs/configdialogpages.cpp:588
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "프록시"
 
-#: src/gui/dialogs/configdialogpages.cpp:566
+#: src/gui/dialogs/configdialogpages.cpp:589
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "프록시(&P):"
 
-#: src/gui/dialogs/configdialogpages.cpp:569
+#: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "프록시 인증 사용(&U)"
 
-#: src/gui/dialogs/configdialogpages.cpp:571
+#: src/gui/dialogs/configdialogpages.cpp:594
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "프록시 사용자 이름(&N):"
 
-#: src/gui/dialogs/configdialogpages.cpp:575
+#: src/gui/dialogs/configdialogpages.cpp:598
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "프록시 암호(&W):"
 
-#: src/gui/dialogs/configdialogpages.cpp:609
+#: src/gui/dialogs/configdialogpages.cpp:632
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "메타데이터 플러그인과 우선 순위(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:621
+#: src/gui/dialogs/configdialogpages.cpp:644
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "사용 가능한 플러그인(&V)"
 
-#: src/gui/dialogs/configdialogpages.cpp:632
+#: src/gui/dialogs/configdialogpages.cpp:655
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "변경 사항은 다시 시작한 후 적용됩니다!"

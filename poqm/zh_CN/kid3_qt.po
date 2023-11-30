@@ -3926,314 +3926,327 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "然后从浏览器把图片拖放到 Kid3。"
 
-#: src/gui/dialogs/configdialogpages.cpp:171
+#: src/gui/dialogs/configdialogpages.cpp:178
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:174
+#: src/gui/dialogs/configdialogpages.cpp:181
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "标记被截断的字段(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:176
-#: src/gui/dialogs/configdialogpages.cpp:205
+#: src/gui/dialogs/configdialogpages.cpp:183
+#: src/gui/dialogs/configdialogpages.cpp:212
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "文本编码(&E)："
 
-#: src/gui/dialogs/configdialogpages.cpp:190
+#: src/gui/dialogs/configdialogpages.cpp:197
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:193
+#: src/gui/dialogs/configdialogpages.cpp:200
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "使用「音轨/音轨总数」的格式(&T)"
 
-#: src/gui/dialogs/configdialogpages.cpp:196
+#: src/gui/dialogs/configdialogpages.cpp:203
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "音轨编号位数(&D)："
 
-#: src/gui/dialogs/configdialogpages.cpp:200
+#: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "将流派视做文本而非数字字符串(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:202
+#: src/gui/dialogs/configdialogpages.cpp:209
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "小写id3块&WAV文件"
 
-#: src/gui/dialogs/configdialogpages.cpp:204
+#: src/gui/dialogs/configdialogpages.cpp:211
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "违反标准的标准(&K)"
 
-#: src/gui/dialogs/configdialogpages.cpp:223
+#: src/gui/dialogs/configdialogpages.cpp:230
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "新标签使用的版本(&V)："
 
-#: src/gui/dialogs/configdialogpages.cpp:227
+#: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:229
+#: src/gui/dialogs/configdialogpages.cpp:236
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:243
+#: src/gui/dialogs/configdialogpages.cpp:250
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:244
+#: src/gui/dialogs/configdialogpages.cpp:251
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "注释栏名称(&m)："
 
-#: src/gui/dialogs/configdialogpages.cpp:247
+#: src/gui/dialogs/configdialogpages.cpp:254
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "图片栏位名称(&P)："
 
-#: src/gui/dialogs/configdialogpages.cpp:269
+#: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "图片"
 
-#: src/gui/dialogs/configdialogpages.cpp:272
+#: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "标记，如果图像大于(字节)(&L)："
 
-#: src/gui/dialogs/configdialogpages.cpp:285
+#: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "仅显示自定义流派(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:293
+#: src/gui/dialogs/configdialogpages.cpp:300
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "自定义流派(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:305
+#: src/gui/dialogs/configdialogpages.cpp:312
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "自定义帧(&R)"
 
-#: src/gui/dialogs/configdialogpages.cpp:320
+#: src/gui/dialogs/configdialogpages.cpp:327
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "拖动来安排他们的优先顺序"
 
-#: src/gui/dialogs/configdialogpages.cpp:323
+#: src/gui/dialogs/configdialogpages.cpp:330
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "快速访问标签(&Q)"
 
-#: src/gui/dialogs/configdialogpages.cpp:330
+#: src/gui/dialogs/configdialogpages.cpp:337
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF INFO"
 
-#: src/gui/dialogs/configdialogpages.cpp:331
+#: src/gui/dialogs/configdialogpages.cpp:338
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "音轨编号栏名称(&M)："
 
-#: src/gui/dialogs/configdialogpages.cpp:348
+#: src/gui/dialogs/configdialogpages.cpp:355
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "标签格式(&T)"
 
-#: src/gui/dialogs/configdialogpages.cpp:350
+#: src/gui/dialogs/configdialogpages.cpp:357
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "评分"
 
-#: src/gui/dialogs/configdialogpages.cpp:360
+#: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "标签 &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:362
+#: src/gui/dialogs/configdialogpages.cpp:369
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "标签 &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:363
+#: src/gui/dialogs/configdialogpages.cpp:370
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "标签 &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:364
+#: src/gui/dialogs/configdialogpages.cpp:371
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "所有标签(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:382
+#: src/gui/dialogs/configdialogpages.cpp:389
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "启动"
 
-#: src/gui/dialogs/configdialogpages.cpp:383
+#: src/gui/dialogs/configdialogpages.cpp:390
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "加载上次打开的文件(&L)"
 
-#: src/gui/dialogs/configdialogpages.cpp:389
+#: src/gui/dialogs/configdialogpages.cpp:396
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "保存"
 
-#: src/gui/dialogs/configdialogpages.cpp:390
+#: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "保存文件时间戳(&P)"
 
-#: src/gui/dialogs/configdialogpages.cpp:392
+#: src/gui/dialogs/configdialogpages.cpp:399
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "标记变更(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:402
+#: src/gui/dialogs/configdialogpages.cpp:409
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "专辑封面的文件名(&I)："
 
-#: src/gui/dialogs/configdialogpages.cpp:403
+#: src/gui/dialogs/configdialogpages.cpp:410
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "文本编码 (导出, 播放列表)(&E)："
 
-#: src/gui/dialogs/configdialogpages.cpp:408
+#: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "文件列表"
 
-#: src/gui/dialogs/configdialogpages.cpp:409
+#: src/gui/dialogs/configdialogpages.cpp:416
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "过滤(&R)："
 
-#: src/gui/dialogs/configdialogpages.cpp:419
+#: src/gui/dialogs/configdialogpages.cpp:426
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "包含文件夹(&D)："
 
-#: src/gui/dialogs/configdialogpages.cpp:423
+#: src/gui/dialogs/configdialogpages.cpp:430
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "排除文件夹(&X)："
 
-#: src/gui/dialogs/configdialogpages.cpp:427
+#: src/gui/dialogs/configdialogpages.cpp:434
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "显示隐藏文件(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:439
+#: src/gui/dialogs/configdialogpages.cpp:446
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "格式"
 
-#: src/gui/dialogs/configdialogpages.cpp:443
+#: src/gui/dialogs/configdialogpages.cpp:450
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "由标签生成文件名"
 
-#: src/gui/dialogs/configdialogpages.cpp:448
+#: src/gui/dialogs/configdialogpages.cpp:455
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "由文件名生成标签"
 
-#: src/gui/dialogs/configdialogpages.cpp:454
-#: src/gui/dialogs/configdialogpages.cpp:514
+#: src/gui/dialogs/configdialogpages.cpp:461
+#: src/gui/dialogs/configdialogpages.cpp:521
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "播放列表"
 
-#: src/gui/dialogs/configdialogpages.cpp:466
+#: src/gui/dialogs/configdialogpages.cpp:473
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "文件名称格式(&F)"
 
-#: src/gui/dialogs/configdialogpages.cpp:482
+#: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "由标签生成文件名"
 
-#: src/gui/dialogs/configdialogpages.cpp:498
+#: src/gui/dialogs/configdialogpages.cpp:505
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "由文件名生成标签"
 
-#: src/gui/dialogs/configdialogpages.cpp:528
+#: src/gui/dialogs/configdialogpages.cpp:535
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "浏览"
 
-#: src/gui/dialogs/configdialogpages.cpp:529
+#: src/gui/dialogs/configdialogpages.cpp:536
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "网页浏览器(&B)："
 
-#: src/gui/dialogs/configdialogpages.cpp:538
+#: src/gui/dialogs/configdialogpages.cpp:545
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "上下文菜单命令(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:541
+#: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "双击播放(&P)"
 
-#: src/gui/dialogs/configdialogpages.cpp:543
+#: src/gui/dialogs/configdialogpages.cpp:550
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "播放时选择文件(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:565
+#: src/gui/dialogs/configdialogpages.cpp:553
+msgctxt "ConfigDialogPages|"
+msgid "A&udio output:"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:555
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "System"
+msgctxt "ConfigDialogPages|"
+msgid "System"
+msgstr "系统"
+
+#: src/gui/dialogs/configdialogpages.cpp:588
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "代理服务器"
 
-#: src/gui/dialogs/configdialogpages.cpp:566
+#: src/gui/dialogs/configdialogpages.cpp:589
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "代理服务器(&P)："
 
-#: src/gui/dialogs/configdialogpages.cpp:569
+#: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "代理服务器要认证(&U)"
 
-#: src/gui/dialogs/configdialogpages.cpp:571
+#: src/gui/dialogs/configdialogpages.cpp:594
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "代理服务器用户名(&n)："
 
-#: src/gui/dialogs/configdialogpages.cpp:575
+#: src/gui/dialogs/configdialogpages.cpp:598
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "代理服务器密码(&w)："
 
-#: src/gui/dialogs/configdialogpages.cpp:609
+#: src/gui/dialogs/configdialogpages.cpp:632
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "元数据插件和优先级(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:621
+#: src/gui/dialogs/configdialogpages.cpp:644
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "可用的插件(&V)"
 
-#: src/gui/dialogs/configdialogpages.cpp:632
+#: src/gui/dialogs/configdialogpages.cpp:655
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "修改在重启后才会生效！"

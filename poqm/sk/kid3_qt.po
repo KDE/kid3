@@ -3952,234 +3952,234 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:171
+#: src/gui/dialogs/configdialogpages.cpp:178
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:174
+#: src/gui/dialogs/configdialogpages.cpp:181
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:176
-#: src/gui/dialogs/configdialogpages.cpp:205
+#: src/gui/dialogs/configdialogpages.cpp:183
+#: src/gui/dialogs/configdialogpages.cpp:212
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "Kódovanie textu:"
 
-#: src/gui/dialogs/configdialogpages.cpp:190
+#: src/gui/dialogs/configdialogpages.cpp:197
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:193
+#: src/gui/dialogs/configdialogpages.cpp:200
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:196
+#: src/gui/dialogs/configdialogpages.cpp:203
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:200
+#: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:202
+#: src/gui/dialogs/configdialogpages.cpp:209
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:204
+#: src/gui/dialogs/configdialogpages.cpp:211
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:223
+#: src/gui/dialogs/configdialogpages.cpp:230
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:227
+#: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:229
+#: src/gui/dialogs/configdialogpages.cpp:236
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:243
+#: src/gui/dialogs/configdialogpages.cpp:250
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:244
+#: src/gui/dialogs/configdialogpages.cpp:251
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:247
+#: src/gui/dialogs/configdialogpages.cpp:254
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:269
+#: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Obrázok"
 
-#: src/gui/dialogs/configdialogpages.cpp:272
+#: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:285
+#: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:293
+#: src/gui/dialogs/configdialogpages.cpp:300
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:305
+#: src/gui/dialogs/configdialogpages.cpp:312
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:320
+#: src/gui/dialogs/configdialogpages.cpp:327
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:323
+#: src/gui/dialogs/configdialogpages.cpp:330
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:330
+#: src/gui/dialogs/configdialogpages.cpp:337
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:331
+#: src/gui/dialogs/configdialogpages.cpp:338
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:348
+#: src/gui/dialogs/configdialogpages.cpp:355
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:350
+#: src/gui/dialogs/configdialogpages.cpp:357
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Hodnotenie"
 
-#: src/gui/dialogs/configdialogpages.cpp:360
+#: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "Značka &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:362
+#: src/gui/dialogs/configdialogpages.cpp:369
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "Značka &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:363
+#: src/gui/dialogs/configdialogpages.cpp:370
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "Značka &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:364
+#: src/gui/dialogs/configdialogpages.cpp:371
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "&Všetky značky"
 
-#: src/gui/dialogs/configdialogpages.cpp:382
+#: src/gui/dialogs/configdialogpages.cpp:389
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Spustenie"
 
-#: src/gui/dialogs/configdialogpages.cpp:383
+#: src/gui/dialogs/configdialogpages.cpp:390
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:389
+#: src/gui/dialogs/configdialogpages.cpp:396
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Uložiť"
 
-#: src/gui/dialogs/configdialogpages.cpp:390
+#: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:392
+#: src/gui/dialogs/configdialogpages.cpp:399
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:402
+#: src/gui/dialogs/configdialogpages.cpp:409
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:403
+#: src/gui/dialogs/configdialogpages.cpp:410
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:408
+#: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Zoznam súborov"
 
-#: src/gui/dialogs/configdialogpages.cpp:409
+#: src/gui/dialogs/configdialogpages.cpp:416
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Filte&r:"
 
-#: src/gui/dialogs/configdialogpages.cpp:419
+#: src/gui/dialogs/configdialogpages.cpp:426
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:423
+#: src/gui/dialogs/configdialogpages.cpp:430
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:427
+#: src/gui/dialogs/configdialogpages.cpp:434
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "&Zobraziť skryté súbory"
 
-#: src/gui/dialogs/configdialogpages.cpp:439
+#: src/gui/dialogs/configdialogpages.cpp:446
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Formát"
 
-#: src/gui/dialogs/configdialogpages.cpp:443
+#: src/gui/dialogs/configdialogpages.cpp:450
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:448
+#: src/gui/dialogs/configdialogpages.cpp:455
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:454
-#: src/gui/dialogs/configdialogpages.cpp:514
+#: src/gui/dialogs/configdialogpages.cpp:461
+#: src/gui/dialogs/configdialogpages.cpp:521
 #, fuzzy
 #| msgctxt "PlaylistEditDialog|"
 #| msgid "Playlist"
@@ -4187,42 +4187,42 @@ msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Zoznam skladieb"
 
-#: src/gui/dialogs/configdialogpages.cpp:466
+#: src/gui/dialogs/configdialogpages.cpp:473
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:482
+#: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:498
+#: src/gui/dialogs/configdialogpages.cpp:505
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:528
+#: src/gui/dialogs/configdialogpages.cpp:535
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Prehliadač"
 
-#: src/gui/dialogs/configdialogpages.cpp:529
+#: src/gui/dialogs/configdialogpages.cpp:536
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "We&bový prehliadač:"
 
-#: src/gui/dialogs/configdialogpages.cpp:538
+#: src/gui/dialogs/configdialogpages.cpp:545
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:541
+#: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:543
+#: src/gui/dialogs/configdialogpages.cpp:550
 #, fuzzy
 #| msgctxt "SelectCommand|"
 #| msgid "Select file"
@@ -4230,42 +4230,53 @@ msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "Vyberte súbor"
 
-#: src/gui/dialogs/configdialogpages.cpp:565
+#: src/gui/dialogs/configdialogpages.cpp:553
+msgctxt "ConfigDialogPages|"
+msgid "A&udio output:"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:555
+#, fuzzy
+msgctxt "ConfigDialogPages|"
+msgid "System"
+msgstr "Systém"
+
+#: src/gui/dialogs/configdialogpages.cpp:588
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/gui/dialogs/configdialogpages.cpp:566
+#: src/gui/dialogs/configdialogpages.cpp:589
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Proxy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:569
+#: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:571
+#: src/gui/dialogs/configdialogpages.cpp:594
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:575
+#: src/gui/dialogs/configdialogpages.cpp:598
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "&Heslo proxy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:609
+#: src/gui/dialogs/configdialogpages.cpp:632
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:621
+#: src/gui/dialogs/configdialogpages.cpp:644
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "&Dostupné pluginy"
 
-#: src/gui/dialogs/configdialogpages.cpp:632
+#: src/gui/dialogs/configdialogpages.cpp:655
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr ""
