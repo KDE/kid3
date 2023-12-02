@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.2\n"
 
 #: src/app/cli/clicommand.cpp:350
 msgctxt "CliCommand|"
@@ -943,12 +943,9 @@ msgid "Section"
 msgstr "სექცია"
 
 #: src/app/kde/kdemainwindow.cpp:475
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Play"
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr "დაკვრა"
+msgstr "დამკვრელი"
 
 #: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
@@ -1520,12 +1517,9 @@ msgid "About &Qt"
 msgstr "&Qt-ის შესახებ"
 
 #: src/app/qt/kid3mainwindow.cpp:629
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Play"
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr "დაკვრა"
+msgstr "დამკვრელი"
 
 #: src/app/qt/kid3mainwindow.cpp:653
 msgctxt "Kid3MainWindow|"
@@ -4203,9 +4197,6 @@ msgid "A&udio output:"
 msgstr ""
 
 #: src/gui/dialogs/configdialogpages.cpp:555
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "System"
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "სისტემა"

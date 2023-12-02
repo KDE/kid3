@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-11-27 23:57+0100\n"
+"PO-Revision-Date: 2023-12-01 16:43+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -4203,12 +4203,9 @@ msgstr "&Seleccionar archivo al reproducir"
 #: src/gui/dialogs/configdialogpages.cpp:553
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "&Salida de sonido:"
 
 #: src/gui/dialogs/configdialogpages.cpp:555
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "System"
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "Sistema"
