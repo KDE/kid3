@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
-"PO-Revision-Date: 2023-11-28 09:55+0100\n"
+"PO-Revision-Date: 2023-12-01 09:50+0100\n"
 "Last-Translator: Xavier BESNARD <xavier.besnard@neuf.fr>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -4203,12 +4203,9 @@ msgstr "&Sélectionner un fichier à lire"
 #: src/gui/dialogs/configdialogpages.cpp:553
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "Sortie A&udio :"
 
 #: src/gui/dialogs/configdialogpages.cpp:555
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "System"
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "Système"
