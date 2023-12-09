@@ -6745,7 +6745,7 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
           Frame::Type type = getTypeFromApeName(name);
           TagLib::StringList values;
           if (type != Frame::FT_Picture) {
-            values = (*it).second.toStringList();
+            values = (*it).second.values();
           }
           Frame frame(type, values.size() > 0
                       ? joinToQString(values) : QLatin1String(""),
