@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
-"PO-Revision-Date: 2023-11-25 02:29\n"
+"PO-Revision-Date: 2023-12-09 09:27\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -945,12 +945,9 @@ msgid "Section"
 msgstr "组别"
 
 #: src/app/kde/kdemainwindow.cpp:475
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Play"
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr "播放"
+msgstr "播放器"
 
 #: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
@@ -1522,12 +1519,9 @@ msgid "About &Qt"
 msgstr "关于 Qt(&Q)"
 
 #: src/app/qt/kid3mainwindow.cpp:629
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Play"
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr "播放"
+msgstr "播放器"
 
 #: src/app/qt/kid3mainwindow.cpp:653
 msgctxt "Kid3MainWindow|"
@@ -4204,12 +4198,9 @@ msgid "A&udio output:"
 msgstr ""
 
 #: src/gui/dialogs/configdialogpages.cpp:555
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "System"
 msgctxt "ConfigDialogPages|"
 msgid "System"
-msgstr "系统"
+msgstr ""
 
 #: src/gui/dialogs/configdialogpages.cpp:588
 msgctxt "ConfigDialogPages|"
