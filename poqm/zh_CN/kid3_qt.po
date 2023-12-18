@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
-"PO-Revision-Date: 2023-12-09 09:27\n"
+"PO-Revision-Date: 2023-12-17 11:29\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -4004,7 +4004,7 @@ msgstr "图片"
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
-msgstr "标记，如果图像大于(字节)(&L)："
+msgstr "标记，如果图像大于(字节) (&L)："
 
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
@@ -4104,7 +4104,7 @@ msgstr "专辑封面的文件名(&I)："
 #: src/gui/dialogs/configdialogpages.cpp:410
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
-msgstr "文本编码 (导出, 播放列表)(&E)："
+msgstr "文本编码 (导出, 播放列表) (&E)："
 
 #: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
