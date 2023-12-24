@@ -1,7 +1,15 @@
 if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
   set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
+  # For TagLib 2.0 prefer its exported configuration
+  set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
 
   find_package(TagLib REQUIRED)
+  if(TagLib_DIR)
+    # The exported TagLib configuration requests a transitive ZLIB::ZLIB
+    # imported target.
+    find_package("ZLIB")
+    message(STATUS "Found TagLib ${TAGLIB_VERSION}: ${TagLib_DIR}")
+  endif()
 
   set(plugin_NAME TaglibMetadata)
 

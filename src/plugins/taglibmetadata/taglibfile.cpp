@@ -325,10 +325,20 @@ public:
   // Reimplemented from TagLib::IOStream, delegate to TagLib::FileStream.
   /** File name in local file system encoding. */
   virtual TagLib::FileName name() const override;
+#if TAGLIB_VERSION >= 0x020000
+  /** Read block of size @a length at current pointer. */
+  virtual TagLib::ByteVector readBlock(size_t length) override;
+  /**
+   * Insert @a data at position @a start in the file overwriting @a replace
+   * bytes of the original content.
+   */
+  virtual void insert(const TagLib::ByteVector &data,
+                      taglib_uoffset_t start = 0, size_t replace = 0) override;
+  /** Remove block starting at @a start for @a length bytes. */
+  virtual void removeBlock(taglib_uoffset_t start = 0, size_t length = 0) override;
+#else
   /** Read block of size @a length at current pointer. */
   virtual TagLib::ByteVector readBlock(ulong length) override;
-  /** Write block @a data at current pointer. */
-  virtual void writeBlock(const TagLib::ByteVector &data) override;
   /**
    * Insert @a data at position @a start in the file overwriting @a replace
    * bytes of the original content.
@@ -337,6 +347,9 @@ public:
               taglib_uoffset_t start = 0, ulong replace = 0) override;
   /** Remove block starting at @a start for @a length bytes. */
   virtual void removeBlock(taglib_uoffset_t start = 0, ulong length = 0) override;
+#endif
+  /** Write block @a data at current pointer. */
+  virtual void writeBlock(const TagLib::ByteVector &data) override;
   /** True if the file is read only. */
   virtual bool readOnly() const override;
   /** Check if open in constructor succeeded. */
@@ -487,7 +500,13 @@ TagLib::FileName FileIOStream::name() const
   return TagLib::FileName(m_fileName);
 }
 
-TagLib::ByteVector FileIOStream::readBlock(ulong length)
+TagLib::ByteVector FileIOStream::readBlock(
+#if TAGLIB_VERSION >= 0x020000
+    size_t length
+#else
+    ulong length
+#endif
+)
 {
   if (openFileHandle()) {
     return m_fileStream->readBlock(length);
@@ -503,14 +522,26 @@ void FileIOStream::writeBlock(const TagLib::ByteVector &data)
 }
 
 void FileIOStream::insert(const TagLib::ByteVector &data,
-                          taglib_uoffset_t start, ulong replace)
+                          taglib_uoffset_t start,
+#if TAGLIB_VERSION >= 0x020000
+                          size_t replace
+#else
+                          ulong replace
+#endif
+)
 {
   if (openFileHandle()) {
     m_fileStream->insert(data, start, replace);
   }
 }
 
-void FileIOStream::removeBlock(taglib_uoffset_t start, ulong length)
+void FileIOStream::removeBlock(taglib_uoffset_t start,
+#if TAGLIB_VERSION >= 0x020000
+                               size_t length
+#else
+                               ulong length
+#endif
+)
 {
   if (openFileHandle()) {
     m_fileStream->removeBlock(start, length);
@@ -600,8 +631,12 @@ TagLib::File* FileIOStream::createFromExtension(TagLib::IOStream* stream,
                                                 const TagLib::String& ext)
 {
   if (ext == "MP3" || ext == "MP2" || ext == "AAC")
+#if TAGLIB_VERSION >= 0x020000
+    return new TagLib::MPEG::File(stream);
+#else
     return new TagLib::MPEG::File(stream,
                                   TagLib::ID3v2::FrameFactory::instance());
+#endif
   if (ext == "OGG") {
     TagLib::File* file = new TagLib::Vorbis::File(stream);
     if (!file->isValid()) {
@@ -619,8 +654,12 @@ TagLib::File* FileIOStream::createFromExtension(TagLib::IOStream* stream,
     return file;
   }
   if (ext == "FLAC")
+#if TAGLIB_VERSION >= 0x020000
+    return new TagLib::FLAC::File(stream);
+#else
     return new TagLib::FLAC::File(stream,
                                   TagLib::ID3v2::FrameFactory::instance());
+#endif
   if (ext == "MPC")
     return new TagLib::MPC::File(stream);
   if (ext == "WV")
@@ -1889,6 +1928,29 @@ void removeCommentFrame(TagLib::ID3v2::Tag* id3v2Tag)
   }
 }
 
+void addTagLibFrame(TagLib::ID3v2::Tag* id3v2Tag, TagLib::ID3v2::Frame* frame)
+{
+#ifdef Q_OS_WIN32
+  // freed in Windows DLL => must be allocated in the same DLL
+#if TAGLIB_VERSION >= 0x020000
+  TagLib::ID3v2::Header tagHeader;
+  tagHeader.setMajorVersion(4);
+  TagLib::ID3v2::Frame* dllAllocatedFrame =
+      TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render(),
+                                                           &tagHeader);
+#else
+  TagLib::ID3v2::Frame* dllAllocatedFrame =
+      TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
+#endif
+  if (dllAllocatedFrame) {
+    id3v2Tag->addFrame(dllAllocatedFrame);
+  }
+  delete frame;
+#else
+  id3v2Tag->addFrame(frame);
+#endif
+}
+
 /**
  * Write a Unicode field if the tag is ID3v2 and Latin-1 is not sufficient.
  *
@@ -1924,17 +1986,7 @@ bool setId3v2Unicode(TagLib::Tag* tag, const QString& qstr,
           commFrame->setLanguage("eng"); // for compatibility with iTunes
         }
         frame->setText(tstr);
-#ifdef Q_OS_WIN32
-        // freed in Windows DLL => must be allocated in the same DLL
-        TagLib::ID3v2::Frame* dllAllocatedFrame =
-          TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
-        if (dllAllocatedFrame) {
-          id3v2Tag->addFrame(dllAllocatedFrame);
-        }
-        delete frame;
-#else
-        id3v2Tag->addFrame(frame);
-#endif
+        addTagLibFrame(id3v2Tag, frame);
       }
       return true;
     }
@@ -5690,17 +5742,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
                       frameId, getDefaultTextEncoding());
                 frame->setText(tstr);
                 id3v2Tag->removeFrames(frameId);
-#ifdef Q_OS_WIN32
-                // freed in Windows DLL => must be allocated in the same DLL
-                TagLib::ID3v2::Frame* dllAllocatedFrame =
-                  TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
-                if (dllAllocatedFrame) {
-                  id3v2Tag->addFrame(dllAllocatedFrame);
-                }
-                delete frame;
-#else
-                id3v2Tag->addFrame(frame);
-#endif
+                addTagLibFrame(id3v2Tag, frame);
               }
             } else if ((mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(tag)) != nullptr) {
               // Set a frame in order to store the total number too.
@@ -5795,17 +5837,7 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
                     frameId, getDefaultTextEncoding())) != nullptr) {
                 frame->setText(tstr);
                 id3v2Tag->removeFrames(frameId);
-#ifdef Q_OS_WIN32
-                // freed in Windows DLL => must be allocated in the same DLL
-                TagLib::ID3v2::Frame* dllAllocatedFrame =
-                  TagLib::ID3v2::FrameFactory::instance()->createFrame(frame->render());
-                if (dllAllocatedFrame) {
-                  id3v2Tag->addFrame(dllAllocatedFrame);
-                }
-                delete frame;
-#else
-                id3v2Tag->addFrame(frame);
-#endif
+                addTagLibFrame(id3v2Tag, frame);
               } else {
                 tag->setGenre(tstr);
               }
@@ -6018,17 +6050,6 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
       if ((id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr])) != nullptr) {
         TagLib::ID3v2::Frame* id3Frame = createId3FrameFromFrame(this, frame);
         if (id3Frame) {
-#ifdef Q_OS_WIN32
-          // freed in Windows DLL => must be allocated in the same DLL
-          TagLib::ID3v2::Frame* dllAllocatedFrame =
-            TagLib::ID3v2::FrameFactory::instance()->createFrame(id3Frame->render());
-          if (dllAllocatedFrame) {
-            id3v2Tag->addFrame(dllAllocatedFrame);
-          }
-#else
-          id3v2Tag->addFrame(id3Frame);
-#endif
-          frame.setIndex(id3v2Tag->frameList().size() - 1);
           if (frame.fieldList().empty()) {
             // add field list to frame
             getFieldsFromId3Frame(id3Frame, frame.fieldList(), frame.getType());
@@ -6044,9 +6065,8 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
                     Frame::ExtendedType(type, QString::fromLatin1(str)));
             }
           }
-#ifdef Q_OS_WIN32
-          delete id3Frame;
-#endif
+          frame.setIndex(id3v2Tag->frameList().size());
+          addTagLibFrame(id3v2Tag, id3Frame);
           markTagChanged(tagNr, frame.getExtendedType());
           return true;
         }
