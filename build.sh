@@ -382,10 +382,12 @@ libflac_version=1.4.2+ds
 libflac_patchlevel=2
 id3lib_version=3.8.3
 id3lib_patchlevel=18
-taglib_version=1.13.1
+taglib_version=2.0
+taglib_githash=bd4c9cbf9783733041d7a2d2e97a2c968018aa97
 chromaprint_version=1.5.1
 chromaprint_patchlevel=2
 mp4v2_version=2.1.3
+utfcpp_version=4.0.4
 
 # Try to find the configuration from an existing build.
 if test -z "$COMPILER"; then
@@ -640,6 +642,11 @@ else
   taglib_version=${taglib_version##v}
 fi
 
+if ! test -f utfcpp-${utfcpp_version}.tar.gz; then
+  $DOWNLOAD https://github.com/nemtrif/utfcpp/archive/refs/tags/v${utfcpp_version}.tar.gz
+  mv v${utfcpp_version}.tar.gz utfcpp-${utfcpp_version}.tar.gz
+fi
+
 if test "$compiler" != "cross-android"; then
 
   test -f flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz ||
@@ -887,6 +894,11 @@ cd ..
 
 # Extract and patch sources
 
+if ! test -d utfcpp-${utfcpp_version}; then
+  echo "### Extracting utfcpp"
+  tar xzf source/utfcpp-${utfcpp_version}.tar.gz
+fi
+
 if ! test -d taglib-${taglib_version}; then
   echo "### Extracting taglib"
 
@@ -900,9 +912,12 @@ if ! test -d taglib-${taglib_version}; then
   if test "$cross_host" = "x86_64-w64-mingw32"; then
     if test -f $srcdir/packaging/patches/taglib-${taglib_githash}-win00-large_file.patch; then
       patch -p1 <$srcdir/packaging/patches/taglib-${taglib_githash}-win00-large_file.patch
-    else
+    elif test -f $srcdir/packaging/patches/taglib-${taglib_version}-win00-large_file.patch; then
       patch -p1 <$srcdir/packaging/patches/taglib-${taglib_version}-win00-large_file.patch
     fi
+  elif test "$_macosx_version_min" = "10.7"; then
+    # std::visit() is only supported since macOS 10.14
+    sed -i -E 's# std::visit# //std::visit#' taglib/toolkit/tvariant.cpp || true
   fi
   cd ..
 fi
@@ -1115,11 +1130,31 @@ if test "$compiler" = "cross-android"; then
     tar xmzf bin/openssl-${openssl_version}.tgz -C $BUILDROOT
   fi
 
+  if test ! -d utfcpp-${utfcpp_version}/inst; then
+    echo "### Building utfcpp"
+
+    cd utfcpp-${utfcpp_version}/
+    # Is header-only library: Use ARCH_INDEPENDENT with
+    # write_basic_package_version_file() to use package built on 64-bit
+    # for 32-bit.
+    grep -qF 'ARCH_INDEPENDENT' CMakeLists.txt ||
+      sed -i -E 's/(COMPATIBILITY SameMajorVersion)$/\1 ARCH_INDEPENDENT/' CMakeLists.txt
+    test -f Makefile || eval cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DUTF8_TESTS=OFF
+    make VERBOSE=1
+    mkdir -p inst
+    make install DESTDIR=`pwd`/inst
+    fixcmakeinst
+    cd inst
+    tar czf ../../bin/utfcpp-${utfcpp_version}.tgz usr
+    cd ../..
+    tar xmzf bin/utfcpp-${utfcpp_version}.tgz -C $BUILDROOT
+  fi
+
   if ! test -f $BUILDROOT/usr/local/lib/libtag.a; then
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DCMAKE_MAKE_PROGRAM=make
+    cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DCMAKE_FIND_ROOT_PATH=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DCMAKE_MAKE_PROGRAM=make
     make install
     cd ..
   fi
@@ -1131,7 +1166,7 @@ else #  cross-android
              libvorbis-${libvorbis_version} flac-${libflac_version%+ds*} \
              id3lib-${id3lib_version} taglib-${taglib_version} \
              ffmpeg-${ffmpeg_version} chromaprint-${chromaprint_version} \
-             mp4v2-${mp4v2_version}; do
+             mp4v2-${mp4v2_version} utfcpp-${utfcpp_version}; do
       test -d $d/inst && rm -rf $d/inst
     done
   fi
@@ -1284,11 +1319,26 @@ else #  cross-android
     tar xmzf bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
   fi
 
+  if test ! -d utfcpp-${utfcpp_version}/inst; then
+    echo "### Building utfcpp"
+
+    cd utfcpp-${utfcpp_version}/
+    test -f Makefile || eval cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DUTF8_TESTS=OFF
+    make VERBOSE=1
+    mkdir -p inst
+    make install DESTDIR=`pwd`/inst
+    fixcmakeinst
+    cd inst
+    tar czf ../../bin/utfcpp-${utfcpp_version}.tgz usr
+    cd ../..
+    tar xmzf bin/utfcpp-${utfcpp_version}.tgz -C $BUILDROOT
+  fi
+
   if test ! -d taglib-${taglib_version}/inst; then
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    test -f Makefile || eval cmake -DINCLUDE_DIRECTORIES=/usr/local/include -DLINK_DIRECTORIES=/usr/local/lib -DBUILD_SHARED_LIBS=OFF $TAGLIB_ZLIB_ROOT_OPTION $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF $TAGLIB_ZLIB_ROOT_OPTION $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DCMAKE_PREFIX_PATH=$BUILDROOT/usr/local
     make VERBOSE=1
     mkdir -p inst
     make install DESTDIR=`pwd`/inst
@@ -1493,7 +1543,7 @@ _android_keystore_alias=
 fi
 _buildprefix=\$(cd ..; pwd)/buildroot/usr/local
 # Pass -DQT_ANDROID_USE_GRADLE=ON to use Gradle instead of ANT.
-cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_EXTRA_LIBS_DIR=\$_buildprefix/lib -DANDROID_KEYSTORE_PATH=\$_android_keystore_path -DANDROID_KEYSTORE_ALIAS=\$_android_keystore_alias -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DQT_HOST_PATH=${QTBINARYDIR%/bin} -DCMAKE_BUILD_TYPE=Release -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DTAGLIBCONFIG_EXECUTABLE=\$_buildprefix/bin/taglib-config -DCMAKE_MAKE_PROGRAM=make $srcdir
+cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_EXTRA_LIBS_DIR=\$_buildprefix/lib -DANDROID_KEYSTORE_PATH=\$_android_keystore_path -DANDROID_KEYSTORE_ALIAS=\$_android_keystore_alias -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DQT_HOST_PATH=${QTBINARYDIR%/bin} -DCMAKE_BUILD_TYPE=Release -DCMAKE_FIND_ROOT_PATH=\$_buildprefix -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DCMAKE_MAKE_PROGRAM=make $srcdir
 EOF
       chmod +x kid3/run-cmake.sh
     fi
@@ -1504,18 +1554,16 @@ EOF
       echo "### Creating kid3 build directory"
 
       mkdir kid3
-      taglib_config_version=$taglib_version
-      taglib_config_version=${taglib_config_version%beta*}
       if test "$compiler" = "cross-mingw"; then
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
+cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test "$compiler" = "cross-macos"; then
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 test -z \${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxsdk/usr/bin:\$PATH
-cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_INSTALL_PREFIX= -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
+cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test "$compiler" = "gcc-self-contained"; then
         if test -n "$QTPREFIX"; then
@@ -1532,26 +1580,26 @@ EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-cmake -GNinja -DCMAKE_CXX_COMPILER=${gcc_self_contained_cxx} -DCMAKE_C_COMPILER=${gcc_self_contained_cc} -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DBUILD_SHARED_LIBS=ON -DLINUX_SELF_CONTAINED=ON -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_CXX_COMPILER=${gcc_self_contained_cxx} -DCMAKE_C_COMPILER=${gcc_self_contained_cc} -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
 EOF
       elif test $kernel = "Darwin" -a $ARCH = "arm64"; then
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test $kernel = "Darwin"; then
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test $kernel = "MINGW"; then
         _qtToolsMingw=($QTPREFIX/../../Tools/mingw*)
         _qtToolsMingw=$(realpath $_qtToolsMingw)
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir:-$HOME/prg/docbook-xsl-1.72.0} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir:-$HOME/prg/docbook-xsl-1.72.0} ../../kid3
 EOF
         _qtPrefixWin=${QTPREFIX//\//\\}
         _qtPrefixWin=${_qtPrefixWin/\\c/C:}
@@ -1586,14 +1634,14 @@ EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-cmake -GNinja -DBUILD_SHARED_LIBS=ON -DQT_QMAKE_EXECUTABLE=${QTPREFIX:-$QT_PREFIX}/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+cmake -GNinja -DQT_QMAKE_EXECUTABLE=${QTPREFIX:-$QT_PREFIX}/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
 EOF
       else
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-cmake -GNinja -DBUILD_SHARED_LIBS=ON -DLINUX_SELF_CONTAINED=ON -DWITH_TAGLIB=OFF -DHAVE_TAGLIB=1 -DTAGLIB_LIBRARIES:STRING="-L\$BUILDPREFIX/lib -ltag -lz" -DTAGLIB_CFLAGS:STRING="-I\$BUILDPREFIX/include/taglib -I\$BUILDPREFIX/include -DTAGLIB_STATIC" -DTAGLIB_VERSION:STRING="${taglib_config_version}" -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL" -DCMAKE_INCLUDE_PATH=\$BUILDPREFIX/include -DCMAKE_LIBRARY_PATH=\$BUILDPREFIX/lib -DCMAKE_PROGRAM_PATH=\$BUILDPREFIX/bin -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+cmake -GNinja -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
 EOF
       fi
       chmod +x kid3/run-cmake.sh
