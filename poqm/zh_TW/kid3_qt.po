@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.7\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-12-12 17:45+0900\n"
+"PO-Revision-Date: 2023-12-25 02:58+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -197,7 +197,7 @@ msgstr "可用"
 #: src/app/cli/clicommand.cpp:818
 msgctxt "AlbumArtCommand|"
 msgid "Download album cover artwork"
-msgstr "下載專輯封面作品"
+msgstr "下載專輯封面"
 
 #: src/app/cli/clicommand.cpp:862
 msgctxt "ExportCommand|"
@@ -954,12 +954,9 @@ msgid "Section"
 msgstr "區域"
 
 #: src/app/kde/kdemainwindow.cpp:475
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Play"
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr "播放"
+msgstr "播放器"
 
 #: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
@@ -1531,12 +1528,9 @@ msgid "About &Qt"
 msgstr "關於 Qt(&Q)"
 
 #: src/app/qt/kid3mainwindow.cpp:629
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Play"
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr "播放"
+msgstr "播放器"
 
 #: src/app/qt/kid3mainwindow.cpp:653
 msgctxt "Kid3MainWindow|"
@@ -4211,9 +4205,6 @@ msgid "A&udio output:"
 msgstr ""
 
 #: src/gui/dialogs/configdialogpages.cpp:555
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "System"
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "系統"
@@ -5512,7 +5503,7 @@ msgstr "開始時間"
 #: src/gui/widgets/chaptereditor.cpp:55
 msgctxt "ChapterEditor|"
 msgid "End time"
-msgstr "结束时间"
+msgstr "結束時間"
 
 #: src/gui/widgets/chaptereditor.cpp:56
 msgctxt "ChapterEditor|"
