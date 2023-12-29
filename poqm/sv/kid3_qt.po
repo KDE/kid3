@@ -1,8 +1,8 @@
-# Stefan Asserhäll <stefan.asserhall@bredband.net>, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023 Stefan Asserhäll <stefan.asserhall@bredband.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2023-07-31 08:53+0200\n"
+"PO-Revision-Date: 2023-12-28 14:15+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@bredband.net>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 20.08.1\n"
+"X-Generator: Lokalize 23.08.3\n"
 
 #: src/app/cli/clicommand.cpp:350
 msgctxt "CliCommand|"
@@ -943,12 +943,9 @@ msgid "Section"
 msgstr "Sektion"
 
 #: src/app/kde/kdemainwindow.cpp:475
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Play"
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr "Spela"
+msgstr "Spelare"
 
 #: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
@@ -1520,12 +1517,9 @@ msgid "About &Qt"
 msgstr "Om &Qt"
 
 #: src/app/qt/kid3mainwindow.cpp:629
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Play"
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr "Spela"
+msgstr "Spelare"
 
 #: src/app/qt/kid3mainwindow.cpp:653
 msgctxt "Kid3MainWindow|"
@@ -4199,12 +4193,9 @@ msgstr "Välj fil vid &spela"
 #: src/gui/dialogs/configdialogpages.cpp:553
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "Lj&udutmatning:"
 
 #: src/gui/dialogs/configdialogpages.cpp:555
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "System"
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "System"
