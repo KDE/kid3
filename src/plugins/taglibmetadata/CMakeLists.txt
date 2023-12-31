@@ -19,7 +19,7 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
     taglibmetadataplugin.cpp
     taglibfile.cpp
   )
-  if(${TAGLIB_VERSION} VERSION_LESS 2.0.0)
+  if(TAGLIB_VERSION VERSION_LESS 2.0.0)
     target_sources(${plugin_TARGET} PRIVATE
       taglibext/aac/aacfiletyperesolver.cpp
       taglibext/mp2/mp2filetyperesolver.cpp
