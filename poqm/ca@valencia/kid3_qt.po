@@ -703,7 +703,7 @@ msgstr "&Exporta..."
 #: src/app/kde/kdemainwindow.cpp:273
 msgctxt "KdeMainWindow|"
 msgid "Export to file or clipboard"
-msgstr "Exporta cap a un fitxer o al porta-retalls"
+msgstr "Exporta cap a un fitxer o cap a dins del porta-retalls"
 
 #: src/app/kde/kdemainwindow.cpp:277
 msgctxt "KdeMainWindow|"
@@ -1232,7 +1232,7 @@ msgstr "E&xplora les caràtules..."
 #: src/app/qt/kid3mainwindow.cpp:281
 msgctxt "Kid3MainWindow|"
 msgid "Export to file or clipboard"
-msgstr "Exporta cap a un fitxer o al porta-retalls"
+msgstr "Exporta cap a un fitxer o cap a dins del porta-retalls"
 
 #: src/app/qt/kid3mainwindow.cpp:282
 msgctxt "Kid3MainWindow|"
@@ -4275,7 +4275,7 @@ msgstr "&Des del porta-retalls"
 #: src/gui/dialogs/editframefieldsdialog.cpp:1137
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
-msgstr "Al &porta-retalls"
+msgstr "A dins del &porta-retalls"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1138
 msgctxt "BinaryOpenSave|"
@@ -4335,7 +4335,7 @@ msgstr "A un fi&txer..."
 #: src/gui/dialogs/exportdialog.cpp:96
 msgctxt "ExportDialog|"
 msgid "To Clip&board"
-msgstr "Al &porta-retalls"
+msgstr "A dins del &porta-retalls"
 
 #: src/gui/dialogs/exportdialog.cpp:105
 msgctxt "ExportDialog|"
