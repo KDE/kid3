@@ -16,15 +16,15 @@
 # pacman -S git patch make autoconf automake nasm libtool
 # Start the msys shell, add Qt and cmake to the path and start this script.
 #
-# export QTPREFIX=/c/Qt/6.5.1/mingw_64
+# export QTPREFIX=/c/Qt/6.5.3/mingw_64
 # test -z "${PATH##$QTPREFIX*}" ||
 # PATH=$QTPREFIX/bin:$QTPREFIX/../../Tools/mingw730_64/bin:$QTPREFIX/../../Tools/mingw730_64/opt/bin:$PROGRAMFILES/CMake/bin:$PATH
 # ../kid3/build.sh
 #
 # You can also build a Windows version from Linux using the MinGW cross
 # compiler.
-# COMPILER=cross-mingw QTPREFIX=/path/to/Qt6.5.1-mingw64/6.5.1/mingw_64 \
-#   QTBINARYDIR=/path/to/Qt6.5.1-linux/6.5.1/gcc_64/bin ../kid3/build.sh
+# COMPILER=cross-mingw QTPREFIX=/path/to/Qt6.5.3-mingw64/6.5.3/mingw_64 \
+#   QTBINARYDIR=/path/to/Qt6.5.3-linux/6.5.3/gcc_64/bin ../kid3/build.sh
 #
 # For Mac:
 #
@@ -34,24 +34,24 @@
 # ../kid3/build.sh
 #
 # You can also build a macOS version from Linux using the osxcross toolchain.
-# COMPILER=cross-macos QTPREFIX=/path/to/Qt6.5.1-mac/6.5.1/macos ../kid3/build.sh
+# COMPILER=cross-macos QTPREFIX=/path/to/Qt6.5.3-mac/6.5.3/macos ../kid3/build.sh
 # or
-# COMPILER=cross-macos QTPREFIX=/path/to/Qt6.5.1-mac/6.5.1/macos \
-#   QTBINARYDIR=/path/to/Qt6.5.1-linux/6.5.1/gcc_64/bin ../kid3/build.sh
+# COMPILER=cross-macos QTPREFIX=/path/to/Qt6.5.3-mac/6.5.3/macos \
+#   QTBINARYDIR=/path/to/Qt6.5.3-linux/6.5.3/gcc_64/bin ../kid3/build.sh
 #
 # For Android:
 #
 # Install Qt and a compatible Android SDK and NDK, for example Qt 5.9.7,
-# NDK 10e or Qt 5.12.2, NDK 19c, or Qt 6.5.1, NDK 23.1.7779620.
-# COMPILER=cross-android QTPREFIX=/path/to/Qt/6.5.1/android_armv7 \
-#   QTBINARYDIR=/path/to/Qt6.5.1-linux/6.5.1/gcc_64/bin \
+# NDK 10e or Qt 5.12.2, NDK 19c, or Qt 6.5.3, NDK 23.1.7779620.
+# COMPILER=cross-android QTPREFIX=/path/to/Qt/6.5.3/android_armv7 \
+#   QTBINARYDIR=/path/to/Qt6.5.3-linux/6.5.3/gcc_64/bin \
 #   ANDROID_SDK_ROOT=/path/to/sdk ANDROID_NDK_ROOT=/path/to/ndk/23.1.7779620 \
 #   ../kid3/build.sh
 #
 # For Linux:
 #
 # To build a self-contained Linux package use
-# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt6.5.1-linux/6.5.1/gcc_64 \
+# COMPILER=gcc-self-contained QTPREFIX=/path/to/Qt6.5.3-linux/6.5.3/gcc_64 \
 #   ../kid3/build.sh
 #
 # When cross compiling make sure that the host Qt version is not larger than
@@ -190,18 +190,18 @@ fi # makearchive
 # - Kid3 project checked out in ~/projects/kid3/src/kid3
 # - At least CMake 3.21 in /opt/cmake/bin/
 # Linux:
-# - Qt 6.5.1 Linux in ~/Development/Qt6.5.1-linux/6.5.1/gcc_64/
+# - Qt 6.5.3 Linux in ~/Development/Qt6.5.3-linux/6.5.3/gcc_64/
 # Windows:
 # - MinGW 11.2 cross compiler in /opt/mxe11/
-# - Qt 6.5.1 MinGW64 in ~/Development/Qt6.5.1-mingw64/6.5.1/mingw_64/
+# - Qt 6.5.3 MinGW64 in ~/Development/Qt6.5.3-mingw64/6.5.3/mingw_64/
 # Mac:
 # - Mac cross compiler in /opt/osxcross/
-# - Qt 6.5.1 Mac in ~/Development/Qt6.5.1-mac/6.5.1/macos/
+# - Qt 6.5.3 Mac in ~/Development/Qt6.5.3-mac/6.5.3/macos/
 # Android:
 # - Java JDK 17
 # - Android SDK in ~/Development/android-sdk/
 # - Android NDK in ~/Development/android-sdk/ndk/23.1.7779620/
-# - Qt 6.5.1 Android in ~/Development/Qt6.5.1-android/6.5.1/android_armv7/
+# - Qt 6.5.3 Android in ~/Development/Qt6.5.3-android/6.5.3/android_armv7/
 # - Sign key in ~/Development/ufleisch-release-key.keystore
 # - Gradle cache in ~/.gradle/
 if test "$1" = "makedocker"; then
@@ -214,21 +214,21 @@ set -e
 (cd linux_build && \
    PATH=/opt/cmake/bin:$PATH \
    COMPILER=gcc-self-contained \
-   QTPREFIX=$HOME/Development/Qt6.5.1-linux/6.5.1/gcc_64 \
+   QTPREFIX=$HOME/Development/Qt6.5.3-linux/6.5.3/gcc_64 \
    ../kid3/build.sh)
 (cd mingw64_build && \
    PATH=/opt/mxe11/usr/bin:/opt/cmake/bin:$PATH \
    COMPILER=cross-mingw \
-   QTPREFIX=$HOME/Development/Qt6.5.1-mingw64/6.5.1/mingw_64 \
-   QTBINARYDIR=$HOME/Development/Qt6.5.1-linux/6.5.1/gcc_64/bin \
+   QTPREFIX=$HOME/Development/Qt6.5.3-mingw64/6.5.3/mingw_64 \
+   QTBINARYDIR=$HOME/Development/Qt6.5.3-linux/6.5.3/gcc_64/bin \
    ../kid3/build.sh)
 (cd macos_build && \
    rm -f kid3/*-Darwin.dmg && \
    PATH=/opt/cmake/bin:$PATH \
    COMPILER=cross-macos \
-   QTPREFIX=$HOME/Development/Qt6.5.1-mac/6.5.1/macos \
+   QTPREFIX=$HOME/Development/Qt6.5.3-mac/6.5.3/macos \
    OSXPREFIX=/opt/osxcross/target \
-   QTBINARYDIR=$HOME/Development/Qt6.5.1-linux/6.5.1/gcc_64/bin \
+   QTBINARYDIR=$HOME/Development/Qt6.5.3-linux/6.5.3/gcc_64/bin \
    ../kid3/build.sh && \
    fatdmg=(kid3/*-Darwin.dmg) && \
    slimdmg=${fatdmg/-Darwin./-Darwin-amd64.} && \
@@ -246,8 +246,8 @@ set -e
 (cd android_build && \
    PATH=/opt/cmake/bin:$PATH \
    COMPILER=cross-android \
-   QTPREFIX=$HOME/Development/Qt6.5.1-android/6.5.1/android_armv7 \
-   QTBINARYDIR=$HOME/Development/Qt6.5.1-linux/6.5.1/gcc_64/bin \
+   QTPREFIX=$HOME/Development/Qt6.5.3-android/6.5.3/android_armv7 \
+   QTBINARYDIR=$HOME/Development/Qt6.5.3-linux/6.5.3/gcc_64/bin \
    JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 \
    ANDROID_SDK_ROOT=$HOME/Development/android-sdk \
    ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/23.1.7779620 \
@@ -367,9 +367,9 @@ verify_not_in_srcdir
 
 target=${*:-libs package}
 
-qt_version=6.5.1
+qt_version=6.5.3
 zlib_version=1.2.13
-zlib_patchlevel=1
+zlib_patchlevel=3
 libogg_version=1.3.4
 libogg_patchlevel=0.1
 libvorbis_version=1.3.7
@@ -378,16 +378,16 @@ ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
 ffmpeg_version=5.1.3
 ffmpeg_patchlevel=1
-libflac_version=1.4.2+ds
+libflac_version=1.4.3+ds
 libflac_patchlevel=2
 id3lib_version=3.8.3
 id3lib_patchlevel=18
 taglib_version=2.0
 taglib_githash=bd4c9cbf9783733041d7a2d2e97a2c968018aa97
 chromaprint_version=1.5.1
-chromaprint_patchlevel=2
+chromaprint_patchlevel=4
 mp4v2_version=2.1.3
-utfcpp_version=4.0.4
+utfcpp_version=4.0.5
 
 # Try to find the configuration from an existing build.
 if test -z "$COMPILER"; then
