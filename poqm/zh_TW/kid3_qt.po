@@ -4,13 +4,13 @@
 # ChungYu, Hsu <chungyu.hsu@gmail.com>, 2010.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 # BrLi <brli@chakralinux.org>, 2021.
-# SPDX-FileCopyrightText: 2023 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023, 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.7\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-12-25 02:58+0900\n"
+"PO-Revision-Date: 2024-01-15 00:25+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Lokalize 23.08.4\n"
+"X-Generator: Lokalize 24.01.90\n"
 "X-Language: zh_TW\n"
 "X-Source-Language: en\n"
 "X-Qt-Contexts: true\n"
@@ -6641,7 +6641,7 @@ msgstr "警告"
 #: src/qml/app/FrameEditDialog.qml:118
 msgctxt "FrameEditDialog|"
 msgid "File already exists. Overwrite?"
-msgstr "檔已經存在。您要覆寫它嗎？"
+msgstr "檔案已經存在。您要覆寫它嗎？"
 
 #: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:197
 msgctxt "FrameEditDialog|"
