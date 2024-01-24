@@ -125,7 +125,7 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/kid3/3.9.4/kid3-3.9.4.tar.xz"
+                    "url": "https://download.kde.org/stable/kid3/3.9.5/kid3-3.9.5.tar.xz"
                 }
             ]
         }

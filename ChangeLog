@@ -1,3 +1,22 @@
+Sat Feb 24 18:15:31 CET 2024  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.9.5
+
+	* New:
+	  + Keyboard shortcuts for play toolbar.
+	  + Option "Audio output" in "User Actions" settings tab.
+	  + Support WebP format for pictures.
+
+	* Improved:
+	  + Clicking again on 1 star makes star rating disappear.
+	  + Support '\|' to escape string list separators.
+
+	* Fixed:
+	  + Support multiple values in APE text items.
+	  + Building with TagLib 2.0.
+	  + Building from macOS with arm64.
+	  + Building snap packages.
+
 Sun Jul  9 10:32:10 CEST 2023  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.9.4

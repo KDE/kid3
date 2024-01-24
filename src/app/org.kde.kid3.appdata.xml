@@ -298,6 +298,28 @@
   <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
   <translation type="gettext">kid3</translation>
   <releases>
+    <release version="3.9.5" date="2024-02-24">
+      <description>
+        <p>New</p>
+        <ul>
+          <li>Keyboard shortcuts for play toolbar.</li>
+          <li>Option "Audio output" in "User Actions" settings tab.</li>
+          <li>Support WebP format for pictures.</li>
+        </ul>
+        <p>Improved</p>
+        <ul>
+          <li>Clicking again on 1 star makes star rating disappear.</li>
+          <li>Support '\|' to escape string list separators.</li>
+        </ul>
+        <p>Fixed</p>
+        <ul>
+          <li>Support multiple values in APE text items.</li>
+          <li>Building with TagLib 2.0.</li>
+          <li>Building from macOS with arm64.</li>
+          <li>Building snap packages.</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.9.4" date="2023-07-09">
       <description>
         <p>New</p>
