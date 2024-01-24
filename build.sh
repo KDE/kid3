@@ -383,7 +383,6 @@ libflac_patchlevel=2
 id3lib_version=3.8.3
 id3lib_patchlevel=18
 taglib_version=2.0
-taglib_githash=bd4c9cbf9783733041d7a2d2e97a2c968018aa97
 chromaprint_version=1.5.1
 chromaprint_patchlevel=4
 mp4v2_version=2.1.3
@@ -915,9 +914,6 @@ if ! test -d taglib-${taglib_version}; then
     elif test -f $srcdir/packaging/patches/taglib-${taglib_version}-win00-large_file.patch; then
       patch -p1 <$srcdir/packaging/patches/taglib-${taglib_version}-win00-large_file.patch
     fi
-  elif test "$_macosx_version_min" = "10.7"; then
-    # std::visit() is only supported since macOS 10.14
-    sed -i -E 's# std::visit# //std::visit#' taglib/toolkit/tvariant.cpp || true
   fi
   cd ..
 fi
@@ -1134,11 +1130,6 @@ if test "$compiler" = "cross-android"; then
     echo "### Building utfcpp"
 
     cd utfcpp-${utfcpp_version}/
-    # Is header-only library: Use ARCH_INDEPENDENT with
-    # write_basic_package_version_file() to use package built on 64-bit
-    # for 32-bit.
-    grep -qF 'ARCH_INDEPENDENT' CMakeLists.txt ||
-      sed -i -E 's/(COMPATIBILITY SameMajorVersion)$/\1 ARCH_INDEPENDENT/' CMakeLists.txt
     test -f Makefile || eval cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DUTF8_TESTS=OFF
     make VERBOSE=1
     mkdir -p inst
