@@ -63,7 +63,7 @@
 
 <abstract>
 <para
->El &kid3; és una aplicació per editar les etiquetes ID3 versió 1 i 2 en els fitxers MP3 de manera eficient. També s'admeten les etiquetes a fitxers Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls del seguidor de peces (MOD, S3M, IT i XM). És fàcil establir etiquetes a múltiples fitxers amb els mateixos valors (p. ex., àlbum, artista, any i gènere en tots els fitxers del mateix àlbum) i generar les etiquetes a partir del nom del fitxer o viceversa. </para>
+>El &kid3; és una aplicació per a editar les etiquetes ID3 versió 1 i 2 en els fitxers MP3 de manera eficient. També s'admeten les etiquetes a fitxers Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls del seguidor de peces (MOD, S3M, IT i XM). És fàcil establir etiquetes a múltiples fitxers amb els mateixos valors (p. ex., àlbum, artista, any i gènere en tots els fitxers del mateix àlbum) i generar les etiquetes a partir del nom del fitxer o viceversa. </para>
 </abstract>
 
 <keywordset>
@@ -403,11 +403,11 @@ end manpage include-->
 >Introducció</title>
 
 <para
->El &kid3; és una aplicació per editar les etiquetes ID3 versió 1 i 2 en els fitxers MP3 de manera eficient. La majoria dels reproductors de MP3 poden editar aquestes etiquetes, però no d'una manera molt còmoda i eficient. A més, també s'admeten les etiquetes als fitxers Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls del seguidor de peces (MOD, S3M, IT i XM). </para>
+>El &kid3; és una aplicació per a editar les etiquetes ID3 versió 1 i 2 en els fitxers MP3 de manera eficient. La majoria dels reproductors de MP3 poden editar aquestes etiquetes, però no d'una manera molt còmoda i eficient. A més, també s'admeten les etiquetes als fitxers Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls del seguidor de peces (MOD, S3M, IT i XM). </para>
 <para
 >El &kid3; no enregistra ni codifica els fitxers MP3, però està dirigit a editar les etiquetes ID3 de tots els fitxers d'un àlbum de manera eficient, és a dir, amb el menor nombre de clics i pulsacions de tecles possibles. On la majoria dels altres programes poden editar etiquetes ID3 versió 1 o 2, el &kid3; té un control total sobre ambdues versions, pot convertir les etiquetes entre els dos formats i té accés a totes les etiquetes ID3 versió 2. Es poden establir les etiquetes de múltiples fitxers amb el mateix valor, p. ex., l'artista, àlbum, any i gènere de tots els fitxers d'un àlbum que generalment tenen els mateixos valors i es poden configurar junts. Si la informació de les etiquetes està continguda en el nom del fitxer, les etiquetes es podran establir automàticament a partir del nom del fitxer. També és possible establir el nom del fitxer a partir de les etiquetes trobades en el fitxer en formats arbitraris. </para>
 <para
->La tasca d'edició se sosté addicionalment amb la substitució automàtica de caràcters o subcadenes, per exemple, per eliminar caràcters il·legals dels noms de fitxer. El control automàtic de majúscules i minúscules facilita l'ús d'un esquema de noms coherent en totes les etiquetes. </para>
+>La tasca d'edició se sosté addicionalment amb la substitució automàtica de caràcters o subcadenes, per exemple, per a eliminar caràcters il·legals dels noms de fitxer. El control automàtic de majúscules i minúscules facilita l'ús d'un esquema de noms coherent en totes les etiquetes. </para>
 <para
 >La informació de l'etiqueta per a àlbums sencers es pot obtenir des de <ulink url="http://gnudb.org"
 >gnudb.org</ulink
@@ -527,13 +527,13 @@ end manpage include-->
 >Etiqueta 1</guibutton
 > a la secció <guilabel
 >Fitxer</guilabel
->. Això establirà els valors de títol, artista, àlbum i peça en tots els fitxers. Per establir els valors d'any i gènere de tots els fitxers, mantindrem seleccionats tots els fitxers i escriurem «2002» per a la <guilabel
+>. Això establirà els valors de títol, artista, àlbum i peça en tots els fitxers. per a establir els valors d'any i gènere de tots els fitxers, mantindrem seleccionats tots els fitxers i escriurem «2002» per a la <guilabel
 >Data</guilabel
 > i seleccionem <guilabel
 >Cantautor</guilabel
 > des del quadre combinat <guilabel
 >Gènere</guilabel
->. Per establir només aquests dos valors, les seves caselles de selecció es marcaran automàticament i totes les altres caselles es deixaran sense marcar. Ara canviarem la selecció seleccionant només el primer fitxer i veurem que totes les etiquetes contenen els valors correctes. Les etiquetes dels altres fitxers també es poden verificar seleccionant-los un per un. Quan estiguem satisfets amb les etiquetes, emprem l'element de menú <menuchoice
+>. per a establir només aquests dos valors, les seves caselles de selecció es marcaran automàticament i totes les altres caselles es deixaran sense marcar. Ara canviarem la selecció seleccionant només el primer fitxer i veurem que totes les etiquetes contenen els valors correctes. Les etiquetes dels altres fitxers també es poden verificar seleccionant-los un per un. Quan estiguem satisfets amb les etiquetes, emprem l'element de menú <menuchoice
 ><guimenu
 >Fitxer</guimenu
 ><guimenuitem
@@ -688,7 +688,7 @@ end manpage include-->
 <para
 >Els valors de les etiquetes estàndard també es poden mostrar i editar en columnes de la llista de fitxers. </para>
 <para
->A l'esquerra dels noms es pot mostrar una icona: un disc per mostrar que el fitxer ha estat modificat o la informació sobre quines etiquetes hi ha presents (V1, V2, V1V2 o SENSE ETIQUETA, no es mostrarà cap icona si encara no s'ha llegit el fitxer). </para>
+>A l'esquerra dels noms es pot mostrar una icona: un disc per a mostrar que el fitxer ha estat modificat o la informació sobre quines etiquetes hi ha presents (V1, V2, V1V2 o SENSE ETIQUETA, no es mostrarà cap icona si encara no s'ha llegit el fitxer). </para>
 <para
 >Les carpetes es mostren amb una icona de carpeta. Si s'obre una carpeta, els fitxers es mostraran en un arbre jeràrquic. En seleccionar fitxers des de subcarpetes, les operacions es podran executar sobre els fitxers en carpetes diferents, el qual és útil si la col·lecció de música està organitzada amb una carpeta per a cada artista que conté les carpetes per als àlbums d'aquest artista. </para>
 <para
@@ -764,7 +764,7 @@ end manpage include-->
 >Edita</guilabel
 > des del menú contextual de la llista de fitxers. Es mostrarà un diàleg amb les entrades de la llista de reproducció. És possible obrir múltiples llistes de reproducció simultàniament. </para>
 <para
->Es poden afegir entrades noves arrossegant i deixant anar des de la llista de fitxers, un gestor de fitxers o una altra llista de reproducció. Si s'arrossega una entrada des d'una altra llista de reproducció, es mourà o copiarà segons el sistema. Per invocar l'altra operació, respectivament, s'haurà de prémer la tecla <keycap
+>Es poden afegir entrades noves arrossegant i deixant anar des de la llista de fitxers, un gestor de fitxers o una altra llista de reproducció. Si s'arrossega una entrada des d'una altra llista de reproducció, es mourà o copiarà segons el sistema. Per a invocar l'altra operació, respectivament, s'haurà de prémer la tecla <keycap
 >Maj</keycap
 >, &Ctrl; o &Alt; (per a copiar en lloc de moure al &macOS;). També és possible tornar a ordenar les entrades dins de la llista de reproducció arrossegant i deixant anar. De manera alternativa, les entrades es poden moure emprant les dreceres de teclat <keycombo
 >&Ctrl;<keycap
@@ -784,7 +784,7 @@ end manpage include-->
 >Supr</keycap
 >. </para>
 <para
->Tingueu en compte el següent: per arrossegar les entrades de la llista de fitxers, s'han de mantenir al costat esquerre (a prop de les icones), el mateix gest en el costat dret realitzarà una selecció múltiple, de manera que aquesta acció encara serà possible. </para>
+>Tingueu en compte el següent: per a arrossegar les entrades de la llista de fitxers, s'han de mantenir al costat esquerre (a prop de les icones), el mateix gest en el costat dret realitzarà una selecció múltiple, de manera que aquesta acció encara serà possible. </para>
 <para
 >Quan s'ha modificat una llista de reproducció, els canvis es podran emmagatzemar utilitzant <guibutton
 >Desa</guibutton
@@ -794,7 +794,7 @@ end manpage include-->
 <para
 >Les peces seleccionades en una llista de reproducció se seleccionaran automàticament a la llista de fitxers, el qual permetrà editar les etiquetes. </para>
 <para
->Per executar accions en una llista de reproducció, s'haurà de seleccionar el seu fitxer a la llista de fitxers. L'entrada <guimenuitem
+>Per a executar accions en una llista de reproducció, s'haurà de seleccionar el seu fitxer a la llista de fitxers. L'entrada <guimenuitem
 >Edita</guimenuitem
 > des del menú contextual portarà el diàleg descrit en aquesta secció, i <guimenuitem
 >Reprodueix</guimenuitem
@@ -836,7 +836,7 @@ end manpage include-->
 <para
 >El quadre combinat <guilabel
 >Format:</guilabel
-> i la línia d'edició conté el format que s'utilitzarà quan es generi el nom del fitxer a partir de la primera o la segona etiqueta. El nom del fitxer podrà contenir caràcters arbitraris, fins i tot una part de la carpeta separada del nom del fitxer per una barra diagonal, però aquesta carpeta ja haurà d'existir perquè el canvi de nom tingui èxit. S'empren els següents codis especials per inserir valors d'etiqueta en el nom del fitxer: </para>
+> i la línia d'edició conté el format que s'utilitzarà quan es generi el nom del fitxer a partir de la primera o la segona etiqueta. El nom del fitxer podrà contenir caràcters arbitraris, fins i tot una part de la carpeta separada del nom del fitxer per una barra diagonal, però aquesta carpeta ja haurà d'existir perquè el canvi de nom tingui èxit. S'empren els següents codis especials per a inserir valors d'etiqueta en el nom del fitxer: </para>
 
 <itemizedlist>
 <listitem
@@ -897,7 +897,7 @@ end manpage include-->
 >%{title} [%{subtitle}]</userinput
 > a la cadena de format. Però això donaria com a resultat una cadena que acaba amb <computeroutput
 > []</computeroutput
-> si no hi ha un marc de subtítols per a un fitxer. Per ometre els claudàtors si no hi ha subtítols, en el seu lloc s'utilitzarà <userinput
+> si no hi ha un marc de subtítols per a un fitxer. Per a ometre els claudàtors si no hi ha subtítols, en el seu lloc s'utilitzarà <userinput
 >%{title}%{"["subtitle"]"}</userinput
 >. Això ometrà els claudàtors, l'espai inicial i el subtítol si no existeix el subtítol. </para>
 
@@ -928,7 +928,7 @@ end manpage include-->
 >. </para>
 
 <para
->De manera interna, es construeix una expressió regular a partir dels codis de format. Si es requereixen expressions regulars avançades, el format per a generar les etiquetes a partir dels noms de fitxer es podrà indicar tot com una expressió regular amb captures precedides pels codis de format, p. ex., per extreure els números de peça sense eliminar els zeros a l'esquerra, es podria emprar un format com «<userinput
+>De manera interna, es construeix una expressió regular a partir dels codis de format. Si es requereixen expressions regulars avançades, el format per a generar les etiquetes a partir dels noms de fitxer es podrà indicar tot com una expressió regular amb captures precedides pels codis de format, p. ex., per a extreure els números de peça sense eliminar els zeros a l'esquerra, es podria emprar un format com «<userinput
 >/%{track}(\d+) %{title}(.*)</userinput
 >». </para>
 <para
@@ -1014,7 +1014,7 @@ end manpage include-->
 >Gènere</guilabel
 > i <guilabel
 >Codificador</guilabel
-> s'utilitzen per editar el valor corresponent a la primera etiqueta dels fitxers seleccionats. El valor canviarà quan es modifiqui la selecció del fitxer o abans d'operacions com <guimenuitem
+> s'utilitzen per a editar el valor corresponent a la primera etiqueta dels fitxers seleccionats. El valor canviarà quan es modifiqui la selecció del fitxer o abans d'operacions com <guimenuitem
 >Desa</guimenuitem
 > i <guimenuitem
 >Surt</guimenuitem
@@ -2488,11 +2488,11 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->Per utilitzar explícitament un nom de marc específic que entri en conflicte amb un nom de marc unificat, anteposeu un signe d'exclamació. Per exemple, afegir un marc de tipus «<replaceable
+>Per a utilitzar explícitament un nom de marc específic que entri en conflicte amb un nom de marc unificat, anteposeu un signe d'exclamació. Per exemple, afegir un marc de tipus «<replaceable
 >Suport</replaceable
 >» amb un comentari de Vorbis crearà un marc amb el nom «<literal
 >SOURCEMEDIA</literal
->» a causa de l'observació de tipus unificat. Per afegir un marc amb el nom «<literal
+>» a causa de l'observació de tipus unificat. Per a afegir un marc amb el nom «<literal
 >MEDIA</literal
 >» i no «<literal
 >SOURCEMEDIA</literal
@@ -2523,7 +2523,7 @@ end manpage include-->
 >Lletra sincronitzada i els Codis de temps dels esdeveniments</title>
 
 <para
->Per obtenir informació sincronitzada amb les dades de l'àudio, hi ha disponible un editor específic. Aquests marcs estan admesos per les etiquetes ID3 versió 2.3.0 i 2.4.0. Per afegir aquest marc, s'haurà de seleccionar el nom específic del marc a la llista que apareixerà quan feu clic al botó <guibutton
+>Per a obtenir informació sincronitzada amb les dades de l'àudio, hi ha disponible un editor específic. Aquests marcs estan admesos per les etiquetes ID3 versió 2.3.0 i 2.4.0. Per a afegir aquest marc, s'haurà de seleccionar el nom específic del marc a la llista que apareixerà quan feu clic al botó <guibutton
 >Afegeix</guibutton
 > -la <guilabel
 >Lletra sincronitzada</guilabel
@@ -2565,7 +2565,7 @@ end manpage include-->
 >Importa</guibutton
 >. El format esperat és LRC senzill o millorat. Si el fitxer seleccionat no conté un claudàtor a la primera línia, se suposarà que es tracta d'un senzill fitxer de text amb lletra sense sincronitzar. Les línies en aquest fitxer s'importaran amb marques de temps no vàlides. La informació de temps es podrà afegir mitjançant el botó <guibutton
 >Afegeix</guibutton
-> o la introducció manual. També és possible importar la lletra mitjançant copia i enganxa utilitzant <guilabel
+> o la introducció manual. També és possible importar la lletra mitjançant còpia i enganxat utilitzant <guilabel
 >Des del porta-retalls</guilabel
 >. La lletra sincronitzada es pot escriure en els fitxers LRC utilitzant <guibutton
 >Exporta</guibutton
@@ -2573,7 +2573,7 @@ end manpage include-->
 <para
 >L'<ulink url="http://id3.org/id3v2.4.0-frames"
 >especificació ID3</ulink
-> suggereix una marca de temps per a cada síl·laba. No obstant això, la majoria dels reproductors només admeten la granularitat d'una línia o frase. Per admetre ambdós casos d'ús, el &kid3; segueix les mateixes convencions que l'<ulink url="http://www.compuphase.com/software_sylteditor.htm"
+> suggereix una marca de temps per a cada síl·laba. No obstant això, la majoria dels reproductors només admeten la granularitat d'una línia o frase. Per a admetre ambdós casos d'ús, el &kid3; segueix les mateixes convencions que l'<ulink url="http://www.compuphase.com/software_sylteditor.htm"
 >editor SYLT</ulink
 >. Se suposa que el text que s'introdueix a la taula començarà una línia nova a menys que comenci amb un espai o un guió. Les excepcions a aquesta regla són possibles quan es comença una línia amb un guió baix («_») per a forçar la continuació o una marca de numeral («#») per a forçar una línia nova. Aquests caràcters d'escapament no s'emmagatzemaran dins del marc SYLT. Dins del marc SYLT, les línies noves començaran amb un caràcter d'avanç de línia (0A hexadecimal) mentre que les continuacions no. En llegir els marcs SYLT, el &kid3; comprovarà si la primera entrada comença amb un salt de línia. Si aquest no és el cas, se suposarà que totes les entrades són línies noves i que no s'utilitzen continuacions de síl·laba. </para>
 <para
@@ -2584,7 +2584,7 @@ end manpage include-->
 > des del menú contextual, és possible establir la fila seleccionada amb el temps de la posició de reproducció. </para>
 <para>
 <emphasis
->Procediment recomanat per afegir una lletra sincronitzada nova</emphasis>
+>Procediment recomanat per a afegir una lletra sincronitzada nova</emphasis>
 <itemizedlist>
 <listitem
 ><para
@@ -2640,7 +2640,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->Continueu així fins que s'estableixin totes les marques de temps. Si s'ha perdut quelcom, atureu la reproducció i netegeu les marques de temps amb la tecla <keycap
+>Continueu així fins que s'estableixin totes les marques de temps. Si s'ha perdut alguna cosa, atureu la reproducció i netegeu les marques de temps amb la tecla <keycap
 >Supr</keycap
 > o seleccionant-les i utilitzant <guimenuitem
 >Neteja</guimenuitem
@@ -2654,12 +2654,12 @@ end manpage include-->
 
 <sect2 id="mp4-chapters">
 <title
->Capítols ens els fitxers MP4</title>
+>Capítols en els fitxers MP4</title>
 
 <para
 >Els audiollibres MP4 normalment solen tenir una extensió <filename class="extension"
 >.m4b</filename
-> i són bastant grans perquè contenen tots els capítols en un sol fitxer. Per navegar en aquests fitxers, poden contenir marques de capítols, que es poden editar en el &kid3; en un pseudomarc de «Capítols» utilitzant el mateix editor que s'utilitza per a les <link linkend="synchronized-lyrics"
+> i són bastant grans perquè contenen tots els capítols en un sol fitxer. Per a navegar en aquests fitxers, poden contenir marques de capítols, que es poden editar en el &kid3; en un pseudomarc de «Capítols» utilitzant el mateix editor que s'utilitza per a les <link linkend="synchronized-lyrics"
 >lletres sincronitzades</link
 >. No obstant això, cal tenir en compte que aquesta característica només està disponible amb el connector <guilabel
 >Mp4v2Metadata</guilabel
@@ -2815,13 +2815,13 @@ end manpage include-->
 ><para
 >El <action
 >diàleg Importa</action
-> es pot utilitzar per importar les dades directament des d'un servidor freedb.org, des d'un servidor MusicBrainz, des de Discogs, Amazon o altres fonts de llistes de peces d'àlbum en un format de text. </para>
+> es pot utilitzar per a importar les dades directament des d'un servidor freedb.org, des d'un servidor MusicBrainz, des de Discogs, Amazon o altres fonts de llistes de peces d'àlbum en un format de text. </para>
 <para id="import-freedb"
 >És possible la importació des d'un servidor freedb.org utilitzant un diàleg que apareix quan a <guibutton
 >Des del servidor:</guibutton
 > se selecciona <guibutton
 >gnudb.org</guibutton
->. L'artista i el nom de l'àlbum per cercar es poden introduir en els dos camps de sobre, els àlbums que coincideixin amb la consulta apareixeran quan feu clic a <guibutton
+>. L'artista i el nom de l'àlbum per a cercar es poden introduir en els dos camps de sobre, els àlbums que coincideixin amb la consulta apareixeran quan feu clic a <guibutton
 >Cerca</guibutton
 > i es rebran els resultats des de <ulink url="http://www.gnudb.org"
 >www.gnudb.org</ulink
@@ -2873,12 +2873,12 @@ end manpage include-->
 >Aplica</guibutton
 > utilitzaran les dades importades, <guibutton
 >Cancel·la</guibutton
-> tancarà el diàleg. El tancament pot trigar una estona ja que s'haurà de tancar tota la maquinària del MusicBrainz. </para>
+> tancarà el diàleg. El tancament pot trigar una estona, ja que s'haurà de tancar tota la maquinària del MusicBrainz. </para>
 
 <para id="import-text"
 >Per a la importació de dades textuals, <guibutton
 >Des del fitxer/porta-retalls...</guibutton
-> obrirà un subdiàleg, on hi haurà disponibles diversos formats d'importació preconfigurats. Els dos primers, «CSV sense cometes» i «CSV amb cometes» es poden fer servir per importar les dades que s'han exportat mitjançant el diàleg Exporta. Les dades CSV es podran editar amb un full de càlcul i s'escriuran emprant tabulacions com a delimitadors. La importació hauria de ser possible utilitzant «CSV amb cometes», el qual és més flexible que el «CSV sense cometes». No obstant això, els seus camps no poden contenir cometes dobles. Si només exporteu des del &kid3; i importeu més tard, es pot utilitzar el «CSV sense cometes» com un format senzill per a aquesta finalitat. Recordeu que també hi ha les ordres «Exporta a CSV» i «Importa des de CSV» al menú contextual de la llista de fitxers, les quals utilitzen scripts per exportar i importar les dades CSV d'una manera més completa, potent i flexible. </para>
+> obrirà un subdiàleg, on hi haurà disponibles diversos formats d'importació preconfigurats. Els dos primers, «CSV sense cometes» i «CSV amb cometes» es poden fer servir per a importar les dades que s'han exportat mitjançant el diàleg Exporta. Les dades CSV es podran editar amb un full de càlcul i s'escriuran emprant tabulacions com a delimitadors. La importació hauria de ser possible utilitzant «CSV amb cometes», el qual és més flexible que el «CSV sense cometes». No obstant això, els seus camps no poden contenir cometes dobles. Si només exporteu des del &kid3; i importeu més tard, es pot utilitzar el «CSV sense cometes» com un format senzill per a aquesta finalitat. Recordeu que també hi ha les ordres «Exporta a CSV» i «Importa des de CSV» al menú contextual de la llista de fitxers, les quals utilitzen scripts per a exportar i importar les dades CSV d'una manera més completa, potent i flexible. </para>
 
 <para
 >El següent format, «Text &HTML; de freedb», es pot utilitzar per a copiar la informació des d'una pàgina &HTML; de <ulink url="http://freedb.org"
@@ -2893,7 +2893,7 @@ end manpage include-->
 >Etiqueta 2</guilabel
 > o <guilabel
 >Etiqueta 1 i Etiqueta 2</guilabel
->) es pot seleccionar amb un quadre combinat. Els fitxers a la carpeta actual hauran d'estar en l'ordre de peces correcte per assignar les seves etiquetes. Aquest serà el cas si estan numerades. </para>
+>) es pot seleccionar amb un quadre combinat. Els fitxers a la carpeta actual hauran d'estar en l'ordre de peces correcte per a assignar les seves etiquetes. Aquest serà el cas si estan numerades. </para>
 <para
 >Si les dades estan disponibles com un document &HTML;, es podrà utilitzar el següent format d'importació preconfigurat, «Font &HTML; des de freedb». La importació és possible utilitzant el botó <guibutton
 >Des del fitxer...</guibutton
@@ -2901,7 +2901,7 @@ end manpage include-->
 <para
 >Hi ha disponibles més formats preconfigurats, p. ex., «Temps del títol de la peça». Es pot crear un format personalitzat buit amb <guibutton
 >Afegeix</guibutton
-> perquè sigui configurat per l'usuari. Es poden establir dues línies a sota del nom del format amb una expressió regular per a capturar els camps de text a importar. S'analitzarà la primera expressió regular un cop per document per a recopilar les dades per àlbum; com ara l'artista, àlbum, any i gènere. La segona línia intenta fer coincidir des del començament del document fins al final per obtenir les dades de les peces, generalment el número i títol. Les expressions regulars inclouen totes les característiques que ofereixen les &Qt;, les quals són la major part del que ofereix Perl. Les construccions de parèntesis «(..)» creen memòries intermèdies de captura per als camps a importar i estan precedides per codis específics del &kid3; per especificar quin camp capturar. Els codis són els mateixos que es fan servir per al format del nom de fitxer, a més dels codis llistats a continuació, és possible qualsevol nom de marc: </para>
+> perquè sigui configurat per l'usuari. Es poden establir dues línies a sota del nom del format amb una expressió regular per a capturar els camps de text a importar. S'analitzarà la primera expressió regular un cop per document per a recopilar les dades per àlbum; com ara l'artista, àlbum, any i gènere. La segona línia intenta fer coincidir des del començament del document fins al final per a obtenir les dades de les peces, generalment el número i títol. Les expressions regulars inclouen totes les característiques que ofereixen les &Qt;, les quals són la major part del que ofereix Perl. Les construccions de parèntesis «(..)» creen memòries intermèdies de captura per als camps a importar i estan precedides per codis específics del &kid3; per a especificar quin camp capturar. Els codis són els mateixos que es fan servir per al format del nom de fitxer, a més dels codis llistats a continuació, és possible qualsevol nom de marc: </para>
 
 <para id="format-codes">
 <itemizedlist>
@@ -2941,7 +2941,7 @@ end manpage include-->
 </para>
 
 <para
->Per exemple, una expressió regular de peça (segona línia) per importar des d'una llista de reproducció <filename class="extension"
+>Per exemple, una expressió regular de peça (segona línia) per a importar des d'una llista de reproducció <filename class="extension"
 >.m3u</filename
 > podria ser «<literal
 >%{track}(\d+)\s+%{title}(\S[^\r\n]*)\.mp3[\r\n]</literal
@@ -2949,7 +2949,7 @@ end manpage include-->
 >Desa la configuració</guibutton
 >. S'emmagatzemaran al fitxer <filename
 >kid3rc</filename
-> a la carpeta de configuració. Aquest fitxer es pot editar directament per tenir més formats d'importació o es pot eliminar per tornar als formats predeterminats. Els formats es poden eliminar amb <guibutton
+> a la carpeta de configuració. Aquest fitxer es pot editar directament per a tenir més formats d'importació o es pot eliminar per a tornar als formats predeterminats. Els formats es poden eliminar amb <guibutton
 >Elimina</guibutton
 >. </para>
 <para
@@ -2979,7 +2979,7 @@ end manpage include-->
 >Destinació:</guilabel
 >. El botó a la dreta d'aquest quadre combinat es pot utilitzar per a revertir la taula al contingut actual de les etiquetes. Es poden utilitzar les caselles de selecció a la primera columna de la taula per a seleccionar les peces que s'importaran. Això pot ser útil si una carpeta conté les peces d'ambdós &CD; d'un &CD; doble i només s'han d'importar les peces del segon &CD;. </para>
 <para
->Per identificar les pistes que s'importaran, és possible mostrar els noms de fitxer o els camins sencers als fitxers utilitzant el menú contextual a la capçalera de la taula. Els valors en la taula d'importació es poden editar. El botó Reverteix que hi ha a la dreta del quadre combinat <guilabel
+>Per a identificar les pistes que s'importaran, és possible mostrar els noms de fitxer o els camins sencers als fitxers utilitzant el menú contextual a la capçalera de la taula. Els valors en la taula d'importació es poden editar. El botó Reverteix que hi ha a la dreta del quadre combinat <guilabel
 >Destinació:</guilabel
 > es pot utilitzar per a restaurar el contingut de les etiquetes, el qual també pot ser útil després de canviar la <guilabel
 >Destinació:</guilabel
@@ -2987,7 +2987,7 @@ end manpage include-->
 <para
 >Gairebé tots els diàlegs tenen un botó <guibutton
 >Desa la configuració</guibutton
->, el qual es pot utilitzar per emmagatzemar les opcions de configuració específiques del diàleg i fer que la mida de la finestra sigui persistent. </para>
+>, el qual es pot utilitzar per a emmagatzemar les opcions de configuració específiques del diàleg i fer que la mida de la finestra sigui persistent. </para>
 
 <para id="import-tags"
 ><guibutton
@@ -2996,7 +2996,7 @@ end manpage include-->
 <para
 >Com en el diàleg <link linkend="import-text"
 >Importa des del fitxer/porta-retalls</link
->, hi ha formats lliurement configurables per a realitzar diferents operacions. Són formats que ja estan preconfigurats per a copiar el valor de l'Àlbum a l'Artista, Compositor o Director de l'àlbum, i per extreure el número de la peça dels camps Títol que contenen un número. També hi ha un format per extreure un subtítol des d'un camp Títol. </para>
+>, hi ha formats lliurement configurables per a realitzar diferents operacions. Són formats que ja estan preconfigurats per a copiar el valor de l'Àlbum a l'Artista, Compositor o Director de l'àlbum, i per a extreure el número de la peça dels camps Títol que contenen un número. També hi ha un format per a extreure un subtítol des d'un camp Títol. </para>
 <para
 >El següent exemple explica com afegir un format personalitzat, el qual estableix la informació del camp Subtítol també en el camp Comentari. Creeu un format nou amb el botó <guibutton
 >Afegeix</guibutton
@@ -3020,7 +3020,7 @@ end manpage include-->
 >Font:</guilabel
 >, i l'expressió regular des d'<guilabel
 >Extracció:</guilabel
-> s'aplicarà a aquest text per establir valors nous per a les etiquetes. Els codis de format s'utilitzen abans dels parèntesis de captura per especificar el marc de l'etiqueta on s'emmagatzemarà el text capturat. Funciona de la mateixa manera que per a <link linkend="import-text"
+> s'aplicarà a aquest text per a establir valors nous per a les etiquetes. Els codis de format s'utilitzen abans dels parèntesis de captura per a especificar el marc de l'etiqueta on s'emmagatzemarà el text capturat. Funciona de la mateixa manera que per a <link linkend="import-text"
 >Importar des d'un fitxer/porta-retalls</link
 >. </para>
 <para
@@ -3175,7 +3175,7 @@ end manpage include-->
 >Destinació:</guilabel
 >. </para>
 <para
->Els perfils determinen quins servidors seran contactats per obtenir la informació de l'àlbum. Alguns perfils estan predefinits (Tots, MusicBrainz, Discogs, Caràtula), es poden afegir perfils personalitzats emprant el botó <guibutton
+>Els perfils determinen quins servidors seran contactats per a obtenir la informació de l'àlbum. Alguns perfils estan predefinits (Tots, MusicBrainz, Discogs, Caràtula), es poden afegir perfils personalitzats emprant el botó <guibutton
 >Afegeix</guibutton
 > que hi ha a la dreta del quadre combinat <guilabel
 >Perfil:</guilabel
@@ -3199,7 +3199,7 @@ end manpage include-->
 >Precisió</guilabel
 > és la precisió mínima que s'haurà d'aconseguir per a acceptar les dades importades. Si la precisió és insuficient, es provarà el següent servidor de la llista. El mateix diàleg que conté les propietats del servidor apareixerà quan feu clic a <guibutton
 >Afegeix...</guibutton
-> per afegir una entrada nova de servidor. Les entrades existents es poden eliminar utilitzant <guibutton
+> per a afegir una entrada nova de servidor. Les entrades existents es poden eliminar utilitzant <guibutton
 >Elimina</guibutton
 >. </para>
 <para
@@ -3267,7 +3267,7 @@ end manpage include-->
 ><para
 >El <action
 >diàleg Exporta</action
-> s'utilitza per emmagatzemar les dades de les etiquetes en un fitxer o al porta-retalls. L'editor a la part superior mostrarà una vista prèvia de les dades a exportar. Si les dades d'exportació contenen caràcters de tabulació, l'exportació es mostrarà en una taula. Les dades es generaran a partir de les etiquetes a la carpeta actual d'acord amb el format configurat. </para>
+> s'utilitza per a emmagatzemar les dades de les etiquetes en un fitxer o al porta-retalls. L'editor a la part superior mostrarà una vista prèvia de les dades a exportar. Si les dades d'exportació contenen caràcters de tabulació, l'exportació es mostrarà en una taula. Les dades es generaran a partir de les etiquetes a la carpeta actual d'acord amb el format configurat. </para>
 <para
 >La configuració del format és similar a la del diàleg Importa: el camp superior conté el títol (p. ex., «CSV sense cometes»), seguit de la capçalera, el qual es generarà al començament del fitxer. Segueixen les dades de la peça -s'utilitzaran per a cada peça-. Finalment, el tràiler es podrà utilitzar per a generar algun text final. </para>
 <para
@@ -3494,7 +3494,7 @@ end manpage include-->
 >%{track.3}</userinput
 >» es pot utilitzar per a ordenar per número de peça (el «<userinput
 >.3</userinput
->» s'utilitza per obtenir tres dígits amb zeros a l'esquerra, de manera que les cadenes s'utilitzaran per a ordenar). També és possible utilitzar múltiples camps, p. ex., «<userinput
+>» s'utilitza per a obtenir tres dígits amb zeros a l'esquerra, de manera que les cadenes s'utilitzaran per a ordenar). També és possible utilitzar múltiples camps, p. ex., «<userinput
 >%{genre}%{year}</userinput
 >» per a ordenar utilitzant una cadena composta del gènere i any. </para>
 <para
@@ -3783,9 +3783,9 @@ end manpage include-->
 ></term>
 <listitem
 ><para
->Aquest diàleg ofereix la possibilitat de canviar automàticament el nom de la carpeta actualment oberta d'acord amb les etiquetes en els fitxers. Hi ha preconfigurats diversos formats per incloure la informació sobre l'artista, l'àlbum i l'any en el nom de la carpeta. També és possible establir un format personalitzat i fer <guibutton
+>Aquest diàleg ofereix la possibilitat de canviar automàticament el nom de la carpeta actualment oberta d'acord amb les etiquetes en els fitxers. Hi ha preconfigurats diversos formats per a incloure la informació sobre l'artista, l'àlbum i l'any en el nom de la carpeta. També és possible establir un format personalitzat i fer <guibutton
 >Edita</guibutton
-> sobre la llista de formats disponibles. S'utilitzaran els següents codis especials per inserir valors d'etiqueta en el nom de la carpeta: </para>
+> sobre la llista de formats disponibles. S'utilitzaran els següents codis especials per a inserir valors d'etiqueta en el nom de la carpeta: </para>
 
 <itemizedlist>
 <listitem
@@ -3892,7 +3892,7 @@ end manpage include-->
 ><para
 >El diàleg Números de les peces també es pot utilitzar per a donar format als números de les peces existents sense canviar els valors quan la casella de selecció esquerra a <guilabel
 >Número d'inici:</guilabel
-> està desactivada. El nombre total de peces s'afegirà si la casella de selecció corresponent està activa, el qual es pot utilitzar per establir el total de totes les pistes seleccionades. Si només es vol donar format als números existents, també s'haurà de desactivar aquesta casella de selecció. </para
+> està desactivada. El nombre total de peces s'afegirà si la casella de selecció corresponent està activa, el qual es pot utilitzar per a establir el total de totes les pistes seleccionades. Si només es vol donar format als números existents, també s'haurà de desactivar aquesta casella de selecció. </para
 ></listitem>
 </varlistentry>
 
@@ -3996,11 +3996,11 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%1a %1{artist}, ... Empra el prefix 1 per obtenir els valors de l'etiqueta 1</para
+>%1a %1{artist}, ... Empra el prefix 1 per a obtenir els valors de l'etiqueta 1</para
 ></listitem>
 <listitem
 ><para
->%2a %2{artist}, ... Empra el prefix 2 per obtenir els valors de l'etiqueta 2</para
+>%2a %2{artist}, ... Empra el prefix 2 per a obtenir els valors de l'etiqueta 2</para
 ></listitem>
 </itemizedlist>
 
@@ -4170,7 +4170,7 @@ end manpage include-->
 >Filtratge personalitzat</term
 ><listitem>
 <para
->Per afegir el vostre propi filtre, seleccioneu aquesta entrada. Per exemple, si voleu tenir un filtre per a artistes que comencin amb «El», substituïu «Filtre personalitzat» amb el nom «La banda» i premeu <keysym
+>Per a afegir el vostre propi filtre, seleccioneu aquesta entrada. Per exemple, si voleu tenir un filtre per a artistes que comencin amb «El», substituïu «Filtre personalitzat» amb el nom «La banda» i premeu <keysym
 >Retorn</keysym
 >. Després inseriu la següent expressió a la línia d'edició: </para>
 <para
@@ -4348,7 +4348,7 @@ end manpage include-->
 ></term>
 <listitem
 ><para
->Obre un diàleg per assignar les dreceres de teclat per a la majoria de les funcions del programa. Fins i tot hi ha funcions sense un menú o botó corresponent disponible, p. ex., Fitxer següent, Fitxer anterior o Selecciona-ho tot. </para>
+>Obre un diàleg per a assignar les dreceres de teclat per a la majoria de les funcions del programa. Fins i tot hi ha funcions sense un menú o botó corresponent disponible, p. ex., Fitxer següent, Fitxer anterior o Selecciona-ho tot. </para>
  
 </listitem>
 </varlistentry>
@@ -4400,7 +4400,7 @@ end manpage include-->
 <para
 >Quan <guilabel
 >Fitxers WAV amb el bloc id3 en minúscules</guilabel
-> està marcada, el fragment RIFF utilitzat per emmagatzemar les etiquetes ID3 versió 2 en els fitxers WAV s'anomenarà «id3» en lloc d'«ID3». De manera predeterminada, el &kid3; i altres aplicacions que fan servir la TagLib admeten tant la variant en minúscules com en majúscules quan llegeixen els fitxers WAV, però fan servir «ID3» quan escriuen les etiquetes ID3 versió 2 en els fitxers WAV. Com a altres aplicacions que només admeten «id3» (p. ex., JRiver Media Center i foobar2000), aquesta opció es pot utilitzar per a crear etiquetes que aquestes aplicacions puguin llegir. </para>
+> està marcada, el fragment RIFF utilitzat per a emmagatzemar les etiquetes ID3 versió 2 en els fitxers WAV s'anomenarà «id3» en lloc d'«ID3». De manera predeterminada, el &kid3; i altres aplicacions que fan servir la TagLib admeten tant la variant en minúscules com en majúscules quan llegeixen els fitxers WAV, però fan servir «ID3» quan escriuen les etiquetes ID3 versió 2 en els fitxers WAV. Com a altres aplicacions que només admeten «id3» (p. ex., JRiver Media Center i foobar2000), aquesta opció es pot utilitzar per a crear etiquetes que aquestes aplicacions puguin llegir. </para>
 <para
 >Quan <guilabel
 >Marca les infraccions de l'estàndard</guilabel
@@ -4600,7 +4600,7 @@ end manpage include-->
 >Primera lletra en majúscula</guilabel
 > o <guilabel
 >Totes les primeres lletres en majúscula</guilabel
->. Per utilitzar la conversió del reconeixement segons la configuració regional entre caràcters en minúscula i majúscula, es pot seleccionar en el quadre combinat a continuació. La llista de substitució de cadenes es pot establir a assignacions arbitràries de cadenes. Per afegir una assignació nova, seleccioneu la cel·la <guilabel
+>. Per a utilitzar la conversió del reconeixement segons la configuració regional entre caràcters en minúscula i majúscula, es pot seleccionar en el quadre combinat a continuació. La llista de substitució de cadenes es pot establir a assignacions arbitràries de cadenes. Per a afegir una assignació nova, seleccioneu la cel·la <guilabel
 >Des de:</guilabel
 > d'una fila i inseriu el text a substituir, després aneu a la columna <guilabel
 >A:</guilabel
@@ -4621,7 +4621,7 @@ end manpage include-->
 >Puntuació</guilabel
 > conté l'assignació de les estrelles valorades als valors efectius emmagatzemats a l'etiqueta. Els marcs amb informació de puntuació es llisten a la fila Puntuació de la <link linkend="table-frame-list"
 >llista de marcs</link
->. Per a aquests marcs, la puntuació es podrà establir donant una quantitat d'estrelles de cinc estrelles. Els diferents formats d'etiqueta i les diferents aplicacions utilitzen diferents valors per assignar la puntuació d'estrelles al valor emmagatzemat a l'etiqueta. Per mostrar el nombre correcte d'estrelles, el &kid3; cercarà un mapa en aquesta taula. La clau per a cercar l'assignació serà el nom del marc, per exemple «RATING» tal com s'empra per als comentaris a Vorbis o «IRTD» per a la informació de RIFF. Per a les etiquetes ID3 versió 2, s'utilitza una clau combinada que consisteix en l'ID del marc «POPM» del marc Mesurador de la popularitat i el seu camp «Correu electrònic», separats per un punt. Per tant, hi ha diferents claus per a ID3 versió 2, p. ex., «POPM.Windows Media Player 9 Series» per a l'assignació emprada pel Windows Media Player i Explorer, i simplement «POPM» per als marcs POPM amb un camp «Correu electrònic» buit. Com poden hi poden haver múltiples entrades per a «POPM», el seu ordre és important. Quan el &kid3; afegeix un marc nou de Mesurador de la popularitat, utilitzarà la primera entrada «POPM» per a determinar el valor que s'escriurà al camp «Correu electrònic». Aquest valor especificarà l'assignació que s'utilitzarà per a la puntuació d'estrelles. També s'emprarà la primera entrada si no es troba cap clau, per tant, és l'entrada predeterminada. </para>
+>. Per a aquests marcs, la puntuació es podrà establir donant una quantitat d'estrelles de cinc estrelles. Els diferents formats d'etiqueta i les diferents aplicacions utilitzen diferents valors per a assignar la puntuació d'estrelles al valor emmagatzemat a l'etiqueta. Per a mostrar el nombre correcte d'estrelles, el &kid3; cercarà un mapa en aquesta taula. La clau per a cercar l'assignació serà el nom del marc, per exemple «RATING» tal com s'empra per als comentaris a Vorbis o «IRTD» per a la informació de RIFF. Per a les etiquetes ID3 versió 2, s'utilitza una clau combinada que consisteix en l'ID del marc «POPM» del marc Mesurador de la popularitat i el seu camp «Correu electrònic», separats per un punt. Per tant, hi ha diferents claus per a ID3 versió 2, p. ex., «POPM.Windows Media Player 9 Series» per a l'assignació emprada pel Windows Media Player i Explorer, i simplement «POPM» per als marcs POPM amb un camp «Correu electrònic» buit. Com hi poden haver múltiples entrades per a «POPM», el seu ordre és important. Quan el &kid3; afegeix un marc nou de Mesurador de la popularitat, utilitzarà la primera entrada «POPM» per a determinar el valor que s'escriurà al camp «Correu electrònic». Aquest valor especificarà l'assignació que s'utilitzarà per a la puntuació d'estrelles. També s'emprarà la primera entrada si no es troba cap clau, per tant, és l'entrada predeterminada. </para>
 <para
 >A més de la columna <guilabel
 >Nom</guilabel
@@ -4707,17 +4707,17 @@ end manpage include-->
 >Llista de fitxers</guilabel
 > determina quins fitxers es mostraran a la llista de fitxers. Es pot utilitzar un <guilabel
 >Filtre</guilabel
-> per a restringir els elements d'aquesta llista als fitxers amb extensions admeses. Per especificar explícitament quines carpetes mostrar a la llista de fitxers o excloure certes carpetes, es poden emprar les opcions <guilabel
+> per a restringir els elements d'aquesta llista als fitxers amb extensions admeses. Per a especificar explícitament quines carpetes mostrar a la llista de fitxers o excloure certes carpetes, es poden emprar les opcions <guilabel
 >Carpetes a incloure:</guilabel
 > i <guilabel
 >Carpetes a excloure:</guilabel
 >. Poden contenir expressions de comodí, per exemple <filename class="directory"
 >*/Música/*</filename
-> per incloure només la carpeta <filename class="directory"
+> per a incloure només la carpeta <filename class="directory"
 >Música</filename
 >, o <filename class="directory"
 >*/iTunes/*</filename
-> per excloure la carpeta <filename class="directory"
+> per a excloure la carpeta <filename class="directory"
 >iTunes</filename
 > de la llista de fitxers. Si s'han d'emprar múltiples d'aquestes expressions, es podran separar amb espais o punt i coma. </para>
 <para
@@ -4727,7 +4727,7 @@ end manpage include-->
 >Etiqueta des del nom de fitxer</guibutton
 > a la secció <guilabel
 >Format</guilabel
-> obriran els diàlegs per editar els formats que hi ha disponibles als quadres combinats <guilabel
+> obriran els diàlegs per a editar els formats que hi ha disponibles als quadres combinats <guilabel
 >Format</guilabel
 > (amb les fletxes amunt i avall), que es poden trobar a la secció <link linkend="file"
 >Fitxer</link
@@ -4822,7 +4822,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%b %{browser} Ordre per iniciar el navegador web</para
+>%b %{browser} Ordre per a iniciar el navegador web</para
 ></listitem>
 <listitem
 ><para
@@ -4833,7 +4833,7 @@ end manpage include-->
 <para
 >El codi especial <command
 >@separator</command
-> es pot establir com una ordre per inserir un separador al menú contextual de les accions de l'usuari. Els elements de menú es poden posar en un submenú tancat amb les ordres <command
+> es pot establir com una ordre per a inserir un separador al menú contextual de les accions de l'usuari. Els elements de menú es poden posar en un submenú tancat amb les ordres <command
 >@beginmenu</command
 > i <command
 >@endmenu</command
@@ -4844,7 +4844,7 @@ end manpage include-->
 >. </para>
 
 <para id="configure-user-actions-qml"
->Per executar scripts QML, s'utilitza <command
+>Per a executar scripts QML, s'utilitza <command
 >@qml</command
 > com a nom de l'ordre. El camí cap a l'script QML es passa com un paràmetre. Els scripts proporcionats es troben a la carpeta <filename
 >%{qmlpath}/script/</filename
@@ -4869,7 +4869,7 @@ end manpage include-->
 <para
 >L'ordre que s'inserirà amb %{browser} es podrà definir a l'anterior línia d'edició del <guilabel
 >Navegador web</guilabel
->. Les ordres que comencin amb %{browser} es podran emprar per obtenir informació sobre els fitxers d'àudio del web, per exemple <screen width="40">
+>. Les ordres que comencin amb %{browser} es podran emprar per a obtenir informació sobre els fitxers d'àudio del web, per exemple <screen width="40">
 <userinput
 >%{browser} http://lyricwiki.org/%u{artist}:%u{title}</userinput>
 </screen
@@ -4884,11 +4884,11 @@ end manpage include-->
 </screen>
 </para>
 <para
->Per afegir la caràtula de l'àlbum a l'etiqueta 2, podreu cercar imatges amb Google o Amazon utilitzant les ordres descrites anteriorment. La imatge es podrà afegir a l'etiqueta arrossegant i deixant anar. També podreu afegir una imatge amb <guibutton
+>Per a afegir la caràtula de l'àlbum a l'etiqueta 2, podreu cercar imatges amb Google o Amazon utilitzant les ordres descrites anteriorment. La imatge es podrà afegir a l'etiqueta arrossegant i deixant anar. També podreu afegir una imatge amb <guibutton
 >Afegeix</guibutton
 >, després seleccioneu el Marc de la imatge i importeu un fitxer d'imatge o enganxeu-lo des del porta-retalls. Els marcs d'imatge estan admesos per les etiquetes ID3 versió 2, MP4, FLAC, Ogg i ASF. </para>
 <para
->Per afegir i suprimir entrades a la taula, es pot emprar un menú contextual. </para>
+>Per a afegir i suprimir entrades a la taula, es pot emprar un menú contextual. </para>
 <para
 >La pàgina <guilabel
 >Xarxa</guilabel
@@ -4936,7 +4936,7 @@ end manpage include-->
 >Mp4v2Metadata</guilabel
 >: la <ulink url="https://mp4v2.org/"
 >mp4v2</ulink
-> va ser utilitzada originalment pel &kid3; per admetre els fitxers M4A. Es pot utilitzar en cas de problemes amb el suport M4A de la TagLib. </para
+> va ser utilitzada originalment pel &kid3; per a admetre els fitxers M4A. Es pot utilitzar en cas de problemes amb el suport M4A de la TagLib. </para
 ></listitem>
 </itemizedlist>
 <para
@@ -4990,7 +4990,7 @@ end manpage include-->
 ></listitem>
 </itemizedlist>
 <para
->Els connectors que estiguin inhabilitats no es carregaran. Això es pot utilitzar per optimitzar l'ús dels recursos i el temps d'inici. La configuració d'aquesta pàgina només tindrà efecte després de reiniciar el &kid3;. </para>
+>Els connectors que estiguin inhabilitats no es carregaran. Això es pot utilitzar per a optimitzar l'ús dels recursos i el temps d'inici. La configuració d'aquesta pàgina només tindrà efecte després de reiniciar el &kid3;. </para>
 </listitem>
 </varlistentry>
 
@@ -5454,19 +5454,19 @@ Intro</computeroutput
 >set remixer 'I si canto trist'</userinput
 ></screen>
 <para
->Per establir des d'un fitxer el contingut d'un marc d'imatge, utilitzeu <screen width="65"
+>Per a establir des d'un fitxer el contingut d'un marc d'imatge, utilitzeu <screen width="65"
 ><userinput
 >set picture:'/camí/a/carpeta.jpg' 'Descripció de la imatge'</userinput
 ></screen>
 </para>
 <para
->Per establir una lletra sincronitzada en un fitxer LRC, utilitzeu <screen width="65"
+>Per a establir una lletra sincronitzada en un fitxer LRC, utilitzeu <screen width="65"
 ><userinput
 >set SYLT:'/camí/a/lletra.lrc' 'Descripció de la lletra'</userinput
 ></screen>
 </para>
 <para
->Per establir un camp específic d'un marc, el nom del camp es podrà indicar després d'un punt, p. ex., per establir el camp Comptador d'un marc Mesurador de la popularitat, utilitzeu <screen width="65"
+>Per a establir un camp específic d'un marc, el nom del camp es podrà indicar després d'un punt, p. ex., per a establir el camp Comptador d'un marc Mesurador de la popularitat, utilitzeu <screen width="65"
 ><userinput
 >set POPM.Counter 5</userinput
 ></screen>
@@ -5494,7 +5494,7 @@ Intro</computeroutput
 >set TXXX.Text 5</userinput
 >, però això només funcionarà si no hi ha un altre marc TXXX present. </para>
 <para
->Per establir múltiples marcs del mateix tipus, es pot indicar un índex entre parèntesis, p. ex., per a establir múltiples intèrprets en un comentari de Vorbis, utilitzeu <screen width="65"
+>Per a establir múltiples marcs del mateix tipus, es pot indicar un índex entre parèntesis, p. ex., per a establir múltiples intèrprets en un comentari de Vorbis, utilitzeu <screen width="65"
 ><prompt
 >kid3-cli&gt; </prompt
 ><userinput
@@ -5507,7 +5507,7 @@ Intro</computeroutput
 </screen>
 </para>
 <para
->Per a seleccionar certs marcs abans d'una acció de copia, enganxa o elimina, es pot emprar el nom del pseudocamp «seleccionada». Normalment, se seleccionaran tots els marcs, per a desseleccionar-los empreu <userinput
+>Per a seleccionar certs marcs abans d'una acció de còpia, enganxat o eliminació, es pot emprar el nom del pseudocamp «seleccionada». Normalment, se seleccionaran tots els marcs, per a desseleccionar-los empreu <userinput
 >set '*.selected' 0</userinput
 >, després, per exemple, <userinput
 >set artist.selected 1</userinput
@@ -5575,7 +5575,7 @@ Intro</computeroutput
 >EXTRACCIÓ</replaceable
 > els quals són obligatoris, vegeu <link linkend="import-tags"
 >Importar des de les etiquetes</link
->. Per aplicar la importació des de les etiquetes en els fitxers seleccionats, utilitzeu <userinput
+>. Per a aplicar la importació des de les etiquetes en els fitxers seleccionats, utilitzeu <userinput
 >tagsel</userinput
 > en lloc de <userinput
 >tags</userinput
@@ -6247,7 +6247,7 @@ if __name__ == '__main__':
 >&Qt;</ulink
 >. Es recomana el <ulink url="http://www.kde.org"
 >&kde;</ulink
-> però no cal, ja que el &kid3; també es pot compilar com una aplicació de les &Qt;. El &kid3; es pot compilar per a sistemes on aquestes biblioteques estiguin disponibles, p. ex., per a GNU/&Linux;, &Windows; i &macOS;. Per etiquetar els fitxers Ogg/Vorbis, es requereixen les <ulink url="http://xiph.org/ogg/"
+> però no cal, ja que el &kid3; també es pot compilar com una aplicació de les &Qt;. El &kid3; es pot compilar per a sistemes on aquestes biblioteques estiguin disponibles, p. ex., per a GNU/&Linux;, &Windows; i &macOS;. Per a etiquetar els fitxers Ogg/Vorbis, es requereixen les <ulink url="http://xiph.org/ogg/"
 >libogg</ulink
 >, <ulink url="http://xiph.org/vorbis/"
 >libvorbis i libvorbisfile</ulink
@@ -6313,7 +6313,7 @@ if __name__ == '__main__':
 >-DWITH_APPS="Qt;KDE"</userinput
 >. </para>
 <para
->Per utilitzar una instal·lació específica de les &Qt;, establiu <userinput
+>Per a utilitzar una instal·lació específica de les &Qt;, establiu <userinput
 >-DQT_QMAKE_EXECUTABLE=/camí/a/qmake</userinput
 >. </para>
 <para
@@ -6364,7 +6364,7 @@ if __name__ == '__main__':
 <para
 >Al &Linux;, es pot utilitzar una interfície de &DBus; per a controlar el &kid3; mitjançant scripts. Els scripts es poden escriure en qualsevol llenguatge amb vinculacions de &DBus; (p. ex., en Python) i es poden afegir a les <guilabel
 >Accions de l'usuari</guilabel
-> per ampliar la funcionalitat del &kid3;. </para>
+> per a ampliar la funcionalitat del &kid3;. </para>
 
 <para
 >Es pot establir l'artista a l'etiqueta 2 del fitxer actual amb el valor «One Hit Wonder» amb el següent codi: </para>
@@ -6384,7 +6384,7 @@ string:'Lluís Llach'
 >qdbus</command
 > de les &Qt; (es pot utilitzar el <command
 >qdbusviewer</command
-> per explorar la interfície en una <acronym
+> per a explorar la interfície en una <acronym
 >IGU</acronym
 >): </para>
 <programlisting
@@ -6664,7 +6664,7 @@ $kid3->setFrame(2, "Artist", "Lluís Llach");
 ></term>
     <listitem
 ><para
->format per obtenir el text font a partir de les etiquetes</para
+>format per a obtenir el text font a partir de les etiquetes</para
 ></listitem>
   </varlistentry>
   <varlistentry>
@@ -6674,7 +6674,7 @@ $kid3->setFrame(2, "Artist", "Lluís Llach");
 ></term>
     <listitem
 ><para
->expressió regular amb els noms de marc i captures per extreure del text font</para
+>expressió regular amb els noms de marc i captures per a extreure del text font</para
 ></listitem>
   </varlistentry>
 </variablelist>
@@ -6721,7 +6721,7 @@ $kid3->setFrame(2, "Artist", "Lluís Llach");
 ></term>
     <listitem
 ><para
->format per obtenir el text font a partir de les etiquetes</para
+>format per a obtenir el text font a partir de les etiquetes</para
 ></listitem>
   </varlistentry>
   <varlistentry>
@@ -6731,7 +6731,7 @@ $kid3->setFrame(2, "Artist", "Lluís Llach");
 ></term>
     <listitem
 ><para
->expressió regular amb els noms de marc i captures per extreure del text font</para
+>expressió regular amb els noms de marc i captures per a extreure del text font</para
 ></listitem>
   </varlistentry>
 </variablelist>
@@ -6786,7 +6786,7 @@ $kid3->setFrame(2, "Artist", "Lluís Llach");
 ></term>
     <listitem
 ><para
->cert per afegir la imatge a tots els fitxers que hi ha a la carpeta</para
+>cert per a afegir la imatge a tots els fitxers que hi ha a la carpeta</para
 ></listitem>
   </varlistentry>
 </variablelist>
@@ -7481,7 +7481,7 @@ $kid3->setFrame(2, "Artist", "Lluís Llach");
   </varlistentry>
 </variablelist>
 <para
->Per obtenir les dades binàries com una imatge, es podrà afegir el nom d'un fitxer per escriure després del <parameter
+>Per a obtenir les dades binàries com una imatge, es podrà afegir el nom d'un fitxer per a escriure després del <parameter
 >nom</parameter
 >, p. ex., «Picture:/camí/al/fitxer». De la mateixa manera, es pot exportar una lletra sincronitzada, p. ex., «SYLT:/camí/al/fitxer». </para>
 <para
@@ -7550,9 +7550,9 @@ $kid3->setFrame(2, "Artist", "Lluís Llach");
 >nom</parameter
 >, s'afegirà un marc nou, si el <parameter
 >valor</parameter
-> està buit, el marc se suprimirà. Per afegir dades binàries com una imatge, es pot afegir un fitxer després del <parameter
+> està buit, el marc se suprimirà. Per a afegir dades binàries com una imatge, es pot afegir un fitxer després del <parameter
 >nom</parameter
->, p. ex., es pot fer servir «Picture:/camí/a/fitxer». "SYLT:/camí/a/fitxer" per importar la lletra sincronitzada.</para>
+>, p. ex., es pot fer servir «Picture:/camí/a/fitxer». "SYLT:/camí/a/fitxer" per a importar la lletra sincronitzada.</para>
 <para
 >Retornarà cert si va bé.</para>
 </sect2>
