@@ -403,7 +403,7 @@ end manpage include-->
 >Introducció</title>
 
 <para
->El &kid3; és una aplicació per a editar les etiquetes ID3 versió 1 i 2 en els fitxers MP3 de manera eficient. La majoria dels reproductors de MP3 poden editar aquestes etiquetes, però no d'una manera molt còmoda i eficient. A més, també s'admeten les etiquetes als fitxers Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls del seguidor de peces (MOD, S3M, IT i XM). </para>
+>El &kid3; és una aplicació per a editar les etiquetes ID3 versió 1 i 2 en els fitxers MP3 de manera eficient. La majoria dels reproductors d'MP3 poden editar aquestes etiquetes, però no d'una manera molt còmoda i eficient. A més, també s'admeten les etiquetes als fitxers Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls del seguidor de peces (MOD, S3M, IT i XM). </para>
 <para
 >El &kid3; no enregistra ni codifica els fitxers MP3, però està dirigit a editar les etiquetes ID3 de tots els fitxers d'un àlbum de manera eficient, és a dir, amb el menor nombre de clics i pulsacions de tecles possibles. On la majoria dels altres programes poden editar etiquetes ID3 versió 1 o 2, el &kid3; té un control total sobre ambdues versions, pot convertir les etiquetes entre els dos formats i té accés a totes les etiquetes ID3 versió 2. Es poden establir les etiquetes de múltiples fitxers amb el mateix valor, p. ex., l'artista, àlbum, any i gènere de tots els fitxers d'un àlbum que generalment tenen els mateixos valors i es poden configurar junts. Si la informació de les etiquetes està continguda en el nom del fitxer, les etiquetes es podran establir automàticament a partir del nom del fitxer. També és possible establir el nom del fitxer a partir de les etiquetes trobades en el fitxer en formats arbitraris. </para>
 <para
@@ -499,7 +499,7 @@ end manpage include-->
 <para
 >Aquesta secció descriu una sessió típica amb el &kid3;. Suposem que tenim una carpeta que conté fitxers MP3 amb les peces de l'àlbum «I si canto trist» del cantautor «Lluís Llach». La carpeta s'anomena en el format «artista - àlbum», en el nostre cas «<filename
 >Lluís Llach - I si canto trist</filename
->». La carpeta conté les peces en el format «títol de la peça.mp3», el qual crec que és útil perquè els noms dels fitxers són curts (important quan s'empren reproductors de MP3 mòbils amb pantalles petites) i en l'ordre correcte quan s'ordenen alfabèticament (important quan es fa servir maquinari reproductor de MP3 que reprodueixen les peces en ordre alfabètic o en l'ordre en què es graven en el &CD; i aquest ordre és alfabètic quan s'utilitza el <command
+>». La carpeta conté les peces en el format «títol de la peça.mp3», el qual crec que és útil perquè els noms dels fitxers són curts (important quan s'empren reproductors d'MP3 mòbils amb pantalles petites) i en l'ordre correcte quan s'ordenen alfabèticament (important quan es fa servir maquinari reproductor d'MP3 que reprodueixen les peces en ordre alfabètic o en l'ordre en què es graven en el &CD; i aquest ordre és alfabètic quan s'utilitza el <command
 >mkisofs</command
 >). A més d'això, la informació de l'artista i de l'àlbum ja es troba al nom de la carpeta i no s'ha de repetir en el nom del fitxer. Però tornant al nostre exemple, el llistat de la carpeta es veurà així: </para>
 <para
