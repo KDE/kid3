@@ -1038,7 +1038,7 @@ end manpage include-->
 >Desa</guimenuitem
 >. </para>
 <para
->Si se seleccionen múltiples fitxers, només es mostraran els valors que són idèntics en tots els fitxers seleccionats. En tots els altres controls, es mostraran els valors buits com s'ha descrit anteriorment. Totes les caselles de selecció estaran desmarcades per evitar canvis no desitjats. Si s'ha d'establir un valor per a tots els fitxers seleccionats, es pot editar i s'ha de marcar la casella de selecció. Els valors s'establiran per a tots els fitxers seleccionats quan es canviï la selecció i es podran desar amb l'ordre <guimenuitem
+>Si se seleccionen múltiples fitxers, només es mostraran els valors que són idèntics en tots els fitxers seleccionats. En tots els altres controls, es mostraran els valors buits com s'ha descrit anteriorment. Totes les caselles de selecció estaran desmarcades per a evitar canvis no desitjats. Si s'ha d'establir un valor per a tots els fitxers seleccionats, es pot editar i s'ha de marcar la casella de selecció. Els valors s'establiran per a tots els fitxers seleccionats quan es canviï la selecció i es podran desar amb l'ordre <guimenuitem
 >Desa</guimenuitem
 >. </para>
 <para
@@ -1090,7 +1090,7 @@ end manpage include-->
 <para
 ><guibutton
 >Afegeix</guibutton
->: apareixerà una sol·licitud per a seleccionar el tipus de marc i es podrà editar i afegir al fitxer. També funciona per afegir un marc als múltiples fitxers seleccionats. </para>
+>: apareixerà una sol·licitud per a seleccionar el tipus de marc i es podrà editar i afegir al fitxer. També funciona per a afegir un marc als múltiples fitxers seleccionats. </para>
 <para
 ><guibutton
 >Suprimeix</guibutton
@@ -2992,7 +2992,7 @@ end manpage include-->
 <para id="import-tags"
 ><guibutton
 >Des de les etiquetes...</guibutton
-> porta a un subdiàleg per establir els marcs de les etiquetes a partir del contingut d'altres marcs d'etiqueta. Es pot utilitzar per a simplement copiar la informació entre les etiquetes o extreure una part d'un marc i inserir-la en un altre. </para>
+> porta a un subdiàleg per a establir els marcs de les etiquetes a partir del contingut d'altres marcs d'etiqueta. Es pot utilitzar per a simplement copiar la informació entre les etiquetes o extreure una part d'un marc i inserir-la en un altre. </para>
 <para
 >Com en el diàleg <link linkend="import-text"
 >Importa des del fitxer/porta-retalls</link
@@ -3691,7 +3691,7 @@ end manpage include-->
 ><para
 >Aquesta funció obrirà un diàleg per a cercar i substituir les cadenes en els noms de fitxer i les etiquetes. El conjunt de marcs on es realitza la cerca es pot restringir desactivant la casella de selecció <guilabel
 >Selecciona-ho tot</guilabel
-> i seleccionant els marcs que se cercaran. També hi ha opcions de cerca disponibles per a cercar cap enrere, majúscules i minúscules, i per utilitzar expressions regulars.</para>
+> i seleccionant els marcs que se cercaran. També hi ha opcions de cerca disponibles per a cercar cap enrere, majúscules i minúscules, i per a utilitzar expressions regulars.</para>
 <para
 >Depenent de la quantitat de fitxers, la cerca es podria demorar una mica, per tant, es podrà interrompre tancant el diàleg.</para
 ></listitem>
@@ -3720,7 +3720,7 @@ end manpage include-->
 ><para
 >Quan <guilabel
 >Aplica automàticament el format</guilabel
-> està desactivada per al format del nom de fitxer en el diàleg de configuració, aquest element de menú es podrà utilitzar per <action
+> està desactivada per al format del nom de fitxer en el diàleg de configuració, aquest element de menú es podrà utilitzar per a <action
 >aplicar el format configurat als noms dels fitxers seleccionats</action
 >. Això també es pot fer servir per a comprovar si els noms dels fitxers s'ajusten al format configurat aplicant el format a tots els fitxers desats i després comprovant si es van modificar els fitxers (i, per tant, es van marcar amb un símbol de disc en el quadre de llista de fitxers). </para
 ></listitem>
@@ -3739,7 +3739,7 @@ end manpage include-->
 ><para
 >Quan <guilabel
 >Aplica automàticament el format</guilabel
-> està desactivada per al format de l'etiqueta en el diàleg de configuració, aquest element de menú es podrà utilitzar per <action
+> està desactivada per al format de l'etiqueta en el diàleg de configuració, aquest element de menú es podrà utilitzar per a <action
 >aplicar el format configurat a les etiquetes dels fitxers seleccionats</action
 >. Això també es pot fer servir per a comprovar si els noms dels fitxers s'ajusten al format configurat aplicant el format a tots els fitxers desats i després comprovant si es van modificar els fitxers (i, per tant, es van marcar amb un símbol de disc en el quadre de llista de fitxers). </para
 ></listitem>
@@ -4514,7 +4514,7 @@ end manpage include-->
 <para
 >Els <guilabel
 >Dígits del número de la peça:</guilabel
-> són la quantitat de dígits en els camps de Número de la peça. Els zeros inicials s'empren per omplir. Per exemple, amb un valor de 2, la peça número 5 s'establirà com a «05». </para>
+> són la quantitat de dígits en els camps de Número de la peça. Els zeros inicials s'empren per a omplir. Per exemple, amb un valor de 2, la peça número 5 s'establirà com a «05». </para>
 <para
 >El quadre combinat <guilabel
 >Nom del camp de comentari:</guilabel
@@ -4606,7 +4606,7 @@ end manpage include-->
 >A:</guilabel
 > i introduïu el text de substitució. Quan el text a substituir comença i acaba amb una barra diagonal («/»), s'utilitzarà una expressió regular. Per a les expressions regulars que contenen grups de captura, les ocurrències de \1, \2, «...» a <guilabel
 >A:</guilabel
-> se substituiran amb la cadena capturada pel grup de captura corresponent. Per eliminar una assignació, establiu la cel·la <guilabel
+> se substituiran amb la cadena capturada pel grup de captura corresponent. Per a eliminar una assignació, establiu la cel·la <guilabel
 >Des de:</guilabel
 > un valor buit (p. ex., escrivint primer un espai i després la tecla <keysym
 >Retrocés</keysym
@@ -4735,7 +4735,7 @@ end manpage include-->
 <para
 >El botó <guibutton
 >Llista de reproducció</guibutton
-> es pot utilitzar per editar els formats disponibles de noms de fitxer al diàleg <link linkend="create-playlist"
+> es pot utilitzar per a editar els formats disponibles de noms de fitxer al diàleg <link linkend="create-playlist"
 >Crear una llista de reproducció</link
 >. </para>
 <para
@@ -6347,7 +6347,7 @@ if __name__ == '__main__':
 <para
 >Es pot emprar la variable d'entorn <varname
 >KID3_CONFIG_FILE</varname
-> per establir el camí cap al fitxer de configuració.</para>
+> per a establir el camí cap al fitxer de configuració.</para>
 
 </sect1>
 
