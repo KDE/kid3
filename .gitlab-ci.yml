@@ -15,3 +15,6 @@ include:
 .craft_macos_base:
   rules:
   - when: manual
+flatpak:
+  rules:
+  - when: manual
