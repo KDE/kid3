@@ -21,5 +21,5 @@ class subinfo(info.infoclass):
 
 class Package(CMakePackageBase):
     def __init__(self):
-        CMakePackageBase.__init__(self)
-        self.subinfo.options.configure.args = "-DBUILD_SHARED_LIBS=ON"
+        super().__init__()
+        self.subinfo.options.dynamic.buildStatic = False
