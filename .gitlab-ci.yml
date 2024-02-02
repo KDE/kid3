@@ -10,9 +10,13 @@ include:
 #      - /gitlab-templates/windows.yml
       - /gitlab-templates/craft-macos-arm64-qt6.yml
       - /gitlab-templates/craft-macos-x86-64-qt6.yml
+      - /gitlab-templates/craft-windows-x86-64-qt6.yml
       - /gitlab-templates/flatpak.yml
 
 .craft_macos_base:
+  rules:
+  - when: manual
+.craft_windows_base:
   rules:
   - when: manual
 flatpak:
