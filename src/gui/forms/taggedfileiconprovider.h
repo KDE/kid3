@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Jul 2019
  *
- * Copyright (C) 2019  Urs Fleisch
+ * Copyright (C) 2019-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,13 +45,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TaggedFileIconProvider() override = default;
+  ~TaggedFileIconProvider() override = default;
 
   /**
    * Set icon to be used for modified files.
    * @param icon modified icon
    */
-  virtual void setModifiedIcon(const QVariant& icon) override;
+  void setModifiedIcon(const QVariant& icon) override;
 
   /**
    * Set the requested size for icons.
@@ -60,7 +60,7 @@ public:
    *
    * @param size icon size, the default is 16x16.
    */
-  virtual void setRequestedSize(const QSize& size) override;
+  void setRequestedSize(const QSize& size) override;
 
   /**
    * Get an icon for a tagged file.
@@ -69,7 +69,7 @@ public:
    *
    * @return icon for tagged file
    */
-  virtual QVariant iconForTaggedFile(const TaggedFile* taggedFile) override;
+  QVariant iconForTaggedFile(const TaggedFile* taggedFile) override;
 
   /**
    * Get pixmap for an icon ID.
@@ -77,7 +77,7 @@ public:
    * set with setImageData()
    * @return pixmap for @a id.
    */
-  virtual QVariant pixmapForIconId(const QByteArray& id) override;
+  QVariant pixmapForIconId(const QByteArray& id) override;
 
   /**
    * Get background color for a tagged file.
@@ -86,21 +86,21 @@ public:
    *
    * @return background color for tagged file
    */
-  virtual QVariant backgroundForTaggedFile(const TaggedFile* taggedFile) override;
+  QVariant backgroundForTaggedFile(const TaggedFile* taggedFile) override;
 
   /**
    * Get brush with color for a context.
    * @param context color context
    * @return brush.
    */
-  virtual QVariant colorForContext(ColorContext context) const override;
+  QVariant colorForContext(ColorContext context) const override;
 
   /**
    * Get context for a brush.
    * @param color brush
    * @return color context.
    */
-  virtual ColorContext contextForColor(const QVariant& color) const override;
+  ColorContext contextForColor(const QVariant& color) const override;
 
 private:
   void createIcons();

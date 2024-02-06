@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09-Dec-2016
  *
- * Copyright (C) 2016-2018  Urs Fleisch
+ * Copyright (C) 2016-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -75,7 +75,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MprisInterface() override = default;
+  ~MprisInterface() override = default;
 
 public slots:
   /**
@@ -152,7 +152,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MprisPlayerInterface() override;
+  ~MprisPlayerInterface() override;
 
 public slots:
   /**

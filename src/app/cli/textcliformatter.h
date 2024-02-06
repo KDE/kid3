@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 28 Jul 2019
  *
- * Copyright (C) 2019  Urs Fleisch
+ * Copyright (C) 2019-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,86 +43,86 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TextCliFormatter() override;
+  ~TextCliFormatter() override;
 
   /**
    * Clear parser state.
    */
-  virtual void clear() override;
+  void clear() override;
 
   /**
    * Get command and parameters from input line.
    * @param line input line
    * @return list of command and arguments, empty if not found or incomplete.
    */
-  virtual QStringList parseArguments(const QString& line) override;
+  QStringList parseArguments(const QString& line) override;
 
   /**
    * Get error which occurred in previous method call.
    * @return error message, null if no error.
    */
-  virtual QString getErrorMessage() const override;
+  QString getErrorMessage() const override;
 
   /**
    * Check if format was recognized and parsed, but input is will be continued
    * in subsequent lines.
    * @return true if input is incomplete.
    */
-  virtual bool isIncomplete() const override;
+  bool isIncomplete() const override;
 
   /**
    * Check if format was recognized and parsed.
    * @return true if format was recognized.
    */
-  virtual bool isFormatRecognized() const override;
+  bool isFormatRecognized() const override;
 
   /**
    * Write error message.
    * @param errorCode error code
    */
-  virtual void writeError(CliError errorCode) override;
+  void writeError(CliError errorCode) override;
 
   /**
    * Write error message.
    * @param msg error message
    */
-  virtual void writeError(const QString& msg) override;
+  void writeError(const QString& msg) override;
 
   /**
    * Write error message.
    * @param msg error message
    * @param errorCode error code
    */
-  virtual void writeError(const QString& msg, CliError errorCode) override;
+  void writeError(const QString& msg, CliError errorCode) override;
 
   /**
    * Write result message.
    * @param str result as string
    */
-  virtual void writeResult(const QString& str) override;
+  void writeResult(const QString& str) override;
 
   /**
    * Write result message.
    * @param strs result as string list
    */
-  virtual void writeResult(const QStringList& strs) override;
+  void writeResult(const QStringList& strs) override;
 
   /**
    * Write result message.
    * @param map result as map
    */
-  virtual void writeResult(const QVariantMap& map) override;
+  void writeResult(const QVariantMap& map) override;
 
   /**
    * Write result message.
    * @param result result as boolean
    */
-  virtual void writeResult(bool result) override;
+  void writeResult(bool result) override;
 
   /**
    * Called when a command is finished.
    */
-  virtual void finishWriting() override;
+  void finishWriting() override;
 
 private:
   QString m_errorMessage;

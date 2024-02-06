@@ -49,8 +49,7 @@ PixmapProvider::PixmapProvider(CoreTaggedFileIconProvider* iconProvider)
 QPixmap PixmapProvider::getPixmap(const QString& id, QSize* size,
                                   const QSize& requestedSize)
 {
-  QByteArray imageId = id.toLatin1();
-  if (imageId.startsWith("fileicon/")) {
+  if (QByteArray imageId = id.toLatin1(); imageId.startsWith("fileicon/")) {
     imageId = imageId.mid(9);
     if (imageId.isEmpty() || imageId == "undefined") {
       imageId = "null";
@@ -65,10 +64,9 @@ QPixmap PixmapProvider::getPixmap(const QString& id, QSize* size,
     m_fileIconProvider->setRequestedSize(requestedSize);
     return m_fileIconProvider->pixmapForIconId(imageId).value<QPixmap>();
   } else if (imageId.startsWith("data")) {
-    QByteArray data = getImageData();
-    if (!data.isEmpty()) {
-      uint hash = qHash(data);
-      if (m_dataPixmap.isNull() || hash != m_pixmapHash) {
+    if (QByteArray data = getImageData(); !data.isEmpty()) {
+      if (uint hash = qHash(data);
+          m_dataPixmap.isNull() || hash != m_pixmapHash) {
         if (m_dataPixmap.loadFromData(data)) {
           if (size) {
             *size = m_dataPixmap.size();

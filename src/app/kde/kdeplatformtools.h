@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Mar 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,32 +43,32 @@ public:
   /**
    * Destructor.
    */
-  virtual ~KdePlatformTools() override;
+  ~KdePlatformTools() override;
 
   /**
    * Get application settings.
    * @return settings instance.
    */
-  virtual ISettings* applicationSettings() override;
+  ISettings* applicationSettings() override;
 
   /**
    * Get icon provider for tagged files.
    * @return icon provider.
    */
-  virtual CoreTaggedFileIconProvider* iconProvider() override;
+  CoreTaggedFileIconProvider* iconProvider() override;
 
   /**
    * Write text to clipboard.
    * @param text text to write
    * @return true if operation is supported.
    */
-  virtual bool writeToClipboard(const QString& text) const override;
+  bool writeToClipboard(const QString& text) const override;
 
   /**
    * Read text from clipboard.
    * @return text, null if operation not supported.
    */
-  virtual QString readFromClipboard() const override;
+  QString readFromClipboard() const override;
 
   /**
    * Create an audio player instance.
@@ -76,8 +76,8 @@ public:
    * @param dbusEnabled true to enable MPRIS D-Bus interface
    * @return audio player, nullptr if not supported.
    */
-  virtual QObject* createAudioPlayer(Kid3Application* app,
-                                     bool dbusEnabled) const override;
+  QObject* createAudioPlayer(Kid3Application* app,
+                             bool dbusEnabled) const override;
 
   /**
    * Move file or directory to trash.
@@ -86,21 +86,21 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool moveToTrash(const QString& path) const override;
+  bool moveToTrash(const QString& path) const override;
 
   /**
    * Display help for a topic.
    *
    * @param anchor anchor in help document
    */
-  virtual void displayHelp(const QString& anchor) override;
+  void displayHelp(const QString& anchor) override;
 
   /**
    * Get a themed icon by name.
    * @param name name of icon
    * @return icon.
    */
-  virtual QIcon iconFromTheme(const QString& name) const override;
+  QIcon iconFromTheme(const QString& name) const override;
 
   /**
    * Construct a name filter string suitable for file dialogs.
@@ -108,7 +108,7 @@ public:
    * [("Images", "*.jpg *.jpeg *.png"), ("All Files", "*")].
    * @return name filter string.
    */
-  virtual QString fileDialogNameFilter(
+  QString fileDialogNameFilter(
       const QList<QPair<QString, QString> >& nameFilters) const override;
 
   /**
@@ -116,7 +116,7 @@ public:
    * @param nameFilter name filter string
    * @return file patterns, e.g. "*.mp3".
    */
-  virtual QString getNameFilterPatterns(const QString& nameFilter) const override;
+  QString getNameFilterPatterns(const QString& nameFilter) const override;
 
   /**
    * Display error dialog with item list.
@@ -125,7 +125,7 @@ public:
    * @param strlist list of items
    * @param caption caption
    */
-  virtual void errorList(QWidget* parent, const QString& text,
+  void errorList(QWidget* parent, const QString& text,
       const QStringList& strlist, const QString& caption) override;
 
   /**
@@ -135,7 +135,7 @@ public:
    * @param caption caption
    * @return QMessageBox::Yes, QMessageBox::No or QMessageBox::Cancel.
    */
-  virtual int warningYesNoCancel(QWidget* parent, const QString& text,
+  int warningYesNoCancel(QWidget* parent, const QString& text,
       const QString& caption) override;
 
   /**
@@ -146,7 +146,7 @@ public:
    * @param caption caption
    * @return QMessageBox::Yes or QMessageBox::No.
    */
-  virtual int warningYesNoList(QWidget* parent, const QString& text,
+  int warningYesNoList(QWidget* parent, const QString& text,
       const QStringList& strlist, const QString& caption) override;
 
   /**
@@ -158,7 +158,7 @@ public:
    * @param selectedFilter the selected filter is returned here
    * @return selected file, empty if canceled.
    */
-  virtual QString getOpenFileName(QWidget* parent,
+  QString getOpenFileName(QWidget* parent,
       const QString& caption, const QString& dir, const QString& filter,
       QString* selectedFilter) override;
 
@@ -171,7 +171,7 @@ public:
    * @param selectedFilter the selected filter is returned here
    * @return selected files, empty if canceled.
    */
-  virtual QStringList getOpenFileNames(QWidget* parent,
+  QStringList getOpenFileNames(QWidget* parent,
       const QString& caption, const QString& dir, const QString& filter,
       QString* selectedFilter) override;
 
@@ -184,7 +184,7 @@ public:
    * @param selectedFilter the selected filter is returned here
    * @return selected file, empty if canceled.
    */
-  virtual QString getSaveFileName(QWidget* parent,
+  QString getSaveFileName(QWidget* parent,
       const QString& caption, const QString& dir, const QString& filter,
       QString* selectedFilter) override;
 
@@ -195,14 +195,14 @@ public:
    * @param startDir start directory
    * @return selected directory, empty if canceled.
    */
-  virtual QString getExistingDirectory(QWidget* parent,
+  QString getExistingDirectory(QWidget* parent,
       const QString& caption, const QString& startDir) override;
 
   /**
    * Check if platform has a graphical user interface.
    * @return true if platform has GUI.
    */
-  virtual bool hasGui() const override;
+  bool hasGui() const override;
 
   /**
    * Display warning dialog.
@@ -211,7 +211,7 @@ public:
    * @param details detailed message
    * @param caption caption
    */
-  virtual void warningDialog(QWidget* parent,
+  void warningDialog(QWidget* parent,
       const QString& text, const QString& details, const QString& caption) override;
 
   /**
@@ -222,7 +222,7 @@ public:
    * @param caption caption
    * @return true if continue was selected.
    */
-  virtual bool warningContinueCancelList(QWidget* parent,
+  bool warningContinueCancelList(QWidget* parent,
       const QString& text, const QStringList& strlist, const QString& caption) override;
 
 private:

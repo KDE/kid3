@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29-Mar-2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -82,21 +82,20 @@ QByteArray CoreTaggedFileIconProvider::iconIdForTaggedFile(
   if (taggedFile) {
     if (taggedFile->isChanged()) {
       return "modified";
-    } else {
-      if (!taggedFile->isTagInformationRead())
-        return "null";
-
-      QByteArray id;
-      if (taggedFile->hasTag(Frame::Tag_1))
-        id += "v1";
-      if (taggedFile->hasTag(Frame::Tag_2))
-        id += "v2";
-      if (taggedFile->hasTag(Frame::Tag_3))
-        id += "v3";
-      if (id.isEmpty())
-        id = "notag";
-      return id;
     }
+    if (!taggedFile->isTagInformationRead())
+      return "null";
+
+    QByteArray id;
+    if (taggedFile->hasTag(Frame::Tag_1))
+      id += "v1";
+    if (taggedFile->hasTag(Frame::Tag_2))
+      id += "v2";
+    if (taggedFile->hasTag(Frame::Tag_3))
+      id += "v3";
+    if (id.isEmpty())
+      id = "notag";
+    return id;
   }
   return "";
 }
@@ -152,8 +151,7 @@ QVariant CoreTaggedFileIconProvider::colorForContext(ColorContext context) const
  */
 ColorContext CoreTaggedFileIconProvider::contextForColor(const QVariant& color) const
 {
-  QString code = color.toString();
-  if (code == QLatin1String("E")) {
+  if (QString code = color.toString(); code == QLatin1String("E")) {
     return ColorContext::Error;
   } else if (code == QLatin1String("*")) {
     return ColorContext::Marked;

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Jun 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~QmlImageProvider() override = default;
+  ~QmlImageProvider() override = default;
 
   /**
    * Request a pixmap.
@@ -60,6 +60,6 @@ public:
    * @param requestedSize the size requested via the Image.sourceSize property
    * @return pixmap for ID.
    */
-  virtual QPixmap requestPixmap(const QString& id, QSize* size,
-                                const QSize& requestedSize) override;
+  QPixmap requestPixmap(const QString& id, QSize* size,
+                        const QSize& requestedSize) override;
 };

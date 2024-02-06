@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jan 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,7 +57,7 @@ void FileFilter::initParser()
  *
  * @return formatted string.
  */
-QString FileFilter::formatString(const QString& format)
+QString FileFilter::formatString(const QString& format) const
 {
   if (format.indexOf(QLatin1Char('%')) == -1) {
     return format;
@@ -192,10 +192,9 @@ bool FileFilter::filter(TaggedFile& taggedFile, bool* ok)
   if (m_parser.hasError()) {
     if (ok) *ok = false;
     return false;
-  } else {
-    if (ok) *ok = true;
-    return result;
   }
+  if (ok) *ok = true;
+  return result;
 }
 
 /**

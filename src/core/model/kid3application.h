@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jul 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -140,7 +140,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3Application() override;
+  ~Kid3Application() override;
 
 #ifdef HAVE_QTDBUS
   /**
@@ -738,7 +738,7 @@ public:
    *
    * @return number of tracks, 0 if not found.
    */
-  Q_INVOKABLE int getTotalNumberOfTracksInDir();
+  Q_INVOKABLE int getTotalNumberOfTracksInDir() const;
 
   /**
    * Get name of selected file.
@@ -854,7 +854,7 @@ public:
    * pointer to a deleted object.
    * @param frameEditor frame editor
    */
-  void removeFrameEditor(IFrameEditor* frameEditor);
+  void removeFrameEditor(const IFrameEditor* frameEditor);
 
   /**
    * Get ID to get cover art image.
@@ -872,7 +872,7 @@ public:
    * Get the numbers of the selected rows in a list suitable for scripting.
    * @return list with row numbers.
    */
-  Q_INVOKABLE QVariantList getFileSelectionRows();
+  Q_INVOKABLE QVariantList getFileSelectionRows() const;
 
   /**
    * Set the file selection from a list of model indexes.

@@ -176,11 +176,6 @@ target_compile_definitions(kid3-core
   PUBLIC QT_ASCII_CAST_WARNINGS QT_NO_CAST_TO_ASCII QT_NO_URL_CAST_FROM_STRING QT_STRICT_ITERATORS QT_NO_EXCEPTIONS QT_NO_STL
 )
 
-if(CMAKE_VERSION VERSION_GREATER "3.8")
-  target_compile_features(kid3-core PUBLIC cxx_std_11)
-else()
-  target_compile_features(kid3-core PUBLIC cxx_auto_type cxx_nullptr cxx_override)
-endif()
 target_link_libraries(kid3-core PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Network Qt${QT_VERSION_MAJOR}::Xml)
 if(WITH_QT_PRIVATE_HEADERS)
   target_compile_definitions(kid3-core PRIVATE USE_QT_PRIVATE_HEADERS)

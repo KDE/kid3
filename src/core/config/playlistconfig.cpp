@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Sep 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,7 +48,7 @@ const char* defaultFileNameFormats[] = {
  * Constructor.
  */
 PlaylistConfig::PlaylistConfig()
-  : StoredConfig<PlaylistConfig>(QLatin1String("Playlist")),
+  : StoredConfig(QLatin1String("Playlist")),
     m_location(PL_CurrentDirectory), m_format(PF_M3U),
     m_fileNameFormat(QLatin1String(defaultFileNameFormats[0])),
     m_sortTagField(QLatin1String("%{track.3}")),
@@ -65,7 +65,7 @@ PlaylistConfig::PlaylistConfig()
  * @param other instance to be copied
  */
 PlaylistConfig::PlaylistConfig(const PlaylistConfig& other)
-  : StoredConfig<PlaylistConfig>(QLatin1String("Playlist")),
+  : StoredConfig(QLatin1String("Playlist")),
     m_location(other.m_location),
     m_format(other.m_format),
     m_fileNameFormat(other.m_fileNameFormat),

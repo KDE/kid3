@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Sep 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -127,11 +127,11 @@ QVariant ScriptUtils::getIndexRoleData(const QModelIndex& index,
   return QVariant();
 }
 
-QString ScriptUtils::properties(QObject* obj)
+QString ScriptUtils::properties(const QObject* obj)
 {
   QString str;
-  const QMetaObject* meta;
-  if (obj && (meta = obj->metaObject()) != nullptr) {
+  if (const QMetaObject* meta;
+      obj && (meta = obj->metaObject()) != nullptr) {
     str += QLatin1String("className: ");
     str += QString::fromLatin1(meta->className());
     for (int i = 0; i < meta->propertyCount(); i++) {
@@ -196,8 +196,8 @@ QStringList ScriptUtils::getContentTypeNames()
 bool ScriptUtils::writeFile(const QString& filePath, const QByteArray& data)
 {
   bool ok = false;
-  QFile file(filePath);
-  if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+  if (QFile file(filePath);
+      file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
     ok = file.write(data) > 0;
     file.close();
   }
@@ -212,8 +212,7 @@ bool ScriptUtils::writeFile(const QString& filePath, const QByteArray& data)
 QByteArray ScriptUtils::readFile(const QString& filePath)
 {
   QByteArray data;
-  QFile file(filePath);
-  if (file.open(QIODevice::ReadOnly)) {
+  if (QFile file(filePath); file.open(QIODevice::ReadOnly)) {
     data = file.readAll();
     file.close();
   }
@@ -279,16 +278,18 @@ bool ScriptUtils::setFilePermissions(const QString& filePath, int modeBits)
  */
 QString ScriptUtils::classifyFile(const QString& filePath)
 {
-  QFileInfo fi(filePath);
-  if (fi.isSymLink()) {
+  if (QFileInfo fi(filePath); fi.isSymLink()) {
     return QLatin1String("@");
-  } else if (fi.isDir()) {
-    return QLatin1String("/");
-  } else if (fi.isExecutable()) {
-    return QLatin1String("*");
-  } else if (fi.isFile()) {
-    return QLatin1String(" ");
   } else {
+    if (fi.isDir()) {
+      return QLatin1String("/");
+    }
+    if (fi.isExecutable()) {
+      return QLatin1String("*");
+    }
+    if (fi.isFile()) {
+      return QLatin1String(" ");
+    }
     return QString();
   }
 }
@@ -433,7 +434,7 @@ QVariantList ScriptUtils::system(
 void ScriptUtils::systemAsync(
     const QString& program, const QStringList& args, QJSValue callback)
 {
-  QProcess* proc = new QProcess(this);
+  auto proc = new QProcess(this);
   auto conn = std::make_shared<QMetaObject::Connection>();
 #if QT_VERSION >= 0x050d00
   *conn = QObject::connect(
@@ -551,8 +552,7 @@ QByteArray ScriptUtils::dataFromImage(const QVariant& var,
                                       const QByteArray& format)
 {
   QByteArray data;
-  QImage img(var.value<QImage>());
-  if (!img.isNull()) {
+  if (auto img(var.value<QImage>()); !img.isNull()) {
     QBuffer buffer(&data);
     buffer.open(QIODevice::WriteOnly);
     img.save(&buffer, format.constData());
@@ -581,8 +581,7 @@ QVariant ScriptUtils::loadImage(const QString& filePath)
 bool ScriptUtils::saveImage(const QVariant& var, const QString& filePath,
                             const QByteArray& format)
 {
-  QImage img(var.value<QImage>());
-  if (!img.isNull()) {
+  if (auto img(var.value<QImage>()); !img.isNull()) {
     return img.save(filePath, format.constData());
   }
   return false;
@@ -597,8 +596,7 @@ bool ScriptUtils::saveImage(const QVariant& var, const QString& filePath,
 QVariantMap ScriptUtils::imageProperties(const QVariant& var)
 {
   QVariantMap map;
-  QImage img(var.value<QImage>());
-  if (!img.isNull()) {
+  if (auto img(var.value<QImage>()); !img.isNull()) {
     map.insert(QLatin1String("width"), img.width());
     map.insert(QLatin1String("height"), img.height());
     map.insert(QLatin1String("depth"), img.depth());
@@ -616,15 +614,16 @@ QVariantMap ScriptUtils::imageProperties(const QVariant& var)
  */
 QVariant ScriptUtils::scaleImage(const QVariant& var, int width, int height)
 {
-  QImage img(var.value<QImage>());
-  if (!img.isNull()) {
+  if (auto img(var.value<QImage>()); !img.isNull()) {
     if (width > 0 && height > 0) {
       return QVariant::fromValue(img.scaled(width, height,
                             Qt::IgnoreAspectRatio, Qt::SmoothTransformation));
-    } else if (width > 0) {
+    }
+    if (width > 0) {
       return QVariant::fromValue(img.scaledToWidth(width,
                                                    Qt::SmoothTransformation));
-    } else if (height > 0) {
+    }
+    if (height > 0) {
       return QVariant::fromValue(img.scaledToHeight(height,
                                                     Qt::SmoothTransformation));
     }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -77,21 +77,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ServerImporterConfig() override = default;
+  ~ServerImporterConfig() override = default;
 
   /**
    * Persist configuration.
    *
    * @param config KDE configuration
    */
-  virtual void writeToConfig(ISettings* config) const override;
+  void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config) override;
+  void readFromConfig(ISettings* config) override;
 
   /** Get server. */
   QString server() const { return m_server; }

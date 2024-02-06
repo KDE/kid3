@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -55,7 +55,7 @@ AbstractCli::AbstractCli(AbstractCliIO* io, QObject* parent) : QObject(parent),
 {
   // To make sure cleanup is called when application is terminated by D-Bus.
   connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit,
-          this, [this]() {
+          this, [this] {
     if (!m_terminating) {
       m_io->cleanup();
     }

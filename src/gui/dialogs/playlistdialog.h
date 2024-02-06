@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlaylistDialog() override = default;
+  ~PlaylistDialog() override = default;
 
   /**
    * Read the local settings from the configuration.

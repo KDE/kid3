@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Dec 2007
  *
- * Copyright (C) 2007-2018  Urs Fleisch
+ * Copyright (C) 2007-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -84,8 +84,7 @@ void ScriptInterface::unloadAllTags()
  */
 bool ScriptInterface::save()
 {
-  QStringList errorFiles = m_app->saveDirectory();
-  if (errorFiles.isEmpty()) {
+  if (QStringList errorFiles = m_app->saveDirectory(); errorFiles.isEmpty()) {
     m_errorMsg.clear();
     return true;
   } else {
@@ -182,7 +181,7 @@ bool ScriptInterface::batchImport(int tagMask, const QString& profileName)
  */
 void ScriptInterface::downloadAlbumArt(const QString& url, bool allFilesInDir)
 {
-  m_app->downloadImage(url, allFilesInDir);;
+  m_app->downloadImage(url, allFilesInDir);
 }
 
 /**
@@ -339,8 +338,8 @@ bool ScriptInterface::selectCurrentFile()
  */
 bool ScriptInterface::expandDirectory()
 {
-  QModelIndex index(m_app->getFileSelectionModel()->currentIndex());
-  if (!FileProxyModel::getPathIfIndexOfDir(index).isNull()) {
+  if (QModelIndex index(m_app->getFileSelectionModel()->currentIndex());
+      !FileProxyModel::getPathIfIndexOfDir(index).isNull()) {
     m_app->expandDirectory(index);
     return true;
   }
@@ -397,11 +396,10 @@ bool ScriptInterface::setDirNameFromTag(int tagMask, const QString& format,
   if (m_app->renameDirectory(Frame::tagVersionCast(tagMask), format,
                              create)) {
     return true;
-  } else {
-    disconnect(m_app, &Kid3Application::renameActionsScheduled,
-               this, &ScriptInterface::onRenameActionsScheduled);
-    return false;
   }
+  disconnect(m_app, &Kid3Application::renameActionsScheduled,
+             this, &ScriptInterface::onRenameActionsScheduled);
+  return false;
 }
 
 void ScriptInterface::onRenameActionsScheduled()
@@ -597,8 +595,7 @@ QStringList ScriptInterface::getInformation()
       }
     }
     FOR_ALL_TAGS(tagNr) {
-      QString tag = taggedFile->getTagFormat(tagNr);
-      if (!tag.isEmpty()) {
+      if (QString tag = taggedFile->getTagFormat(tagNr); !tag.isEmpty()) {
         lst << QLatin1String("Tag ") + Frame::tagNumberToString(tagNr) << tag; // clazy:exclude=reserve-candidates
       }
     }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -117,7 +117,7 @@ private:
    * @return list with track durations,
    *         empty if no track durations found.
    */
-  QList<int> getTrackDurations();
+  QList<int> getTrackDurations() const;
 
   /** contents of imported file/clipboard */
   QString m_text;

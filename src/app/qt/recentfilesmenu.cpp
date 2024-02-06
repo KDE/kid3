@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Aug 2010
  *
- * Copyright (C) 2010-2018  Urs Fleisch
+ * Copyright (C) 2010-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,7 +31,7 @@
 
 namespace {
 
-const int MAX_RECENT_FILES = 10;
+constexpr int MAX_RECENT_FILES = 10;
 
 }
 
@@ -57,8 +57,7 @@ void RecentFilesMenu::addDirectory(const QString& dir)
     return;
 
   // first remove the path if it already exists
-  int pathIdx = m_files.indexOf(path);
-  if (pathIdx != -1) {
+  if (int pathIdx = m_files.indexOf(path); pathIdx != -1) {
     m_files.removeAt(pathIdx);
   }
 

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 06 Feb 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -51,7 +51,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FindReplaceDialog() override = default;
+  ~FindReplaceDialog() override = default;
 
   /**
    * Initialize dialog before it is displayed.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -105,9 +105,9 @@ void HttpClient::networkReplyFinished()
       msg += QLatin1String(": ");
       msg += reply->errorString();
     } else {
-      QVariant redirect =
-          reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-      if (!redirect.isNull()) {
+      if (QVariant redirect =
+            reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+          !redirect.isNull()) {
         QUrl redirectUrl = redirect.toUrl();
         if (redirectUrl.isRelative()) {
           redirectUrl = reply->url().resolved(redirectUrl);
@@ -154,8 +154,6 @@ void HttpClient::networkReplyProgress(qint64 received, qint64 total)
 
 /**
  * Called when an error occurred.
- *
- * @param code error code
  */
 void HttpClient::networkReplyError(QNetworkReply::NetworkError)
 {
@@ -291,8 +289,7 @@ void HttpClient::emitProgress(const QString& text, int step, int totalSteps)
 void HttpClient::splitNamePort(const QString& namePort,
                                  QString& name, int& port)
 {
-  int colPos = namePort.lastIndexOf(QLatin1Char(':'));
-  if (colPos >= 0) {
+  if (int colPos = namePort.lastIndexOf(QLatin1Char(':')); colPos >= 0) {
     bool ok;
 #if QT_VERSION >= 0x060000
     port = namePort.mid(colPos + 1).toInt(&ok);

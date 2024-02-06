@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -98,8 +98,7 @@ void AbstractListEdit::setAddButtonText(const QString& text)
  */
 void AbstractListEdit::removeItem()
 {
-  QModelIndex index = m_itemView->currentIndex();
-  if (index.isValid()) {
+  if (QModelIndex index = m_itemView->currentIndex(); index.isValid()) {
     QAbstractItemModel* model = m_itemView->model();
     model->removeRow(index.row());
     setButtonEnableState();
@@ -111,8 +110,8 @@ void AbstractListEdit::removeItem()
  */
 void AbstractListEdit::moveUpItem()
 {
-  QModelIndex index = m_itemView->currentIndex();
-  if (index.isValid() && index.row() > 0) {
+  if (QModelIndex index = m_itemView->currentIndex();
+      index.isValid() && index.row() > 0) {
     int row = index.row();
     QAbstractItemModel* model = m_itemView->model();
     const int numColumns = model->columnCount();
@@ -141,8 +140,8 @@ void AbstractListEdit::moveUpItem()
 void AbstractListEdit::moveDownItem()
 {
   QModelIndex index = m_itemView->currentIndex();
-  QAbstractItemModel* model = m_itemView->model();
-  if (index.isValid() && index.row() < model->rowCount() - 1) {
+  if (QAbstractItemModel* model = m_itemView->model();
+      index.isValid() && index.row() < model->rowCount() - 1) {
     const int numColumns = model->columnCount();
     int row = index.row();
     QVector<QVariant> editValues(numColumns);

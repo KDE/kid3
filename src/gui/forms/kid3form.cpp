@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 8 Apr 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -124,7 +124,8 @@ public:
    */
   explicit PictureDblClickHandler(Kid3Application* app)
     : QObject(app), m_app(app) {}
-  virtual ~PictureDblClickHandler() override = default;
+
+  ~PictureDblClickHandler() override = default;
 
 protected:
   /**
@@ -135,7 +136,7 @@ protected:
    *
    * @return true if event is filtered.
    */
-  virtual bool eventFilter(QObject* obj, QEvent* event) override;
+  bool eventFilter(QObject* obj, QEvent* event) override;
 
 private:
   Q_DISABLE_COPY(PictureDblClickHandler)
@@ -156,10 +157,9 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
   if (event->type() == QEvent::MouseButtonDblClick) {
     m_app->editOrAddPicture();
     return true;
-  } else {
-    // standard event processing
-    return QObject::eventFilter(obj, event);
   }
+  // standard event processing
+  return QObject::eventFilter(obj, event);
 }
 
 
@@ -168,7 +168,7 @@ bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
  */
 class WidgetFileDecorationProvider : public AbstractFileDecorationProvider {
 public:
-  virtual QVariant headerDecoration() const override {
+  QVariant headerDecoration() const override {
     // From QFileSystemModel:
     // ### TODO oh man this is ugly and doesn't even work all the way!
     // it is still 2 pixels off
@@ -178,23 +178,23 @@ public:
     return pixmap;
   }
 
-  virtual QVariant computerDecoration() const override {
+  QVariant computerDecoration() const override {
     return m_provider.icon(QFileIconProvider::Computer);
   }
 
-  virtual QVariant folderDecoration() const override {
+  QVariant folderDecoration() const override {
     return m_provider.icon(QFileIconProvider::Folder);
   }
 
-  virtual QVariant fileDecoration() const override {
+  QVariant fileDecoration() const override {
     return m_provider.icon(QFileIconProvider::File);
   }
 
-  virtual QVariant decoration(const QFileInfo& info) const override {
+  QVariant decoration(const QFileInfo& info) const override {
     return m_provider.icon(info);
   }
 
-  virtual QString type(const QFileInfo& info) const override {
+  QString type(const QFileInfo& info) const override {
     return m_provider.type(info);
   }
 
@@ -253,6 +253,7 @@ void setItemsInComboBox(const QStringList& items, const QString& currentItem,
  * Constructs an Id3Form as a child of 'parent', with the
  * name 'name' and widget flags set to 'f'.
  * @param app application
+ * @param mainWin main window
  * @param parent parent widget
  */
 Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
@@ -284,7 +285,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_leftSideWidget->addWidget(m_vSplitter);
   m_fileListBox = new FileList(m_vSplitter, m_mainWin);
   FileProxyModel* fileProxyModel = m_app->getFileProxyModel();
-  if (FileSystemModel* fsModel =
+  if (auto fsModel =
           qobject_cast<FileSystemModel*>(fileProxyModel->sourceModel())) {
     fsModel->setDecorationProvider(m_iconProvider.data());
   }
@@ -352,8 +353,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   fileLayout->addWidget(m_nameLineEdit, 0, 1, 1, 4);
   m_fileLabel->setBuddy(m_nameLineEdit);
 
-  QLabel* formatLabel = new QLabel(tr("Format:") + QChar(0x2191),
-                                   m_fileWidget);
+  auto formatLabel = new QLabel(tr("Format:") + QChar(0x2191),
+                                m_fileWidget);
   fileLayout->addWidget(formatLabel, 1, 0);
 
   m_formatComboBox = new QComboBox(m_fileWidget);
@@ -383,7 +384,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
 
   QWidget* tabWidget = m_formatFromFilenameComboBox;
 
-  QLabel* fromTagLabel = new QLabel(tr("From:"), m_fileWidget);
+  auto fromTagLabel = new QLabel(tr("From:"), m_fileWidget);
   fileLayout->addWidget(fromTagLabel, 1, 2);
   int column = 3;
   FOR_ALL_TAGS(tagNr) {
@@ -402,13 +403,13 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     }
   }
 
-  QLabel* formatFromFilenameLabel = new QLabel(tr("Format:") + QChar(0x2193),
-                                               m_fileWidget);
+  auto formatFromFilenameLabel = new QLabel(tr("Format:") + QChar(0x2193),
+                                            m_fileWidget);
   fileLayout->addWidget(formatFromFilenameLabel, 2, 0);
 
   fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
 
-  QLabel* toTagLabel = new QLabel(tr("To:"), m_fileWidget);
+  auto toTagLabel = new QLabel(tr("To:"), m_fileWidget);
   fileLayout->addWidget(toTagLabel, 2, 2);
   column = 3;
   FOR_ALL_TAGS(tagNr) {
@@ -474,14 +475,14 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       buttonsVBoxLayout->addWidget(m_id3PushButton[tagNr]);
       setTabOrder(tabWidget, m_id3PushButton[tagNr]);
 
-      QPushButton* copyPushButton = new QPushButton(tr("Copy"),
-                                                    m_tagWidget[tagNr]);
+      auto copyPushButton = new QPushButton(tr("Copy"),
+                                            m_tagWidget[tagNr]);
       connect(copyPushButton, &QAbstractButton::clicked,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::copyTags);
       buttonsVBoxLayout->addWidget(copyPushButton);
       setTabOrder(m_id3PushButton[tagNr], copyPushButton);
 
-      QPushButton* pastePushButton =
+      auto pastePushButton =
         new QPushButton(tr("Paste"), m_tagWidget[tagNr]);
       connect(pastePushButton, &QAbstractButton::clicked,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::pasteTags);
@@ -513,7 +514,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       buttonsVBoxLayout->addWidget(m_id3PushButton[tagNr]);
       setTabOrder(tabWidget, m_id3PushButton[tagNr]);
 
-      QPushButton* toButton = new QPushButton(tr("To"));
+      auto toButton = new QPushButton(tr("To"));
       menu = new QMenu(this);
       action = menu->addAction(tr("Filename"));
       connect(action, &QAction::triggered,
@@ -539,7 +540,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       tabWidget = toButton;
     }
 
-    QPushButton* removePushButton =
+    auto removePushButton =
       new QPushButton(tr("Remove"), m_tagWidget[tagNr]);
     connect(removePushButton, &QAbstractButton::clicked,
             m_app->tag(tagNr), &Kid3ApplicationTagContext::removeTags);
@@ -548,24 +549,24 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     tabWidget = removePushButton;
 
     if (tagNr != Frame::Tag_Id3v1) {
-      QFrame* frameLine = new QFrame;
+      auto frameLine = new QFrame;
       frameLine->setFrameShape(QFrame::HLine);
       frameLine->setFrameShadow(QFrame::Sunken);
       buttonsVBoxLayout->addWidget(frameLine);
 
-      QPushButton* editFramesPushButton =
+      auto editFramesPushButton =
         new QPushButton(tr("Edit..."), m_tagWidget[tagNr]);
       connect(editFramesPushButton, &QAbstractButton::clicked,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::editFrame);
       buttonsVBoxLayout->addWidget(editFramesPushButton);
       setTabOrder(tabWidget, editFramesPushButton);
-      QPushButton* framesAddPushButton =
+      auto framesAddPushButton =
         new QPushButton(tr("Add..."), m_tagWidget[tagNr]);
       connect(framesAddPushButton, &QAbstractButton::clicked,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::addFrame);
       buttonsVBoxLayout->addWidget(framesAddPushButton);
       setTabOrder(editFramesPushButton, framesAddPushButton);
-      QPushButton* deleteFramesPushButton =
+      auto deleteFramesPushButton =
         new QPushButton(tr("Delete"), m_tagWidget[tagNr]);
       connect(deleteFramesPushButton, &QAbstractButton::clicked,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::deleteFrame);
@@ -594,7 +595,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
                                            m_fileListBox);
   m_sectionActions.append(sectionActions);
   connect(sectionActions->previousSectionAction(), &QAction::triggered,
-          this, [this]() { setFocusPreviousTag(Frame::Tag_NumValues); });
+          this, [this] { setFocusPreviousTag(Frame::Tag_NumValues); });
   connect(sectionActions->nextSectionAction(), &QAction::triggered,
           this, &Kid3Form::setFocusDirList);
 
@@ -612,7 +613,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   connect(sectionActions->previousSectionAction(), &QAction::triggered,
           this, &Kid3Form::setFocusDirList);
   connect(sectionActions->nextSectionAction(), &QAction::triggered,
-          this, [this]() { setFocusNextTag(Frame::Tag_NumValues); });
+          this, [this] { setFocusNextTag(Frame::Tag_NumValues); });
   connect(sectionActions->transferAction(), &QAction::triggered,
     m_app->tag(Frame::Tag_2), &Kid3ApplicationTagContext::getFilenameFromTags);
 
@@ -628,11 +629,11 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
           m_frameTable[tagNr]);
     m_sectionActions.append(sectionActions);
     connect(sectionActions->previousSectionAction(), &QAction::triggered,
-            this, [this, tagNr]() {
+            this, [this, tagNr] {
       setFocusPreviousTag(tagNr);
     });
     connect(sectionActions->nextSectionAction(), &QAction::triggered,
-            this, [this, tagNr]() {
+            this, [this, tagNr] {
       setFocusNextTag(tagNr);
     });
 
@@ -641,7 +642,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     connect(sectionActions->pasteAction(), &QAction::triggered,
             m_app->tag(tagNr), &Kid3ApplicationTagContext::pasteTags);
     connect(sectionActions->removeAction(), &QAction::triggered,
-            this, [this, tagNr]() {
+            this, [this, tagNr] {
       m_app->tag(tagNr)->removeTags();
       setFocusTag(tagNr);
     });
@@ -729,7 +730,7 @@ void Kid3Form::dragLeaveEvent(QDragLeaveEvent* ev)
 void Kid3Form::dropEvent(QDropEvent* ev)
 {
   if (ev->mimeData()->hasImage()) {
-    QImage image = qvariant_cast<QImage>(ev->mimeData()->imageData());
+    auto image = qvariant_cast<QImage>(ev->mimeData()->imageData());
     ev->acceptProposedAction();
     if (!image.isNull()) {
       QByteArray ba;
@@ -765,8 +766,8 @@ void Kid3Form::nameLineEditChanged(const QString& txt)
  */
 void Kid3Form::markChangedFilename(bool en)
 {
-  CoreTaggedFileIconProvider* colorProvider;
-  if (en &&
+  if (CoreTaggedFileIconProvider* colorProvider;
+      en &&
       (colorProvider = m_app->getPlatformTools()->iconProvider()) != nullptr) {
     QPalette changedPalette(m_nameLabel->palette());
     changedPalette.setBrush(QPalette::Active, QPalette::Window,
@@ -807,8 +808,8 @@ void Kid3Form::formatLineEdit(QLineEdit* le, const QString& txt,
  */
 void Kid3Form::dirSelected(const QModelIndex& index)
 {
-  QString dirPath = index.data(FileSystemModel::FilePathRole).toString();
-  if (!dirPath.isEmpty()) {
+  if (QString dirPath = index.data(FileSystemModel::FilePathRole).toString();
+      !dirPath.isEmpty()) {
     m_app->setDirUpIndex(
         dirPath.endsWith(QLatin1String("..")) ? index.parent() : QModelIndex());
     m_mainWin->updateCurrentSelection();
@@ -823,11 +824,11 @@ void Kid3Form::dirSelected(const QModelIndex& index)
  */
 void Kid3Form::fileActivated(const QModelIndex& index)
 {
-  if (const FileProxyModel* fileProxyModel =
+  if (auto fileProxyModel =
       qobject_cast<const FileProxyModel*>(index.model())) {
     if (fileProxyModel->isDir(index)) {
-      QString dirPath = fileProxyModel->filePath(index);
-      if (!dirPath.isEmpty()) {
+      if (QString dirPath = fileProxyModel->filePath(index);
+          !dirPath.isEmpty()) {
         m_mainWin->updateCurrentSelection();
         m_mainWin->confirmedOpenDirectory({dirPath});
       }
@@ -843,8 +844,8 @@ void Kid3Form::fileActivated(const QModelIndex& index)
 void Kid3Form::openParentDirectory(const QModelIndex& index)
 {
   if (index.isValid()) {
-    QDir dir(index.data(FileSystemModel::FilePathRole).toString());
-    if (dir.cdUp()) {
+    if (QDir dir(index.data(FileSystemModel::FilePathRole).toString());
+        dir.cdUp()) {
       QString dirPath = dir.absolutePath();
       if (m_dirListBox && index.model() == m_dirListBox->model()) {
         m_app->setDirUpIndex(index);
@@ -868,10 +869,10 @@ void Kid3Form::enableControls(Frame::TagNumber tagNr, bool enable)
   if (m_toTagButton[tagNr]) {
     m_toTagButton[tagNr]->setEnabled(enable);
   }
-  Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1
-      ? Frame::Tag_2
-      : tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
-  if (otherTagNr < Frame::Tag_NumValues) {
+  if (Frame::TagNumber otherTagNr = tagNr == Frame::Tag_1
+        ? Frame::Tag_2
+        : tagNr == Frame::Tag_2 ? Frame::Tag_1 : Frame::Tag_NumValues;
+      otherTagNr < Frame::Tag_NumValues) {
     m_id3PushButton[otherTagNr]->setEnabled(enable);
   }
   m_tagWidget[tagNr]->setEnabled(enable);
@@ -1048,7 +1049,8 @@ void Kid3Form::setFocusNextTag(Frame::TagNumber tagNr)
     if (i >= Frame::Tag_NumValues) {
       setFocusFileList();
       break;
-    } else if (i >= Frame::Tag_1) {
+    }
+    if (i >= Frame::Tag_1) {
       if (m_tagWidget[i]->isEnabled()) {
         setFocusTag(static_cast<Frame::TagNumber>(i));
         break;
@@ -1069,7 +1071,8 @@ void Kid3Form::setFocusPreviousTag(Frame::TagNumber tagNr)
     if (i < Frame::Tag_1) {
       setFocusFilename();
       break;
-    } else if (i < Frame::Tag_NumValues) {
+    }
+    if (i < Frame::Tag_NumValues) {
       if (m_tagWidget[i]->isEnabled()) {
         setFocusTag(static_cast<Frame::TagNumber>(i));
         break;
@@ -1391,8 +1394,7 @@ void Kid3Form::removeLeftSideWidget(QWidget* widget)
 void Kid3Form::copyTagsActionData()
 {
   if (auto action = qobject_cast<QAction*>(sender())) {
-    QByteArray ba = action->data().toByteArray();
-    if (ba.size() == 2) {
+    if (QByteArray ba = action->data().toByteArray(); ba.size() == 2) {
       Frame::TagNumber srcTagNr = Frame::tagNumberCast(ba.at(0));
       Frame::TagNumber dstTagNr = Frame::tagNumberCast(ba.at(1));
       if (srcTagNr != Frame::Tag_NumValues &&

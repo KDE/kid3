@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,7 +34,7 @@ int GuiConfig::s_index = -1;
  * Constructor.
  */
 GuiConfig::GuiConfig()
-  : StoredConfig<GuiConfig>(QLatin1String("GUI")),
+  : StoredConfig(QLatin1String("GUI")),
     m_fileListSortColumn(0),
     m_fileListSortOrder(Qt::AscendingOrder),
     m_dirListSortColumn(0),
@@ -188,9 +188,9 @@ void GuiConfig::readFromConfig(ISettings* config)
         .toStringList());
   m_splitterSizes.clear();
   for (int i = 0; i < 5; ++i) {
-    int val = config->value(QLatin1String("SplitterSize") + QString::number(i),
-                            -1).toInt();
-    if (val != -1) {
+    if (int val = config->value(
+          QLatin1String("SplitterSize") + QString::number(i),-1).toInt();
+        val != -1) {
       m_splitterSizes.push_back(val);
     } else {
       break;
@@ -198,9 +198,9 @@ void GuiConfig::readFromConfig(ISettings* config)
   }
   m_vSplitterSizes.clear();
   for (int j = 0; j < 5; ++j) {
-    int val = config->value(QLatin1String("VSplitterSize") + QString::number(j),
-                            -1).toInt();
-    if (val != -1) {
+    if (int val = config->value(
+          QLatin1String("VSplitterSize") + QString::number(j), -1).toInt();
+        val != -1) {
       m_vSplitterSizes.push_back(val);
     } else {
       break;

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Jul 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,7 +42,7 @@ namespace {
  * 7: 3.9.0
  * 8: 3.9.3
  */
-const int CONFIG_VERSION = 8;
+constexpr int CONFIG_VERSION = 8;
 
 }
 

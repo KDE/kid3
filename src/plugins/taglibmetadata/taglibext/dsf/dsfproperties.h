@@ -48,16 +48,16 @@ class DSFProperties : public TagLib::AudioProperties
   /*!
    * Destroys this DSF Properties instance.
    */
-  virtual ~DSFProperties() override;
+  ~DSFProperties() override;
 
   // Reimplementations.
 
-  virtual int length() const override;
+  int length() const override;
   int lengthInSeconds() const;
   int lengthInMilliseconds() const;
-  virtual int bitrate() const override;
-  virtual int sampleRate() const override;
-  virtual int channels() const override;
+  int bitrate() const override;
+  int sampleRate() const override;
+  int channels() const override;
 
   /*!
    * Returns the DSF Version of the file.

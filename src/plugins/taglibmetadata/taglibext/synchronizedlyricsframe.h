@@ -108,14 +108,14 @@ namespace TagLib {
       /*!
        * Destroys this SynchronizedLyricsFrame instance.
        */
-      virtual ~SynchronizedLyricsFrame() override;
+      ~SynchronizedLyricsFrame() override;
 
       /*!
        * Returns the description of this synchronized lyrics frame.
        *
        * \see description()
        */
-      virtual String toString() const override;
+      String toString() const override;
 
       /*!
        * Returns the text encoding that will be used in rendering this frame.
@@ -210,8 +210,8 @@ namespace TagLib {
     protected:
       // Reimplementations.
 
-      virtual void parseFields(const ByteVector &data) override;
-      virtual ByteVector renderFields() const override;
+      void parseFields(const ByteVector &data) override;
+      ByteVector renderFields() const override;
 
     private:
       /*!

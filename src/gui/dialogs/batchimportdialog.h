@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImportDialog() override = default;
+  ~BatchImportDialog() override = default;
 
   /**
    * Read the local settings from the configuration.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 27 Feb 2015
  *
- * Copyright (C) 2015-2017  Urs Fleisch
+ * Copyright (C) 2015-2024  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -192,7 +192,7 @@ Timer {
       // Started as a user action from Kid3.
       run()
     } else {
-      // Started as a QML script outside of Kid3, start in current directory.
+      // Started as a QML script outside Kid3, start in current directory.
       app.selectedFilesUpdated.connect(app.tagsToFrameModels)
       app.selectedFilesChanged.connect(app.tagsToFrameModels)
       app.readConfig()

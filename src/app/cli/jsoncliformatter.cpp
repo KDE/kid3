@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 28 Jul 2019
  *
- * Copyright (C) 2019  Urs Fleisch
+ * Copyright (C) 2019-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -108,12 +108,11 @@ QStringList JsonCliFormatter::parseArguments(const QString& line)
     }
     m_compact = m_jsonRequest.contains(QLatin1String("\"method\":\""));
     QJsonParseError error;
-    auto doc = QJsonDocument::fromJson(m_jsonRequest.toUtf8(), &error);
-    if (!doc.isNull()) {
-      QJsonObject obj = doc.object();
-      if (!obj.isEmpty()) {
-        auto method = obj.value(QLatin1String("method")).toString();
-        if (!method.isEmpty()) {
+    if (auto doc = QJsonDocument::fromJson(m_jsonRequest.toUtf8(), &error);
+        !doc.isNull()) {
+      if (QJsonObject obj = doc.object(); !obj.isEmpty()) {
+        if (auto method = obj.value(QLatin1String("method")).toString();
+            !method.isEmpty()) {
           m_args.append(method);
           const auto params = obj.value(QLatin1String("params")).toArray();
           for (const auto& param : params) {
@@ -123,8 +122,8 @@ QStringList JsonCliFormatter::parseArguments(const QString& line)
                 // Special handling for tags parameter of the form [1, 2]
                 const auto elements = param.toArray();
                 for (const auto& element : elements) {
-                  int tagNr = element.toInt();
-                  if (tagNr > 0 && tagNr <= Frame::Tag_NumValues) {
+                  if (int tagNr = element.toInt();
+                      tagNr > 0 && tagNr <= Frame::Tag_NumValues) {
                     arg += QLatin1Char('0' + static_cast<char>(tagNr));
                   } else {
                     arg.clear();
@@ -133,8 +132,7 @@ QStringList JsonCliFormatter::parseArguments(const QString& line)
                 }
               } else if (param.isDouble()) {
                 // Allow integer numbers, for example for track numbers
-                int argInt = param.toInt(INT_MIN);
-                if (argInt != INT_MIN) {
+                if (int argInt = param.toInt(INT_MIN); argInt != INT_MIN) {
                   arg = QString::number(argInt);
                 }
               } else if (param.isBool()) {
@@ -151,9 +149,9 @@ QStringList JsonCliFormatter::parseArguments(const QString& line)
       }
     }
     if (m_args.isEmpty()) {
-      auto errStr = error.error != QJsonParseError::NoError
-          ? error.errorString() : QLatin1String("missing method");
-      if (!errStr.isEmpty()) {
+      if (auto errStr = error.error != QJsonParseError::NoError
+              ? error.errorString() : QLatin1String("missing method");
+          !errStr.isEmpty()) {
         m_errorMessage = errStr + QLatin1String(": ") + m_jsonRequest;
       }
       m_jsonRequest.clear();

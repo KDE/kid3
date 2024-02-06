@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -90,7 +90,7 @@ QList<int> checkableFrameTypes() {
  * @param trackImporters server track importers
  */
 ImportDialog::ImportDialog(IPlatformTools* platformTools,
-                           QWidget* parent, QString& caption,
+                           QWidget* parent, const QString& caption,
                            TrackDataModel* trackDataModel,
                            GenreModel* genreModel,
                            const QList<ServerImporter*>& importers,
@@ -125,7 +125,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   vlayout->addWidget(m_trackDataTable);
 
   auto accuracyLayout = new QHBoxLayout;
-  QLabel* accuracyLabel = new QLabel(tr("Accuracy:"));
+  auto accuracyLabel = new QLabel(tr("Accuracy:"));
   accuracyLayout->addWidget(accuracyLabel);
   m_accuracyPercentLabel = new QLabel(QLatin1String("-"));
 #if QT_VERSION >= 0x050b00
@@ -136,7 +136,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
         m_accuracyPercentLabel->fontMetrics().width(QLatin1String("100%")));
 #endif
   accuracyLayout->addWidget(m_accuracyPercentLabel);
-  QLabel* coverArtLabel = new QLabel(tr("Cover Art:"));
+  auto coverArtLabel = new QLabel(tr("Cover Art:"));
   accuracyLayout->addWidget(coverArtLabel);
   m_coverArtUrlLabel = new QLabel(QLatin1String(" -"));
   m_coverArtUrlLabel->setSizePolicy(QSizePolicy::Ignored,
@@ -145,13 +145,13 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   vlayout->addLayout(accuracyLayout);
 
   auto butlayout = new QHBoxLayout;
-  QPushButton* fileButton = new QPushButton(tr("From F&ile/Clipboard..."));
+  auto fileButton = new QPushButton(tr("From F&ile/Clipboard..."));
   fileButton->setAutoDefault(false);
   butlayout->addWidget(fileButton);
-  QPushButton* tagsButton = new QPushButton(tr("From T&ags..."));
+  auto tagsButton = new QPushButton(tr("From T&ags..."));
   tagsButton->setAutoDefault(false);
   butlayout->addWidget(tagsButton);
-  QPushButton* serverButton = new QPushButton(tr("&From Server..."));
+  auto serverButton = new QPushButton(tr("&From Server..."));
   serverButton->setAutoDefault(false);
   butlayout->addWidget(serverButton);
   m_serverComboBox = new QComboBox;
@@ -172,7 +172,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   auto butspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   butlayout->addItem(butspacer);
-  QLabel* destLabel = new QLabel;
+  auto destLabel = new QLabel;
   destLabel->setText(tr("D&estination:"));
   butlayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
@@ -204,15 +204,15 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   auto matchSpacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                              QSizePolicy::Minimum);
   matchLayout->addItem(matchSpacer);
-  QLabel* matchLabel = new QLabel(tr("Match with:"));
+  auto matchLabel = new QLabel(tr("Match with:"));
   matchLayout->addWidget(matchLabel);
-  QPushButton* lengthButton = new QPushButton(tr("&Length"));
+  auto lengthButton = new QPushButton(tr("&Length"));
   lengthButton->setAutoDefault(false);
   matchLayout->addWidget(lengthButton);
-  QPushButton* trackButton = new QPushButton(tr("T&rack"));
+  auto trackButton = new QPushButton(tr("T&rack"));
   trackButton->setAutoDefault(false);
   matchLayout->addWidget(trackButton);
-  QPushButton* titleButton = new QPushButton(tr("&Title"));
+  auto titleButton = new QPushButton(tr("&Title"));
   titleButton->setAutoDefault(false);
   matchLayout->addWidget(titleButton);
   vlayout->addLayout(matchLayout);
@@ -240,12 +240,12 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   auto hlayout = new QHBoxLayout;
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  auto helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  auto saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
-  QPushButton* okButton = new QPushButton(tr("&OK"), this);
-  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
+  auto okButton = new QPushButton(tr("&OK"), this);
+  auto cancelButton = new QPushButton(tr("&Cancel"), this);
   cancelButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   hlayout->addWidget(saveButton);
@@ -420,8 +420,8 @@ void ImportDialog::clear()
   const auto frameTypes = checkableFrameTypes();
   for (int frameType : frameTypes) {
     if (frameType < 64) {
-      int column = m_trackDataModel->columnForFrameType(frameType);
-      if (column != -1) {
+      if (int column = m_trackDataModel->columnForFrameType(frameType);
+          column != -1) {
         m_trackDataTable->setColumnHidden(
               column, (m_columnVisibility & (1ULL << frameType)) == 0ULL);
       }
@@ -536,11 +536,10 @@ void ImportDialog::maxDiffChanged() {
  *
  * The first parameter @a section is not used.
  * @param fromIndex index of position moved from
- * @param fromIndex index of position moved to
+ * @param toIndex   index of position moved to
  */
 void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
-  auto vHeader = qobject_cast<QHeaderView*>(sender());
-  if (vHeader) {
+  if (auto vHeader = qobject_cast<QHeaderView*>(sender())) {
     // revert movement, but avoid recursion
     disconnect(vHeader, &QHeaderView::sectionMoved, nullptr, nullptr);
     vHeader->moveSection(toIndex, fromIndex);
@@ -550,7 +549,7 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
 
   // Allow dragging multiple rows when pressing Ctrl by adding selected rows.
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
-  auto numTracks = static_cast<int>(trackDataVector.size());
+  auto numTracks = trackDataVector.size();
 
   int diff = toIndex - fromIndex;
   QList<int> fromList;
@@ -641,8 +640,8 @@ void ImportDialog::showTableHeaderContextMenu(const QPoint& pos)
     QMenu menu(widget);
     const auto frameTypes = checkableFrameTypes();
     for (int frameType : frameTypes) {
-      int column = m_trackDataModel->columnForFrameType(frameType);
-      if (column != -1) {
+      if (int column = m_trackDataModel->columnForFrameType(frameType);
+          column != -1) {
         auto action = new QAction(&menu);
         action->setText(
               m_trackDataModel->headerData(column, Qt::Horizontal).toString());
@@ -668,15 +667,14 @@ void ImportDialog::toggleTableColumnVisibility(bool visible)
 {
   if (auto action = qobject_cast<QAction*>(sender())) {
     bool ok;
-    int frameType = action->data().toInt(&ok);
-    if (ok && frameType < 64) {
+    if (int frameType = action->data().toInt(&ok); ok && frameType < 64) {
       if (visible) {
         m_columnVisibility |= 1ULL << frameType;
       } else {
         m_columnVisibility &= ~(1ULL << frameType);
       }
-      int column = m_trackDataModel->columnForFrameType(frameType);
-      if (column != -1) {
+      if (int column = m_trackDataModel->columnForFrameType(frameType);
+          column != -1) {
         m_trackDataTable->setColumnHidden(column, !visible);
       }
     }

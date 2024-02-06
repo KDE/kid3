@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Jan 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FilterDialog() override = default;
+  ~FilterDialog() override = default;
 
   /**
    * Read the local settings from the configuration.

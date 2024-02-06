@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Oct 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -32,6 +32,7 @@
 /**
  * Constructor.
  *
+ * @param model item model
  * @param parent parent widget
  */
 ConfigTable::ConfigTable(QAbstractItemModel* model, QWidget* parent)
@@ -105,7 +106,7 @@ void ConfigTable::clearRow(int row)
  *
  * @param action action of selected menu
  */
-void ConfigTable::executeAction(QAction* action)
+void ConfigTable::executeAction(const QAction* action)
 {
   if (action) {
     int row = action->data().toInt();
@@ -130,7 +131,6 @@ void ConfigTable::executeAction(QAction* action)
  * Display context menu.
  *
  * @param row row at which context menu is displayed
- * @param col column at which context menu is displayed
  * @param pos position where context menu is drawn on screen
  */
 void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
@@ -161,8 +161,7 @@ void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
  */
 void ConfigTable::customContextMenu(const QPoint& pos)
 {
-  QModelIndex index = m_tableView->indexAt(pos);
-  if (index.isValid()) {
+  if (QModelIndex index = m_tableView->indexAt(pos); index.isValid()) {
     contextMenu(index.row(), index.column(), mapToGlobal(pos));
   }
 }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Mar 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -77,7 +77,7 @@ const struct {
   { QT_TRANSLATE_NOOP("@default", "audio file ends"), 0xfe }
 };
 
-const int numCodes = static_cast<int>(sizeof codes / sizeof codes[0]);
+constexpr int numCodes = std::size(codes);
 
 }
 

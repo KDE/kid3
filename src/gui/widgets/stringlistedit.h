@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Apr 2007
  *
- * Copyright (C) 2007-2018  Urs Fleisch
+ * Copyright (C) 2007-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,16 +45,16 @@ public:
   /**
    * Destructor.
    */
-  virtual ~StringListEdit() override = default;
+  ~StringListEdit() override = default;
 
 public slots:
   /**
    * Add a new item.
    */
-  virtual void addItem() override;
+  void addItem() override;
 
   /**
    * Edit the selected item.
    */
-  virtual void editItem() override;
+  void editItem() override;
 };

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 08 Apr 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,7 +34,7 @@ int MainWindowConfig::s_index = -1;
  * Constructor.
  */
 MainWindowConfig::MainWindowConfig()
-  : StoredConfig<MainWindowConfig>(QLatin1String("MainWindow")),
+  : StoredConfig(QLatin1String("MainWindow")),
     m_fontSize(-1),
     m_useFont(false),
     m_hideToolBar(false),

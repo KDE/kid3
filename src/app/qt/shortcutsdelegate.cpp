@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -145,7 +145,6 @@ void ShortcutsDelegate::setModelData(
  * @a index, according to the rectangle specified in the @a option.
  * @param editor editor widget
  * @param option style
- * @param index  index of item
  */
 void ShortcutsDelegate::updateEditorGeometry(
   QWidget* editor, const QStyleOptionViewItem& option,

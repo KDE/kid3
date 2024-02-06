@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -51,13 +51,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileList() override;
+  ~FileList() override;
 
   /**
    * Returns the recommended size for the widget.
    * @return recommended size.
    */
-  virtual QSize sizeHint() const override;
+  QSize sizeHint() const override;
 
   /**
    * Set rename action.
@@ -76,7 +76,7 @@ protected:
    * Enable dragging if the item is pressed at the left icon side.
    * @param event mouse event
    */
-  virtual void mousePressEvent(QMouseEvent* event) override;
+  void mousePressEvent(QMouseEvent* event) override;
 
   /**
    * Called when a drag operation is started.
@@ -84,7 +84,7 @@ protected:
    * application, which would not be able to open them on Windows.
    * @param supportedActions drop actions
    */
-  virtual void startDrag(Qt::DropActions supportedActions) override;
+  void startDrag(Qt::DropActions supportedActions) override;
 
 public slots:
   /**
@@ -128,7 +128,7 @@ private slots:
    *
    * @param action action of selected menu, 0 to use sender() action
    */
-  void executeAction(QAction* action = nullptr);
+  void executeAction(const QAction* action = nullptr);
 
   /**
    * Execute context menu action which sent signal.
@@ -190,7 +190,7 @@ private:
    *
    * @return formatted string list.
    */
-  QStringList formatStringList(const QStringList& format);
+  QStringList formatStringList(const QStringList& format) const;
 
   /** Process for context menu commands */
   QScopedPointer<ExternalProcess> m_process;

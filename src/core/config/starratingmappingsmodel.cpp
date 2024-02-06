@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2018
  *
- * Copyright (C) 2018  Urs Fleisch
+ * Copyright (C) 2018-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -72,7 +72,8 @@ QVariant StarRatingMappingsModel::data(const QModelIndex& index, int role) const
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     if (index.column() == CI_Name) {
       return item.first;
-    } else if (item.second.size() >= index.column()) {
+    }
+    if (item.second.size() >= index.column()) {
       return item.second.at(index.column() - 1);
     }
   }
@@ -126,7 +127,8 @@ QVariant StarRatingMappingsModel::headerData(
   if (orientation == Qt::Horizontal) {
     if (section == CI_Name) {
       return tr("Name");
-    } else if (section < CI_NumColumns) {
+    }
+    if (section < CI_NumColumns) {
       return section;
     }
   }

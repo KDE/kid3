@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,7 +36,7 @@ namespace {
  * @param tagVersion tag version
  * @return value used in configuration, kept for backwards compatibility.
  */
-inline int tagVersionToImportDestCfg(Frame::TagVersion tagVersion) {
+int tagVersionToImportDestCfg(Frame::TagVersion tagVersion) {
   return static_cast<int>(tagVersion) - 1;
 }
 
@@ -46,7 +46,7 @@ inline int tagVersionToImportDestCfg(Frame::TagVersion tagVersion) {
  *                   compatibility.
  * @return tag version.
  */
-inline Frame::TagVersion importDestCfgToTagVersion(int importDest) {
+Frame::TagVersion importDestCfgToTagVersion(int importDest) {
   return Frame::tagVersionCast(importDest + 1);
 }
 
@@ -58,7 +58,7 @@ int ImportConfig::s_index = -1;
  * Constructor.
  */
 ImportConfig::ImportConfig()
-  : StoredConfig<ImportConfig>(QLatin1String("Import")), m_importServer(0),
+  : StoredConfig(QLatin1String("Import")), m_importServer(0),
     m_importDest(Frame::TagV1), m_importFormatIdx(0),
     m_maxTimeDifference(3),
     m_importVisibleColumns(0x2000000000ULL),
@@ -353,7 +353,6 @@ void ImportConfig::writeToConfig(ISettings* config) const
  */
 void ImportConfig::readFromConfig(ISettings* config)
 {
-  QStringList names, headers, tracks;
   QStringList tagsNames, tagsSources, tagsExtractions;
   QStringList picNames, picUrls;
 
@@ -363,12 +362,12 @@ void ImportConfig::readFromConfig(ISettings* config)
   m_importDest = importDestCfgToTagVersion(
     config->value(QLatin1String("ImportDestination"),
                   tagVersionToImportDestCfg(m_importDest)).toInt());
-  names = config->value(QLatin1String("ImportFormatNames"),
-                        m_importFormatNames).toStringList();
-  headers = config->value(QLatin1String("ImportFormatHeaders"),
-                          m_importFormatHeaders).toStringList();
-  tracks = config->value(QLatin1String("ImportFormatTracks"),
-                         m_importFormatTracks).toStringList();
+  QStringList names = config->value(QLatin1String("ImportFormatNames"),
+                                    m_importFormatNames).toStringList();
+  QStringList headers = config->value(QLatin1String("ImportFormatHeaders"),
+                                      m_importFormatHeaders).toStringList();
+  QStringList tracks = config->value(QLatin1String("ImportFormatTracks"),
+                                     m_importFormatTracks).toStringList();
   m_importFormatIdx = config->value(QLatin1String("ImportFormatIdx"),
                                     m_importFormatIdx).toInt();
   m_enableTimeDifferenceCheck =
@@ -398,9 +397,9 @@ void ImportConfig::readFromConfig(ISettings* config)
     QLatin1String("PictureSourceIdx"), m_pictureSourceIdx).toInt();
   QStringList keys = config->value(QLatin1String("MatchPictureUrlMapKeys"),
                                    QStringList()).toStringList();
-  QStringList values = config->value(QLatin1String("MatchPictureUrlMapValues"),
-                                     QStringList()).toStringList();
-  if (!keys.empty() && !values.empty()) {
+  if (QStringList values = config->value(
+        QLatin1String("MatchPictureUrlMapValues"), QStringList()).toStringList();
+      !keys.empty() && !values.empty()) {
     m_matchPictureUrlMap.clear();
     for (auto itk = keys.constBegin(), itv = values.constBegin();
          itk != keys.constEnd() && itv != values.constEnd();
@@ -434,11 +433,10 @@ void ImportConfig::readFromConfig(ISettings* config)
        namesIt != names.constEnd() && headersIt != headers.constEnd() &&
          tracksIt != tracks.constEnd();
        ++namesIt, ++headersIt, ++tracksIt) {
-    int idx = m_importFormatNames.indexOf(*namesIt);
-    if (idx >= 0) {
+    if (int idx = m_importFormatNames.indexOf(*namesIt); idx >= 0) {
       m_importFormatHeaders[idx] = *headersIt;
       m_importFormatTracks[idx] = *tracksIt;
-    } else if (!(*namesIt).isEmpty()) {
+    } else if (!namesIt->isEmpty()) {
       m_importFormatNames.append(*namesIt);
       m_importFormatHeaders.append(*headersIt);
       m_importFormatTracks.append(*tracksIt);
@@ -450,11 +448,10 @@ void ImportConfig::readFromConfig(ISettings* config)
        tagsNamesIt != tagsNames.constEnd() && sourcesIt != tagsSources.constEnd() &&
          extractionsIt != tagsExtractions.constEnd();
        ++tagsNamesIt, ++sourcesIt, ++extractionsIt) {
-    int idx = m_importTagsNames.indexOf(*tagsNamesIt);
-    if (idx >= 0) {
+    if (int idx = m_importTagsNames.indexOf(*tagsNamesIt); idx >= 0) {
       m_importTagsSources[idx] = *sourcesIt;
       m_importTagsExtractions[idx] = *extractionsIt;
-    } else if (!(*tagsNamesIt).isEmpty()) {
+    } else if (!tagsNamesIt->isEmpty()) {
       m_importTagsNames.append(*tagsNamesIt);
       m_importTagsSources.append(*sourcesIt);
       m_importTagsExtractions.append(*extractionsIt);
@@ -464,20 +461,19 @@ void ImportConfig::readFromConfig(ISettings* config)
   for (auto picNamesIt = picNames.constBegin(), picUrlsIt = picUrls.constBegin();
        picNamesIt != picNames.constEnd() && picUrlsIt != picUrls.constEnd();
        ++picNamesIt, ++picUrlsIt) {
-    int idx = m_pictureSourceNames.indexOf(*picNamesIt);
-    if (idx >= 0) {
+    if (int idx = m_pictureSourceNames.indexOf(*picNamesIt); idx >= 0) {
       m_pictureSourceUrls[idx] = *picUrlsIt;
-    } else if (!(*picNamesIt).isEmpty()) {
+    } else if (!picNamesIt->isEmpty()) {
       m_pictureSourceNames.append(*picNamesIt);
       m_pictureSourceUrls.append(*picUrlsIt);
     }
   }
 
-  if (m_importFormatIdx >= static_cast<int>(m_importFormatNames.size()))
+  if (m_importFormatIdx >= m_importFormatNames.size())
     m_importFormatIdx = 0;
-  if (m_importTagsIdx >= static_cast<int>(m_importTagsNames.size()))
+  if (m_importTagsIdx >= m_importTagsNames.size())
     m_importTagsIdx = 0;
-  if (m_pictureSourceIdx >=  static_cast<int>(m_pictureSourceNames.size()))
+  if (m_pictureSourceIdx >=  m_pictureSourceNames.size())
     m_pictureSourceIdx = 0;
 
   // Replace mappings which do no longer work.
@@ -567,10 +563,10 @@ void ImportConfig::setImportFormatTracks(const QStringList& importFormatTracks)
   }
 }
 
-void ImportConfig::setImportFormatIndex(int importFormatIdx)
+void ImportConfig::setImportFormatIndex(int importFormatIndex)
 {
-  if (m_importFormatIdx != importFormatIdx) {
-    m_importFormatIdx = importFormatIdx;
+  if (m_importFormatIdx != importFormatIndex) {
+    m_importFormatIdx = importFormatIndex;
     emit importFormatIndexChanged(m_importFormatIdx);
   }
 }
@@ -623,10 +619,10 @@ void ImportConfig::setImportTagsExtractions(const QStringList& importTagsExtract
   }
 }
 
-void ImportConfig::setImportTagsIndex(int importTagsIdx)
+void ImportConfig::setImportTagsIndex(int importTagsIndex)
 {
-  if (m_importTagsIdx != importTagsIdx) {
-    m_importTagsIdx = importTagsIdx;
+  if (m_importTagsIdx != importTagsIndex) {
+    m_importTagsIdx = importTagsIndex;
     emit importTagsIndexChanged(m_importTagsIdx);
   }
 }
@@ -648,10 +644,10 @@ void ImportConfig::setPictureSourceUrls(const QStringList& pictureSourceUrls)
 }
 
 
-void ImportConfig::setPictureSourceIndex(int pictureSourceIdx)
+void ImportConfig::setPictureSourceIndex(int pictureSourceIndex)
 {
-  if (m_pictureSourceIdx != pictureSourceIdx) {
-    m_pictureSourceIdx = pictureSourceIdx;
+  if (m_pictureSourceIdx != pictureSourceIndex) {
+    m_pictureSourceIdx = pictureSourceIndex;
     emit pictureSourceIndexChanged(m_pictureSourceIdx);
   }
 }

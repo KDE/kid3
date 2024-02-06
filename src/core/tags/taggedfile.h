@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Sep 2005
  *
- * Copyright (C) 2005-2023  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -356,7 +356,7 @@ public:
    *            %y year
    *            %t track
    */
-  void getTagsFromFilename(FrameCollection& frames, const QString& fmt);
+  void getTagsFromFilename(FrameCollection& frames, const QString& fmt) const;
 
   /**
    * Check if file is changed.

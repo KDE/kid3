@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2012
  *
- * Copyright (C) 2012-2018  Urs Fleisch
+ * Copyright (C) 2012-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,14 +45,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CheckableStringListModel() override = default;
+  ~CheckableStringListModel() override = default;
 
   /**
    * Get item flags for index.
    * @param index model index
    * @return item flags
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
+  Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
    * Get data for a given role.
@@ -60,8 +60,8 @@ public:
    * @param role item data role
    * @return data for role
    */
-  virtual QVariant data(const QModelIndex& index,
-                        int role = Qt::DisplayRole) const override;
+  QVariant data(const QModelIndex& index,
+                int role = Qt::DisplayRole) const override;
   /**
    * Set data for a given role.
    * @param index model index
@@ -69,8 +69,8 @@ public:
    * @param role item data role
    * @return true if successful
    */
-  virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role = Qt::EditRole) override;
+  bool setData(const QModelIndex& index, const QVariant& value,
+               int role = Qt::EditRole) override;
 
 
   /**
@@ -80,7 +80,7 @@ public:
    * @param parent parent model index
    * @return true if rows were successfully inserted.
    */
-  virtual bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+  bool insertRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Remove rows.
@@ -89,7 +89,7 @@ public:
    * @param parent parent model index
    * @return true if rows were successfully removed.
    */
-  virtual bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
+  bool removeRows(int row, int count, const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Set mask with checked state for the items in the model.

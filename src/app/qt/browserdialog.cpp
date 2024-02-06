@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,7 +44,7 @@
  * @param parent parent widget
  * @param caption dialog title
  */
-BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
+BrowserDialog::BrowserDialog(QWidget* parent, const QString& caption)
   : QDialog(parent)
 {
   setObjectName(QLatin1String("BrowserDialog"));
@@ -88,21 +88,21 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   vlayout->addWidget(m_textBrowser);
 
   auto hlayout = new QHBoxLayout;
-  QPushButton* backButton = new QPushButton(tr("&Back"), this);
+  auto backButton = new QPushButton(tr("&Back"), this);
   backButton->setEnabled(false);
   connect(backButton, &QAbstractButton::clicked,
           m_textBrowser, &QTextBrowser::backward);
   connect(m_textBrowser, &QTextBrowser::backwardAvailable,
           backButton, &QWidget::setEnabled);
   hlayout->addWidget(backButton);
-  QPushButton* forwardButton = new QPushButton(tr("&Forward"), this);
+  auto forwardButton = new QPushButton(tr("&Forward"), this);
   forwardButton->setEnabled(false);
   connect(forwardButton, &QAbstractButton::clicked,
           m_textBrowser, &QTextBrowser::forward);
   connect(m_textBrowser, &QTextBrowser::forwardAvailable,
           forwardButton, &QWidget::setEnabled);
   hlayout->addWidget(forwardButton);
-  QLabel* findLabel = new QLabel(tr("&Find:"), this);
+  auto findLabel = new QLabel(tr("&Find:"), this);
   hlayout->addWidget(findLabel);
   m_findLineEdit = new QLineEdit(this);
   m_findLineEdit->setFocus();
@@ -136,7 +136,7 @@ BrowserDialog::BrowserDialog(QWidget* parent, QString& caption)
   findNextButton->setDefaultAction(findNextAction);
   hlayout->addWidget(findNextButton);
   hlayout->addStretch();
-  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  auto closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
   hlayout->addWidget(closeButton);

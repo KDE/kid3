@@ -60,21 +60,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~NumberTracksConfig() override = default;
+  ~NumberTracksConfig() override = default;
 
   /**
    * Persist configuration.
    *
    * @param config configuration
    */
-  virtual void writeToConfig(ISettings* config) const override;
+  void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config configuration
    */
-  virtual void readFromConfig(ISettings* config) override;
+  void readFromConfig(ISettings* config) override;
 
   /** Get destination tag. */
   Frame::TagVersion numberTracksDestination() const { return m_numberTracksDst; }

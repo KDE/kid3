@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Sep 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -68,26 +68,26 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagLibFile() override;
+  ~TagLibFile() override;
 
   /**
    * Get key of tagged file format.
    * @return "TaglibMetadata".
    */
-  virtual QString taggedFileKey() const override;
+  QString taggedFileKey() const override;
 
   /**
    * Get features supported.
    * @return bit mask with Feature flags set.
    */
-  virtual int taggedFileFeatures() const override;
+  int taggedFileFeatures() const override;
 
   /**
    * Get currently active tagged file features.
    * @return active tagged file features (TF_ID3v23, TF_ID3v24, or 0).
    * @see setActiveTaggedFileFeatures()
    */
-  virtual int activeTaggedFileFeatures() const override;
+  int activeTaggedFileFeatures() const override;
 
   /**
    * Activate some features provided by the tagged file.
@@ -98,14 +98,14 @@ public:
    *
    * @param features TF_ID3v23, TF_ID3v24, or 0
    */
-  virtual void setActiveTaggedFileFeatures(int features) override;
+  void setActiveTaggedFileFeatures(int features) override;
 
   /**
    * Read tags from file.
    *
    * @param force true to force reading even if tags were already read.
    */
-  virtual void readTags(bool force) override;
+  void readTags(bool force) override;
 
   /**
    * Write tags to file and rename it if necessary.
@@ -118,14 +118,14 @@ public:
    *
    * @return true if ok, false if the file could not be written or renamed.
    */
-  virtual bool writeTags(bool force, bool* renamed, bool preserve) override;
+  bool writeTags(bool force, bool* renamed, bool preserve) override;
 
   /**
    * Free resources allocated when calling readTags().
    *
    * @param force true to force clearing even if the tags are modified
    */
-  virtual void clearTags(bool force) override;
+  void clearTags(bool force) override;
 
   /**
    * Write tags to file and rename it if necessary.
@@ -149,7 +149,7 @@ public:
    * @param tagNr tag number
    * @param flt filter specifying which frames to remove
    */
-  virtual void deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt) override;
+  void deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt) override;
 
   /**
    * Check if tag information has already been read.
@@ -158,7 +158,7 @@ public:
    *         false if the tags have not been read yet, in which case
    *         hasTag() does not return meaningful information.
    */
-  virtual bool isTagInformationRead() const override;
+  bool isTagInformationRead() const override;
 
   /**
    * Check if file has a tag.
@@ -167,7 +167,7 @@ public:
    * @return true if a V1 tag is available.
    * @see isTagInformationRead()
    */
-  virtual bool hasTag(Frame::TagNumber tagNr) const override;
+  bool hasTag(Frame::TagNumber tagNr) const override;
 
   /**
    * Check if tags are supported by the format of this file.
@@ -175,14 +175,14 @@ public:
    * @param tagNr tag number
    * @return true.
    */
-  virtual bool isTagSupported(Frame::TagNumber tagNr) const override;
+  bool isTagSupported(Frame::TagNumber tagNr) const override;
 
   /**
    * Get technical detail information.
    *
    * @param info the detail information is returned here
    */
-  virtual void getDetailInfo(DetailInfo& info) const override;
+  void getDetailInfo(DetailInfo& info) const override;
 
   /**
    * Get duration of file.
@@ -190,14 +190,14 @@ public:
    * @return duration in seconds,
    *         0 if unknown.
    */
-  virtual unsigned getDuration() const override;
+  unsigned getDuration() const override;
 
   /**
    * Get file extension including the dot.
    *
    * @return file extension ".mp3".
    */
-  virtual QString getFileExtension() const override;
+  QString getFileExtension() const override;
 
   /**
    * Get the format of tag.
@@ -207,7 +207,7 @@ public:
    *         e.g. "ID3v1.1", "ID3v2.3", "Vorbis", "APE",
    *         QString::null if unknown.
    */
-  virtual QString getTagFormat(Frame::TagNumber tagNr) const override;
+  QString getTagFormat(Frame::TagNumber tagNr) const override;
 
   /**
    * Get a specific frame from the tags.
@@ -218,7 +218,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const override;
+  bool getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const override;
 
   /**
    * Set a frame in the tags.
@@ -228,7 +228,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool setFrame(Frame::TagNumber tagNr, const Frame& frame) override;
+  bool setFrame(Frame::TagNumber tagNr, const Frame& frame) override;
 
   /**
    * Add a frame in the tags.
@@ -238,7 +238,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool addFrame(Frame::TagNumber tagNr, Frame& frame) override;
+  bool addFrame(Frame::TagNumber tagNr, Frame& frame) override;
 
   /**
    * Delete a frame from the tags.
@@ -248,7 +248,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool deleteFrame(Frame::TagNumber tagNr, const Frame& frame) override;
+  bool deleteFrame(Frame::TagNumber tagNr, const Frame& frame) override;
 
   /**
    * Get all frames in tag.
@@ -256,19 +256,19 @@ public:
    * @param tagNr tag number
    * @param frames frame collection to set.
    */
-  virtual void getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames) override;
+  void getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames) override;
 
   /**
    * Close file handle which is held open by the TagLib object.
    */
-  virtual void closeFileHandle() override;
+  void closeFileHandle() override;
 
   /**
    * Get a list of frame IDs which can be added.
    * @param tagNr tag number
    * @return list with frame IDs.
    */
-  virtual QStringList getFrameIds(Frame::TagNumber tagNr) const override;
+  QStringList getFrameIds(Frame::TagNumber tagNr) const override;
 
   /**
    * Add a suitable field list for the frame if missing.
@@ -278,7 +278,7 @@ public:
    * @param tagNr tag number
    * @param frame frame where field list is added
    */
-  virtual void addFieldList(Frame::TagNumber tagNr, Frame& frame) const override;
+  void addFieldList(Frame::TagNumber tagNr, Frame& frame) const override;
 
   /**
    * Static initialization.
@@ -350,7 +350,7 @@ private:
    * Set m_id3v2Version to 3 or 4 from tag if it exists, else to 0.
    * @param id3v2Tag ID3v2 tag
    */
-  void setId3v2VersionFromTag(TagLib::ID3v2::Tag* id3v2Tag);
+  void setId3v2VersionFromTag(const TagLib::ID3v2::Tag* id3v2Tag);
 
   /**
    * Set m_id3v2Version from given value (3 or 4) or use default from

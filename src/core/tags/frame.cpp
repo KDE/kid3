@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Aug 2007
  *
- * Copyright (C) 2007-2018  Urs Fleisch
+ * Copyright (C) 2007-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -167,7 +167,7 @@ const char* getNameFromType(Frame::Type type)
     QT_TRANSLATE_NOOP("@default", "Work")             // FT_Work,
                                                       // FT_Custom1
   };
-  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_Custom1);
+  Q_STATIC_ASSERT(std::size(names) == Frame::FT_Custom1);
   if (Frame::isCustomFrameType(type)) {
     return Frame::getNameForCustomFrame(type).constData();
   }
@@ -339,8 +339,8 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
   static QMap<QByteArray, QByteArray> idStrMap;
   if (idStrMap.isEmpty()) {
     // first time initialization
-    for (const auto& soi : strOfId) {
-      idStrMap.insert(soi.id, soi.str);
+    for (const auto& [id, str] : strOfId) {
+      idStrMap.insert(id, str);
     }
   }
   return idStrMap;
@@ -437,11 +437,11 @@ void Frame::setValueFromFieldList()
     for (auto fldIt = getFieldList().constBegin();
          fldIt != getFieldList().constEnd();
          ++fldIt) {
-      int id = (*fldIt).m_id;
-      if (id == ID_Text ||
+      if (int id = fldIt->m_id;
+          id == ID_Text ||
           id == ID_Description ||
           id == ID_Url) {
-        m_value = (*fldIt).m_value.toString();
+        m_value = fldIt->m_value.toString();
         if (id == ID_Text) {
           // highest priority, will not be overwritten
           break;
@@ -459,8 +459,8 @@ void Frame::setFieldListFromValue()
   if (!fieldList().empty()) {
     auto it = fieldList().end(); // clazy:exclude=detaching-member
     for (auto fldIt = fieldList().begin(); fldIt != fieldList().end(); ++fldIt) { // clazy:exclude=detaching-member
-      int id = (*fldIt).m_id;
-      if (id == ID_Text ||
+      if (int id = fldIt->m_id;
+          id == ID_Text ||
           id == ID_Description ||
           id == ID_Url) {
         it = fldIt;
@@ -472,13 +472,13 @@ void Frame::setFieldListFromValue()
         bool ok;
         int rating = m_value.toInt(&ok);
         if (ok) {
-          (*fldIt).m_value = rating;
+          fldIt->m_value = rating;
           break;
         }
       }
     }
     if (it != fieldList().end()) {
-      (*it).m_value = m_value;
+      it->m_value = m_value;
     }
   }
 }
@@ -497,8 +497,8 @@ QStringList Frame::splitStringList(const QString& str)
   static const QChar sep = stringListSeparator();
   static const QString escSep = QLatin1String("\\") + stringListSeparator();
   QStringList strs = str.split(separatorRe);
-  for (QString& str : strs) {
-    str.replace(escSep, sep);
+  for (QString& s : strs) {
+    s.replace(escSep, sep);
   }
   return strs;
 }
@@ -546,11 +546,11 @@ int Frame::getValueAsNumber() const
 {
   if (isInactive()) {
     return -1;
-  } else if (isEmpty()) {
-    return 0;
-  } else {
-    return numberWithoutTotal(m_value);
   }
+  if (isEmpty()) {
+    return 0;
+  }
+  return numberWithoutTotal(m_value);
 }
 
 /**
@@ -580,11 +580,11 @@ bool Frame::isFuzzyEqual(const Frame& other) const
   if (getType() == FT_Track || getType() == FT_Disc) {
     return getValueAsNumber() == other.getValueAsNumber();
   }
-  return (getValue() == other.getValue() &&
-          (getFieldList().isEmpty() ||
-           other.getFieldList().isEmpty() ||
-           Field::fuzzyCompareFieldLists(getFieldList(),
-                                         other.getFieldList())));
+  return getValue() == other.getValue() &&
+         (getFieldList().isEmpty() ||
+          other.getFieldList().isEmpty() ||
+          Field::fuzzyCompareFieldLists(getFieldList(),
+                                        other.getFieldList()));
 }
 
 /**
@@ -597,8 +597,8 @@ bool Frame::isFuzzyEqual(const Frame& other) const
 QVariant Frame::getFieldValue(FieldId id) const
 {
   for (auto it = m_fieldList.constBegin(); it != m_fieldList.constEnd(); ++it) {
-    if ((*it).m_id == id) {
-      return (*it).m_value;
+    if (it->m_id == id) {
+      return it->m_value;
     }
   }
   return QVariant();
@@ -612,8 +612,8 @@ QVariant Frame::getFieldValue(FieldId id) const
 void Frame::setValueIfChanged(const QString& value)
 {
   if (value != differentRepresentation()) {
-    QString oldValue(getValue());
-    if (value != oldValue && !(value.isEmpty() && oldValue.isEmpty())) {
+    if (QString oldValue(getValue());
+        value != oldValue && !(value.isEmpty() && oldValue.isEmpty())) {
       setValue(value);
       setValueChanged();
     }
@@ -628,9 +628,7 @@ void Frame::setValueIfChanged(const QString& value)
 bool Frame::setValueFromFile(const QString& fileName)
 {
   if (!fileName.isEmpty()) {
-    QFile file(fileName);
-
-    if (file.open(QIODevice::ReadOnly)) {
+    if (QFile file(fileName); file.open(QIODevice::ReadOnly)) {
       QString value;
       QByteArray data = file.readAll();
 #if QT_VERSION >= 0x060000
@@ -670,8 +668,7 @@ bool Frame::setValueFromFile(const QString& fileName)
 bool Frame::writeValueToFile(const QString& fileName) const
 {
   if (!fileName.isEmpty()) {
-    QFile file(fileName);
-    if (file.open(QIODevice::WriteOnly)) {
+    if (QFile file(fileName); file.open(QIODevice::WriteOnly)) {
       file.write(m_value.toUtf8());
       file.close();
       return true;
@@ -719,8 +716,8 @@ bool Frame::isEqual(const Frame& other) const
 bool Frame::setField(Frame& frame, FieldId id, const QVariant& value)
 {
   for (auto it = frame.fieldList().begin(); it != frame.fieldList().end(); ++it) { // clazy:exclude=detaching-member
-    if ((*it).m_id == id) {
-      (*it).m_value = value;
+    if (it->m_id == id) {
+      it->m_value = value;
       if (id == ID_Description) frame.setValue(value.toString());
       return true;
     }
@@ -740,8 +737,7 @@ bool Frame::setField(Frame& frame, FieldId id, const QVariant& value)
 bool Frame::setField(Frame& frame, const QString& fieldName,
                      const QVariant& value)
 {
-  const FieldId id = Field::getFieldId(fieldName);
-  if (id != ID_NoField) {
+  if (const FieldId id = Field::getFieldId(fieldName); id != ID_NoField) {
 #if QT_VERSION >= 0x060000
     QMetaType valueType = value.metaType();
     QMetaType fieldType;
@@ -782,8 +778,7 @@ bool Frame::setField(Frame& frame, const QString& fieldName,
 #endif
     }
     if (valueType != fieldType && value.canConvert(fieldType)) {
-      QVariant converted(value);
-      if (converted.convert(fieldType)) {
+      if (QVariant converted(value); converted.convert(fieldType)) {
         return setField(frame, id, converted);
       }
     }
@@ -807,8 +802,8 @@ QVariant Frame::getField(const Frame& frame, FieldId id)
     for (auto it = frame.getFieldList().constBegin();
          it != frame.getFieldList().constEnd();
          ++it) {
-      if ((*it).m_id == id) {
-        result = (*it).m_value;
+      if (it->m_id == id) {
+        result = it->m_value;
         break;
       }
     }
@@ -850,8 +845,7 @@ Frame::Type Frame::getTypeFromName(const QString& name)
   }
   QString ucName(name.toUpper());
   ucName.remove(QLatin1Char(' '));
-  auto it = strNumMap.constFind(ucName);
-  if (it != strNumMap.constEnd()) {
+  if (auto it = strNumMap.constFind(ucName); it != strNumMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
   return getTypeFromCustomFrameName(name.toLatin1());
@@ -880,14 +874,12 @@ QString Frame::getDisplayName(const QString& name)
   if (name.isEmpty())
     return name;
 
-  Type type = getTypeFromName(name);
-  if (!Frame::isCustomFrameTypeOrOther(type))
+  if (Type type = getTypeFromName(name); !Frame::isCustomFrameTypeOrOther(type))
     return QCoreApplication::translate("@default",
                                        name.toLatin1().constData());
 
   QString nameStr(name);
-  int nlPos = nameStr.indexOf(QLatin1Char('\n'));
-  if (nlPos > 0)
+  if (int nlPos = nameStr.indexOf(QLatin1Char('\n')); nlPos > 0)
     // probably "TXXX - User defined text information\nDescription" or
     // "WXXX - User defined URL link\nDescription"
     nameStr = nameStr.mid(nlPos + 1);
@@ -899,8 +891,7 @@ QString Frame::getDisplayName(const QString& name)
     id = nameStr.toLatin1();
   }
 
-  auto it = idStrMap.constFind(id);
-  if (it != idStrMap.constEnd()) {
+  if (auto it = idStrMap.constFind(id); it != idStrMap.constEnd()) {
     return QCoreApplication::translate("@default", it->constData());
   }
   return nameStr;
@@ -931,16 +922,16 @@ QString Frame::getNameForTranslatedFrameName(const QString& name)
   if (nameMap.isEmpty()) {
     // first time initialization
     for (int k = Frame::FT_FirstFrame; k < Frame::FT_Custom1; ++k) {
-      QString name = Frame::ExtendedType(static_cast<Frame::Type>(k),
+      QString typeName = Frame::ExtendedType(static_cast<Frame::Type>(k),
                                          QLatin1String("")).getName();
       nameMap.insert(QCoreApplication::translate("@default",
-                         name.toLatin1().constData()), name);
+                         typeName.toLatin1().constData()), typeName);
     }
     QMap<QByteArray, QByteArray> idStrMap = getDisplayNamesOfIds();
     const auto names = idStrMap.values();
-    for (const QByteArray& name : names) {
-      nameMap.insert(QCoreApplication::translate("@default", name),
-                     QString::fromLatin1(name));
+    for (const QByteArray& frameName : names) {
+      nameMap.insert(QCoreApplication::translate("@default", frameName),
+                     QString::fromLatin1(frameName));
     }
   }
   return nameMap.value(name, name);
@@ -973,8 +964,7 @@ QByteArray Frame::getFrameIdForTranslatedFrameName(const QString& name)
  */
 QByteArray Frame::getNameForCustomFrame(Frame::Type type)
 {
-  int idx = type - FT_Custom1;
-  if (idx >= 0 && idx < customFrameNames.size()) {
+  if (int idx = type - FT_Custom1; idx >= 0 && idx < customFrameNames.size()) {
     return customFrameNames.at(idx);
   }
   return "";
@@ -991,16 +981,16 @@ Frame::Type Frame::getTypeFromCustomFrameName(const QByteArray& name)
     // first time initialization
     for (int i = 0; i < customFrameNames.size(); ++i) {
       auto type = static_cast<Frame::Type>(FT_Custom1 + i);
-      QByteArray customFrameName = customFrameNames.at(i).toUpper()
-          .replace(' ', QByteArray());
-      if (!customFrameName.isEmpty()) {
+      if (QByteArray customFrameName = customFrameNames.at(i).toUpper()
+            .replace(' ', QByteArray());
+          !customFrameName.isEmpty()) {
         customFrameNameMap.insert(customFrameName, type);
       }
     }
   }
   auto ucName = name.toUpper().replace(' ', QByteArray());
-  auto it = customFrameNameMap.constFind(ucName);
-  if (it != customFrameNameMap.constEnd()) {
+  if (auto it = customFrameNameMap.constFind(ucName);
+      it != customFrameNameMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
   return Frame::FT_Other;
@@ -1068,11 +1058,9 @@ QStringList Frame::getNamesForCustomFrames()
  */
 QString Frame::Field::getFieldIdName(FieldId type)
 {
-  Q_STATIC_ASSERT(
-      sizeof(fieldIdNames) / sizeof(fieldIdNames[0]) == ID_Seller + 2);
+  Q_STATIC_ASSERT(std::size(fieldIdNames) == ID_Seller + 2);
   if (static_cast<int>(type) >= 0 &&
-      static_cast<int>(type) < static_cast<int>(
-        sizeof(fieldIdNames) / sizeof(fieldIdNames[0]) - 1)) {
+      static_cast<int>(type) < static_cast<int>(std::size(fieldIdNames) - 1)) {
     return QCoreApplication::translate("@default", fieldIdNames[type]);
   }
   return QString();
@@ -1128,7 +1116,7 @@ QString Frame::Field::getTextEncodingName(TextEncoding type)
 {
   if (static_cast<int>(type) >= 0 &&
       static_cast<int>(type) < static_cast<int>(
-        sizeof(textEncodingNames) / sizeof(textEncodingNames[0]) - 1)) {
+        std::size(textEncodingNames) - 1)) {
     return QCoreApplication::translate("@default", textEncodingNames[type]);
   }
   return QString();
@@ -1152,8 +1140,7 @@ const char* const* Frame::Field::getTextEncodingNames()
 QString Frame::Field::getTimestampFormatName(int type)
 {
   if (type >= 0 &&
-      static_cast<unsigned int>(type) <
-      sizeof(timestampFormatNames) / sizeof(timestampFormatNames[0]) - 1) {
+      static_cast<unsigned int>(type) < std::size(timestampFormatNames) - 1) {
     return QCoreApplication::translate("@default", timestampFormatNames[type]);
   }
   return QString();
@@ -1177,8 +1164,7 @@ const char* const* Frame::Field::getTimestampFormatNames()
 QString Frame::Field::getContentTypeName(int type)
 {
   if (type >= 0 &&
-      static_cast<unsigned int>(type) <
-      sizeof(contentTypeNames) / sizeof(contentTypeNames[0]) - 1) {
+      static_cast<unsigned int>(type) < std::size(contentTypeNames) - 1) {
     return QCoreApplication::translate("@default", contentTypeNames[type]);
   }
   return QString();
@@ -1223,7 +1209,7 @@ const QList<QPair<Frame::TagVersion, QString> > Frame::availableTagVersions()
   const char* const tag12Str = QT_TRANSLATE_NOOP("@default", "Tag 1 and Tag 2");
   result << qMakePair(TagV2V1, QCoreApplication::translate("@default",
                                                            tag12Str));
-  if (TagVAll != TagV2V1) {
+  if constexpr (TagVAll != TagV2V1) {
     const char* const allTagsStr = QT_TRANSLATE_NOOP("@default", "All Tags");
     result << qMakePair(TagVAll, QCoreApplication::translate("@default",
                                                              allTagsStr));
@@ -1272,9 +1258,8 @@ QString variantToString(const QVariant& val)
 #endif
     return QString(QLatin1String("ByteArray of %1 bytes"))
         .arg(val.toByteArray().size());
-  } else {
-    return val.toString();
   }
+  return val.toString();
 }
 
 }
@@ -1292,8 +1277,8 @@ void Frame::dump() const
   for (auto it = m_fieldList.constBegin(); it != m_fieldList.constEnd(); ++it) {
     qDebug("  Field: id=%s, value=%s",
            qPrintable(
-             Field::getFieldIdName(static_cast<FieldId>((*it).m_id))),
-           variantToString((*it).m_value).toLatin1().data());
+             Field::getFieldIdName(static_cast<FieldId>(it->m_id))),
+           variantToString(it->m_value).toLatin1().data());
   }
 }
 #endif
@@ -1317,7 +1302,7 @@ void FrameCollection::filterDifferent(
     FrameCollection& others,
     QHash<Frame::ExtendedType, QSet<QString>>* differentValues)
 {
-  const int ALREADY_HANDLED_INDEX = INT_MIN;
+  constexpr int ALREADY_HANDLED_INDEX = INT_MIN;
   QByteArray frameData, othersData;
   auto it = begin();
   while (it != end()) {
@@ -1325,8 +1310,7 @@ void FrameCollection::filterDifferent(
     // This frame list is not tied to a specific file, so the
     // index is not valid.
     frame.setIndex(-1);
-    auto othersIt = others.find(frame);
-    if (othersIt == others.end()) {
+    if (auto othersIt = others.find(frame); othersIt == others.end()) {
       frame.setDifferent();
       ++it;
     } else {
@@ -1382,8 +1366,7 @@ void FrameCollection::addMissingStandardFrames()
        ++i, mask <<= 1) {
     if (s_quickAccessFrames & mask) {
       Frame frame(static_cast<Frame::Type>(i), QString(), QString(), -1);
-      auto it = find(frame);
-      if (it == end()) {
+      if (auto it = find(frame); it == end()) {
         insert(frame);
       }
     }
@@ -1446,11 +1429,10 @@ void FrameCollection::setIndexesInvalid()
 void FrameCollection::merge(const FrameCollection& frames)
 {
   for (auto otherIt = frames.cbegin(); otherIt != frames.cend(); ++otherIt) {
-    auto it = find(*otherIt);
-    if (it != end()) {
+    if (auto it = find(*otherIt); it != end()) {
       QString value(otherIt->getValue());
-      auto& frameFound = const_cast<Frame&>(*it);
-      if (frameFound.getValue().isEmpty() && !value.isEmpty()) {
+      if (auto& frameFound = const_cast<Frame&>(*it);
+          frameFound.getValue().isEmpty() && !value.isEmpty()) {
         frameFound.setValueIfChanged(value);
       }
     } else {
@@ -1571,6 +1553,7 @@ FrameCollection::const_iterator FrameCollection::findByName(
  * @param type  type and name of the frame to find, if the exact name is not
  *              found, a case-insensitive search for the first name
  *              starting with this string is performed
+ * @param index 0 for first frame with @a type, 1 for second, etc.
  *
  * @return iterator or end() if not found.
  */
@@ -1649,8 +1632,7 @@ void FrameCollection::setValue(Frame::Type type, const QString& value)
 {
   if (!value.isNull()) {
     Frame frame(type, QLatin1String(""), QLatin1String(""), -1);
-    auto it = find(frame);
-    if (it != end()) {
+    if (auto it = find(frame); it != end()) {
       auto& frameFound = const_cast<Frame&>(*it);
       frameFound.setValueIfChanged(value);
     } else {
@@ -1738,8 +1720,8 @@ void FrameCollection::markChangedFrames(const FrameCollection& other)
 void FrameCollection::dump() const
 {
   qDebug("FrameCollection:");
-  for (const_iterator it = cbegin(); it != cend(); ++it) {
-    (*it).dump();
+  for (auto it = cbegin(); it != cend(); ++it) {
+    it->dump();
   }
 }
 #endif
@@ -1764,15 +1746,13 @@ FrameCollection FrameCollection::fromSubframes(
   Frame frame;
   int index = 0;
   for (auto it = begin; it != end; ++it) {
-    const Frame::Field& fld = *it;
-    if (fld.m_id == Frame::ID_Subframe) {
+    if (const Frame::Field& fld = *it; fld.m_id == Frame::ID_Subframe) {
       if (frame.getType() != Frame::FT_UnknownFrame) {
         frame.setValueFromFieldList();
         frames.insert(frame);
         frame = Frame();
       }
-      QString name = fld.m_value.toString();
-      if (!name.isEmpty()) {
+      if (QString name = fld.m_value.toString(); !name.isEmpty()) {
         frame.setExtendedType(Frame::ExtendedType(name));
         frame.setIndex(index++);
       }
@@ -1828,12 +1808,12 @@ bool FrameFilter::isEnabled(Frame::Type type, const QString& name) const
 {
   if (type <= Frame::FT_LastFrame) {
     return (m_enabledFrames & (1ULL << type)) != 0;
-  } else if (!name.isEmpty()) {
+  }
+  if (!name.isEmpty()) {
     auto it = m_disabledOtherFrames.find(name);
     return it == m_disabledOtherFrames.end();
-  } else {
-    return true;
   }
+  return true;
 }
 
 /**
@@ -1853,8 +1833,8 @@ void FrameFilter::enable(Frame::Type type, const QString& name, bool en)
     }
   } else if (!name.isEmpty()) {
     if (en) {
-      auto it = m_disabledOtherFrames.find(name);
-      if (it != m_disabledOtherFrames.end()) {
+      if (auto it = m_disabledOtherFrames.find(name);
+          it != m_disabledOtherFrames.end()) {
         m_disabledOtherFrames.erase(it);
       }
     } else {
@@ -1911,9 +1891,9 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
       { "genre", 'g' }
     };
     const char c = code[0].toLatin1();
-    for (const auto& s2l : shortToLong) {
-      if (s2l.shortCode == c) {
-        name = QString::fromLatin1(s2l.longCode);
+    for (const auto& [longCode, shortCode] : shortToLong) {
+      if (shortCode == c) {
+        name = QString::fromLatin1(longCode);
         break;
       }
     }
@@ -1930,16 +1910,15 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
     } else if (lcName == QLatin1String("tracknumber")) {
       name = QLatin1String("track number");
     }
-    int len = lcName.length();
-    if (len > 2 && lcName.at(len - 2) == QLatin1Char('.') &&
+    if (int len = lcName.length();
+        len > 2 && lcName.at(len - 2) == QLatin1Char('.') &&
         lcName.at(len - 1) >= QLatin1Char('0') &&
         lcName.at(len - 1) <= QLatin1Char('9')) {
       fieldWidth = lcName.at(len - 1).toLatin1() - '0';
       lcName.truncate(len - 2);
       name.truncate(len - 2);
     }
-    const int dotIndex = name.indexOf(QLatin1Char('.'));
-    if (dotIndex != -1) {
+    if (const int dotIndex = name.indexOf(QLatin1Char('.')); dotIndex != -1) {
       fieldName = name.mid(dotIndex + 1);
       name.truncate(dotIndex);
     }
@@ -1948,8 +1927,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
       name = QLatin1String("disc number");
     }
 
-    auto it = m_frames.findByName(name);
-    if (it != m_frames.cend()) {
+    if (auto it = m_frames.findByName(name); it != m_frames.cend()) {
       if (fieldName.isEmpty()) {
         result = it->getValue().trimmed();
       } else {
@@ -1960,8 +1938,8 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
         result = QLatin1String("");
       }
       if (it->getType() == Frame::FT_Picture && result.isEmpty()) {
-        QVariant fieldValue = it->getFieldValue(Frame::ID_Data);
-        if (fieldValue.isValid() && fieldValue.toByteArray().size() > 0) {
+        if (QVariant fieldValue = it->getFieldValue(Frame::ID_Data);
+            fieldValue.isValid() && fieldValue.toByteArray().size() > 0) {
           // If there is a picture without description, return "1", so that
           // an empty value indicates "no picture"
           result = QLatin1String("1");
@@ -1971,8 +1949,7 @@ QString FrameFormatReplacer::getReplacement(const QString& code) const
 
     if (lcName == QLatin1String("year")) {
       QRegularExpression yearRe(QLatin1String("^\\d{4}-\\d{2}"));
-      auto match = yearRe.match(result);
-      if (match.hasMatch()) {
+      if (auto match = yearRe.match(result); match.hasMatch()) {
         result.truncate(4);
       }
     }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 5 Mar 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -54,21 +54,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FindReplaceConfig() override = default;
+  ~FindReplaceConfig() override = default;
 
   /**
    * Persist configuration.
    *
    * @param config configuration
    */
-  virtual void writeToConfig(ISettings* config) const override;
+  void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config configuration
    */
-  virtual void readFromConfig(ISettings* config) override;
+  void readFromConfig(ISettings* config) override;
 
   /**
    * Get search parameters.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26-Mar-2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -139,7 +139,8 @@ QPersistentModelIndex ModelBfsIterator::next()
       m_nodes.enqueue(m_nextIdx);
       ++m_row;
       break;
-    } else if (!m_nodes.isEmpty()) {
+    }
+    if (!m_nodes.isEmpty()) {
       m_parentIdx = m_nodes.dequeue();
       m_row = 0;
     } else {
@@ -212,8 +213,8 @@ TaggedFile* TaggedFileIterator::next()
   TaggedFile* result = m_nextFile;
   m_nextFile = nullptr;
   while (m_it.hasNext()) {
-    QPersistentModelIndex index = m_it.next();
-    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr)
+    if (QPersistentModelIndex index = m_it.next();
+        (m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr)
       break;
   }
   return result;
@@ -261,12 +262,11 @@ TaggedFile* SelectedTaggedFileIterator::next()
   TaggedFile* result = m_nextFile;
   m_nextFile = nullptr;
   while (m_it.hasNext()) {
-    QPersistentModelIndex index = m_it.next();
-    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr &&
+    if (QPersistentModelIndex index = m_it.next();
+        (m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr &&
         (m_allSelected || m_selectModel->isSelected(index)))
       break;
-    else
-      m_nextFile = nullptr;
+    m_nextFile = nullptr;
   }
   return result;
 }
@@ -315,8 +315,8 @@ TaggedFile* TaggedFileOfDirectoryIterator::next() {
   TaggedFile* result = m_nextFile;
   m_nextFile = nullptr;
   while (m_row < m_model->rowCount(m_parentIdx)) {
-    QModelIndex index = m_model->index(m_row++, 0, m_parentIdx);
-    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr)
+    if (QModelIndex index = m_model->index(m_row++, 0, m_parentIdx);
+        (m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr)
       break;
   }
   return result;
@@ -341,8 +341,7 @@ TaggedFile* TaggedFileOfDirectoryIterator::peekNext() const
 TaggedFile* TaggedFileOfDirectoryIterator::first(
     const QPersistentModelIndex& index)
 {
-  TaggedFileOfDirectoryIterator it(index);
-  if (it.hasNext())
+  if (TaggedFileOfDirectoryIterator it(index); it.hasNext())
     return it.peekNext();
   return nullptr;
 }
@@ -390,12 +389,11 @@ TaggedFile* SelectedTaggedFileOfDirectoryIterator::next() {
   TaggedFile* result = m_nextFile;
   m_nextFile = nullptr;
   while (m_row < m_model->rowCount(m_parentIdx)) {
-    QModelIndex index = m_model->index(m_row++, 0, m_parentIdx);
-    if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr &&
+    if (QModelIndex index = m_model->index(m_row++, 0, m_parentIdx);
+        (m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr &&
         (m_allSelected || m_selectModel->isSelected(index)))
       break;
-    else
-      m_nextFile = nullptr;
+    m_nextFile = nullptr;
   }
   return result;
 }
@@ -441,14 +439,15 @@ TaggedFileOfSelectedDirectoriesIterator::TaggedFileOfSelectedDirectoriesIterator
  */
 QList<QPersistentModelIndex>
 TaggedFileOfSelectedDirectoriesIterator::getIndexesOfDirWithSubDirs(
-  const QModelIndex& dirIndex) {
+  const QModelIndex& dirIndex) const
+{
   QList<QPersistentModelIndex> dirs;
   dirs.append(dirIndex);
   for (int dirsPos = 0; dirsPos < dirs.size(); ++dirsPos) {
     QPersistentModelIndex parentIndex(dirs.at(dirsPos));
     for (int row = 0; row < m_model->rowCount(parentIndex); ++row) {
-      QModelIndex index(m_model->index(row, 0, parentIndex));
-      if (m_model->isDir(index)) {
+      if (QModelIndex index(m_model->index(row, 0, parentIndex));
+          m_model->isDir(index)) {
         dirs.append(index);
       }
     }
@@ -480,8 +479,8 @@ TaggedFile* TaggedFileOfSelectedDirectoriesIterator::next()
       break;
     QPersistentModelIndex parentIdx(m_dirIndexes.at(m_dirIdx));
     while (m_row < m_model->rowCount(parentIdx)) {
-      QModelIndex index = m_model->index(m_row++, 0, parentIdx);
-      if ((m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr)
+      if (QModelIndex index = m_model->index(m_row++, 0, parentIdx);
+          (m_nextFile = FileProxyModel::getTaggedFileOfIndex(index)) != nullptr)
         break;
     }
     if (m_row >= m_model->rowCount(parentIdx)) {

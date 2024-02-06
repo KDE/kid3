@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 11 Aug 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,7 +43,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CliCommand() override = default;
+  ~CliCommand() override = default;
 
   /**
    * Reset state to defaults.
@@ -162,7 +162,7 @@ protected:
    * Called on timeout.
    * @param event timer event
    */
-  virtual void timerEvent(QTimerEvent* event) override;
+  void timerEvent(QTimerEvent* event) override;
 
   /**
    * Start specific command.
@@ -223,7 +223,7 @@ public:
   explicit HelpCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 
@@ -235,7 +235,7 @@ public:
   explicit TimeoutCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 
@@ -247,8 +247,8 @@ public:
   explicit QuitCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
-  virtual void connectResultSignal() override;
+  void startCommand() override;
+  void connectResultSignal() override;
 };
 
 
@@ -260,9 +260,9 @@ public:
   explicit CdCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
-  virtual void connectResultSignal() override;
-  virtual void disconnectResultSignal() override;
+  void startCommand() override;
+  void connectResultSignal() override;
+  void disconnectResultSignal() override;
 };
 
 
@@ -274,7 +274,7 @@ public:
   explicit PwdCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 
@@ -286,7 +286,7 @@ public:
   explicit LsCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 
@@ -298,7 +298,7 @@ public:
   explicit SaveCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 
@@ -310,7 +310,7 @@ public:
   explicit SelectCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 
@@ -322,7 +322,7 @@ public:
   explicit TagCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 
@@ -334,7 +334,7 @@ public:
   explicit GetCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 
@@ -346,7 +346,7 @@ public:
   explicit SetCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 
@@ -358,7 +358,7 @@ public:
   explicit RevertCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 
@@ -370,7 +370,7 @@ public:
   explicit ImportCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Automatic import from servers. */
@@ -381,9 +381,9 @@ public:
   explicit BatchImportCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
-  virtual void connectResultSignal() override;
-  virtual void disconnectResultSignal() override;
+  void startCommand() override;
+  void connectResultSignal() override;
+  void disconnectResultSignal() override;
 
 private slots:
   void onReportImportEvent(int type, const QString& text);
@@ -397,9 +397,9 @@ public:
   explicit AlbumArtCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
-  virtual void connectResultSignal() override;
-  virtual void disconnectResultSignal() override;
+  void startCommand() override;
+  void connectResultSignal() override;
+  void disconnectResultSignal() override;
 
 private slots:
   void onDownloadFinished(const QByteArray& data,
@@ -414,7 +414,7 @@ public:
   explicit ExportCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Create playlist file. */
@@ -425,7 +425,7 @@ public:
   explicit PlaylistCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Apply file name format. */
@@ -436,7 +436,7 @@ public:
   explicit FilenameFormatCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Apply tag format. */
@@ -447,7 +447,7 @@ public:
   explicit TagFormatCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Apply text encoding. */
@@ -458,7 +458,7 @@ public:
   explicit TextEncodingCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Rename directory. */
@@ -469,9 +469,9 @@ public:
   explicit RenameDirectoryCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
-  virtual void connectResultSignal() override;
-  virtual void disconnectResultSignal() override;
+  void startCommand() override;
+  void connectResultSignal() override;
+  void disconnectResultSignal() override;
 
 private slots:
   void onActionScheduled(const QStringList& actionStrs);
@@ -489,7 +489,7 @@ public:
   explicit NumberTracksCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Filter files. */
@@ -500,9 +500,9 @@ public:
   explicit FilterCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
-  virtual void connectResultSignal() override;
-  virtual void disconnectResultSignal() override;
+  void startCommand() override;
+  void connectResultSignal() override;
+  void disconnectResultSignal() override;
 
 private slots:
   void onFileFiltered(int type, const QString& fileName);
@@ -516,7 +516,7 @@ public:
   explicit ToId3v24Command(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Convert ID3v2.4 to ID3v2.3. */
@@ -527,7 +527,7 @@ public:
   explicit ToId3v23Command(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Set file name from tags. */
@@ -538,7 +538,7 @@ public:
   explicit TagToFilenameCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Set tags from file name. */
@@ -549,7 +549,7 @@ public:
   explicit FilenameToTagCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Copy between tag 1 and tag 2. */
@@ -560,7 +560,7 @@ public:
   explicit TagToOtherTagCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Copy to clipboard. */
@@ -571,7 +571,7 @@ public:
   explicit CopyCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Paste from clipboard. */
@@ -582,7 +582,7 @@ public:
   explicit PasteCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Remove tags. */
@@ -593,7 +593,7 @@ public:
   explicit RemoveCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Get or set configuration options. */
@@ -604,7 +604,7 @@ public:
   explicit ConfigCommand(Kid3Cli* processor);
 
 protected:
-  virtual void startCommand() override;
+  void startCommand() override;
 };
 
 /** Execute command. */
@@ -615,14 +615,14 @@ public:
   /** Constructor. */
   explicit ExecuteCommand(Kid3Cli* processor);
 
-  virtual void setCaption(const QString& title) override;
-  virtual void append(const QString& text) override;
-  virtual void scrollToBottom() override;
+  void setCaption(const QString& title) override;
+  void append(const QString& text) override;
+  void scrollToBottom() override;
 
 protected:
-  virtual void startCommand() override;
-  virtual void connectResultSignal() override;
-  virtual void disconnectResultSignal() override;
+  void startCommand() override;
+  void connectResultSignal() override;
+  void disconnectResultSignal() override;
 
 private:
   QScopedPointer<ExternalProcess> m_process;

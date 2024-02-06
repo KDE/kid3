@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -151,8 +151,7 @@ void AlbumListModel::getItem(int row, QString& text,
 void AlbumListModel::appendItem(const QString& text,
                                 const QString& category, const QString& id)
 {
-  int row = rowCount();
-  if (insertRow(row)) {
+  if (int row = rowCount(); insertRow(row)) {
     QModelIndex idx = index(row, 0);
     setData(idx, text);
     setData(idx, category, Qt::UserRole);

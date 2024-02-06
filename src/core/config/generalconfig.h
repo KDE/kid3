@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~GeneralConfig() override = default;
+  ~GeneralConfig() override = default;
 
   /**
    * Persist configuration.

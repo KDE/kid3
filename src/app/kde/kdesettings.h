@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 07 Apr 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,26 +47,26 @@ public:
   /**
    * Destructor.
    */
-  virtual ~KdeSettings() override;
+  ~KdeSettings() override;
 
   /**
    * Use settings subgroup.
    * @param prefix group name
    * @param forState true if this group stores state information
    */
-  virtual void beginGroup(const QString& prefix, bool forState = false) override;
+  void beginGroup(const QString& prefix, bool forState = false) override;
 
   /**
    * Finnish using settings subgroup.
    */
-  virtual void endGroup() override;
+  void endGroup() override;
 
   /**
    * Set value for setting.
    * @param key name of setting
    * @param value value for setting
    */
-  virtual void setValue(const QString& key, const QVariant& value) override;
+  void setValue(const QString& key, const QVariant& value) override;
 
   /**
    * Get value for setting.
@@ -74,26 +74,26 @@ public:
    * @param defaultValue default value
    * @return value of setting as variant.
    */
-  virtual QVariant value(const QString& key,
-                         const QVariant& defaultValue) const override;
+  QVariant value(const QString& key,
+                 const QVariant& defaultValue) const override;
 
   /**
    * Remove setting.
    * @param key name of setting
    */
-  virtual void remove(const QString& key) override;
+  void remove(const QString& key) override;
 
   /**
    * Check if setting exists.
    * @param key name of setting
    * @return true if setting exists.
    */
-  virtual bool contains(const QString& key) const override;
+  bool contains(const QString& key) const override;
 
   /**
    * Write unsaved changes to permanent storage.
    */
-  virtual void sync() override;
+  void sync() override;
 
 private:
   KSharedConfigPtr m_config;

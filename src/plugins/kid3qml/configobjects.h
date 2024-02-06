@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Sep 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ConfigObjects() override = default;
+  ~ConfigObjects() override = default;
 
   /** Get batch import configuration. */
   Q_INVOKABLE static QObject* batchImportConfig();

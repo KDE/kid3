@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,11 +49,11 @@
 class Kid3CliCompleter : public ReadlineCompleter {
 public:
   explicit Kid3CliCompleter(const QList<CliCommand*>& cmds);
-  virtual ~Kid3CliCompleter() override = default;
+  ~Kid3CliCompleter() override = default;
 
-  virtual QList<QByteArray> getCommandList() const override;
-  virtual QList<QByteArray> getParameterList() const override;
-  virtual bool updateParameterList(const char* buffer) override;
+  QList<QByteArray> getCommandList() const override;
+  QList<QByteArray> getParameterList() const override;
+  bool updateParameterList(const char* buffer) override;
 
 private:
   Q_DISABLE_COPY(Kid3CliCompleter)
@@ -86,8 +86,8 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
 {
   QString cmdName = QString::fromLocal8Bit(buffer);
   bool isFirstParameter = true;
-  int cmdNameEndIdx = cmdName.indexOf(QLatin1Char(' '));
-  if (cmdNameEndIdx != -1) {
+  if (int cmdNameEndIdx = cmdName.indexOf(QLatin1Char(' '));
+      cmdNameEndIdx != -1) {
     isFirstParameter =
         cmdName.indexOf(QLatin1Char(' '), cmdNameEndIdx + 1) == -1;
     cmdName.truncate(cmdNameEndIdx);
@@ -105,13 +105,12 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
 
   m_parameters.clear();
   if (!argSpec.isEmpty()) {
-    QStringList argSpecs = argSpec.split(QLatin1Char('\n'));
-    if (!argSpecs.isEmpty()) {
-      QString argTypes = argSpecs.first().remove(QLatin1Char('['))
-                                         .remove(QLatin1Char(']'));
-      if (!argTypes.isEmpty()) {
-        char argType = argTypes.at(0).toLatin1();
-        switch (argType) {
+    if (QStringList argSpecs = argSpec.split(QLatin1Char('\n'));
+        !argSpecs.isEmpty()) {
+      if (QString argTypes = argSpecs.first().remove(QLatin1Char('['))
+                                             .remove(QLatin1Char(']'));
+          !argTypes.isEmpty()) {
+        switch (argTypes.at(0).toLatin1()) {
         case 'P':
           // file path
           return false;
@@ -126,10 +125,10 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
           if (frameNames.isEmpty()) {
             frameNames.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
             for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-              auto frameName = Frame::ExtendedType(
-                    static_cast<Frame::Type>(k), QLatin1String(""))
-                  .getName().toLower().remove(QLatin1Char(' '));
-              if (!frameName.isEmpty()) {
+              if (auto frameName = Frame::ExtendedType(
+                       static_cast<Frame::Type>(k), QLatin1String(""))
+                     .getName().toLower().remove(QLatin1Char(' '));
+                  !frameName.isEmpty()) {
                 frameNames.append(frameName.toLocal8Bit());
               }
             }
@@ -141,8 +140,8 @@ bool Kid3CliCompleter::updateParameterList(const char* buffer)
           // specific command
           if (argSpecs.size() > 1) {
             const QString& valuesStr = argSpecs.at(1);
-            int valuesIdx = valuesStr.indexOf(QLatin1String("S = \""));
-            if (valuesIdx != -1) {
+            if (int valuesIdx = valuesStr.indexOf(QLatin1String("S = \""));
+                valuesIdx != -1) {
               const QStringList values =
                   valuesStr.mid(valuesIdx + 4).split(QLatin1String(" | "));
               for (const QString& value : values) {
@@ -270,8 +269,7 @@ CliCommand* Kid3Cli::commandForArgs(const QString& line)
   if (!args.isEmpty()) {
     const QString& name = args.at(0);
     for (auto it = m_cmds.begin(); it != m_cmds.end(); ++it) { // clazy:exclude=detaching-member
-      CliCommand* cmd = *it;
-      if (name == cmd->name()) {
+      if (CliCommand* cmd = *it; name == cmd->name()) {
         cmd->setArgs(args);
         return cmd;
       }
@@ -315,8 +313,7 @@ void Kid3Cli::writeHelp(const QString& cmdName, bool usageMessage)
   int maxLength = 0;
   for (auto it = m_cmds.constBegin(); it != m_cmds.constEnd(); ++it) {
     const CliCommand* cmd = *it;
-    QString cmdStr = cmd->name();
-    if (cmdName.isEmpty() || cmdName == cmdStr) {
+    if (QString cmdStr = cmd->name(); cmdName.isEmpty() || cmdName == cmdStr) {
       QStringList spec = cmd->argumentSpecification().split(QLatin1Char('\n'));
       if (!spec.isEmpty()) {
         cmdStr += QLatin1Char(' ');
@@ -380,8 +377,8 @@ QStringList Kid3Cli::expandWildcards(const QStringList& paths)
   QStringList expandedPaths;
   for (const QString& path : paths) {
     QStringList expandedPath;
-    int wcIdx = path.indexOf(QRegularExpression(QLatin1String("[?*]")));
-    if (wcIdx != -1) {
+    if (int wcIdx = path.indexOf(QRegularExpression(QLatin1String("[?*]")));
+        wcIdx != -1) {
       QString partBefore, partAfter;
       int beforeIdx = path.lastIndexOf(QDir::separator(), wcIdx);
       partBefore = path.left(beforeIdx + 1);
@@ -390,13 +387,12 @@ QStringList Kid3Cli::expandWildcards(const QStringList& paths)
         afterIdx = path.length();
       }
       partAfter = path.mid(afterIdx + 1);
-      QString wildcardPart = path.mid(beforeIdx + 1, afterIdx - beforeIdx);
-      if (!wildcardPart.isEmpty()) {
-        QDir dir(partBefore);
-        if (!dir.exists(wildcardPart)) {
-          const QStringList entries = dir.entryList({wildcardPart},
-                                    QDir::AllEntries | QDir::NoDotAndDotDot);
-          if (!entries.isEmpty()) {
+      if (QString wildcardPart = path.mid(beforeIdx + 1, afterIdx - beforeIdx);
+          !wildcardPart.isEmpty()) {
+        if (QDir dir(partBefore); !dir.exists(wildcardPart)) {
+          if (const QStringList entries = dir.entryList({wildcardPart},
+                QDir::AllEntries | QDir::NoDotAndDotDot);
+              !entries.isEmpty()) {
             for (const QString& entry : entries) {
               expandedPath.append(partBefore + entry + partAfter); // clazy:exclude=reserve-candidates
             }
@@ -490,9 +486,9 @@ void Kid3Cli::writeFileInformation(int tagMask)
     for (int row = 0; row < ft->rowCount(); ++row) {
       QString name =
           ft->index(row, FrameTableModel::CI_Enable).data().toString();
-      QString value =
-          ft->index(row, FrameTableModel::CI_Value).data().toString();
-      if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
+      if (QString value =
+            ft->index(row, FrameTableModel::CI_Value).data().toString();
+          !(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
         QVariant background = ft->index(row, FrameTableModel::CI_Enable)
             .data(Qt::BackgroundRole);
         CoreTaggedFileIconProvider* colorProvider =
@@ -569,9 +565,9 @@ QVariantList Kid3Cli::listFiles(const FileProxyModel* model,
   m_app->updateCurrentSelection();
 #if QT_VERSION >= 0x050e00
   const QList<QPersistentModelIndex>& selLst = m_app->getCurrentSelection();
-  QSet<QPersistentModelIndex> selection(selLst.constBegin(), selLst.constEnd());
+  QSet selection(selLst.constBegin(), selLst.constEnd());
 #else
-  QSet<QPersistentModelIndex> selection = m_app->getCurrentSelection().toSet();
+  QSet selection = m_app->getCurrentSelection().toSet();
 #endif
   for (int row = 0; row < model->rowCount(parent); ++row) {
     QModelIndex idx(model->index(row, 0, parent));
@@ -589,8 +585,7 @@ QVariantList Kid3Cli::listFiles(const FileProxyModel* model,
       map.insert(QLatin1String("tags"), tags);
       map.insert(QLatin1String("fileName"), taggedFile->getFilename());
     } else {
-      QVariant value(model->data(idx));
-      if (value.isValid()) {
+      if (QVariant value(model->data(idx)); value.isValid()) {
         map.insert(QLatin1String("fileName"), value.toString());
       }
     }
@@ -687,14 +682,13 @@ void Kid3Cli::readLine(const QString& line)
     return;
   }
   flushStandardOutput();
-  CliCommand* cmd = commandForArgs(line);
-  if (cmd) {
+  if (CliCommand* cmd = commandForArgs(line)) {
     connect(cmd, &CliCommand::finished, this, &Kid3Cli::onCommandFinished);
     cmd->execute();
   } else {
     if (!m_formatter->isIncomplete()) {
-      QString errorMsg = m_formatter->getErrorMessage();
-      if (errorMsg.isEmpty()) {
+      if (QString errorMsg = m_formatter->getErrorMessage();
+          errorMsg.isEmpty()) {
         writeErrorCode(CliError::MethodNotFound);
       } else {
         writeErrorLine(errorMsg);
@@ -712,8 +706,8 @@ void Kid3Cli::onCommandFinished() {
   if (auto cmd = qobject_cast<CliCommand*>(sender())) {
     disconnect(cmd, &CliCommand::finished, this, &Kid3Cli::onCommandFinished);
     if (cmd->hasError()) {
-      QString msg(cmd->getErrorMessage());
-      if (!msg.startsWith(QLatin1Char('_'))) {
+      if (QString msg(cmd->getErrorMessage());
+          !msg.startsWith(QLatin1Char('_'))) {
         writeErrorLine(msg);
       }
     }
@@ -732,8 +726,8 @@ void Kid3Cli::onArgCommandFinished() {
       cmd->clear();
       executeNextArgCommand();
     } else {
-      QString msg(cmd->getErrorMessage());
-      if (!msg.startsWith(QLatin1Char('_'))) {
+      if (QString msg(cmd->getErrorMessage());
+          !msg.startsWith(QLatin1Char('_'))) {
         writeErrorLine(msg);
       }
       cmd->clear();
@@ -803,8 +797,8 @@ void Kid3Cli::executeNextArgCommand()
     if (m_app->isModified() && !m_app->getDirName().isEmpty()) {
       // Automatically save changes in command mode.
       QStringList errorDescriptions;
-      const QStringList errorFiles = m_app->saveDirectory(&errorDescriptions);
-      if (!errorFiles.isEmpty()) {
+      if (const QStringList errorFiles = m_app->saveDirectory(&errorDescriptions);
+          !errorFiles.isEmpty()) {
         writeErrorLine(tr("Error while writing file:\n") +
                        Kid3Application::mergeStringLists(
                          errorFiles, errorDescriptions, QLatin1String(": "))
@@ -818,8 +812,7 @@ void Kid3Cli::executeNextArgCommand()
   }
 
   QString line = m_argCommands.takeFirst();
-  CliCommand* cmd = commandForArgs(line);
-  if (cmd) {
+  if (CliCommand* cmd = commandForArgs(line)) {
     connect(cmd, &CliCommand::finished, this, &Kid3Cli::onArgCommandFinished);
     cmd->execute();
   } else {

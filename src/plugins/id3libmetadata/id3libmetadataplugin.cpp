@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jul 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -101,8 +101,8 @@ TaggedFile* Id3libMetadataPlugin::createTaggedFile(
     int features)
 {
   if (key == TAGGEDFILE_KEY) {
-    QString ext = fileName.right(4).toLower();
-    if ((ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") ||
+    if (QString ext = fileName.right(4).toLower();
+        (ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") ||
          ext == QLatin1String(".aac")) &&
         (TagConfig::instance().id3v2Version() == TagConfig::ID3v2_3_0 ||
          (features & TaggedFile::TF_ID3v23) != 0)) {

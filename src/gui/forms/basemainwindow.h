@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -89,7 +89,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BaseMainWindowImpl() override;
+  ~BaseMainWindowImpl() override;
 
   /**
    * Create dialog to edit a frame and update the fields
@@ -100,7 +100,7 @@ public:
    * @param frame frame to edit
    * @param taggedFile tagged file where frame has to be set
    */
-  virtual void editFrameOfTaggedFile(const Frame* frame, TaggedFile* taggedFile) override;
+  void editFrameOfTaggedFile(const Frame* frame, TaggedFile* taggedFile) override;
 
   /**
    * Let user select a frame type.
@@ -110,26 +110,26 @@ public:
    * @param frame is filled with the selected frame
    * @param taggedFile tagged file for which frame has to be selected
    */
-  virtual void selectFrame(Frame* frame, const TaggedFile* taggedFile) override;
+  void selectFrame(Frame* frame, const TaggedFile* taggedFile) override;
 
   /**
    * Return object which emits frameSelected(), frameEdited() signals.
    *
    * @return object which emits signals.
    */
-  virtual QObject* qobject() override;
+  QObject* qobject() override;
 
   /**
    * Get the tag number of the edited frame.
    * @return tag number.
    */
-  virtual Frame::TagNumber tagNumber() const override;
+  Frame::TagNumber tagNumber() const override;
 
   /**
    * Set the tag number of the edited frame.
    * @param tagNr tag number
    */
-  virtual void setTagNumber(Frame::TagNumber tagNr) override;
+  void setTagNumber(Frame::TagNumber tagNr) override;
 
   /**
    * Set back pointer for implementation class.

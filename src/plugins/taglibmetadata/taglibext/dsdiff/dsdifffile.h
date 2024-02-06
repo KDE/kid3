@@ -78,7 +78,7 @@ public:
    *
    * \note In the current implementation, \a propertiesStyle is ignored.
    */
-  DSDIFFFile(TagLib::FileName file, TagLib::ID3v2::FrameFactory *frameFactory,
+  DSDIFFFile(TagLib::FileName file, const TagLib::ID3v2::FrameFactory *frameFactory,
        bool readProperties = true,
        TagLib::AudioProperties::ReadStyle propertiesStyle
     = TagLib::AudioProperties::Average);
@@ -95,7 +95,7 @@ public:
    *
    * \note In the current implementation, \a propertiesStyle is ignored.
    */
-  DSDIFFFile(TagLib::IOStream *stream, TagLib::ID3v2::FrameFactory *frameFactory,
+  DSDIFFFile(TagLib::IOStream *stream, const TagLib::ID3v2::FrameFactory *frameFactory,
     bool readProperties = true,
     TagLib::AudioProperties::ReadStyle propertiesStyle
     = TagLib::AudioProperties::Average);
@@ -103,12 +103,12 @@ public:
   /*!
    * Destroys this instance of the File.
    */
-  virtual ~DSDIFFFile() override;
+  ~DSDIFFFile() override;
 
   /*!
    * Returns a pointer to a ID3v2 tag
    */
-  virtual TagLib::Tag *tag() const override;
+  TagLib::Tag *tag() const override;
 
   /*!
    * Returns the ID3V2 Tag for this file.
@@ -128,7 +128,7 @@ public:
   TagLib::PropertyMap properties() const;
 
   // NEEDED??
-  void removeUnsupportedProperties(const TagLib::StringList &properties);
+  void removeUnsupportedProperties(const TagLib::StringList &unsupported);
 
   /*!
    * Implements the unified property interface -- import function.
@@ -140,7 +140,7 @@ public:
    * Returns the DSDIFF::Properties for this file.  If no audio properties
    * were read then this will return a null pointer.
    */
-  virtual TagLib::AudioProperties *audioProperties() const override;
+  TagLib::AudioProperties *audioProperties() const override;
 
   /*!
    * Save the file.  If at least one tag -- ID3v1 or ID3v2 -- exists this
@@ -157,7 +157,7 @@ public:
    *
    * \see save(int tags)
    */
-  virtual bool save() override;
+  bool save() override;
 
   /*!
    * Save the file.  If at least one tag -- ID3v1 or ID3v2 -- exists this
@@ -197,7 +197,7 @@ private:
   DSDIFFFile &operator=(const DSDIFFFile &);
 
   void removeRootChunk(const TagLib::ByteVector &id);
-  void removeRootChunk(unsigned int chunk);
+  void removeRootChunk(unsigned int i);
   void removeChildChunk(unsigned int i);
 
   /*!

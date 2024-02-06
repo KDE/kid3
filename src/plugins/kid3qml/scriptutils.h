@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Sep 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ScriptUtils() override = default;
+  ~ScriptUtils() override = default;
 
   /**
    * Convert a list of URLs to a list of local file paths.
@@ -120,7 +120,7 @@ public:
    * @param obj object to inspect
    * @return string containing property values.
    */
-  Q_INVOKABLE static QString properties(QObject* obj);
+  Q_INVOKABLE static QString properties(const QObject* obj);
 
   /**
    * String list of frame field ID names.

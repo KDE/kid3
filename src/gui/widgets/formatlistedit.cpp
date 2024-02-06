@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Aug 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -140,11 +140,11 @@ QString FormatListEdit::getCurrentFormat(int formatNr) const
 {
   if (formatNr == 0) {
     return m_formatComboBox->currentText();
-  } else if (formatNr > 0 && formatNr - 1 < m_lineEdits.size()) {
-    return m_lineEdits.at(formatNr - 1)->text();
-  } else {
-    return QString();
   }
+  if (formatNr > 0 && formatNr - 1 < m_lineEdits.size()) {
+    return m_lineEdits.at(formatNr - 1)->text();
+  }
+  return QString();
 }
 
 /**
@@ -186,8 +186,7 @@ void FormatListEdit::commitCurrentEdits()
     QString text(i == 0
                  ? m_formatComboBox->currentText()
                  : m_lineEdits.at(i - 1)->text());
-    QStringList& fmts = m_formats[i]; // clazy:exclude=detaching-member
-    if (index < fmts.size()) {
+    if (QStringList& fmts = m_formats[i]; index < fmts.size()) { // clazy:exclude=detaching-member
       fmts[index] = text;
     }
   }
@@ -202,8 +201,7 @@ void FormatListEdit::updateLineEdits(int index)
 {
   for (int i = 0; i < m_lineEdits.size() && i + 1 < m_formats.size(); ++i) {
     QLineEdit* le = m_lineEdits.at(i);
-    const QStringList& fmts = m_formats.at(i + 1);
-    if (index < fmts.size()) {
+    if (const QStringList& fmts = m_formats.at(i + 1); index < fmts.size()) {
       le->setText(fmts.at(index));
     } else {
       le->clear();
@@ -229,8 +227,8 @@ void FormatListEdit::addItem()
     {
       bool allEmpty = true;
       for (int leIdx = 1; leIdx < m_formats.size(); ++leIdx) {
-        const QStringList& fmts = m_formats.at(leIdx);
-        if (fmtIdx < fmts.size() && !fmts.at(fmtIdx).isEmpty()) {
+        if (const QStringList& fmts = m_formats.at(leIdx);
+            fmtIdx < fmts.size() && !fmts.at(fmtIdx).isEmpty()) {
           allEmpty = false;
           break;
         }

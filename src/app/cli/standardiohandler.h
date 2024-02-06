@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,29 +44,29 @@ public:
   /**
    * Destructor.
    */
-  virtual ~StandardIOHandler() override = default;
+  ~StandardIOHandler() override = default;
 
   /**
    * Restore terminal on cleanup.
    */
-  virtual void cleanup() override;
+  void cleanup() override;
 
   /**
    * Write a line to standard output.
    * @param line line to write
    */
-  virtual void writeLine(const QString& line) override;
+  void writeLine(const QString& line) override;
 
   /**
    * Write a line to standard error.
    * @param line line to write
    */
-  virtual void writeErrorLine(const QString& line) override;
+  void writeErrorLine(const QString& line) override;
 
   /**
    * Flush the standard output.
    */
-  virtual void flushStandardOutput() override;
+  void flushStandardOutput() override;
 
   /**
    * Read the next line.
@@ -74,7 +74,7 @@ public:
    * input in the read thread.
    * When the line is ready, lineReady() is emitted.
    */
-  virtual void readLine() override;
+  void readLine() override;
 
 public slots:
   /**
@@ -82,13 +82,13 @@ public slots:
    * This will start a read thread. lineReady() is emitted when the first
    * line is ready. To request subsequent lines, readLine() has to be called.
    */
-  virtual void start() override;
+  void start() override;
 
   /**
    * Stop processing.
    * This will stop the read thread and finally delete this object.
    */
-  virtual void stop() override;
+  void stop() override;
 
 private slots:
   /**

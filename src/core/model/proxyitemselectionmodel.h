@@ -8,7 +8,7 @@
  *     author Stephen Kelly <stephen@kdab.com>
  * Copyright (c) 2016 Ableton AG <info@ableton.com>
  *     Author Stephen Kelly <stephen.kelly@ableton.com>
- * Copyright (C) 2018  Urs Fleisch
+ * Copyright (C) 2018-2024  Urs Fleisch
  *
  * This library is free software; you can redistribute it and/or modify it
  * under the terms of the GNU Library General Public License as published by
@@ -47,23 +47,23 @@ public:
                           QItemSelectionModel* sourceSelectionModel,
                           QObject* parent = nullptr);
 
-  virtual ~ProxyItemSelectionModel() override = default;
+  ~ProxyItemSelectionModel() override = default;
 
   /**
    * Select item at @a index using @a command.
    * @param index index of item to select
    * @param command selection command
    */
-  virtual void select(const QModelIndex& index,
-                      QItemSelectionModel::SelectionFlags command) override;
+  void select(const QModelIndex& index,
+              QItemSelectionModel::SelectionFlags command) override;
 
   /**
    * Select @a selection using @a command.
    * @param selection item selection
    * @param command selection command
    */
-  virtual void select(const QItemSelection& selection,
-                      QItemSelectionModel::SelectionFlags command) override;
+  void select(const QItemSelection& selection,
+              QItemSelectionModel::SelectionFlags command) override;
 
 private slots:
   void onSelectionChanged(const QItemSelection& selected,

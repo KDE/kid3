@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -54,12 +54,12 @@ public:
    * @param shortcutsModel shortcuts model
    */
   ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
-               QString& caption, ShortcutsModel* shortcutsModel);
+               const QString& caption, ShortcutsModel* shortcutsModel);
 
   /**
    * Destructor.
    */
-  virtual ~ConfigDialog() override = default;
+  ~ConfigDialog() override = default;
 
   /**
    * Set values in dialog from current configuration.

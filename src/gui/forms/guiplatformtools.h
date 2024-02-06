@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Jul 2019
  *
- * Copyright (C) 2019  Urs Fleisch
+ * Copyright (C) 2019-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,26 +36,26 @@ public:
   /**
    * Destructor.
    */
-  virtual ~GuiPlatformTools() override;
+  ~GuiPlatformTools() override;
 
   /**
    * Get icon provider for tagged files.
    * @return icon provider.
    */
-  virtual CoreTaggedFileIconProvider* iconProvider() override;
+  CoreTaggedFileIconProvider* iconProvider() override;
 
   /**
    * Write text to clipboard.
    * @param text text to write
    * @return true if operation is supported.
    */
-  virtual bool writeToClipboard(const QString& text) const override;
+  bool writeToClipboard(const QString& text) const override;
 
   /**
    * Read text from clipboard.
    * @return text, null if operation not supported.
    */
-  virtual QString readFromClipboard() const override;
+  QString readFromClipboard() const override;
 
   /**
    * Create an audio player instance.
@@ -63,8 +63,8 @@ public:
    * @param dbusEnabled true to enable MPRIS D-Bus interface
    * @return audio player, nullptr if not supported.
    */
-  virtual QObject* createAudioPlayer(Kid3Application* app,
-                                     bool dbusEnabled) const override;
+  QObject* createAudioPlayer(Kid3Application* app,
+                             bool dbusEnabled) const override;
 
 private:
   QScopedPointer<CoreTaggedFileIconProvider> m_iconProvider;

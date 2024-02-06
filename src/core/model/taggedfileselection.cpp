@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2014
  *
- * Copyright (C) 2014-2023  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -86,7 +86,7 @@ void TaggedFileSelection::endAddTaggedFiles()
            m_state.m_fileCount == 0)) {
         const FrameCollection& frames = m_framesModel[tagNr]->frames();
         for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
-          if (!(*it).getValue().isEmpty()) {
+          if (!it->getValue().isEmpty()) {
             m_state.m_hasTag[tagNr] = true;
             break;
           }
@@ -255,9 +255,9 @@ QByteArray TaggedFileSelection::getPicture() const
 {
   QByteArray data;
   const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
-  auto it = frames.find(
+  if (auto it = frames.find(
         Frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), -1));
-  if (it != frames.cend() && !it->isInactive()) {
+      it != frames.cend() && !it->isInactive()) {
     PictureFrame::getData(*it, data);
   }
   return data;
@@ -270,7 +270,7 @@ QByteArray TaggedFileSelection::getPicture() const
  * @return string with format codes replaced.
  */
 QString TaggedFileSelection::formatString(Frame::TagVersion tagVersion,
-                                          const QString& fmt)
+                                          const QString& fmt) const
 {
   if (!m_state.m_singleFile)
     return fmt;

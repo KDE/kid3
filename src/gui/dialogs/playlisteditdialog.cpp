@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 05 Aug 2018
  *
- * Copyright (C) 2018  Urs Fleisch
+ * Copyright (C) 2018-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -112,8 +112,8 @@ void PlaylistEditDialog::setModified(bool modified)
 void PlaylistEditDialog::setWindowCaption()
 {
   QString title = tr("Playlist");
-  QString fileName = m_playlistModel->playlistFileName();
-  if (!fileName.isEmpty()) {
+  if (QString fileName = m_playlistModel->playlistFileName();
+      !fileName.isEmpty()) {
     title += QLatin1String(" - ");
     title += fileName;
     if (m_playlistModel->isModified()) {

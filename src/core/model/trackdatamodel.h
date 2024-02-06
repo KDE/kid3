@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 May 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -59,14 +59,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TrackDataModel() override = default;
+  ~TrackDataModel() override = default;
 
   /**
    * Get item flags for index.
    * @param index model index
    * @return item flags
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
+  Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
    * Get data for a given role.
@@ -74,8 +74,8 @@ public:
    * @param role item data role
    * @return data for role
    */
-  virtual QVariant data(const QModelIndex& index,
-                        int role = Qt::DisplayRole) const override;
+  QVariant data(const QModelIndex& index,
+                int role = Qt::DisplayRole) const override;
 
   /**
    * Set data for a given role.
@@ -84,8 +84,8 @@ public:
    * @param role item data role
    * @return true if successful
    */
-  virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role = Qt::EditRole) override;
+  bool setData(const QModelIndex& index, const QVariant& value,
+               int role = Qt::EditRole) override;
 
   /**
    * Get data for header section.
@@ -94,16 +94,16 @@ public:
    * @param role item data role
    * @return header data for role
    */
-  virtual QVariant headerData(int section, Qt::Orientation orientation,
-                              int role = Qt::DisplayRole) const override;
+  QVariant headerData(int section, Qt::Orientation orientation,
+                      int role = Qt::DisplayRole) const override;
 
   /**
    * Set data for header section.
    * Not supported.
    * @return false
    */
-  virtual bool setHeaderData(int, Qt::Orientation, const QVariant&,
-                             int = Qt::EditRole) override { return false; }
+  bool setHeaderData(int, Qt::Orientation, const QVariant&,
+                     int = Qt::EditRole) override { return false; }
 
   /**
    * Get number of rows.
@@ -111,7 +111,7 @@ public:
    * @return number of rows,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+  int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Get number of columns.
@@ -119,7 +119,7 @@ public:
    * @return number of columns,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+  int columnCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Insert rows.
@@ -129,8 +129,8 @@ public:
    * @param parent parent model index, invalid for table models
    * @return true if successful
    */
-  virtual bool insertRows(int row, int count,
-                          const QModelIndex& parent = QModelIndex()) override;
+  bool insertRows(int row, int count,
+                  const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Remove rows.
@@ -139,8 +139,8 @@ public:
    * @param parent parent model index, invalid for table models
    * @return true if successful
    */
-  virtual bool removeRows(int row, int count,
-                          const QModelIndex& parent = QModelIndex()) override;
+  bool removeRows(int row, int count,
+                  const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Insert columns.
@@ -150,8 +150,8 @@ public:
    * @param parent parent model index, invalid for table models
    * @return true if successful
    */
-  virtual bool insertColumns(int column, int count,
-                             const QModelIndex& parent = QModelIndex()) override;
+  bool insertColumns(int column, int count,
+                     const QModelIndex& parent = QModelIndex()) override;
   /**
    * Remove columns.
    * @param column columns are removed starting with this column
@@ -159,8 +159,8 @@ public:
    * @param parent parent model index, invalid for table models
    * @return true if successful
    */
-  virtual bool removeColumns(int column, int count,
-                             const QModelIndex& parent = QModelIndex()) override;
+  bool removeColumns(int column, int count,
+                     const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Set the check state of all tracks in the table.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -55,7 +55,7 @@
  * @param shortcutsModel shortcuts model
  */
 ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
-                           QString& caption, ShortcutsModel* shortcutsModel)
+                           const QString& caption, ShortcutsModel* shortcutsModel)
   : QDialog(parent),
     m_pages(new ConfigDialogPages(platformTools, this)),
     m_shortcutsModel(shortcutsModel)
@@ -74,7 +74,7 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
   tabWidget->addTab(m_pages->createPluginsPage(), tr("&Plugins"));
 
   {
-    QWidget* shortcutsPage = new QWidget;
+    auto shortcutsPage = new QWidget;
     auto vlayout = new QVBoxLayout(shortcutsPage);
     m_shortcutsTreeView = new QTreeView;
     m_shortcutsTreeView->setSelectionMode(QAbstractItemView::NoSelection);
@@ -104,11 +104,11 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
   }
 
   {
-    QWidget* appearancePage = new QWidget;
+    auto appearancePage = new QWidget;
     auto vlayout = new QVBoxLayout(appearancePage);
     auto fontStyleLayout = new QGridLayout;
 
-    QLabel* languageLabel = new QLabel(tr("&Language"), appearancePage);
+    auto languageLabel = new QLabel(tr("&Language"), appearancePage);
     m_languageComboBox = new QComboBox(appearancePage);
     m_languageComboBox->addItem(tr("System"));
     const auto languages = MainWindowConfig::instance().availableLanguages();
@@ -161,10 +161,10 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
   auto hlayout = new QHBoxLayout;
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
-  QPushButton* defaultsButton = new QPushButton(tr("Restore Defaults"), this);
-  QPushButton* okButton = new QPushButton(tr("&OK"), this);
-  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
+  auto helpButton = new QPushButton(tr("&Help"), this);
+  auto defaultsButton = new QPushButton(tr("Restore Defaults"), this);
+  auto okButton = new QPushButton(tr("&OK"), this);
+  auto cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addWidget(helpButton);
   hlayout->addWidget(defaultsButton);
   hlayout->addItem(hspacer);
@@ -211,8 +211,8 @@ void ConfigDialog::setConfigs(const MainWindowConfig& mainWindowConfig)
   } else {
     m_useApplicationStyleCheckBox->setChecked(true);
     m_applicationStyleComboBox->setEnabled(true);
-    int idx = m_applicationStyleComboBox->findText(mainWindowConfig.style());
-    if (idx >= 0) {
+    if (int idx = m_applicationStyleComboBox->findText(mainWindowConfig.style());
+        idx >= 0) {
       m_applicationStyleComboBox->setCurrentIndex(idx);
     }
   }

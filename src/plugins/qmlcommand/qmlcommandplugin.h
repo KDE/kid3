@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Feb 2015
  *
- * Copyright (C) 2015-2018  Urs Fleisch
+ * Copyright (C) 2015-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -53,13 +53,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~QmlCommandPlugin() override = default;
+  ~QmlCommandPlugin() override = default;
 
   /**
    * Get keys of available user commands.
    * @return list of keys, ["qml", "qmlview"].
    */
-  virtual QStringList userCommandKeys() const override;
+  QStringList userCommandKeys() const override;
 
   /**
    * Initialize processor.
@@ -67,13 +67,13 @@ public:
    * to set the application context.
    * @param app application context
    */
-  virtual void initialize(Kid3Application* app) override;
+  void initialize(Kid3Application* app) override;
 
   /**
    * Cleanup processor.
    * This method must be invoked to close and delete the QML resources.
    */
-  virtual void cleanup() override;
+  void cleanup() override;
 
   /**
    * Start a QML script.
@@ -83,14 +83,14 @@ public:
    *                   commandOutput().
    * @return true if command is started.
    */
-  virtual bool startUserCommand(
+  bool startUserCommand(
       const QString& key, const QStringList& arguments, bool showOutput) override;
 
   /**
    * Return object which emits commandOutput() signal.
    * @return this.
    */
-  virtual QObject* qobject() override;
+  QObject* qobject() override;
 
 signals:
   /**

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Mar 2004
  *
- * Copyright (C) 2004-2018  Urs Fleisch
+ * Copyright (C) 2004-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~RenDirDialog() override = default;
+  ~RenDirDialog() override = default;
 
   /**
    * Start dialog.
@@ -90,7 +90,7 @@ protected:
   /**
    * Called when the wizard is canceled.
    */
-  virtual void reject() override;
+  void reject() override;
 
 signals:
   /**

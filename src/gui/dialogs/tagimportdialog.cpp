@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Jun 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -76,20 +76,20 @@ TagImportDialog::TagImportDialog(QWidget* parent,
   }
 
   auto buttonLayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  auto helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   buttonLayout->addWidget(helpButton);
   connect(helpButton, &QAbstractButton::clicked, this, &TagImportDialog::showHelp);
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  auto saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   buttonLayout->addWidget(saveButton);
   connect(saveButton, &QAbstractButton::clicked, this, &TagImportDialog::saveConfig);
   buttonLayout->addStretch();
-  QPushButton* applyButton = new QPushButton(tr("&Apply"), this);
+  auto applyButton = new QPushButton(tr("&Apply"), this);
   applyButton->setAutoDefault(false);
   buttonLayout->addWidget(applyButton);
   connect(applyButton, &QAbstractButton::clicked, this, &TagImportDialog::apply);
-  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  auto closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   buttonLayout->addWidget(closeButton);
   connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);

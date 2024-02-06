@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Apr 2020
  *
- * Copyright (C) 2020  Urs Fleisch
+ * Copyright (C) 2020-2024  Urs Fleisch
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -86,7 +86,6 @@ Kid3Script {
         .replace(/\b(AT&T|Q&A|OYF’N)\b/ig, function(all) {
           return all.toUpperCase();
         });
-      ;
     };
 
     function capitalize(word) {

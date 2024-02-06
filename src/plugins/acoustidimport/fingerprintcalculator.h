@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Jan 2012
  *
- * Copyright (C) 2012-2018  Urs Fleisch
+ * Copyright (C) 2012-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -58,7 +58,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FingerprintCalculator() override;
+  ~FingerprintCalculator() override;
 
   /**
    * Calculate audio fingerprint for audio file.

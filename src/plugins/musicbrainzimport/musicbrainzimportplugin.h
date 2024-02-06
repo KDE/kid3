@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Jul 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,13 +47,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MusicBrainzImportPlugin() override = default;
+  ~MusicBrainzImportPlugin() override = default;
 
   /**
    * Get keys of available server importers.
    * @return list of keys.
    */
-  virtual QStringList serverImporterKeys() const override;
+  QStringList serverImporterKeys() const override;
 
   /**
    * Create server importer.
@@ -63,7 +63,7 @@ public:
    * @return server importer instance, 0 if key unknown.
    * @remarks The caller takes ownership of the returned instance.
    */
-  virtual ServerImporter* createServerImporter(
+  ServerImporter* createServerImporter(
       const QString& key,
       QNetworkAccessManager* netMgr, TrackDataModel* trackDataModel) override;
 };

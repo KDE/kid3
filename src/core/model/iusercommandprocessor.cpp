@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Feb 2015
  *
- * Copyright (C) 2015  Urs Fleisch
+ * Copyright (C) 2015-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,7 +39,6 @@ IUserCommandProcessor::~IUserCommandProcessor()
 /**
  * Initialize processor.
  * This method can be used to initialize the processor before it is used.
- * @param app application context
  */
 void IUserCommandProcessor::initialize(Kid3Application*)
 {

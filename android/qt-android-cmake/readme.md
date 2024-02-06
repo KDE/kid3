@@ -4,7 +4,7 @@
 
 When using Qt for Android development, QMake & QtCreator is the only sane option for compiling and deploying. But if you prefer CMake, you're stuck and have no choice but writing .pro files that duplicate the functionality of your CMake files.
 
-This utility tries to avoids this by providing a CMake way of doing Android compilation and deployment, without QtCreator. It is based on:
+This utility tries to avoid this by providing a CMake way of doing Android compilation and deployment, without QtCreator. It is based on:
 
 * the Android CMake toolchains available in the NDK
 * the ```androiddeployqt``` utility from the Qt Android SDK
@@ -56,7 +56,7 @@ First, you must make sure that the following environment variables are defined:
 
 **IMPORTANT** ```JAVA_HOME``` must be defined when you compile the APK too.
 
-Additionally you can define the following ones, but you can also define them as CMake variables if you prefer:
+Additionally, you can define the following ones, but you can also define them as CMake variables if you prefer:
 
 * ```ANDROID_SDK```: root directory of the Android SDK
 

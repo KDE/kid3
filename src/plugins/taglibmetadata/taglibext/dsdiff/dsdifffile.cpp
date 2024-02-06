@@ -80,11 +80,11 @@ namespace
 class DSDIFFFile::FilePrivate
 {
 public:
-FilePrivate(TagLib::ID3v2::FrameFactory *frameFactory
+FilePrivate(const TagLib::ID3v2::FrameFactory *frameFactory
         = TagLib::ID3v2::FrameFactory::instance())
   : ID3v2FrameFactory(frameFactory),
-    properties(0),
-    tag(0),
+    properties(nullptr),
+    tag(nullptr),
     id3v2TagChunkID("ID3 "),
     size(0),
     childChunkIndex(-1),
@@ -136,7 +136,7 @@ bool DSDIFFFile::isSupported(TagLib::IOStream *stream)
   stream->seek(0);
   const TagLib::ByteVector id = stream->readBlock(16);
   stream->seek(originalPosition);
-  return (id.startsWith("FRM8") && id.containsAt("DSD ", 12));
+  return id.startsWith("FRM8") && id.containsAt("DSD ", 12);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -154,7 +154,7 @@ DSDIFFFile::DSDIFFFile(TagLib::FileName file,
 }
 
 DSDIFFFile::DSDIFFFile(TagLib::FileName file,
-    TagLib::ID3v2::FrameFactory *frameFactory,
+    const TagLib::ID3v2::FrameFactory *frameFactory,
     bool readProperties,
     TagLib::AudioProperties::ReadStyle propertiesStyle)
   : TagLib::File(file)
@@ -166,7 +166,7 @@ DSDIFFFile::DSDIFFFile(TagLib::FileName file,
 }
 
 DSDIFFFile::DSDIFFFile(TagLib::IOStream *stream,
-    TagLib::ID3v2::FrameFactory *frameFactory,
+    const TagLib::ID3v2::FrameFactory *frameFactory,
     bool readProperties,
     TagLib::AudioProperties::ReadStyle propertiesStyle)
   : TagLib::File(stream)
@@ -240,9 +240,7 @@ bool DSDIFFFile::save(int id3v2Version)
 
   // First: save ID3V2 chunk
 
-  TagLib::ID3v2::Tag *id3v2Tag = d->tag;
-
-  if(id3v2Tag) {
+  if(TagLib::ID3v2::Tag *id3v2Tag = d->tag) {
     if(d->isID3InPropChunk) {
       if(!id3v2Tag->isEmpty()) {
 #if TAGLIB_VERSION >= 0x010c00
@@ -313,9 +311,7 @@ void DSDIFFFile::removeRootChunk(unsigned int i)
 
 void DSDIFFFile::removeRootChunk(const TagLib::ByteVector &id)
 {
-  int i = chunkIndex(d->chunks, id);
-
-  if(i >= 0)
+  if(int i = chunkIndex(d->chunks, id); i >= 0)
     removeRootChunk(i);
 }
 
@@ -340,7 +336,7 @@ void DSDIFFFile::setRootChunkData(unsigned int i, const TagLib::ByteVector &data
              d->chunks[i].size + d->chunks[i].padding + 12);
 
   d->chunks[i].size = data.size();
-  d->chunks[i].padding = (data.size() & 0x01) ? 1 : 0;
+  d->chunks[i].padding = data.size() & 0x01 ? 1 : 0;
 
   // Finally update the internal offsets
 
@@ -408,7 +404,7 @@ void DSDIFFFile::removeChildChunk(unsigned int i)
   // Update the internal offsets
   // For child chunks
 
-  if((i + 1) < childChunks.size()) {
+  if(i + 1 < childChunks.size()) {
     childChunks[i + 1].offset = childChunks[i].offset;
     i++;
     for(i++; i < childChunks.size(); i++)
@@ -511,7 +507,7 @@ void DSDIFFFile::setChildChunkData(const TagLib::ByteVector &name,
   // Now add the chunk to the file
 
   unsigned long long nextRootChunkIdx = length();
-  if((d->childChunkIndex + 1) < static_cast<int>(d->chunks.size()))
+  if(d->childChunkIndex + 1 < static_cast<int>(d->chunks.size()))
     nextRootChunkIdx = d->chunks[d->childChunkIndex + 1].offset - 12;
 
   writeChunk(name, data, offset,
@@ -540,8 +536,8 @@ void DSDIFFFile::updateRootChunksStructure(unsigned int startingChunk)
   // Update child chunks structure as well
 
   if(d->childChunkIndex >= static_cast<int>(startingChunk)) {
-    ChunkList &childChunksToUpdate = d->childChunks;
-    if(childChunksToUpdate.size() > 0) {
+    if(ChunkList &childChunksToUpdate = d->childChunks;
+       childChunksToUpdate.size() > 0) {
       childChunksToUpdate[0].offset = d->chunks[d->childChunkIndex].offset + 12;
       for(unsigned int i = 1; i < childChunksToUpdate.size(); i++)
         childChunksToUpdate[i].offset = childChunksToUpdate[i - 1].offset + 12
@@ -586,10 +582,9 @@ void DSDIFFFile::read(bool readProperties, TagLib::AudioProperties::ReadStyle pr
     // Check padding
 
     chunk.padding = 0;
-    long uPosNotPadded = tell();
-    if((uPosNotPadded & 0x01) != 0) {
-      TagLib::ByteVector iByte = readBlock(1);
-      if((iByte.size() != 1) || (iByte[0] != 0))
+    if(long uPosNotPadded = tell(); (uPosNotPadded & 0x01) != 0) {
+      if(TagLib::ByteVector iByte = readBlock(1);
+         iByte.size() != 1 || iByte[0] != 0)
         // Not well formed, re-seek
         seek(uPosNotPadded, Beginning);
       else
@@ -647,10 +642,9 @@ void DSDIFFFile::read(bool readProperties, TagLib::AudioProperties::ReadStyle pr
         seek(dstChunkSize, Current);
 
         // Check padding
-        long uPosNotPadded = tell();
-        if((uPosNotPadded & 0x01) != 0) {
-          TagLib::ByteVector iByte = readBlock(1);
-          if((iByte.size() != 1) || (iByte[0] != 0))
+        if(long uPosNotPadded = tell(); (uPosNotPadded & 0x01) != 0) {
+          if(TagLib::ByteVector iByte = readBlock(1);
+             iByte.size() != 1 || iByte[0] != 0)
             // Not well formed, re-seek
             seek(uPosNotPadded, Beginning);
         }
@@ -688,10 +682,9 @@ void DSDIFFFile::read(bool readProperties, TagLib::AudioProperties::ReadStyle pr
 
         // Check padding
         chunk.padding = 0;
-        long uPosNotPadded = tell();
-        if((uPosNotPadded & 0x01) != 0) {
-          TagLib::ByteVector iByte = readBlock(1);
-          if((iByte.size() != 1) || (iByte[0] != 0))
+        if(long uPosNotPadded = tell(); (uPosNotPadded & 0x01) != 0) {
+          if(TagLib::ByteVector iByte = readBlock(1);
+             iByte.size() != 1 || iByte[0] != 0)
             // Not well formed, re-seek
             seek(uPosNotPadded, Beginning);
           else
@@ -751,9 +744,9 @@ void DSDIFFFile::read(bool readProperties, TagLib::AudioProperties::ReadStyle pr
     if(lengthDSDSamplesTimeChannels == 0) {
       // DST compressed signal : need to compute length of DSD uncompressed frames
       if(dstFrameRate > 0)
-        lengthDSDSamplesTimeChannels = (unsigned long long) dstNumFrames *
-                                       (unsigned long long) sampleRate /
-                                       (unsigned long long) dstFrameRate;
+        lengthDSDSamplesTimeChannels = static_cast<unsigned long long>(dstNumFrames) *
+                                       static_cast<unsigned long long>(sampleRate) /
+                                       static_cast<unsigned long long>(dstFrameRate);
       else
         lengthDSDSamplesTimeChannels = 0;
     }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -82,8 +82,7 @@ QString folderPatternListToString(const QStringList& folders,
   QStringList patterns;
   QChar sep = QLatin1Char(' ');
   for (const QString& folder : folders) {
-    QString pattern = folder.trimmed();
-    if (!pattern.isEmpty()) {
+    if (QString pattern = folder.trimmed(); !pattern.isEmpty()) {
       if (pattern.contains(QLatin1Char(' '))) {
         sep = QLatin1Char(';');
       }
@@ -118,8 +117,7 @@ QStringList folderPatternListFromString(const QString& patterns,
       ? QLatin1Char(';') : QLatin1Char(' ');
   const auto patternList = patterns.split(sep);
   for (const QString& pattern : patternList) {
-    QString folder = pattern.trimmed();
-    if (!folder.isEmpty()) {
+    if (QString folder = pattern.trimmed(); !folder.isEmpty()) {
       folders.append(folder); // clazy:exclude=reserve-candidates
     }
   }
@@ -170,17 +168,17 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
  */
 QWidget* ConfigDialogPages::createTagsPage()
 {
-  QWidget* tagsPage = new QWidget;
+  auto tagsPage = new QWidget;
   auto vlayout = new QVBoxLayout(tagsPage);
 
-  QWidget* tag1Page = new QWidget;
+  auto tag1Page = new QWidget;
   auto tag1Layout = new QVBoxLayout(tag1Page);
-  QGroupBox* v1GroupBox = new QGroupBox(tr("ID3v1"), tag1Page);
+  auto v1GroupBox = new QGroupBox(tr("ID3v1"), tag1Page);
   auto v1GroupBoxLayout = new QGridLayout(v1GroupBox);
   m_markTruncationsCheckBox = new QCheckBox(
         tr("&Mark truncated fields"), v1GroupBox);
   v1GroupBoxLayout->addWidget(m_markTruncationsCheckBox, 0, 0, 1, 2);
-  QLabel* textEncodingV1Label = new QLabel(tr("Text &encoding:"), v1GroupBox);
+  auto textEncodingV1Label = new QLabel(tr("Text &encoding:"), v1GroupBox);
   m_textEncodingV1ComboBox = new QComboBox(v1GroupBox);
   m_textEncodingV1ComboBox->addItems(TagConfig::getTextCodecNames());
   m_textEncodingV1ComboBox->setSizePolicy(
@@ -191,15 +189,15 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag1Layout->addWidget(v1GroupBox);
   tag1Layout->addStretch();
 
-  QWidget* tag2Page = new QWidget;
+  auto tag2Page = new QWidget;
   auto tag2Layout = new QHBoxLayout(tag2Page);
   auto tag2LeftLayout = new QVBoxLayout;
-  QGroupBox* v2GroupBox = new QGroupBox(tr("ID3v2"), tag2Page);
+  auto v2GroupBox = new QGroupBox(tr("ID3v2"), tag2Page);
   auto v2GroupBoxLayout = new QGridLayout(v2GroupBox);
   m_totalNumTracksCheckBox = new QCheckBox(
         tr("Use &track/total number of tracks format"), v2GroupBox);
   v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
-  QLabel* trackNumberDigitsLabel = new QLabel(
+  auto trackNumberDigitsLabel = new QLabel(
         tr("Track number &digits:"), v2GroupBox);
   m_trackNumberDigitsSpinBox = new QSpinBox(v2GroupBox);
   m_trackNumberDigitsSpinBox->setMaximum(5);
@@ -209,7 +207,7 @@ QWidget* ConfigDialogPages::createTagsPage()
         tr("&WAV files with lowercase id3 chunk"), v2GroupBox);
   m_markStandardViolationsCheckBox =
       new QCheckBox(tr("Mar&k standard violations"));
-  QLabel* textEncodingLabel = new QLabel(tr("Text &encoding:"), v2GroupBox);
+  auto textEncodingLabel = new QLabel(tr("Text &encoding:"), v2GroupBox);
   m_textEncodingComboBox = new QComboBox(v2GroupBox);
   m_textEncodingComboBox->addItems(TagConfig::getTextEncodingNames());
   m_textEncodingComboBox->setSizePolicy(
@@ -227,8 +225,8 @@ QWidget* ConfigDialogPages::createTagsPage()
     textEncodingLabel->hide();
     m_textEncodingComboBox->hide();
   }
-  QLabel* id3v2VersionLabel = new QLabel(tr("&Version used for new tags:"),
-                                         v2GroupBox);
+  auto id3v2VersionLabel = new QLabel(tr("&Version used for new tags:"),
+                                      v2GroupBox);
   m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v23)
     m_id3v2VersionComboBox->addItem(tr("ID3v2.3.0"), TagConfig::ID3v2_3_0);
@@ -247,12 +245,12 @@ QWidget* ConfigDialogPages::createTagsPage()
   v2GroupBoxLayout->addWidget(trackNumberDigitsLabel, 6, 0);
   v2GroupBoxLayout->addWidget(m_trackNumberDigitsSpinBox, 6, 1);
   tag2LeftLayout->addWidget(v2GroupBox);
-  QGroupBox* vorbisGroupBox = new QGroupBox(tr("Ogg/Vorbis"), tag2Page);
-  QLabel* commentNameLabel = new QLabel(tr("Co&mment field name:"),
-                                        vorbisGroupBox);
+  auto vorbisGroupBox = new QGroupBox(tr("Ogg/Vorbis"), tag2Page);
+  auto commentNameLabel = new QLabel(tr("Co&mment field name:"),
+                                     vorbisGroupBox);
   m_commentNameComboBox = new QComboBox(vorbisGroupBox);
-  QLabel* pictureNameLabel = new QLabel(tr("&Picture field name:"),
-                                        vorbisGroupBox);
+  auto pictureNameLabel = new QLabel(tr("&Picture field name:"),
+                                     vorbisGroupBox);
   m_pictureNameComboBox = new QComboBox(vorbisGroupBox);
   m_commentNameComboBox->setEditable(true);
   m_commentNameComboBox->addItems(TagConfig::getCommentNames());
@@ -273,7 +271,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   if (!(tagCfg.taggedFileFeatures() & TaggedFile::TF_OggPictures)) {
     vorbisGroupBox->hide();
   }
-  QGroupBox* pictureGroupBox = new QGroupBox(tr("Picture"), tag2Page);
+  auto pictureGroupBox = new QGroupBox(tr("Picture"), tag2Page);
   auto pictureGroupBoxLayout = new QHBoxLayout(pictureGroupBox);
   m_markOversizedPicturesCheckBox =
       new QCheckBox(tr("Mark if &larger than (bytes):"));
@@ -286,9 +284,9 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag2Layout->addLayout(tag2LeftLayout);
 
   auto tag2RightLayout = new QVBoxLayout;
-  QToolBox* tag2RightToolBox = new QToolBox;
+  auto tag2RightToolBox = new QToolBox;
 
-  QWidget* genresWidget = new QWidget;
+  auto genresWidget = new QWidget;
   m_onlyCustomGenresCheckBox = new QCheckBox(tr("&Show only custom genres"),
                                              genresWidget);
   m_genresEditModel = new QStringListModel(genresWidget);
@@ -299,7 +297,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   genresWidget->setLayout(vbox);
   tag2RightToolBox->addItem(genresWidget, tr("Cu&stom Genres"));
 
-  QWidget* customFramesWidget = new QWidget;
+  auto customFramesWidget = new QWidget;
   m_customFramesEditModel = new QStringListModel(customFramesWidget);
   connect(m_customFramesEditModel, &QStringListModel::dataChanged,
           this, &ConfigDialogPages::onCustomFramesEditModelChanged);
@@ -311,7 +309,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   customFramesWidget->setLayout(customFramesVBox);
   tag2RightToolBox->addItem(customFramesWidget, tr("Custom F&rames"));
 
-  QWidget* quickAccessWidget = new QWidget;
+  auto quickAccessWidget = new QWidget;
   auto quickAccessTagsLayout = new QVBoxLayout(quickAccessWidget);
   auto quickAccessTagsListView = new QListView;
   m_quickAccessTagsModel = new QStandardItemModel(quickAccessWidget);
@@ -323,7 +321,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   quickAccessTagsListView->setDefaultDropAction(Qt::MoveAction);
   quickAccessTagsListView->setDropIndicatorShown(true);
   quickAccessTagsLayout->addWidget(quickAccessTagsListView);
-  QLabel* reorderLabel =
+  auto reorderLabel =
       new QLabel(tr("Use drag and drop to reorder the items"));
   reorderLabel->setWordWrap(true);
   quickAccessTagsLayout->addWidget(reorderLabel);
@@ -332,11 +330,11 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag2RightLayout->addWidget(tag2RightToolBox);
   tag2Layout->addLayout(tag2RightLayout);
 
-  QWidget* tag3Page = new QWidget;
+  auto tag3Page = new QWidget;
   auto tag3Layout = new QVBoxLayout(tag3Page);
-  QGroupBox* riffGroupBox = new QGroupBox(tr("RIFF INFO"), tag3Page);
-  QLabel* trackNameLabel = new QLabel(tr("Track nu&mber field name:"),
-                                      riffGroupBox);
+  auto riffGroupBox = new QGroupBox(tr("RIFF INFO"), tag3Page);
+  auto trackNameLabel = new QLabel(tr("Track nu&mber field name:"),
+                                   riffGroupBox);
   m_trackNameComboBox = new QComboBox(riffGroupBox);
   m_trackNameComboBox->setEditable(true);
   m_trackNameComboBox->addItems(TagConfig::getRiffTrackNames());
@@ -350,11 +348,11 @@ QWidget* ConfigDialogPages::createTagsPage()
   tag3Layout->addWidget(riffGroupBox);
   tag3Layout->addStretch();
 
-  QWidget* tag1AndTag2Page = new QWidget;
+  auto tag1AndTag2Page = new QWidget;
   auto tag1AndTag2Layout = new QVBoxLayout(tag1AndTag2Page);
   QString tagFormatTitle(tr("&Tag Format"));
   m_tagFormatBox = new TagFormatBox(tagFormatTitle, tag1AndTag2Page);
-  QGroupBox* ratingGroupBox = new QGroupBox(tr("Rating"), tag1AndTag2Page);
+  auto ratingGroupBox = new QGroupBox(tr("Rating"), tag1AndTag2Page);
   auto ratingLayout = new QVBoxLayout(ratingGroupBox);
   m_starRatingMappingsModel = new StarRatingMappingsModel(ratingGroupBox);
   auto ratingEdit = new TableModelEdit(m_starRatingMappingsModel);
@@ -380,20 +378,20 @@ QWidget* ConfigDialogPages::createTagsPage()
  */
 QWidget* ConfigDialogPages::createFilesPage()
 {
-  QWidget* filesPage = new QWidget;
+  auto filesPage = new QWidget;
   auto vlayout = new QVBoxLayout(filesPage);
   auto hlayout = new QHBoxLayout;
   auto leftLayout = new QVBoxLayout;
   auto rightLayout = new QVBoxLayout;
 
-  QGroupBox* startupGroupBox = new QGroupBox(tr("Startup"), filesPage);
+  auto startupGroupBox = new QGroupBox(tr("Startup"), filesPage);
   m_loadLastOpenedFileCheckBox = new QCheckBox(tr("&Load last-opened files"),
                                                startupGroupBox);
   auto startupLayout = new QVBoxLayout;
   startupLayout->addWidget(m_loadLastOpenedFileCheckBox);
   startupGroupBox->setLayout(startupLayout);
   leftLayout->addWidget(startupGroupBox);
-  QGroupBox* saveGroupBox = new QGroupBox(tr("Save"), filesPage);
+  auto saveGroupBox = new QGroupBox(tr("Save"), filesPage);
   m_preserveTimeCheckBox = new QCheckBox(tr("&Preserve file timestamp"),
                                          saveGroupBox);
   m_markChangesCheckBox = new QCheckBox(tr("&Mark changes"), saveGroupBox);
@@ -412,8 +410,8 @@ QWidget* ConfigDialogPages::createFilesPage()
   saveGroupBox->setLayout(formLayout);
   leftLayout->addWidget(saveGroupBox);
 
-  QGroupBox* fileListGroupBox = new QGroupBox(tr("File List"), filesPage);
-  QLabel* nameFilterLabel = new QLabel(tr("Filte&r:"), fileListGroupBox);
+  auto fileListGroupBox = new QGroupBox(tr("File List"), filesPage);
+  auto nameFilterLabel = new QLabel(tr("Filte&r:"), fileListGroupBox);
   m_nameFilterComboBox = new QComboBox(fileListGroupBox);
   m_nameFilterComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,
                                                   QSizePolicy::Minimum));
@@ -423,12 +421,12 @@ QWidget* ConfigDialogPages::createFilesPage()
     m_nameFilterComboBox->addItem(it->first, nameFilter);
   }
   nameFilterLabel->setBuddy(m_nameFilterComboBox);
-  QLabel* includeFoldersLabel = new QLabel(tr("Inclu&de folders:"),
-                                           fileListGroupBox);
+  auto includeFoldersLabel = new QLabel(tr("Inclu&de folders:"),
+                                        fileListGroupBox);
   m_includeFoldersLineEdit = new QLineEdit(fileListGroupBox);
   includeFoldersLabel->setBuddy(m_includeFoldersLineEdit);
-  QLabel* excludeFoldersLabel = new QLabel(tr("E&xclude folders:"),
-                                           fileListGroupBox);
+  auto excludeFoldersLabel = new QLabel(tr("E&xclude folders:"),
+                                        fileListGroupBox);
   m_excludeFoldersLineEdit = new QLineEdit(fileListGroupBox);
   excludeFoldersLabel->setBuddy(m_excludeFoldersLineEdit);
   m_showHiddenFilesCheckBox = new QCheckBox(tr("&Show hidden files"),
@@ -485,9 +483,9 @@ void ConfigDialogPages::editFormatsFromTag()
   if (auto button = qobject_cast<QPushButton*>(sender())) {
     parentWindow = button->window();
   }
-  StringListEditDialog dialog(
-        m_toFilenameFormats, tr("Filename from Tag"), parentWindow);
-  if (dialog.exec() == QDialog::Accepted) {
+  if (StringListEditDialog dialog(
+      m_toFilenameFormats, tr("Filename from Tag"), parentWindow);
+      dialog.exec() == QDialog::Accepted) {
     m_toFilenameFormats = dialog.stringList();
   }
 }
@@ -501,9 +499,9 @@ void ConfigDialogPages::editFormatsToTag()
   if (auto button = qobject_cast<QPushButton*>(sender())) {
     parentWindow = button->window();
   }
-  StringListEditDialog dialog(
-        m_fromFilenameFormats, tr("Tag from Filename"), parentWindow);
-  if (dialog.exec() == QDialog::Accepted) {
+  if (StringListEditDialog dialog(
+      m_fromFilenameFormats, tr("Tag from Filename"), parentWindow);
+      dialog.exec() == QDialog::Accepted) {
     m_fromFilenameFormats = dialog.stringList();
   }
 }
@@ -517,9 +515,9 @@ void ConfigDialogPages::editPlaylistFormats()
   if (auto button = qobject_cast<QPushButton*>(sender())) {
     parentWindow = button->window();
   }
-  StringListEditDialog dialog(
-        m_playlistFileNameFormats, tr("Playlist"), parentWindow);
-  if (dialog.exec() == QDialog::Accepted) {
+  if (StringListEditDialog dialog(
+      m_playlistFileNameFormats, tr("Playlist"), parentWindow);
+      dialog.exec() == QDialog::Accepted) {
     m_playlistFileNameFormats = dialog.stringList();
   }
 }
@@ -530,10 +528,10 @@ void ConfigDialogPages::editPlaylistFormats()
  */
 QWidget* ConfigDialogPages::createActionsPage()
 {
-  QWidget* actionsPage = new QWidget;
+  auto actionsPage = new QWidget;
   auto vlayout = new QVBoxLayout(actionsPage);
-  QGroupBox* browserGroupBox = new QGroupBox(tr("Browser"), actionsPage);
-  QLabel* browserLabel = new QLabel(tr("Web &browser:"), browserGroupBox);
+  auto browserGroupBox = new QGroupBox(tr("Browser"), actionsPage);
+  auto browserLabel = new QLabel(tr("Web &browser:"), browserGroupBox);
   m_browserLineEdit = new QLineEdit(browserGroupBox);
   browserLabel->setBuddy(m_browserLineEdit);
   auto hbox = new QHBoxLayout;
@@ -542,8 +540,8 @@ QWidget* ConfigDialogPages::createActionsPage()
   browserGroupBox->setLayout(hbox);
   vlayout->addWidget(browserGroupBox);
 
-  QGroupBox* commandsGroupBox = new QGroupBox(tr("Context &Menu Commands"),
-                                              actionsPage);
+  auto commandsGroupBox = new QGroupBox(tr("Context &Menu Commands"),
+                                        actionsPage);
   m_playOnDoubleClickCheckBox =
       new QCheckBox(tr("&Play on double click"), commandsGroupBox);
   m_selectFileOnPlayCheckBox =
@@ -583,18 +581,18 @@ QWidget* ConfigDialogPages::createActionsPage()
  */
 QWidget* ConfigDialogPages::createNetworkPage()
 {
-  QWidget* networkPage = new QWidget;
+  auto networkPage = new QWidget;
   auto vlayout = new QVBoxLayout(networkPage);
-  QGroupBox* proxyGroupBox = new QGroupBox(tr("Proxy"), networkPage);
+  auto proxyGroupBox = new QGroupBox(tr("Proxy"), networkPage);
   m_proxyCheckBox = new QCheckBox(tr("&Proxy:"), proxyGroupBox);
   m_proxyLineEdit = new QLineEdit(proxyGroupBox);
   m_proxyAuthenticationCheckBox = new QCheckBox(
         tr("&Use authentication with proxy"), proxyGroupBox);
-  QLabel* proxyUserNameLabel =
+  auto proxyUserNameLabel =
       new QLabel(tr("Proxy user &name:"), proxyGroupBox);
   m_proxyUserNameLineEdit = new QLineEdit(proxyGroupBox);
   proxyUserNameLabel->setBuddy(m_proxyUserNameLineEdit);
-  QLabel* proxyPasswordLabel =
+  auto proxyPasswordLabel =
       new QLabel(tr("Proxy pass&word:"), proxyGroupBox);
   m_proxyPasswordLineEdit = new QLineEdit(proxyGroupBox);
   proxyPasswordLabel->setBuddy(m_proxyPasswordLineEdit);
@@ -626,9 +624,9 @@ QWidget* ConfigDialogPages::createNetworkPage()
  */
 QWidget* ConfigDialogPages::createPluginsPage()
 {
-  QWidget* pluginsPage = new QWidget;
+  auto pluginsPage = new QWidget;
   auto vlayout = new QVBoxLayout(pluginsPage);
-  QGroupBox* metadataGroupBox = new QGroupBox(
+  auto metadataGroupBox = new QGroupBox(
         tr("&Metadata Plugins && Priority"), pluginsPage);
 
 
@@ -641,7 +639,7 @@ QWidget* ConfigDialogPages::createPluginsPage()
   metadataPluginsLayout->addWidget(metadataEdit);
   vlayout->addWidget(metadataGroupBox);
 
-  QGroupBox* pluginsGroupBox = new QGroupBox(tr("A&vailable Plugins"));
+  auto pluginsGroupBox = new QGroupBox(tr("A&vailable Plugins"));
   auto pluginsLayout = new QVBoxLayout(pluginsGroupBox);
   auto pluginsListView = new QListView;
   pluginsListView->setSelectionMode(QAbstractItemView::NoSelection);
@@ -784,15 +782,13 @@ void ConfigDialogPages::setConfigs(
   m_proxyPasswordLineEdit->setText(networkCfg.proxyPassword());
 
   QStringList metadataPlugins;
-  QStringList pluginOrder = tagCfg.pluginOrder();
-  if (!pluginOrder.isEmpty()) {
+  if (QStringList pluginOrder = tagCfg.pluginOrder(); !pluginOrder.isEmpty()) {
     for (int i = 0; i < pluginOrder.size(); ++i) {
       metadataPlugins.append(QString()); // clazy:exclude=reserve-candidates
     }
     const auto pluginNames = tagCfg.availablePlugins();
     for (const QString& pluginName : pluginNames) {
-      int pluginIdx = pluginOrder.indexOf(pluginName);
-      if (pluginIdx >= 0) {
+      if (int pluginIdx = pluginOrder.indexOf(pluginName); pluginIdx >= 0) {
         metadataPlugins[pluginIdx] = pluginName;
       } else {
         metadataPlugins.append(pluginName); // clazy:exclude=reserve-candidates
@@ -974,7 +970,7 @@ void ConfigDialogPages::setQuickAccessFramesConfig(const QList<int>& types,
     auto name = map.value(QLatin1String("name")).toString();
     auto frameType = map.value(QLatin1String("type")).toInt();
     auto selected = map.value(QLatin1String("selected")).toBool();
-    QStandardItem* item = new QStandardItem(name);
+    auto item = new QStandardItem(name);
     item->setData(frameType, Qt::UserRole);
     item->setCheckable(true);
     item->setCheckState(selected ? Qt::Checked : Qt::Unchecked);

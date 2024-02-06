@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -116,15 +116,15 @@ void ImportParser::setFormat(const QString& fmt, bool enableTrackIncr)
   };
   int percentIdx = 0, nr = 1, lastIdx = fmt.length() - 1;
   m_pattern = fmt;
-  for (const auto& c2n : codeToName) {
-    m_pattern.replace(QString::fromLatin1(c2n.from), QString::fromLatin1(c2n.to));
+  for (const auto& [from, to] : codeToName) {
+    m_pattern.replace(QString::fromLatin1(from), QString::fromLatin1(to));
   }
 
   m_codePos.clear();
-  while (((percentIdx = m_pattern.indexOf(QLatin1String("%{"), percentIdx)) >= 0) &&
-         (percentIdx < lastIdx)) {
-    int closingBracePos = m_pattern.indexOf(QLatin1String("}("), percentIdx + 2);
-    if (closingBracePos > percentIdx + 2) {
+  while ((percentIdx = m_pattern.indexOf(QLatin1String("%{"), percentIdx)) >= 0 &&
+         percentIdx < lastIdx) {
+    if (int closingBracePos = m_pattern.indexOf(QLatin1String("}("), percentIdx + 2);
+        closingBracePos > percentIdx + 2) {
       QString code =
         m_pattern.mid(percentIdx + 2, closingBracePos - percentIdx - 2);
       m_codePos[code] = nr;

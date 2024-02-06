@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03-Feb-2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -103,9 +103,8 @@ void FileProxyModelIterator::fetchNext()
     if (m_nodes.isEmpty()) {
       if (m_rootIndexes.isEmpty()) {
         break;
-      } else {
-        m_nodes.push(m_rootIndexes.takeFirst());
       }
+      m_nodes.push(m_rootIndexes.takeFirst());
     }
     m_nextIdx = m_nodes.top();
     if (m_nextIdx.isValid()) {

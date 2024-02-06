@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 01 May 2011
  *
- * Copyright (C) 2011-2023  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -122,13 +122,13 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
       QString displayName = Frame::getDisplayName(it->getName());
       if (it->getValue() != Frame::differentRepresentation()) {
         if (it->getType() == Frame::FT_Picture) {
-          QVariant fieldValue = it->getFieldValue(Frame::ID_PictureType);
-          if (fieldValue.isValid()) {
-            auto pictureType =
-                static_cast<PictureFrame::PictureType>(fieldValue.toInt());
-            if (pictureType != PictureFrame::PT_Other) {
-              QString typeName = PictureFrame::getPictureTypeName(pictureType);
-              if (!typeName.isEmpty()) {
+          if (QVariant fieldValue = it->getFieldValue(Frame::ID_PictureType);
+              fieldValue.isValid()) {
+            if (auto pictureType =
+                  static_cast<PictureFrame::PictureType>(fieldValue.toInt());
+                pictureType != PictureFrame::PT_Other) {
+              if (QString typeName = PictureFrame::getPictureTypeName(pictureType);
+                  !typeName.isEmpty()) {
                 displayName += QLatin1String(": ");
                 displayName += typeName;
               }
@@ -136,29 +136,28 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
           }
         } else if (it->getType() == Frame::FT_Other) {
           if (it->getInternalName().startsWith(QLatin1String("RVA2"))) {
-            QVariant fieldValue = it->getFieldValue(Frame::ID_Id);
-            if (fieldValue.isValid()) {
-              auto identifier = fieldValue.toString();
-              if (!identifier.isEmpty()) {
+            if (QVariant fieldValue = it->getFieldValue(Frame::ID_Id);
+                fieldValue.isValid()) {
+              if (auto identifier = fieldValue.toString();
+                  !identifier.isEmpty()) {
                 displayName = tr("Volume");
                 displayName += QLatin1String(": ");
                 displayName += identifier;
               }
             }
           } else if (it->getInternalName().startsWith(QLatin1String("UFID"))) {
-            QVariant fieldValue = it->getFieldValue(Frame::ID_Owner);
-            if (fieldValue.isValid()) {
-              auto owner = fieldValue.toString();
-              if (!owner.isEmpty()) {
+            if (QVariant fieldValue = it->getFieldValue(Frame::ID_Owner);
+                fieldValue.isValid()) {
+              if (auto owner = fieldValue.toString(); !owner.isEmpty()) {
                 // Shorten the owner so that it is visible in the frame type column.
                 // For example http://musicbrainz.org -> musicbrainz
                 //             http://www.cddb.com/id3/taginfo.html -> taginfo
                 //             http://www.id3.org/dummy/ufid.html -> ufid
-                int endPos = owner.lastIndexOf(QLatin1Char('.'));
-                if (endPos != -1) {
+                if (int endPos = owner.lastIndexOf(QLatin1Char('.'));
+                    endPos != -1) {
                   int startPos = owner.lastIndexOf(QLatin1Char('.'), endPos - 1);
-                  int slashPos = owner.lastIndexOf(QLatin1Char('/'), endPos - 1);
-                  if (slashPos != -1 && slashPos > startPos) {
+                  if (int slashPos = owner.lastIndexOf(QLatin1Char('/'), endPos - 1);
+                      slashPos != -1 && slashPos > startPos) {
                     startPos = slashPos;
                   }
                   if (startPos != -1) {
@@ -174,7 +173,8 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
         }
       }
       return displayName;
-    } else if (index.column() == CI_Value)
+    }
+    if (index.column() == CI_Value)
       return it->getValue();
   } else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
     return m_frameSelected.at(index.row()) ? Qt::Checked : Qt::Unchecked;
@@ -183,9 +183,10 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
       if (index.column() == CI_Enable) {
         return m_colorProvider->colorForContext(
               isModified ? ColorContext::Marked : ColorContext::None);
-      } else if (index.column() == CI_Value) {
+      }
+      if (index.column() == CI_Value) {
         return m_colorProvider->colorForContext(
-              isTruncated ? ColorContext::Error : ColorContext::None);
+          isTruncated ? ColorContext::Error : ColorContext::None);
       }
     }
   } else if (role == Qt::ToolTipRole) {
@@ -265,8 +266,7 @@ bool FrameTableModel::setData(const QModelIndex& index,
   if ((role == Qt::EditRole && index.column() == CI_Value) ||
       role == ValueRole) {
     QString valueStr(value.toString());
-    auto it = frameAt(index.row());
-    if (valueStr != (*it).getValue()) {
+    if (auto it = frameAt(index.row()); valueStr != it->getValue()) {
       auto& frame = const_cast<Frame&>(*it);
       if (valueStr.isNull()) valueStr = QLatin1String("");
       frame.setValueIfChanged(valueStr);
@@ -280,9 +280,10 @@ bool FrameTableModel::setData(const QModelIndex& index,
       }
     }
     return true;
-  } else if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
-    bool isChecked(value.toInt() == Qt::Checked);
-    if (isChecked != m_frameSelected.at(index.row())) {
+  }
+  if (role == Qt::CheckStateRole && index.column() == CI_Enable) {
+    if (bool isChecked(value.toInt() == Qt::Checked);
+      isChecked != m_frameSelected.at(index.row())) {
       m_frameSelected[index.row()] = isChecked;
       emit dataChanged(index, index);
     }
@@ -333,10 +334,7 @@ int FrameTableModel::columnCount(const QModelIndex& parent) const
 
 /**
  * Insert rows.
- * @param row rows are inserted before this row, if 0 at the begin,
- * if rowCount() at the end
  * @param count number of rows to insert
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool FrameTableModel::insertRows(int, int count, const QModelIndex&)
@@ -366,7 +364,6 @@ void FrameTableModel::insertFrame(const Frame& frame)
  * Remove rows.
  * @param row rows are removed starting with this row
  * @param count number of rows to remove
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool FrameTableModel::removeRows(int row, int count,
@@ -457,8 +454,8 @@ void FrameTableModel::markChangedFrames(const QList<Frame::ExtendedType>& types)
     Frame::Type type = extendedType.getType();
     mask |= 1ULL << type;
     if (type == Frame::FT_Other) {
-      const QString internalName = extendedType.getInternalName();
-      if (!internalName.isEmpty()) {
+      if (const QString internalName = extendedType.getInternalName();
+          !internalName.isEmpty()) {
         changedOtherFrameNames.insert(internalName);
       }
     }
@@ -480,8 +477,7 @@ void FrameTableModel::markChangedFrames(const QList<Frame::ExtendedType>& types)
   int row = 0;
   for (; it != frameCollection.cend(); ++it, ++row) {
     Frame::ExtendedType extendedType = it->getExtendedType();
-    Frame::Type type = extendedType.getType();
-    if (type != Frame::FT_Other) {
+    if (Frame::Type type = extendedType.getType(); type != Frame::FT_Other) {
       if (it->isValueChanged() ||
           (static_cast<unsigned>(type) < sizeof(changedBits) * 8 &&
            (changedBits & (1ULL << type)) != 0)) {
@@ -489,8 +485,8 @@ void FrameTableModel::markChangedFrames(const QList<Frame::ExtendedType>& types)
         emit dataChanged(idx, idx);
       }
     } else {
-      const QString name = extendedType.getInternalName();
-      if (it->isValueChanged() ||
+      if (const QString name = extendedType.getInternalName();
+          it->isValueChanged() ||
           addedNames.contains(name) || removedNames.contains(name)) {
         QModelIndex idx = index(row, CI_Enable);
         emit dataChanged(idx, idx);
@@ -601,8 +597,7 @@ FrameCollection FrameTableModel::getEnabledFrames() const
  */
 void FrameTableModel::clearFrames()
 {
-  const int numFrames = static_cast<int>(m_frames.size());
-  if (numFrames > 0) {
+  if (const int numFrames = static_cast<int>(m_frames.size()); numFrames > 0) {
     beginRemoveRows(QModelIndex(), 0, numFrames - 1);
     m_frames.clear();
     updateFrameRowMapping();
@@ -679,8 +674,8 @@ void FrameTableModel::filterDifferent(FrameCollection& others)
 
   if (oldNumFrames > 0)
     emit dataChanged(index(0, 0), index(oldNumFrames - 1, CI_NumColumns - 1));
-  int newNumFrames = static_cast<int>(m_frames.size());
-  if (newNumFrames > oldNumFrames) {
+  if (int newNumFrames = static_cast<int>(m_frames.size());
+      newNumFrames > oldNumFrames) {
     beginInsertRows(QModelIndex(), oldNumFrames, newNumFrames - 1);
     endInsertRows();
   }
@@ -790,7 +785,8 @@ void FrameTableModel::setFrameOrder(const QList<int>& frameTypes)
   if (frameTypes.isEmpty()) {
     m_frameTypeSeqNr.clear();
     return;
-  } else if (frameTypes.size() < Frame::FT_Custom1) {
+  }
+  if (frameTypes.size() < Frame::FT_Custom1) {
     qWarning("FrameTableModel::setFrameOrder: Invalid parameter size");
     m_frameTypeSeqNr.clear();
     return;

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Aug 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MessageDialog() override = default;
+  ~MessageDialog() override = default;
 
   /**
    * Set the text to be displayed.

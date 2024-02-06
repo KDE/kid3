@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 07 Apr 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -251,15 +251,15 @@ void ISettings::migrateOldSettings()
       { "General Options/ExportFormatIdx", "Export/ExportFormatIdx", QVariant::Int },
       { "General Options/ExportWindowGeometry", "Export/ExportWindowGeometry", QVariant::ByteArray }
     };
-    for (const auto& mapping : mappings) {
-      QStringList groupKey = QString::fromLatin1(mapping.oldKey)
+    for (const auto& [oldKey, newKey, type] : mappings) {
+      QStringList groupKey = QString::fromLatin1(oldKey)
           .split(QLatin1Char('/'));
       beginGroup(groupKey.at(0));
       if (contains(groupKey.at(1))) {
-        QVariant val = value(groupKey.at(1), QVariant(mapping.type));
+        QVariant val = value(groupKey.at(1), QVariant(type));
         remove(groupKey.at(1));
         endGroup();
-        groupKey = QString::fromLatin1(mapping.newKey)
+        groupKey = QString::fromLatin1(newKey)
             .split(QLatin1Char('/'));
         beginGroup(groupKey.at(0));
         setValue(groupKey.at(1), val);

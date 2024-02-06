@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Nov 2017
  *
- * Copyright (C) 2017-2018  Urs Fleisch
+ * Copyright (C) 2017-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,21 +45,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagFormatBox() override = default;
+  ~TagFormatBox() override = default;
 
   /**
    * Set the values from a format configuration.
    *
    * @param cfg format configuration
    */
-  virtual void fromFormatConfig(const FormatConfig& cfg) override;
+  void fromFormatConfig(const FormatConfig& cfg) override;
 
   /**
    * Store the values in a format configuration.
    *
    * @param cfg format configuration
    */
-  virtual void toFormatConfig(FormatConfig& cfg) const override;
+  void toFormatConfig(FormatConfig& cfg) const override;
 
 private:
   QCheckBox* m_validationCheckBox;

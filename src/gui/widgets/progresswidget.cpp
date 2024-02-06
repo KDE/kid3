@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Jan 2017
  *
- * Copyright (C) 2017-2018  Urs Fleisch
+ * Copyright (C) 2017-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -125,8 +125,8 @@ void ProgressWidget::setValue(int value)
  */
 void ProgressWidget::setValueAndMaximum(int value, int maximum)
 {
-  int percentage = maximum > 0 ? value * 100 / maximum : 0;
-  if (m_percentage != percentage) {
+  if (int percentage = maximum > 0 ? value * 100 / maximum : 0;
+      m_percentage != percentage) {
     m_percentage = percentage;
     m_progress->setMaximum(maximum);
     m_progress->setValue(value);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Sep 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameEditorObject() override = default;
+  ~FrameEditorObject() override = default;
 
   // IFrameEditor implementation
 
@@ -67,8 +67,8 @@ public:
    * @param frame frame to edit
    * @param taggedFile tagged file where frame has to be set
    */
-  virtual void editFrameOfTaggedFile(const Frame* frame,
-                                     TaggedFile* taggedFile) override;
+  void editFrameOfTaggedFile(const Frame* frame,
+                             TaggedFile* taggedFile) override;
 
   /**
    * Let user select a frame type.
@@ -78,26 +78,26 @@ public:
    * @param frame is filled with the selected frame
    * @param taggedFile tagged file for which frame has to be selected
    */
-  virtual void selectFrame(Frame* frame, const TaggedFile* taggedFile) override;
+  void selectFrame(Frame* frame, const TaggedFile* taggedFile) override;
 
   /**
    * Return object which emits frameSelected(), frameEdited() signals.
    *
    * @return object which emits signals.
    */
-  virtual QObject* qobject() override;
+  QObject* qobject() override;
 
   /**
    * Get the tag number of the edited frame.
    * @return tag number, default is Frame::Tag_2.
    */
-  virtual Frame::TagNumber tagNumber() const override { return m_tagNr; }
+  Frame::TagNumber tagNumber() const override { return m_tagNr; }
 
   /**
    * Set the tag number of the edited frame.
    * @param tagNr tag number
    */
-  virtual void setTagNumber(Frame::TagNumber tagNr) override { m_tagNr = tagNr; }
+  void setTagNumber(Frame::TagNumber tagNr) override { m_tagNr = tagNr; }
 
   // End of IFrameEditor implementation
 
@@ -118,7 +118,7 @@ public slots:
    *
    * @see frameEditRequested()
    */
-  void onFrameEditFinished(FrameObjectModel* frame);
+  void onFrameEditFinished(const FrameObjectModel* frame);
 
 signals:
   // IFrameEditor implementation

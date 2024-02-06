@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2018
  *
- * Copyright (C) 2018  Urs Fleisch
+ * Copyright (C) 2018-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,17 +47,17 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TableModelEdit() override = default;
+  ~TableModelEdit() override = default;
 
   /**
    * Add a new item.
    */
-  virtual void addItem() override;
+  void addItem() override;
 
   /**
    * Edit the selected item.
    */
-  virtual void editItem() override;
+  void editItem() override;
 
 private:
   QTableView* m_tableView;

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Sep 2015
  *
- * Copyright (C) 2015-2018  Urs Fleisch
+ * Copyright (C) 2015-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TableOfContentsEditor() override = default;
+  ~TableOfContentsEditor() override = default;
 
   /**
    * Set chapters in table of contents.

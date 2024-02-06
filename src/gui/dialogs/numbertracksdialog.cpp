@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 May 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -64,7 +64,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent)
                                              QSizePolicy::Minimum);
   trackLayout->addItem(trackSpacer);
 
-  QLabel* destLabel = new QLabel(tr("&Destination:"), this);
+  auto destLabel = new QLabel(tr("&Destination:"), this);
   m_destComboBox = new QComboBox(this);
   m_destComboBox->setEditable(false);
   const QList<QPair<Frame::TagVersion, QString> > tagVersions =
@@ -100,12 +100,12 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent)
   vlayout->addLayout(totalLayout);
 
   auto hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  auto helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, &QAbstractButton::clicked, this, &NumberTracksDialog::showHelp);
 
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  auto saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, &QAbstractButton::clicked, this, &NumberTracksDialog::saveConfig);
@@ -114,21 +114,20 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent)
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 
-  QPushButton* okButton = new QPushButton(tr("&OK"), this);
+  auto okButton = new QPushButton(tr("&OK"), this);
   okButton->setAutoDefault(false);
   okButton->setDefault(true);
   hlayout->addWidget(okButton);
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
 
-  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
+  auto cancelButton = new QPushButton(tr("&Cancel"), this);
   cancelButton->setAutoDefault(false);
   hlayout->addWidget(cancelButton);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
   vlayout->addLayout(hlayout);
 
-  QByteArray geometry = cfg.windowGeometry();
-  if (!geometry.isEmpty()) {
+  if (QByteArray geometry = cfg.windowGeometry(); !geometry.isEmpty()) {
     restoreGeometry(geometry);
   }
 }

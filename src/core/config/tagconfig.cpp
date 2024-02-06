@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,7 +49,7 @@ const char* const defaultRiffTrackName = "IPRT";
 class StarRatingMapping {
 public:
   /** Maximum number of stars. */
-  static const int MAX_STAR_COUNT = 5;
+  static constexpr int MAX_STAR_COUNT = 5;
 
   /** Constructor. */
   StarRatingMapping();
@@ -121,29 +121,29 @@ int StarRatingMapping::starCountFromRating(int rating, const QString& type) cons
 {
   if (rating < 1) {
     return 0;
-  } else {
-    const QVector<int>& vals = valuesForType(type);
-    const bool useWmpHack = vals.at(3) == 196;
-    for (int i = 1; i < MAX_STAR_COUNT; ++i) {
-      // This is done the weird way in order to get the same thresholds as
-      // apparently used in Windows Explorer:
-      // 1:  1-31, 2: 32-95, 3: 96-159, 4:160-223, 5:224-255
-      int threshold = useWmpHack
-          ? (((vals[i - 1] + 1) & ~7) + ((vals[i] + 1) & ~7)) / 2
-          : (vals[i - 1] + vals[i] + 1) / 2;
-      if (rating < threshold) {
-        return i;
-      }
-    }
-    return MAX_STAR_COUNT;
   }
+  const QVector<int>& vals = valuesForType(type);
+  const bool useWmpHack = vals.at(3) == 196;
+  for (int i = 1; i < MAX_STAR_COUNT; ++i) {
+    // This is done the weird way in order to get the same thresholds as
+    // apparently used in Windows Explorer:
+    // 1:  1-31, 2: 32-95, 3: 96-159, 4:160-223, 5:224-255
+    if (int threshold = useWmpHack
+                          ? (((vals[i - 1] + 1) & ~7) + ((vals[i] + 1) & ~7)) / 2
+                          : (vals[i - 1] + vals[i] + 1) / 2;
+      rating < threshold) {
+      return i;
+    }
+  }
+  return MAX_STAR_COUNT;
 }
 
 int StarRatingMapping::starCountToRating(int starCount, const QString& type) const
 {
   if (starCount < 1) {
     return 0;
-  } else if (starCount > MAX_STAR_COUNT) {
+  }
+  if (starCount > MAX_STAR_COUNT) {
     starCount = MAX_STAR_COUNT;
   }
   return valuesForType(type).at(starCount - 1);
@@ -181,8 +181,7 @@ void StarRatingMapping::fromStringList(const QStringList& strs)
   QVector<int> values;
   for (auto it = strs.constBegin(); it != strs.constEnd(); ++it) {
     QStringList parts = it->split(QLatin1Char(','));
-    const int numParts = parts.size();
-    if (numParts >= MAX_STAR_COUNT + 1) {
+    if (const int numParts = parts.size(); numParts >= MAX_STAR_COUNT + 1) {
       bool ok = false;
       values.resize(0);
       int lastValue = -1;
@@ -211,8 +210,7 @@ void StarRatingMapping::fromStringList(const QStringList& strs)
 QString StarRatingMapping::defaultPopmEmail() const
 {
   for (auto it = m_maps.constBegin(); it != m_maps.constEnd(); ++it) {
-    QString type = it->first;
-    if (type.startsWith(QLatin1String("POPM"))) {
+    if (QString type = it->first; type.startsWith(QLatin1String("POPM"))) {
       return type.length() > 4 && type.at(4) == QLatin1Char('.')
           ? type.mid(5) : QLatin1String("");
     }
@@ -227,7 +225,7 @@ int TagConfig::s_index = -1;
  * Constructor.
  */
 TagConfig::TagConfig()
-  : StoredConfig<TagConfig>(QLatin1String("Tags")),
+  : StoredConfig(QLatin1String("Tags")),
     m_starRatingMapping(new StarRatingMapping),
     m_commentName(QString::fromLatin1(defaultCommentName)),
     m_riffTrackName(QString::fromLatin1(defaultRiffTrackName)),
@@ -506,10 +504,10 @@ void TagConfig::setCommentName(const QString& commentName)
 }
 
 /** Set index of field name used for Vorbis picture entries. */
-void TagConfig::setPictureNameIndex(int pictureNameItem)
+void TagConfig::setPictureNameIndex(int pictureNameIndex)
 {
-  if (m_pictureNameItem != pictureNameItem) {
-    m_pictureNameItem = pictureNameItem;
+  if (m_pictureNameItem != pictureNameIndex) {
+    m_pictureNameItem = pictureNameIndex;
     emit pictureNameIndexChanged(m_pictureNameItem);
   }
 }
@@ -568,8 +566,7 @@ int TagConfig::textEncodingV1Index() const
 /** Set ID3v1 text encoding from index in getTextCodecNames(). */
 void TagConfig::setTextEncodingV1Index(int index)
 {
-  QString encoding = indexToTextCodecName(index);
-  if (!encoding.isNull()) {
+  if (QString encoding = indexToTextCodecName(index); !encoding.isNull()) {
     setTextEncodingV1(encoding);
   }
 }
@@ -731,7 +728,7 @@ QString TagConfig::defaultPopmEmail() const
  */
 QStringList TagConfig::getTextEncodingNames()
 {
-  static const int NUM_NAMES = 3;
+  static constexpr int NUM_NAMES = 3;
   static const char* const names[NUM_NAMES] = {
     QT_TRANSLATE_NOOP("@default", "ISO-8859-1"),
     QT_TRANSLATE_NOOP("@default", "UTF16"),
@@ -810,7 +807,7 @@ QVariantList TagConfig::getQuickAccessFrameSelection(
     const QList<int>& types, quint64 frameMask,
     const QStringList& customFrameNames)
 {
-  QList<int> frameTypes(types);
+  QList frameTypes(types);
   if (frameTypes.size() < Frame::FT_Custom1) {
     frameTypes.clear();
     frameTypes.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1);
@@ -828,8 +825,8 @@ QVariantList TagConfig::getQuickAccessFrameSelection(
     auto name = Frame::ExtendedType(static_cast<Frame::Type>(frameType))
         .getTranslatedName();
     if (Frame::isCustomFrameType(static_cast<Frame::Type>(frameType))) {
-      int idx = frameType - Frame::FT_Custom1;
-      if (idx >= 0 && idx < customFrameNames.size()) {
+      if (int idx = frameType - Frame::FT_Custom1;
+          idx >= 0 && idx < customFrameNames.size()) {
         name = customFrameNames.at(idx);
       } else {
         name.clear();

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Mar 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,7 +40,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IPlatformTools() override;
+  ~IPlatformTools() override;
 
   /**
    * Display help for a topic.

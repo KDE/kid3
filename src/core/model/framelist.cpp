@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2023  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -69,9 +69,8 @@ int FrameList::getSelectedId() const
  */
 bool FrameList::getSelectedFrame(Frame& frame) const
 {
-  const Frame* currentFrame =
-    m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex());
-  if (currentFrame) {
+  if (const Frame* currentFrame =
+        m_frameTableModel->getFrameOfIndex(m_selectionModel->currentIndex())) {
     frame = *currentFrame;
     return true;
   }
@@ -152,8 +151,7 @@ void FrameList::setModelFromTaggedFile()
 bool FrameList::deleteFrame()
 {
   saveCursor();
-  Frame frame;
-  if (getSelectedFrame(frame) && m_taggedFile) {
+  if (Frame frame; getSelectedFrame(frame) && m_taggedFile) {
     m_taggedFile->deleteFrame(m_tagNr, frame);
     setModelFromTaggedFile();
     restoreCursor();
@@ -328,8 +326,8 @@ void FrameList::saveCursor()
  */
 void FrameList::restoreCursor()
 {
-  int lastRow = m_frameTableModel->rowCount() - 1;
-  if (m_cursorRow >= 0 && m_cursorColumn >= 0 && lastRow >= 0) {
+  if (int lastRow = m_frameTableModel->rowCount() - 1;
+      m_cursorRow >= 0 && m_cursorColumn >= 0 && lastRow >= 0) {
     if (m_cursorRow > lastRow) {
       m_cursorRow = lastRow;
     }

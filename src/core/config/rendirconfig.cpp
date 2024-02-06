@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,7 +48,7 @@ const char* dirFmt[] = {
  * @param tagVersion tag version
  * @return value used in configuration, kept for backwards compatibility.
  */
-inline int tagVersionToRenDirCfg(Frame::TagVersion tagVersion) {
+int tagVersionToRenDirCfg(Frame::TagVersion tagVersion) {
   auto renDirSrc = static_cast<int>(tagVersion);
   if (renDirSrc == 3)
     renDirSrc = 0;
@@ -61,7 +61,7 @@ inline int tagVersionToRenDirCfg(Frame::TagVersion tagVersion) {
  *                  compatibility.
  * @return tag version.
  */
-inline Frame::TagVersion renDirCfgToTagVersion(int renDirSrc) {
+Frame::TagVersion renDirCfgToTagVersion(int renDirSrc) {
   if (renDirSrc == 0)
     renDirSrc = 3;
   return Frame::tagVersionCast(renDirSrc);
@@ -77,7 +77,7 @@ int RenDirConfig::s_index = -1;
  * Constructor.
  */
 RenDirConfig::RenDirConfig()
-  : StoredConfig<RenDirConfig>(QLatin1String("RenameDirectory")),
+  : StoredConfig(QLatin1String("RenameDirectory")),
     m_dirFormatText(QString::fromLatin1(s_defaultDirFmtList[0])),
     m_renDirSrc(Frame::TagVAll)
 {
@@ -130,10 +130,10 @@ void RenDirConfig::readFromConfig(ISettings* config)
   }
 }
 
-void RenDirConfig::setDirFormat(const QString& dirFormatText)
+void RenDirConfig::setDirFormat(const QString& dirFormat)
 {
-  if (m_dirFormatText != dirFormatText) {
-    m_dirFormatText = dirFormatText;
+  if (m_dirFormatText != dirFormat) {
+    m_dirFormatText = dirFormat;
     emit dirFormatChanged(m_dirFormatText);
   }
 }
@@ -147,10 +147,10 @@ void RenDirConfig::setDirFormats(const QStringList& dirFormatItems)
   }
 }
 
-void RenDirConfig::setRenDirSource(Frame::TagVersion renDirSrc)
+void RenDirConfig::setRenDirSource(Frame::TagVersion renDirSource)
 {
-  if (m_renDirSrc != renDirSrc) {
-    m_renDirSrc = renDirSrc;
+  if (m_renDirSrc != renDirSource) {
+    m_renDirSrc = renDirSource;
     emit renDirSourceChanged(m_renDirSrc);
   }
 }

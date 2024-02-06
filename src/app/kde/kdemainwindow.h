@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -55,47 +55,47 @@ public:
   /**
    * Destructor.
    */
-  virtual ~KdeMainWindow() override = default;
+  ~KdeMainWindow() override = default;
 
   /**
    * Init menu and toolbar actions.
    */
-  virtual void initActions() override;
+  void initActions() override;
 
   /**
    * Get keyboard shortcuts.
    * @return mapping of action names to key sequences.
    */
-  virtual QMap<QString, QKeySequence> shortcutsMap() const override;
+  QMap<QString, QKeySequence> shortcutsMap() const override;
 
   /**
    * Add directory to recent files list.
    *
    * @param dirName path to directory
    */
-  virtual void addDirectoryToRecentFiles(const QString& dirName) override;
+  void addDirectoryToRecentFiles(const QString& dirName) override;
 
   /**
    * Read settings from the configuration.
    */
-  virtual void readConfig() override;
+  void readConfig() override;
 
   /**
    * Store geometry and recent files in settings.
    */
-  virtual void saveConfig() override;
+  void saveConfig() override;
 
   /**
    * Get action for Settings/Auto Hide Tags.
    * @return action.
    */
-  virtual QAction* autoHideTagsAction() override;
+  QAction* autoHideTagsAction() override;
 
   /**
    * Get action for Settings/Hide Picture.
    * @return action.
    */
-  virtual QAction* showHidePictureAction() override;
+  QAction* showHidePictureAction() override;
 
   /**
    * Set main window caption.
@@ -103,7 +103,7 @@ public:
    * @param caption caption without application name
    * @param modified true if any file is modified
    */
-  virtual void setWindowCaption(const QString& caption, bool modified) override;
+  void setWindowCaption(const QString& caption, bool modified) override;
 
 protected:
   /**
@@ -113,7 +113,7 @@ protected:
    *
    * @return FALSE if user canceled.
    */
-  virtual bool queryClose() override;
+  bool queryClose() override;
 
   /**
    * Saves the window properties for each open window during session end
@@ -121,14 +121,14 @@ protected:
    *
    * @param cfg application configuration
    */
-  virtual void saveProperties(KConfigGroup& cfg) override;
+  void saveProperties(KConfigGroup& cfg) override;
 
   /**
    * Reads the session config file and restores the application's state.
    *
    * @param cfg application configuration
    */
-  virtual void readProperties(const KConfigGroup& cfg) override;
+  void readProperties(const KConfigGroup& cfg) override;
 
 private slots:
   /**

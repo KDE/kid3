@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Aug 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -63,8 +63,8 @@ QVariant TextTableModel::data(const QModelIndex& index, int role) const
   if (!index.isValid() ||
       rowNr < 0 || rowNr >= m_cells.size() || index.column() < 0)
     return QVariant();
-  const QStringList& row = m_cells.at(rowNr);
-  if (index.column() < row.size() &&
+  if (const QStringList& row = m_cells.at(rowNr);
+      index.column() < row.size() &&
       (role == Qt::DisplayRole || role == Qt::EditRole)) {
     return row.at(index.column());
   }

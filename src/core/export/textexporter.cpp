@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Jul 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -68,15 +68,15 @@ void TextExporter::updateText(
        it != m_trackDataVector.constEnd();
        ++it) {
     if (trackNr == 0 && !headerFormat.isEmpty()) {
-      m_text.append((*it).formatString(headerFormat));
+      m_text.append(it->formatString(headerFormat));
       m_text.append(QLatin1Char('\n'));
     }
     if (!trackFormat.isEmpty()) {
-      m_text.append((*it).formatString(trackFormat));
+      m_text.append(it->formatString(trackFormat));
       m_text.append(QLatin1Char('\n'));
     }
     if (trackNr == numTracks - 1 && !trailerFormat.isEmpty()) {
-      m_text.append((*it).formatString(trailerFormat));
+      m_text.append(it->formatString(trailerFormat));
       m_text.append(QLatin1Char('\n'));
     }
     ++trackNr;
@@ -108,15 +108,15 @@ void TextExporter::updateTextUsingConfig(int fmtIdx)
  *
  * @return true if ok.
  */
-bool TextExporter::exportToFile(const QString& fn)
+bool TextExporter::exportToFile(const QString& fn) const
 {
   if (!fn.isEmpty()) {
     QFile file(fn);
     if (file.open(QIODevice::WriteOnly)) {
       ImportConfig::instance().setImportDir(QFileInfo(file).dir().path());
       QTextStream stream(&file);
-      QString codecName = FileConfig::instance().textEncoding();
-      if (codecName != QLatin1String("System")) {
+      if (QString codecName = FileConfig::instance().textEncoding();
+          codecName != QLatin1String("System")) {
 #if QT_VERSION >= 0x060000
         if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
           stream.setEncoding(*encoding);

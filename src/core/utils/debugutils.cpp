@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,8 +47,8 @@ void DebugUtils::SignalEmissionDumper::connectObject(QObject* obj)
 {
   const QMetaObject* metaObject = obj->metaObject();
   for (int i = 0; i < metaObject->methodCount(); ++i) {
-    QByteArray sig = metaObject->method(i).methodSignature();
-    if (metaObject->indexOfSignal(sig) != -1) {
+    if (QByteArray sig = metaObject->method(i).methodSignature();
+        metaObject->indexOfSignal(sig) != -1) {
       sig.prepend(QSIGNAL_CODE + '0');
       connect(obj, sig, this, SLOT(printSignal()));
     }
@@ -61,10 +61,9 @@ void DebugUtils::SignalEmissionDumper::connectObject(QObject* obj)
 void DebugUtils::SignalEmissionDumper::printSignal()
 {
   if (QObject* obj = sender()) {
-    int idx = senderSignalIndex();
-    if (idx != -1) {
-      QByteArray sig = obj->metaObject()->method(idx).methodSignature();
-      if (!sig.isEmpty()) {
+    if (int idx = senderSignalIndex(); idx != -1) {
+      if (QByteArray sig = obj->metaObject()->method(idx).methodSignature();
+          !sig.isEmpty()) {
         qDebug("SIGNAL OUT %s::%s %s",
                obj->metaObject()->className(),
                qPrintable(obj->objectName().isEmpty()

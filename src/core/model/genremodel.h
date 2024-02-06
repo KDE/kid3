@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Jun 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,7 +45,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~GenreModel() override = default;
+  ~GenreModel() override = default;
 
   /**
    * Initialize module with genres.

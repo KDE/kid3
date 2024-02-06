@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,7 +36,7 @@ int UserActionsConfig::s_index = -1;
  * Constructor.
  */
 UserActionsConfig::UserActionsConfig()
-  : StoredConfig<UserActionsConfig>(QLatin1String("MenuCommands"))
+  : StoredConfig(QLatin1String("MenuCommands"))
 {
 }
 
@@ -53,14 +53,14 @@ void UserActionsConfig::writeToConfig(ISettings* config) const
        it != m_contextMenuCommands.constEnd();
        ++it) {
     config->setValue(QString(QLatin1String("Command%1")).arg(cmdNr++),
-                     QVariant((*it).toStringList()));
+                     QVariant(it->toStringList()));
   }
   // delete entries which are no longer used
   for (;;) {
-    QStringList strList =
-        config->value(QString(QLatin1String("Command%1")).arg(cmdNr),
-                      QStringList()).toStringList();
-    if (strList.empty()) {
+    if (QStringList strList =
+          config->value(QString(QLatin1String("Command%1")).arg(cmdNr),
+                        QStringList()).toStringList();
+        strList.empty()) {
       break;
     }
     config->remove(QString(QLatin1String("Command%1")).arg(cmdNr));
@@ -221,12 +221,12 @@ void UserActionsConfig::setDefaultUserActions(bool upgradeOnly)
             false, true));
   } else if (upgradeOnly && ConfigStore::getConfigVersion() == 2) {
     // Remove default argument from "Export CSV", a file selector is now used.
-    int exportCsvIdx = m_contextMenuCommands.indexOf(
+    if (int exportCsvIdx = m_contextMenuCommands.indexOf(
           UserActionsConfig::MenuCommand(
             QLatin1String("Export CSV"),
             QLatin1String("@qml %{qmlpath}/script/ExportCsv.qml "
-                          "%{directory}/export.csv"), false, true));
-    if (exportCsvIdx != -1) {
+              "%{directory}/export.csv"), false, true));
+        exportCsvIdx != -1) {
       m_contextMenuCommands[exportCsvIdx].setCommand(
             QLatin1String("@qml %{qmlpath}/script/ExportCsv.qml"));
     }

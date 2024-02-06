@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -31,11 +31,11 @@
 
 namespace {
 
-const int TopLevelId = -1;
+constexpr int TopLevelId = -1;
 
 bool isTopLevelItem(const QModelIndex& index)
 {
-  return quintptr(index.internalId()) == quintptr(TopLevelId);
+  return index.internalId() == static_cast<quintptr>(TopLevelId);
 }
 
 }
@@ -88,15 +88,15 @@ const ShortcutsModel::ShortcutGroup* ShortcutsModel::shortcutGroupForIndex(
 QVariant ShortcutsModel::data(const QModelIndex& index, int role) const
 {
   if (index.isValid()) {
-    QModelIndex parentIndex = index.parent();
-    if (parentIndex.isValid()) {
+    if (QModelIndex parentIndex = index.parent(); parentIndex.isValid()) {
       if (const ShortcutGroup* group = shortcutGroupForIndex(parentIndex)) {
         if (index.row() >= 0 && index.row() < group->size()) {
           const ShortcutItem& shortcutItem = group->at(index.row());
           if (index.column() == ActionColumn) {
             if (role == Qt::DisplayRole) {
               return shortcutItem.actionText();
-            } else if (role == Qt::FontRole) {
+            }
+            if (role == Qt::FontRole) {
               if (shortcutItem.isCustomShortcutActive()) {
                 QFont font;
                 font.setBold(true);
@@ -108,7 +108,8 @@ QVariant ShortcutsModel::data(const QModelIndex& index, int role) const
               QKeySequence keySequence = QKeySequence::fromString(
                     shortcutItem.activeShortcut(), QKeySequence::PortableText);
               return keySequence.toString(QKeySequence::NativeText);
-            } else if (role == Qt::ToolTipRole) {
+            }
+            if (role == Qt::ToolTipRole) {
               return tr("Press F2 or double click to edit cell contents.");
             }
           }
@@ -136,8 +137,7 @@ bool ShortcutsModel::setData(const QModelIndex& index, const QVariant& value,
                              int role)
 {
   if (index.isValid() && index.column() == ShortcutColumn && role == Qt::EditRole) {
-    QModelIndex parentIndex = index.parent();
-    if (parentIndex.isValid()) {
+    if (QModelIndex parentIndex = index.parent(); parentIndex.isValid()) {
       if (auto group =
           const_cast<ShortcutGroup*>(shortcutGroupForIndex(parentIndex))) {
         if (index.row() >= 0 && index.row() < group->size()) {
@@ -187,7 +187,8 @@ QVariant ShortcutsModel::headerData(int section, Qt::Orientation orientation,
   if (orientation == Qt::Horizontal) {
     if (section == ActionColumn) {
       return tr("Action");
-    } else if (section == ShortcutColumn) {
+    }
+    if (section == ShortcutColumn) {
       return tr("Shortcut");
     }
   }
@@ -206,9 +207,8 @@ int ShortcutsModel::rowCount(const QModelIndex& parent) const
       return group->size();
     }
     return 0;
-  } else {
-    return m_shortcutGroups.size();
   }
+  return m_shortcutGroups.size();
 }
 
 /**
@@ -233,8 +233,8 @@ QModelIndex ShortcutsModel::index(int row, int column,
                                   const QModelIndex& parent) const
 {
   if (parent.isValid()) {
-    const ShortcutGroup* group;
-    if ((group = shortcutGroupForIndex(parent)) != nullptr &&
+    if (const ShortcutGroup* group;
+        (group = shortcutGroupForIndex(parent)) != nullptr &&
         column >= 0 && column < NumColumns &&
         row >= 0 && row <= group->size()) {
       return createIndex(row, column, parent.row());
@@ -255,8 +255,8 @@ QModelIndex ShortcutsModel::index(int row, int column,
  */
 QModelIndex ShortcutsModel::parent(const QModelIndex& index) const
 {
-  int id = index.internalId();
-  if (id >= 0 && id < m_shortcutGroups.size()) {
+  if (int id = index.internalId();
+      id >= 0 && id < m_shortcutGroups.size()) {
     return createIndex(id, 0, TopLevelId);
   }
   return QModelIndex();
@@ -292,7 +292,7 @@ void ShortcutsModel::registerAction(QAction* action, const QString& context)
  * @param action action to be removed from model
  * @param context context of action
  */
-void ShortcutsModel::unregisterAction(QAction* action, const QString& context)
+void ShortcutsModel::unregisterAction(const QAction* action, const QString& context)
 {
   for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) { // clazy:exclude=detaching-member
     if (git->context() == context) {
@@ -322,8 +322,7 @@ QMap<QString, QKeySequence> ShortcutsModel::shortcutsMap() const
        ++git) {
     for (auto iit = git->constBegin(); iit != git->constEnd(); ++iit) {
       if (const QAction* action = iit->action()) {
-        QString name = action->objectName();
-        if (!name.isEmpty()) {
+        if (QString name = action->objectName(); !name.isEmpty()) {
           map.insert(name, action->shortcut());
         }
       }
@@ -390,9 +389,9 @@ void ShortcutsModel::writeToConfig(ISettings* config) const
        git != m_shortcutGroups.constEnd();
        ++git) {
     for (auto iit = git->constBegin(); iit != git->constEnd(); ++iit) {
-      QString actionName(iit->action() ? iit->action()->objectName()
-                                       : QLatin1String(""));
-      if (!actionName.isEmpty()) {
+      if (QString actionName(iit->action() ? iit->action()->objectName()
+                                           : QLatin1String(""));
+          !actionName.isEmpty()) {
         if (iit->isCustomShortcutActive()) {
           config->setValue(actionName, iit->customShortcut());
         }
@@ -415,17 +414,17 @@ void ShortcutsModel::readFromConfig(ISettings* config)
   config->beginGroup(QLatin1String("Shortcuts"));
   for (auto git = m_shortcutGroups.begin(); git != m_shortcutGroups.end(); ++git) { // clazy:exclude=detaching-member
     for (auto iit = git->begin(); iit != git->end(); ++iit) {
-      QString actionName(iit->action() ? iit->action()->objectName()
-                                       : QLatin1String(""));
-      if (!actionName.isEmpty() && config->contains(actionName)) {
+      if (QString actionName(iit->action() ? iit->action()->objectName()
+                                           : QLatin1String(""));
+          !actionName.isEmpty() && config->contains(actionName)) {
         QString keyStr(config->value(actionName, QString()).toString());
         // Previous versions stored native text, check if it is such a
         // string and try to convert it.
         if (QKeySequence::fromString(keyStr, QKeySequence::PortableText)
             .toString(QKeySequence::PortableText) != keyStr) {
-          QKeySequence nativeKeySequence =
-              QKeySequence::fromString(keyStr, QKeySequence::NativeText);
-          if (nativeKeySequence.toString(QKeySequence::NativeText) == keyStr) {
+          if (QKeySequence nativeKeySequence =
+                QKeySequence::fromString(keyStr, QKeySequence::NativeText);
+              nativeKeySequence.toString(QKeySequence::NativeText) == keyStr) {
             QString nativeKeyStr = keyStr;
             keyStr = nativeKeySequence.toString(QKeySequence::PortableText);
             qWarning("Converting shortcut '%s' to '%s'",

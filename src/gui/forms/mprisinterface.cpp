@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09-Dec-2016
  *
- * Copyright (C) 2016-2018  Urs Fleisch
+ * Copyright (C) 2016-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -155,8 +155,8 @@ void MprisPlayerInterface::Seek(qlonglong offsetUs)
     posMs = 0;
   }
 
-  qint64 duration = m_audioPlayer->getDuration();
-  if (duration < 0 || posMs <= duration) {
+  if (qint64 duration = m_audioPlayer->getDuration();
+      duration < 0 || posMs <= duration) {
     m_audioPlayer->setCurrentPosition(posMs);
   } else {
     m_audioPlayer->next();
@@ -168,8 +168,8 @@ void MprisPlayerInterface::SetPosition(const QDBusObjectPath& trackId,
 {
   if (trackId == getCurrentTrackId() && positionUs >= 0) {
     qlonglong posMs = positionUs / 1000;
-    qlonglong duration = m_audioPlayer->getDuration();
-    if (duration < 0 || posMs <= duration) {
+    if (qlonglong duration = m_audioPlayer->getDuration();
+        duration < 0 || posMs <= duration) {
       m_audioPlayer->setCurrentPosition(posMs);
     }
   }
@@ -202,8 +202,7 @@ QString MprisPlayerInterface::playbackStatus() const
 QVariantMap MprisPlayerInterface::metadata() const
 {
   QVariantMap map;
-  QString filePath = m_audioPlayer->getFileName();
-  if (!filePath.isEmpty()) {
+  if (QString filePath = m_audioPlayer->getFileName(); !filePath.isEmpty()) {
     map.insert(QLatin1String("mpris:trackid"),
                QVariant::fromValue<QDBusObjectPath>(getCurrentTrackId()));
     qint64 duration = m_audioPlayer->getDuration();
@@ -216,16 +215,15 @@ QVariantMap MprisPlayerInterface::metadata() const
       // Phonon often returns a duration of -1 or from the last track.
       // In such cases, get the duration from the tagged file and convert it to
       // milliseconds.
-      qint64 seconds = taggedFile->getDuration();
-      if ((duration < 0 || duration / 1000 != seconds) && seconds > 0) {
+      if (qint64 seconds = taggedFile->getDuration();
+          (duration < 0 || duration / 1000 != seconds) && seconds > 0) {
         duration = seconds * 1000;
       }
 
       QString artPath;
       QStringList albumArtists, artists, comments, composers, genres, lyricists;
       for (auto it = trackData.cbegin(); it != trackData.cend(); ++it) {
-        const Frame& frame = *it;
-        switch (frame.getType()) {
+        switch (const Frame& frame = *it; frame.getType()) {
         case Frame::FT_Album:
           map.insert(QLatin1String("xesam:album"), frame.getValue());
           break;
@@ -273,8 +271,7 @@ QVariantMap MprisPlayerInterface::metadata() const
           break;
         case Frame::FT_Picture:
           if (artPath.isEmpty()) {
-            QByteArray data;
-            if (PictureFrame::getData(frame, data)) {
+            if (QByteArray data; PictureFrame::getData(frame, data)) {
               if (m_tempCoverArtFile)
                 m_tempCoverArtFile->deleteLater();
               m_tempCoverArtFile = new QTemporaryFile;
@@ -354,8 +351,7 @@ bool MprisPlayerInterface::canPause() const
 
 void MprisPlayerInterface::onStateChanged()
 {
-  QString status = playbackStatus();
-  if (m_status != status) {
+  if (QString status = playbackStatus(); m_status != status) {
     m_status = status;
     sendPropertiesChangedSignal(QLatin1String("PlaybackStatus"), status);
   }
@@ -382,8 +378,7 @@ void MprisPlayerInterface::onVolumeChanged()
 
 void MprisPlayerInterface::onFileCountChanged(int count)
 {
-  bool hasFiles = count > 0;
-  if (m_hasFiles != hasFiles) {
+  if (bool hasFiles = count > 0; m_hasFiles != hasFiles) {
     m_hasFiles = hasFiles;
     sendPropertiesChangedSignal(QLatin1String("CanPlay"), canPlay());
     sendPropertiesChangedSignal(QLatin1String("CanPause"), canPause());

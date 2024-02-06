@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -68,23 +68,23 @@ public:
   /**
    * Destructor.
    */
-  virtual ~OutputViewer() override;
+  ~OutputViewer() override;
 
   /**
    * Set caption.
    * @param title caption
    */
-  virtual void setCaption(const QString& title) override;
+  void setCaption(const QString& title) override;
 
   /**
    * Append text.
    */
-  virtual void append(const QString& text) override;
+  void append(const QString& text) override;
 
   /**
    * Scroll text to bottom.
    */
-  virtual void scrollToBottom() override;
+  void scrollToBottom() override;
 
 private:
   QTextEdit* m_textEdit;
@@ -106,11 +106,11 @@ OutputViewer::OutputViewer(QWidget* parent) : QDialog(parent)
   m_textEdit->setStyleSheet(QLatin1String("font-family: \"Courier\";"));
   vlayout->addWidget(m_textEdit);
   auto buttonLayout = new QHBoxLayout;
-  QPushButton* clearButton = new QPushButton(
+  auto clearButton = new QPushButton(
         QCoreApplication::translate("FileList", "C&lear"), this);
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
-  QPushButton* closeButton = new QPushButton(
+  auto closeButton = new QPushButton(
         QCoreApplication::translate("FileList", "&Close"), this);
   buttonLayout->addWidget(clearButton);
   buttonLayout->addItem(hspacer);
@@ -262,8 +262,7 @@ QSize FileList::sizeHint() const
  */
 void FileList::mousePressEvent(QMouseEvent* event)
 {
-  QPoint pos = event->pos();
-  if (pos.x() < 80) {
+  if (QPoint pos = event->pos(); pos.x() < 80) {
     QModelIndex idx = indexAt(pos);
     if (const auto fsModel =
         qobject_cast<const FileProxyModel*>(idx.model())) {
@@ -297,8 +296,8 @@ void FileList::startDrag(Qt::DropActions supportedActions)
 {
   const auto indexes = selectedIndexes();
   for (const QModelIndex& index : indexes) {
-    const QAbstractItemModel* mdl = index.model();
-    if (index.column() == 0 &&
+    if (const QAbstractItemModel* mdl = index.model();
+        index.column() == 0 &&
         mdl && (mdl->flags(index) & Qt::ItemIsDragEnabled)) {
       if (TaggedFile* tf = FileProxyModel::getTaggedFileOfIndex(index)) {
         tf->closeFileHandle();
@@ -319,9 +318,9 @@ void FileList::initUserActions()
   const QList<UserActionsConfig::MenuCommand> commands =
       UserActionsConfig::instance().contextMenuCommands();
   for (auto it = commands.constBegin(); it != commands.constEnd(); ++it) {
-    const QString text((*it).getName());
-    const QString name = nameForAction(text);
-    if (!name.isEmpty() && it->getCommand() != QLatin1String("@beginmenu")) {
+    const QString text(it->getName());
+    if (const QString name = nameForAction(text);
+        !name.isEmpty() && it->getCommand() != QLatin1String("@beginmenu")) {
       QAction* action = oldUserActions.take(name);
       if (!action) {
         action = new QAction(text, this);
@@ -377,7 +376,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
 #endif
 #endif
     if (isPlaylist) {
-      QAction* editPlaylistAction = new QAction(tr("E&dit"), &menu);
+      auto editPlaylistAction = new QAction(tr("E&dit"), &menu);
       editPlaylistAction->setData(path);
       connect(editPlaylistAction, &QAction::triggered,
               this, &FileList::editPlaylist);
@@ -396,7 +395,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
     QList<UserActionsConfig::MenuCommand> commands =
         UserActionsConfig::instance().contextMenuCommands();
     for (auto it = commands.constBegin(); it != commands.constEnd(); ++it) {
-      const QString text((*it).getName());
+      const QString text(it->getName());
       const QString name = nameForAction(text);
       if (!text.isEmpty()) {
         if (it->getCommand() == QLatin1String("@beginmenu")) {
@@ -439,7 +438,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
  *
  * @return formatted string list.
  */
-QStringList FileList::formatStringList(const QStringList& format)
+QStringList FileList::formatStringList(const QStringList& format) const
 {
   QStringList files;
   TaggedFile* firstSelectedFile = nullptr;
@@ -466,7 +465,7 @@ QStringList FileList::formatStringList(const QStringList& format)
   FrameCollection frames;
   QStringList fmt;
   for (auto it = format.constBegin(); it != format.constEnd(); ++it) {
-    if ((*it).indexOf(QLatin1Char('%')) == -1) {
+    if (it->indexOf(QLatin1Char('%')) == -1) {
       fmt.push_back(*it);
     } else {
       if (*it == QLatin1String("%F") || *it == QLatin1String("%{files}")) {
@@ -512,8 +511,7 @@ QStringList FileList::formatStringList(const QStringList& format)
  */
 void FileList::executeContextCommand(int id)
 {
-  if (id < static_cast<int>(
-        UserActionsConfig::instance().contextMenuCommands().size())) {
+  if (id < UserActionsConfig::instance().contextMenuCommands().size()) {
     QStringList args;
     const UserActionsConfig::MenuCommand& menuCmd =
         UserActionsConfig::instance().contextMenuCommands().at(id);
@@ -580,7 +578,7 @@ void FileList::executeContextCommand(int id)
  *
  * @param action action of selected menu, 0 to use sender() action
  */
-void FileList::executeAction(QAction* action)
+void FileList::executeAction(const QAction* action)
 {
   if (!action) {
     action = qobject_cast<QAction*>(sender());
@@ -598,7 +596,7 @@ void FileList::executeAction(QAction* action)
     QList<UserActionsConfig::MenuCommand> commands =
         UserActionsConfig::instance().contextMenuCommands();
     for (auto it = commands.constBegin(); it != commands.constEnd(); ++it) {
-      if (name == (*it).getName()) {
+      if (name == it->getName()) {
         executeContextCommand(id);
         break;
       }
@@ -712,11 +710,10 @@ void FileList::openFile()
 void FileList::openContainingFolder()
 {
   if (QItemSelectionModel* selModel = selectionModel()) {
-    QModelIndexList indexes = selModel->selectedRows();
-    if (!indexes.isEmpty()) {
+    if (QModelIndexList indexes = selModel->selectedRows(); !indexes.isEmpty()) {
       const FileProxyModel* fsModel;
-      QModelIndex index = indexes.first().parent();
-      if (index.isValid() &&
+      if (QModelIndex index = indexes.first().parent();
+          index.isValid() &&
           (fsModel = qobject_cast<const FileProxyModel*>(index.model())) != nullptr &&
           fsModel->isDir(index)) {
         QDesktopServices::openUrl(

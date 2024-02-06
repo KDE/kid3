@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Feb 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,13 +42,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FFmpegFingerprintDecoder() override;
+  ~FFmpegFingerprintDecoder() override;
 
   /**
    * Run decoder on audio file.
    * @param filePath path to audio file
    */
-  virtual void start(const QString& filePath) override;
+  void start(const QString& filePath) override;
 
 private:
   qint16* m_buffer1;

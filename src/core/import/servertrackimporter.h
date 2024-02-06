@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ServerTrackImporter() override = default;
+  ~ServerTrackImporter() override = default;
 
   /**
    * Name of import source.

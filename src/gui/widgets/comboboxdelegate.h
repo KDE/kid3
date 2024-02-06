@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 28 May 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,7 +42,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ComboBoxDelegate() override = default;
+  ~ComboBoxDelegate() override = default;
 
   /**
    * Create an editor to edit the cells contents.
@@ -51,17 +51,17 @@ public:
    * @param index  index of item
    * @return combo box editor widget.
    */
-  virtual QWidget* createEditor(QWidget* parent,
-                                const QStyleOptionViewItem& option,
-                                const QModelIndex& index ) const override;
+  QWidget* createEditor(QWidget* parent,
+                        const QStyleOptionViewItem& option,
+                        const QModelIndex& index ) const override;
 
   /**
    * Set data to be edited by the editor.
    * @param editor editor widget
    * @param index  index of item
    */
-  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const override;
+  void setEditorData(QWidget* editor, const QModelIndex& index) const override;
 
-  virtual void setModelData(QWidget* editor, QAbstractItemModel* model,
-                            const QModelIndex& index) const override;
+  void setModelData(QWidget* editor, QAbstractItemModel* model,
+                    const QModelIndex& index) const override;
 };

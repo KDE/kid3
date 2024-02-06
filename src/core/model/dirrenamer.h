@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jul 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -51,19 +51,19 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DirRenamer() override;
+  ~DirRenamer() override;
 
   /**
    * Check if operation is aborted.
    *
    * @return true if aborted.
    */
-  virtual bool isAborted() const override;
+  bool isAborted() const override;
 
   /**
    * Clear state which is reported by isAborted().
    */
-  virtual void clearAborted() override;
+  void clearAborted() override;
 
   /**
    * Set version of tags used to get rename information.
@@ -149,7 +149,7 @@ public slots:
   /**
    * Abort operation.
    */
-  virtual void abort() override;
+  void abort() override;
 
 signals:
   /**

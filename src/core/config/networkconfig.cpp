@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,7 +45,7 @@ int NetworkConfig::s_index = -1;
  * Constructor.
  */
 NetworkConfig::NetworkConfig()
-  : StoredConfig<NetworkConfig>(QLatin1String("Network")),
+  : StoredConfig(QLatin1String("Network")),
     m_useProxy(false),
     m_useProxyAuthentication(false)
 {

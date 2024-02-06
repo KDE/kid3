@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jul 2011
  *
- * Copyright (C) 2011-2023  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -150,21 +150,18 @@ void extractFileFieldIndex(
   dataFileName.clear();
   fieldName.clear();
   index = 0;
-  int colonIndex = frameName.indexOf(QLatin1Char(':'));
-  if (colonIndex != -1) {
+  if (int colonIndex = frameName.indexOf(QLatin1Char(':')); colonIndex != -1) {
     dataFileName = frameName.mid(colonIndex + 1);
     frameName.truncate(colonIndex);
   }
-  int dotIndex = frameName.indexOf(QLatin1Char('.'));
-  if (dotIndex != -1) {
+  if (int dotIndex = frameName.indexOf(QLatin1Char('.')); dotIndex != -1) {
     fieldName = frameName.mid(dotIndex + 1);
     frameName.truncate(dotIndex);
   }
-  int bracketIndex = frameName.indexOf(QLatin1Char('['));
-  if (bracketIndex != -1) {
-    const int closingBracketIndex =
-        frameName.indexOf(QLatin1Char(']'), bracketIndex + 1);
-    if (closingBracketIndex > bracketIndex) {
+  if (int bracketIndex = frameName.indexOf(QLatin1Char('[')); bracketIndex != -1) {
+    if (const int closingBracketIndex =
+          frameName.indexOf(QLatin1Char(']'), bracketIndex + 1);
+        closingBracketIndex > bracketIndex) {
       bool ok;
 #if QT_VERSION >= 0x060000
       index = frameName.mid(
@@ -196,8 +193,8 @@ QString ratingTypeName(const Frame& frame,
   if (name.startsWith(QLatin1String("POPM"))) {
     name.truncate(4);
     QVariant emailVar = frame.getFieldValue(Frame::ID_Email);
-    QString emailValue;
-    if (emailVar.isValid() &&
+    if (QString emailValue;
+        emailVar.isValid() &&
         !(emailValue = emailVar.toString()).isEmpty()) {
       name += QLatin1Char('.');
       name += emailValue;
@@ -209,8 +206,8 @@ QString ratingTypeName(const Frame& frame,
              name != QLatin1String("WM/SharedUserRating")) {
     QString tagFormat = taggedFile->getTagFormat(tagNr);
     if (tagFormat.isEmpty()) {
-      QString ext = taggedFile->getFileExtension().toLower();
-      if (ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") ||
+      if (QString ext = taggedFile->getFileExtension().toLower();
+          ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") ||
           ext == QLatin1String(".aac") || ext == QLatin1String(".tta") ||
           ext == QLatin1String(".dsf") || ext == QLatin1String(".dff")) {
         tagFormat = QLatin1String("ID3v2.3.0");
@@ -425,16 +422,14 @@ void Kid3Application::initPlugins()
     checkPlugin(plugin);
   }
   // Order the meta data plugins as configured.
-  QStringList pluginOrder = tagCfg.pluginOrder();
-  if (!pluginOrder.isEmpty()) {
+  if (QStringList pluginOrder = tagCfg.pluginOrder(); !pluginOrder.isEmpty()) {
     QList<ITaggedFileFactory*> orderedFactories;
     for (int i = 0; i < pluginOrder.size(); ++i) {
       orderedFactories.append(nullptr); // clazy:exclude=reserve-candidates
     }
     const auto factories = FileProxyModel::taggedFileFactories();
     for (ITaggedFileFactory* factory : factories) {
-      int idx = pluginOrder.indexOf(factory->name());
-      if (idx >= 0) {
+      if (int idx = pluginOrder.indexOf(factory->name()); idx >= 0) {
         orderedFactories[idx] = factory;
       } else {
         orderedFactories.append(factory); // clazy:exclude=reserve-candidates
@@ -465,8 +460,8 @@ bool Kid3Application::findPluginsDirectory(QDir& pluginsDir) {
   }
 #endif
   bool pluginsDirFound = pluginsDir.cd(QLatin1String(
-      (dirName == QLatin1String("qt") || dirName == QLatin1String("kde") ||
-       dirName == QLatin1String("cli") || dirName == QLatin1String("qml"))
+      dirName == QLatin1String("qt") || dirName == QLatin1String("kde") ||
+      dirName == QLatin1String("cli") || dirName == QLatin1String("qml")
       ? "../../plugins"
       : dirName == QLatin1String("test")
         ? "../plugins"
@@ -541,10 +536,8 @@ QObjectList Kid3Application::loadPlugins()
         continue;
       }
       QPluginLoader loader(pluginsDir.absoluteFilePath(fileName));
-      QObject* plugin = loader.instance();
-      if (plugin) {
-        QString name(plugin->objectName());
-        if (disabledPlugins.contains(name)) {
+      if (QObject* plugin = loader.instance()) {
+        if (QString name(plugin->objectName()); disabledPlugins.contains(name)) {
           availablePlugins.append(name);
           loader.unload();
         } else if (disabledTagPlugins.contains(name)) {
@@ -567,7 +560,7 @@ QObjectList Kid3Application::loadPlugins()
  */
 void Kid3Application::checkPlugin(QObject* plugin)
 {
-  if (IServerImporterFactory* importerFactory =
+  if (auto importerFactory =
       qobject_cast<IServerImporterFactory*>(plugin)) {
     ImportConfig& importCfg = ImportConfig::instance();
     QStringList availablePlugins = importCfg.availablePlugins();
@@ -581,7 +574,7 @@ void Kid3Application::checkPlugin(QObject* plugin)
       }
     }
   }
-  if (IServerTrackImporterFactory* importerFactory =
+  if (auto importerFactory =
       qobject_cast<IServerTrackImporterFactory*>(plugin)) {
     ImportConfig& importCfg = ImportConfig::instance();
     QStringList availablePlugins = importCfg.availablePlugins();
@@ -595,7 +588,7 @@ void Kid3Application::checkPlugin(QObject* plugin)
       }
     }
   }
-  if (ITaggedFileFactory* taggedFileFactory =
+  if (auto taggedFileFactory =
       qobject_cast<ITaggedFileFactory*>(plugin)) {
     TagConfig& tagCfg = TagConfig::instance();
     QStringList availablePlugins = tagCfg.availablePlugins();
@@ -612,7 +605,7 @@ void Kid3Application::checkPlugin(QObject* plugin)
       FileProxyModel::taggedFileFactories().append(taggedFileFactory);
     }
   }
-  if (IUserCommandProcessor* userCommandProcessor =
+  if (auto userCommandProcessor =
       qobject_cast<IUserCommandProcessor*>(plugin)) {
     ImportConfig& importCfg = ImportConfig::instance();
     QStringList availablePlugins = importCfg.availablePlugins();
@@ -743,8 +736,8 @@ void Kid3Application::applyChangedConfiguration()
   notifyConfigurationChange();
 
   const TagConfig& tagCfg = TagConfig::instance();
-  quint64 oldQuickAccessFrames = FrameCollection::getQuickAccessFrames();
-  if (tagCfg.quickAccessFrames() != oldQuickAccessFrames) {
+  if (quint64 oldQuickAccessFrames = FrameCollection::getQuickAccessFrames();
+      tagCfg.quickAccessFrames() != oldQuickAccessFrames) {
     FrameCollection::setQuickAccessFrames(tagCfg.quickAccessFrames());
     emit selectedFilesUpdated();
   }
@@ -978,8 +971,8 @@ void Kid3Application::unloadAllTags()
 {
   TaggedFileIterator it(m_fileProxyModelRootIndex);
   while (it.hasNext()) {
-    TaggedFile* taggedFile = it.next();
-    if (taggedFile->isTagInformationRead() && !taggedFile->isChanged() &&
+    if (TaggedFile* taggedFile = it.next();
+        taggedFile->isTagInformationRead() && !taggedFile->isChanged() &&
         !m_fileSelectionModel->isSelected(
           m_fileProxyModel->mapFromSource(taggedFile->getIndex()))) {
       taggedFile->clearTags(false);
@@ -1009,11 +1002,9 @@ QString Kid3Application::getDirPath() const
  */
 QModelIndex Kid3Application::currentOrRootIndex() const
 {
-  QModelIndex index(m_fileSelectionModel->currentIndex());
-  if (index.isValid())
+  if (QModelIndex index(m_fileSelectionModel->currentIndex()); index.isValid())
     return index;
-  else
-    return m_fileProxyModelRootIndex;
+  return m_fileProxyModelRootIndex;
 }
 
 /**
@@ -1060,14 +1051,13 @@ QStringList Kid3Application::saveDirectory(QStringList* errorDescriptions)
     if (taggedFile->isChanged() &&
         !taggedFile->writeTags(false, &renamed,
                                FileConfig::instance().preserveTime())) {
-      QDir dir(taggedFile->getDirname());
-      if (dir.exists(fileName) && taggedFile->isFilenameChanged()) {
+      if (QDir dir(taggedFile->getDirname());
+          dir.exists(fileName) && taggedFile->isFilenameChanged()) {
         // File is renamed to a file name which already exists.
         // Try another file name ending with a number.
         QString baseName = fileName;
         QString ext;
-        int dotPos = baseName.lastIndexOf(QLatin1Char('.'));
-        if (dotPos != -1) {
+        if (int dotPos = baseName.lastIndexOf(QLatin1Char('.')); dotPos != -1) {
           ext = baseName.mid(dotPos);
           baseName.truncate(dotPos);
         }
@@ -1075,8 +1065,8 @@ QStringList Kid3Application::saveDirectory(QStringList* errorDescriptions)
         ext.prepend(QLatin1Char(')'));
         bool ok = false;
         for (int nr = 1; nr < 100; ++nr) {
-          QString newName = baseName + QString::number(nr) + ext;
-          if (!dir.exists(newName)) {
+          if (QString newName = baseName + QString::number(nr) + ext;
+              !dir.exists(newName)) {
             taggedFile->setFilename(newName);
             ok = taggedFile->writeTags(false, &renamed,
                                        FileConfig::instance().preserveTime());
@@ -1085,18 +1075,15 @@ QStringList Kid3Application::saveDirectory(QStringList* errorDescriptions)
         }
         if (ok) {
           continue;
-        } else {
-          taggedFile->setFilename(fileName);
         }
+        taggedFile->setFilename(fileName);
       }
       QString errorMsg = taggedFile->getAbsFilename();
       errorFiles.push_back(errorMsg);
       if (errorDescriptions) {
         QString errorDescription;
-        const int errnum = errno;
-        if (errnum) {
-          const char* errdesc = ::strerror(errnum);
-          if (errdesc) {
+        if (const int errnum = errno) {
+          if (const char* errdesc = ::strerror(errnum)) {
             errorDescription = QString::fromUtf8(errdesc);
           }
         }
@@ -1156,8 +1143,7 @@ QStringList Kid3Application::mergeStringLists(
   int i = 0;
   for (QString leftStr : leftStrs) {
     if (i < rightStrs.size()) {
-      const QString& rightStr = rightStrs.at(i);
-      if (!rightStr.isEmpty()) {
+      if (const QString& rightStr = rightStrs.at(i); !rightStr.isEmpty()) {
         leftStr += separator;
         leftStr += rightStr;
       }
@@ -1422,9 +1408,8 @@ bool Kid3Application::exportTags(Frame::TagVersion tagVersion,
   m_textExporter->updateTextUsingConfig(fmtIdx);
   if (path == QLatin1String("clipboard")) {
     return m_platformTools->writeToClipboard(m_textExporter->getText());
-  } else {
-    return m_textExporter->exportToFile(path);
   }
+  return m_textExporter->exportToFile(path);
 }
 
 /**
@@ -1451,8 +1436,8 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
     if (const QAbstractItemModel* model = rootIndex.model()) {
       for (int row = 0; row < model->rowCount(rootIndex); ++row) {
         QModelIndex index = model->index(row, 0, rootIndex);
-        PlaylistCreator::Item plItem(index, plCtr);
-        if (plItem.isFile() &&
+        if (PlaylistCreator::Item plItem(index, plCtr);
+            plItem.isFile() &&
             (noSelection || selectModel->isSelected(index))) {
           ok = plItem.add() && ok;
         }
@@ -1515,8 +1500,7 @@ bool Kid3Application::writeEmptyPlaylist(const PlaylistConfig& cfg,
     path += QLatin1Char('/');
   }
   path += fileName;
-  QString ext = cfg.fileExtensionForFormat();
-  if (!path.endsWith(ext)) {
+  if (QString ext = cfg.fileExtensionForFormat(); !path.endsWith(ext)) {
     path += ext;
   }
   return plCtr.write(path, QList<QPersistentModelIndex>());
@@ -1552,8 +1536,8 @@ QStringList Kid3Application::getPlaylistItems(const QString& path)
 bool Kid3Application::setPlaylistItems(const QString& path,
                                        const QStringList& items)
 {
-  PlaylistModel* model = playlistModel(path);
-  if (model->setPathsInPlaylist(items)) {
+  if (PlaylistModel* model = playlistModel(path);
+      model->setPathsInPlaylist(items)) {
     return model->save();
   }
   return false;
@@ -1650,8 +1634,8 @@ void Kid3Application::trackDataModelToFiles(Frame::TagVersion tagVersion)
   ImportTrackDataVector trackDataList(getTrackDataModel()->getTrackData());
   auto it = trackDataList.begin();
   FrameFilter flt;
-  Frame::TagNumber fltTagNr = Frame::tagNumberFromMask(tagVersion);
-  if (fltTagNr < Frame::Tag_NumValues) {
+  if (Frame::TagNumber fltTagNr = Frame::tagNumberFromMask(tagVersion);
+      fltTagNr < Frame::Tag_NumValues) {
     flt = frameModel(fltTagNr)->getEnabledFrameFilter(true);
   }
   TaggedFileOfDirectoryIterator tfit(currentOrRootIndex());
@@ -1696,8 +1680,7 @@ void Kid3Application::trackDataModelToFiles(Frame::TagVersion tagVersion)
  */
 void Kid3Application::downloadImage(const QUrl& url, DownloadImageDestination dest)
 {
-  QUrl imgurl(DownloadClient::getImageUrl(url));
-  if (!imgurl.isEmpty()) {
+  if (QUrl imgurl(DownloadClient::getImageUrl(url)); !imgurl.isEmpty()) {
     m_downloadImageDest = dest;
     m_downloadClient->startDownload(imgurl);
   }
@@ -1803,9 +1786,9 @@ void Kid3Application::batchImportNextFile(const QPersistentModelIndex& index)
       if (!m_batchImportTrackDataList.isEmpty()) {
         m_batchImportAlbums.append(m_batchImportTrackDataList);
       }
-      Frame::TagNumber fltTagNr =
-          Frame::tagNumberFromMask(m_batchImportTagVersion);
-      if (fltTagNr < Frame::Tag_NumValues) {
+      if (Frame::TagNumber fltTagNr =
+            Frame::tagNumberFromMask(m_batchImportTagVersion);
+          fltTagNr < Frame::Tag_NumValues) {
         m_batchImporter->setFrameFilter(
               frameModel(fltTagNr)->getEnabledFrameFilter(true));
       }
@@ -1833,12 +1816,13 @@ void Kid3Application::formatFramesIfEnabled(FrameCollection& frames) const
 QString Kid3Application::getFileNameOfSelectedFile()
 {
   QModelIndex index = getFileSelectionModel()->currentIndex();
-  QString dirname = FileProxyModel::getPathIfIndexOfDir(index);
-  if (!dirname.isNull()) {
+  if (QString dirname = FileProxyModel::getPathIfIndexOfDir(index);
+      !dirname.isNull()) {
     if (!dirname.endsWith(QLatin1Char('/'))) dirname += QLatin1Char('/');
     return dirname;
-  } else if (TaggedFile* taggedFile =
-             FileProxyModel::getTaggedFileOfIndex(index)) {
+  }
+  if (TaggedFile* taggedFile =
+    FileProxyModel::getTaggedFileOfIndex(index)) {
     return taggedFile->getAbsFilename();
   }
   return QLatin1String("");
@@ -2098,8 +2082,8 @@ void Kid3Application::getFilenameFromTags(Frame::TagVersion tagVersion)
                                 false);
   while (it.hasNext()) {
     TaggedFile* taggedFile = it.next();
-    TrackData trackData(*taggedFile, tagVersion);
-    if (!trackData.isEmptyOrInactive()) {
+    if (TrackData trackData(*taggedFile, tagVersion);
+        !trackData.isEmptyOrInactive()) {
       taggedFile->setFilenameFormattedIfEnabled(
         trackData.formatFilenameFromTags(FileConfig::instance().toFilenameFormat()));
     }
@@ -2160,9 +2144,8 @@ void Kid3Application::editFrame(Frame::TagNumber tagNr)
     } else {
       // multiple files selected
       // Get the first selected file by using a temporary iterator.
-      TaggedFile* firstFile = SelectedTaggedFileIterator(
-            getRootIndex(), getFileSelectionModel(), false).peekNext();
-      if (firstFile) {
+      if (TaggedFile* firstFile = SelectedTaggedFileIterator(
+            getRootIndex(), getFileSelectionModel(), false).peekNext()) {
         framelist->setTaggedFile(firstFile);
         m_editFrameName = framelist->getSelectedName();
         if (!m_editFrameName.isEmpty()) {
@@ -2226,8 +2209,8 @@ void Kid3Application::deleteFrame(Frame::TagNumber tagNr,
 {
   FrameList* framelist = m_framelist[tagNr];
   emit fileSelectionUpdateRequested();
-  TaggedFile* taggedFile = getSelectedFile();
-  if (taggedFile && frameName.isEmpty()) {
+  if (TaggedFile* taggedFile = getSelectedFile();
+      taggedFile && frameName.isEmpty()) {
     // delete selected frame from single file
     if (!framelist->deleteFrame()) {
       // frame not found
@@ -2257,9 +2240,8 @@ void Kid3Application::deleteFrame(Frame::TagNumber tagNr,
           if (currentIndex == index) {
             currentFile->deleteFrame(tagNr, *it);
             break;
-          } else {
-            ++currentIndex;
           }
+          ++currentIndex;
         }
       }
     }
@@ -2290,10 +2272,9 @@ void Kid3Application::addFrame(Frame::TagNumber tagNr,
     currentFile = m_addFrameTaggedFile;
   } else {
     // multiple files selected
-    SelectedTaggedFileIterator tfit(getRootIndex(),
-                                    getFileSelectionModel(),
-                                    false);
-    if (tfit.hasNext()) {
+    if (SelectedTaggedFileIterator tfit(
+          getRootIndex(), getFileSelectionModel(), false);
+        tfit.hasNext()) {
       currentFile = tfit.next();
       framelist->setTaggedFile(currentFile);
     }
@@ -2410,12 +2391,11 @@ void Kid3Application::dropLocalFiles(const QStringList& paths, bool isInternal)
   QStringList filePaths;
   QStringList picturePaths;
   for (QString txt : paths) {
-    int lfPos = txt.indexOf(QLatin1Char('\n'));
-    if (lfPos > 0 && lfPos < static_cast<int>(txt.length()) - 1) {
+    if (int lfPos = txt.indexOf(QLatin1Char('\n'));
+        lfPos > 0 && lfPos < txt.length() - 1) {
       txt.truncate(lfPos + 1);
     }
-    QString dir = txt.trimmed();
-    if (!dir.isEmpty()) {
+    if (QString dir = txt.trimmed(); !dir.isEmpty()) {
       if (dir.endsWith(QLatin1String(".jpg"), Qt::CaseInsensitive) ||
           dir.endsWith(QLatin1String(".jpeg"), Qt::CaseInsensitive) ||
           dir.endsWith(QLatin1String(".webp"), Qt::CaseInsensitive) ||
@@ -2436,8 +2416,7 @@ void Kid3Application::dropLocalFiles(const QStringList& paths, bool isInternal)
       PictureFrame frame;
       if (PictureFrame::setDataFromFile(frame, picturePath)) {
         QString fileName(picturePath);
-        int slashPos = fileName.lastIndexOf(QLatin1Char('/'));
-        if (slashPos != -1) {
+        if (int slashPos = fileName.lastIndexOf(QLatin1Char('/')); slashPos != -1) {
           fileName = fileName.mid(slashPos + 1);
         }
         PictureFrame::setMimeTypeFromFileName(frame, fileName);
@@ -2468,7 +2447,7 @@ void Kid3Application::openDrop(const QStringList& paths)
  */
 void Kid3Application::dropUrls(const QList<QUrl>& urlList, bool isInternal)
 {
-  QList<QUrl> urls(urlList);
+  QList urls(urlList);
 #ifdef Q_OS_MAC
   // workaround for https://bugreports.qt-project.org/browse/QTBUG-40449
   for (auto it = urls.begin(); it != urls.end(); ++it) {
@@ -2551,8 +2530,8 @@ void Kid3Application::imageDownloaded(const QByteArray& data,
       for (auto it = trackDataVector.constBegin();
            it != trackDataVector.constEnd();
            ++it) {
-        TaggedFile* taggedFile;
-        if (it->isEnabled() && (taggedFile = it->getTaggedFile()) != nullptr) {
+        if (TaggedFile* taggedFile;
+            it->isEnabled() && (taggedFile = it->getTaggedFile()) != nullptr) {
           taggedFile->readTags(false);
           taggedFile->addFrame(Frame::Tag_Picture, frame);
         }
@@ -2589,9 +2568,9 @@ bool Kid3Application::firstFile(bool select, bool onlyTaggedFiles)
  */
 bool Kid3Application::nextFile(bool select, bool onlyTaggedFiles)
 {
-  QModelIndex next(m_fileSelectionModel->currentIndex()), current;
+  QModelIndex next(m_fileSelectionModel->currentIndex());
   do {
-    current = next;
+    QModelIndex current = next;
     next = QModelIndex();
     if (m_fileProxyModel->rowCount(current) > 0) {
       // to first child
@@ -2631,12 +2610,11 @@ bool Kid3Application::nextFile(bool select, bool onlyTaggedFiles)
  */
 bool Kid3Application::previousFile(bool select, bool onlyTaggedFiles)
 {
-  QModelIndex previous(m_fileSelectionModel->currentIndex()), current;
+  QModelIndex previous(m_fileSelectionModel->currentIndex());
   do {
-    current = previous;
+    QModelIndex current = previous;
     previous = QModelIndex();
-    int row = current.row() - 1;
-    if (row >= 0) {
+    if (int row = current.row() - 1; row >= 0) {
       // to last leafnode of previous sibling
       previous = current.sibling(row, 0);
       row = m_fileProxyModel->rowCount(previous) - 1;
@@ -2706,15 +2684,15 @@ void Kid3Application::deselectAllFiles()
  */
 void Kid3Application::selectAllInDirectory()
 {
-  QModelIndex parent = m_fileSelectionModel->currentIndex();
-  if (parent.isValid()) {
+  if (QModelIndex parent = m_fileSelectionModel->currentIndex();
+      parent.isValid()) {
     if (!m_fileProxyModel->hasChildren(parent)) {
       parent = parent.parent();
     }
     QItemSelection selection;
     for (int row = 0; row < m_fileProxyModel->rowCount(parent); ++row) {
-      QModelIndex index = m_fileProxyModel->index(row, 0, parent);
-      if (!m_fileProxyModel->hasChildren(index)) {
+      if (QModelIndex index = m_fileProxyModel->index(row, 0, parent);
+          !m_fileProxyModel->hasChildren(index)) {
         selection.append(QItemSelectionRange(index)); // clazy:exclude=reserve-candidates
       }
     }
@@ -3202,9 +3180,9 @@ void Kid3Application::renameAfterReset()
 bool Kid3Application::renameDirectory(Frame::TagVersion tagMask,
                                      const QString& format, bool create)
 {
-  TaggedFile* taggedFile =
-    TaggedFileOfDirectoryIterator::first(currentOrRootIndex());
-  if (!isModified() && taggedFile) {
+  if (TaggedFile* taggedFile =
+        TaggedFileOfDirectoryIterator::first(currentOrRootIndex());
+      !isModified() && taggedFile) {
     m_dirRenamer->setTagVersion(tagMask);
     m_dirRenamer->setFormat(format);
     m_dirRenamer->setAction(create);
@@ -3261,8 +3239,7 @@ void Kid3Application::numberTracks(int nr, int total,
     TaggedFile* taggedFile = it->next();
     taggedFile->readTags(false);
     if (options & NumberTracksResetCounterForEachDirectory) {
-      QString dirName = taggedFile->getDirname();
-      if (lastDirName != dirName) {
+      if (QString dirName = taggedFile->getDirname(); lastDirName != dirName) {
         nr = startNr;
         if (totalEnabled && directoryMode) {
           total = taggedFile->getTotalNumberOfTracksInDir();
@@ -3275,8 +3252,8 @@ void Kid3Application::numberTracks(int nr, int total,
         if (options & NumberTracksEnabled) {
           QString value;
           value.setNum(nr);
-          Frame frame;
-          if (taggedFile->getFrame(tagNr, Frame::FT_Track, frame)) {
+          if (Frame frame;
+              taggedFile->getFrame(tagNr, Frame::FT_Track, frame)) {
             frame.setValueIfChanged(value);
             if (frame.isValueChanged()) {
               taggedFile->setFrame(tagNr, frame);
@@ -3360,8 +3337,8 @@ void Kid3Application::playAudio()
 
   QStringList files;
   int fileNr = 0;
-  QModelIndexList selectedRows = m_fileSelectionModel->selectedRows();
-  if (selectedRows.size() > 1) {
+  if (QModelIndexList selectedRows = m_fileSelectionModel->selectedRows();
+      selectedRows.size() > 1) {
     // play only the selected files if more than one is selected
     SelectedTaggedFileIterator it(m_fileProxyModelRootIndex,
                                   m_fileSelectionModel,
@@ -3415,7 +3392,7 @@ void Kid3Application::showAudioPlayer()
  *
  * @return number of tracks, 0 if not found.
  */
-int Kid3Application::getTotalNumberOfTracksInDir()
+int Kid3Application::getTotalNumberOfTracksInDir() const
 {
   if (TaggedFile* taggedFile = TaggedFileOfDirectoryIterator::first(
       currentOrRootIndex())) {
@@ -3442,12 +3419,12 @@ QString Kid3Application::createFilterString() const
  */
 void Kid3Application::resetFileFilterIfNotMatching(const QStringList& filePaths)
 {
-  QStringList nameFilters(m_platformTools->getNameFilterPatterns(
-              FileConfig::instance().nameFilter()).split(QLatin1Char(' ')));
-  if (!nameFilters.isEmpty() && nameFilters.first() != QLatin1String("*")) {
+  if (QStringList nameFilters(m_platformTools->getNameFilterPatterns(
+        FileConfig::instance().nameFilter()).split(QLatin1Char(' ')));
+      !nameFilters.isEmpty() && nameFilters.first() != QLatin1String("*")) {
     for (const QString& filePath : filePaths) {
-      QFileInfo fi(filePath);
-      if (!QDir::match(nameFilters, fi.fileName()) && !fi.isDir()) {
+      if (QFileInfo fi(filePath);
+          !QDir::match(nameFilters, fi.fileName()) && !fi.isDir()) {
         setAllFilesFileFilter();
         break;
       }
@@ -3492,8 +3469,8 @@ void Kid3Application::convertToId3v24()
     TaggedFile* taggedFile = it.next();
     taggedFile->readTags(false);
     if (taggedFile->hasTag(Frame::Tag_Id3v2) && !taggedFile->isChanged()) {
-      QString tagFmt = taggedFile->getTagFormat(Frame::Tag_Id3v2);
-      if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) &&
+      if (QString tagFmt = taggedFile->getTagFormat(Frame::Tag_Id3v2);
+          tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) &&
           tagFmt[6] < QLatin1Char('4')) {
         if ((taggedFile->taggedFileFeatures() &
              (TaggedFile::TF_ID3v23 | TaggedFile::TF_ID3v24)) ==
@@ -3542,8 +3519,8 @@ void Kid3Application::convertToId3v23()
     taggedFile->readTags(false);
     if (taggedFile->hasTag(Frame::Tag_Id3v2) && !taggedFile->isChanged()) {
       QString tagFmt = taggedFile->getTagFormat(Frame::Tag_Id3v2);
-      QString ext = taggedFile->getFileExtension();
-      if (tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) &&
+      if (QString ext = taggedFile->getFileExtension();
+          tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) &&
           tagFmt[6] > QLatin1Char('3') &&
           (ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") ||
            ext == QLatin1String(".aac") || ext == QLatin1String(".wav") ||
@@ -3610,18 +3587,18 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
 
   FrameTableModel* ft = m_framesModel[tagNr];
   const FrameCollection& frames = ft->frames();
-  auto it = explicitType.getType() == Frame::FT_UnknownFrame
-      ? frames.findByName(frameName, index)
-      : frames.findByExtendedType(explicitType, index);
-  if (it != frames.cend()) {
+  if (auto it = explicitType.getType() == Frame::FT_UnknownFrame
+                  ? frames.findByName(frameName, index)
+                  : frames.findByExtendedType(explicitType, index);
+      it != frames.cend()) {
     QString frmName(it->getName());
-    bool isSylt = false;
     if (!dataFileName.isEmpty() &&
         (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0) {
       if (it->getType() == Frame::FT_Picture ||
           frmName.startsWith(QLatin1String("GEOB"))) {
         PictureFrame::writeDataToFile(*it, dataFileName);
-      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT")) ||
+      } else if (bool isSylt = false;
+                 (isSylt = frmName.startsWith(QLatin1String("SYLT")) ||
                   frmName == QLatin1String("Chapters")) ||
                  frmName.startsWith(QLatin1String("ETCO"))) {
         QFile file(dataFileName);
@@ -3635,8 +3612,8 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
             timeEventModel.fromEtcoFrame(it->getFieldList());
           }
           QTextStream stream(&file);
-          QString codecName = FileConfig::instance().textEncoding();
-          if (codecName != QLatin1String("System")) {
+          if (QString codecName = FileConfig::instance().textEncoding();
+              codecName != QLatin1String("System")) {
 #if QT_VERSION >= 0x060000
             if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
               stream.setEncoding(*encoding);
@@ -3656,18 +3633,17 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
     if (!fieldName.isEmpty()) {
       if (fieldName == QLatin1String("selected")) {
         const int frameIndex = it->getIndex();
-        const int row = frameIndex >= 0
-            ? ft->getRowWithFrameIndex(frameIndex)
-            : std::distance(frames.cbegin(), it);
-        if (row != -1) {
+        if (const int row = frameIndex >= 0
+                              ? ft->getRowWithFrameIndex(frameIndex)
+                              : std::distance(frames.cbegin(), it);
+            row != -1) {
           return QLatin1String(ft->index(row, FrameTableModel::CI_Enable)
                                .data(Qt::CheckStateRole).toInt() == Qt::Checked
                                ? "1" : "0");
         }
         return QString();
-      } else {
-        return Frame::getField(*it, fieldName).toString();
       }
+      return Frame::getField(*it, fieldName).toString();
     }
     if (isRatingStars) {
       bool ok;
@@ -3678,9 +3654,8 @@ QString Kid3Application::getFrame(Frame::TagVersion tagMask,
       }
     }
     return it->getValue();
-  } else {
-    return QString();
   }
+  return QString();
 }
 
 /**
@@ -3701,8 +3676,7 @@ QVariantMap Kid3Application::getAllFrames(Frame::TagVersion tagMask) const
   const FrameCollection& frames = ft->frames();
   for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
     QString name(it->getName());
-    int nlPos = name.indexOf(QLatin1Char('\n'));
-    if (nlPos > 0) {
+    if (int nlPos = name.indexOf(QLatin1Char('\n')); nlPos > 0) {
       // probably "TXXX - User defined text information\nDescription" or
       // "WXXX - User defined URL link\nDescription"
       name = name.mid(nlPos + 1);
@@ -3761,12 +3735,11 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
     isRatingStars = true;
   }
   FrameCollection frames(ft->frames());
-  auto it = explicitType.getType() == Frame::FT_UnknownFrame
-      ? frames.findByName(frameName, index)
-      : frames.findByExtendedType(explicitType, index);
-  if (it != frames.end()) {
+  if (auto it = explicitType.getType() == Frame::FT_UnknownFrame
+                  ? frames.findByName(frameName, index)
+                  : frames.findByExtendedType(explicitType, index);
+      it != frames.end()) {
     QString frmName(it->getName());
-    bool isSylt = false;
     if (!dataFileName.isEmpty() &&
         (tagMask & (Frame::TagV2 | Frame::TagV3)) != 0) {
       if (it->getType() == Frame::FT_Picture) {
@@ -3787,7 +3760,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         Frame::setField(frame, Frame::ID_Description, value);
         PictureFrame::setDataFromFile(frame, dataFileName);
         addFrame(tagNr, &frame);
-      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT")) ||
+      } else if (bool isSylt = false;
+                 (isSylt = frmName.startsWith(QLatin1String("SYLT")) ||
                   frmName == QLatin1String("Chapters")) ||
                  frmName.startsWith(QLatin1String("ETCO"))) {
         QFile file(dataFileName);
@@ -3826,8 +3800,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         QString val(value);
         if (isRatingStars) {
           bool ok;
-          int starCount = value.toInt(&ok);
-          if (ok && starCount >= 0 && starCount <= 5) {
+          if (int starCount = value.toInt(&ok);
+              ok && starCount >= 0 && starCount <= 5) {
             val = QString::number(TagConfig::instance().starCountToRating(
                                     starCount, ratingTypeName(*it)));
           } else {
@@ -3838,10 +3812,10 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
       } else {
         if (fieldName == QLatin1String("selected")) {
           const int frameIndex = frame.getIndex();
-          const int row = frameIndex >= 0
-              ? ft->getRowWithFrameIndex(frameIndex)
-              : std::distance(frames.cbegin(), it);
-          if (row != -1) {
+          if (const int row = frameIndex >= 0
+                                ? ft->getRowWithFrameIndex(frameIndex)
+                                : std::distance(frames.cbegin(), it);
+              row != -1) {
             ft->setData(ft->index(row, FrameTableModel::CI_Enable),
                         !value.isEmpty() && value != QLatin1String("0")
                                          && value != QLatin1String("false")
@@ -3849,8 +3823,8 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
             return true;
           }
         } else {
-          TaggedFile* taggedFile = getSelectedFile();
-          if (taggedFile && Frame::setField(frame, fieldName, value)) {
+          if (TaggedFile* taggedFile = getSelectedFile();
+              taggedFile && Frame::setField(frame, fieldName, value)) {
             taggedFile->setFrame(tagNr, frame);
           }
         }
@@ -3861,11 +3835,11 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
       emit selectedFilesUpdated();
     }
     return true;
-  } else if (tagMask & (Frame::TagV2 | Frame::TagV3)) {
+  }
+  if (tagMask & (Frame::TagV2 | Frame::TagV3)) {
     Frame frame(explicitType.getType() == Frame::FT_UnknownFrame
-                ? Frame::ExtendedType(frameName) : explicitType, value, -1);
+                  ? Frame::ExtendedType(frameName) : explicitType, value, -1);
     QString frmName(frame.getInternalName());
-    bool isSylt = false;
     if (!dataFileName.isEmpty()) {
       if (frame.getType() == Frame::FT_Picture) {
         PictureFrame::setFields(frame);
@@ -3875,12 +3849,13 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
         PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
       } else if (frmName.startsWith(QLatin1String("GEOB"))) {
         PictureFrame::setGeobFields(
-              frame, Frame::TE_ISO8859_1,
-              PictureFrame::getMimeTypeForFile(dataFileName),
-              QFileInfo(dataFileName).fileName(), value);
+          frame, Frame::TE_ISO8859_1,
+          PictureFrame::getMimeTypeForFile(dataFileName),
+          QFileInfo(dataFileName).fileName(), value);
         PictureFrame::setDataFromFile(frame, dataFileName);
-      } else if ((isSylt = frmName.startsWith(QLatin1String("SYLT")) ||
-                  frmName == QLatin1String("Chapters")) ||
+      } else if (bool isSylt = false;
+                 (isSylt = frmName.startsWith(QLatin1String("SYLT")) ||
+                   frmName == QLatin1String("Chapters")) ||
                  frmName.startsWith(QLatin1String("ETCO"))) {
         QFile file(dataFileName);
         if (file.open(QIODevice::ReadOnly)) {
@@ -3928,10 +3903,10 @@ bool Kid3Application::setFrame(Frame::TagVersion tagMask,
     }
     if (isRatingStars) {
       bool ok;
-      int starCount = value.toInt(&ok);
-      if (ok && starCount >= 0 && starCount <= 5) {
+      if (int starCount = value.toInt(&ok);
+        ok && starCount >= 0 && starCount <= 5) {
         frame.setValue(QString::number(TagConfig::instance().starCountToRating(
-                                         starCount, ratingTypeName(frame, getSelectedFile(), tagNr))));
+          starCount, ratingTypeName(frame, getSelectedFile(), tagNr))));
       } else {
         return false;
       }
@@ -3950,9 +3925,9 @@ QByteArray Kid3Application::getPictureData() const
 {
   QByteArray data;
   const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
-  auto it = frames.findByExtendedType(
+  if (auto it = frames.findByExtendedType(
         Frame::ExtendedType(Frame::FT_Picture));
-  if (it != frames.cend()) {
+      it != frames.cend()) {
     PictureFrame::getData(*it, data);
   }
   return data;
@@ -4000,8 +3975,7 @@ void Kid3Application::onAboutToPlay(const QString& filePath)
  */
 void Kid3Application::closeFileHandle(const QString& filePath)
 {
- QModelIndex index = m_fileProxyModel->index(filePath);
- if (index.isValid()) {
+  if (QModelIndex index = m_fileProxyModel->index(filePath); index.isValid()) {
    if (TaggedFile* taggedFile = FileProxyModel::getTaggedFileOfIndex(index)) {
      taggedFile->closeFileHandle();
    }
@@ -4046,7 +4020,7 @@ void Kid3Application::setFrameEditor(FrameEditorObject* frameEditor)
  * pointer to a deleted object.
  * @param frameEditor frame editor
  */
-void Kid3Application::removeFrameEditor(IFrameEditor* frameEditor)
+void Kid3Application::removeFrameEditor(const IFrameEditor* frameEditor)
 {
   if (m_storedFrameEditor == frameEditor) {
     m_storedFrameEditor = nullptr;
@@ -4060,7 +4034,7 @@ void Kid3Application::removeFrameEditor(IFrameEditor* frameEditor)
  * Get the numbers of the selected rows in a list suitable for scripting.
  * @return list with row numbers.
  */
-QVariantList Kid3Application::getFileSelectionRows()
+QVariantList Kid3Application::getFileSelectionRows() const
 {
   QVariantList rows;
   const auto indexes = m_fileSelectionModel->selectedRows();

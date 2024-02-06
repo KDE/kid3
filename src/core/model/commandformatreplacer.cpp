@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Aug 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -77,9 +77,9 @@ QString CommandFormatReplacer::getReplacement(const QString& code) const
         { "qmlpath", 'q' }
       };
       const char c = code[0].toLatin1();
-      for (const auto& s2l : shortToLong) {
-        if (s2l.shortCode == c) {
-          name = QString::fromLatin1(s2l.longCode);
+      for (const auto& [longCode, shortCode] : shortToLong) {
+        if (shortCode == c) {
+          name = QString::fromLatin1(longCode);
           break;
         }
       }

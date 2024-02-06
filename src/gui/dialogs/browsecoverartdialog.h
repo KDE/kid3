@@ -55,7 +55,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BrowseCoverArtDialog() override;
+  ~BrowseCoverArtDialog() override;
 
   /**
    * Read the local settings from the configuration.
@@ -73,7 +73,7 @@ public slots:
   /**
    * Hide modal dialog, start browse command.
    */
-  virtual void accept() override;
+  void accept() override;
 
 private slots:
   /**

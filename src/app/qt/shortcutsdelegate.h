@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,7 +45,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ShortcutsDelegate() override = default;
+  ~ShortcutsDelegate() override = default;
 
   /**
    * Create an editor to edit the cells contents.
@@ -54,7 +54,7 @@ public:
    * @param index  index of item
    * @return editor widget
    */
-  virtual QWidget* createEditor(
+  QWidget* createEditor(
     QWidget* parent, const QStyleOptionViewItem& option,
     const QModelIndex& index) const override;
 
@@ -63,7 +63,7 @@ public:
    * @param editor editor widget
    * @param index  index of item
    */
-  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const override;
+  void setEditorData(QWidget* editor, const QModelIndex& index) const override;
 
   /**
    * Set model data supplied by editor.
@@ -71,7 +71,7 @@ public:
    * @param model  model
    * @param index  index of item
    */
-  virtual void setModelData(
+  void setModelData(
     QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const override;
 
   /**
@@ -81,7 +81,7 @@ public:
    * @param option style
    * @param index  index of item
    */
-  virtual void updateEditorGeometry(
+  void updateEditorGeometry(
     QWidget* editor, const QStyleOptionViewItem& option,
       const QModelIndex& index) const override;
 
@@ -115,7 +115,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ShortcutsDelegateEditor() override = default;
+  ~ShortcutsDelegateEditor() override = default;
 
   /*!
    * Get edit widget.

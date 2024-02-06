@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jul 2011
  *
- * Copyright (C) 2011-2022  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -172,13 +172,13 @@ public:
     const TrackData& trackData,
     const QString& str = QString());
 
-  virtual ~DirNameFormatReplacer() override = default;
+  ~DirNameFormatReplacer() override = default;
 
   DirNameFormatReplacer(const DirNameFormatReplacer& other) = delete;
   DirNameFormatReplacer &operator=(const DirNameFormatReplacer& other) = delete;
 
 protected:
-  virtual QString getReplacement(const QString& code) const override;
+  QString getReplacement(const QString& code) const override;
 
 private:
   DirNameFormatReplacerContext& m_context;
@@ -216,8 +216,7 @@ QString DirNameFormatReplacer::getReplacement(const QString& code) const
 QString parentDirectory(const QString& dir)
 {
   QString parent(dir);
-  int slashPos = parent.lastIndexOf(QLatin1Char('/'));
-  if (slashPos != -1) {
+  if (int slashPos = parent.lastIndexOf(QLatin1Char('/')); slashPos != -1) {
     parent.truncate(slashPos + 1);
   } else {
     parent = QLatin1String("");
@@ -266,8 +265,8 @@ bool DirRenamer::createDirectory(
   if (auto model = const_cast<TaggedFileSystemModel*>(
         qobject_cast<const TaggedFileSystemModel*>(index.model()))) {
     const QString parentDirName = model->filePath(index.parent());
-    const QString relativeName = QDir(parentDirName).relativeFilePath(dir);
-    if (model->mkdir(index.parent(), relativeName).isValid() &&
+    if (const QString relativeName = QDir(parentDirName).relativeFilePath(dir);
+        model->mkdir(index.parent(), relativeName).isValid() &&
         QFileInfo(dir).isDir()) {
       return true;
     }
@@ -275,12 +274,11 @@ bool DirRenamer::createDirectory(
   if (QFileInfo(dir).isDir() ||
     (QDir().mkdir(dir) && QFileInfo(dir).isDir())) {
     return true;
-  } else {
-    if (errorMsg) {
-      errorMsg->append(tr("Create folder %1 failed\n").arg(dir));
-    }
-    return false;
   }
+  if (errorMsg) {
+    errorMsg->append(tr("Create folder %1 failed\n").arg(dir));
+  }
+  return false;
 }
 
 /** Only defined for generation of translation files */
@@ -324,19 +322,18 @@ bool DirRenamer::renameDirectory(
   if (auto model = const_cast<TaggedFileSystemModel*>(
         qobject_cast<const TaggedFileSystemModel*>(index.model()))) {
     const QString parentDirName = model->filePath(index.parent());
-    const QString relativeName = QDir(parentDirName).relativeFilePath(newdir);
-    if (model->rename(index, relativeName) && QFileInfo(newdir).isDir()) {
+    if (const QString relativeName = QDir(parentDirName).relativeFilePath(newdir);
+        model->rename(index, relativeName) && QFileInfo(newdir).isDir()) {
       return true;
     }
   }
   if (Utils::safeRename(olddir, newdir) && QFileInfo(newdir).isDir()) {
     return true;
-  } else {
-    if (errorMsg) {
-      errorMsg->append(tr("Rename %1 to %2 failed\n").arg(olddir, newdir));
-    }
-    return false;
   }
+  if (errorMsg) {
+    errorMsg->append(tr("Rename %1 to %2 failed\n").arg(olddir, newdir));
+  }
+  return false;
 }
 
 /** Only defined for generation of translation files */
@@ -380,12 +377,11 @@ bool DirRenamer::renameFile(const QString& oldfn, const QString& newfn,
   }
   if (Utils::safeRename(oldfn, newfn) && QFileInfo(newfn).isFile()) {
     return true;
-  } else {
-    if (errorMsg) {
-      errorMsg->append(tr("Rename %1 to %2 failed\n").arg(oldfn, newfn));
-    }
-    return false;
   }
+  if (errorMsg) {
+    errorMsg->append(tr("Rename %1 to %2 failed\n").arg(oldfn, newfn));
+  }
+  return false;
 }
 
 /**
@@ -421,8 +417,8 @@ QString DirRenamer::generateNewDirname(TaggedFile* taggedFile, QString* olddir)
     DirNameFormatReplacer fmt(*m_fmtContext, trackData, m_format);
     fmt.replacePercentCodes(FormatReplacer::FSF_ReplaceSeparators);
     QString baseName = fmt.getString();
-    FormatConfig& fnCfg = FilenameFormatConfig::instance();
-    if (fnCfg.useForOtherFileNames()) {
+    if (FormatConfig& fnCfg = FilenameFormatConfig::instance();
+        fnCfg.useForOtherFileNames()) {
       bool isFilenameFormatter = fnCfg.switchFilenameFormatter(false);
       if (!baseName.contains(QLatin1Char('/'))) {
         fnCfg.formatString(baseName);
@@ -468,8 +464,8 @@ void DirRenamer::addAction(RenameAction::Type type, const QString& src, const QS
 {
   // do not add an action if the source or destination is already in an action
   for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
-    if ((!src.isEmpty() && (*it).m_src == src) ||
-        (!dest.isEmpty() && (*it).m_dest == dest)){
+    if ((!src.isEmpty() && it->m_src == src) ||
+        (!dest.isEmpty() && it->m_dest == dest)){
       return;
     }
   }
@@ -503,7 +499,7 @@ bool DirRenamer::actionHasSource(const QString& src) const
     return false;
   }
   for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
-    if ((*it).m_src == src) {
+    if (it->m_src == src) {
       return true;
     }
   }
@@ -521,7 +517,7 @@ bool DirRenamer::actionHasDestination(const QString& dest) const
     return false;
   }
   for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
-    if ((*it).m_dest == dest) {
+    if (it->m_dest == dest) {
       return true;
     }
   }
@@ -539,9 +535,9 @@ void DirRenamer::replaceIfAlreadyRenamed(QString& src) const
   for (int i = 0; found && i <  5; ++i) {
     found = false;
     for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
-      if ((*it).m_type == RenameAction::RenameDirectory &&
-          (*it).m_src == src) {
-        src = (*it).m_dest;
+      if (it->m_type == RenameAction::RenameDirectory &&
+          it->m_src == src) {
+        src = it->m_dest;
         found = true;
         break;
       }
@@ -573,8 +569,8 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
           // currentDirname does not end with a separator, so newPart
           // starts with a separator and the search starts with the
           // second character.
-          int slashPos = newPart.indexOf(QLatin1Char('/'), 1);
-          if (slashPos != -1 && slashPos != newPart.length() - 1) {
+          if (int slashPos = newPart.indexOf(QLatin1Char('/'), 1);
+              slashPos != -1 && slashPos != newPart.length() - 1) {
             newPart.truncate(slashPos);
             // the new part has multiple directories
             // => create one directory
@@ -593,19 +589,19 @@ void DirRenamer::scheduleAction(TaggedFile* taggedFile)
           currentDirname = currentDirname + newPart;
         }
       } else {
-        QString parent(parentDirectory(currentDirname));
-        if (newDirname.startsWith(parent)) {
+        if (QString parent(parentDirectory(currentDirname));
+            newDirname.startsWith(parent)) {
           QString newPart(newDirname.mid(parent.length()));
-          int slashPos = newPart.indexOf(QLatin1Char('/'));
-          if (slashPos != -1 && slashPos != newPart.length() - 1) {
+          if (int slashPos = newPart.indexOf(QLatin1Char('/'));
+              slashPos != -1 && slashPos != newPart.length() - 1) {
             newPart.truncate(slashPos);
             // the new part has multiple directories
             // => rename current directory, then create additional
             // directories.
             again = true;
           }
-          QString parentWithNewPart = parent + newPart;
-          if ((QFileInfo(parentWithNewPart).isDir() &&
+          if (QString parentWithNewPart = parent + newPart;
+              (QFileInfo(parentWithNewPart).isDir() &&
                !actionHasSource(parentWithNewPart)) ||
               actionHasDestination(parentWithNewPart)) {
             // directory already exists => move files
@@ -655,25 +651,25 @@ void DirRenamer::endScheduleActions()
 void DirRenamer::performActions(QString* errorMsg)
 {
   for (auto it = m_actions.constBegin(); it != m_actions.constEnd(); ++it) {
-    switch ((*it).m_type) {
+    switch (it->m_type) {
       case RenameAction::CreateDirectory:
-        createDirectory((*it).m_dest, (*it).m_index, errorMsg);
+        createDirectory(it->m_dest, it->m_index, errorMsg);
         break;
       case RenameAction::RenameDirectory:
-        if (renameDirectory((*it).m_src, (*it).m_dest, (*it).m_index,
+        if (renameDirectory(it->m_src, it->m_dest, it->m_index,
                             errorMsg)) {
-          if ((*it).m_src == m_dirName) {
-            m_dirName = (*it).m_dest;
+          if (it->m_src == m_dirName) {
+            m_dirName = it->m_dest;
           }
         }
         break;
       case RenameAction::RenameFile:
-        renameFile((*it).m_src, (*it).m_dest, (*it).m_index, errorMsg);
+        renameFile(it->m_src, it->m_dest, it->m_index, errorMsg);
         break;
       case RenameAction::ReportError:
       default:
         if (errorMsg) {
-          *errorMsg += (*it).m_dest;
+          *errorMsg += it->m_dest;
         }
     }
   }
@@ -692,7 +688,7 @@ QStringList DirRenamer::describeAction(const RenameAction& action) const
     QT_TRANSLATE_NOOP("@default", "Rename file"),
     QT_TRANSLATE_NOOP("@default", "Error")
   };
-  static const unsigned numTypeStr = sizeof(typeStr) / sizeof(typeStr[0]);
+  static constexpr unsigned numTypeStr = std::size(typeStr);
 
   QStringList actionStrs;
   auto typeIdx = static_cast<unsigned>(action.m_type);

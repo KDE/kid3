@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Jan 2004
  *
- * Copyright (C) 2004-2018  Urs Fleisch
+ * Copyright (C) 2004-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,7 +34,7 @@
 
 namespace {
 
-const char gnudbServer[] = "www.gnudb.org:80";
+constexpr char gnudbServer[] = "www.gnudb.org:80";
 
 }
 
@@ -106,8 +106,7 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
 <a href="http://www.gnudb.org/gnudb/rock/920b810c" target=_blank>Discid: rock / 920b810c</a><br>
 */
   bool isUtf8 = false;
-  int charSetPos = searchStr.indexOf("charset=");
-  if (charSetPos != -1) {
+if (int charSetPos = searchStr.indexOf("charset="); charSetPos != -1) {
     charSetPos += 8;
     QByteArray charset(searchStr.mid(charSetPos, 5));
     isUtf8 = charset == "utf-8" || charset == "UTF-8";
@@ -133,7 +132,7 @@ Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
           match.captured(1),
           match.captured(2));
       }
-    } else if ((*it).indexOf(QLatin1String(" albums found:")) != -1) {
+    } else if (it->indexOf(QLatin1String(" albums found:")) != -1) {
       inEntries = true;
     }
   }
@@ -169,8 +168,7 @@ void parseFreedbTrackDurations(
 */
   trackDuration.clear();
   QRegularExpression discLenRe(QLatin1String("Disc length:\\s*\\d+"));
-  auto match = discLenRe.match(text);
-  if (match.hasMatch()) {
+if (auto match = discLenRe.match(text); match.hasMatch()) {
     int discLenPos = match.capturedStart();
     int len = match.capturedLength();
     discLenPos += 12;
@@ -179,18 +177,18 @@ void parseFreedbTrackDurations(
 #else
     int discLen = text.midRef(discLenPos, len - 12).toInt();
 #endif
-    int trackOffsetPos = text.indexOf(QLatin1String("Track frame offsets"), 0);
-    if (trackOffsetPos != -1) {
+    if (int trackOffsetPos = text.indexOf(QLatin1String("Track frame offsets"), 0);
+        trackOffsetPos != -1) {
       int lastOffset = -1;
       QRegularExpression re(QLatin1String("#\\s*\\d+"));
       auto it = re.globalMatch(text);
       while (it.hasNext()) {
-        auto match = it.next();
-        trackOffsetPos = match.capturedStart();
+        auto toMatch = it.next();
+        trackOffsetPos = toMatch.capturedStart();
         if (trackOffsetPos >= discLenPos) {
           break;
         }
-        len = match.capturedLength();
+        len = toMatch.capturedLength();
         trackOffsetPos += 1;
 #if QT_VERSION >= 0x060000
         int trackOffset = text.mid(trackOffsetPos, len - 1).toInt();
@@ -257,7 +255,7 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
   FrameCollection frames(framesHdr);
   auto it = trackDataVector.begin();
   auto tdit = trackDuration.constBegin();
-  bool atTrackDataListEnd = (it == trackDataVector.end());
+  bool atTrackDataListEnd = it == trackDataVector.end();
   int tracknr = 0;
   for (;;) {
     QRegularExpression fdre(QString(QLatin1String(R"(TTITLE%1=([^\r\n]+)[\r\n])")).arg(tracknr));
@@ -273,7 +271,7 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
     } else {
       break;
     }
-    int duration = (tdit != trackDuration.constEnd()) ?
+    int duration = tdit != trackDuration.constEnd() ?
       *tdit++ : 0;
     if (atTrackDataListEnd) {
       ImportTrackData trackData;
@@ -283,13 +281,13 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
     } else {
       while (!atTrackDataListEnd && !it->isEnabled()) {
         ++it;
-        atTrackDataListEnd = (it == trackDataVector.end());
+        atTrackDataListEnd = it == trackDataVector.end();
       }
       if (!atTrackDataListEnd) {
-        (*it).setFrameCollection(frames);
-        (*it).setImportDuration(duration);
+        it->setFrameCollection(frames);
+        it->setImportDuration(duration);
         ++it;
-        atTrackDataListEnd = (it == trackDataVector.end());
+        atTrackDataListEnd = it == trackDataVector.end();
       }
     }
     frames = framesHdr;
@@ -298,17 +296,17 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
   frames.clear();
   while (!atTrackDataListEnd) {
     if (it->isEnabled()) {
-      if ((*it).getFileDuration() == 0) {
+      if (it->getFileDuration() == 0) {
         it = trackDataVector.erase(it);
       } else {
-        (*it).setFrameCollection(frames);
-        (*it).setImportDuration(0);
+        it->setFrameCollection(frames);
+        it->setImportDuration(0);
         ++it;
       }
     } else {
       ++it;
     }
-    atTrackDataListEnd = (it == trackDataVector.end());
+    atTrackDataListEnd = it == trackDataVector.end();
   }
   m_trackDataModel->setTrackData(trackDataVector);
 }
@@ -316,7 +314,6 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
 /**
  * Send a query command in to search on the server.
  *
- * @param cfg      import source configuration
  * @param artist   artist to search
  * @param album    album to search
  */
@@ -327,9 +324,9 @@ void FreedbImporter::sendFindQuery(
   // If an URL is entered in the first search field, its result will be directly
   // available in the album results list.
   if (artist.startsWith(QLatin1String("https://gnudb.org/"))) {
-    const int catBegin = 18;
-    int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
-    if (catEnd > catBegin) {
+    constexpr int catBegin = 18;
+    if (int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
+        catEnd > catBegin) {
       static QStringList categories({
         QLatin1String("blues"),
         QLatin1String("classical"),

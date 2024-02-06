@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 05 Aug 2018
  *
- * Copyright (C) 2018  Urs Fleisch
+ * Copyright (C) 2018-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlaylistEditDialog() override;
+  ~PlaylistEditDialog() override;
 
   /**
    * Get playlist model.
@@ -63,7 +63,7 @@ protected:
    * Ask user before closing with unsaved modifications.
    * @param event close event
    */
-  virtual void closeEvent(QCloseEvent* event) override;
+  void closeEvent(QCloseEvent* event) override;
 
 private slots:
   void setModified(bool modified);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -188,8 +188,7 @@ void FormatConfig::formatString(QString& str) const
         bool wordstart = true;
         const int strLen = str.length();
         for (int i = 0; i < strLen; ++i) {
-          QChar ch = str.at(i);
-          if (!ch.isLetterOrNumber() &&
+          if (QChar ch = str.at(i); !ch.isLetterOrNumber() &&
             ch != QLatin1Char('\'') && ch != QLatin1Char('`')) {
             wordstart = true;
             newstr.append(ch);
@@ -200,8 +199,7 @@ void FormatConfig::formatString(QString& str) const
             if (romanLetters.contains(ch)) {
               int j = i + 1;
               while (j < strLen) {
-                QChar c = str.at(j);
-                if (!c.isLetterOrNumber()) {
+                if (QChar c = str.at(j); !c.isLetterOrNumber()) {
                   break;
                 } else if (!romanLetters.contains(c)) {
                   j = i;
@@ -268,8 +266,8 @@ QString FormatConfig::joinFileName(const QString& baseName,
     if (m_maximumLength > 0 && ext.length() > m_maximumLength) {
       ext.truncate(m_maximumLength);
     }
-    int maxLength = m_maximumLength - ext.length();
-    if (maxLength > 0 && str.length() > maxLength) {
+    if (int maxLength = m_maximumLength - ext.length();
+        maxLength > 0 && str.length() > maxLength) {
       str.truncate(maxLength);
       str = str.trimmed();
     }
@@ -304,10 +302,9 @@ QString FormatConfig::toUpper(const QString& str) const
 void FormatConfig::formatFrames(FrameCollection& frames) const
 {
   for (auto it = frames.cbegin(); it != frames.cend(); ++it) {
-    auto& frame = const_cast<Frame&>(*it);
-    if (frame.getType() != Frame::FT_Genre) {
-      QString value(frame.getValue());
-      if (!value.isEmpty()) {
+    if (auto& frame = const_cast<Frame&>(*it);
+        frame.getType() != Frame::FT_Genre) {
+      if (QString value(frame.getValue()); !value.isEmpty()) {
         formatString(value);
         frame.setValueIfChanged(value);
       }
@@ -530,8 +527,7 @@ int FilenameFormatConfig::s_index = -1;
  * Constructor.
  */
 FilenameFormatConfig::FilenameFormatConfig()
-  : StoredConfig<FilenameFormatConfig, FormatConfig>(
-      QLatin1String("FilenameFormat"))
+  : StoredConfig(QLatin1String("FilenameFormat"))
 {
   setAsFilenameFormatter();
 }
@@ -543,6 +539,6 @@ int TagFormatConfig::s_index = -1;
  * Constructor.
  */
 TagFormatConfig::TagFormatConfig()
-  : StoredConfig<TagFormatConfig, FormatConfig>(QLatin1String("TagFormat"))
+  : StoredConfig(QLatin1String("TagFormat"))
 {
 }

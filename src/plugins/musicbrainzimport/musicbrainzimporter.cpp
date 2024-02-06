@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Oct 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -107,8 +107,7 @@ void MusicBrainzImporter::parseFindResults(const QByteArray& searchStr)
   if (start >= 0 && end > start) {
     xmlStr = xmlStr.mid(start, end + 11 - start);
   }
-  QDomDocument doc;
-  if (doc.setContent(xmlStr, false)) {
+  if (QDomDocument doc; doc.setContent(xmlStr, false)) {
     m_albumListModel->clear();
     QDomElement releaseList =
       doc.namedItem(QLatin1String("metadata")).toElement()
@@ -192,15 +191,15 @@ bool parseCredits(const QDomElement& relationList, FrameCollection& frames)
   bool result = false;
   QDomNode relation(relationList.firstChild());
   while (!relation.isNull()) {
-    QString artist(relation.toElement().namedItem(QLatin1String("artist"))
-                           .toElement().namedItem(QLatin1String("name"))
-                           .toElement().text());
-    if (!artist.isEmpty()) {
-      QString type(relation.toElement().attribute(QLatin1String("type")));
-      if (type == QLatin1String("instrument")) {
-        QDomNode attributeList(relation.toElement()
-                               .namedItem(QLatin1String("attribute-list")));
-        if (!attributeList.isNull()) {
+    if (QString artist(relation.toElement().namedItem(QLatin1String("artist"))
+                               .toElement().namedItem(QLatin1String("name"))
+                               .toElement().text());
+        !artist.isEmpty()) {
+      if (QString type(relation.toElement().attribute(QLatin1String("type")));
+          type == QLatin1String("instrument")) {
+        if (QDomNode attributeList(relation.toElement()
+                                           .namedItem(QLatin1String("attribute-list")));
+            !attributeList.isNull()) {
           addInvolvedPeople(frames, Frame::FT_Performer,
             attributeList.firstChild().toElement().text(), artist);
         }
@@ -270,19 +269,18 @@ QString fixUpGenre(QString genre)
  */
 QString parseGenres(const QDomElement& element)
 {
-  QDomNode genreList =
-      element.namedItem(QLatin1String("genre-list"));
-  if (!genreList.isNull()) {
+  if (QDomNode genreList =
+        element.namedItem(QLatin1String("genre-list"));
+      !genreList.isNull()) {
     QStringList genres, customGenres;
     for (QDomNode genreNode = genreList.namedItem(QLatin1String("genre"));
          !genreNode.isNull();
          genreNode = genreNode.nextSibling()) {
       if (!genreNode.isNull()) {
-        QString genre = fixUpGenre(genreNode.toElement()
-            .namedItem(QLatin1String("name")).toElement().text());
-        if (!genre.isEmpty()) {
-          int genreNum = Genres::getNumber(genre);
-          if (genreNum != 255) {
+        if (QString genre = fixUpGenre(genreNode.toElement()
+              .namedItem(QLatin1String("name")).toElement().text());
+            !genre.isEmpty()) {
+          if (int genreNum = Genres::getNumber(genre); genreNum != 255) {
             genres.append(QString::fromLatin1(Genres::getName(genreNum)));
           } else {
             customGenres.append(genre);
@@ -334,8 +332,7 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
   int end = albumStr.indexOf("</metadata>");
   QByteArray xmlStr = start >= 0 && end > start ?
     albumStr.mid(start, end + 11 - start) : albumStr;
-  QDomDocument doc;
-  if (doc.setContent(xmlStr, false)) {
+  if (QDomDocument doc; doc.setContent(xmlStr, false)) {
     QDomElement release =
       doc.namedItem(QLatin1String("metadata")).toElement()
          .namedItem(QLatin1String("release")).toElement();
@@ -350,16 +347,14 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
           .toElement();
       framesHdr.setArtist(artist.namedItem(QLatin1String("name"))
                           .toElement().text());
-      QString genre = parseGenres(artist);
-      if (!genre.isEmpty()) {
+      if (QString genre = parseGenres(artist); !genre.isEmpty()) {
         framesHdr.setGenre(genre);
       }
-      QString date(release.namedItem(QLatin1String("date")).toElement().text());
-      if (!date.isEmpty()) {
+      if (QString date(release.namedItem(QLatin1String("date")).toElement().text());
+          !date.isEmpty()) {
         QRegularExpression dateRe(QLatin1String(R"(^(\d{4})(?:-\d{2})?(?:-\d{2})?$)"));
-        int year = 0;
-        auto match = dateRe.match(date);
-        if (match.hasMatch()) {
+        int year;
+        if (auto match = dateRe.match(date); match.hasMatch()) {
           year = match.captured(1).toInt();
         } else {
           year = date.toInt();
@@ -374,8 +369,8 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
     trackDataVector.setCoverArtUrl(QUrl());
     const bool coverArt = getCoverArt();
     if (coverArt) {
-      QString asin(release.namedItem(QLatin1String("asin")).toElement().text());
-      if (!asin.isEmpty()) {
+      if (QString asin(release.namedItem(QLatin1String("asin")).toElement().text());
+          !asin.isEmpty()) {
         trackDataVector.setCoverArtUrl(
           QUrl(QLatin1String("http://www.amazon.com/dp/") + asin));
       }
@@ -384,28 +379,29 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
     const bool additionalTags = getAdditionalTags();
     if (additionalTags) {
       // label can be found in the label-info-list
-      QDomElement labelInfoList(
+      if (QDomElement labelInfoList(
             release.namedItem(QLatin1String("label-info-list")).toElement());
-      if (!labelInfoList.isNull()) {
-        QDomElement labelInfo(
+          !labelInfoList.isNull()) {
+        if (QDomElement labelInfo(
               labelInfoList.namedItem(QLatin1String("label-info")).toElement());
-        if (!labelInfo.isNull()) {
-          QString label(labelInfo.namedItem(QLatin1String("label"))
-                        .namedItem(QLatin1String("name")).toElement().text());
-          if (!label.isEmpty()) {
+            !labelInfo.isNull()) {
+          if (QString label(labelInfo.namedItem(QLatin1String("label"))
+                                     .namedItem(QLatin1String("name"))
+                                     .toElement().text());
+              !label.isEmpty()) {
             framesHdr.setValue(Frame::FT_Publisher, label);
           }
-          QString catNo(labelInfo.namedItem(QLatin1String("catalog-number"))
-                        .toElement().text());
-          if (!catNo.isEmpty()) {
+          if (QString catNo(labelInfo.namedItem(QLatin1String("catalog-number"))
+                                     .toElement().text());
+              !catNo.isEmpty()) {
             framesHdr.setValue(Frame::FT_CatalogNumber, catNo);
           }
         }
       }
       // Release country can be found in "country"
-      QString country(release.namedItem(QLatin1String("country")).toElement()
-                      .text());
-      if (!country.isEmpty()) {
+      if (QString country(release.namedItem(QLatin1String("country"))
+            .toElement().text());
+          !country.isEmpty()) {
         framesHdr.setValue(Frame::FT_ReleaseCountry, country);
       }
     }
@@ -414,10 +410,10 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
       QDomNode relationListNode(release.firstChild());
       while (!relationListNode.isNull()) {
         if (relationListNode.nodeName() == QLatin1String("relation-list")) {
-          QDomElement relationList(relationListNode.toElement());
-          if (!relationList.isNull()) {
-            QString targetType(relationList.attribute(QLatin1String("target-type")));
-            if (targetType == QLatin1String("artist")) {
+          if (QDomElement relationList(relationListNode.toElement());
+              !relationList.isNull()) {
+            if (QString targetType(relationList.attribute(QLatin1String("target-type")));
+                targetType == QLatin1String("artist")) {
               if (additionalTags) {
                 parseCredits(relationList, framesHdr);
               }
@@ -426,10 +422,10 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
                 QDomNode relationNode(relationList.firstChild());
                 while (!relationNode.isNull()) {
                   if (relationNode.nodeName() == QLatin1String("relation")) {
-                    QDomElement relation(relationNode.toElement());
-                    if (!relation.isNull()) {
-                      QString type(relation.attribute(QLatin1String("type")));
-                      if (type == QLatin1String("cover art link") ||
+                    if (QDomElement relation(relationNode.toElement());
+                        !relation.isNull()) {
+                      if (QString type(relation.attribute(QLatin1String("type")));
+                          type == QLatin1String("cover art link") ||
                           type == QLatin1String("amazon asin")) {
                         QString coverArtUrl =
                             relation.namedItem(QLatin1String("target"))
@@ -459,7 +455,7 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
     }
 
     auto it = trackDataVector.begin();
-    bool atTrackDataListEnd = (it == trackDataVector.end());
+    bool atTrackDataListEnd = it == trackDataVector.end();
     int discNr = 1, trackNr = 1;
     bool ok;
     FrameCollection frames(framesHdr);
@@ -493,9 +489,9 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
         }
         int duration = track.namedItem(QLatin1String("length")).toElement()
             .text().toInt();
-        QDomElement recording = track.namedItem(QLatin1String("recording"))
-            .toElement();
-        if (!recording.isNull()) {
+        if (QDomElement recording = track.namedItem(QLatin1String("recording"))
+                                         .toElement();
+            !recording.isNull()) {
           if (standardTags) {
             frames.setTitle(recording.namedItem(QLatin1String("title"))
                             .toElement().text());
@@ -505,15 +501,15 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
           if (ok) {
             duration = length;
           }
-          QDomNode artistNode =
-              recording.namedItem(QLatin1String("artist-credit"));
-          if (!artistNode.isNull()) {
+          if (QDomNode artistNode =
+                recording.namedItem(QLatin1String("artist-credit"));
+              !artistNode.isNull()) {
             QDomElement artistElement = artistNode.toElement()
                 .namedItem(QLatin1String("name-credit")).toElement()
                 .namedItem(QLatin1String("artist")).toElement();
-            QString artist = artistElement
-                .namedItem(QLatin1String("name")).toElement().text();
-            if (!artist.isEmpty()) {
+            if (QString artist = artistElement
+                  .namedItem(QLatin1String("name")).toElement().text();
+                !artist.isEmpty()) {
               // use the artist in the header as the album artist
               // and the artist in the track as the artist
               if (standardTags) {
@@ -523,31 +519,29 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
                 frames.setValue(Frame::FT_AlbumArtist, framesHdr.getArtist());
               }
             }
-            QString genre = parseGenres(artistElement);
-            if (!genre.isEmpty()) {
+            if (QString genre = parseGenres(artistElement); !genre.isEmpty()) {
               frames.setGenre(genre);
             }
           }
-          QString genre = parseGenres(recording);
-          if (!genre.isEmpty()) {
+          if (QString genre = parseGenres(recording); !genre.isEmpty()) {
             frames.setGenre(genre);
           }
           if (additionalTags) {
             QDomNode relationListNode(recording.firstChild());
             while (!relationListNode.isNull()) {
               if (relationListNode.nodeName() == QLatin1String("relation-list")) {
-                QDomElement relationList(relationListNode.toElement());
-                if (!relationList.isNull()) {
-                  QString targetType(
+                if (QDomElement relationList(relationListNode.toElement());
+                    !relationList.isNull()) {
+                  if (QString targetType(
                         relationList.attribute(QLatin1String("target-type")));
-                  if (targetType == QLatin1String("artist")) {
+                      targetType == QLatin1String("artist")) {
                     parseCredits(relationList, frames);
                   } else if (targetType == QLatin1String("work")) {
-                    QDomNode workRelationListNode(relationList
+                    if (QDomNode workRelationListNode(relationList
                           .namedItem(QLatin1String("relation"))
                           .namedItem(QLatin1String("work"))
                           .namedItem(QLatin1String("relation-list")));
-                    if (!workRelationListNode.isNull()) {
+                        !workRelationListNode.isNull()) {
                       parseCredits(workRelationListNode.toElement(), frames);
                     }
                   }
@@ -566,13 +560,13 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
         } else {
           while (!atTrackDataListEnd && !it->isEnabled()) {
             ++it;
-            atTrackDataListEnd = (it == trackDataVector.end());
+            atTrackDataListEnd = it == trackDataVector.end();
           }
           if (!atTrackDataListEnd) {
-            (*it).setFrameCollection(frames);
-            (*it).setImportDuration(duration);
+            it->setFrameCollection(frames);
+            it->setImportDuration(duration);
             ++it;
-            atTrackDataListEnd = (it == trackDataVector.end());
+            atTrackDataListEnd = it == trackDataVector.end();
           }
         }
         ++trackNr;
@@ -584,17 +578,17 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
     frames.clear();
     while (!atTrackDataListEnd) {
       if (it->isEnabled()) {
-        if ((*it).getFileDuration() == 0) {
+        if (it->getFileDuration() == 0) {
           it = trackDataVector.erase(it);
         } else {
-          (*it).setFrameCollection(frames);
-          (*it).setImportDuration(0);
+          it->setFrameCollection(frames);
+          it->setImportDuration(0);
           ++it;
         }
       } else {
         ++it;
       }
-      atTrackDataListEnd = (it == trackDataVector.end());
+      atTrackDataListEnd = it == trackDataVector.end();
     }
     m_trackDataModel->setTrackData(trackDataVector);
   }
@@ -615,9 +609,9 @@ void MusicBrainzImporter::sendFindQuery(
   // If an URL is entered in the first search field, its result will be directly
   // available in the album results list.
   if (artist.startsWith(QLatin1String("https://musicbrainz.org/"))) {
-    const int catBegin = 24;
-    int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
-    if (catEnd > catBegin) {
+    constexpr int catBegin = 24;
+    if (int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
+        catEnd > catBegin) {
       m_albumListModel->clear();
       m_albumListModel->appendItem(
             artist,

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,7 +37,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AbstractCliIO() override;
+  ~AbstractCliIO() override;
 
   /**
    * Can be reimplemented for cleanup, e.g. restoring the terminal.
@@ -107,7 +107,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AbstractCli() override = default;
+  ~AbstractCli() override = default;
 
   /**
    * Write a line to standard output.

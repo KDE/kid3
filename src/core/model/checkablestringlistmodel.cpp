@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Dec 2012
  *
- * Copyright (C) 2012-2018  Urs Fleisch
+ * Copyright (C) 2012-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -61,7 +61,7 @@ QVariant CheckableStringListModel::data(const QModelIndex& index, int role) cons
   if (role == Qt::CheckStateRole &&
       index.isValid() && index.column() == 0 &&
       index.row() >= 0 && index.row() < 64) {
-    return (m_bitMask & (1ULL << index.row())) ? Qt::Checked : Qt::Unchecked;
+    return m_bitMask & (1ULL << index.row()) ? Qt::Checked : Qt::Unchecked;
   }
   return QStringListModel::data(index, role);
 }

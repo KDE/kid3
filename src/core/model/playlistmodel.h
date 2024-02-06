@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 05 Aug 2018
  *
- * Copyright (C) 2018  Urs Fleisch
+ * Copyright (C) 2018-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,14 +48,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlaylistModel() override = default;
+  ~PlaylistModel() override = default;
 
   /**
    * Get item flags for index.
    * @param index model index
    * @return item flags
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
+  Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
    * Set data for a given role.
@@ -64,8 +64,8 @@ public:
    * @param role item data role
    * @return true if successful
    */
-  virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role = Qt::EditRole) override;
+  bool setData(const QModelIndex& index, const QVariant& value,
+               int role = Qt::EditRole) override;
 
   /**
    * Get number of rows.
@@ -73,7 +73,7 @@ public:
    * @return number of rows,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+  int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Get number of columns.
@@ -81,7 +81,7 @@ public:
    * @return number of columns,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+  int columnCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Insert rows.
@@ -91,8 +91,8 @@ public:
    * @param parent parent model index, invalid for table models
    * @return true if successful
    */
-  virtual bool insertRows(int row, int count,
-                          const QModelIndex& parent = QModelIndex()) override;
+  bool insertRows(int row, int count,
+                  const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Remove rows.
@@ -101,8 +101,8 @@ public:
    * @param parent parent model index, invalid for table models
    * @return true if successful
    */
-  virtual bool removeRows(int row, int count,
-                          const QModelIndex& parent = QModelIndex()) override;
+  bool removeRows(int row, int count,
+                  const QModelIndex& parent = QModelIndex()) override;
 
   /**
    * Get model index of item.
@@ -111,35 +111,35 @@ public:
    * @param parent index of parent item
    * @return model index of item
    */
-  virtual QModelIndex index(int row, int column,
-                            const QModelIndex& parent = QModelIndex()) const override;
+  QModelIndex index(int row, int column,
+                    const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Get parent of item.
    * @param child model index of item
    * @return model index of parent item
    */
-  virtual QModelIndex parent(const QModelIndex& child) const override;
+  QModelIndex parent(const QModelIndex& child) const override;
 
   /**
    * Map from index in proxy model to model index.
    * @param proxyIndex index in proxy model
    * @return index in source model.
    */
-  virtual QModelIndex mapToSource(const QModelIndex& proxyIndex) const override;
+  QModelIndex mapToSource(const QModelIndex& proxyIndex) const override;
 
   /**
    * Map from model index to index in proxy model.
    * @param sourceIndex index in source model
    * @return index in proxy model.
    */
-  virtual QModelIndex mapFromSource(const QModelIndex& sourceIndex) const override;
+  QModelIndex mapFromSource(const QModelIndex& sourceIndex) const override;
 
   /**
    * Get supported drop actions.
    * @return supported drop actions.
    */
-  virtual Qt::DropActions supportedDropActions() const override;
+  Qt::DropActions supportedDropActions() const override;
 
   /**
    * Get name of playlist file.

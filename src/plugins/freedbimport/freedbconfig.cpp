@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -35,7 +35,7 @@ int FreedbConfig::s_index = -1;
  * @param grp configuration group
  */
 FreedbConfig::FreedbConfig(const QString& grp)
-  : StoredConfig<FreedbConfig, ServerImporterConfig>(grp)
+  : StoredConfig(grp)
 {
   setServer(QLatin1String("gnudb.gnudb.org:80"));
   setCgiPath(QLatin1String("/~cddb/cddb.cgi"));

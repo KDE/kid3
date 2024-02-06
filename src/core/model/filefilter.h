@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jan 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -56,7 +56,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileFilter() override = default;
+  ~FileFilter() override = default;
 
   /**
    * Set filter expression.
@@ -92,13 +92,13 @@ public:
   /**
    * Clear abort flag.
    */
-  virtual void clearAborted() override;
+  void clearAborted() override;
 
   /**
    * Check if dialog was aborted.
    * @return true if aborted.
    */
-  virtual bool isAborted() const override;
+  bool isAborted() const override;
 
   /**
    * Get help text for format codes supported by formatString().
@@ -114,7 +114,7 @@ public slots:
   /**
    * Set abort flag.
    */
-  virtual void abort() override;
+  void abort() override;
 
 private:
   /**
@@ -124,7 +124,7 @@ private:
    *
    * @return formatted string.
    */
-  QString formatString(const QString& format);
+  QString formatString(const QString& format) const;
 
   /**
    * Evaluate the expression to a boolean result.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 08 Feb 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -240,18 +240,18 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagSearcher() override = default;
+  ~TagSearcher() override = default;
 
   /**
    * Clear abort flag.
    */
-  virtual void clearAborted() override;
+  void clearAborted() override;
 
   /**
    * Check if dialog was aborted.
    * @return true if aborted.
    */
-  virtual bool isAborted() const override;
+  bool isAborted() const override;
 
   /**
    * Set model of files to be searched.
@@ -282,7 +282,7 @@ public slots:
    * Stop current search, so that the next call to findNext() will use the
    * index set with setStartIndex().
    */
-  virtual void abort() override;
+  void abort() override;
 
   /**
    * Find next occurrence of string.
@@ -339,7 +339,7 @@ private:
                       int advanceChars) const;
   int findInString(const QString& str, int& idx) const;
   void replaceString(QString& str) const;
-  QString getLocationString(TaggedFile* taggedFile) const;
+  QString getLocationString(const TaggedFile* taggedFile) const;
 
   FileProxyModel* m_fileProxyModel;
   BiDirFileProxyModelIterator* m_iterator;

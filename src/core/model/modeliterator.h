@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26-Mar-2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -209,19 +209,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const override { return m_nextFile != nullptr; }
+  bool hasNext() const override { return m_nextFile != nullptr; }
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  virtual TaggedFile* next() override;
+  TaggedFile* next() override;
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  virtual TaggedFile* peekNext() const override { return m_nextFile; }
+  TaggedFile* peekNext() const override { return m_nextFile; }
 
   /**
    * Try to close the file handles.
@@ -267,19 +267,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const override { return m_nextFile != nullptr; }
+  bool hasNext() const override { return m_nextFile != nullptr; }
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  virtual TaggedFile* next() override;
+  TaggedFile* next() override;
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  virtual TaggedFile* peekNext() const override { return m_nextFile; }
+  TaggedFile* peekNext() const override { return m_nextFile; }
 
   /**
    * Check if nothing is selected.
@@ -321,19 +321,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const override;
+  bool hasNext() const override;
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  virtual TaggedFile* next() override;
+  TaggedFile* next() override;
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  virtual TaggedFile* peekNext() const override;
+  TaggedFile* peekNext() const override;
 
   /**
    * Get first tagged file in directory.
@@ -383,19 +383,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const override;
+  bool hasNext() const override;
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  virtual TaggedFile* next() override;
+  TaggedFile* next() override;
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  virtual TaggedFile* peekNext() const override;
+  TaggedFile* peekNext() const override;
 
 private:
   int m_row;
@@ -435,19 +435,19 @@ public:
    * Check if a next item exists.
    * @return true if there is a next file
    */
-  virtual bool hasNext() const override;
+  bool hasNext() const override;
 
   /**
    * Advance iterator and return next item.
    * @return next file
    */
-  virtual TaggedFile* next() override;
+  TaggedFile* next() override;
 
   /**
    * Get next item without moving iterator.
    * @return next file
    */
-  virtual TaggedFile* peekNext() const override;
+  TaggedFile* peekNext() const override;
 
 private:
   /**
@@ -456,7 +456,7 @@ private:
    * @return list with dirIndex and its subdirectories.
    */
   QList<QPersistentModelIndex> getIndexesOfDirWithSubDirs(
-      const QModelIndex& dirIndex);
+      const QModelIndex& dirIndex) const;
 
   const FileProxyModel* m_model;
   QList<QPersistentModelIndex> m_dirIndexes;

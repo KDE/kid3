@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,7 +50,7 @@ class AlbumTableModel : public StandardTableModel {
 public:
   using StandardTableModel::StandardTableModel;
 
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const override {
+  Qt::ItemFlags flags(const QModelIndex& index) const override {
     Qt::ItemFlags itemFlags =
         QAbstractItemModel::flags(index) | Qt::ItemIsDropEnabled;
     if (index.isValid())
@@ -116,9 +116,9 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   m_helpButton->setAutoDefault(false);
   m_saveButton = new QPushButton(tr("&Save Settings"), this);
   m_saveButton->setAutoDefault(false);
-  QPushButton* okButton = new QPushButton(tr("&OK"), this);
-  QPushButton* applyButton = new QPushButton(tr("&Apply"), this);
-  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
+  auto okButton = new QPushButton(tr("&OK"), this);
+  auto applyButton = new QPushButton(tr("&Apply"), this);
+  auto cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addWidget(m_helpButton);
   hlayout->addWidget(m_saveButton);
   hlayout->addItem(hspacer);
@@ -311,9 +311,9 @@ void ServerTrackImportDialog::apply()
     }
     QModelIndex idx(m_albumTableModel->index(index, 0));
     if (idx.isValid()) {
-      int selectedItem = idx.data(Qt::UserRole).toStringList().indexOf(
+      if (int selectedItem = idx.data(Qt::UserRole).toStringList().indexOf(
             idx.data(Qt::EditRole).toString());
-      if (selectedItem > 0) {
+          selectedItem > 0) {
         const ImportTrackData& selectedData =
           m_trackResults[index][selectedItem - 1];
         it->setTitle(selectedData.getTitle());
@@ -369,14 +369,14 @@ void ServerTrackImportDialog::updateFileTrackData(int index)
   stringList.push_back(str);
   for (auto it = trackData.constBegin(); it != trackData.constEnd(); ++it) {
     str = QString(QLatin1String("%1 "))
-        .arg((*it).getTrack(), 2, 10, QLatin1Char('0'));
-    str += (*it).getTitle();
+        .arg(it->getTrack(), 2, 10, QLatin1Char('0'));
+    str += it->getTitle();
     str += QLatin1Char('/');
-    str += (*it).getArtist();
+    str += it->getArtist();
     str += QLatin1String(" - ");
-    str += (*it).getAlbum();
-    if ((*it).getYear() > 0) {
-      str += QString(QLatin1String(" [%1]")).arg((*it).getYear());
+    str += it->getAlbum();
+    if (it->getYear() > 0) {
+      str += QString(QLatin1String(" [%1]")).arg(it->getYear());
     }
     stringList.push_back(str);
   }
@@ -394,7 +394,7 @@ void ServerTrackImportDialog::updateFileTrackData(int index)
  * @param trackDataVector result list
  */
 void ServerTrackImportDialog::setResults(
-  int index, ImportTrackDataVector& trackDataVector)
+  int index, const ImportTrackDataVector& trackDataVector)
 {
   m_trackResults[index] = trackDataVector;
   updateFileTrackData(index);
@@ -421,8 +421,7 @@ QString ServerTrackImportDialog::getServer() const
  */
 void ServerTrackImportDialog::setServer(const QString& srv)
 {
-  int idx = m_serverComboBox->findText(srv);
-  if (idx >= 0) {
+  if (int idx = m_serverComboBox->findText(srv); idx >= 0) {
     m_serverComboBox->setCurrentIndex(idx);
   } else {
     m_serverComboBox->addItem(srv);

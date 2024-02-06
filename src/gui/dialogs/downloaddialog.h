@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 31 Dec 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -58,7 +58,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DownloadDialog() override = default;
+  ~DownloadDialog() override = default;
 
 public slots:
   /**

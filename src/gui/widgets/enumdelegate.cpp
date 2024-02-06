@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Mar 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,8 +39,6 @@ EnumDelegate::EnumDelegate(QObject* parent) : QItemDelegate(parent)
 /**
  * Create an editor to edit the cells contents.
  * @param parent parent widget
- * @param option style
- * @param index  index of item
  * @return combo box editor widget.
  */
 QWidget* EnumDelegate::createEditor(
@@ -60,8 +58,7 @@ void EnumDelegate::setEditorData(
   QWidget* editor, const QModelIndex& index) const
 {
   auto cb = qobject_cast<QComboBox*>(editor);
-  int enumNr = index.data(Qt::EditRole).toInt();
-  if (cb && enumNr >= 0) {
+  if (int enumNr = index.data(Qt::EditRole).toInt(); cb && enumNr >= 0) {
     cb->setCurrentIndex(getIndexForEnum(enumNr));
   } else {
     QItemDelegate::setEditorData(editor, index);
@@ -77,10 +74,8 @@ void EnumDelegate::setEditorData(
 void EnumDelegate::setModelData(
   QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
 {
-  auto cb = qobject_cast<QComboBox*>(editor);
-  if (cb) {
-    int enumNr = getEnumForIndex(cb->currentIndex());
-    if (enumNr >= 0) {
+  if (auto cb = qobject_cast<QComboBox*>(editor)) {
+    if (int enumNr = getEnumForIndex(cb->currentIndex()); enumNr >= 0) {
       model->setData(index, enumNr, Qt::EditRole);
       return;
     }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 05 Aug 2018
  *
- * Copyright (C) 2018  Urs Fleisch
+ * Copyright (C) 2018-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,10 +57,9 @@ bool PlaylistModel::setData(const QModelIndex& index,
       index.isValid() &&
       index.row() >= 0 && index.row() < m_items.size() &&
       index.column() == 0) {
-    QModelIndex idx = m_fsModel->index(value.toString());
-    if (idx.isValid()) {
-      QPersistentModelIndex& itemIdx = m_items[index.row()]; // clazy:exclude=detaching-member
-      if (itemIdx != idx) {
+    if (QModelIndex idx = m_fsModel->index(value.toString()); idx.isValid()) {
+      if (QPersistentModelIndex& itemIdx = m_items[index.row()];
+          itemIdx != idx) {
         itemIdx = idx;
         emit dataChanged(index, index);
         setModified(true);
@@ -98,7 +97,7 @@ bool PlaylistModel::insertRows(int row, int count,
 bool PlaylistModel::removeRows(int row, int count,
                                const QModelIndex& parent)
 {
-  if (count <= 0 || row < 0 || (row + count) > rowCount(parent))
+  if (count <= 0 || row < 0 || row + count > rowCount(parent))
     return false;
   beginRemoveRows(parent, row, row + count - 1);
   for (int i = 0; i < count; ++i) {
@@ -183,8 +182,7 @@ void PlaylistModel::setPlaylistFile(const QString& path)
     m_items.clear();
     const auto constFilePaths = filePaths;
     for (const QString& filePath :  constFilePaths) {
-      QModelIndex index = m_fsModel->index(filePath);
-      if (index.isValid()) {
+      if (QModelIndex index = m_fsModel->index(filePath); index.isValid()) {
         m_items.append(index);
       } else {
         m_filesNotFound.append(filePath);
@@ -217,8 +215,8 @@ void PlaylistModel::setModified(bool modified)
 
 bool PlaylistModel::save()
 {
-  PlaylistCreator creator(QString(), m_playlistConfig);
-  if (creator.write(m_playlistFilePath, m_items)) {
+  if (PlaylistCreator creator(QString(), m_playlistConfig);
+      creator.write(m_playlistFilePath, m_items)) {
     setModified(false);
     return true;
   }
@@ -244,8 +242,7 @@ bool PlaylistModel::setPathsInPlaylist(const QStringList& paths)
   beginResetModel();
   m_items.clear();
   for (const QString& filePath : paths) {
-    QModelIndex index = m_fsModel->index(filePath);
-    if (index.isValid()) {
+    if (QModelIndex index = m_fsModel->index(filePath); index.isValid()) {
       m_items.append(index);
     } else {
       ok = false;

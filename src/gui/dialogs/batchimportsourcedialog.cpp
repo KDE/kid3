@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,7 +47,7 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent)
   auto vlayout = new QVBoxLayout(this);
 
   auto serverLayout = new QHBoxLayout;
-  QLabel* serverLabel = new QLabel(tr("&Server:"));
+  auto serverLabel = new QLabel(tr("&Server:"));
   serverLayout->addWidget(serverLabel);
   m_serverComboBox = new QComboBox;
   serverLabel->setBuddy(m_serverComboBox);
@@ -55,7 +55,7 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent)
   vlayout->addLayout(serverLayout);
 
   auto accuracyLayout = new QHBoxLayout;
-  QLabel* accuracyLabel = new QLabel(tr("&Accuracy:"));
+  auto accuracyLabel = new QLabel(tr("&Accuracy:"));
   accuracyLayout->addWidget(accuracyLabel);
   m_accuracySpinBox = new QSpinBox;
   m_accuracySpinBox->setRange(0, 100);
@@ -76,8 +76,8 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent)
   tagsCoverLayout->addWidget(m_coverArtCheckBox);
   vlayout->addLayout(tagsCoverLayout);
 
-  QDialogButtonBox* buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok |
-                                                     QDialogButtonBox::Cancel);
+  auto buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok |
+                                        QDialogButtonBox::Cancel);
   connect(buttonBox, &QDialogButtonBox::accepted, this, &QDialog::accept);
   connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
   vlayout->addWidget(buttonBox);
@@ -100,7 +100,7 @@ void BatchImportSourceDialog::setServerNames(const QStringList& servers)
  * Fill batch import source from dialog controls.
  * @param source batch import source to be filled
  */
-void BatchImportSourceDialog::getSource(BatchImportProfile::Source& source)
+void BatchImportSourceDialog::getSource(BatchImportProfile::Source& source) const
 {
   source.setName(m_serverComboBox->currentText());
   source.setRequiredAccuracy(m_accuracySpinBox->value());
@@ -115,8 +115,7 @@ void BatchImportSourceDialog::getSource(BatchImportProfile::Source& source)
  */
 void BatchImportSourceDialog::setSource(const BatchImportProfile::Source& source)
 {
-  int index = m_serverComboBox->findText(source.getName());
-  if (index != -1) {
+  if (int index = m_serverComboBox->findText(source.getName()); index != -1) {
     m_serverComboBox->setCurrentIndex(index);
   }
   m_accuracySpinBox->setValue(source.getRequiredAccuracy());

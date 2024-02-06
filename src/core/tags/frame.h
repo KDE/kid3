@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Aug 2007
  *
- * Copyright (C) 2007-2018  Urs Fleisch
+ * Copyright (C) 2007-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -1335,7 +1335,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameFormatReplacer() override = default;
+  ~FrameFormatReplacer() override = default;
 
   FrameFormatReplacer(const FrameFormatReplacer& other) = delete;
   FrameFormatReplacer &operator=(const FrameFormatReplacer& other) = delete;
@@ -1368,7 +1368,7 @@ protected:
    * @return replacement string,
    *         QString::null if code not found.
    */
-  virtual QString getReplacement(const QString& code) const override;
+  QString getReplacement(const QString& code) const override;
 
 private:
   const FrameCollection& m_frames;

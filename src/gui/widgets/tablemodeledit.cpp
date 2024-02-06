@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2018
  *
- * Copyright (C) 2018  Urs Fleisch
+ * Copyright (C) 2018-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,8 +44,8 @@ void TableModelEdit::addItem()
   QAbstractItemModel* model = getItemView()->model();
   int row = -1;
   if (QItemSelectionModel* selModel = getItemView()->selectionModel()) {
-    QModelIndexList indexes = selModel->selectedIndexes();
-    if (!indexes.isEmpty()) {
+    if (QModelIndexList indexes = selModel->selectedIndexes();
+        !indexes.isEmpty()) {
       row = indexes.first().row();
     }
   }

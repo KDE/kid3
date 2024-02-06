@@ -59,8 +59,8 @@ TagLib::File *DSFFileTypeResolver::createFile(const char *fileName,
         bool readProperties,
         TagLib::AudioProperties::ReadStyle propertiesStyle) const
 {
-    const char *ext = strrchr(fileName, '.');
-    if(ext && !strcasecmp(ext, ".dsf"))
+    if(const char *ext = strrchr(fileName, '.');
+       ext && !strcasecmp(ext, ".dsf"))
     {
         return new DSFFile(fileName, readProperties, propertiesStyle);
     }

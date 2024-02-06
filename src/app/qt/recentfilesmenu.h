@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15-Aug-2010
  *
- * Copyright (C) 2010-2018  Urs Fleisch
+ * Copyright (C) 2010-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,7 +47,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~RecentFilesMenu() override = default;
+  ~RecentFilesMenu() override = default;
 
   /**
    * Add directory to list of recent files.

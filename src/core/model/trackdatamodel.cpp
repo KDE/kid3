@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 May 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -72,18 +72,17 @@ QVariant TrackDataModel::data(const QModelIndex& index, int role) const
 {
   if (!index.isValid() ||
       index.row() < 0 ||
-      index.row() >= static_cast<int>(m_trackDataVector.size()) ||
+      index.row() >= m_trackDataVector.size() ||
       index.column() < 0 ||
-      index.column() >= static_cast<int>(m_frameTypes.size()))
+      index.column() >= m_frameTypes.size())
     return QVariant();
 
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     const ImportTrackData& trackData = m_trackDataVector.at(index.row());
     Frame::ExtendedType type = m_frameTypes.at(index.column());
-    auto typeOrProperty = static_cast<int>(type.getType());
-    if (typeOrProperty < FT_FirstTrackProperty) {
-      QString value(trackData.getValue(type));
-      if (!value.isNull())
+    if (auto typeOrProperty = static_cast<int>(type.getType());
+        typeOrProperty < FT_FirstTrackProperty) {
+      if (QString value(trackData.getValue(type)); !value.isNull())
         return value;
     } else {
       switch (typeOrProperty) {
@@ -110,8 +109,8 @@ QVariant TrackDataModel::data(const QModelIndex& index, int role) const
   } else if (role == Qt::BackgroundRole) {
     if (index.column() == 0 && m_diffCheckEnabled) {
       const ImportTrackData& trackData = m_trackDataVector.at(index.row());
-      int diff = trackData.getTimeDifference();
-      if (diff >= 0 && m_colorProvider) {
+      if (int diff = trackData.getTimeDifference();
+          diff >= 0 && m_colorProvider) {
         return m_colorProvider->colorForContext(diff > m_maxDiff
             ? ColorContext::Error : ColorContext::None);
       }
@@ -135,9 +134,9 @@ bool TrackDataModel::setData(const QModelIndex& index,
 {
   if (!index.isValid() ||
       index.row() < 0 ||
-      index.row() >= static_cast<int>(m_trackDataVector.size()) ||
+      index.row() >= m_trackDataVector.size() ||
       index.column() < 0 ||
-      index.column() >= static_cast<int>(m_frameTypes.size()))
+      index.column() >= m_frameTypes.size())
     return false;
 
   if (role == Qt::EditRole) {
@@ -148,9 +147,10 @@ bool TrackDataModel::setData(const QModelIndex& index,
 
     trackData.setValue(type, value.toString());
     return true;
-  } else if (role == Qt::CheckStateRole && index.column() == 0) {
-    bool isChecked(value.toInt() == Qt::Checked);
-    if (isChecked != m_trackDataVector.at(index.row()).isEnabled()) {
+  }
+  if (role == Qt::CheckStateRole && index.column() == 0) {
+    if (bool isChecked(value.toInt() == Qt::Checked);
+        isChecked != m_trackDataVector.at(index.row()).isEnabled()) {
       m_trackDataVector[index.row()].setEnabled(isChecked);
       emit dataChanged(index, index);
     }
@@ -173,8 +173,8 @@ QVariant TrackDataModel::headerData(
     return QVariant();
   if (orientation == Qt::Horizontal && section < m_frameTypes.size()) {
     Frame::ExtendedType type = m_frameTypes.at(section);
-    auto typeOrProperty = static_cast<int>(type.getType());
-    if (typeOrProperty < FT_FirstTrackProperty) {
+    if (auto typeOrProperty = static_cast<int>(type.getType());
+        typeOrProperty < FT_FirstTrackProperty) {
       return typeOrProperty == Frame::FT_Track
         ? tr("Track") // shorter header for track number
         : Frame::getDisplayName(type.getName());
@@ -193,8 +193,8 @@ QVariant TrackDataModel::headerData(
       }
     }
   } else if (orientation == Qt::Vertical && section < m_trackDataVector.size()) {
-    int fileDuration = m_trackDataVector.at(section).getFileDuration();
-    if (fileDuration > 0) {
+    if (int fileDuration = m_trackDataVector.at(section).getFileDuration();
+        fileDuration > 0) {
       return TaggedFile::formatTime(fileDuration);
     }
   }
@@ -228,7 +228,6 @@ int TrackDataModel::columnCount(const QModelIndex& parent) const
  * @param row rows are inserted before this row, if 0 at the begin,
  * if rowCount() at the end
  * @param count number of rows to insert
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool TrackDataModel::insertRows(int row, int count, const QModelIndex&)
@@ -245,7 +244,6 @@ bool TrackDataModel::insertRows(int row, int count, const QModelIndex&)
  * Remove rows.
  * @param row rows are removed starting with this row
  * @param count number of rows to remove
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool TrackDataModel::removeRows(int row, int count,
@@ -264,7 +262,6 @@ bool TrackDataModel::removeRows(int row, int count,
  * @param column columns are inserted before this column, if 0 at the begin,
  * if columnCount() at the end
  * @param count number of columns to insert
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool TrackDataModel::insertColumns(int column, int count,
@@ -283,7 +280,6 @@ bool TrackDataModel::insertColumns(int column, int count,
  * Remove columns.
  * @param column columns are removed starting with this column
  * @param count number of columns to remove
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool TrackDataModel::removeColumns(int column, int count,
@@ -335,8 +331,7 @@ int TrackDataModel::calculateAccuracy() const
        it != m_trackDataVector.constEnd();
        ++it) {
     const ImportTrackData& trackData = *it;
-    int diff = trackData.getTimeDifference();
-    if (diff >= 0) {
+    if (int diff = trackData.getTimeDifference(); diff >= 0) {
       if (diff > 3) {
         ++numMismatches;
       } else {
@@ -345,15 +340,14 @@ int TrackDataModel::calculateAccuracy() const
     } else {
       // no durations available => try to match using file name and title
       QSet<QString> titleWords = trackData.getTitleWords();
-      int numWords = titleWords.size();
-      if (numWords > 0) {
+      if (int numWords = titleWords.size(); numWords > 0) {
         QSet<QString> fileWords = trackData.getFilenameWords();
         if (fileWords.size() < numWords) {
           numWords = fileWords.size();
         }
-        int wordMatch = numWords > 0
-            ? 100 * (fileWords & titleWords).size() / numWords : 0;
-        if (wordMatch < 75) {
+        if (int wordMatch = numWords > 0
+              ? 100 * (fileWords & titleWords).size() / numWords : 0;
+            wordMatch < 75) {
           ++numMismatches;
         } else {
           ++numMatches;
@@ -385,9 +379,9 @@ const Frame* TrackDataModel::getFrameOfIndex(const QModelIndex& index) const
 {
   if (!index.isValid() ||
       index.row() < 0 ||
-      index.row() >= static_cast<int>(m_trackDataVector.size()) ||
+      index.row() >= m_trackDataVector.size() ||
       index.column() < 0 ||
-      index.column() >= static_cast<int>(m_frameTypes.size()))
+      index.column() >= m_frameTypes.size())
     return nullptr;
 
   const ImportTrackData& trackData = m_trackDataVector.at(index.row());
@@ -405,7 +399,7 @@ const Frame* TrackDataModel::getFrameOfIndex(const QModelIndex& index) const
  */
 void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
 {
-  static const int initFrameTypes[] = {
+  static constexpr int initFrameTypes[] = {
     FT_ImportDuration, FT_FileName, FT_FilePath,
     Frame::FT_Track, Frame::FT_Title,
     Frame::FT_Artist, Frame::FT_Album, Frame::FT_Date, Frame::FT_Genre,
@@ -422,8 +416,8 @@ void TrackDataModel::setTrackData(const ImportTrackDataVector& trackDataVector)
        tit != trackDataVector.constEnd();
        ++tit) {
     for (auto fit = tit->cbegin(); fit != tit->cend(); ++fit) {
-      Frame::ExtendedType type = fit->getExtendedType();
-      if (type.getType() > Frame::FT_LastV1Frame &&
+      if (Frame::ExtendedType type = fit->getExtendedType();
+          type.getType() > Frame::FT_LastV1Frame &&
           !newFrameTypes.contains(type)) {
         newFrameTypes.append(type);
       }

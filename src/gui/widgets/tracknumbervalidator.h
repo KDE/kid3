@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 24 May 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,7 +43,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TrackNumberValidator() override = default;
+  ~TrackNumberValidator() override = default;
 
   /**
    * Validate input string.
@@ -51,11 +51,11 @@ public:
    * @param pos current position
    * @return current state of input (Invalid, Intermediate or Acceptable).
    */
-  virtual QValidator::State validate(QString& input, int& pos) const override;
+  QValidator::State validate(QString& input, int& pos) const override;
 
   /**
    * Attempt to change @a input to be valid.
    * @param input input string
    */
-  virtual void fixup(QString& input) const override;
+  void fixup(QString& input) const override;
 };

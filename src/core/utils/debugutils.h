@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,7 +49,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~SignalEmissionDumper() override = default;
+  ~SignalEmissionDumper() override = default;
 
   /**
    * Monitor signal emissions of object

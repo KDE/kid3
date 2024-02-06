@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Mar 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,7 +42,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~EnumDelegate() override = default;
+  ~EnumDelegate() override = default;
 
   /**
    * Create an editor to edit the cells contents.
@@ -51,7 +51,7 @@ public:
    * @param index  index of item
    * @return combo box editor widget.
    */
-  virtual QWidget* createEditor(
+  QWidget* createEditor(
     QWidget* parent, const QStyleOptionViewItem& option,
     const QModelIndex& index) const override;
 
@@ -60,7 +60,7 @@ public:
    * @param editor editor widget
    * @param index  index of item
    */
-  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const override;
+  void setEditorData(QWidget* editor, const QModelIndex& index) const override;
 
   /**
    * Set model data supplied by editor.
@@ -68,7 +68,7 @@ public:
    * @param model  model
    * @param index  index of item
    */
-  virtual void setModelData(
+  void setModelData(
     QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const override;
 
   /**
@@ -77,8 +77,8 @@ public:
    * @param index  index of item
    * @return size needed by delegate.
    */
-  virtual QSize sizeHint(const QStyleOptionViewItem& option,
-                         const QModelIndex& index) const override;
+  QSize sizeHint(const QStyleOptionViewItem& option,
+                 const QModelIndex& index) const override;
 
 protected:
   /**
@@ -88,7 +88,7 @@ protected:
    * @param rect the text has to be rendered within this rectangle
    * @param text to be rendered
    */
-  virtual void drawDisplay(
+  void drawDisplay(
     QPainter* painter, const QStyleOptionViewItem& option, const QRect& rect,
     const QString& text) const override;
 

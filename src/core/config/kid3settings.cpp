@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 07 Apr 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,10 +34,10 @@ void copyOldSettings(QSettings* config)
 {
   if (!config->contains(QLatin1String("Tags/MarkTruncations"))) {
     // Configuration missing or not in current format
-    QSettings oldSettings(
+    if (QSettings oldSettings(
           QSettings::UserScope, QLatin1String("kid3.sourceforge.net"),
           QLatin1String("Kid3"));
-    if (oldSettings.contains(QLatin1String("/kid3/General Options/ExportFormatIdx"))) {
+        oldSettings.contains(QLatin1String("/kid3/General Options/ExportFormatIdx"))) {
       oldSettings.beginGroup(QLatin1String("/kid3"));
       const auto keys = oldSettings.allKeys();
       for (const QString& key : keys) {

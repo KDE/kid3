@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Jul 2019
  *
- * Copyright (C) 2019  Urs Fleisch
+ * Copyright (C) 2019-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -111,8 +111,7 @@ bool StandardTableModel::setData(const QModelIndex& index,
     r.resize(m_numColumns);
 
   auto& c = r[column];
-  auto it = c.find(role);
-  if (it != c.end()) {
+  if (auto it = c.find(role); it != c.end()) {
     if (*it != value) {
       *it = value;
       emit dataChanged(index, index);
@@ -137,7 +136,7 @@ bool StandardTableModel::insertRows(int row, int count,
 bool StandardTableModel::removeRows(int row, int count,
                                    const QModelIndex& parent)
 {
-  if (count <= 0 || row < 0 || (row + count) > rowCount(parent))
+  if (count <= 0 || row < 0 || row + count > rowCount(parent))
     return false;
   beginRemoveRows(QModelIndex(), row, row + count - 1);
   m_cont.remove(row, count);

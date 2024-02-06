@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 05 Sep 2007
  *
- * Copyright (C) 2007-2018  Urs Fleisch
+ * Copyright (C) 2007-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -52,7 +52,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameTable() override = default;
+  ~FrameTable() override = default;
 
   /**
    * Filters events if this object has been installed as an event filter
@@ -63,7 +63,7 @@ public:
    * @param event   event
    * @return true to filter event out.
    */
-  virtual bool eventFilter(QObject* watched, QEvent* event) override;
+  bool eventFilter(QObject* watched, QEvent* event) override;
 
   /**
    * Commit data from the current editor.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,32 +46,32 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CorePlatformTools() override;
+  ~CorePlatformTools() override;
 
   /**
    * Get application settings.
    * @return settings instance.
    */
-  virtual ISettings* applicationSettings() override;
+  ISettings* applicationSettings() override;
 
   /**
    * Get icon provider for tagged files.
    * @return icon provider.
    */
-  virtual CoreTaggedFileIconProvider* iconProvider() override;
+  CoreTaggedFileIconProvider* iconProvider() override;
 
   /**
    * Write text to clipboard.
    * @param text text to write
    * @return true if operation is supported.
    */
-  virtual bool writeToClipboard(const QString& text) const override;
+  bool writeToClipboard(const QString& text) const override;
 
   /**
    * Read text from clipboard.
    * @return text, null if operation not supported.
    */
-  virtual QString readFromClipboard() const override;
+  QString readFromClipboard() const override;
 
   /**
    * Create an audio player instance.
@@ -79,8 +79,8 @@ public:
    * @param dbusEnabled true to enable MPRIS D-Bus interface
    * @return audio player, nullptr if not supported.
    */
-  virtual QObject* createAudioPlayer(Kid3Application* app,
-                                     bool dbusEnabled) const override;
+  QObject* createAudioPlayer(Kid3Application* app,
+                             bool dbusEnabled) const override;
 
   /**
    * Move file or directory to trash.
@@ -89,7 +89,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool moveToTrash(const QString& path) const override;
+  bool moveToTrash(const QString& path) const override;
 
   /**
    * Construct a name filter string suitable for file dialogs.
@@ -97,7 +97,7 @@ public:
    * [("Images", "*.jpg *.jpeg *.png"), ("All Files", "*")].
    * @return name filter string.
    */
-  virtual QString fileDialogNameFilter(
+  QString fileDialogNameFilter(
       const QList<QPair<QString, QString> >& nameFilters) const override;
 
   /**
@@ -105,7 +105,7 @@ public:
    * @param nameFilter name filter string
    * @return file patterns, e.g. "*.mp3".
    */
-  virtual QString getNameFilterPatterns(const QString& nameFilter) const override;
+  QString getNameFilterPatterns(const QString& nameFilter) const override;
 
 #if !defined Q_OS_WIN32 && !defined Q_OS_MAC
   /**

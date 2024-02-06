@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 07 Oct 2012
  *
- * Copyright (C) 2012-2018  Urs Fleisch
+ * Copyright (C) 2012-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -41,7 +41,7 @@ class TestServerImporterBase : public QObject {
   Q_OBJECT
 public:
   explicit TestServerImporterBase(QObject* parent = nullptr);
-  virtual ~TestServerImporterBase() override;
+  ~TestServerImporterBase() override;
 
 public slots:
   void onFindFinished(const QByteArray& searchStr);

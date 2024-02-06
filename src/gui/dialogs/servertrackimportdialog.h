@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -64,7 +64,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ServerTrackImportDialog() override;
+  ~ServerTrackImportDialog() override;
 
   /**
    * Set importer to be used.
@@ -103,18 +103,18 @@ public slots:
   /**
    * Shows the dialog as a modal dialog.
    */
-  virtual int exec() override;
+  int exec() override;
 
 protected slots:
   /**
    * Hides the dialog and sets the result to QDialog::Accepted.
    */
-  virtual void accept() override;
+  void accept() override;
 
   /**
    * Hides the dialog and sets the result to QDialog::Rejected.
    */
-  virtual void reject() override;
+  void reject() override;
 
 private slots:
   /**
@@ -143,7 +143,7 @@ private slots:
    * @param index           index of file
    * @param trackDataVector result list
    */
-  void setResults(int index, ImportTrackDataVector& trackDataVector);
+  void setResults(int index, const ImportTrackDataVector& trackDataVector);
 
   /**
    * Save the local settings to the configuration.

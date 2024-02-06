@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Feb 2012
  *
- * Copyright (C) 2012-2018  Urs Fleisch
+ * Copyright (C) 2012-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -84,11 +84,10 @@ bool Utils::replaceIllegalFileNameCharacters(
   QMap<QChar, QString> replaceMap;
   bool changed = false;
   for (const char* ic = illegalChars; *ic; ++ic) {
-    QChar illegalChar = QLatin1Char(*ic);
-    if (fileName.contains(illegalChar)) {
+    if (QChar illegalChar = QLatin1Char(*ic); fileName.contains(illegalChar)) {
       if (!changed) {
-        const FormatConfig& fnCfg = FilenameFormatConfig::instance();
-        if (fnCfg.strRepEnabled()) {
+        if (const FormatConfig& fnCfg = FilenameFormatConfig::instance();
+            fnCfg.strRepEnabled()) {
           const auto constStrRepMap = fnCfg.strRepMap();
           for (const auto& keyVal : constStrRepMap) {
             if (keyVal.first.length() == 1) {

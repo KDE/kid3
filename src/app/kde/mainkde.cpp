@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,7 +57,7 @@ public:
    * @param event event
    * @return return value from receiver's event handler.
    */
-  virtual bool notify(QObject* receiver, QEvent* event) override;
+  bool notify(QObject* receiver, QEvent* event) override;
 };
 
 /**

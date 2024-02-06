@@ -112,8 +112,8 @@ PictureFrame::ImageProperties::ImageProperties(const QByteArray& data)
 
 bool PictureFrame::ImageProperties::loadFromData(const QByteArray& data)
 {
-  const int len = data.size();
-  if (len > 2 && data.at(0) == '\xff' && data.at(1) == '\xd8') {
+  if (const int len = data.size();
+      len > 2 && data.at(0) == '\xff' && data.at(1) == '\xd8') {
     // JPEG
     int i = 2;
     while (i + 3 < len) {
@@ -123,12 +123,13 @@ bool PictureFrame::ImageProperties::loadFromData(const QByteArray& data)
               reinterpret_cast<const uchar*>(data.constData()) + i + 2);
         if (marker == 0xda) {
           break; // start of scan
-        } else if ((marker == 0xc0 || marker == 0xc2) && i + 9 < len && sectionLen >= 8) {
+        }
+        if ((marker == 0xc0 || marker == 0xc2) && i + 9 < len && sectionLen >= 8) {
           quint8 precision = static_cast<quint8>(data.at(i + 4));
           quint16 height = qFromBigEndian<quint16>(
-                reinterpret_cast<const uchar*>(data.constData()) + i + 5);
+            reinterpret_cast<const uchar*>(data.constData()) + i + 5);
           quint16 width = qFromBigEndian<quint16>(
-                reinterpret_cast<const uchar*>(data.constData()) + i + 7);
+            reinterpret_cast<const uchar*>(data.constData()) + i + 7);
           quint8 components = static_cast<quint8>(data.at(i + 9));
           m_width = width;
           m_height = height;
@@ -147,8 +148,8 @@ bool PictureFrame::ImageProperties::loadFromData(const QByteArray& data)
     while (i + 8 < len) {
       quint32 chunkLen = qFromBigEndian<quint32>(
             reinterpret_cast<const uchar*>(data.constData()) + i);
-      QByteArray chunkName = data.mid(i + 4, 4);
-      if (chunkName == "IHDR" && i + 20 < len && chunkLen >= 13) {
+      if (QByteArray chunkName = data.mid(i + 4, 4);
+          chunkName == "IHDR" && i + 20 < len && chunkLen >= 13) {
         quint32 width = qFromBigEndian<quint32>(
               reinterpret_cast<const uchar*>(data.constData()) + i + 8);
         quint32 height = qFromBigEndian<quint32>(
@@ -209,7 +210,7 @@ PictureFrame::PictureFrame(
  */
 PictureFrame::PictureFrame(const Frame& frame)
 {
-  *(static_cast<Frame*>(this)) = frame; // clazy:exclude=unneeded-cast
+  *static_cast<Frame*>(this) = frame; // clazy:exclude=unneeded-cast
   setType(FT_Picture);
 
   // Make sure all fields are available in the correct order
@@ -339,28 +340,28 @@ void PictureFrame::getFields(const Frame& frame,
   for (auto it = frame.getFieldList().constBegin();
        it != frame.getFieldList().constEnd();
        ++it) {
-    switch ((*it).m_id) {
+    switch (it->m_id) {
       case ID_TextEnc:
-        enc = static_cast<TextEncoding>((*it).m_value.toInt());
+        enc = static_cast<TextEncoding>(it->m_value.toInt());
         break;
       case ID_ImageFormat:
-        imgFormat = (*it).m_value.toString();
+        imgFormat = it->m_value.toString();
         break;
       case ID_MimeType:
-        mimeType = (*it).m_value.toString();
+        mimeType = it->m_value.toString();
         break;
       case ID_PictureType:
-        pictureType = static_cast<PictureType>((*it).m_value.toInt());
+        pictureType = static_cast<PictureType>(it->m_value.toInt());
         break;
       case ID_Description:
-        description = (*it).m_value.toString();
+        description = it->m_value.toString();
         break;
       case ID_Data:
-        data = (*it).m_value.toByteArray();
+        data = it->m_value.toByteArray();
         break;
       case ID_ImageProperties:
         if (imgProps) {
-          *imgProps = (*it).m_value.value<ImageProperties>();
+          *imgProps = it->m_value.value<ImageProperties>();
         }
         break;
       default:
@@ -385,9 +386,9 @@ bool PictureFrame::areFieldsEqual(const Frame& f1, const Frame& f2)
   QByteArray data1, data2;
   getFields(f1, enc1, imgFormat1, mimeType1, pictureType1, description1, data1);
   getFields(f2, enc2, imgFormat2, mimeType2, pictureType2, description2, data2);
-  return (data1 == data2 && description1 == description2 &&
-          mimeType1 == mimeType2 && pictureType1 == pictureType2 &&
-          imgFormat1 == imgFormat2 && enc1 == enc2);
+  return data1 == data2 && description1 == description2 &&
+         mimeType1 == mimeType2 && pictureType1 == pictureType2 &&
+         imgFormat1 == imgFormat2 && enc1 == enc2;
 }
 
 /**
@@ -413,8 +414,7 @@ bool PictureFrame::setTextEncoding(Frame& frame, TextEncoding enc)
  */
 bool PictureFrame::getTextEncoding(const Frame& frame, TextEncoding& enc)
 {
-  QVariant var(getField(frame, ID_TextEnc));
-  if (var.isValid()) {
+  if (QVariant var(getField(frame, ID_TextEnc)); var.isValid()) {
     enc = static_cast<TextEncoding>(var.toInt());
     return true;
   }
@@ -444,8 +444,7 @@ bool PictureFrame::setImageFormat(Frame& frame, const QString& imgFormat)
  */
 bool PictureFrame::getImageFormat(const Frame& frame, QString& imgFormat)
 {
-  QVariant var(getField(frame, ID_ImageFormat));
-  if (var.isValid()) {
+  if (QVariant var(getField(frame, ID_ImageFormat)); var.isValid()) {
     imgFormat = var.toString();
     return true;
   }
@@ -475,8 +474,7 @@ bool PictureFrame::setMimeType(Frame& frame, const QString& mimeType)
  */
 bool PictureFrame::getMimeType(const Frame& frame, QString& mimeType)
 {
-  QVariant var(getField(frame, ID_MimeType));
-  if (var.isValid()) {
+  if (QVariant var(getField(frame, ID_MimeType)); var.isValid()) {
     mimeType = var.toString();
     return true;
   }
@@ -506,8 +504,7 @@ bool PictureFrame::setPictureType(Frame& frame, PictureType pictureType)
  */
 bool PictureFrame::getPictureType(const Frame& frame, PictureType& pictureType)
 {
-  QVariant var(getField(frame, ID_PictureType));
-  if (var.isValid()) {
+  if (QVariant var(getField(frame, ID_PictureType)); var.isValid()) {
     pictureType = static_cast<PictureType>(var.toInt());
     return true;
   }
@@ -537,8 +534,7 @@ bool PictureFrame::setDescription(Frame& frame, const QString& description)
  */
 bool PictureFrame::getDescription(const Frame& frame, QString& description)
 {
-  QVariant var(getField(frame, ID_Description));
-  if (var.isValid()) {
+  if (QVariant var(getField(frame, ID_Description)); var.isValid()) {
     description = var.toString();
     return true;
   }
@@ -568,8 +564,7 @@ bool PictureFrame::setData(Frame& frame, const QByteArray& data)
  */
 bool PictureFrame::getData(const Frame& frame, QByteArray& data)
 {
-  QVariant var(getField(frame, ID_Data));
-  if (var.isValid()) {
+  if (QVariant var(getField(frame, ID_Data)); var.isValid()) {
     data = var.toByteArray();
     return true;
   }
@@ -594,8 +589,7 @@ bool PictureFrame::setDataFromFile(Frame& frame, const QString& fileName)
       auto data = new char[size];
       QDataStream stream(&file);
       stream.readRawData(data, size);
-      QByteArray ba;
-      ba = QByteArray(data, size);
+      auto ba = QByteArray(data, size);
       result = setData(frame, ba);
       delete [] data;
       file.close();
@@ -662,8 +656,8 @@ QString PictureFrame::getMimeTypeForFile(const QString& fileName,
 bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName)
 {
   QString imgFormat;
-  QString mimeType = getMimeTypeForFile(fileName, &imgFormat);
-  if (!mimeType.isEmpty()) {
+  if (QString mimeType = getMimeTypeForFile(fileName, &imgFormat);
+      !mimeType.isEmpty()) {
     return setMimeType(frame, mimeType) && setImageFormat(frame, imgFormat);
   }
   return false;
@@ -755,14 +749,13 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
     if (baSize < index + descLen + 20) return;
     description = QString::fromUtf8(ba.data() + index, descLen);
     index += descLen;
-    uint width, height, depth, numColors;
-    width = getBigEndianULongFromByteArray(ba, index);
+    uint width = getBigEndianULongFromByteArray(ba, index);
     index += 4;
-    height = getBigEndianULongFromByteArray(ba, index);
+    uint height = getBigEndianULongFromByteArray(ba, index);
     index += 4;
-    depth = getBigEndianULongFromByteArray(ba, index);
+    uint depth = getBigEndianULongFromByteArray(ba, index);
     index += 4;
-    numColors = getBigEndianULongFromByteArray(ba, index);
+    uint numColors = getBigEndianULongFromByteArray(ba, index);
     index += 4;
     unsigned long picLen = getBigEndianULongFromByteArray(ba, index);
     index += 4;
@@ -841,7 +834,7 @@ QString PictureFrame::getPictureTypeName(PictureType type)
 {
   if (static_cast<int>(type) >= 0 &&
       static_cast<int>(type) < static_cast<int>(
-        sizeof(pictureTypeNames) / sizeof(pictureTypeNames[0]) - 1)) {
+        std::size(pictureTypeNames) - 1)) {
     return QCoreApplication::translate("@default", pictureTypeNames[type]);
   }
   return QString();
@@ -866,7 +859,7 @@ const char* PictureFrame::getPictureTypeString(PictureType type)
 {
   return static_cast<int>(type) >= 0 &&
       static_cast<int>(type) < static_cast<int>(
-        sizeof(pictureTypeStrings) / sizeof(pictureTypeStrings[0]) - 1)
+        std::size(pictureTypeStrings) - 1)
       ? pictureTypeStrings[type] : nullptr;
 }
 
@@ -888,7 +881,7 @@ const char* const* PictureFrame::getPictureTypeStrings()
 PictureFrame::PictureType PictureFrame::getPictureTypeFromString(const char* str)
 {
   for (unsigned int i = 0;
-       i < sizeof(pictureTypeStrings) / sizeof(pictureTypeStrings[0]) - 1;
+       i < std::size(pictureTypeStrings) - 1;
        ++i) {
     if (qstricmp(str, pictureTypeStrings[i]) == 0) {
       return static_cast<PictureType>(i);

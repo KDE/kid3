@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -258,7 +258,7 @@ void BatchImportSourcesModel::setBatchImportSource(
  * @param source the batch import source is returned here
  */
 void BatchImportSourcesModel::getBatchImportSource(
-    int row, BatchImportProfile::Source& source)
+    int row, BatchImportProfile::Source& source) const
 {
   if (row >= 0 && row < m_sources.size()) {
     source = m_sources.at(row);

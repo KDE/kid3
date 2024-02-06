@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 11 Aug 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -55,7 +55,7 @@
 namespace {
 
 /** Default command timeout in milliseconds. */
-const int DEFAULT_TIMEOUT_MS = 3000;
+constexpr int DEFAULT_TIMEOUT_MS = 3000;
 
 /**
  * Available names for groups in config command.
@@ -103,19 +103,19 @@ GeneralConfig* getConfig(const QString& name)
   }
 
   // Change this list together with configNames.
-  static const std::function<GeneralConfig*(void)> cfgFuncs[] = {
-    []() { return &BatchImportConfig::instance(); },
-    []() { return &ExportConfig::instance(); },
-    []() { return &FileConfig::instance(); },
-    []() { return &FilenameFormatConfig::instance(); },
-    []() { return &FilterConfig::instance(); },
-    []() { return &ImportConfig::instance(); },
-    []() { return &NetworkConfig::instance(); },
-    []() { return &NumberTracksConfig::instance(); },
-    []() { return &PlaylistConfig::instance(); },
-    []() { return &RenDirConfig::instance(); },
-    []() { return &TagConfig::instance(); },
-    []() { return &TagFormatConfig::instance(); }
+  static const std::function<GeneralConfig*()> cfgFuncs[] = {
+    [] { return &BatchImportConfig::instance(); },
+    [] { return &ExportConfig::instance(); },
+    [] { return &FileConfig::instance(); },
+    [] { return &FilenameFormatConfig::instance(); },
+    [] { return &FilterConfig::instance(); },
+    [] { return &ImportConfig::instance(); },
+    [] { return &NetworkConfig::instance(); },
+    [] { return &NumberTracksConfig::instance(); },
+    [] { return &PlaylistConfig::instance(); },
+    [] { return &RenDirConfig::instance(); },
+    [] { return &TagConfig::instance(); },
+    [] { return &TagFormatConfig::instance(); }
   };
   return cfgFuncs[idx]();
 }
@@ -140,43 +140,39 @@ QVariant configIntToEnumName(const QString& group, const QString& option,
       tagMaskStr += Frame::tagNumberToString(tagNr);
     }
     return tagMaskStr;
-  } else if (option == QLatin1String("caseConversion")) {
+  }
+  if (option == QLatin1String("caseConversion")) {
     const QMetaObject metaObj = FormatConfig::staticMetaObject;
-    const char* key = metaObj.enumerator(
-          metaObj.indexOfEnumerator("CaseConversion")).valueToKey(enumVal);
-    if (key) {
+    if (const char* key = metaObj.enumerator(
+      metaObj.indexOfEnumerator("CaseConversion")).valueToKey(enumVal)) {
       return QString::fromLatin1(key);
     }
   } else if (group == QLatin1String("Playlist") &&
              option == QLatin1String("location")) {
     const QMetaObject metaObj = PlaylistConfig::staticMetaObject;
-    const char* key = metaObj.enumerator(
-          metaObj.indexOfEnumerator("PlaylistLocation")).valueToKey(enumVal);
-    if (key) {
+    if (const char* key = metaObj.enumerator(
+          metaObj.indexOfEnumerator("PlaylistLocation")).valueToKey(enumVal)) {
       return QString::fromLatin1(key);
     }
   } else if (group == QLatin1String("Playlist") &&
              option == QLatin1String("format")) {
     const QMetaObject metaObj = PlaylistConfig::staticMetaObject;
-    const char* key = metaObj.enumerator(
-          metaObj.indexOfEnumerator("PlaylistFormat")).valueToKey(enumVal);
-    if (key) {
+    if (const char* key = metaObj.enumerator(
+      metaObj.indexOfEnumerator("PlaylistFormat")).valueToKey(enumVal)) {
       return QString::fromLatin1(key);
     }
   } else if (group == QLatin1String("Tag") &&
              option == QLatin1String("id3v2Version")) {
     const QMetaObject metaObj = TagConfig::staticMetaObject;
-    const char* key = metaObj.enumerator(
-          metaObj.indexOfEnumerator("Id3v2Version")).valueToKey(enumVal);
-    if (key) {
+    if (const char* key = metaObj.enumerator(
+          metaObj.indexOfEnumerator("Id3v2Version")).valueToKey(enumVal)) {
       return QString::fromLatin1(key);
     }
   } else if (group == QLatin1String("Tag") &&
              option == QLatin1String("textEncoding")) {
     const QMetaObject metaObj = TagConfig::staticMetaObject;
-    const char* key = metaObj.enumerator(
-          metaObj.indexOfEnumerator("TextEncoding")).valueToKey(enumVal);
-    if (key) {
+    if (const char* key = metaObj.enumerator(
+          metaObj.indexOfEnumerator("TextEncoding")).valueToKey(enumVal)) {
       return QString::fromLatin1(key);
     }
   }
@@ -187,7 +183,7 @@ QVariant configIntToEnumName(const QString& group, const QString& option,
  * Convert an enum value name to the corresponding integer value.
  * @param group config group
  * @param option config option
- * @param enumName enum value as string
+ * @param value enum name as variant
  * @return enum value as integer, original string value if invalid.
  */
 QVariant configIntFromEnumName(const QString& group, const QString& option,
@@ -344,7 +340,6 @@ void CliCommand::disconnectResultSignal()
 
 /**
  * Called on timeout.
- * @param event timer event
  */
 void CliCommand::timerEvent(QTimerEvent*) {
   setError(tr("Timeout"));
@@ -362,8 +357,8 @@ Frame::TagVersion CliCommand::getTagMaskParameter(int nr,
 {
   int tagMask = 0;
   if (m_args.size() > nr) {
-    const QString& tagStr = m_args.at(nr);
-    if (!tagStr.isEmpty() && tagStr.at(0).isDigit()) {
+    if (const QString& tagStr = m_args.at(nr);
+        !tagStr.isEmpty() && tagStr.at(0).isDigit()) {
       FOR_ALL_TAGS(tagNr) {
         if (tagStr.contains(Frame::tagNumberToString(tagNr))) {
           tagMask |= Frame::tagVersionFromNumber(tagNr);
@@ -413,8 +408,7 @@ void TimeoutCommand::startCommand()
 {
   int cliTimeout = cli()->getTimeout();
   if (args().size() > 1) {
-    const QString& val = args().at(1);
-    if (val == QLatin1String("off")) {
+    if (const QString& val = args().at(1); val == QLatin1String("off")) {
       cliTimeout = -1;
     } else if (val == QLatin1String("default")) {
       cliTimeout = 0;
@@ -424,8 +418,7 @@ void TimeoutCommand::startCommand()
         msStr.truncate(msStr.length() - 2);
       }
       bool ok;
-      int ms = msStr.toInt(&ok);
-      if (ok && ms > 0) {
+      if (int ms = msStr.toInt(&ok); ok && ms > 0) {
         cliTimeout = ms;
       }
     }
@@ -541,8 +534,8 @@ SaveCommand::SaveCommand(Kid3Cli* processor)
 void SaveCommand::startCommand()
 {
   QStringList errorDescriptions;
-  const QStringList errorFiles = cli()->app()->saveDirectory(&errorDescriptions);
-  if (errorFiles.isEmpty()) {
+  if (const QStringList errorFiles = cli()->app()->saveDirectory(&errorDescriptions);
+      errorFiles.isEmpty()) {
     cli()->updateSelection();
   } else {
     setError(tr("Error while writing file:\n") +
@@ -563,8 +556,7 @@ SelectCommand::SelectCommand(Kid3Cli* processor)
 void SelectCommand::startCommand()
 {
   if (args().size() > 1) {
-    const QString& param = args().at(1);
-    if (param == QLatin1String("all")) {
+    if (const QString& param = args().at(1); param == QLatin1String("all")) {
       cli()->app()->selectAllFiles();
     } else if (param == QLatin1String("none")) {
       cli()->app()->deselectAllFiles();
@@ -575,8 +567,8 @@ void SelectCommand::startCommand()
     } else if (param == QLatin1String("next")) {
       setResult(cli()->app()->nextFile(true) ? 0 : 1);
     } else {
-      QStringList paths = args().mid(1);
-      if (!cli()->selectFile(Kid3Cli::expandWildcards(paths))) {
+      if (QStringList paths = args().mid(1);
+          !cli()->selectFile(Kid3Cli::expandWildcards(paths))) {
         setError(tr("%1 not found").arg(paths.join(QLatin1String(", "))));
       }
     }
@@ -594,8 +586,8 @@ TagCommand::TagCommand(Kid3Cli* processor)
 
 void TagCommand::startCommand()
 {
-  Frame::TagVersion tagMask = getTagMaskParameter(1, false);
-  if (tagMask != Frame::TagNone) {
+  if (Frame::TagVersion tagMask = getTagMaskParameter(1, false);
+      tagMask != Frame::TagNone) {
     cli()->setTagMask(tagMask);
   } else {
     cli()->writeTagMask();
@@ -620,9 +612,9 @@ void GetCommand::startCommand()
     cli()->writeFileInformation(tagMask);
   } else {
     for (Frame::TagNumber tagNr : Frame::tagNumbersFromMask(tagMask)) {
-      QString value = cli()->app()->getFrame(Frame::tagVersionFromNumber(tagNr),
-                                             name);
-      if (!(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
+      if (QString value = cli()->app()->getFrame(
+          Frame::tagVersionFromNumber(tagNr), name);
+          !(tagNr == Frame::Tag_1 ? value.isEmpty() : value.isNull())) {
         cli()->writeResult(value);
         break;
       }
@@ -639,12 +631,11 @@ SetCommand::SetCommand(Kid3Cli* processor)
 
 void SetCommand::startCommand()
 {
-  int numArgs = args().size();
-  if (numArgs > 2) {
+  if (int numArgs = args().size(); numArgs > 2) {
     QString name = Frame::getNameForTranslatedFrameName(args().at(1));
     const QString& value = args().at(2);
-    Frame::TagVersion tagMask = getTagMaskParameter(3);
-    if (cli()->app()->setFrame(tagMask, name, value)) {
+    if (Frame::TagVersion tagMask = getTagMaskParameter(3);
+        cli()->app()->setFrame(tagMask, name, value)) {
       if (!name.endsWith(QLatin1String(".selected"))) {
         cli()->updateSelectedFiles();
         cli()->updateSelection();
@@ -682,15 +673,15 @@ ImportCommand::ImportCommand(Kid3Cli* processor)
 
 void ImportCommand::startCommand()
 {
-  int numArgs = args().size();
-  if (numArgs > 3 && args().at(1).startsWith(QLatin1String("tags"))) {
+  if (int numArgs = args().size();
+      numArgs > 3 && args().at(1).startsWith(QLatin1String("tags"))) {
     const QString& source = args().at(2);
     const QString& extraction = args().at(3);
     Frame::TagVersion tagMask = getTagMaskParameter(4);
     if (args().at(1).contains(QLatin1String("sel"))) {
-      QStringList returnValues =
+      if (QStringList returnValues =
           cli()->app()->importFromTagsToSelection(tagMask, source, extraction);
-      if (!returnValues.isEmpty()) {
+          !returnValues.isEmpty()) {
         cli()->writeResult(returnValues);
       }
     } else {
@@ -715,9 +706,9 @@ void ImportCommand::startCommand()
         return;
       }
     }
-    Frame::TagVersion tagMask = getTagMaskParameter(3);
-    if (!cli()->app()->importTags(tagMask, path, fmtIdx)) {
-        setError(tr("Error"));
+    if (Frame::TagVersion tagMask = getTagMaskParameter(3);
+        !cli()->app()->importTags(tagMask, path, fmtIdx)) {
+      setError(tr("Error"));
     }
   } else {
     showUsage();
@@ -738,8 +729,8 @@ void BatchImportCommand::startCommand()
   int numArgs = args().size();
   const QString& profileName = numArgs > 1
       ? args().at(1) : QLatin1String("All");
-  Frame::TagVersion tagMask = getTagMaskParameter(2);
-  if (!cli()->app()->batchImport(profileName, tagMask)) {
+  if (Frame::TagVersion tagMask = getTagMaskParameter(2);
+      !cli()->app()->batchImport(profileName, tagMask)) {
     QString errMsg = tr("%1 not found.").arg(profileName);
     errMsg += QLatin1Char('\n');
     errMsg += tr("Available");
@@ -823,8 +814,7 @@ AlbumArtCommand::AlbumArtCommand(Kid3Cli* processor)
 
 void AlbumArtCommand::startCommand()
 {
-  int numArgs = args().size();
-  if (numArgs > 1) {
+  if (int numArgs = args().size(); numArgs > 1) {
     const QString& url = args().at(1);
     cli()->app()->downloadImage(url,
                   numArgs > 2 && args().at(2) == QLatin1String("all"));
@@ -866,8 +856,7 @@ ExportCommand::ExportCommand(Kid3Cli* processor)
 
 void ExportCommand::startCommand()
 {
-  int numArgs = args().size();
-  if (numArgs > 2) {
+  if (int numArgs = args().size(); numArgs > 2) {
     const QString& path = args().at(1);
     const QString& fmtName = args().at(2);
     bool ok;
@@ -886,8 +875,8 @@ void ExportCommand::startCommand()
         return;
       }
     }
-    Frame::TagVersion tagMask = getTagMaskParameter(3);
-    if (!cli()->app()->exportTags(tagMask, path, fmtIdx)) {
+    if (Frame::TagVersion tagMask = getTagMaskParameter(3);
+        !cli()->app()->exportTags(tagMask, path, fmtIdx)) {
       setError(tr("Error"));
     }
   } else {
@@ -964,8 +953,8 @@ void RenameDirectoryCommand::startCommand()
       ok = tagMask != Frame::TagNone;
     }
     if (!ok) {
-      const QString& param = args().at(i);
-      if (param == QLatin1String("create")) {
+      if (const QString& param = args().at(i);
+          param == QLatin1String("create")) {
         create = true;
       } else if (param == QLatin1String("rename")) {
         create = false;
@@ -1025,8 +1014,7 @@ void RenameDirectoryCommand::onActionScheduled(const QStringList& actionStrs)
 void RenameDirectoryCommand::onRenameActionsScheduled()
 {
   if (!m_dryRun) {
-    QString errMsg = cli()->app()->performRenameActions();
-    if (errMsg.isEmpty()) {
+    if (QString errMsg = cli()->app()->performRenameActions(); errMsg.isEmpty()) {
       cli()->app()->deselectAllFiles();
     } else {
       setError(errMsg);
@@ -1072,8 +1060,8 @@ void FilterCommand::startCommand()
 {
   if (args().size() > 1) {
     QString expression = args().at(1);
-    int fltIdx = FilterConfig::instance().filterNames().indexOf(expression);
-    if (fltIdx != -1) {
+    if (int fltIdx = FilterConfig::instance().filterNames().indexOf(expression);
+        fltIdx != -1) {
       expression = FilterConfig::instance().filterExpressions().at(fltIdx);
     } else if (!expression.isEmpty() &&
                !expression.contains(QLatin1Char('%'))) {
@@ -1243,8 +1231,8 @@ TagToOtherTagCommand::TagToOtherTagCommand(Kid3Cli* processor)
 
 void TagToOtherTagCommand::startCommand()
 {
-  Frame::TagVersion tagMask = getTagMaskParameter(1, false);
-  if (tagMask != Frame::TagNone) {
+  if (Frame::TagVersion tagMask = getTagMaskParameter(1, false);
+      tagMask != Frame::TagNone) {
     cli()->app()->copyToOtherTag(tagMask);
   } else {
     showUsage();
@@ -1305,8 +1293,7 @@ void ConfigCommand::startCommand()
   QVariant value;
   if (numArgs > 1) {
     const QString& groupOption = args().at(1);
-    int dotPos = groupOption.indexOf(QLatin1Char('.'));
-    if (dotPos > 0) {
+    if (int dotPos = groupOption.indexOf(QLatin1Char('.')); dotPos > 0) {
       group = groupOption.left(dotPos);
       option = groupOption.mid(dotPos + 1);
     } else {
@@ -1327,8 +1314,8 @@ void ConfigCommand::startCommand()
   }
   if (numArgs > 2) {
     const QMetaObject* metaObj = nullptr;
-    int propIdx = -1;
-    if (!option.isNull() && (metaObj = cfg->metaObject()) != nullptr &&
+    if (int propIdx = -1;
+        !option.isNull() && (metaObj = cfg->metaObject()) != nullptr &&
         (propIdx = metaObj->indexOfProperty(option.toLatin1())) >= 0) {
 #if QT_VERSION >= 0x060000
       auto propType = metaObj->property(propIdx).typeId();
@@ -1378,8 +1365,8 @@ void ConfigCommand::startCommand()
       if (auto metaObj = cfg->metaObject()) {
         QStringList propertyNames;
         for (int i = 0; i < metaObj->propertyCount(); ++i) {
-          QString propertyName = QString::fromLatin1(metaObj->property(i).name());
-          if (!excludedConfigPropertyNames.contains(propertyName)) {
+          if (QString propertyName = QString::fromLatin1(metaObj->property(i).name());
+              !excludedConfigPropertyNames.contains(propertyName)) {
             propertyNames.append(propertyName);
           }
         }

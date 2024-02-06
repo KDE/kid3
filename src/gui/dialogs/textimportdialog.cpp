@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -68,24 +68,24 @@ TextImportDialog::TextImportDialog(IPlatformTools* platformTools,
   vboxLayout->addWidget(m_formatListEdit);
 
   auto buttonLayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  auto helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   buttonLayout->addWidget(helpButton);
   connect(helpButton, &QAbstractButton::clicked, this, &TextImportDialog::showHelp);
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  auto saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   buttonLayout->addWidget(saveButton);
   connect(saveButton, &QAbstractButton::clicked, this, &TextImportDialog::saveConfig);
   buttonLayout->addStretch();
-  QPushButton* fileButton = new QPushButton(tr("From F&ile..."), this);
+  auto fileButton = new QPushButton(tr("From F&ile..."), this);
   fileButton->setAutoDefault(false);
   buttonLayout->addWidget(fileButton);
   connect(fileButton, &QAbstractButton::clicked, this, &TextImportDialog::fromFile);
-  QPushButton* clipButton = new QPushButton(tr("From Clip&board"), this);
+  auto clipButton = new QPushButton(tr("From Clip&board"), this);
   clipButton->setAutoDefault(false);
   buttonLayout->addWidget(clipButton);
   connect(clipButton, &QAbstractButton::clicked, this, &TextImportDialog::fromClipboard);
-  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  auto closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   buttonLayout->addWidget(closeButton);
   connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
@@ -134,8 +134,7 @@ bool TextImportDialog::importFromFile(const QString& fn)
     if (file.open(QIODevice::ReadOnly)) {
       ImportConfig::instance().setImportDir(QFileInfo(file).dir().path());
       QTextStream stream(&file);
-      QString text = stream.readAll();
-      if (!text.isNull() &&
+      if (QString text = stream.readAll(); !text.isNull() &&
           m_textImporter->updateTrackData(
             text,
             m_formatListEdit->getCurrentFormat(1),

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 04 Oct 2005
  *
- * Copyright (C) 2005-2023  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -163,35 +163,32 @@ void FlacFile::readTags(bool force)
         FLAC::Metadata::Iterator mdit;
         mdit.init(*m_chain);
         while (mdit.is_valid()) {
-          ::FLAC__MetadataType mdt = mdit.get_block_type();
-          if (mdt == FLAC__METADATA_TYPE_STREAMINFO) {
-            FLAC::Metadata::Prototype* proto = mdit.get_block();
-            if (proto) {
+          if (::FLAC__MetadataType mdt = mdit.get_block_type();
+              mdt == FLAC__METADATA_TYPE_STREAMINFO) {
+            if (FLAC::Metadata::Prototype* proto = mdit.get_block()) {
               auto si =
                 dynamic_cast<FLAC::Metadata::StreamInfo*>(proto);
               readFileInfo(m_fileInfo, si);
               delete proto;
             }
           } else if (mdt == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
-            FLAC::Metadata::Prototype* proto = mdit.get_block();
-            if (proto) {
-              auto vc =
-                dynamic_cast<FLAC::Metadata::VorbisComment*>(proto);
-              if (vc && vc->is_valid()) {
+            if (FLAC::Metadata::Prototype* proto = mdit.get_block()) {
+              if (auto vc =
+                    dynamic_cast<FLAC::Metadata::VorbisComment*>(proto);
+                  vc && vc->is_valid()) {
                 unsigned numComments = vc->get_num_comments();
                 for (unsigned i = 0; i < numComments; ++i) {
-                  FLAC::Metadata::VorbisComment::Entry entry =
-                    vc->get_comment(i);
-                  if (entry.is_valid()) {
+                  if (FLAC::Metadata::VorbisComment::Entry entry =
+                        vc->get_comment(i);
+                      entry.is_valid()) {
                     QString name =
                       QString::fromUtf8(entry.get_field_name(),
                                         entry.get_field_name_length())
                         .trimmed().toUpper();
-                    QString value =
-                      QString::fromUtf8(entry.get_field_value(),
-                                        entry.get_field_value_length())
-                        .trimmed();
-                    if (!value.isEmpty()) {
+                    if (QString value =
+                          QString::fromUtf8(entry.get_field_value(),
+                            entry.get_field_value_length()).trimmed();
+                        !value.isEmpty()) {
                       m_comments.push_back(
                         CommentField(name, value));
                     }
@@ -203,11 +200,9 @@ void FlacFile::readTags(bool force)
           }
 #ifdef HAVE_FLAC_PICTURE
           else if (mdt == FLAC__METADATA_TYPE_PICTURE) {
-            FLAC::Metadata::Prototype* proto = mdit.get_block();
-            if (proto) {
-              auto pic =
-                dynamic_cast<FLAC::Metadata::Picture*>(proto);
-              if (pic) {
+            if (FLAC::Metadata::Prototype* proto = mdit.get_block()) {
+              if (auto pic =
+                  dynamic_cast<FLAC::Metadata::Picture*>(proto)) {
                 Frame frame(Frame::FT_Picture, QLatin1String(""),
                             QLatin1String(""), Frame::toNegativeIndex(pictureNr++));
                 getPicture(frame, pic);
@@ -259,8 +254,8 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
     auto pictureIt = m_pictures.begin(); // clazy:exclude=detaching-member
 #endif
 
-    FLAC::Metadata::Chain::Status status = m_chain->status();
-    if (status == FLAC__METADATA_CHAIN_STATUS_NOT_A_FLAC_FILE ||
+    if (FLAC::Metadata::Chain::Status status = m_chain->status();
+        status == FLAC__METADATA_CHAIN_STATUS_NOT_A_FLAC_FILE ||
         status == FLAC__METADATA_CHAIN_STATUS_ERROR_OPENING_FILE) {
       // This check is done because of a crash in mdit.get_block_type() with an
       // empty file with flac extension. m_chain->status() will set the status
@@ -274,16 +269,15 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
     FLAC::Metadata::Iterator mdit;
     mdit.init(*m_chain);
     while (mdit.is_valid()) {
-      ::FLAC__MetadataType mdt = mdit.get_block_type();
-      if (mdt == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
+      if (::FLAC__MetadataType mdt = mdit.get_block_type();
+          mdt == FLAC__METADATA_TYPE_VORBIS_COMMENT) {
         if (commentsSet) {
           mdit.delete_block(true);
         } else {
-          FLAC::Metadata::Prototype* proto = mdit.get_block();
-          if (proto) {
-            auto vc =
-              dynamic_cast<FLAC::Metadata::VorbisComment*>(proto);
-            if (vc && vc->is_valid()) {
+          if (FLAC::Metadata::Prototype* proto = mdit.get_block()) {
+            if (auto vc =
+                  dynamic_cast<FLAC::Metadata::VorbisComment*>(proto);
+                vc && vc->is_valid()) {
               setVorbisComment(vc);
               commentsSet = true;
             }
@@ -294,11 +288,8 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
 #ifdef HAVE_FLAC_PICTURE
       else if (mdt == FLAC__METADATA_TYPE_PICTURE) {
         if (pictureIt != m_pictures.end()) {
-          FLAC::Metadata::Prototype* proto = mdit.get_block();
-          if (proto) {
-            auto pic =
-              dynamic_cast<FLAC::Metadata::Picture*>(proto);
-            if (pic) {
+          if (FLAC::Metadata::Prototype* proto = mdit.get_block()) {
+            if (auto pic = dynamic_cast<FLAC::Metadata::Picture*>(proto)) {
               if (setPicture(*pictureIt++, pic)) {
                 pictureSet = true;
               } else {
@@ -314,8 +305,8 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
         }
       } else if (mdt == FLAC__METADATA_TYPE_PADDING) {
         if (pictureIt != m_pictures.end()) {
-          auto pic = new FLAC::Metadata::Picture;
-          if (setPicture(*pictureIt, pic) && mdit.set_block(pic)) {
+          if (auto pic = new FLAC::Metadata::Picture;
+              setPicture(*pictureIt, pic) && mdit.set_block(pic)) {
             ++pictureIt;
             pictureSet = true;
           } else {
@@ -341,8 +332,8 @@ bool FlacFile::writeTags(bool force, bool* renamed, bool preserve)
         }
 #ifdef HAVE_FLAC_PICTURE
         while (pictureIt != m_pictures.end()) {
-          auto pic = new FLAC::Metadata::Picture;
-          if (setPicture(*pictureIt, pic) && mdit.insert_block_after(pic)) {
+          if (auto pic = new FLAC::Metadata::Picture;
+              setPicture(*pictureIt, pic) && mdit.insert_block_after(pic)) {
             pictureSet = true;
           } else {
             delete pic;
@@ -427,12 +418,11 @@ bool FlacFile::hasTag(Frame::TagNumber tagNr) const
 bool FlacFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
-    Frame::ExtendedType extendedType = frame.getExtendedType();
-    if (extendedType.getType() == Frame::FT_Picture) {
-      int index = Frame::fromNegativeIndex(frame.getIndex());
-      if (index >= 0 && index < static_cast<int>(m_pictures.size())) {
-        auto it = m_pictures.begin() + index;
-        if (it != m_pictures.end()) {
+    if (Frame::ExtendedType extendedType = frame.getExtendedType();
+        extendedType.getType() == Frame::FT_Picture) {
+      if (int index = Frame::fromNegativeIndex(frame.getIndex());
+          index >= 0 && index < m_pictures.size()) {
+        if (auto it = m_pictures.begin() + index; it != m_pictures.end()) {
           Frame newFrame(frame);
           PictureFrame::setDescription(newFrame, frame.getValue());
           if (PictureFrame::areFieldsEqual(*it, newFrame)) {
@@ -460,8 +450,8 @@ bool FlacFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 bool FlacFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
-    Frame::ExtendedType extendedType = frame.getExtendedType();
-    if (extendedType.getType() == Frame::FT_Picture) {
+    if (Frame::ExtendedType extendedType = frame.getExtendedType();
+        extendedType.getType() == Frame::FT_Picture) {
       if (frame.getFieldList().empty()) {
         PictureFrame::setFields(
               frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
@@ -489,10 +479,10 @@ bool FlacFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
 bool FlacFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
-    Frame::ExtendedType extendedType = frame.getExtendedType();
-    if (extendedType.getType() == Frame::FT_Picture) {
-      int index = Frame::fromNegativeIndex(frame.getIndex());
-      if (index >= 0 && index < static_cast<int>(m_pictures.size())) {
+    if (Frame::ExtendedType extendedType = frame.getExtendedType();
+        extendedType.getType() == Frame::FT_Picture) {
+      if (int index = Frame::fromNegativeIndex(frame.getIndex());
+          index >= 0 && index < m_pictures.size()) {
         m_pictures.removeAt(index);
         markTagChanged(Frame::Tag_2, extendedType);
         return true;
@@ -532,7 +522,7 @@ void FlacFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
   if (tagNr == Frame::Tag_2) {
     int i = 0;
     for (auto it = m_pictures.begin(); it != m_pictures.end(); ++it) { // clazy:exclude=detaching-member
-      (*it).setIndex(Frame::toNegativeIndex(i++));
+      it->setIndex(Frame::toNegativeIndex(i++));
       frames.insert(*it);
     }
     updateMarkedState(tagNr, frames);
@@ -563,8 +553,7 @@ void FlacFile::setVorbisComment(FLAC::Metadata::VorbisComment* vc)
   auto it = m_comments.begin(); // clazy:exclude=detaching-member
   while (it != m_comments.end()) {
     QString name = fixUpTagKey(it->getName(), TT_Vorbis);
-    QString value((*it).getValue());
-    if (!value.isEmpty()) {
+    if (QString value(it->getValue()); !value.isEmpty()) {
       // The number of bytes - not characters - has to be passed to the
       // Entry constructor, thus qstrlen is used.
       QByteArray valueCStr = value.toUtf8();
@@ -625,11 +614,11 @@ QString FlacFile::getFileExtension() const
 /**
  * Read information about a FLAC file.
  * @param info file info to fill
- * @param fn file name
+ * @param si stream info
  * @return true if ok.
  */
 bool FlacFile::readFileInfo(FileInfo& info,
-                            FLAC::Metadata::StreamInfo* si) const
+                            const FLAC::Metadata::StreamInfo* si) const
 {
   if (si && si->is_valid()) {
     info.valid = true;

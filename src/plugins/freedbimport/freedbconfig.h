@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Jan 2004
  *
- * Copyright (C) 2004-2018  Urs Fleisch
+ * Copyright (C) 2004-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,14 +44,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FreedbConfig() override = default;
+  ~FreedbConfig() override = default;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config) override;
+  void readFromConfig(ISettings* config) override;
 
 private:
   friend FreedbConfig&

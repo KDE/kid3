@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Feb 2015
  *
- * Copyright (C) 2015-2018  Urs Fleisch
+ * Copyright (C) 2015-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -134,7 +134,8 @@ bool QmlCommandPlugin::startUserCommand(
         onEngineFinished();
       }
       return true;
-    } else if (key == QLatin1String("qml")) {
+    }
+    if (key == QLatin1String("qml")) {
       m_showOutput = showOutput;
       if (!m_qmlEngine) {
         m_qmlEngine = new QQmlEngine;
@@ -143,8 +144,8 @@ bool QmlCommandPlugin::startUserCommand(
       }
       m_qmlEngine->rootContext()->setContextProperty(QLatin1String("args"),
                                                      arguments);
-      QQmlComponent component(m_qmlEngine, arguments.first());
-      if (component.status() == QQmlComponent::Ready) {
+      if (QQmlComponent component(m_qmlEngine, arguments.first());
+        component.status() == QQmlComponent::Ready) {
         onEngineReady();
         component.create();
       } else {
@@ -170,7 +171,6 @@ bool QmlCommandPlugin::startUserCommand(
  */
 void QmlCommandPlugin::setupQmlEngine(QQmlEngine* engine)
 {
-  QDir pluginsDir;
 #ifdef Q_OS_MAC
   // Folders containing a dot (like QtQuick.2) will cause Apple's code signing
   // to fail. On macOS, the QML plugins are therefore in Resorces/qml/imports.
@@ -179,7 +179,8 @@ void QmlCommandPlugin::setupQmlEngine(QQmlEngine* engine)
 #else
   const QString qmlImportsRelativeToPlugins = QLatin1String("imports");
 #endif
-  if (Kid3Application::findPluginsDirectory(pluginsDir) &&
+  if (QDir pluginsDir;
+      Kid3Application::findPluginsDirectory(pluginsDir) &&
       pluginsDir.cd(qmlImportsRelativeToPlugins)) {
     engine->addImportPath(pluginsDir.absolutePath());
   }
@@ -263,7 +264,7 @@ void QmlCommandPlugin::onEngineFinished()
     qInstallMessageHandler(nullptr);
     s_messageHandlerInstance = nullptr;
   }
-  QTimer::singleShot(0, this, [this]() { emit finished(0); });
+  QTimer::singleShot(0, this, [this] { emit finished(0); });
 }
 
 /**

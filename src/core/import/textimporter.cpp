@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -87,7 +87,7 @@ bool TextImporter::updateTrackData(
   bool start = true;
   ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
   auto it = trackDataVector.begin();
-  bool atTrackDataListEnd = (it == trackDataVector.end());
+  bool atTrackDataListEnd = it == trackDataVector.end();
   while (getNextTags(frames, start)) {
     start = false;
     if (atTrackDataListEnd) {
@@ -97,12 +97,12 @@ bool TextImporter::updateTrackData(
     } else {
       while (!atTrackDataListEnd && !it->isEnabled()) {
         ++it;
-        atTrackDataListEnd = (it == trackDataVector.end());
+        atTrackDataListEnd = it == trackDataVector.end();
       }
       if (!atTrackDataListEnd) {
-        (*it).setFrameCollection(frames);
+        it->setFrameCollection(frames);
         ++it;
-        atTrackDataListEnd = (it == trackDataVector.end());
+        atTrackDataListEnd = it == trackDataVector.end();
       }
     }
     frames = framesHdr;
@@ -110,30 +110,30 @@ bool TextImporter::updateTrackData(
   frames.clear();
   while (!atTrackDataListEnd) {
     if (it->isEnabled()) {
-      if ((*it).getFileDuration() == 0) {
+      if (it->getFileDuration() == 0) {
         it = trackDataVector.erase(it);
       } else {
-        (*it).setFrameCollection(frames);
-        (*it).setImportDuration(0);
+        it->setFrameCollection(frames);
+        it->setImportDuration(0);
         ++it;
       }
     } else {
       ++it;
     }
-    atTrackDataListEnd = (it == trackDataVector.end());
+    atTrackDataListEnd = it == trackDataVector.end();
   }
 
   if (!start) {
     /* start is false => tags were found */
-    QList<int> trackDuration = getTrackDurations();
-    if (!trackDuration.isEmpty()) {
+    if (QList<int> trackDuration = getTrackDurations();
+        !trackDuration.isEmpty()) {
       it = trackDataVector.begin();
       for (auto tdit = trackDuration.constBegin();
            tdit != trackDuration.constEnd();
            ++tdit) {
         if (it != trackDataVector.end()) {
           if (it->isEnabled()) {
-            (*it).setImportDuration(*tdit);
+            it->setImportDuration(*tdit);
           }
           ++it;
         } else {
@@ -173,7 +173,7 @@ bool TextImporter::getNextTags(TrackData& frames, bool start)
  * @return list with track durations,
  *         empty if no track durations found.
  */
-QList<int> TextImporter::getTrackDurations()
+QList<int> TextImporter::getTrackDurations() const
 {
   QList<int> lst;
   if (m_headerParser) {

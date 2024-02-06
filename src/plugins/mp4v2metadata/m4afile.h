@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Oct 2007
  *
- * Copyright (C) 2007-2023  Urs Fleisch
+ * Copyright (C) 2007-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,20 +42,20 @@ public:
   /**
    * Destructor.
    */
-  virtual ~M4aFile() override = default;
+  ~M4aFile() override = default;
 
   /**
    * Get key of tagged file format.
    * @return "Mp4v2Metadata".
    */
-  virtual QString taggedFileKey() const override;
+  QString taggedFileKey() const override;
 
   /**
    * Read tags from file.
    *
    * @param force true to force reading even if tags were already read.
    */
-  virtual void readTags(bool force) override;
+  void readTags(bool force) override;
 
   /**
    * Write tags to file and rename it if necessary.
@@ -68,14 +68,14 @@ public:
    *
    * @return true if ok, false if the file could not be written or renamed.
    */
-  virtual bool writeTags(bool force, bool* renamed, bool preserve) override;
+  bool writeTags(bool force, bool* renamed, bool preserve) override;
 
   /**
    * Free resources allocated when calling readTags().
    *
    * @param force true to force clearing even if the tags are modified
    */
-  virtual void clearTags(bool force) override;
+  void clearTags(bool force) override;
 
   /**
    * Remove frames.
@@ -83,7 +83,7 @@ public:
    * @param tagNr tag number
    * @param flt filter specifying which frames to remove
    */
-  virtual void deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt) override;
+  void deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt) override;
 
   /**
    * Check if tag information has already been read.
@@ -92,7 +92,7 @@ public:
    *         false if the tags have not been read yet, in which case
    *         hasTag() does not return meaningful information.
    */
-  virtual bool isTagInformationRead() const override;
+  bool isTagInformationRead() const override;
 
   /**
    * Check if file has a tag.
@@ -101,14 +101,14 @@ public:
    * @return true if a V2 tag is available.
    * @see isTagInformationRead()
    */
-  virtual bool hasTag(Frame::TagNumber tagNr) const override;
+  bool hasTag(Frame::TagNumber tagNr) const override;
 
   /**
    * Get technical detail information.
    *
    * @param info the detail information is returned here
    */
-  virtual void getDetailInfo(DetailInfo& info) const override;
+  void getDetailInfo(DetailInfo& info) const override;
 
   /**
    * Get duration of file.
@@ -116,14 +116,14 @@ public:
    * @return duration in seconds,
    *         0 if unknown.
    */
-  virtual unsigned getDuration() const override;
+  unsigned getDuration() const override;
 
   /**
    * Get file extension including the dot.
    *
    * @return file extension ".m4a".
    */
-  virtual QString getFileExtension() const override;
+  QString getFileExtension() const override;
 
   /**
    * Get the format of tag.
@@ -131,7 +131,7 @@ public:
    * @param tagNr tag number
    * @return "Vorbis".
    */
-  virtual QString getTagFormat(Frame::TagNumber tagNr) const override;
+  QString getTagFormat(Frame::TagNumber tagNr) const override;
 
   /**
    * Get a specific frame from the tags.
@@ -142,7 +142,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const override;
+  bool getFrame(Frame::TagNumber tagNr, Frame::Type type, Frame& frame) const override;
 
   /**
    * Set a frame in the tags.
@@ -152,7 +152,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool setFrame(Frame::TagNumber tagNr, const Frame& frame) override;
+  bool setFrame(Frame::TagNumber tagNr, const Frame& frame) override;
 
   /**
    * Add a frame in the tags.
@@ -162,7 +162,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool addFrame(Frame::TagNumber tagNr, Frame& frame) override;
+  bool addFrame(Frame::TagNumber tagNr, Frame& frame) override;
 
   /**
    * Delete a frame from the tags.
@@ -172,7 +172,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool deleteFrame(Frame::TagNumber tagNr, const Frame& frame) override;
+  bool deleteFrame(Frame::TagNumber tagNr, const Frame& frame) override;
 
   /**
    * Get all frames in tag.
@@ -180,14 +180,14 @@ public:
    * @param tagNr tag number
    * @param frames frame collection to set.
    */
-  virtual void getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames) override;
+  void getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames) override;
 
   /**
    * Get a list of frame IDs which can be added.
    * @param tagNr tag number
    * @return list with frame IDs.
    */
-  virtual QStringList getFrameIds(Frame::TagNumber tagNr) const override;
+  QStringList getFrameIds(Frame::TagNumber tagNr) const override;
 
 private:
   M4aFile(const M4aFile&);

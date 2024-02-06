@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Mar 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -61,7 +61,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TimeEventEditor() override = default;
+  ~TimeEventEditor() override = default;
 
   /**
    * Set time event model.
@@ -74,13 +74,13 @@ protected:
    * Connect to player when editor is shown.
    * @param event event
    */
-  virtual void showEvent(QShowEvent* event) override;
+  void showEvent(QShowEvent* event) override;
 
   /**
    * Disconnect from player when editor is hidden.
    * @param event event
    */
-  virtual void hideEvent(QHideEvent* event) override;
+  void hideEvent(QHideEvent* event) override;
 
 private slots:
   /**

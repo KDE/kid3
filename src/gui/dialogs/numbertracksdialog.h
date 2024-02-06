@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 May 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,7 +49,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~NumberTracksDialog() override = default;
+  ~NumberTracksDialog() override = default;
 
   /**
    * Get start number.

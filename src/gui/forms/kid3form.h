@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 8 Apr 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -71,7 +71,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3Form() override;
+  ~Kid3Form() override;
 
   /**
    * Set keyboard shortcuts for section actions.
@@ -367,28 +367,28 @@ protected:
    *
    * @param ev drag event.
    */
-  virtual void dragEnterEvent(QDragEnterEvent* ev) override;
+  void dragEnterEvent(QDragEnterEvent* ev) override;
 
   /**
    * Handle event when mouse is moved while dragging.
    *
    * @param ev drag event.
    */
-  virtual void dragMoveEvent(QDragMoveEvent* ev) override;
+  void dragMoveEvent(QDragMoveEvent* ev) override;
 
   /**
    * Handle event when mouse leaves widget while dragging.
    *
    * @param ev drag event.
    */
-  virtual void dragLeaveEvent(QDragLeaveEvent* ev) override;
+  void dragLeaveEvent(QDragLeaveEvent* ev) override;
 
   /**
    * Handle drop event.
    *
    * @param ev drop event.
    */
-  virtual void dropEvent(QDropEvent* ev) override;
+  void dropEvent(QDropEvent* ev) override;
 
 private slots:
   /**

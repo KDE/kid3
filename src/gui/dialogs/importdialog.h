@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -70,7 +70,7 @@ public:
    * @param trackImporters server track importers
    */
   ImportDialog(IPlatformTools* platformTools,
-               QWidget* parent, QString& caption,
+               QWidget* parent, const QString& caption,
                TrackDataModel* trackDataModel,
                GenreModel* genreModel,
                const QList<ServerImporter*>& importers,
@@ -79,7 +79,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ImportDialog() override;
+  ~ImportDialog() override;
 
   /**
    * Shows the dialog as a modeless dialog.

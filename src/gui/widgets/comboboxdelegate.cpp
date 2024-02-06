@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 28 May 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -61,9 +61,8 @@ QWidget* ComboBoxDelegate::createEditor(
     if (itemIndex >= 0)
       cb->setCurrentIndex(itemIndex);
     return cb;
-  } else {
-    return QStyledItemDelegate::createEditor(parent, option, index);
   }
+  return QStyledItemDelegate::createEditor(parent, option, index);
 }
 
 /**
@@ -75,8 +74,8 @@ void ComboBoxDelegate::setEditorData(QWidget* editor,
                                      const QModelIndex& index) const
 {
   if (auto cb = qobject_cast<QComboBox*>(editor)) {
-    int itemIndex = cb->findText(index.data(Qt::EditRole).toString());
-    if (itemIndex >= 0)
+    if (int itemIndex = cb->findText(index.data(Qt::EditRole).toString());
+        itemIndex >= 0)
       cb->setCurrentIndex(itemIndex);
   } else {
     QStyledItemDelegate::setEditorData(editor, index);

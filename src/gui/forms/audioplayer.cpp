@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03-Aug-2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -49,7 +49,7 @@ public:
     : QObject(parent), m_audioPlayer(parent), m_currentPos(-1) {
   }
 
-  virtual ~MediaPlaylist() override = default;
+  ~MediaPlaylist() override = default;
 
   void clear() {
     m_playlist.clear();
@@ -193,8 +193,7 @@ QString AudioPlayer::getFileName() const
 TaggedFile* AudioPlayer::getTaggedFile() const
 {
   FileProxyModel* model = m_app->getFileProxyModel();
-  QModelIndex index = model->index(getFileName());
-  if (index.isValid()) {
+  if (QModelIndex index = model->index(getFileName()); index.isValid()) {
     return FileProxyModel::getTaggedFileOfIndex(index);
   }
   return nullptr;
@@ -306,16 +305,19 @@ void AudioPlayer::setPreferredAudioOutput()
   QAudioDevice currentAudioOutput = m_audioOutput->device();
   if (preferredIndex >= 0 && preferredIndex < audioOutputs.size()) {
     if (currentAudioOutput.id() != preferredId) {
-      qDebug("Changing audio output to %s", qPrintable(preferredId));
+      qDebug("Changing audio output to %s",
+             qPrintable(QString::fromUtf8(preferredId)));
       m_audioOutput->setDevice(audioOutputs.at(preferredIndex));
     }
   } else if (defaultIndex >= 0 && defaultIndex < audioOutputs.size()) {
     if (currentAudioOutput.id() != defaultId) {
-      qDebug("Changing audio output to default %s", qPrintable(defaultId));
+      qDebug("Changing audio output to default %s",
+             qPrintable(QString::fromUtf8(defaultId)));
       m_audioOutput->setDevice(audioOutputs.at(defaultIndex));
     }
   } else if (!audioOutputs.isEmpty()) {
-    qDebug("Falling back to first audio output %s", qPrintable(audioOutputs.first().id()));
+    qDebug("Falling back to first audio output %s",
+           qPrintable(QString::fromUtf8(audioOutputs.first().id())));
     m_audioOutput->setDevice(audioOutputs.first());
   }
 }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Jan 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,8 +45,9 @@ bool stringToBool(const QString& str, bool& b)
       str == QLatin1String("on") || str == QLatin1String("yes")) {
     b = true;
     return true;
-  } else if (str == QLatin1String("0") || str == QLatin1String("false") ||
-             str == QLatin1String("off") || str == QLatin1String("no")) {
+  }
+  if (str == QLatin1String("0") || str == QLatin1String("false") ||
+      str == QLatin1String("off") || str == QLatin1String("no")) {
     b = false;
     return true;
   }
@@ -251,8 +252,7 @@ bool ExpressionParser::popTwoBools(bool& var1, bool& var2)
 bool ExpressionParser::evaluate(QString& op, QString& var1, QString& var2)
 {
   while (m_rpnIterator != m_rpnStack.constEnd()) {
-    QString token = *m_rpnIterator++;
-    if (token == QLatin1String("and")) {
+    if (QString token = *m_rpnIterator++; token == QLatin1String("and")) {
       bool b1, b2;
       if (!popTwoBools(b1, b2)) {
         m_error = true;

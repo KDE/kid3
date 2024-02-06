@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19-Mar-2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,7 +45,7 @@ public:
    * @param index index of item
    * @return default flags without editable.
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
+  Qt::ItemFlags flags(const QModelIndex& index) const override;
 
 protected:
   /**
@@ -56,7 +56,7 @@ protected:
    *
    * @return true to include row.
    */
-  virtual bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const override;
+  bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const override;
 
   /**
    * Sort comparison function.
@@ -64,5 +64,5 @@ protected:
    * @param right index of right item in source model
    * @return true if left is less than right.
    */
-  virtual bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;
+  bool lessThan(const QModelIndex& left, const QModelIndex& right) const override;
 };

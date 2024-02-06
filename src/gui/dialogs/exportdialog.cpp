@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 May 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -102,7 +102,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
                                            QSizePolicy::Minimum);
   butlayout->addItem(butspacer);
 
-  QLabel* srcLabel = new QLabel(tr("&Source:"), this);
+  auto srcLabel = new QLabel(tr("&Source:"), this);
   butlayout->addWidget(srcLabel);
   m_srcComboBox = new QComboBox(this);
   m_srcComboBox->setEditable(false);
@@ -119,12 +119,12 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   vlayout->addLayout(butlayout);
 
   auto hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  auto helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, &QAbstractButton::clicked, this, &ExportDialog::showHelp);
 
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  auto saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, &QAbstractButton::clicked, this, &ExportDialog::saveConfig);
@@ -133,7 +133,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 
-  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  auto closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   hlayout->addWidget(closeButton);
   connect(closeButton, &QAbstractButton::clicked, this, &QDialog::accept);
@@ -146,9 +146,10 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
  */
 void ExportDialog::slotToFile()
 {
-  QString fileName = m_platformTools->getSaveFileName(this, QString(),
-      ImportConfig::instance().importDir(), QString(), nullptr);
-  if (!fileName.isEmpty()) {
+  if (QString fileName = m_platformTools->getSaveFileName(
+        this, QString(), ImportConfig::instance().importDir(),
+        QString(), nullptr);
+      !fileName.isEmpty()) {
     if (!m_textExporter->exportToFile(fileName)) {
       QMessageBox::warning(
         nullptr, tr("File Error"),
@@ -175,8 +176,8 @@ void ExportDialog::showPreview()
   m_textExporter->updateText(m_formatListEdit->getCurrentFormat(1),
                              m_formatListEdit->getCurrentFormat(2),
                              m_formatListEdit->getCurrentFormat(3));
-  QString text(m_textExporter->getText());
-  if (m_textTableModel->setText(
+  if (QString text(m_textExporter->getText());
+      m_textTableModel->setText(
         text, !m_formatListEdit->getCurrentFormat(1).isEmpty())) {
     m_table->resizeColumnsToContents();
     m_table->show();

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 24-Aug-2010
  *
- * Copyright (C) 2010-2018  Urs Fleisch
+ * Copyright (C) 2010-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,7 +57,8 @@ public:
    */
   explicit TimeLcdClickHandler(PlayToolBar* playToolBar)
     : QObject(playToolBar), m_playToolBar(playToolBar) {}
-  virtual ~TimeLcdClickHandler() override = default;
+
+  ~TimeLcdClickHandler() override = default;
 
 protected:
   /**
@@ -68,7 +69,7 @@ protected:
    *
    * @return true if event is filtered.
    */
-  virtual bool eventFilter(QObject* obj, QEvent* event) override;
+  bool eventFilter(QObject* obj, QEvent* event) override;
 
 private:
   Q_DISABLE_COPY(TimeLcdClickHandler)
@@ -81,10 +82,9 @@ bool TimeLcdClickHandler::eventFilter(QObject* obj, QEvent* event)
   if (event->type() == QEvent::MouseButtonRelease) {
     m_playToolBar->toggleTimeDisplayMode();
     return true;
-  } else {
-    // standard event processing
-    return QObject::eventFilter(obj, event);
   }
+  // standard event processing
+  return QObject::eventFilter(obj, event);
 }
 
 }
@@ -120,7 +120,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
     style()->standardIcon(QStyle::SP_MediaSkipForward), tr("Next Track"), this);
   m_nextAction->setObjectName(QLatin1String("audio_next"));
   m_nextAction->setShortcut(Qt::Key_MediaNext);
-  QAction* closeAction = new QAction(
+  auto closeAction = new QAction(
     style()->standardIcon(QStyle::SP_TitleBarCloseButton), tr("Close"), this);
 
   auto splitter = new QSplitter(this);
@@ -132,8 +132,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   m_seekSlider->setMinimum(0);
   m_duration = mediaPlayer->duration();
   // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
-  int maximum = m_duration / 1000;
-  if (maximum > 0) {
+  if (int maximum = m_duration / 1000; maximum > 0) {
     m_seekSlider->setMaximum(maximum);
   }
   connect(m_seekSlider, &QAbstractSlider::actionTriggered,
@@ -310,9 +309,8 @@ void PlayToolBar::error(QMediaPlayer::Error err)
 void PlayToolBar::durationChanged(qint64 duration)
 {
   m_duration = duration;
-  int maximum = duration / 1000;
   // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
-  if (maximum > 0) {
+  if (int maximum = duration / 1000; maximum > 0) {
     m_seekSlider->setMaximum(maximum);
   }
 }
@@ -408,9 +406,8 @@ void  PlayToolBar::trackChanged(const QString& filePath,
   m_nextAction->setEnabled(hasNext);
 
   m_duration = m_player->mediaPlayer()->duration();
-  int maximum = m_duration / 1000;
   // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
-  if (maximum > 0) {
+  if (int maximum = m_duration / 1000; maximum > 0) {
     m_seekSlider->setMaximum(maximum);
   }
 }

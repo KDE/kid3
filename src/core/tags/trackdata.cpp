@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 23 Feb 2007
  *
- * Copyright (C) 2007-2018  Urs Fleisch
+ * Copyright (C) 2007-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -87,9 +87,9 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
         { "marked", 'w' }
       };
       const char c = code[0].toLatin1();
-      for (const auto& s2l : shortToLong) {
-        if (s2l.shortCode == c) {
-          name = QString::fromLatin1(s2l.longCode);
+      for (const auto& [longCode, shortCode] : shortToLong) {
+        if (shortCode == c) {
+          name = QString::fromLatin1(longCode);
           break;
         }
       }
@@ -144,8 +144,8 @@ QString TrackDataFormatReplacer::getReplacement(const QString& code) const
       } else if (name == QLatin1String("extension")) {
         result = m_trackData.getFileExtension();
       } else if (name.startsWith(QLatin1String("tag")) && name.length() == 4) {
-        Frame::TagNumber tagNr = Frame::tagNumberFromString(name.mid(3));
-        if (tagNr < Frame::Tag_NumValues) {
+        if (Frame::TagNumber tagNr = Frame::tagNumberFromString(name.mid(3));
+            tagNr < Frame::Tag_NumValues) {
           result = m_trackData.getTagFormat(tagNr);
         }
       } else if (name == QLatin1String("bitrate")) {
@@ -447,8 +447,7 @@ QString TrackData::formatFilenameFromTags(QString str, bool isDirname) const
 void TrackData::transformToFilename(QString& str) const
 {
   // first remove directory part from str
-  const int sepPos = str.lastIndexOf(QLatin1Char('/'));
-  if (sepPos >= 0) {
+  if (const int sepPos = str.lastIndexOf(QLatin1Char('/')); sepPos >= 0) {
     str.remove(0, sepPos + 1);
   }
   // add extension to str
@@ -485,8 +484,7 @@ QString TrackData::getFileExtension(bool preferFromFilename) const
     absFilename = taggedFile->getAbsFilename();
   }
   if (preferFromFilename || fileExtension.isEmpty()) {
-    int dotPos = absFilename.lastIndexOf(QLatin1Char('.'));
-    if (dotPos != -1) {
+    if (int dotPos = absFilename.lastIndexOf(QLatin1Char('.')); dotPos != -1) {
       return absFilename.mid(dotPos);
     }
   }
@@ -541,7 +539,7 @@ QSet<QString> getLowerCaseWords(const QString& str)
 #if QT_VERSION >= 0x050e00
     const QStringList words =
         simplified.split(QLatin1Char(' '), Qt::SkipEmptyParts);
-    return QSet<QString>(words.constBegin(), words.constEnd());
+    return QSet(words.constBegin(), words.constEnd());
 #else
     return simplified.split(QLatin1Char(' '), QString::SkipEmptyParts).toSet();
 #endif
@@ -558,8 +556,7 @@ QSet<QString> getLowerCaseWords(const QString& str)
 QSet<QString> ImportTrackData::getFilenameWords() const
 {
   QString fileName = getFilename();
-  int endIndex = fileName.lastIndexOf(QLatin1Char('.'));
-  if (endIndex > 0) {
+  if (int endIndex = fileName.lastIndexOf(QLatin1Char('.')); endIndex > 0) {
     fileName.truncate(endIndex);
   }
   return getLowerCaseWords(fileName);
@@ -610,8 +607,7 @@ QString ImportTrackDataVector::getAlbum() const
 bool ImportTrackDataVector::isTagSupported(Frame::TagNumber tagNr) const
 {
   if (!isEmpty()) {
-    TaggedFile* taggedFile = at(0).getTaggedFile();
-    if (taggedFile) {
+    if (TaggedFile* taggedFile = at(0).getTaggedFile()) {
       return taggedFile->isTagSupported(tagNr);
     }
   }
@@ -651,7 +647,7 @@ QString ImportTrackDataVector::getFrame(Frame::Type type) const
  */
 void ImportTrackDataVector::readTags(Frame::TagVersion tagVersion)
 {
-  for (iterator it = begin(); it != end(); ++it) {
+  for (auto it = begin(); it != end(); ++it) {
     if (TaggedFile* taggedFile = it->getTaggedFile()) {
       it->clear();
       for (Frame::TagNumber tagNr : Frame::tagNumbersFromMask(tagVersion)) {
@@ -679,9 +675,7 @@ void ImportTrackDataVector::dump() const
   qDebug("ImportTrackDataVector (%s - %s, %s):",
          qPrintable(getArtist()), qPrintable(getAlbum()),
          qPrintable(getCoverArtUrl().toString()));
-  for (const_iterator it = constBegin();
-       it != constEnd();
-       ++it) {
+  for (auto it = constBegin(); it != constEnd(); ++it) {
     const ImportTrackData& trackData = *it;
     int fileDuration = trackData.getFileDuration();
     int importDuration = trackData.getImportDuration();

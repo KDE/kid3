@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 27 Jul 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -121,8 +121,8 @@ TaggedFile* OggFlacMetadataPlugin::createTaggedFile(
   Q_UNUSED(features)
 #ifdef HAVE_VORBIS
   if (key == OGG_KEY) {
-    QString ext = fileName.right(4).toLower();
-    if (ext == QLatin1String(".oga") || ext == QLatin1String(".ogg"))
+    if (QString ext = fileName.right(4).toLower();
+        ext == QLatin1String(".oga") || ext == QLatin1String(".ogg"))
       return new OggFile(idx);
   }
 #endif

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2023  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -172,8 +172,7 @@ BaseMainWindowImpl::BaseMainWindowImpl(QMainWindow* mainWin,
           this, &BaseMainWindowImpl::showPlayToolBar);
 
 #ifdef HAVE_QTMULTIMEDIA
-  if (AudioPlayer* player =
-      qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
+  if (auto player = qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
     m_playToolBar = new PlayToolBar(player, m_w);
     m_playToolBar->setAllowedAreas(Qt::TopToolBarArea | Qt::BottomToolBarArea);
     m_w->addToolBar(Qt::BottomToolBarArea, m_playToolBar);
@@ -287,12 +286,12 @@ void BaseMainWindowImpl::savePlayToolBarConfig()
 void BaseMainWindowImpl::readPlayToolBarConfig()
 {
 #ifdef HAVE_QTMULTIMEDIA
-  const GuiConfig& guiCfg = GuiConfig::instance();
-  if (guiCfg.playToolBarVisible()) {
+  if (const GuiConfig& guiCfg = GuiConfig::instance();
+      guiCfg.playToolBarVisible()) {
     showPlayToolBar();
     if (m_playToolBar) {
-      int area = guiCfg.playToolBarArea();
-      if (area == Qt::BottomToolBarArea || area == Qt::TopToolBarArea) {
+      if (int area = guiCfg.playToolBarArea();
+          area == Qt::BottomToolBarArea || area == Qt::TopToolBarArea) {
         m_w->addToolBar(static_cast<Qt::ToolBarArea>(area), m_playToolBar);
       }
     }
@@ -385,14 +384,12 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
   }
 
   QStringList errorDescriptions;
-  const QStringList errorFiles = m_app->saveDirectory(&errorDescriptions);
-
-  if (!errorFiles.empty()) {
+  if (const QStringList errorFiles = m_app->saveDirectory(&errorDescriptions);
+      !errorFiles.empty()) {
     QStringList errorMsgs, notWritableFiles;
     errorMsgs.reserve(errorFiles.size());
     for (const QString& filePath : errorFiles) {
-      QFileInfo fileInfo(filePath);
-      if (!fileInfo.isWritable()) {
+      if (QFileInfo fileInfo(filePath); !fileInfo.isWritable()) {
         errorMsgs.append(tr("%1 is not writable").arg(fileInfo.fileName()));
         notWritableFiles.append(filePath); // clazy:exclude=reserve-candidates
       } else {
@@ -407,12 +404,11 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
         errorMsgs,
         tr("File Error"));
     } else {
-      int rc = m_platformTools->warningYesNoList(
-        m_w, tr("Error while writing file. "
-                "Do you want to change the permissions?"),
-        errorMsgs,
-        tr("File Error"));
-      if (rc == QMessageBox::Yes) {
+      if (int rc = m_platformTools->warningYesNoList(
+          m_w, tr("Error while writing file. "
+            "Do you want to change the permissions?"),
+            errorMsgs,
+            tr("File Error")); rc == QMessageBox::Yes) {
         auto model =
             qobject_cast<FileProxyModel*>(m_form->getFileList()->model());
         TaggedFile* taggedFile;
@@ -460,13 +456,11 @@ bool BaseMainWindowImpl::saveModified(bool doNotRevert)
 
   if(m_app->isModified() && !m_app->getDirName().isEmpty())
   {
-    int want_save = m_platformTools->warningYesNoCancel(
-        m_w,
-        tr("The current folder has been modified.\n"
-       "Do you want to save it?"),
-        tr("Warning"));
-    switch(want_save)
-    {
+    switch(m_platformTools->warningYesNoCancel(
+      m_w,
+      tr("The current folder has been modified.\n"
+        "Do you want to save it?"),
+      tr("Warning"))) {
     case QMessageBox::Yes:
       saveDirectory();
       completed = true;
@@ -555,9 +549,9 @@ void BaseMainWindowImpl::slotFileOpen()
   if(saveModified()) {
     static QString flt = m_app->createFilterString();
     QString filter(FileConfig::instance().nameFilter());
-    QStringList dirs = m_platformTools->getOpenFileNames(
-      m_w, QString(), m_app->getDirName(), flt, &filter);
-    if (!dirs.isEmpty()) {
+    if (QStringList dirs = m_platformTools->getOpenFileNames(
+        m_w, QString(), m_app->getDirName(), flt, &filter);
+        !dirs.isEmpty()) {
       m_app->resetFileFilterIfNotMatching(dirs);
       m_app->openDirectory(dirs);
     }
@@ -571,9 +565,8 @@ void BaseMainWindowImpl::slotFileOpenDirectory()
 {
   updateCurrentSelection();
   if(saveModified()) {
-    QString dir = m_platformTools->getExistingDirectory(m_w, QString(),
-                                                        m_app->getDirName());
-    if (!dir.isEmpty()) {
+    if (QString dir = m_platformTools->getExistingDirectory(
+        m_w, QString(), m_app->getDirName()); !dir.isEmpty()) {
       m_app->openDirectory({dir});
     }
   }
@@ -714,7 +707,7 @@ void BaseMainWindowImpl::updateStatusLabel()
       counts.append(tr("%n selected", "", m_selectionCount));
     }
     if (counts.isEmpty()) {
-      m_statusLabel->setText((tr("Ready.")));
+      m_statusLabel->setText(tr("Ready."));
     } else {
       m_statusLabel->setText(counts.join(QLatin1String(", ")));
     }
@@ -756,9 +749,9 @@ void BaseMainWindowImpl::slotPlaylistDialog()
   if (m_playlistDialog->exec() == QDialog::Accepted) {
     PlaylistConfig cfg;
     m_playlistDialog->getCurrentConfig(cfg);
-    QString newEmptyPlaylistFileName =
+    if (QString newEmptyPlaylistFileName =
         m_playlistDialog->getFileNameForNewEmptyPlaylist();
-    if (newEmptyPlaylistFileName.isEmpty()) {
+        newEmptyPlaylistFileName.isEmpty()) {
       writePlaylist(cfg);
     } else {
       m_app->writeEmptyPlaylist(cfg, newEmptyPlaylistFileName);
@@ -821,8 +814,8 @@ void BaseMainWindowImpl::showPlaylistEditDialog(const QString& playlistPath)
     geometry.setTop(geometry.top() + yOffset);
     dialog->setGeometry(geometry);
 
-    QStringList filesNotFound = model->filesNotFound();
-    if (!filesNotFound.isEmpty()) {
+    if (QStringList filesNotFound = model->filesNotFound();
+        !filesNotFound.isEmpty()) {
       m_platformTools->warningDialog(
             m_w, tr("Files not found"), filesNotFound.join(QLatin1Char('\n')),
             tr("Error"));
@@ -893,7 +886,7 @@ void BaseMainWindowImpl::slotTagImport()
   if (!m_tagImportDialog) {
     m_tagImportDialog.reset(new TagImportDialog(m_w, nullptr));
     connect(m_tagImportDialog.data(), &TagImportDialog::trackDataUpdated,
-            this, [this]() {
+            this, [this] {
       m_app->importFromTagsToSelection(
             m_tagImportDialog->getDestination(),
             m_tagImportDialog->getSourceFormat(),
@@ -1047,8 +1040,8 @@ void BaseMainWindowImpl::findReplace(bool findOnly)
   m_findReplaceDialog->init(findOnly);
   m_findReplaceDialog->show();
   if (!m_findReplaceActive) {
-    QModelIndexList selItems(m_app->getFileSelectionModel()->selectedRows());
-    if (selItems.size() == 1) {
+    if (QModelIndexList selItems(m_app->getFileSelectionModel()->selectedRows());
+        selItems.size() == 1) {
       tagSearcher->setStartIndex(selItems.first());
     }
     connect(tagSearcher, &TagSearcher::textFound,
@@ -1080,8 +1073,8 @@ void BaseMainWindowImpl::deactivateFindReplace()
  */
 void BaseMainWindowImpl::showFoundText()
 {
-  const TagSearcher::Position& pos = m_app->getTagSearcher()->getPosition();
-  if (pos.isValid()) {
+  if (const TagSearcher::Position& pos = m_app->getTagSearcher()->getPosition();
+      pos.isValid()) {
     m_app->getFileSelectionModel()->setCurrentIndex(pos.getFileIndex(),
         QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
     if (pos.getPart() == TagSearcher::Position::FileName) {
@@ -1099,8 +1092,8 @@ void BaseMainWindowImpl::showFoundText()
  */
 void BaseMainWindowImpl::updateReplacedText()
 {
-  const TagSearcher::Position& pos = m_app->getTagSearcher()->getPosition();
-  if (pos.isValid()) {
+  if (const TagSearcher::Position& pos = m_app->getTagSearcher()->getPosition();
+      pos.isValid()) {
     m_app->getFileSelectionModel()->setCurrentIndex(pos.getFileIndex(),
         QItemSelectionModel::ClearAndSelect | QItemSelectionModel::Rows);
     updateGuiControls();
@@ -1127,8 +1120,7 @@ void BaseMainWindowImpl::slotRenameDirectory()
       m_renDirDialog->startDialog(nullptr, m_app->getDirName());
     }
     if (m_renDirDialog->exec() == QDialog::Accepted) {
-      QString errorMsg(m_app->performRenameActions());
-      if (!errorMsg.isEmpty()) {
+      if (QString errorMsg(m_app->performRenameActions()); !errorMsg.isEmpty()) {
 #ifdef Q_OS_WIN32
         if (m_platformTools->warningContinueCancelList(
               m_w, tr("Error while renaming:\n") +
@@ -1285,8 +1277,8 @@ void BaseMainWindowImpl::updateWindowCaption()
  */
 void BaseMainWindowImpl::updateCurrentSelection()
 {
-  TaggedFileSelection* selection = m_app->selectionInfo();
-  if (!selection->isEmpty()) {
+  if (TaggedFileSelection* selection = m_app->selectionInfo();
+      !selection->isEmpty()) {
     FOR_ALL_TAGS(tagNr) {
       m_form->frameTable(tagNr)->acceptEdit();
     }
@@ -1457,8 +1449,7 @@ void BaseMainWindowImpl::editFrameOfTaggedFile(const Frame* frame,
     name = m_editFrame.getName();
   }
   if (!name.isEmpty()) {
-    int nlPos = name.indexOf(QLatin1Char('\n'));
-    if (nlPos > 0) {
+    if (int nlPos = name.indexOf(QLatin1Char('\n')); nlPos > 0) {
       // probably "TXXX - User defined text information\nDescription" or
       // "WXXX - User defined URL link\nDescription"
       name.truncate(nlPos);
@@ -1485,8 +1476,8 @@ void BaseMainWindowImpl::onEditFrameDialogFinished(int result)
   if (auto dialog =
       qobject_cast<EditFrameFieldsDialog*>(sender())) {
     if (result == QDialog::Accepted) {
-      const Frame::FieldList& fields = dialog->getUpdatedFieldList();
-      if (fields.isEmpty()) {
+      if (const Frame::FieldList& fields = dialog->getUpdatedFieldList();
+          fields.isEmpty()) {
         m_editFrame.setValue(dialog->getFrameValue());
       } else {
         m_editFrame.setFieldList(fields);
@@ -1533,12 +1524,12 @@ void BaseMainWindowImpl::renameFile()
       fileName = fi.fileName();
     }
     bool ok;
-    QString newFileName = QInputDialog::getText(
-      m_w,
-      tr("Rename File"),
-      tr("Enter new file name:"),
-      QLineEdit::Normal, fileName, &ok);
-    if (ok && !newFileName.isEmpty() && newFileName != fileName) {
+    if (QString newFileName = QInputDialog::getText(
+        m_w,
+        tr("Rename File"),
+        tr("Enter new file name:"),
+        QLineEdit::Normal, fileName, &ok);
+        ok && !newFileName.isEmpty() && newFileName != fileName) {
       if (taggedFile) {
         if (taggedFile->isChanged()) {
           taggedFile->setFilename(newFileName);
@@ -1554,14 +1545,14 @@ void BaseMainWindowImpl::renameFile()
         TaggedFileIterator::closeFileHandles(index);
       }
       QString newPath = dirName + QLatin1Char('/') + newFileName;
-      bool ok = model->rename(index, newFileName);
-      if (!ok && !(index.flags() & Qt::ItemIsEditable)) {
+      bool renOk = model->rename(index, newFileName);
+      if (!renOk && !(index.flags() & Qt::ItemIsEditable)) {
         // The file system model seems to be too restrictive, renaming without
         // write permission is possible on Linux, so try again without
         // using the model.
-        ok = QFile::rename(absFilename, newPath);
+        renOk = QFile::rename(absFilename, newPath);
       }
-      if (ok) {
+      if (renOk) {
         if (taggedFile) {
           taggedFile->updateCurrentFilename();
           if (selItems.size() == 1) {
@@ -1616,8 +1607,7 @@ void BaseMainWindowImpl::deleteFile()
     files.append(model->filePath(index)); // clazy:exclude=reserve-candidates
   }
 
-  const int numFiles = files.size();
-  if (numFiles > 0) {
+  if (const int numFiles = files.size(); numFiles > 0) {
     if (m_platformTools->warningContinueCancelList(
           m_w,
           numFiles > 1

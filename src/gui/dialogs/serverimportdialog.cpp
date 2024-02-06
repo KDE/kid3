@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Oct 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -114,7 +114,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   m_helpButton->setAutoDefault(false);
   m_saveButton = new QPushButton(tr("&Save Settings"), this);
   m_saveButton->setAutoDefault(false);
-  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  auto closeButton = new QPushButton(tr("&Close"), this);
   closeButton->setAutoDefault(false);
   buttonLayout->addWidget(m_helpButton);
   connect(m_helpButton, &QAbstractButton::clicked, this, &ServerImportDialog::showHelp);
@@ -240,9 +240,8 @@ QString ServerImportDialog::getServer() const
       server = QString::fromLatin1(m_source->defaultServer());
     }
     return server;
-  } else {
-    return QString();
   }
+  return QString();
 }
 
 /**
@@ -253,8 +252,7 @@ QString ServerImportDialog::getServer() const
 void ServerImportDialog::setServer(const QString& srv)
 {
   if (m_serverComboBox) {
-    int idx = m_serverComboBox->findText(srv);
-    if (idx >= 0) {
+    if (int idx = m_serverComboBox->findText(srv); idx >= 0) {
       m_serverComboBox->setCurrentIndex(idx);
     } else {
       m_serverComboBox->addItem(srv);
@@ -276,9 +274,8 @@ QString ServerImportDialog::getCgiPath() const
       cgi = QString::fromLatin1(m_source->defaultCgiPath());
     }
     return cgi;
-  } else {
-    return QString();
   }
+  return QString();
 }
 
 /**
@@ -402,8 +399,8 @@ void ServerImportDialog::getImportSourceConfig(ServerImporterConfig* cfg) const
   cfg->setCoverArt(getCoverArt());
   cfg->setWindowGeometry(saveGeometry());
 
-  QString token = getToken();
-  if (!token.isEmpty() || cfg->property("token").isValid()) {
+  if (QString token = getToken();
+      !token.isEmpty() || cfg->property("token").isValid()) {
     cfg->setProperty("token", token);
   }
 }
@@ -455,8 +452,7 @@ void ServerImportDialog::setArtistAlbum(const QString& artist, const QString& al
       m_albumLineEdit->addItem(album);
       m_albumLineEdit->setCurrentIndex(m_albumLineEdit->count() - 1);
     }
-    QLineEdit* lineEdit = m_artistLineEdit->lineEdit();
-    if (lineEdit) {
+    if (QLineEdit* lineEdit = m_artistLineEdit->lineEdit()) {
       lineEdit->selectAll();
     }
     m_artistLineEdit->setFocus();

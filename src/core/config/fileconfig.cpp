@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -80,7 +80,7 @@ const char* defaultFromFilenameFormats[] = {
  * Constructor.
  */
 FileConfig::FileConfig()
-  : StoredConfig<FileConfig>(QLatin1String("Files")),
+  : StoredConfig(QLatin1String("Files")),
     m_nameFilter(QLatin1String("")),
     m_formatText(QString::fromLatin1(defaultToFilenameFormats[0])),
     m_formatFromFilenameText(QString::fromLatin1(defaultFromFilenameFormats[0])),
@@ -264,10 +264,10 @@ void FileConfig::setFromFilenameFormat(const QString& formatFromFilenameText)
   }
 }
 
-void FileConfig::setFromFilenameFormats(const QStringList& formatFromFilenameItems)
+void FileConfig::setFromFilenameFormats(const QStringList& fromFilenameFormats)
 {
-  if (m_formatFromFilenameItems != formatFromFilenameItems) {
-    m_formatFromFilenameItems = formatFromFilenameItems;
+  if (m_formatFromFilenameItems != fromFilenameFormats) {
+    m_formatFromFilenameItems = fromFilenameFormats;
     m_formatFromFilenameItems.removeDuplicates();
     emit fromFilenameFormatsChanged(m_formatFromFilenameItems);
   }
@@ -304,8 +304,7 @@ int FileConfig::textEncodingIndex() const
 
 void FileConfig::setTextEncodingIndex(int index)
 {
-  QString encoding = indexToTextCodecName(index);
-  if (!encoding.isNull()) {
+  if (QString encoding = indexToTextCodecName(index); !encoding.isNull()) {
     setTextEncoding(encoding);
   }
 }

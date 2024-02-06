@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 02 Sep 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -51,7 +51,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameObjectModel() override = default;
+  ~FrameObjectModel() override = default;
 
   /**
    * Get frame name.
@@ -140,7 +140,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameFieldObject() override = default;
+  ~FrameFieldObject() override = default;
 
   /**
    * Get field name.

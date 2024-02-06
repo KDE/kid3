@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19-Mar-2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -59,8 +59,7 @@ Qt::ItemFlags DirProxyModel::flags(const QModelIndex& index) const
  */
 bool DirProxyModel::filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const
 {
-  auto srcModel = qobject_cast<FileSystemModel*>(sourceModel());
-  if (srcModel) {
+  if (auto srcModel = qobject_cast<FileSystemModel*>(sourceModel())) {
     return srcModel->isDir(srcModel->index(srcRow, 0, srcParent));
   }
   return false;

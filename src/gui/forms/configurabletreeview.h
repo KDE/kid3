@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,7 +46,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ConfigurableTreeView() override = default;
+  ~ConfigurableTreeView() override = default;
 
   /**
    * Set visible columns.
@@ -142,7 +142,7 @@ protected:
    * make Return/Enter send activated() also on the Mac.
    * @param event key event
    */
-  virtual void keyPressEvent(QKeyEvent* event) override;
+  void keyPressEvent(QKeyEvent* event) override;
 
 private slots:
   /**

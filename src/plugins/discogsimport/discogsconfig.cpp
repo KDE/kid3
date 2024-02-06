@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,7 +33,7 @@ int DiscogsConfig::s_index = -1;
  * Constructor.
  */
 DiscogsConfig::DiscogsConfig()
-  : StoredConfig<DiscogsConfig, ServerImporterConfig>(QLatin1String("Discogs"))
+  : StoredConfig(QLatin1String("Discogs"))
 {
   setCgiPathUsed(false);
   setAdditionalTagsUsed(true);

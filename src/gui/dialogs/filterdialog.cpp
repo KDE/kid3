@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Jan 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -72,12 +72,12 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
   vlayout->addWidget(m_formatListEdit);
 
   auto hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  auto helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, &QAbstractButton::clicked, this, &FilterDialog::showHelp);
 
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  auto saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, &QAbstractButton::clicked, this, &FilterDialog::saveConfig);
@@ -88,7 +88,7 @@ FilterDialog::FilterDialog(QWidget* parent) : QDialog(parent),
 
   m_applyButton = new QPushButton(this);
   setAbortButton(false);
-  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  auto closeButton = new QPushButton(tr("&Close"), this);
   m_applyButton->setAutoDefault(false);
   m_applyButton->setDefault(true);
   closeButton->setAutoDefault(false);

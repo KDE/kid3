@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -52,7 +52,7 @@ ImageViewer::ImageViewer(QWidget* parent, const QImage& img)
   auto hspacer = new QSpacerItem(16, 0, QSizePolicy::Expanding,
                                          QSizePolicy::Minimum);
   m_image = new QLabel(this);
-  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  auto closeButton = new QPushButton(tr("&Close"), this);
   m_image->setScaledContents(true);
   QSize imageSize(img.size());
   QSize desktopSize(QGuiApplication::primaryScreen()->availableGeometry().size());

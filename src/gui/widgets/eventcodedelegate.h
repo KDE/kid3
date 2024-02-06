@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Mar 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,12 +42,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~EventCodeDelegate() override = default;
+  ~EventCodeDelegate() override = default;
 
 protected:
   // Reimplemented from EnumDelegate.
-  virtual QStringList getEnumStrings() const override;
-  virtual QString getStringForEnum(int enumNr) const override;
-  virtual int getIndexForEnum(int enumNr) const override;
-  virtual int getEnumForIndex(int index) const override;
+  QStringList getEnumStrings() const override;
+  QString getStringForEnum(int enumNr) const override;
+  int getIndexForEnum(int enumNr) const override;
+  int getEnumForIndex(int index) const override;
 };

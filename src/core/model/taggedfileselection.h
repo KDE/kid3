@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -80,7 +80,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TaggedFileSelection() override = default;
+  ~TaggedFileSelection() override = default;
 
   /**
    * Start adding tagged files to selection.
@@ -192,7 +192,7 @@ public:
    * @return string with format codes replaced.
    */
   Q_INVOKABLE QString formatString(Frame::TagVersion tagVersion,
-                                   const QString& fmt);
+                                   const QString& fmt) const;
 
   /**
    * Select changed frames in the tables if multiple files are selected.

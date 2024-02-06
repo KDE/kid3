@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -68,19 +68,19 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImporter() override = default;
+  ~BatchImporter() override = default;
 
   /**
    * Check if operation is aborted.
    *
    * @return true if aborted.
    */
-  virtual bool isAborted() const override;
+  bool isAborted() const override;
 
   /**
    * Clear state which is reported by isAborted().
    */
-  virtual void clearAborted() override;
+  void clearAborted() override;
 
   /**
    * Set importers.
@@ -133,7 +133,7 @@ public slots:
   /**
    * Abort batch import.
    */
-  virtual void abort() override;
+  void abort() override;
 
 private slots:
   void onFindFinished(const QByteArray& searchStr);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 08-Aug-2021
  *
- * Copyright (C) 2021  Urs Fleisch
+ * Copyright (C) 2021-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -58,7 +58,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TaggedFileSystemModel() override;
+  ~TaggedFileSystemModel() override;
 
   /**
    * Get data for a given role.
@@ -66,8 +66,8 @@ public:
    * @param role item data role
    * @return data for role
    */
-  virtual QVariant data(const QModelIndex& index,
-                        int role = Qt::DisplayRole) const override;
+  QVariant data(const QModelIndex& index,
+                int role = Qt::DisplayRole) const override;
 
   /**
    * Set data for a given role.
@@ -76,8 +76,8 @@ public:
    * @param role item data role
    * @return true if successful
    */
-  virtual bool setData(const QModelIndex& index, const QVariant& value,
-                       int role = Qt::EditRole) override;
+  bool setData(const QModelIndex& index, const QVariant& value,
+               int role = Qt::EditRole) override;
 
   /**
    * Get data for header section.
@@ -86,12 +86,12 @@ public:
    * @param role item data role
    * @return header data for role
    */
-  virtual QVariant headerData(int section, Qt::Orientation orientation,
-                              int role = Qt::DisplayRole) const override;
+  QVariant headerData(int section, Qt::Orientation orientation,
+                      int role = Qt::DisplayRole) const override;
 
-  virtual QModelIndex sibling(int row, int column,
-                              const QModelIndex& idx) const override;
-  virtual int columnCount(
+  QModelIndex sibling(int row, int column,
+                      const QModelIndex& idx) const override;
+  int columnCount(
       const QModelIndex& parent = QModelIndex()) const override;
 
   /**
@@ -189,7 +189,7 @@ protected slots:
    * Is called from endResetModel().
    */
 #if QT_VERSION >= 0x060000
-  virtual void resetInternalData() override;
+  void resetInternalData() override;
 #else
   void resetInternalData();
 #endif

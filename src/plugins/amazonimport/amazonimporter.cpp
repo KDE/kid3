@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Dec 2009
  *
- * Copyright (C) 2009-2021  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -158,8 +158,8 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     if (start >= 0) {
       end = str.indexOf(QLatin1Char('<'), start);
       if (end > start) {
-        int bracketPos = str.indexOf(QLatin1String(" ["), start);
-        if (bracketPos >= 0 && bracketPos < end) {
+        if (int bracketPos = str.indexOf(QLatin1String(" ["), start);
+            bracketPos >= 0 && bracketPos < end) {
           end = bracketPos;
         }
         framesHdr.setAlbum(
@@ -203,9 +203,8 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     QRegularExpression labelRe(
           QLatin1String(R"(>Manufacturer.*?<span>([^<]+)</span>)"),
           QRegularExpression::DotMatchesEverythingOption);
-    QRegularExpressionMatch match;
     if (additionalTags) {
-      match = yearRe.match(str, start);
+      QRegularExpressionMatch match = yearRe.match(str, start);
       if (match.hasMatch()) {
         framesHdr.setYear(match.captured(1).toInt());
       }
@@ -223,8 +222,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
           QLatin1String("id=\"imgTagWrapperId\"[^>]*>\\s*"
                         "<img[^>]*src=\"([^\"]+)\""),
           QRegularExpression::DotMatchesEverythingOption);
-    auto match = imgSrcRe.match(str);
-    if (match.hasMatch()) {
+    if (auto match = imgSrcRe.match(str); match.hasMatch()) {
       trackDataVector.setCoverArtUrl(QUrl(match.captured(1)));
     }
   }
@@ -235,7 +233,7 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
           QLatin1String(R"(<td>(\d+)</td>\s*<td>([^<]+?)(?:\s*\[?(\d+):(\d+)\]?\s*)?</td>)"));
     FrameCollection frames(framesHdr);
     auto it = trackDataVector.begin();
-    bool atTrackDataListEnd = (it == trackDataVector.end());
+    bool atTrackDataListEnd = it == trackDataVector.end();
     while (start >= 0) {
       start = str.indexOf(QLatin1String("<tr"), start);
       if (start >= 0) {
@@ -246,8 +244,8 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
           QString title;
           int trackNr = 0;
           int duration = 0;
-          auto match = trackNumberTitleRe.match(trackRow);
-          if (match.hasMatch()) {
+          if (auto match = trackNumberTitleRe.match(trackRow);
+              match.hasMatch()) {
             trackNr = match.captured(1).toInt();
             title = match.captured(2).remove(QLatin1String("[*]")).trimmed();
             duration = match.captured(3).toInt() * 60 +
@@ -266,13 +264,13 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
             } else {
               while (!atTrackDataListEnd && !it->isEnabled()) {
                 ++it;
-                atTrackDataListEnd = (it == trackDataVector.end());
+                atTrackDataListEnd = it == trackDataVector.end();
               }
               if (!atTrackDataListEnd) {
-                (*it).setFrameCollection(frames);
-                (*it).setImportDuration(duration);
+                it->setFrameCollection(frames);
+                it->setImportDuration(duration);
                 ++it;
-                atTrackDataListEnd = (it == trackDataVector.end());
+                atTrackDataListEnd = it == trackDataVector.end();
               }
             }
             frames = framesHdr;
@@ -285,23 +283,23 @@ void AmazonImporter::parseAlbumResults(const QByteArray& albumStr)
     frames.clear();
     while (!atTrackDataListEnd) {
       if (it->isEnabled()) {
-        if ((*it).getFileDuration() == 0) {
+        if (it->getFileDuration() == 0) {
           it = trackDataVector.erase(it);
         } else {
-          (*it).setFrameCollection(frames);
-          (*it).setImportDuration(0);
+          it->setFrameCollection(frames);
+          it->setImportDuration(0);
           ++it;
         }
       } else {
         ++it;
       }
-      atTrackDataListEnd = (it == trackDataVector.end());
+      atTrackDataListEnd = it == trackDataVector.end();
     }
   } else if (!framesHdr.empty()) {
     // if there are no track data, fill frame header data
     for (auto it = trackDataVector.begin(); it != trackDataVector.end(); ++it) {
       if (it->isEnabled()) {
-        (*it).setFrameCollection(framesHdr);
+        it->setFrameCollection(framesHdr);
       }
     }
   }
@@ -322,9 +320,9 @@ void AmazonImporter::sendFindQuery(
   // If an URL is entered in the first search field, its result will be directly
   // available in the album results list.
   if (artist.startsWith(QLatin1String("https://www.amazon.com/"))) {
-    const int catBegin = 23;
-    int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
-    if (catEnd > catBegin) {
+    constexpr int catBegin = 23;
+    if (int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
+        catEnd > catBegin) {
       m_albumListModel->clear();
       m_albumListModel->appendItem(
             artist,

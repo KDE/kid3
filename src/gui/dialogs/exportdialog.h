@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 May 2006
  *
- * Copyright (C) 2006-2018  Urs Fleisch
+ * Copyright (C) 2006-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ExportDialog() override = default;
+  ~ExportDialog() override = default;
 
   /**
    * Read the local settings from the configuration.

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Dec 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,42 +45,42 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AmazonImporter() override = default;
+  ~AmazonImporter() override = default;
 
   /**
    * Name of import source.
    * @return name.
    */
-  virtual const char* name() const override;
+  const char* name() const override;
 
   /** NULL-terminated array of server strings, 0 if not used */
-  virtual const char** serverList() const override;
+  const char** serverList() const override;
 
   /** default server, 0 to disable */
-  virtual const char* defaultServer() const override;
+  const char* defaultServer() const override;
 
   /** anchor to online help, 0 to disable */
-  virtual const char* helpAnchor() const override;
+  const char* helpAnchor() const override;
 
   /** configuration, 0 if not used */
-  virtual ServerImporterConfig* config() const override;
+  ServerImporterConfig* config() const override;
 
   /** additional tags option, false if not used */
-  virtual bool additionalTags() const override;
+  bool additionalTags() const override;
 
   /**
    * Process finished findCddbAlbum request.
    *
    * @param searchStr search data received
    */
-  virtual void parseFindResults(const QByteArray& searchStr) override;
+  void parseFindResults(const QByteArray& searchStr) override;
 
   /**
    * Parse result of album request and populate m_trackDataModel with results.
    *
    * @param albumStr album data received
    */
-  virtual void parseAlbumResults(const QByteArray& albumStr) override;
+  void parseAlbumResults(const QByteArray& albumStr) override;
 
   /**
    * Send a query command to search on the server.
@@ -89,7 +89,7 @@ public:
    * @param artist   artist to search
    * @param album    album to search
    */
-  virtual void sendFindQuery(
+  void sendFindQuery(
     const ServerImporterConfig* cfg,
     const QString& artist, const QString& album) override;
 
@@ -101,7 +101,7 @@ public:
    * @param cat      category
    * @param id       ID
    */
-  virtual void sendTrackListQuery(
+  void sendTrackListQuery(
     const ServerImporterConfig* cfg, const QString& cat, const QString& id) override;
 
 private:

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 08-Aug-2021
  *
- * Copyright (C) 2021  Urs Fleisch
+ * Copyright (C) 2021-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -70,9 +70,8 @@ QModelIndex TaggedFileSystemModel::sibling(int row, int column,
       column >= NUM_FILESYSTEM_COLUMNS &&
       column < NUM_FILESYSTEM_COLUMNS + m_tagFrameColumnTypes.size()) {
     return createIndex(row, column, idx.internalPointer());
-  } else {
-    return FileSystemModel::sibling(row, column, idx);
   }
+  return FileSystemModel::sibling(row, column, idx);
 }
 
 int TaggedFileSystemModel::columnCount(const QModelIndex &parent) const
@@ -92,16 +91,15 @@ QVariant TaggedFileSystemModel::data(const QModelIndex& index, int role) const
   if (index.isValid()) {
     if (role == TaggedFileRole) {
       return retrieveTaggedFileVariant(index);
-    } else if (role == Qt::DecorationRole && index.column() == 0) {
-      TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
-      if (taggedFile) {
+    }
+    if (role == Qt::DecorationRole && index.column() == 0) {
+      if (TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr)) {
         return m_iconProvider->iconForTaggedFile(taggedFile);
       }
     } else if (role == Qt::BackgroundRole && index.column() == 0) {
-      TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
-      if (taggedFile) {
-        QVariant color = m_iconProvider->backgroundForTaggedFile(taggedFile);
-        if (!color.isNull())
+      if (TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr)) {
+        if (QVariant color = m_iconProvider->backgroundForTaggedFile(taggedFile);
+            !color.isNull())
           return color;
       }
     } else if (role == IconIdRole && index.column() == 0) {
@@ -122,13 +120,12 @@ QVariant TaggedFileSystemModel::data(const QModelIndex& index, int role) const
                index.column() <
                NUM_FILESYSTEM_COLUMNS + m_tagFrameColumnTypes.size()) {
       QPersistentModelIndex taggedFileIdx = index.sibling(index.row(), 0);
-      auto it = m_taggedFiles.constFind(taggedFileIdx);
-      if (it != m_taggedFiles.constEnd()) {
+      if (auto it = m_taggedFiles.constFind(taggedFileIdx);
+          it != m_taggedFiles.constEnd()) {
         if (TaggedFile* taggedFile = *it) {
-          Frame frame;
           Frame::Type type = m_tagFrameColumnTypes.at(index.column() -
                                                       NUM_FILESYSTEM_COLUMNS);
-          if (taggedFile->getFrame(Frame::Tag_2, type, frame)) {
+          if (Frame frame; taggedFile->getFrame(Frame::Tag_2, type, frame)) {
             QString value = frame.getValue();
             if (type == Frame::FT_Track) {
               bool ok;
@@ -162,16 +159,16 @@ bool TaggedFileSystemModel::setData(const QModelIndex& index,
   if (index.isValid()) {
     if (role == TaggedFileRole) {
       return storeTaggedFileVariant(index, value);
-    } else if ((role == Qt::DisplayRole || role == Qt::EditRole) &&
-               index.column() >= NUM_FILESYSTEM_COLUMNS &&
-               index.column() <
-               NUM_FILESYSTEM_COLUMNS + m_tagFrameColumnTypes.size()) {
+    }
+    if ((role == Qt::DisplayRole || role == Qt::EditRole) &&
+        index.column() >= NUM_FILESYSTEM_COLUMNS &&
+        index.column() < NUM_FILESYSTEM_COLUMNS + m_tagFrameColumnTypes.size()) {
       QPersistentModelIndex taggedFileIdx = index.sibling(index.row(), 0);
-      auto it = m_taggedFiles.constFind(taggedFileIdx);
-      if (it != m_taggedFiles.constEnd()) {
+      if (auto it = m_taggedFiles.constFind(taggedFileIdx);
+          it != m_taggedFiles.constEnd()) {
         if (TaggedFile* taggedFile = *it) {
-          Frame frame;
-          if (taggedFile->getFrame(
+          if (Frame frame;
+              taggedFile->getFrame(
                 Frame::Tag_2,
                 m_tagFrameColumnTypes.at(index.column() -
                                          NUM_FILESYSTEM_COLUMNS),
@@ -182,7 +179,8 @@ bool TaggedFileSystemModel::setData(const QModelIndex& index,
         }
       }
       return false;
-    } else if (index.column() >= NUM_FILESYSTEM_COLUMNS) {
+    }
+    if (index.column() >= NUM_FILESYSTEM_COLUMNS) {
       return false;
     }
   }

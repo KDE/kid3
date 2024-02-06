@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -64,18 +64,18 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3Cli() override;
+  ~Kid3Cli() override;
 
   /**
    * Execute process.
    */
-  virtual void execute() override;
+  void execute() override;
 
   /**
    * Write a line to standard error.
    * @param line line to write
    */
-  virtual void writeErrorLine(const QString& line) override;
+  void writeErrorLine(const QString& line) override;
 
   /**
    * Write result of command.
@@ -217,7 +217,7 @@ protected:
    * Process command line.
    * @param line command line
    */
-  virtual void readLine(const QString& line) override;
+  void readLine(const QString& line) override;
 
 private slots:
   /**

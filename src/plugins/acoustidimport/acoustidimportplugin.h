@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Jul 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -47,13 +47,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AcoustidImportPlugin() override = default;
+  ~AcoustidImportPlugin() override = default;
 
   /**
    * Get keys of available server importers.
    * @return list of keys.
    */
-  virtual QStringList serverTrackImporterKeys() const override;
+  QStringList serverTrackImporterKeys() const override;
 
   /**
    * Create server importer.
@@ -63,7 +63,7 @@ public:
    * @return server importer instance, 0 if key unknown.
    * @remarks The caller takes ownership of the returned instance.
    */
-  virtual ServerTrackImporter* createServerTrackImporter(
+  ServerTrackImporter* createServerTrackImporter(
       const QString& key,
       QNetworkAccessManager* netMgr, TrackDataModel* trackDataModel) override;
 };

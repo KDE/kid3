@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -36,7 +36,7 @@ int BatchImportConfig::s_index = -1;
  * Constructor.
  */
 BatchImportConfig::BatchImportConfig()
-  : StoredConfig<BatchImportConfig>(QLatin1String("BatchImport")),
+  : StoredConfig(QLatin1String("BatchImport")),
     m_importDest(Frame::TagV2), m_profileIdx(0)
 {
   /**
@@ -82,14 +82,13 @@ void BatchImportConfig::writeToConfig(ISettings* config) const
  */
 void BatchImportConfig::readFromConfig(ISettings* config)
 {
-  QStringList names, sources;
   config->beginGroup(m_group);
   m_importDest = Frame::tagVersionCast(
         config->value(QLatin1String("ImportDestination"), m_importDest).toInt());
-  names = config->value(QLatin1String("ProfileNames"),
-                        m_profileNames).toStringList();
-  sources = config->value(QLatin1String("ProfileSources"),
-                          m_profileSources).toStringList();
+  QStringList names = config->value(QLatin1String("ProfileNames"),
+                                    m_profileNames).toStringList();
+  QStringList sources = config->value(QLatin1String("ProfileSources"),
+                                      m_profileSources).toStringList();
   m_profileIdx = config->value(QLatin1String("ProfileIdx"), m_profileIdx).toInt();
   config->endGroup();
   config->beginGroup(m_group, true);
@@ -106,16 +105,15 @@ void BatchImportConfig::readFromConfig(ISettings* config)
   for (auto namesIt = names.constBegin(), sourcesIt = sources.constBegin();
        namesIt != names.constEnd() && sourcesIt != sources.constEnd();
        ++namesIt, ++sourcesIt) {
-    int idx = m_profileNames.indexOf(*namesIt);
-    if (idx >= 0) {
+    if (int idx = m_profileNames.indexOf(*namesIt); idx >= 0) {
       m_profileSources[idx] = *sourcesIt;
-    } else if (!(*namesIt).isEmpty()) {
+    } else if (!namesIt->isEmpty()) {
       m_profileNames.append(*namesIt);
       m_profileSources.append(*sourcesIt);
     }
   }
 
-  if (m_profileIdx >= static_cast<int>(m_profileNames.size()))
+  if (m_profileIdx >= m_profileNames.size())
     m_profileIdx = 0;
 }
 

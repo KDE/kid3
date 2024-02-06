@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 05 Sep 2007
  *
- * Copyright (C) 2007-2018  Urs Fleisch
+ * Copyright (C) 2007-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -96,10 +96,9 @@ FrameTable::FrameTable(FrameTableModel* model, GenreModel* genreModel,
 bool FrameTable::eventFilter(QObject* watched, QEvent* event)
 {
   if (event) {
-    QEvent::Type type = event->type();
-    if (type == QEvent::ChildAdded) {
-      QObject* obj = static_cast<QChildEvent*>(event)->child();
-      if (obj && obj->isWidgetType()) {
+    if (QEvent::Type type = event->type(); type == QEvent::ChildAdded) {
+      if (QObject* obj = static_cast<QChildEvent*>(event)->child();
+          obj && obj->isWidgetType()) {
         m_currentEditor = static_cast<QWidget*>(obj);
       }
     } else if (type == QEvent::ChildRemoved) {
@@ -154,9 +153,9 @@ const QWidget* FrameTable::getCurrentEditor() const
  */
 void FrameTable::contextMenu(int row, int col, const QPoint& pos)
 {
-  const auto ftModel =
-    qobject_cast<const FrameTableModel*>(model());
-  if (ftModel && col == 0 && row >= 0) {
+  if (const auto ftModel =
+        qobject_cast<const FrameTableModel*>(model());
+      ftModel && col == 0 && row >= 0) {
     QMenu menu(this);
     QAction* action = menu.addAction(tr("&Select all"));
     connect(action, &QAction::triggered, ftModel, &FrameTableModel::selectAllFrames);
@@ -174,8 +173,7 @@ void FrameTable::contextMenu(int row, int col, const QPoint& pos)
  */
 void FrameTable::customContextMenu(const QPoint& pos)
 {
-  QModelIndex index = indexAt(pos);
-  if (index.isValid()) {
+  if (QModelIndex index = indexAt(pos); index.isValid()) {
     contextMenu(index.row(), index.column(), mapToGlobal(pos));
   }
 }
@@ -190,8 +188,8 @@ void FrameTable::setValueSelection(int row, int start, int length)
 {
   if (const auto ftModel =
       qobject_cast<const FrameTableModel*>(model())) {
-    QModelIndex idx = ftModel->index(row, FrameTableModel::CI_Value);
-    if (idx.isValid()) {
+    if (QModelIndex idx = ftModel->index(row, FrameTableModel::CI_Value);
+        idx.isValid()) {
       scrollTo(idx);
       setCurrentIndex(idx);
       edit(idx);

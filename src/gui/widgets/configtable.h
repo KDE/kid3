@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Oct 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,7 +50,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ConfigTable() override = default;
+  ~ConfigTable() override = default;
 
   /**
    * Set the resize modes to be used for the columns.
@@ -62,12 +62,12 @@ public slots:
   /**
    * Add a new item.
    */
-  virtual void addItem() override;
+  void addItem() override;
 
   /**
    * Edit the selected item.
    */
-  virtual void editItem() override;
+  void editItem() override;
 
   /**
    * Insert a new row into the table.
@@ -95,7 +95,7 @@ public slots:
    *
    * @param action action of selected menu
    */
-  void executeAction(QAction* action);
+  void executeAction(const QAction* action);
 
   /**
    * Display context menu.

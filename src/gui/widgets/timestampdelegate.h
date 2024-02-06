@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Mar 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -43,7 +43,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TimeStampDelegate() override = default;
+  ~TimeStampDelegate() override = default;
 
   /**
    * Create an editor to edit the cell contents.
@@ -52,7 +52,7 @@ public:
    * @param index  index of item
    * @return time editor widget.
    */
-  virtual QWidget* createEditor(
+  QWidget* createEditor(
     QWidget* parent, const QStyleOptionViewItem& option,
     const QModelIndex& index) const override;
 
@@ -62,8 +62,8 @@ public:
    * @param option style
    * @param index index of item
    */
-  virtual void paint(QPainter* painter, const QStyleOptionViewItem& option,
-                     const QModelIndex& index) const override;
+  void paint(QPainter* painter, const QStyleOptionViewItem& option,
+             const QModelIndex& index) const override;
 
 private slots:
   void commitAndCloseEditor();

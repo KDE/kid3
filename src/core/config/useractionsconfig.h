@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -147,21 +147,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~UserActionsConfig() override = default;
+  ~UserActionsConfig() override = default;
 
   /**
    * Persist configuration.
    *
    * @param config configuration
    */
-  virtual void writeToConfig(ISettings* config) const override;
+  void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config configuration
    */
-  virtual void readFromConfig(ISettings* config) override;
+  void readFromConfig(ISettings* config) override;
 
   /** Get list of context menu commands. */
   QList<MenuCommand> contextMenuCommands() const {

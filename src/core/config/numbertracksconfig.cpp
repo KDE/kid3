@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -34,7 +34,7 @@ namespace {
  * @param tagVersion tag version
  * @return value used in configuration, kept for backwards compatibility.
  */
-inline int tagVersionToNumberTracksDestCfg(Frame::TagVersion tagVersion) {
+int tagVersionToNumberTracksDestCfg(Frame::TagVersion tagVersion) {
   return static_cast<int>(tagVersion) - 1;
 }
 
@@ -44,7 +44,7 @@ inline int tagVersionToNumberTracksDestCfg(Frame::TagVersion tagVersion) {
  *                   compatibility.
  * @return tag version.
  */
-inline Frame::TagVersion numberTracksDestCfgToTagVersion(int importDest) {
+Frame::TagVersion numberTracksDestCfgToTagVersion(int importDest) {
   return Frame::tagVersionCast(importDest + 1);
 }
 
@@ -56,7 +56,7 @@ int NumberTracksConfig::s_index = -1;
  * Constructor.
  */
 NumberTracksConfig::NumberTracksConfig()
-  : StoredConfig<NumberTracksConfig>(QLatin1String("NumberTracks")),
+  : StoredConfig(QLatin1String("NumberTracks")),
     m_numberTracksDst(Frame::TagV1),
     m_numberTracksStart(1),
     m_trackNumberingEnabled(true),
@@ -110,10 +110,10 @@ void NumberTracksConfig::readFromConfig(ISettings* config)
   config->endGroup();
 }
 
-void NumberTracksConfig::setNumberTracksDestination(Frame::TagVersion numberTracksDst)
+void NumberTracksConfig::setNumberTracksDestination(Frame::TagVersion numberTracksDestination)
 {
-  if (m_numberTracksDst != numberTracksDst) {
-    m_numberTracksDst = numberTracksDst;
+  if (m_numberTracksDst != numberTracksDestination) {
+    m_numberTracksDst = numberTracksDestination;
     emit numberTracksDestinationChanged(m_numberTracksDst);
   }
 }

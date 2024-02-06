@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 09 Aug 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,7 +48,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~CommandFormatReplacer() override = default;
+  ~CommandFormatReplacer() override = default;
 
   /**
    * Get help text for supported format codes.
@@ -75,7 +75,7 @@ protected:
    * @return replacement string,
    *         QString::null if code not found.
    */
-  virtual QString getReplacement(const QString& code) const override;
+  QString getReplacement(const QString& code) const override;
 
 private:
   const QStringList& m_files;

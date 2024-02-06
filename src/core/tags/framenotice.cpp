@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 May 2017
  *
- * Copyright (C) 2017-2018  Urs Fleisch
+ * Copyright (C) 2017-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -91,12 +91,10 @@ bool isYear(const QString& str)
 
 bool isNumberTotal(const QString& str)
 {
-  const int slashPos = str.indexOf(QLatin1Char('/'));
-  if (slashPos != -1) {
+  if (const int slashPos = str.indexOf(QLatin1Char('/')); slashPos != -1) {
     return isNumeric(str.left(slashPos)) && isNumeric(str.mid(slashPos + 1));
-  } else {
-    return isNumeric(str);
   }
+  return isNumeric(str);
 }
 
 bool isIsrc(const QString& str)
@@ -130,8 +128,8 @@ bool isMusicalKey(const QString& str)
 
   // Although not in the ID3v2 standard, allow commonly used Camelot wheel
   // values 1A-12A, 1B-12B http://www.mixedinkey.com/harmonic-mixing-guide/
-  const QChar lastChar = str.at(len - 1);
-  if (lastChar == QLatin1Char('A') || lastChar == QLatin1Char('B')) {
+  if (const QChar lastChar = str.at(len - 1);
+      lastChar == QLatin1Char('A') || lastChar == QLatin1Char('B')) {
     bool ok;
 #if QT_VERSION >= 0x060000
     int nr = str.left(len - 1).toInt(&ok);
@@ -161,8 +159,7 @@ bool isLanguageCode(const QString& str)
     return true;
 
   for (int i = 0; i < 3; ++i) {
-    const QChar ch = str.at(i);
-    if (!ch.isLetter() || !ch.isLower()) {
+    if (const QChar ch = str.at(i); !ch.isLetter() || !ch.isLower()) {
       return false;
     }
   }
@@ -204,7 +201,7 @@ QString FrameNotice::getDescription() const
     QT_TRANSLATE_NOOP("@default", "Must be list of strings separated by '|'"),
     QT_TRANSLATE_NOOP("@default", "Has excess white space"),
   };
-  Q_STATIC_ASSERT(sizeof(descriptions) / sizeof(descriptions[0]) == NumWarnings);
+  Q_STATIC_ASSERT(std::size(descriptions) == NumWarnings);
   return m_warning < NumWarnings
       ? QCoreApplication::translate("@default", descriptions[m_warning])
       : QString();
@@ -237,8 +234,7 @@ const QRegularExpression& FrameNotice::isoDateTimeRexExp()
  */
 bool FrameNotice::addPictureTooLargeNotice(Frame& frame, int maxSize)
 {
-  QVariant data = Frame::getField(frame, Frame::ID_Data);
-  if (!data.isNull()) {
+  if (QVariant data = Frame::getField(frame, Frame::ID_Data); !data.isNull()) {
     if (data.toByteArray().size() > maxSize) {
       frame.setMarked(FrameNotice::TooLarge);
       return true;
@@ -329,14 +325,14 @@ bool FrameNotice::addId3StandardViolationNotice(FrameCollection& frames)
   static QMap<Warning, CheckFunction> checks;
   static QMap<QString, Frame::FieldId> uniques;
   if (warnings.isEmpty()) {
-    for (const auto& iw : idWarning) {
-      warnings[QString::fromLatin1(iw.id)] = iw.warning;
+    for (const auto& [id, warning] : idWarning) {
+      warnings[QString::fromLatin1(id)] = warning;
     }
-    for (const auto& wf : warningFunc) {
-      checks[wf.warning] = wf.func;
+    for (const auto& [warning, func] : warningFunc) {
+      checks[warning] = func;
     }
-    for (const auto& uif : uniqIdField) {
-      uniques[QString::fromLatin1(uif.id)] = uif.field;
+    for (const auto& [id, field] : uniqIdField) {
+      uniques[QString::fromLatin1(id)] = field;
     }
   }
 
@@ -349,9 +345,9 @@ bool FrameNotice::addId3StandardViolationNotice(FrameCollection& frames)
     QString uniqueId;
 
     // Check for uniqueness.
-    static const Frame::FieldId NOT_UNIQUE = Frame::ID_Subframe;
-    Frame::FieldId fieldId = uniques.value(id, NOT_UNIQUE);
-    if (fieldId != NOT_UNIQUE) {
+    static constexpr Frame::FieldId NOT_UNIQUE = Frame::ID_Subframe;
+    if (Frame::FieldId fieldId = uniques.value(id, NOT_UNIQUE);
+        fieldId != NOT_UNIQUE) {
       uniqueId = id;
       if (fieldId != Frame::ID_NoField) {
         uniqueId += frame.getFieldValue(fieldId).toString();
@@ -372,18 +368,15 @@ bool FrameNotice::addId3StandardViolationNotice(FrameCollection& frames)
         frame.setMarked(Unique);
         marked = true;
         continue;
-      } else {
-        uniqueIds.insert(uniqueId);
       }
+      uniqueIds.insert(uniqueId);
     }
 
     // Check value formats.
     QString value = frame.getValue();
 
-    Warning warning = warnings.value(id, None);
-    if (warning != None) {
-      CheckFunction check = checks.value(warning);
-      if (check && !check(value)) {
+    if (Warning warning = warnings.value(id, None); warning != None) {
+      if (CheckFunction check = checks.value(warning); check && !check(value)) {
         frame.setMarked(warning);
         marked = true;
         continue;

@@ -47,33 +47,33 @@ public:
   /**
    * Destructor.
    */
-  virtual ~OggFlacMetadataPlugin() override = default;
+  ~OggFlacMetadataPlugin() override = default;
 
   /**
    * Get name of factory, the same as the QObject::objectName() of the plugin.
    * @return factory name.
    */
-  virtual QString name() const override;
+  QString name() const override;
 
   /**
    * Get keys of available tagged file formats.
    * @return list of keys.
    */
-  virtual QStringList taggedFileKeys() const override;
+  QStringList taggedFileKeys() const override;
 
   /**
    * Get features supported.
    * @param key tagged file key
    * @return bit mask with TaggedFile::Feature flags set.
    */
-  virtual int taggedFileFeatures(const QString& key) const override;
+  int taggedFileFeatures(const QString& key) const override;
 
   /**
    * Initialize tagged file factory.
    *
    * @param key tagged file key
    */
-  virtual void initialize(const QString& key) override;
+  void initialize(const QString& key) override;
 
   /**
    * Create a tagged file.
@@ -86,7 +86,7 @@ public:
    *
    * @return tagged file, 0 if type not supported.
    */
-  virtual TaggedFile* createTaggedFile(
+  TaggedFile* createTaggedFile(
       const QString& key,
       const QString& fileName,
       const QPersistentModelIndex& idx,
@@ -99,7 +99,7 @@ public:
    *
    * @return list of file extensions.
    */
-  virtual QStringList supportedFileExtensions(const QString& key) const override;
+  QStringList supportedFileExtensions(const QString& key) const override;
 
   /**
    * Notify about configuration change.
@@ -107,5 +107,5 @@ public:
    *
    * @param key tagged file key
    */
-  virtual void notifyConfigurationChange(const QString& key) override;
+  void notifyConfigurationChange(const QString& key) override;
 };

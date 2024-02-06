@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 29 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -94,21 +94,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileConfig() override = default;
+  ~FileConfig() override = default;
 
   /**
    * Persist configuration.
    *
    * @param config configuration
    */
-  virtual void writeToConfig(ISettings* config) const override;
+  void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config configuration
    */
-  virtual void readFromConfig(ISettings* config) override;
+  void readFromConfig(ISettings* config) override;
 
   /** Get filter of file names to be opened. */
   QString nameFilter() const { return m_nameFilter; }
@@ -144,19 +144,19 @@ public:
   QString toFilenameFormat() const { return m_formatText; }
 
   /** Set filename format. */
-  void setToFilenameFormat(const QString& toFilenameFormat);
+  void setToFilenameFormat(const QString& formatText);
 
   /** Get filename formats. */
   QStringList toFilenameFormats() const { return m_formatItems; }
 
   /** Set filename formats. */
-  void setToFilenameFormats(const QStringList& toFilenameFormats);
+  void setToFilenameFormats(const QStringList& formatItems);
 
   /** Get from filename format. */
   QString fromFilenameFormat() const { return m_formatFromFilenameText; }
 
   /** Set from filename format. */
-  void setFromFilenameFormat(const QString& fromFilenameFormat);
+  void setFromFilenameFormat(const QString& formatFromFilenameText);
 
   /** Get from filename formats. */
   QStringList fromFilenameFormats() const {

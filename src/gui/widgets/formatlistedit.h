@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Aug 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -54,7 +54,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FormatListEdit() override = default;
+  ~FormatListEdit() override = default;
 
   /**
    * Set format strings.

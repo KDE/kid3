@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,12 +40,12 @@ public:
   /**
    * Constructor.
    */
-  BrowserDialog(QWidget* parent, QString& caption);
+  BrowserDialog(QWidget* parent, const QString& caption);
 
   /**
    * Destructor.
    */
-  virtual ~BrowserDialog() override = default;
+  ~BrowserDialog() override = default;
 
   /**
    * Show context help.

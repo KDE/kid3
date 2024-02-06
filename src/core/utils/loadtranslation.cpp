@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Mar 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -67,8 +67,8 @@ void Utils::loadTranslation(const QString& lang)
   // so this case cannot be fixed.
   for (auto it = languages.begin(); it != languages.end(); ++it) {
     const int len = it->length();
-    const int dashPos = it->lastIndexOf(QLatin1Char('-'));
-    if (dashPos > 0 && dashPos < len -1) {
+    if (const int dashPos = it->lastIndexOf(QLatin1Char('-'));
+        dashPos > 0 && dashPos < len -1) {
       (*it)[dashPos] = QLatin1Char(dashPos == len - 3 ? '_' : '@');
     }
     // Some more fixes for languages encountered on macOS,
@@ -140,8 +140,8 @@ void Utils::loadTranslation(const QString& lang)
 void Utils::prependApplicationDirPathIfRelative(QString& path)
 {
   if (QFileInfo(path).isRelative()) {
-    QString appDir = QCoreApplication::applicationDirPath();
-    if (!appDir.isEmpty()) {
+    if (QString appDir = QCoreApplication::applicationDirPath();
+        !appDir.isEmpty()) {
       if (!appDir.endsWith(QLatin1Char('/'))) {
         appDir.append(QLatin1Char('/'));
       }

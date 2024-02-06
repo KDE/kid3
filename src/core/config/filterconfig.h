@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Jan 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,21 +57,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FilterConfig() override = default;
+  ~FilterConfig() override = default;
 
   /**
    * Persist configuration.
    *
    * @param config KDE configuration
    */
-  virtual void writeToConfig(ISettings* config) const override;
+  void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config) override;
+  void readFromConfig(ISettings* config) override;
 
   /**
    * Set the filename format in the "Filename Tag Mismatch" filter.

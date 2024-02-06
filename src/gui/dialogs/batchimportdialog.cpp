@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -62,7 +62,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImportSourceListEdit() override = default;
+  ~BatchImportSourceListEdit() override = default;
 
   /**
    * Set names of import servers.
@@ -72,16 +72,15 @@ public:
     m_serverNames = servers;
   }
 
-public:
   /**
    * Add a new item.
    */
-  virtual void addItem() override;
+  void addItem() override;
 
   /**
    * Edit the selected item.
    */
-  virtual void editItem() override;
+  void editItem() override;
 
 private:
   Q_DISABLE_COPY(BatchImportSourceListEdit)
@@ -130,8 +129,7 @@ void BatchImportSourceListEdit::addItem()
  */
 void BatchImportSourceListEdit::editItem()
 {
-  QModelIndex index = getItemView()->currentIndex();
-  if (index.isValid()) {
+  if (QModelIndex index = getItemView()->currentIndex(); index.isValid()) {
     if (auto model =
         qobject_cast<BatchImportSourcesModel*>(getItemView()->model())) {
       BatchImportProfile::Source source;
@@ -152,6 +150,7 @@ void BatchImportSourceListEdit::editItem()
 /**
  * Constructor.
  *
+ * @param importers server importers
  * @param parent parent widget
  */
 BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
@@ -171,12 +170,12 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   m_edit->setAcceptRichText(false);
   splitter->addWidget(m_edit);
 
-  QWidget* profileWidget = new QWidget;
+  auto profileWidget = new QWidget;
   auto profileLayout = new QVBoxLayout(profileWidget);
   profileLayout->setContentsMargins(0, 0, 0, 0);
 
   auto destLayout = new QHBoxLayout;
-  QLabel* destLabel = new QLabel(tr("D&estination:"));
+  auto destLabel = new QLabel(tr("D&estination:"));
   destLayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
   m_destComboBox->setEditable(false);
@@ -191,7 +190,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   profileLayout->addLayout(destLayout);
 
   auto nameLayout = new QHBoxLayout;
-  QLabel* profileLabel = new QLabel(tr("&Profile:"));
+  auto profileLabel = new QLabel(tr("&Profile:"));
   nameLayout->addWidget(profileLabel);
   m_profileComboBox = new QComboBox;
   m_profileComboBox->setEditable(true);
@@ -202,11 +201,11 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
           this, &BatchImportDialog::changeProfileName);
   profileLabel->setBuddy(m_profileComboBox);
   nameLayout->addWidget(m_profileComboBox, 1);
-  QPushButton* profileAddButton = new QPushButton(tr("Add"));
+  auto profileAddButton = new QPushButton(tr("Add"));
   connect(profileAddButton, &QAbstractButton::clicked,
           this, &BatchImportDialog::addProfile);
   nameLayout->addWidget(profileAddButton);
-  QPushButton* profileRemoveButton = new QPushButton(tr("Remove"));
+  auto profileRemoveButton = new QPushButton(tr("Remove"));
   connect(profileRemoveButton, &QAbstractButton::clicked,
           this, &BatchImportDialog::removeProfile);
   nameLayout->addWidget(profileRemoveButton);
@@ -227,13 +226,13 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   vlayout->addWidget(splitter);
 
   auto hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  auto helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, &QAbstractButton::clicked,
           this, &BatchImportDialog::showHelp);
 
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  auto saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, &QAbstractButton::clicked,
@@ -242,7 +241,7 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
 
   m_startAbortButton = new QPushButton(this);
   setAbortButton(false);
-  QPushButton* closeButton = new QPushButton(tr("&Close"), this);
+  auto closeButton = new QPushButton(tr("&Close"), this);
   m_startAbortButton->setAutoDefault(false);
   m_startAbortButton->setDefault(true);
   closeButton->setAutoDefault(false);
@@ -311,8 +310,8 @@ void BatchImportDialog::addProfile()
  */
 void BatchImportDialog::removeProfile()
 {
-  int index = m_profileComboBox->currentIndex();
-  if (index >= 0 && index < m_profiles.size()) {
+  if (int index = m_profileComboBox->currentIndex();
+      index >= 0 && index < m_profiles.size()) {
     m_profiles.removeAt(index);
     if (m_profileIdx >= m_profiles.size())
       m_profileIdx = m_profiles.size() - 1;
@@ -337,8 +336,8 @@ void BatchImportDialog::changeProfile(int index)
  */
 void BatchImportDialog::changeProfileName(const QString& name)
 {
-  int index = m_profileComboBox->currentIndex();
-  if (index >= 0 && index < m_profiles.size()) {
+  if (int index = m_profileComboBox->currentIndex();
+      index >= 0 && index < m_profiles.size()) {
     m_profiles[index].setName(name);
     m_profileComboBox->setItemText(index, name);
   }

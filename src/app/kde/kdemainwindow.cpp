@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -225,8 +225,7 @@ void KdeMainWindow::initActions()
     QString serverName(QCoreApplication::translate("@default", si->name()));
     QString actionName = QString::fromLatin1(si->name()).toLower()
         .remove(QLatin1Char(' '));
-    int dotPos = actionName.indexOf(QLatin1Char('.'));
-    if (dotPos != -1)
+    if (int dotPos = actionName.indexOf(QLatin1Char('.')); dotPos != -1)
       actionName.truncate(dotPos);
     actionName = QLatin1String("import_") + actionName;
     action = new QAction(tr("Import from %1...").arg(serverName), this);
@@ -242,8 +241,7 @@ void KdeMainWindow::initActions()
     QString serverName(QCoreApplication::translate("@default", si->name()));
     QString actionName = QString::fromLatin1(si->name()).toLower()
         .remove(QLatin1Char(' '));
-    int dotPos = actionName.indexOf(QLatin1Char('.'));
-    if (dotPos != -1)
+    if (int dotPos = actionName.indexOf(QLatin1Char('.')); dotPos != -1)
       actionName.truncate(dotPos);
     actionName = QLatin1String("import_") + actionName;
     action = new QAction(tr("Import from %1...").arg(serverName), this);
@@ -302,8 +300,8 @@ void KdeMainWindow::initActions()
   action->setStatusTip(tr("Filter"));
   collection->addAction(QLatin1String("filter"), action);
   connect(action, &QAction::triggered, impl(), &BaseMainWindowImpl::slotFilter);
-  const TagConfig& tagCfg = TagConfig::instance();
-  if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
+  if (const TagConfig& tagCfg = TagConfig::instance();
+      tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
     action = new QAction(tr("Convert ID3v2.3 to ID3v2.&4"), this);
     action->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
     collection->addAction(QLatin1String("convert_to_id3v24"), action);
@@ -474,9 +472,9 @@ void KdeMainWindow::initActions()
 
   actionPrefix = tr("Player") + QLatin1String(": ");
   const auto actions = impl()->mediaActions();
-  for (QAction* action : actions) {
-    action->setText(actionPrefix + action->text());
-    collection->addAction(action->objectName(), action);
+  for (QAction* mediaAction : actions) {
+    mediaAction->setText(actionPrefix + mediaAction->text());
+    collection->addAction(mediaAction->objectName(), mediaAction);
   }
 
   createGUI();
@@ -493,8 +491,7 @@ QMap<QString, QKeySequence> KdeMainWindow::shortcutsMap() const
     const auto actions = collection->actions();
     for (QAction* action : actions) {
       if (action) {
-        QString name = action->objectName();
-        if (!name.isEmpty()) {
+        if (QString name = action->objectName(); !name.isEmpty()) {
           map.insert(name, action->shortcut());
         }
       }
@@ -620,7 +617,7 @@ void KdeMainWindow::readProperties(const KConfigGroup& cfg)
 /**
  * Open recent directory.
  *
- * @param dir directory to open
+ * @param url URL of directory to open
  */
 void KdeMainWindow::slotFileOpenRecentUrl(const QUrl& url)
 {
@@ -652,8 +649,7 @@ void KdeMainWindow::slotSettingsShortcuts()
  */
 void KdeMainWindow::slotSettingsToolbars()
 {
-  KEditToolBar dlg(actionCollection());
-  if (dlg.exec()) {
+  if (KEditToolBar dlg(actionCollection()); dlg.exec()) {
     createGUI();
   }
 }
@@ -673,7 +669,7 @@ void KdeMainWindow::slotSettingsShowStatusbar()
 void KdeMainWindow::slotSettingsConfigure()
 {
   QString caption(tr("Configure - Kid3"));
-  KConfigSkeleton* configSkeleton = new KConfigSkeleton;
+  auto configSkeleton = new KConfigSkeleton;
   auto dialog = new KdeConfigDialog(m_platformTools, this, caption,
                                                 configSkeleton);
   dialog->setConfig();

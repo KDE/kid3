@@ -295,7 +295,7 @@ public:
     void removeNode(FileSystemNode *parentNode, const QString &name);
     FileSystemNode* addNode(FileSystemNode *parentNode, const QString &fileName, const QFileInfo &info);
     void addVisibleFiles(FileSystemNode *parentNode, const QStringList &newFiles);
-    void removeVisibleFile(FileSystemNode *parentNode, int visibleLocation);
+    void removeVisibleFile(FileSystemNode *parentNode, int vLocation);
     void sortChildren(int column, const QModelIndex &parent);
 
     inline int translateVisibleLocation(FileSystemNode *parent, int row) const {
@@ -336,7 +336,7 @@ public:
     QString type(const QModelIndex &index) const;
     QString time(const QModelIndex &index) const;
 
-    void _q_directoryChanged(const QString &directory, const QStringList &list);
+    void _q_directoryChanged(const QString &directory, const QStringList &files);
     void _q_performDelayedSort();
     void _q_fileSystemChanged(const QString &path, const QVector<QPair<QString, QFileInfo> > &);
     void _q_resolvedName(const QString &fileName, const QString &resolvedName);

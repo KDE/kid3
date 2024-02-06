@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Dec 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~HttpClient() override;
+  ~HttpClient() override;
 
   /**
    * Send a HTTP GET request.

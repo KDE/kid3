@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Sep 2005
  *
- * Copyright (C) 2005-2023  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -115,8 +115,8 @@ void TaggedFile::setFilenameFormattedIfEnabled(QString fn)
 void TaggedFile::updateCurrentFilename()
 {
   if (const TaggedFileSystemModel* model = getTaggedFileSystemModel()) {
-    const QString newName = model->fileName(m_index);
-    if (!newName.isEmpty() && m_filename != newName) {
+    if (const QString newName = model->fileName(m_index);
+        !newName.isEmpty() && m_filename != newName) {
       if (m_newFilename == m_filename) {
         m_newFilename = newName;
       }
@@ -183,8 +183,7 @@ void TaggedFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
   Frame frame;
   frame.setValue(QLatin1String(""));
   for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastV1Frame; ++i) {
-    auto type = static_cast<Frame::Type>(i);
-    if (flt.isEnabled(type)) {
+    if (auto type = static_cast<Frame::Type>(i); flt.isEnabled(type)) {
       frame.setExtendedType(Frame::ExtendedType(type));
       setFrame(tagNr, frame);
     }
@@ -272,11 +271,11 @@ void TaggedFile::markTagChanged(Frame::TagNumber tagNr,
   Frame::Type type = extendedType.getType();
   m_changed[tagNr] = true;
   if (static_cast<unsigned>(type) < sizeof(m_changedFrames[tagNr]) * 8) {
-    m_changedFrames[tagNr] |= (1ULL << type);
+    m_changedFrames[tagNr] |= 1ULL << type;
   }
   if (type == Frame::FT_Other) {
-    const QString internalName = extendedType.getInternalName();
-    if (!internalName.isEmpty()) {
+    if (const QString internalName = extendedType.getInternalName();
+        !internalName.isEmpty()) {
       m_changedOtherFrameNames[tagNr].insert(internalName);
     }
   }
@@ -345,8 +344,8 @@ void TaggedFile::setChangedFrames(Frame::TagNumber tagNr,
     Frame::Type type = extendedType.getType();
     mask |= 1ULL << type;
     if (type == Frame::FT_Other) {
-      const QString internalName = extendedType.getInternalName();
-      if (!internalName.isEmpty()) {
+      if (const QString internalName = extendedType.getInternalName();
+          !internalName.isEmpty()) {
         changedOtherFrameNames.insert(internalName);
       }
     }
@@ -402,8 +401,8 @@ void TaggedFile::notifyModelDataChanged(bool priorIsTagInformationRead) const
  */
 void TaggedFile::notifyTruncationChanged(bool priorTruncation) const
 {
-  bool currentTruncation = m_truncation != 0;
-  if (currentTruncation != priorTruncation) {
+  if (bool currentTruncation = m_truncation != 0;
+      currentTruncation != priorTruncation) {
     if (const TaggedFileSystemModel* model = getTaggedFileSystemModel()) {
       const_cast<TaggedFileSystemModel*>(model)->notifyModelDataChanged(m_index);
     }
@@ -425,8 +424,7 @@ namespace {
 QString removeArtist(const QString& album)
 {
   QString str(album);
-  int pos = str.indexOf(QLatin1String(" - "));
-  if (pos != -1) {
+  if (int pos = str.indexOf(QLatin1String(" - ")); pos != -1) {
     str.remove(0, pos + 3);
   }
   return str;
@@ -453,7 +451,7 @@ QString removeArtist(const QString& album)
  *            %y year
  *            %t track
  */
-void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt)
+void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt) const
 {
   QRegularExpression re;
   QRegularExpressionMatch match;
@@ -515,10 +513,10 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   }
 
   // remove %{} expressions and insert captures if without custom captures
-  while (((percentIdx = pattern.indexOf(prefix, percentIdx)) >= 0) &&
-         (percentIdx < pattern.length() - 1)) {
-    int closingBracePos = pattern.indexOf(suffix, percentIdx + prefixLen);
-    if (closingBracePos > percentIdx + prefixLen) {
+  while ((percentIdx = pattern.indexOf(prefix, percentIdx)) >= 0 &&
+         percentIdx < pattern.length() - 1) {
+    if (int closingBracePos = pattern.indexOf(suffix, percentIdx + prefixLen);
+        closingBracePos > percentIdx + prefixLen) {
       QString code = pattern.mid(percentIdx + prefixLen,
                                  closingBracePos - percentIdx - prefixLen);
       codePos[code] = nr++;
@@ -529,8 +527,8 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
                           ? "([A-Za-z]?\\d+[A-Za-z]?)"
                           : code == QLatin1String("date")
                             ? "(\\d{1,4}[\\dT :-]*)"
-                            : (code == QLatin1String("disc number") ||
-                               code == QLatin1String("bpm"))
+                            : code == QLatin1String("disc number") ||
+                              code == QLatin1String("bpm")
                               ? "(\\d{1,4})"
                               : "([^-_\\./ ](?:[^/]*[^-_/ ])?)"));
         pattern.replace(percentIdx, braceExprLen, capture);
@@ -556,8 +554,7 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
   if ((match = re.match(fileName)).hasMatch()) {
     for (auto it = codePos.begin(); it != codePos.end(); ++it) {
       const QString& name = it.key();
-      QString str = match.captured(*it);
-      if (!str.isEmpty()) {
+      if (QString str = match.captured(*it); !str.isEmpty()) {
         if (!useCustomCaptures && name == QLatin1String("track number") &&
             str.length() == 2 && str[0] == QLatin1Char('0')) {
           // remove leading zero
@@ -644,7 +641,6 @@ void TaggedFile::getTagsFromFilename(FrameCollection& frames, const QString& fmt
     frames.setAlbum(removeArtist(match.captured(1)));
     frames.setArtist(match.captured(2));
     frames.setTitle(match.captured(3));
-    return;
   }
 }
 
@@ -825,8 +821,8 @@ QString TaggedFile::fixUpTagKey(const QString& key, TagType tagType)
     result = key.mid(i, len - i);
   } else {
     while (i < len) {
-      QChar ch = key.at(i);
-      if (ch != forbidden &&
+      if (QChar ch = key.at(i);
+          ch != forbidden &&
           ch >= firstAllowed && ch <= lastAllowed) {
         result.append(ch);
       }
@@ -843,8 +839,7 @@ QString TaggedFile::fixUpTagKey(const QString& key, TagType tagType)
  */
 int TaggedFile::getTotalNumberOfTracksInDir() const {
   int numTracks = -1;
-  QModelIndex parentIdx = m_index.parent();
-  if (parentIdx.isValid()) {
+  if (QModelIndex parentIdx = m_index.parent(); parentIdx.isValid()) {
     numTracks = 0;
     TaggedFileOfDirectoryIterator it(parentIdx);
     while (it.hasNext()) {
@@ -912,11 +907,10 @@ QString TaggedFile::trackNumberString(int num, int numTracks) const
 void TaggedFile::formatTrackNumberIfEnabled(QString& value, bool addTotal) const
 {
   int numDigits = getTrackNumberDigits();
-  int numTracks = addTotal ? getTotalNumberOfTracksIfEnabled() : -1;
-  if (numTracks > 0 || numDigits > 1) {
+  if (int numTracks = addTotal ? getTotalNumberOfTracksIfEnabled() : -1;
+      numTracks > 0 || numDigits > 1) {
     bool ok;
-    int trackNr = value.toInt(&ok);
-    if (ok && trackNr > 0) {
+    if (int trackNr = value.toInt(&ok); ok && trackNr > 0) {
       if (numTracks > 0) {
         value = QString(QLatin1String("%1/%2"))
             .arg(trackNr, numDigits, 10, QLatin1Char('0'))
@@ -973,7 +967,7 @@ QString TaggedFile::checkTruncation(
 
   bool priorTruncation = m_truncation != 0;
   QString result;
-  if (static_cast<int>(str.length()) > len) {
+  if (str.length() > len) {
     result = str;
     result.truncate(len);
     m_truncation |= flag;
@@ -1092,8 +1086,8 @@ void TaggedFile::updateMarkedState(Frame::TagNumber tagNr,
     auto it =
         frames.findByExtendedType(Frame::ExtendedType(Frame::FT_Picture));
     while (it != frames.cend() && it->getType() == Frame::FT_Picture) {
-      auto& frame = const_cast<Frame&>(*it);
-      if (FrameNotice::addPictureTooLargeNotice(
+      if (auto& frame = const_cast<Frame&>(*it);
+          FrameNotice::addPictureTooLargeNotice(
             frame, tagCfg.maximumPictureSize())) {
         m_marked = true;
       }
@@ -1118,8 +1112,6 @@ void TaggedFile::closeFileHandle()
  * If a frame is created, its field list is empty. This method will create
  * a field list appropriate for the frame type and tagged file type if no
  * field list exists. The default implementation does nothing.
- * @param tagNr tag number
- * @param frame frame where field list is added
  */
 void TaggedFile::addFieldList(Frame::TagNumber, Frame&) const
 {

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -139,8 +139,8 @@ void BatchImporter::stateTransition()
         if (m_trackListNr < 0 || m_trackListNr >= m_trackLists.size()) {
           break;
         }
-        const ImportTrackDataVector& trackList = m_trackLists.at(m_trackListNr);
-        if (!trackList.isEmpty()) {
+        if (const ImportTrackDataVector& trackList = m_trackLists.at(m_trackListNr);
+            !trackList.isEmpty()) {
           m_currentArtist = trackList.getArtist();
           m_currentAlbum = trackList.getAlbum();
           if (m_currentArtist.isEmpty() && m_currentAlbum.isEmpty()) {
@@ -179,9 +179,9 @@ void BatchImporter::stateTransition()
       if (m_sourceNr < 0 || m_sourceNr >= m_profile.getSources().size()) {
         break;
       }
-      const BatchImportProfile::Source& profileSource =
+      if (const BatchImportProfile::Source& profileSource =
           m_profile.getSources().at(m_sourceNr);
-      if ((m_currentImporter = getImporter(profileSource.getName())) != nullptr) {
+          (m_currentImporter = getImporter(profileSource.getName())) != nullptr) {
         m_requestedData = 0;
         if (profileSource.standardTagsEnabled())
           m_requestedData |= StandardTags;
@@ -262,8 +262,8 @@ void BatchImporter::stateTransition()
     if (m_trackDataModel) {
       QUrl imgUrl;
       if (m_tagVersion & Frame::tagVersionFromNumber(Frame::Tag_Picture)) {
-        QUrl coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
-        if (!coverArtUrl.isEmpty()) {
+        if (QUrl coverArtUrl = m_trackDataModel->getTrackData().getCoverArtUrl();
+            !coverArtUrl.isEmpty()) {
           imgUrl = DownloadClient::getImageUrl(coverArtUrl);
           if (!imgUrl.isEmpty()) {
             emit reportImportEvent(FetchingCoverArt,
@@ -338,9 +338,9 @@ void BatchImporter::onAlbumFinished(const QByteArray& albumStr)
                            (accuracy >= 0
                             ? QString::number(accuracy) + QLatin1Char('%')
                             : tr("Unknown")));
-    const BatchImportProfile::Source& profileSource =
+    if (const BatchImportProfile::Source& profileSource =
         m_profile.getSources().at(m_sourceNr);
-    if (accuracy >= profileSource.getRequiredAccuracy()) {
+        accuracy >= profileSource.getRequiredAccuracy()) {
       if (m_requestedData & (StandardTags | AdditionalTags)) {
         // Set imported data in tags of files.
         ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 12 Aug 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -45,14 +45,14 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TextTableModel() override = default;
+  ~TextTableModel() override = default;
 
   /**
    * Get item flags for index.
    * @param index model index
    * @return item flags
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
+  Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
    * Get data for a given role.
@@ -60,8 +60,8 @@ public:
    * @param role item data role
    * @return data for role
    */
-  virtual QVariant data(const QModelIndex& index,
-                        int role = Qt::DisplayRole) const override;
+  QVariant data(const QModelIndex& index,
+                int role = Qt::DisplayRole) const override;
 
   /**
    * Get data for header section.
@@ -70,8 +70,8 @@ public:
    * @param role item data role
    * @return header data for role
    */
-  virtual QVariant headerData(int section, Qt::Orientation orientation,
-                              int role = Qt::DisplayRole) const override;
+  QVariant headerData(int section, Qt::Orientation orientation,
+                      int role = Qt::DisplayRole) const override;
 
   /**
    * Get number of rows.
@@ -79,7 +79,7 @@ public:
    * @return number of rows,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int rowCount(const QModelIndex& parent = QModelIndex()) const override;
+  int rowCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Get number of columns.
@@ -87,7 +87,7 @@ public:
    * @return number of columns,
    * if parent is valid number of children (0 for table models)
    */
-  virtual int columnCount(const QModelIndex& parent = QModelIndex()) const override;
+  int columnCount(const QModelIndex& parent = QModelIndex()) const override;
 
   /**
    * Set the text to be displayed in the table.

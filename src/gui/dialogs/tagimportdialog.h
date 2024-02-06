@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Jun 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -53,7 +53,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagImportDialog() override = default;
+  ~TagImportDialog() override = default;
 
   /**
    * Clear dialog data.

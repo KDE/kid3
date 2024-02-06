@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -90,7 +90,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FormatConfig() override;
+  ~FormatConfig() override;
 
   /**
    * Set specific properties for a filename format.
@@ -137,14 +137,14 @@ public:
    *
    * @param config KDE configuration
    */
-  virtual void writeToConfig(ISettings* config) const override;
+  void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config) override;
+  void readFromConfig(ISettings* config) override;
 
   /** Get mapping for string replacement. */
   QList<QPair<QString, QString>> strRepMap() const { return m_strRepMap; }
@@ -310,7 +310,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FilenameFormatConfig() override = default;
+  ~FilenameFormatConfig() override = default;
 
 private:
   friend FilenameFormatConfig&
@@ -336,7 +336,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TagFormatConfig() override = default;
+  ~TagFormatConfig() override = default;
 
 private:
   friend TagFormatConfig&

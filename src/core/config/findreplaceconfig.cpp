@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 5 Mar 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,7 +33,7 @@ int FindReplaceConfig::s_index = -1;
  * Constructor.
  */
 FindReplaceConfig::FindReplaceConfig()
-  : StoredConfig<FindReplaceConfig>(QLatin1String("FindReplace"))
+  : StoredConfig(QLatin1String("FindReplace"))
 {
 }
 

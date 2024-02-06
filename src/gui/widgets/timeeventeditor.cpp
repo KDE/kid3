@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Mar 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -58,16 +58,16 @@
 class TimeEventTableView : public QTableView {
 public:
   /** Constructor. */
-  TimeEventTableView(QWidget* parent = nullptr) : QTableView(parent) {}
+  explicit TimeEventTableView(QWidget* parent = nullptr) : QTableView(parent) {}
   /** Destructor. */
-  virtual ~TimeEventTableView() override = default;
+  ~TimeEventTableView() override = default;
 
 protected:
   /**
    * Handle key events, delete cell contents if Delete key is pressed.
    * @param event key event
    */
-  virtual void keyPressEvent(QKeyEvent* event) override;
+  void keyPressEvent(QKeyEvent* event) override;
 
 private:
   Q_DISABLE_COPY(TimeEventTableView)
@@ -77,8 +77,7 @@ void TimeEventTableView::keyPressEvent(QKeyEvent* event)
 {
   if (event->key() == Qt::Key_Delete) {
     QModelIndex idx = currentIndex();
-    QAbstractItemModel* mdl = model();
-    if (mdl && idx.isValid()) {
+    if (QAbstractItemModel* mdl = model(); mdl && idx.isValid()) {
 #if QT_VERSION >= 0x060000
       mdl->setData(idx, QVariant(idx.data().metaType()));
 #else
@@ -117,17 +116,17 @@ TimeEventEditor::TimeEventEditor(IPlatformTools* platformTools,
   vlayout->addWidget(m_label);
   vlayout->setContentsMargins(0, 0, 0, 0);
   auto buttonLayout = new QHBoxLayout;
-  QPushButton* addButton = new QPushButton(tr("&Add"), this);
+  auto addButton = new QPushButton(tr("&Add"), this);
   addButton->setAutoDefault(false);
-  QPushButton* deleteButton = new QPushButton(tr("&Delete"), this);
+  auto deleteButton = new QPushButton(tr("&Delete"), this);
   deleteButton->setAutoDefault(false);
-  QPushButton* clipButton = new QPushButton(tr("From Clip&board"), this);
+  auto clipButton = new QPushButton(tr("From Clip&board"), this);
   clipButton->setAutoDefault(false);
-  QPushButton* importButton = new QPushButton(tr("&Import..."), this);
+  auto importButton = new QPushButton(tr("&Import..."), this);
   importButton->setAutoDefault(false);
-  QPushButton* exportButton = new QPushButton(tr("&Export..."), this);
+  auto exportButton = new QPushButton(tr("&Export..."), this);
   exportButton->setAutoDefault(false);
-  QPushButton* helpButton = new QPushButton(tr("Help"), this);
+  auto helpButton = new QPushButton(tr("Help"), this);
   helpButton->setAutoDefault(false);
   buttonLayout->setContentsMargins(0, 0, 0, 0);
   buttonLayout->addWidget(addButton);
@@ -204,10 +203,10 @@ void TimeEventEditor::preparePlayer()
 {
 #ifdef HAVE_QTMULTIMEDIA
   m_app->showAudioPlayer();
-  if (AudioPlayer* player =
+  if (auto player =
       qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
-    QString filePath = m_taggedFile->getAbsFilename();
-    if (player->getFileName() != filePath) {
+    if (QString filePath = m_taggedFile->getAbsFilename();
+        player->getFileName() != filePath) {
       player->setFiles({filePath}, -1);
     }
     m_fileIsPlayed = true;
@@ -225,11 +224,10 @@ void TimeEventEditor::preparePlayer()
 void TimeEventEditor::addItem()
 {
 #ifdef HAVE_QTMULTIMEDIA
-  QTime timeStamp;
   preparePlayer();
-  if (AudioPlayer* player =
+  if (auto player =
       qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
-    timeStamp = QTime(0, 0).addMSecs(player->getCurrentPosition());
+    QTime timeStamp = QTime(0, 0).addMSecs(player->getCurrentPosition());
     if (m_model) {
       // If the current row is empty, set the time stamp there, else insert a new
       // row sorted by time stamps or use the first empty row.
@@ -240,9 +238,9 @@ void TimeEventEditor::addItem()
         int row = 0;
         bool insertRow = true;
         while (row < m_model->rowCount()) {
-          QTime time = m_model->index(row, TimeEventModel::CI_Time)
-              .data().toTime();
-          if (time.isNull()) {
+          if (QTime time = m_model->index(row, TimeEventModel::CI_Time)
+                                  .data().toTime();
+              time.isNull()) {
             insertRow = false;
             break;
           } else if (time > timeStamp) {
@@ -267,8 +265,8 @@ void TimeEventEditor::addItem()
  */
 void TimeEventEditor::clipData()
 {
-  QClipboard* cb = QApplication::clipboard();
-  if (cb && cb->mimeData()->hasText()) {
+  if (QClipboard* cb = QApplication::clipboard();
+      cb && cb->mimeData()->hasText()) {
     QString text = cb->text();
     QTextStream stream(&text, QIODevice::ReadOnly);
     m_model->fromLrcFile(stream);
@@ -283,9 +281,9 @@ void TimeEventEditor::importData()
   if (!m_model)
     return;
 
-  QString loadFileName = m_platformTools->getOpenFileName(this, QString(),
+  if (QString loadFileName = m_platformTools->getOpenFileName(this, QString(),
         m_taggedFile->getDirname(), getLrcNameFilter(), nullptr);
-  if (!loadFileName.isEmpty()) {
+      !loadFileName.isEmpty()) {
     QFile file(loadFileName);
     if (file.open(QIODevice::ReadOnly)) {
       QTextStream stream(&file);
@@ -304,19 +302,19 @@ void TimeEventEditor::exportData()
     return;
 
   QString suggestedFileName = m_taggedFile->getAbsFilename();
-  int dotPos = suggestedFileName.lastIndexOf(QLatin1Char('.'));
-  if (dotPos >= 0 && dotPos >= suggestedFileName.length() - 5) {
+  if (int dotPos = suggestedFileName.lastIndexOf(QLatin1Char('.'));
+      dotPos >= 0 && dotPos >= suggestedFileName.length() - 5) {
     suggestedFileName.truncate(dotPos);
   }
   suggestedFileName += QLatin1String(".lrc");
-  QString saveFileName = m_platformTools->getSaveFileName(
+  if (QString saveFileName = m_platformTools->getSaveFileName(
         this, QString(), suggestedFileName, getLrcNameFilter(), nullptr);
-  if (!saveFileName.isEmpty()) {
+      !saveFileName.isEmpty()) {
     QFile file(saveFileName);
     if (file.open(QIODevice::WriteOnly)) {
       QTextStream stream(&file);
-      QString codecName = FileConfig::instance().textEncoding();
-      if (codecName != QLatin1String("System")) {
+      if (QString codecName = FileConfig::instance().textEncoding();
+          codecName != QLatin1String("System")) {
 #if QT_VERSION >= 0x060000
         if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
           stream.setEncoding(*encoding);
@@ -386,7 +384,7 @@ void TimeEventEditor::deleteRows()
     }
   }
 
-  QMapIterator<int, int> it(rows);
+  QMapIterator it(rows);
   it.toBack();
   while (it.hasPrevious()) {
     it.previous();
@@ -445,12 +443,12 @@ void TimeEventEditor::addOffset()
 void TimeEventEditor::seekPosition()
 {
 #ifdef HAVE_QTMULTIMEDIA
-  QModelIndex index = m_tableView->currentIndex();
-  if (index.isValid() && m_fileIsPlayed) {
-    QTime timeStamp =
-        index.sibling(index.row(), TimeEventModel::CI_Time).data().toTime();
-    if (timeStamp.isValid()) {
-      if (AudioPlayer* player =
+  if (QModelIndex index = m_tableView->currentIndex();
+      index.isValid() && m_fileIsPlayed) {
+    if (QTime timeStamp =
+          index.sibling(index.row(), TimeEventModel::CI_Time).data().toTime();
+        timeStamp.isValid()) {
+      if (auto player =
           qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
         player->setCurrentPosition(QTime(0, 0).msecsTo(timeStamp));
       }
@@ -469,8 +467,7 @@ void TimeEventEditor::customContextMenu(const QPoint& pos)
   QMenu menu(this);
   QAction* action = menu.addAction(tr("&Insert row"));
   connect(action, &QAction::triggered, this, &TimeEventEditor::insertRow);
-  QModelIndex index = m_tableView->indexAt(pos);
-  if (index.isValid()) {
+  if (QModelIndex index = m_tableView->indexAt(pos); index.isValid()) {
     action = menu.addAction(tr("&Delete rows"));
     connect(action, &QAction::triggered, this, &TimeEventEditor::deleteRows);
     action = menu.addAction(tr("C&lear"));
@@ -507,8 +504,7 @@ void TimeEventEditor::onPositionChanged(qint64 position)
 
   int oldRow = m_model->getMarkedRow();
   m_model->markRowForTimeStamp(QTime(0, 0).addMSecs(position));
-  int row = m_model->getMarkedRow();
-  if (row != oldRow && row != -1) {
+  if (int row = m_model->getMarkedRow(); row != oldRow && row != -1) {
     m_tableView->scrollTo(m_model->index(row, TimeEventModel::CI_Time),
                           QAbstractItemView::PositionAtCenter);
   }

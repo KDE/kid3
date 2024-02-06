@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Mar 2020
  *
- * Copyright (C) 2020  Urs Fleisch
+ * Copyright (C) 2020-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -109,7 +109,7 @@ SectionActions::SectionActions(ActionGroups groups, QWidget* widget)
  */
 void SectionActions::setShortcuts(const QMap<QString, QKeySequence>& map)
 {
-  const QList<QAction*> actions = {
+  const QList actions = {
     m_previousSectionAction,
     m_nextSectionAction,
     m_copyAction,
@@ -122,10 +122,9 @@ void SectionActions::setShortcuts(const QMap<QString, QKeySequence>& map)
   };
   for (QAction* action : actions) {
     if (action) {
-      QString name = action->objectName();
-      if (!name.isEmpty()) {
-        const auto it = map.constFind(name);
-        if (it != map.constEnd()) {
+      if (QString name = action->objectName(); !name.isEmpty()) {
+        if (const auto it = map.constFind(name);
+            it != map.constEnd()) {
           action->setShortcut(*it);
         }
       }

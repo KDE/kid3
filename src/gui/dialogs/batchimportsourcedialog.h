@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 2 Jan 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,13 +48,13 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BatchImportSourceDialog() override = default;
+  ~BatchImportSourceDialog() override = default;
 
   /**
    * Fill batch import source from dialog controls.
    * @param source batch import source to be filled
    */
-  void getSource(BatchImportProfile::Source& source);
+  void getSource(BatchImportProfile::Source& source) const;
 
   /**
    * Set dialog controls from batch import source.

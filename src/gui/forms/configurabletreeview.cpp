@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 3 Jan 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -75,8 +75,8 @@ void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
       (!m_openParentKey.isEmpty() || !m_openCurrentKey.isEmpty())) {
     // First create a key sequence from the key event and modifiers.
     int keyCode = event->key();
-    Qt::Key key = static_cast<Qt::Key>(keyCode);
-    if (key != Qt::Key_unknown && key != Qt::Key_Control &&
+    if (auto key = static_cast<Qt::Key>(keyCode);
+        key != Qt::Key_unknown && key != Qt::Key_Control &&
         key != Qt::Key_Shift && key != Qt::Key_Alt && key != Qt::Key_Meta) {
       Qt::KeyboardModifiers modifiers = event->modifiers();
       if (modifiers & Qt::ShiftModifier) {
@@ -96,8 +96,7 @@ void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
       // Open the parent folder if the "open_parent" key
       // (Ctrl+Up by default) is pressed.
       if (keySequence.matches(m_openParentKey) == QKeySequence::ExactMatch) {
-        QModelIndex idx = rootIndex();
-        if (idx.isValid()) {
+        if (QModelIndex idx = rootIndex(); idx.isValid()) {
           emit parentActivated(idx);
         }
         event->ignore();
@@ -106,8 +105,7 @@ void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
       // Open the current folder if the "open_current" key
       // (Ctrl+Down by default) is pressed.
       if (keySequence.matches(m_openCurrentKey) == QKeySequence::ExactMatch) {
-        QModelIndex idx = currentIndex();
-        if (idx.isValid()) {
+        if (QModelIndex idx = currentIndex(); idx.isValid()) {
           emit activated(idx);
         }
         event->ignore();
@@ -126,8 +124,8 @@ void ConfigurableTreeView::keyPressEvent(QKeyEvent* event)
       QItemSelectionModel* selMdl = selectionModel();
       if (mdl && selMdl && oldCurrent.isValid() &&
           mdl->rowCount(oldCurrent) == 0) {
-        QPersistentModelIndex newCurrent = mdl->parent(oldCurrent);
-        if (newCurrent.isValid() && newCurrent != rootIndex()) {
+        if (QPersistentModelIndex newCurrent = mdl->parent(oldCurrent);
+            newCurrent.isValid() && newCurrent != rootIndex()) {
           setCurrentIndex(newCurrent);
           event->accept();
           return;
@@ -249,8 +247,8 @@ QList<int> ConfigurableTreeView::getVisibleColumns() const
   QList<int> columns;
   const QHeaderView* headerView = header();
   for (int visualIdx = 0; visualIdx < headerView->count(); ++visualIdx) {
-    int logicalIdx = headerView->logicalIndex(visualIdx);
-    if (!headerView->isSectionHidden(logicalIdx)) {
+    if (int logicalIdx = headerView->logicalIndex(visualIdx);
+        !headerView->isSectionHidden(logicalIdx)) {
       columns.append(logicalIdx); // clazy:exclude=reserve-candidates
     }
   }

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21-Feb-2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -138,8 +138,7 @@ void BiDirFileProxyModelIterator::fetchNext()
       }
     } else {
       if (m_currentIndex.isValid()) {
-        int row = m_currentIndex.row() - 1;
-        if (row >= 0) {
+        if (int row = m_currentIndex.row() - 1; row >= 0) {
           // to last leafnode of previous sibling
           next = m_currentIndex.sibling(row, 0);
           row = m_model->rowCount(next) - 1;

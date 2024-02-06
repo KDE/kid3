@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 18 Sep 2015
  *
- * Copyright (C) 2015-2018  Urs Fleisch
+ * Copyright (C) 2015-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,6 +44,7 @@
  * @param platformTools platform tools
  * @param app application context
  * @param taggedFile tagged file
+ * @param tagNr tag number
  * @param parent parent widget
  */
 SubframesEditor::SubframesEditor(IPlatformTools* platformTools,
@@ -99,8 +100,7 @@ void SubframesEditor::getFrames(FrameCollection& frames) const
 {
   frames = m_frameTableModel->frames();
   for (auto it = frames.begin(); it != frames.end(); ++it) {
-    auto& frame = const_cast<Frame&>(*it);
-    if (frame.isValueChanged()) {
+    if (auto& frame = const_cast<Frame&>(*it); frame.isValueChanged()) {
       frame.setFieldListFromValue();
     }
   }
@@ -142,8 +142,7 @@ void SubframesEditor::onAddClicked()
  */
 void SubframesEditor::onDeleteClicked()
 {
-  QModelIndex index = m_frameTable->currentIndex();
-  if (index.isValid()) {
+  if (QModelIndex index = m_frameTable->currentIndex(); index.isValid()) {
     m_frameTableModel->removeRow(index.row());
   }
 }
@@ -167,8 +166,7 @@ void SubframesEditor::editFrame(const Frame& frame, int row)
     name = m_editFrame.getName();
   }
   if (!name.isEmpty()) {
-    int nlPos = name.indexOf(QLatin1Char('\n'));
-    if (nlPos > 0) {
+    if (int nlPos = name.indexOf(QLatin1Char('\n')); nlPos > 0) {
       // probably "TXXX - User defined text information\nDescription" or
       // "WXXX - User defined URL link\nDescription"
       name.truncate(nlPos);
@@ -194,8 +192,8 @@ void SubframesEditor::onEditFrameDialogFinished(int result)
   if (auto dialog =
       qobject_cast<EditFrameFieldsDialog*>(sender())) {
     if (result == QDialog::Accepted) {
-      const Frame::FieldList& fields = dialog->getUpdatedFieldList();
-      if (fields.isEmpty()) {
+      if (const Frame::FieldList& fields = dialog->getUpdatedFieldList();
+          fields.isEmpty()) {
         m_editFrame.setValue(dialog->getFrameValue());
       } else {
         m_editFrame.setFieldList(fields);

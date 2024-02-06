@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22-Mar-2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -57,7 +57,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileProxyModel() override;
+  ~FileProxyModel() override;
 
   /**
    * Get item flags.
@@ -65,26 +65,26 @@ public:
    * @return default flags plus drag enabled depending on
    * setExclusiveDraggableIndex().
    */
-  virtual Qt::ItemFlags flags(const QModelIndex& index) const override;
+  Qt::ItemFlags flags(const QModelIndex& index) const override;
 
   /**
    * Set source model.
    * @param sourceModel source model, must be TaggedFileSystemModel
    */
-  virtual void setSourceModel(QAbstractItemModel* sourceModel) override;
+  void setSourceModel(QAbstractItemModel* sourceModel) override;
 
   /**
    * Check if more data is available.
    * @param parent parent index of items to fetch
    * @return true if more data available.
    */
-  virtual bool canFetchMore(const QModelIndex& parent) const override;
+  bool canFetchMore(const QModelIndex& parent) const override;
 
   /**
    * Fetches any available data.
    * @param parent parent index of items to fetch
    */
-  virtual void fetchMore(const QModelIndex& parent) override;
+  void fetchMore(const QModelIndex& parent) override;
 
   /**
    * Sort model.
@@ -96,13 +96,13 @@ public:
    * @param column column to sort
    * @param order ascending or descending order
    */
-  virtual void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
+  void sort(int column, Qt::SortOrder order = Qt::AscendingOrder) override;
 
   /**
    * Map role identifiers to role property names in scripting languages.
    * @return hash mapping role identifiers to names.
    */
-  virtual QHash<int, QByteArray> roleNames() const override;
+  QHash<int, QByteArray> roleNames() const override;
 
   /**
    * Check if the model is currently loading a directory.
@@ -211,7 +211,7 @@ public:
    * @param fileCount the file count is returned here
    */
   void countItems(const QModelIndex& rootIndex,
-                  int& folderCount, int& fileCount);
+                  int& folderCount, int& fileCount) const;
 
   /**
    * Check if any file has been modified.
@@ -355,7 +355,7 @@ protected slots:
    * Is called from endResetModel().
    */
 #if QT_VERSION >= 0x060000
-  virtual void resetInternalData() override;
+  void resetInternalData() override;
 #else
   void resetInternalData();
 #endif
@@ -366,7 +366,7 @@ private slots:
    * @param index model index
    * @param modified true if file is modified
    */
-  void onFileModificationChanged(const QModelIndex& index, bool modified);
+  void onFileModificationChanged(const QModelIndex& srcIndex, bool modified);
 
   /**
    * Called when the source model emits directoryLoaded().
@@ -392,7 +392,7 @@ protected:
    *
    * @return true to include row.
    */
-  virtual bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const override;
+  bool filterAcceptsRow(int srcRow, const QModelIndex& srcParent) const override;
 
 private:
   /**

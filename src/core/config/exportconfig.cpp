@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Jun 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -33,7 +33,7 @@ int ExportConfig::s_index = -1;
  * Constructor.
  */
 ExportConfig::ExportConfig()
-  : StoredConfig<ExportConfig>(QLatin1String("Export")),
+  : StoredConfig(QLatin1String("Export")),
     m_exportSrcV1(Frame::TagV1), m_exportFormatIdx(0)
 {
   m_exportFormatNames.append(QLatin1String("CSV unquoted"));
@@ -175,20 +175,18 @@ void ExportConfig::writeToConfig(ISettings* config) const
  */
 void ExportConfig::readFromConfig(ISettings* config)
 {
-  QStringList expNames, expHeaders, expTracks, expTrailers;
-
   config->beginGroup(m_group);
   m_exportSrcV1 = config->value(QLatin1String("ExportSourceV1"),
       m_exportSrcV1 == Frame::TagV1).toBool()
       ? Frame::TagV1 : Frame::TagV2;
-  expNames = config->value(QLatin1String("ExportFormatNames"),
-                           m_exportFormatNames).toStringList();
-  expHeaders = config->value(QLatin1String("ExportFormatHeaders"),
-                             m_exportFormatHeaders).toStringList();
-  expTracks = config->value(QLatin1String("ExportFormatTracks"),
-                            m_exportFormatTracks).toStringList();
-  expTrailers = config->value(QLatin1String("ExportFormatTrailers"),
-                              m_exportFormatTrailers).toStringList();
+  QStringList expNames = config->value(QLatin1String("ExportFormatNames"),
+                                       m_exportFormatNames).toStringList();
+  QStringList expHeaders = config->value(QLatin1String("ExportFormatHeaders"),
+                                         m_exportFormatHeaders).toStringList();
+  QStringList expTracks = config->value(QLatin1String("ExportFormatTracks"),
+                                        m_exportFormatTracks).toStringList();
+  QStringList expTrailers = config->value(QLatin1String("ExportFormatTrailers"),
+                                          m_exportFormatTrailers).toStringList();
   m_exportFormatIdx = config->value(QLatin1String("ExportFormatIdx"),
                                     m_exportFormatIdx).toInt();
   config->endGroup();
@@ -209,12 +207,11 @@ void ExportConfig::readFromConfig(ISettings* config)
        expNamesIt != expNames.constEnd() && expHeadersIt != expHeaders.constEnd() &&
          expTracksIt != expTracks.constEnd() && expTrailersIt != expTrailers.constEnd();
        ++expNamesIt, ++expHeadersIt, ++expTracksIt, ++expTrailersIt) {
-    int idx = m_exportFormatNames.indexOf(*expNamesIt);
-    if (idx >= 0) {
+    if (int idx = m_exportFormatNames.indexOf(*expNamesIt); idx >= 0) {
       m_exportFormatHeaders[idx] = *expHeadersIt;
       m_exportFormatTracks[idx] = *expTracksIt;
       m_exportFormatTrailers[idx] = *expTrailersIt;
-    } else if (!(*expNamesIt).isEmpty()) {
+    } else if (!expNamesIt->isEmpty()) {
       m_exportFormatNames.append(*expNamesIt);
       m_exportFormatHeaders.append(*expHeadersIt);
       m_exportFormatTracks.append(*expTracksIt);
@@ -222,12 +219,12 @@ void ExportConfig::readFromConfig(ISettings* config)
     }
   }
 
-  if (m_exportFormatIdx >=  static_cast<int>(m_exportFormatNames.size()))
+  if (m_exportFormatIdx >=  m_exportFormatNames.size())
     m_exportFormatIdx = 0;
 
   // Use HTML escaping for old HTML export format.
-  int htmlIdx = m_exportFormatNames.indexOf(QLatin1String("HTML"));
-  if (htmlIdx != -1) {
+  if (int htmlIdx = m_exportFormatNames.indexOf(QLatin1String("HTML"));
+      htmlIdx != -1) {
     if (m_exportFormatHeaders.at(htmlIdx) == QLatin1String(
       R"(<html>\n <head>\n  <title>%{artist} - %{album}</title>\n )"
       R"(</head>\n <body>\n  <h1>%{artist} - %{album}</h1>\n  <dl>)")) {
@@ -243,10 +240,10 @@ void ExportConfig::readFromConfig(ISettings* config)
   }
 }
 
-void ExportConfig::setExportSource(Frame::TagVersion exportSrcV1)
+void ExportConfig::setExportSource(Frame::TagVersion exportSource)
 {
-  if (m_exportSrcV1 != exportSrcV1) {
-    m_exportSrcV1 = exportSrcV1;
+  if (m_exportSrcV1 != exportSource) {
+    m_exportSrcV1 = exportSource;
     emit exportSourceChanged(m_exportSrcV1);
   }
 }
@@ -283,10 +280,10 @@ void ExportConfig::setExportFormatTrailers(const QStringList& exportFormatTraile
   }
 }
 
-void ExportConfig::setExportFormatIndex(int exportFormatIdx)
+void ExportConfig::setExportFormatIndex(int exportFormatIndex)
 {
-  if (m_exportFormatIdx != exportFormatIdx) {
-    m_exportFormatIdx = exportFormatIdx;
+  if (m_exportFormatIdx != exportFormatIndex) {
+    m_exportFormatIdx = exportFormatIndex;
     emit exportFormatIndexChanged(m_exportFormatIdx);
   }
 }

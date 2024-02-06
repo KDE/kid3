@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Feb 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -77,8 +77,7 @@ int av_audio_convert(AVAudioConvert *ctx,
 #endif
 
 namespace {
-
-const int BUFFER_SIZE = MAX_AUDIO_FRAME_SIZE * 2;
+  constexpr int BUFFER_SIZE = MAX_AUDIO_FRAME_SIZE * 2;
 
 /*
  * The following classes are used to benefit from the C++
@@ -230,10 +229,9 @@ public:
       }
       *frameSize = dataSize;
       return pkt->size;
-    } else {
-      *frameSize = 0;
-      return -1;
     }
+    *frameSize = 0;
+    return -1;
 #endif
 #endif
   }
@@ -253,7 +251,7 @@ private:
 
 class Format {
 public:
-  Format(const char* fileName) : m_ptr(nullptr), m_streamIndex(-1), m_hasError(false) {
+  explicit Format(const char* fileName) : m_ptr(nullptr), m_streamIndex(-1), m_hasError(false) {
     if (
 #if LIBAVFORMAT_VERSION_INT < AV_VERSION_INT(53, 2, 0)
         ::av_open_input_file(&m_ptr, fileName, 0, 0, 0) != 0
@@ -391,8 +389,8 @@ public:
 #else
   bool createForCodec(const Codec& codecCtx) {
     AVChannelLayout channelLayout;
-    const AVChannelLayout* codecChannelLayout = codecCtx.channelLayout();
-    if (::av_channel_layout_check(codecChannelLayout)) {
+    if (const AVChannelLayout* codecChannelLayout = codecCtx.channelLayout();
+        ::av_channel_layout_check(codecChannelLayout)) {
       ::av_channel_layout_copy(&channelLayout, codecChannelLayout);
     } else {
       ::av_channel_layout_default(&channelLayout, codecCtx.channels());
@@ -480,9 +478,8 @@ public:
       bufferSize = ::av_samples_get_buffer_size(nullptr, codecCtx.channels(),
                    numSamplesOut, AV_SAMPLE_FMT_S16, 1);
       return result;
-    } else {
-      return buffer1;
     }
+    return buffer1;
   }
 
 private:
@@ -558,8 +555,8 @@ FFmpegFingerprintDecoder::FFmpegFingerprintDecoder(QObject* parent)
 #endif
   ::av_log_set_level(AV_LOG_ERROR);
 
-  m_buffer1 = reinterpret_cast<qint16*>(::av_malloc(BUFFER_SIZE + 16));
-  m_buffer2 = reinterpret_cast<qint16*>(::av_malloc(BUFFER_SIZE + 16));
+  m_buffer1 = static_cast<qint16*>(::av_malloc(BUFFER_SIZE + 16));
+  m_buffer2 = static_cast<qint16*>(::av_malloc(BUFFER_SIZE + 16));
 }
 
 FFmpegFingerprintDecoder::~FFmpegFingerprintDecoder()
@@ -607,11 +604,11 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
     }
   }
 
-  if (stream->duration != static_cast<int64_t>(AV_NOPTS_VALUE)) {
+  if (stream->duration != AV_NOPTS_VALUE) {
     duration = stream->time_base.den != 0
         ? stream->time_base.num * stream->duration / stream->time_base.den
         : 0;
-  } else if (format.duration() != static_cast<int64_t>(AV_NOPTS_VALUE)) {
+  } else if (format.duration() != AV_NOPTS_VALUE) {
     duration = format.duration() / AV_TIME_BASE;
   } else {
     err = FingerprintCalculator::NoStreamFound;
@@ -630,7 +627,7 @@ void FFmpegFingerprintDecoder::start(const QString& filePath)
   AVPacket* packetTemp = ::av_packet_alloc();
 #endif
 
-  const int MAX_LENGTH = 120;
+  constexpr int MAX_LENGTH = 120;
   int remaining = MAX_LENGTH * codec.channels() * codec.sampleRate();
   emit started(codec.sampleRate(), codec.channels());
 

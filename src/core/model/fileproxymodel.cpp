@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22-Mar-2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -197,8 +197,8 @@ bool FileProxyModel::rename(const QModelIndex& index, const QString& newName)
 QModelIndex FileProxyModel::index(const QString& path, int column) const
 {
   if (m_fsModel) {
-    QModelIndex sourceIndex = m_fsModel->index(path, column);
-    if (sourceIndex.isValid()) {
+    if (QModelIndex sourceIndex = m_fsModel->index(path, column);
+        sourceIndex.isValid()) {
       return mapFromSource(sourceIndex);
     }
   }
@@ -216,8 +216,7 @@ QModelIndex FileProxyModel::index(const QString& path, int column) const
 bool FileProxyModel::filterAcceptsRow(
     int srcRow, const QModelIndex& srcParent) const
 {
-  QAbstractItemModel* srcModel = sourceModel();
-  if (srcModel) {
+  if (QAbstractItemModel* srcModel = sourceModel()) {
     QModelIndex srcIndex(srcModel->index(srcRow, 0, srcParent));
     if (!m_filteredOut.isEmpty()) {
       if (m_filteredOut.contains(srcIndex))
@@ -325,7 +324,7 @@ void FileProxyModel::emitSortingFinished()
  * @param fileCount the file count is returned here
  */
 void FileProxyModel::countItems(const QModelIndex& rootIndex,
-                                int& folderCount, int& fileCount)
+                                int& folderCount, int& fileCount) const
 {
   folderCount = 0;
   fileCount = 0;
@@ -334,8 +333,7 @@ void FileProxyModel::countItems(const QModelIndex& rootIndex,
   while (!todo.isEmpty()) {
     QModelIndex parent = todo.takeFirst();
     for (int row = 0, numRows = rowCount(parent); row < numRows; ++row) {
-      QModelIndex idx = index(row, 0, parent);
-      if (!hasChildren(idx)) {
+      if (QModelIndex idx = index(row, 0, parent); !hasChildren(idx)) {
         ++fileCount;
       } else {
         ++folderCount;
@@ -363,8 +361,8 @@ void FileProxyModel::onStartLoading()
  */
 bool FileProxyModel::canFetchMore(const QModelIndex& parent) const
 {
-  QString path = filePath(parent);
-  if (!passesIncludeFolderFilters(path) || !passesExcludeFolderFilters(path))
+  if (QString path = filePath(parent);
+      !passesIncludeFolderFilters(path) || !passesExcludeFolderFilters(path))
     return false;
 
   return QSortFilterProxyModel::canFetchMore(parent);
@@ -392,8 +390,8 @@ void FileProxyModel::fetchMore(const QModelIndex& parent)
  */
 void FileProxyModel::sort(int column, Qt::SortOrder order)
 {
-  QAbstractItemModel* srcModel = nullptr;
-  if (rowCount() > 0 && (srcModel = sourceModel()) != nullptr) {
+  if (QAbstractItemModel* srcModel = nullptr;
+      rowCount() > 0 && (srcModel = sourceModel()) != nullptr) {
     if (column < TaggedFileSystemModel::NUM_FILESYSTEM_COLUMNS) {
       if (sortColumn() >= TaggedFileSystemModel::NUM_FILESYSTEM_COLUMNS) {
         // restore the source model order
@@ -611,9 +609,8 @@ TaggedFile* FileProxyModel::readWithId3V24(TaggedFile* taggedFile)
       QVariant data;
       data.setValue(tagLibFile);
       // setData() will not invalidate the model, so this should be safe.
-      auto setDataModel = const_cast<QAbstractItemModel*>(
-          index.model());
-      if (setDataModel) {
+      if (auto setDataModel = const_cast<QAbstractItemModel*>(
+            index.model())) {
         setDataModel->setData(index, data, TaggedFileSystemModel::TaggedFileRole);
       }
     }
@@ -638,9 +635,7 @@ TaggedFile* FileProxyModel::readWithId3V23(TaggedFile* taggedFile)
       QVariant data;
       data.setValue(id3libFile);
       // setData() will not invalidate the model, so this should be safe.
-      auto setDataModel = const_cast<QAbstractItemModel*>(
-          index.model());
-      if (setDataModel) {
+      if (auto setDataModel = const_cast<QAbstractItemModel*>(index.model())) {
         setDataModel->setData(index, data, TaggedFileSystemModel::TaggedFileRole);
       }
     }
@@ -667,8 +662,8 @@ TaggedFile* FileProxyModel::readWithId3V24IfId3V24(TaggedFile* taggedFile)
         TaggedFile::TF_ID3v23 &&
       !taggedFile->isChanged() &&
       taggedFile->isTagInformationRead() && taggedFile->hasTag(Frame::Tag_Id3v2)) {
-    QString id3v2Version = taggedFile->getTagFormat(Frame::Tag_Id3v2);
-    if (id3v2Version.isNull() || id3v2Version == QLatin1String("ID3v2.2.0")) {
+    if (QString id3v2Version = taggedFile->getTagFormat(Frame::Tag_Id3v2);
+        id3v2Version.isNull() || id3v2Version == QLatin1String("ID3v2.2.0")) {
       taggedFile = readWithId3V24(taggedFile);
     }
   }
@@ -691,9 +686,7 @@ TaggedFile* FileProxyModel::readWithOggFlac(TaggedFile* taggedFile)
       QVariant data;
       data.setValue(tagLibFile);
       // setData() will not invalidate the model, so this should be safe.
-      auto setDataModel = const_cast<QAbstractItemModel*>(
-          index.model());
-      if (setDataModel) {
+      if (auto setDataModel = const_cast<QAbstractItemModel*>(index.model())) {
         setDataModel->setData(index, data, TaggedFileSystemModel::TaggedFileRole);
       }
     }
@@ -761,8 +754,7 @@ void FileProxyModel::onFileModificationChanged(const QModelIndex& srcIndex,
   } else if (m_numModifiedFiles > 0) {
     --m_numModifiedFiles;
   }
-  bool newIsModified = isModified();
-  if (newIsModified != lastIsModified) {
+  if (bool newIsModified = isModified(); newIsModified != lastIsModified) {
     emit modifiedChanged(newIsModified);
   }
 }
@@ -822,7 +814,7 @@ QList<QPair<QString, QString> > FileProxyModel::createNameFilters()
   for (auto it = extensions.constBegin();
        it != extensions.constEnd();
        ++it) {
-    QString text = (*it).mid(1).toUpper();
+    QString text = it->mid(1).toUpper();
     QString pattern = QLatin1Char('*') + *it;
     if (!allPatterns.isEmpty()) {
       allPatterns += QLatin1Char(' ');

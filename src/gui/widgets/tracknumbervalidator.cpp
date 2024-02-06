@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 24 May 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,7 +37,6 @@ TrackNumberValidator::TrackNumberValidator(QObject *parent) : QValidator(parent)
 /**
  * Validate input string.
  * @param input input string
- * @param pos current position
  * @return current state of input (Invalid, Intermediate or Acceptable).
  */
 QValidator::State TrackNumberValidator::validate(QString& input, int&) const
@@ -53,8 +52,7 @@ QValidator::State TrackNumberValidator::validate(QString& input, int&) const
     return Acceptable;
 
   bool ok;
-  int slashPos = input.indexOf(QLatin1Char('/'));
-  if (slashPos == -1) {
+  if (int slashPos = input.indexOf(QLatin1Char('/')); slashPos == -1) {
     input.toULongLong(&ok);
     return ok ? Acceptable : Invalid;
   } else {
@@ -89,8 +87,7 @@ QValidator::State TrackNumberValidator::validate(QString& input, int&) const
  */
 void TrackNumberValidator::fixup(QString& input) const
 {
-  int len = input.length();
-  if (len > 0) {
+  if (int len = input.length(); len > 0) {
     if (input.at(0) == QLatin1Char('/')) {
       input = input.mid(1);
     } else if (input.at(len - 1) == QLatin1Char('/')) {

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 01 May 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -46,7 +46,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FrameItemDelegate() override = default;
+  ~FrameItemDelegate() override = default;
 
   /**
    * Render delegate.
@@ -54,8 +54,8 @@ public:
    * @param option style
    * @param index index of item
    */
-  virtual void paint(QPainter* painter, const QStyleOptionViewItem& option,
-                     const QModelIndex& index) const override;
+  void paint(QPainter* painter, const QStyleOptionViewItem& option,
+             const QModelIndex& index) const override;
 
   /**
    * Get size needed by delegate.
@@ -63,8 +63,8 @@ public:
    * @param index  index of item
    * @return size needed by delegate.
    */
-  virtual QSize sizeHint(const QStyleOptionViewItem& option,
-                         const QModelIndex& index) const override;
+  QSize sizeHint(const QStyleOptionViewItem& option,
+                 const QModelIndex& index) const override;
 
   /**
    * Create an editor to edit the cells contents.
@@ -73,7 +73,7 @@ public:
    * @param index  index of item
    * @return combo box editor widget.
    */
-  virtual QWidget* createEditor(
+  QWidget* createEditor(
     QWidget* parent, const QStyleOptionViewItem& option,
     const QModelIndex& index) const override;
 
@@ -82,7 +82,7 @@ public:
    * @param editor editor widget
    * @param index  index of item
    */
-  virtual void setEditorData(QWidget* editor, const QModelIndex& index) const override;
+  void setEditorData(QWidget* editor, const QModelIndex& index) const override;
 
   /**
    * Set model data supplied by editor.
@@ -90,7 +90,7 @@ public:
    * @param model  model
    * @param index  index of item
    */
-  virtual void setModelData(
+  void setModelData(
     QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const override;
 
 private slots:
@@ -127,7 +127,7 @@ public:
    * Get size needed by editor.
    * @return size needed by editor.
    */
-  virtual QSize sizeHint() const override;
+  QSize sizeHint() const override;
 
   /**
    * Set star rating.
@@ -159,25 +159,25 @@ protected:
    * Called when widget is painted.
    * @param event paint event
    */
-  virtual void paintEvent(QPaintEvent* event) override;
+  void paintEvent(QPaintEvent* event) override;
 
   /**
    * Called when the mouse is moved inside the widget.
    * @param event mouse event
    */
-  virtual void mouseMoveEvent(QMouseEvent* event) override;
+  void mouseMoveEvent(QMouseEvent* event) override;
 
   /**
    * Called when the mouse is released inside the widget.
    * @param event mouse event
    */
-  virtual void mouseReleaseEvent(QMouseEvent* event) override;
+  void mouseReleaseEvent(QMouseEvent* event) override;
 
   /**
    * Called when a key is pressed while the widget has focus.
    * @param event key event
    */
-  virtual void keyPressEvent(QKeyEvent* event) override;
+  void keyPressEvent(QKeyEvent* event) override;
 
 private:
   int starAtPosition(int x);

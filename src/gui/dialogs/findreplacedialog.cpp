@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 06 Feb 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -56,7 +56,7 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   auto vlayout = new QVBoxLayout(this);
 
   auto findReplaceLayout = new QGridLayout;
-  QLabel* findLabel = new QLabel(tr("F&ind:"));
+  auto findLabel = new QLabel(tr("F&ind:"));
   m_findEdit = new QComboBox;
   m_findEdit->setEditable(true);
   m_findEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
@@ -91,7 +91,7 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   vlayout->addLayout(findReplaceLayout);
 
   auto optionsTagsLayout = new QHBoxLayout;
-  QGroupBox* optionsBox = new QGroupBox(tr("Options"));
+  auto optionsBox = new QGroupBox(tr("Options"));
   auto optionsLayout = new QVBoxLayout(optionsBox);
   m_matchCaseCheckBox = new QCheckBox(tr("&Match case"));
   optionsLayout->addWidget(m_matchCaseCheckBox);
@@ -102,7 +102,7 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   optionsLayout->addStretch();
   optionsTagsLayout->addWidget(optionsBox);
 
-  QGroupBox* tagsGroupBox = new QGroupBox(tr("&Tags"));
+  auto tagsGroupBox = new QGroupBox(tr("&Tags"));
   auto tagsLayout = new QVBoxLayout(tagsGroupBox);
   m_allFramesCheckBox = new QCheckBox(tr("Select a&ll"));
   m_allFramesCheckBox->setChecked(true);
@@ -116,9 +116,9 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   unifiedFrameNames.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 2);
   unifiedFrameNames.append(tr("Filename"));
   for (int i = Frame::FT_FirstFrame; i <= Frame::FT_LastFrame; ++i) {
-    auto name = Frame::ExtendedType(static_cast<Frame::Type>(i))
-        .getTranslatedName();
-    if (!name.isEmpty()) {
+    if (auto name = Frame::ExtendedType(static_cast<Frame::Type>(i))
+          .getTranslatedName();
+        !name.isEmpty()) {
       unifiedFrameNames.append(name);
     }
   }
@@ -129,19 +129,19 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   vlayout->addLayout(optionsTagsLayout);
 
   auto hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(tr("&Help"));
+  auto helpButton = new QPushButton(tr("&Help"));
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, &QAbstractButton::clicked, this, &FindReplaceDialog::showHelp);
 
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"));
+  auto saveButton = new QPushButton(tr("&Save Settings"));
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, &QAbstractButton::clicked, this, &FindReplaceDialog::saveConfig);
 
   hlayout->addStretch();
 
-  QPushButton* closeButton = new QPushButton(tr("&Close"));
+  auto closeButton = new QPushButton(tr("&Close"));
   closeButton->setAutoDefault(false);
   hlayout->addWidget(closeButton);
   connect(closeButton, &QAbstractButton::clicked, this, &QDialog::reject);
@@ -229,8 +229,7 @@ void FindReplaceDialog::setParameters(const TagSearcher::Parameters& params)
  */
 void FindReplaceDialog::find()
 {
-  QString text(m_findEdit->currentText());
-  if (!text.isEmpty()) {
+  if (QString text(m_findEdit->currentText()); !text.isEmpty()) {
     TagSearcher::Parameters params;
     getParameters(params);
     emit findRequested(params);
@@ -264,8 +263,7 @@ void FindReplaceDialog::readConfig()
 {
   const FindReplaceConfig& findCfg = FindReplaceConfig::instance();
   setParameters(findCfg.getParameters());
-  QByteArray geometry = findCfg.windowGeometry();
-  if (!geometry.isEmpty()) {
+  if (QByteArray geometry = findCfg.windowGeometry(); !geometry.isEmpty()) {
     restoreGeometry(geometry);
   }
 }

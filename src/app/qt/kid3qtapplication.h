@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 5 Aug 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -42,7 +42,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~Kid3QtApplication() override = default;
+  ~Kid3QtApplication() override = default;
 
   /**
    * Called when session manager wants application to commit all its data.
@@ -60,7 +60,7 @@ public:
    * @param event event
    * @return return value from receiver's event handler.
    */
-  virtual bool notify(QObject* receiver, QEvent* event) override;
+  bool notify(QObject* receiver, QEvent* event) override;
 
 signals:
   /**
@@ -75,5 +75,5 @@ protected:
    * @param e event
    * @return true if event handled.
    */
-  virtual bool event(QEvent* e) override;
+  bool event(QEvent* e) override;
 };

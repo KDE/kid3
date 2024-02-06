@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 28 Mar 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -78,7 +78,7 @@ public:
    *
    * @return true if ok.
    */
-  bool toString(const QByteArray& data, QString& str);
+  bool toString(const QByteArray& data, QString& str) const;
 
   /**
    * Convert attribute data string to byte array.
@@ -88,7 +88,7 @@ public:
    *
    * @return true if ok.
    */
-  bool toByteArray(const QString& str, QByteArray& data);
+  bool toByteArray(const QString& str, QByteArray& data) const;
 
   /**
    * Check if a string represents a hexadecimal number, i.e.

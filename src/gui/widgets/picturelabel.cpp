@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 04 Jan 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -37,8 +37,8 @@ namespace {
 class PictureLabelIntern : public QLabel {
 public:
   explicit PictureLabelIntern(QWidget* parent = nullptr);
-  virtual ~PictureLabelIntern() override = default;
-  virtual int heightForWidth(int w) const override;
+  ~PictureLabelIntern() override = default;
+  int heightForWidth(int w) const override;
 
 private:
   Q_DISABLE_COPY(PictureLabelIntern)
@@ -111,11 +111,10 @@ void PictureLabel::setData(const QByteArray& data)
       return; // keep existing pixmap
 
     // creating new pixmap
-    QPixmap pm;
-    if (pm.loadFromData(data)) {
+    if (QPixmap pm; pm.loadFromData(data)) {
       int dimension = m_pictureLabel->width();
-      QPixmap scaledPm = pm.scaled(dimension, dimension, Qt::KeepAspectRatio);
-      if (!scaledPm.isNull()) {
+      if (QPixmap scaledPm = pm.scaled(dimension, dimension, Qt::KeepAspectRatio);
+          !scaledPm.isNull()) {
         m_pixmapHash = hash;
         m_pictureLabel->setContentsMargins(0, 0, 0, 0);
         m_pictureLabel->setPixmap(scaledPm);

@@ -87,7 +87,7 @@ public:
 
     QModelIndex index(int row, int column, const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
     QModelIndex index(const QString &path, int column = 0) const;
-    QModelIndex parent(const QModelIndex &child) const Q_DECL_OVERRIDE;
+    QModelIndex parent(const QModelIndex &index) const Q_DECL_OVERRIDE;
     using QObject::parent;
     QModelIndex sibling(int row, int column, const QModelIndex &idx) const Q_DECL_OVERRIDE;
     bool hasChildren(const QModelIndex &parent = QModelIndex()) const Q_DECL_OVERRIDE;
@@ -99,7 +99,7 @@ public:
 
     QVariant myComputer(int role = Qt::DisplayRole) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
-    bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
+    bool setData(const QModelIndex &idx, const QVariant &value, int role = Qt::EditRole) Q_DECL_OVERRIDE;
 
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 
@@ -119,7 +119,7 @@ public:
 
     // QFileSystemModel specific API
     void clear();
-    QModelIndex setRootPath(const QString &path);
+    QModelIndex setRootPath(const QString &newPath);
     QString rootPath() const;
     QDir rootDirectory() const;
 
@@ -151,12 +151,12 @@ public:
     QDateTime lastModified(const QModelIndex &index) const;
 
     QModelIndex mkdir(const QModelIndex &parent, const QString &name);
-    bool rmdir(const QModelIndex &index);
+    bool rmdir(const QModelIndex &aindex);
     inline QString fileName(const QModelIndex &index) const;
     inline QVariant fileDecoration(const QModelIndex &index) const;
     QFile::Permissions permissions(const QModelIndex &index) const;
     QFileInfo fileInfo(const QModelIndex &index) const;
-    bool remove(const QModelIndex &index);
+    bool remove(const QModelIndex &aindex);
 
 #if QT_VERSION < 0x050f00
     static QString wildcardToRegularExpression(const QString &pattern);

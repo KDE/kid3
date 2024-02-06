@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 21 Sep 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -122,8 +122,8 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
   bool ok = file.open(QIODevice::WriteOnly);
   if (ok) {
     QTextStream stream(&file);
-    QString codecName = FileConfig::instance().textEncoding();
-    if (codecName != QLatin1String("System")) {
+    if (QString codecName = FileConfig::instance().textEncoding();
+        codecName != QLatin1String("System")) {
 #if QT_VERSION >= 0x060000
       if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
         stream.setEncoding(*encoding);
@@ -144,9 +144,9 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
         for (auto it = entries.constBegin(); it != entries.constEnd(); ++it) {
           if (m_cfg.writeInfo()) {
             stream << QString(QLatin1String("#EXTINF:%1,%2\n"))
-              .arg((*it).duration).arg((*it).info);
+              .arg(it->duration).arg(it->info);
           }
-          stream << (*it).filePath << "\n";
+          stream << it->filePath << "\n";
         }
         break;
       case PlaylistConfig::PF_PLS:
@@ -155,10 +155,10 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
         stream << "[playlist]\n";
         stream << QString(QLatin1String("NumberOfEntries=%1\n")).arg(entries.size());
         for (auto it = entries.constBegin(); it != entries.constEnd(); ++it) {
-          stream << QString(QLatin1String("File%1=%2\n")).arg(nr).arg((*it).filePath);
+          stream << QString(QLatin1String("File%1=%2\n")).arg(nr).arg(it->filePath);
           if (m_cfg.writeInfo()) {
-            stream << QString(QLatin1String("Title%1=%2\n")).arg(nr).arg((*it).info);
-            stream << QString(QLatin1String("Length%1=%2\n")).arg(nr).arg((*it).duration);
+            stream << QString(QLatin1String("Title%1=%2\n")).arg(nr).arg(it->info);
+            stream << QString(QLatin1String("Length%1=%2\n")).arg(nr).arg(it->duration);
           }
           ++nr;
         }
@@ -193,7 +193,7 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
 
         for (auto it = entries.constBegin(); it != entries.constEnd(); ++it) {
           stream << "    <track>\n";
-          QUrl url((*it).filePath);
+          QUrl url(it->filePath);
           if (m_cfg.useFullPath()) {
             url.setScheme(QLatin1String("file"));
           }
@@ -201,7 +201,7 @@ bool PlaylistCreator::write(const QList<Entry>& entries)
                     .arg(QString::fromLatin1(url.toEncoded().constData()));
           if (m_cfg.writeInfo()) {
             // the info is already formatted in the case of XSPF
-            stream << (*it).info;
+            stream << it->info;
           }
           stream << "    </track>\n";
         }
@@ -246,8 +246,8 @@ bool PlaylistCreator::read(
     format = PlaylistConfig::formatFromFileExtension(playlistFileName);
 
     QTextStream stream(&file);
-    QString codecName = FileConfig::instance().textEncoding();
-    if (codecName != QLatin1String("System")) {
+    if (QString codecName = FileConfig::instance().textEncoding();
+        codecName != QLatin1String("System")) {
 #if QT_VERSION >= 0x060000
       if (auto encoding = QStringConverter::encodingForName(codecName.toLatin1())) {
         stream.setEncoding(*encoding);
@@ -277,8 +277,8 @@ bool PlaylistCreator::read(
         break;
       case PlaylistConfig::PF_PLS:
         if (line.startsWith(QLatin1String("File"))) {
-          int colonPos = line.indexOf(QLatin1Char('='), 4);
-          if (colonPos != -1) {
+          if (int colonPos = line.indexOf(QLatin1Char('='), 4);
+              colonPos != -1) {
             path = line.mid(colonPos + 1).trimmed();
           }
         } else if (line.startsWith(QLatin1String("Title")) ||
@@ -295,11 +295,11 @@ bool PlaylistCreator::read(
         break;
       case PlaylistConfig::PF_XSPF:
         if (line.contains(QLatin1String("<location>"))) {
-          int startPos = line.indexOf(QLatin1String("<location>"));
-          if (startPos != -1) {
+          if (int startPos = line.indexOf(QLatin1String("<location>"));
+              startPos != -1) {
             startPos += 10;
-            int endPos = line.indexOf(QLatin1String("</location>"), startPos);
-            if (endPos != -1) {
+            if (int endPos = line.indexOf(QLatin1String("</location>"), startPos);
+                endPos != -1) {
               QUrl url = QUrl::fromEncoded(
                     line.mid(startPos, endPos - startPos).toLatin1());
               path = url.toLocalFile();

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Mar 2011
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -66,8 +66,7 @@ QVariant ConfigTableModel::data(const QModelIndex& index, int role) const
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     if (index.column() == 0)
       return keyValue.first;
-    else
-      return keyValue.second;
+    return keyValue.second;
   }
   return QVariant();
 }
@@ -141,7 +140,6 @@ int ConfigTableModel::columnCount(const QModelIndex& parent) const
  * @param row rows are inserted before this row, if 0 at the begin,
  * if rowCount() at the end
  * @param count number of rows to insert
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool ConfigTableModel::insertRows(int row, int count,
@@ -160,7 +158,6 @@ bool ConfigTableModel::insertRows(int row, int count,
  * Remove rows.
  * @param row rows are removed starting with this row
  * @param count number of rows to remove
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool ConfigTableModel::removeRows(int row, int count,

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -41,7 +41,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MusicBrainzConfig() override;
+  ~MusicBrainzConfig() override;
 
 private:
   friend MusicBrainzConfig&

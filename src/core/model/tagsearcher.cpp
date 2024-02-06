@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 08 Feb 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -240,8 +240,7 @@ bool TagSearcher::searchInFile(TaggedFile* taggedFile, Position* pos,
     if (pos->getPart() == Position::FileName) {
       idx = pos->m_matchedPos + advanceChars;
     }
-    int len = findInString(taggedFile->getFilename(), idx);
-    if (len != -1) {
+    if (int len = findInString(taggedFile->getFilename(), idx); len != -1) {
       pos->m_part = Position::FileName;
       pos->m_matchedPos = idx;
       pos->m_matchedLength = len;
@@ -249,8 +248,8 @@ bool TagSearcher::searchInFile(TaggedFile* taggedFile, Position* pos,
     }
   }
   FOR_ALL_TAGS(tagNr) {
-    Position::Part part = Position::tagNumberToPart(tagNr);
-    if (pos->getPart() <= part) {
+    if (Position::Part part = Position::tagNumberToPart(tagNr);
+        pos->getPart() <= part) {
       FrameCollection frames;
       taggedFile->getAllFrames(tagNr, frames);
       if (searchInFrames(frames, part, pos, advanceChars)) {
@@ -407,11 +406,10 @@ int TagSearcher::findInString(const QString& str, int& idx) const
                       m_params.getFlags() & CaseSensitive
                       ? Qt::CaseSensitive : Qt::CaseInsensitive);
     return idx != -1 ? m_params.getSearchText().length() : -1;
-  } else {
-    auto match = m_regExp.match(str, idx);
-    idx = match.capturedStart();
-    return match.hasMatch() ? match.capturedLength() : -1;
   }
+  auto match = m_regExp.match(str, idx);
+  idx = match.capturedStart();
+  return match.hasMatch() ? match.capturedLength() : -1;
 }
 
 /**
@@ -456,7 +454,7 @@ void TagSearcher::setParameters(const Parameters& params)
  * @param taggedFile tagged file
  * @return description of location.
  */
-QString TagSearcher::getLocationString(TaggedFile* taggedFile) const
+QString TagSearcher::getLocationString(const TaggedFile* taggedFile) const
 {
   QString location = taggedFile->getFilename();
   location += QLatin1String(": ");

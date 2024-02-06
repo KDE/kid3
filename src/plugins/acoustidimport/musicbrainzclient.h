@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Sep 2005
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -52,42 +52,42 @@ public:
   /**
    * Destructor.
    */
-  virtual ~MusicBrainzClient() override = default;
+  ~MusicBrainzClient() override = default;
 
   /**
    * Name of import source.
    * @return name.
    */
-  virtual const char* name() const override;
+  const char* name() const override;
 
   /** NULL-terminated array of server strings, 0 if not used */
-  virtual const char** serverList() const override;
+  const char** serverList() const override;
 
   /** default server, 0 to disable */
-  virtual const char* defaultServer() const override;
+  const char* defaultServer() const override;
 
   /** anchor to online help, 0 to disable */
-  virtual const char* helpAnchor() const override;
+  const char* helpAnchor() const override;
 
   /** configuration, 0 if not used */
-  virtual ServerImporterConfig* config() const override;
+  ServerImporterConfig* config() const override;
 
   /**
    * Set configuration.
    *
    * @param cfg import server configuration, 0 if not used
    */
-  virtual void setConfig(const ServerImporterConfig* cfg) override;
+  void setConfig(const ServerImporterConfig* cfg) override;
 
   /**
    * Add the files in the file list.
    */
-  virtual void start() override;
+  void start() override;
 
   /**
    * Reset the client state.
    */
-  virtual void stop() override;
+  void stop() override;
 
 private slots:
   void receiveBytes(const QByteArray& bytes);

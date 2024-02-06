@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 20 Sep 2014
  *
- * Copyright (C) 2014-2023  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -71,7 +71,7 @@ void FrameEditorObject::editFrameOfTaggedFile(const Frame* frame,
  *
  * @see frameEditRequested()
  */
-void FrameEditorObject::onFrameEditFinished(FrameObjectModel* frame)
+void FrameEditorObject::onFrameEditFinished(const FrameObjectModel* frame)
 {
   if (frame) {
     m_editFrame = frame->getFrame();

@@ -1,4 +1,5 @@
 project(kid3_plugins)
+set(CMAKE_CXX_STANDARD 17)
 
 # Install a library _target as a plugin with _name.
 macro(INSTALL_KID3_PLUGIN _target _name)

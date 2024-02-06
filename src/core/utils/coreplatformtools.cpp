@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Aug 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -55,8 +55,8 @@ CorePlatformTools::~CorePlatformTools()
 ISettings* CorePlatformTools::applicationSettings()
 {
   if (!m_config) {
-    QByteArray configPath = qgetenv("KID3_CONFIG_FILE");
-    if (configPath.isNull()) {
+    if (QByteArray configPath = qgetenv("KID3_CONFIG_FILE");
+        configPath.isNull()) {
       m_settings = new QSettings(
             QSettings::UserScope, QLatin1String("Kid3"),
             QLatin1String("Kid3"), qApp);

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 03-Feb-2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -59,24 +59,24 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FileProxyModelIterator() override = default;
+  ~FileProxyModelIterator() override = default;
 
   /**
    * Abort operation.
    */
-  virtual void abort() override;
+  void abort() override;
 
   /**
    * Check if operation is aborted.
    *
    * @return true if aborted.
    */
-  virtual bool isAborted() const override;
+  bool isAborted() const override;
 
   /**
    * Clear state which is reported by isAborted().
    */
-  virtual void clearAborted() override;
+  void clearAborted() override;
 
   /**
    * Start iteration.

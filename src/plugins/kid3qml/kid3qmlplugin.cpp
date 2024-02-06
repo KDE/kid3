@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Sep 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -95,7 +95,7 @@ namespace {
  * @param engine QML engine
  * @return plugins directory path, empty if not found.
  */
-QString getPluginsPathFromImportPathList(QQmlEngine* engine)
+QString getPluginsPathFromImportPathList(const QQmlEngine* engine)
 {
   QString cfgPluginsDir(QLatin1String(CFG_PLUGINSDIR));
   if (cfgPluginsDir.startsWith(QLatin1String("./"))) {
@@ -107,8 +107,7 @@ QString getPluginsPathFromImportPathList(QQmlEngine* engine)
   QString pluginsPath;
   const auto paths = engine->importPathList();
   for (const QString& path : paths) {
-    int index = path.indexOf(cfgPluginsDir);
-    if (index != -1) {
+    if (int index = path.indexOf(cfgPluginsDir); index != -1) {
       pluginsPath = path.left(index + cfgPluginsDir.length());
       break;
     } else if (pluginsPath.isEmpty() &&

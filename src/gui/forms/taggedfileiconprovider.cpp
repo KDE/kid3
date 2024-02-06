@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Jul 2019
  *
- * Copyright (C) 2019  Urs Fleisch
+ * Copyright (C) 2019-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -100,10 +100,7 @@ void TaggedFileIconProvider::createIcons()
   font.setPixelSize(halfHeight);
   QFont smallFont(font);
   smallFont.setStretch(QFont::Condensed);
-  for (const auto& it : idTexts) {
-    const char* text1 = it.text1;
-    const char* text2 = it.text2;
-
+  for (const auto& [id, text1, text2] : idTexts) {
     QPixmap pixmap(m_requestedSize);
     pixmap.fill(Qt::transparent);
     QPainter painter(&pixmap);
@@ -124,7 +121,7 @@ void TaggedFileIconProvider::createIcons()
       painter.drawText(QPoint(3, height - 1), QLatin1String(text2));
     }
 
-    m_pixmapMap.insert(it.id, pixmap);
+    m_pixmapMap.insert(id, pixmap);
   }
 
   for (auto it = m_pixmapMap.constBegin(); it != m_pixmapMap.constEnd(); ++it) {
@@ -275,8 +272,7 @@ ColorContext TaggedFileIconProvider::contextForColor(const QVariant& color) cons
 #else
   if (color.type() == QVariant::Brush) {
 #endif
-    QBrush brush = color.value<QBrush>();
-    if (brush == Qt::red) {
+    if (auto brush = color.value<QBrush>(); brush == Qt::red) {
       return ColorContext::Error;
     } else if (brush != Qt::NoBrush) {
       return ColorContext::Marked;

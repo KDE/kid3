@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Sep 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -133,9 +133,9 @@ char* ReadlineCompleter::completionGenerator(
   }
 
   while (listIndex < completions.size()) {
-    const QByteArray& name = completions.at(listIndex++);
-    if (name.left(textLen) == text) {
-      auto r = reinterpret_cast<char*>(::malloc(name.length() + 1));
+    if (const QByteArray& name = completions.at(listIndex++);
+        name.left(textLen) == text) {
+      auto r = static_cast<char*>(::malloc(name.length() + 1));
       qstrcpy(r, name.constData());
       return r;
     }

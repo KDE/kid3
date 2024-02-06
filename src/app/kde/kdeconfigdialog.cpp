@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,7 +39,7 @@
  * @param configSkeleton configuration skeleton
  */
 KdeConfigDialog::KdeConfigDialog(IPlatformTools* platformTools,
-                                 QWidget* parent, QString& caption,
+                                 QWidget* parent, const QString& caption,
                                  KConfigSkeleton* configSkeleton)
   : KConfigDialog(parent, QLatin1String("configure"), configSkeleton),
     m_pages(new ConfigDialogPages(platformTools, this))

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Aug 2018
  *
- * Copyright (C) 2018  Urs Fleisch
+ * Copyright (C) 2018-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  * Contains adapted Python code from
@@ -171,8 +171,7 @@ QAbstractItemView::DropIndicatorPosition PlaylistView::position(
     const QPoint& pos, const QRect& rect, const QModelIndex& idx) const
 {
   QAbstractItemView::DropIndicatorPosition r = QAbstractItemView::OnViewport;
-  const int margin = 2;
-  if (pos.y() - rect.top() < margin) {
+  if (constexpr int margin = 2; pos.y() - rect.top() < margin) {
     r = QAbstractItemView::AboveItem;
   } else if (rect.bottom() - pos.y() < margin) {
     r = QAbstractItemView::BelowItem;
@@ -201,9 +200,9 @@ QList<int> PlaylistView::getSelectedRows() const
   }
 
 #if QT_VERSION >= 0x050e00
-  QList<int> result(selRows.constBegin(), selRows.constEnd());
+  QList result(selRows.constBegin(), selRows.constEnd());
 #else
-  QList<int> result = selRows.toList();
+  QList result = selRows.toList();
 #endif
   std::sort(result.begin(), result.end());
   return result;
@@ -221,8 +220,8 @@ void PlaylistView::dropEvent(QDropEvent* event)
       int row = -1;
       if (dropOn(event, &row, &col, &index)) {
         if (QAbstractItemModel* mdl = model()) {
-          const QList<int> selRows = getSelectedRows();
-          if (!selRows.isEmpty()) {
+          if (const QList<int> selRows = getSelectedRows();
+              !selRows.isEmpty()) {
             int top = selRows.first();
             int dropRow = row;
             if (dropRow == -1) {
@@ -237,8 +236,8 @@ void PlaylistView::dropEvent(QDropEvent* event)
               mdl->insertRow(r, index);
             }
 
-            const QList<int> newSelRows = getSelectedRows();
-            if (!newSelRows.isEmpty()) {
+            if (const QList<int> newSelRows = getSelectedRows();
+                !newSelRows.isEmpty()) {
               top = newSelRows.first();
               offset = dropRow - top;
               for (int theRow : newSelRows) {
@@ -270,11 +269,10 @@ void PlaylistView::dropEvent(QDropEvent* event)
             row = mdl->rowCount(index);
           }
           if (!urls.isEmpty()) {
-            QListIterator<QUrl> it(urls);
+            QListIterator it(urls);
             it.toBack();
             while (it.hasPrevious()) {
-              const QUrl& url = it.previous();
-              if (url.isLocalFile()) {
+              if (const QUrl& url = it.previous(); url.isLocalFile()) {
                 QString path = url.toLocalFile();
                 mdl->insertRow(row, index);
                 QModelIndex idx = mdl->index(row, 0, index);
@@ -317,12 +315,10 @@ void PlaylistView::dragLeaveEvent(QDragLeaveEvent* event)
 void PlaylistView::deleteCurrentRow()
 {
   if (QAbstractItemModel* mdl = model()) {
-    QModelIndex idx = currentIndex();
-    if (idx.isValid()) {
+    if (QModelIndex idx = currentIndex(); idx.isValid()) {
       int row = idx.row();
       mdl->removeRow(row);
-      int numRows = mdl->rowCount();
-      if (row < numRows) {
+      if (int numRows = mdl->rowCount(); row < numRows) {
         setCurrentIndex(mdl->index(row, 0));
       } else if (row > 0 && row - 1 < numRows) {
         setCurrentIndex(mdl->index(row - 1, 0));
@@ -344,8 +340,7 @@ void PlaylistView::moveDownCurrentRow()
 void PlaylistView::swapRows(int offset1, int offset2)
 {
   if (QAbstractItemModel* mdl = model()) {
-    QModelIndex idx = currentIndex();
-    if (idx.isValid()) {
+    if (QModelIndex idx = currentIndex(); idx.isValid()) {
       int row1 = idx.row() + offset1;
       int row2 = idx.row() + offset2;
       int numRows = mdl->rowCount();

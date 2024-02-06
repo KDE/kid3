@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 22 Jul 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -44,7 +44,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TextExporter() override;
+  ~TextExporter() override;
 
   /**
    * Set data to be exported.
@@ -93,7 +93,7 @@ public:
    *
    * @return true if ok.
    */
-  bool exportToFile(const QString& fn);
+  bool exportToFile(const QString& fn) const;
 
 private:
   ImportTrackDataVector m_trackDataVector;

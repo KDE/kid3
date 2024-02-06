@@ -42,7 +42,7 @@
 class DSFFile::FilePrivate
 {
 public:
-  FilePrivate(TagLib::ID3v2::FrameFactory *frameFactory
+  FilePrivate(const TagLib::ID3v2::FrameFactory *frameFactory
               = TagLib::ID3v2::FrameFactory::instance())
     : ID3v2FrameFactory(frameFactory),
       ID3v2Location(0),
@@ -73,8 +73,8 @@ public:
 
   DSFProperties *properties;
 
-  static inline TagLib::ByteVector& uint64ToVector(uint64_t num,
-                                                   TagLib::ByteVector &v)
+  static TagLib::ByteVector& uint64ToVector(uint64_t num,
+                                            TagLib::ByteVector &v)
   {
     char raw[8];
 
@@ -103,12 +103,12 @@ void DSFFile::FilePrivate::shrinkTag() {
   TagLib::ID3v2::FrameList nlist;
   TagLib::ID3v2::FrameList::ConstIterator it;
 
-  for (it = olist.begin(); it != olist.end(); it++) {
+  for (it = olist.begin(); it != olist.end(); ++it) {
     nlist.append(*it);
   }
 
   auto ntag = new TagLib::ID3v2::Tag();
-  for (it = nlist.begin(); it != nlist.end(); it++) {
+  for (it = nlist.begin(); it != nlist.end(); ++it) {
     tag->removeFrame(*it, false);  // Don't delete, just transfer the ownership
     ntag->addFrame(*it);
   }
@@ -133,7 +133,7 @@ DSFFile::DSFFile(TagLib::FileName file, bool readProperties,
 }
 
 DSFFile::DSFFile(TagLib::FileName file,
-                 TagLib::ID3v2::FrameFactory *frameFactory,
+                 const TagLib::ID3v2::FrameFactory *frameFactory,
                  bool readProperties,
                  TagLib::AudioProperties::ReadStyle propertiesStyle)
   : TagLib::File(file)
@@ -145,7 +145,7 @@ DSFFile::DSFFile(TagLib::FileName file,
 }
 
 DSFFile::DSFFile(TagLib::IOStream *stream,
-                 TagLib::ID3v2::FrameFactory *frameFactory,
+                 const TagLib::ID3v2::FrameFactory *frameFactory,
                  bool readProperties,
                  TagLib::AudioProperties::ReadStyle propertiesStyle)
   : TagLib::File(stream)

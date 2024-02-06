@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Sep 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -105,7 +105,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlaylistConfig() override = default;
+  ~PlaylistConfig() override = default;
 
   /**
    * Assignment operator.
@@ -119,14 +119,14 @@ public:
    *
    * @param config KDE configuration
    */
-  virtual void writeToConfig(ISettings* config) const override;
+  void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config KDE configuration
    */
-  virtual void readFromConfig(ISettings* config) override;
+  void readFromConfig(ISettings* config) override;
 
   /** Get playlist location. */
   PlaylistLocation location() const { return m_location; }

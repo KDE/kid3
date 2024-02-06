@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 19 Jun 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,8 +48,7 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
 
   bool failed = false;
   ImportTrackDataVector trackDataVector(trackDataModel->getTrackData());
-  const int numTracks = trackDataVector.size();
-  if (numTracks > 0) {
+  if (const int numTracks = trackDataVector.size(); numTracks > 0) {
     auto md = new MatchData[numTracks];
     int numFiles = 0, numImports = 0;
     int i = 0;
@@ -59,11 +58,11 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
       if (i >= numTracks) {
         break;
       }
-      md[i].fileLen = (*it).getFileDuration();
+      md[i].fileLen = it->getFileDuration();
       if (md[i].fileLen > 0) {
         ++numFiles;
       }
-      md[i].importLen = (*it).getImportDuration();
+      md[i].importLen = it->getImportDuration();
       if (md[i].importLen > 0) {
         ++numImports;
       }
@@ -73,9 +72,10 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
       // is not larger then the allowed limit, do not reassign the track.
       if (diffCheckEnable) {
         if (md[i].fileLen != 0 && md[i].importLen != 0) {
-          int diff = md[i].fileLen > md[i].importLen ?
-            md[i].fileLen - md[i].importLen : md[i].importLen - md[i].fileLen;
-          if (diff <= maxDiff) {
+          if (int diff = md[i].fileLen > md[i].importLen
+                ? md[i].fileLen - md[i].importLen
+                : md[i].importLen - md[i].fileLen;
+              diff <= maxDiff) {
             md[i].assignedTo = i;
             md[i].assignedFrom = i;
           }
@@ -93,10 +93,10 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
           // Find the unassigned import with the best difference
           for (int comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedTo == -1) {
-              int comparedDiff = md[i].fileLen > md[comparedTrack].importLen
-                  ? md[i].fileLen - md[comparedTrack].importLen
-                  : md[comparedTrack].importLen - md[i].fileLen;
-              if (comparedDiff < bestDiff) {
+              if (int comparedDiff = md[i].fileLen > md[comparedTrack].importLen
+                    ? md[i].fileLen - md[comparedTrack].importLen
+                    : md[comparedTrack].importLen - md[i].fileLen;
+                  comparedDiff < bestDiff) {
                 bestDiff = comparedDiff;
                 bestTrack = comparedTrack;
               }
@@ -121,10 +121,10 @@ bool TrackDataMatcher::matchWithLength(TrackDataModel* trackDataModel,
           // Find the unassigned file with the best difference
           for (int comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedFrom == -1) {
-              int comparedDiff = md[comparedTrack].fileLen > md[i].importLen
-                  ? md[comparedTrack].fileLen - md[i].importLen
-                  : md[i].importLen - md[comparedTrack].fileLen;
-              if (comparedDiff < bestDiff) {
+              if (int comparedDiff = md[comparedTrack].fileLen > md[i].importLen
+                    ? md[comparedTrack].fileLen - md[i].importLen
+                    : md[i].importLen - md[comparedTrack].fileLen;
+                  comparedDiff < bestDiff) {
                 bestDiff = comparedDiff;
                 bestTrack = comparedTrack;
               }
@@ -173,8 +173,7 @@ bool TrackDataMatcher::matchWithTrack(TrackDataModel* trackDataModel)
 
   bool failed = false;
   ImportTrackDataVector trackDataVector(trackDataModel->getTrackData());
-  const int numTracks = trackDataVector.size();
-  if (numTracks > 0) {
+  if (const int numTracks = trackDataVector.size(); numTracks > 0) {
     auto md = new MatchData[numTracks];
 
     // 1st pass: Get track data and keep correct assignments.
@@ -185,14 +184,14 @@ bool TrackDataMatcher::matchWithTrack(TrackDataModel* trackDataModel)
       if (i >= numTracks) {
         break;
       }
-      if ((*it).getTrack() > 0 && (*it).getTrack() <= static_cast<int>(numTracks)) {
-        md[i].track = (*it).getTrack() - 1;
+      if (it->getTrack() > 0 && it->getTrack() <= static_cast<int>(numTracks)) {
+        md[i].track = it->getTrack() - 1;
       } else {
         md[i].track = -1;
       }
       md[i].assignedTo = -1;
       md[i].assignedFrom = -1;
-      if (md[i].track == static_cast<int>(i)) {
+      if (md[i].track == i) {
         md[i].assignedTo = i;
         md[i].assignedFrom = i;
       }
@@ -261,8 +260,7 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
 
   bool failed = false;
   ImportTrackDataVector trackDataVector(trackDataModel->getTrackData());
-  const int numTracks = trackDataVector.size();
-  if (numTracks > 0) {
+  if (const int numTracks = trackDataVector.size(); numTracks > 0) {
     auto md = new MatchData[numTracks];
     int numFiles = 0, numImports = 0;
     int i = 0;
@@ -294,9 +292,9 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
           // Find the unassigned import with the best match
           for (int comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedTo == -1) {
-              int comparedMatch =
-                  (md[i].fileWords & md[comparedTrack].titleWords).size();
-              if (comparedMatch > bestMatch) {
+              if (int comparedMatch =
+                    (md[i].fileWords & md[comparedTrack].titleWords).size();
+                  comparedMatch > bestMatch) {
                 bestMatch = comparedMatch;
                 bestTrack = comparedTrack;
               }
@@ -321,9 +319,9 @@ bool TrackDataMatcher::matchWithTitle(TrackDataModel* trackDataModel)
           // Find the unassigned file with the best match
           for (int comparedTrack = 0; comparedTrack < numTracks; ++comparedTrack) {
             if (md[comparedTrack].assignedFrom == -1) {
-              int comparedMatch =
-                  (md[comparedTrack].fileWords & md[i].titleWords).size();
-              if (comparedMatch > bestMatch) {
+              if (int comparedMatch =
+                    (md[comparedTrack].fileWords & md[i].titleWords).size();
+                  comparedMatch > bestMatch) {
                 bestMatch = comparedMatch;
                 bestTrack = comparedTrack;
               }

@@ -138,7 +138,7 @@ static QString translateDriveName(const QFileInfo &drive)
 FileInfoGatherer::FileInfoGatherer(QObject *parent)
     : QThread(parent), abort(false),
 #ifndef QT_NO_FILESYSTEMWATCHER
-      watcher(0),
+      watcher(nullptr),
 #endif
 #ifdef Q_OS_WIN
       m_resolveSymlinks(true),
@@ -372,8 +372,8 @@ ExtendedInformation FileInfoGatherer::getInfo(const QFileInfo &fileInfo) const
         if (!fileInfo.exists() && !fileInfo.isSymLink()) {
             watcher->removePath(fileInfo.absoluteFilePath());
         } else {
-            const QString path = fileInfo.absoluteFilePath();
-            if (!path.isEmpty() && fileInfo.exists() && fileInfo.isFile() && fileInfo.isReadable()
+            if (const QString path = fileInfo.absoluteFilePath();
+                !path.isEmpty() && fileInfo.exists() && fileInfo.isFile() && fileInfo.isReadable()
                 && !watcher->files().contains(path)) {
                 watcher->addPath(path);
             }

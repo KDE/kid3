@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Dec 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -41,7 +41,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~AmazonConfig() override;
+  ~AmazonConfig() override;
 
 private:
   friend AmazonConfig&

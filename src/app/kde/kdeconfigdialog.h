@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,13 +50,13 @@ public:
    * @param caption dialog title
    * @param configSkeleton configuration skeleton
    */
-  KdeConfigDialog(IPlatformTools* platformTools, QWidget* parent, QString& caption,
+  KdeConfigDialog(IPlatformTools* platformTools, QWidget* parent, const QString& caption,
                   KConfigSkeleton* configSkeleton);
 
   /**
    * Destructor.
    */
-  virtual ~KdeConfigDialog() override = default;
+  ~KdeConfigDialog() override = default;
 
   /**
    * Set values in dialog from current configuration.
@@ -80,7 +80,7 @@ protected:
    * the same as the default configuration.
    * @return false
    */
-  virtual bool isDefault() override;
+  bool isDefault() override;
 
 private:
   ConfigDialogPages* m_pages;

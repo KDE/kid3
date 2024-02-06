@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 01 May 2011
  *
- * Copyright (C) 2011-2018  Urs Fleisch
+ * Copyright (C) 2011-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -39,20 +39,19 @@
 
 namespace {
 
-const int MAX_STAR_COUNT = 5;
-const int STAR_SCALE_FACTOR = 20;
+constexpr int MAX_STAR_COUNT = 5;
+constexpr int STAR_SCALE_FACTOR = 20;
 
 QString ratingTypeName(const QModelIndex& index) {
   QString name = index.data(FrameTableModel::InternalNameRole).toString();
   if (name.startsWith(QLatin1String("POPM"))) {
     name.truncate(4);
     QVariantList fieldIds = index.data(FrameTableModel::FieldIdsRole).toList();
-    int emailIdx = fieldIds.indexOf(Frame::ID_Email);
-    if (emailIdx != -1) {
+    if (int emailIdx = fieldIds.indexOf(Frame::ID_Email); emailIdx != -1) {
       QVariantList fieldValues =
           index.data(FrameTableModel::FieldValuesRole).toList();
-      QString emailValue;
-      if (emailIdx < fieldValues.size() &&
+      if (QString emailValue;
+          emailIdx < fieldValues.size() &&
           !(emailValue = fieldValues.at(emailIdx).toString()).isEmpty()) {
         name += QLatin1Char('.');
         name += emailValue;
@@ -90,7 +89,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~DateTimeValidator() override = default;
+  ~DateTimeValidator() override = default;
 
   /**
    * Validate input string.
@@ -98,13 +97,13 @@ public:
    * @param pos current position in input string
    * @return validation state.
    */
-  virtual State validate(QString& input, int& pos) const override;
+  State validate(QString& input, int& pos) const override;
 
   /**
    * Attempt to change input string to be valid.
    * @param input input string
    */
-  virtual void fixup(QString& input) const override;
+  void fixup(QString& input) const override;
 
 private:
   Q_DISABLE_COPY(DateTimeValidator)
@@ -120,14 +119,13 @@ DateTimeValidator::DateTimeValidator(QObject* parent)
 
 QValidator::State DateTimeValidator::validate(QString& input, int& pos) const
 {
-  auto dateTimeMatch = m_re.match(input, 0,
-      QRegularExpression::PartialPreferCompleteMatch);
-  if (dateTimeMatch.hasMatch()) {
+  if (auto dateTimeMatch = m_re.match(
+        input, 0, QRegularExpression::PartialPreferCompleteMatch);
+      dateTimeMatch.hasMatch()) {
     m_lastValidInput = input;
     return Acceptable;
   } else {
-    const int len = dateTimeMatch.capturedLength();
-    if (len == input.size()) {
+    if (const int len = dateTimeMatch.capturedLength(); len == input.size()) {
       return Intermediate;
 #if QT_VERSION >= 0x060000
     } else if (len > 0 && m_lastValidInput.endsWith(input.mid(len))) {
@@ -135,10 +133,9 @@ QValidator::State DateTimeValidator::validate(QString& input, int& pos) const
     } else if (len > 0 && m_lastValidInput.endsWith(input.midRef(len))) {
 #endif
       return Intermediate;
-    } else {
-      pos = input.size();
-      return Invalid;
     }
+    pos = input.size();
+    return Invalid;
   }
 }
 
@@ -394,8 +391,8 @@ QSize FrameItemDelegate::sizeHint(const QStyleOptionViewItem& option,
  */
 void FrameItemDelegate::formatTextIfEnabled(const QString& txt)
 {
-  QLineEdit* le;
-  if (TagFormatConfig::instance().formatWhileEditing() &&
+  if (QLineEdit* le;
+      TagFormatConfig::instance().formatWhileEditing() &&
       (le = qobject_cast<QLineEdit*>(sender())) != nullptr) {
     QString str(txt);
     TagFormatConfig::instance().formatString(str);
@@ -423,7 +420,7 @@ QWidget* FrameItemDelegate::createEditor(
   const auto ftModel =
     qobject_cast<const FrameTableModel*>(index.model());
   if (row >= 0 && (col == FrameTableModel::CI_Value || !ftModel)) {
-    Frame::Type type = static_cast<Frame::Type>(
+    auto type = static_cast<Frame::Type>(
       index.data(FrameTableModel::FrameTypeRole).toInt());
     bool id3v1 = ftModel && ftModel->isId3v1();
     if (type == Frame::FT_Genre) {
@@ -435,7 +432,8 @@ QWidget* FrameItemDelegate::createEditor(
 
       cb->setModel(m_genreModel);
       return cb;
-    } else if (type == Frame::FT_Rating) {
+    }
+    if (type == Frame::FT_Rating) {
       auto editor = new StarEditor(parent);
       connect(editor, &StarEditor::editingFinished,
               this, &FrameItemDelegate::commitAndCloseEditor);
@@ -444,8 +442,8 @@ QWidget* FrameItemDelegate::createEditor(
     if (ftModel && index.data().toString() == Frame::differentRepresentation()) {
       Frame::ExtendedType extType(
             type, index.data(FrameTableModel::InternalNameRole).toString());
-      QSet<QString> valueSet = ftModel->getCompletionsForType(extType);
-      if (!valueSet.isEmpty()) {
+      if (QSet<QString> valueSet = ftModel->getCompletionsForType(extType);
+          !valueSet.isEmpty()) {
 #if QT_VERSION >= 0x050e00
         QStringList values(valueSet.constBegin(), valueSet.constEnd());
 #else
@@ -508,11 +506,10 @@ void FrameItemDelegate::setEditorData(
       return;
     }
   }
-  auto cb = qobject_cast<QComboBox*>(editor);
-  if (cb) {
-    Frame::Type type = static_cast<Frame::Type>(
-      index.data(FrameTableModel::FrameTypeRole).toInt());
-    if (type == Frame::FT_Genre) {
+  if (auto cb = qobject_cast<QComboBox*>(editor)) {
+    if (auto type = static_cast<Frame::Type>(
+          index.data(FrameTableModel::FrameTypeRole).toInt());
+        type == Frame::FT_Genre) {
       QString genreStr(index.model()->data(index).toString());
       cb->setCurrentIndex(m_genreModel->getRowForGenre(genreStr));
     }
@@ -538,8 +535,7 @@ void FrameItemDelegate::setModelData(
       return;
     }
   }
-  auto cb = qobject_cast<QComboBox *>(editor);
-  if (cb) {
+  if (auto cb = qobject_cast<QComboBox *>(editor)) {
     model->setData(index, cb->currentText());
   } else {
     QItemDelegate::setModelData(editor, model, index);

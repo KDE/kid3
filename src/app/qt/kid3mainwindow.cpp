@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -74,8 +74,8 @@ Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools,
   QString dataRootDir(QLatin1String(CFG_DATAROOTDIR));
   Utils::prependApplicationDirPathIfRelative(dataRootDir);
 
-  QPixmap icon;
-  if (icon.load(dataRootDir +
+  if (QPixmap icon;
+      icon.load(dataRootDir +
 #ifndef Q_OS_MAC
                 QLatin1String("/icons/hicolor/128x128/apps/kid3-qt.png")
 #else
@@ -212,8 +212,7 @@ void Kid3MainWindow::initActions()
     QString serverName(QCoreApplication::translate("@default", si->name()));
     QString actionName = QString::fromLatin1(
           si->name()).toLower().remove(QLatin1Char(' '));
-    int dotPos = actionName.indexOf(QLatin1Char('.'));
-    if (dotPos != -1)
+    if (int dotPos = actionName.indexOf(QLatin1Char('.')); dotPos != -1)
       actionName.truncate(dotPos);
     actionName = QLatin1String("import_") + actionName;
     auto fileImportServer = new QAction(this);
@@ -233,8 +232,7 @@ void Kid3MainWindow::initActions()
     QString serverName(QCoreApplication::translate("@default", si->name()));
     QString actionName = QString::fromLatin1(
           si->name()).toLower().remove(QLatin1Char(' '));
-    int dotPos = actionName.indexOf(QLatin1Char('.'));
-    if (dotPos != -1)
+    if (int dotPos = actionName.indexOf(QLatin1Char('.')); dotPos != -1)
       actionName.truncate(dotPos);
     actionName = QLatin1String("import_") + actionName;
     auto fileImportServer = new QAction(this);
@@ -475,8 +473,8 @@ void Kid3MainWindow::initActions()
   toolsMenu->addAction(toolsFilter);
   toolsMenu->addSeparator();
 
-  const TagConfig& tagCfg = TagConfig::instance();
-  if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
+  if (const TagConfig& tagCfg = TagConfig::instance();
+      tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v24) {
     auto toolsConvertToId3v24 = new QAction(this);
     toolsConvertToId3v24->setStatusTip(tr("Convert ID3v2.3 to ID3v2.4"));
     toolsConvertToId3v24->setText(tr("Convert ID3v2.3 to ID3v2.&4"));
@@ -709,14 +707,14 @@ void Kid3MainWindow::initFormActions()
   connect(addFormAction(tr("Focus"), QLatin1String("filelist_focus"), ctx),
           &QAction::triggered,
           form(), &Kid3Form::setFocusFileList);
-  QAction* renameAction = new QAction(tr("&Rename"), this);
+  auto renameAction = new QAction(tr("&Rename"), this);
   renameAction->setObjectName(QLatin1String("filelist_rename"));
   renameAction->setShortcut(QKeySequence(Qt::Key_F2));
   renameAction->setShortcutContext(Qt::WidgetShortcut);
   connect(renameAction, &QAction::triggered, impl(), &BaseMainWindowImpl::renameFile);
   form()->getFileList()->setRenameAction(renameAction);
   m_shortcutsModel->registerAction(renameAction, ctx);
-  QAction* deleteAction = new QAction(tr("&Move to Trash"), this);
+  auto deleteAction = new QAction(tr("&Move to Trash"), this);
   deleteAction->setObjectName(QLatin1String("filelist_delete"));
   deleteAction->setShortcut(QKeySequence::Delete);
   deleteAction->setShortcutContext(Qt::WidgetShortcut);
@@ -734,7 +732,7 @@ void Kid3MainWindow::initFormActions()
        it != sectionShortcuts.constEnd();
        ++it) {
     const auto& tpl = *it;
-    QAction* action = new QAction(std::get<1>(tpl), this);
+    auto action = new QAction(std::get<1>(tpl), this);
     action->setObjectName(std::get<0>(tpl));
     action->setShortcut(std::get<2>(tpl));
     action->setShortcutContext(Qt::WidgetShortcut);
@@ -951,8 +949,8 @@ void Kid3MainWindow::onCommitDataRequest(QSessionManager& manager)
 {
   // Make sure that current file is saved even if "load last opened file"
   // is not enabled.
-  FileConfig& fileCfg = FileConfig::instance();
-  if (!fileCfg.loadLastOpenedFile()) {
+  if (FileConfig& fileCfg = FileConfig::instance();
+      !fileCfg.loadLastOpenedFile()) {
     fileCfg.setLastOpenedFile(
         app()->getFileProxyModel()->filePath(app()->currentOrRootIndex()));
   }

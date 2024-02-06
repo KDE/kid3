@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Mar 2011
  *
- * Copyright (C) 2005-2018  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -245,7 +245,7 @@ QList<ModelSectionResizeMode>
   QList<ModelSectionResizeMode> resizeModes;
   resizeModes.reserve(CI_NumColumns);
   for (int i = 0; i < CI_NumColumns; ++i) {
-    ModelSectionResizeMode mode = ModelSectionResizeMode::Interactive;
+    auto mode = ModelSectionResizeMode::Interactive;
     if (i == CI_Confirm || i == CI_Output)
       mode = ModelSectionResizeMode::ResizeToContents;
     else if (i == CI_Command)

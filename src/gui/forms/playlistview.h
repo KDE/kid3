@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 25 Aug 2018
  *
- * Copyright (C) 2018  Urs Fleisch
+ * Copyright (C) 2018-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -40,7 +40,7 @@ public:
    * @param parent parent widget
    */
   explicit PlaylistView(QWidget* parent = nullptr);
-  virtual ~PlaylistView() override = default;
+  ~PlaylistView() override = default;
 
   /**
    * Get role which is used when setting dropped items.
@@ -60,28 +60,28 @@ protected:
    *
    * @param event drag event.
    */
-  virtual void dragEnterEvent(QDragEnterEvent* event) override;
+  void dragEnterEvent(QDragEnterEvent* event) override;
 
   /**
    * Handle event when mouse is moved while dragging.
    *
    * @param event drag event.
    */
-  virtual void dragMoveEvent(QDragMoveEvent* event) override;
+  void dragMoveEvent(QDragMoveEvent* event) override;
 
   /**
    * Handle event when mouse leaves widget while dragging.
    *
    * @param event drag event.
    */
-  virtual void dragLeaveEvent(QDragLeaveEvent* event) override;
+  void dragLeaveEvent(QDragLeaveEvent* event) override;
 
   /**
    * Handle drop event.
    *
    * @param event drop event.
    */
-  virtual void dropEvent(QDropEvent* event) override;
+  void dropEvent(QDropEvent* event) override;
 
 private slots:
   void deleteCurrentRow();

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 16 Jan 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -35,7 +35,7 @@ int FilterConfig::s_index = -1;
  * Constructor.
  */
 FilterConfig::FilterConfig()
-  : StoredConfig<FilterConfig>(QLatin1String("Filter")), m_filterIdx(0)
+  : StoredConfig(QLatin1String("Filter")), m_filterIdx(0)
 {
   /**
    * Preset filter expressions.
@@ -108,12 +108,11 @@ void FilterConfig::writeToConfig(ISettings* config) const
  */
 void FilterConfig::readFromConfig(ISettings* config)
 {
-  QStringList names, expressions;
   config->beginGroup(m_group);
-  names = config->value(QLatin1String("FilterNames"),
-                        m_filterNames).toStringList();
-  expressions = config->value(QLatin1String("FilterExpressions"),
-                              m_filterExpressions).toStringList();
+  QStringList names = config->value(QLatin1String("FilterNames"),
+                                    m_filterNames).toStringList();
+  QStringList expressions = config->value(QLatin1String("FilterExpressions"),
+                                          m_filterExpressions).toStringList();
   m_filterIdx = config->value(QLatin1String("FilterIdx"), m_filterIdx).toInt();
   config->endGroup();
   config->beginGroup(m_group, true);
@@ -132,16 +131,15 @@ void FilterConfig::readFromConfig(ISettings* config)
   for (auto namesIt = names.constBegin(), expressionsIt = expressions.constBegin();
        namesIt != names.constEnd() && expressionsIt != expressions.constEnd();
        ++namesIt, ++expressionsIt) {
-    int idx = m_filterNames.indexOf(*namesIt);
-    if (idx >= 0) {
+    if (int idx = m_filterNames.indexOf(*namesIt); idx >= 0) {
       m_filterExpressions[idx] = *expressionsIt;
-    } else if (!(*namesIt).isEmpty()) {
+    } else if (!namesIt->isEmpty()) {
       m_filterNames.append(*namesIt);
       m_filterExpressions.append(*expressionsIt);
     }
   }
 
-  if (m_filterIdx >= static_cast<int>(m_filterNames.size()))
+  if (m_filterIdx >= m_filterNames.size())
     m_filterIdx = 0;
 }
 
@@ -152,8 +150,8 @@ void FilterConfig::readFromConfig(ISettings* config)
  */
 void FilterConfig::setFilenameFormat(const QString& format)
 {
-  int idx = m_filterNames.indexOf(QLatin1String("Filename Tag Mismatch"));
-  if (idx != -1) {
+  if (int idx = m_filterNames.indexOf(QLatin1String("Filename Tag Mismatch"));
+      idx != -1) {
     m_filterExpressions[idx] = QLatin1String("not (%{filepath} contains \"") +
       format + QLatin1String("\")");
   }
@@ -175,10 +173,10 @@ void FilterConfig::setFilterExpressions(const QStringList& filterExpressions)
   }
 }
 
-void FilterConfig::setFilterIndex(int filterIdx)
+void FilterConfig::setFilterIndex(int filterIndex)
 {
-  if (m_filterIdx != filterIdx) {
-    m_filterIdx = filterIdx;
+  if (m_filterIdx != filterIndex) {
+    m_filterIdx = filterIndex;
     emit filterIndexChanged(m_filterIdx);
   }
 }

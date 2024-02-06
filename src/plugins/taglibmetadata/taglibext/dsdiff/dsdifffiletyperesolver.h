@@ -42,9 +42,9 @@ public:
 class DSDIFFFileTypeResolver : public TagLib::FileRef::FileTypeResolver
 {
 public:
-    virtual TagLib::File *createFile(const char *fileName,
-            bool readAudioProperties,
-            TagLib::AudioProperties::ReadStyle audioPropertiesStyle) const override;
+  TagLib::File *createFile(const char *fileName,
+                           bool readProperties,
+                           TagLib::AudioProperties::ReadStyle propertiesStyle) const override;
     virtual ~DSDIFFFileTypeResolver() {}
 };
 

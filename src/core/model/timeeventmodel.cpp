@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Mar 2014
  *
- * Copyright (C) 2014-2018  Urs Fleisch
+ * Copyright (C) 2014-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -72,10 +72,10 @@ QVariant TimeEventModel::data(const QModelIndex& index, int role) const
   if (role == Qt::DisplayRole || role == Qt::EditRole) {
     if (index.column() == CI_Time)
       return timeEvent.time;
-    else
-      return timeEvent.data;
-  } else if (role == Qt::BackgroundRole && index.column() == CI_Data &&
-             m_colorProvider) {
+    return timeEvent.data;
+  }
+  if (role == Qt::BackgroundRole && index.column() == CI_Data &&
+      m_colorProvider) {
     return m_colorProvider->colorForContext(index.row() == m_markedRow
         ? ColorContext::Marked : ColorContext::None);
   }
@@ -121,11 +121,11 @@ QVariant TimeEventModel::headerData(
   if (orientation == Qt::Horizontal && section < CI_NumColumns) {
     if (section == CI_Time) {
       return tr("Time");
-    } else if (m_type == EventTimingCodes) {
-      return tr("Event Code");
-    } else {
-      return tr("Text");
     }
+    if (m_type == EventTimingCodes) {
+      return tr("Event Code");
+    }
+    return tr("Text");
   }
   return section + 1;
 }
@@ -157,7 +157,6 @@ int TimeEventModel::columnCount(const QModelIndex& parent) const
  * @param row rows are inserted before this row, if 0 at the begin,
  * if rowCount() at the end
  * @param count number of rows to insert
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool TimeEventModel::insertRows(int row, int count,
@@ -176,7 +175,6 @@ bool TimeEventModel::insertRows(int row, int count,
  * Remove rows.
  * @param row rows are removed starting with this row
  * @param count number of rows to remove
- * @param parent parent model index, invalid for table models
  * @return true if successful
  */
 bool TimeEventModel::removeRows(int row, int count,
@@ -234,7 +232,7 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
 
   bool newLinesStartWithLineBreak = false;
   QList<TimeEvent> timeEvents;
-  QListIterator<QVariant> it(synchedData);
+  QListIterator it(synchedData);
   while (it.hasNext()) {
     quint32 milliseconds = it.next().toUInt();
     if (!it.hasNext())
@@ -257,8 +255,8 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
       // If the resulting line starts with one of the special characters
       // (' ', '-', '_'), it is escaped with '#'.
       if (str.length() > 0) {
-        QChar ch = str.at(0);
-        if (ch == QLatin1Char(' ') || ch == QLatin1Char('-') ||
+        if (QChar ch = str.at(0);
+            ch == QLatin1Char(' ') || ch == QLatin1Char('-') ||
             ch == QLatin1Char('_')) {
           str.prepend(QLatin1Char('#'));
         }
@@ -361,7 +359,7 @@ void TimeEventModel::fromEtcoFrame(const Frame::FieldList& fields)
   }
 
   QList<TimeEvent> timeEvents;
-  QListIterator<QVariant> it(synchedData);
+  QListIterator it(synchedData);
   while (it.hasNext()) {
     quint32 milliseconds = it.next().toUInt();
     if (!it.hasNext())
@@ -438,8 +436,8 @@ void TimeEventModel::markRowForTimeStamp(const QTime& timeStamp)
   int row = 0, oldRow = m_markedRow, newRow = -1;
   for (auto it = m_timeEvents.constBegin(); it != m_timeEvents.constEnd(); ++it) {
     const TimeEvent& timeEvent = *it;
-    QTime time = timeEvent.time.toTime();
-    if (time.isValid() && time >= timeStamp) {
+    if (QTime time = timeEvent.time.toTime();
+        time.isValid() && time >= timeStamp) {
       if (timeStamp.msecsTo(time) > 1000 && row > 0) {
         --row;
       }
@@ -536,9 +534,9 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
       }
       QString str = line.mid(textBegin, textLen);
       if (m_type == EventTimingCodes) {
-        EventTimeCode etc =
-            EventTimeCode::fromString(str.toLatin1().constData());
-        if (etc.isValid()) {
+        if (EventTimeCode etc =
+              EventTimeCode::fromString(str.toLatin1().constData());
+            etc.isValid()) {
           timeEvents.append(TimeEvent(timeStamp, etc.getCode()));
         }
       } else {
@@ -607,7 +605,7 @@ void TimeEventModel::fromTextFile(QTextStream& stream)
  * @param album optional album
  */
 void TimeEventModel::toLrcFile(QTextStream& stream, const QString& title,
-                               const QString& artist, const QString& album)
+                               const QString& artist, const QString& album) const
 {
   bool atBegin = true;
   if (!title.isEmpty()) {
@@ -624,8 +622,7 @@ void TimeEventModel::toLrcFile(QTextStream& stream, const QString& title,
   }
   const auto timeEvents = m_timeEvents;
   for (const TimeEvent& timeEvent : timeEvents) {
-    QTime time = timeEvent.time.toTime();
-    if (time.isValid()) {
+    if (QTime time = timeEvent.time.toTime(); time.isValid()) {
       char firstChar = '\0';
       bool newLine = true;
       QString str;

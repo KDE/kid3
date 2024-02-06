@@ -22,9 +22,9 @@
 # SKIP_PO_INSTALL
 # SKIP_POQML_INSTALL
 
-project(kid3)
-
 cmake_minimum_required(VERSION 3.16)
+project(kid3)
+set(CMAKE_CXX_STANDARD 17)
 
 set(BUILD_SHARED_LIBS ON CACHE BOOL "build shared libraries")
 set(WITH_QML    ON CACHE BOOL "build with QML")
@@ -487,7 +487,8 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wundef -Wcast-align -Wall -W -Wpointer-arith -Woverloaded-virtual -fno-common -Werror=return-type -Wweak-vtables -D_REENTRANT")
 endif()
 if(APPLE)
-  exec_program(sw_vers ARGS -productVersion OUTPUT_VARIABLE _osxVersion)
+  execute_process(COMMAND sw_vers -productVersion OUTPUT_VARIABLE _osxVersion
+      OUTPUT_STRIP_TRAILING_WHITESPACE)
   if(_osxVersion VERSION_LESS "10.10" AND NOT CMAKE_CXX_COMPILER MATCHES "/osxcross/")
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mmacosx-version-min=10.5")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mmacosx-version-min=10.5")

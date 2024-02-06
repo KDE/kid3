@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 15 Jul 2019
  *
- * Copyright (C) 2019  Urs Fleisch
+ * Copyright (C) 2019-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -90,7 +90,7 @@ QObject* GuiPlatformTools::createAudioPlayer(Kid3Application* app,
                                              bool dbusEnabled) const
 {
 #ifdef HAVE_QTMULTIMEDIA
-  AudioPlayer* player = new AudioPlayer(app);
+  auto player = new AudioPlayer(app);
 #ifdef HAVE_QTDBUS
   if (dbusEnabled) {
     new MprisInterface(player);

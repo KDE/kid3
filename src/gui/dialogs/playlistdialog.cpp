@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 13 Sep 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -77,7 +77,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   fnGroupBoxLayout->addLayout(fileNameForEmptyLayout);
 
   auto locationLayout = new QHBoxLayout;
-  QLabel* locationLabel = new QLabel(this);
+  auto locationLabel = new QLabel(this);
   m_locationComboBox = new QComboBox(this);
   locationLayout->addWidget(locationLabel);
   locationLayout->addWidget(m_locationComboBox);
@@ -87,7 +87,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   auto pcGroupBox = new QGroupBox(this);
   auto pcGroupBoxLayout = new QVBoxLayout(pcGroupBox);
   auto formatLayout = new QHBoxLayout;
-  QLabel* formatLabel = new QLabel(this);
+  auto formatLabel = new QLabel(this);
   m_formatComboBox = new QComboBox(this);
   formatLayout->addWidget(formatLabel);
   formatLayout->addWidget(m_formatComboBox);
@@ -95,7 +95,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   m_onlySelectedFilesCheckBox = new QCheckBox(this);
   pcGroupBoxLayout->addWidget(m_onlySelectedFilesCheckBox);
 
-  QFrame* sortLine = new QFrame(pcGroupBox);
+  auto sortLine = new QFrame(pcGroupBox);
   sortLine->setFrameShape(QFrame::HLine);
   sortLine->setFrameShadow(QFrame::Sunken);
   pcGroupBoxLayout->addWidget(sortLine);
@@ -112,7 +112,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   sortButtonGroup->addButton(m_sortFileNameButton);
   sortButtonGroup->addButton(m_sortTagFieldButton);
 
-  QFrame* pathLine = new QFrame(pcGroupBox);
+  auto pathLine = new QFrame(pcGroupBox);
   pathLine->setFrameShape(QFrame::HLine);
   pathLine->setFrameShadow(QFrame::Sunken);
   pcGroupBoxLayout->addWidget(pathLine);
@@ -124,7 +124,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   pathButtonGroup->addButton(m_relPathButton);
   pathButtonGroup->addButton(m_fullPathButton);
 
-  QFrame* writeLine = new QFrame(pcGroupBox);
+  auto writeLine = new QFrame(pcGroupBox);
   writeLine->setFrameShape(QFrame::HLine);
   writeLine->setFrameShadow(QFrame::Sunken);
   pcGroupBoxLayout->addWidget(writeLine);
@@ -204,11 +204,11 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
           m_writeInfoComboBox, &QWidget::setEnabled);
 
   auto hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  auto helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, &QAbstractButton::clicked, this, &PlaylistDialog::showHelp);
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  auto saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, &QAbstractButton::clicked, this, &PlaylistDialog::saveConfig);
@@ -216,10 +216,10 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 
-  QPushButton* okButton = new QPushButton(tr("&OK"), this);
+  auto okButton = new QPushButton(tr("&OK"), this);
   hlayout->addWidget(okButton);
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
-  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
+  auto cancelButton = new QPushButton(tr("&Cancel"), this);
   hlayout->addWidget(cancelButton);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
   vlayout->addLayout(hlayout);
@@ -252,8 +252,7 @@ void PlaylistDialog::readConfig()
   m_sortTagFieldComboBox->setEditText(playlistCfg.sortTagField());
   m_writeInfoComboBox->setEditText(playlistCfg.infoFormat());
 
-  QByteArray geometry = playlistCfg.windowGeometry();
-  if (!geometry.isEmpty()) {
+  if (QByteArray geometry = playlistCfg.windowGeometry(); !geometry.isEmpty()) {
     restoreGeometry(geometry);
   }
 }

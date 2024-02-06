@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 10 Jun 2009
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -65,7 +65,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FieldControl() override;
+  ~FieldControl() override;
 
   /**
    * Update field from data in field control.
@@ -101,12 +101,12 @@ public:
    *
    * @param parent parent widget
    */
-  LabeledTextEdit(QWidget* parent);
+  explicit LabeledTextEdit(QWidget* parent);
 
   /**
    * Destructor.
    */
-  virtual ~LabeledTextEdit() override = default;
+  ~LabeledTextEdit() override = default;
 
   /**
    * Get text.
@@ -129,7 +129,7 @@ public:
   /**
    * Set focus to text field.
    */
-  void setFocus() {
+  void setEditFocus() {
     m_edit->setFocus();
   }
 
@@ -176,12 +176,12 @@ public:
    *
    * @param parent parent widget
    */
-  LabeledLineEdit(QWidget* parent);
+  explicit LabeledLineEdit(QWidget* parent);
 
   /**
    * Destructor.
    */
-  virtual ~LabeledLineEdit() override = default;
+  ~LabeledLineEdit() override = default;
 
   /**
    * Get text.
@@ -245,7 +245,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~LabeledComboBox() override = default;
+  ~LabeledComboBox() override = default;
 
   /**
    * Get index of selected item.
@@ -313,12 +313,12 @@ public:
    *
    * @param parent parent widget
    */
-  LabeledSpinBox(QWidget* parent);
+  explicit LabeledSpinBox(QWidget* parent);
 
   /**
    * Destructor.
    */
-  virtual ~LabeledSpinBox() override = default;
+  ~LabeledSpinBox() override = default;
 
   /**
    * Get value.
@@ -378,13 +378,13 @@ public:
    * Constructor.
    * @param field field to edit
    */
-  Mp3FieldControl(Frame::Field& field)
+  explicit Mp3FieldControl(Frame::Field& field)
     : m_field(field) {}
 
   /**
    * Destructor.
    */
-  virtual ~Mp3FieldControl() override = default;
+  ~Mp3FieldControl() override = default;
 
 protected:
   /** field */
@@ -402,18 +402,18 @@ public:
    * Constructor.
    * @param field field to edit
    */
-  TextFieldControl(Frame::Field& field)
+  explicit TextFieldControl(Frame::Field& field)
     : Mp3FieldControl(field), m_edit(nullptr) {}
 
   /**
    * Destructor.
    */
-  virtual ~TextFieldControl() override = default;
+  ~TextFieldControl() override = default;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag() override;
+  void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -422,7 +422,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent) override;
+  QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Text editor widget */
@@ -455,7 +455,7 @@ QWidget* TextFieldControl::createWidget(QWidget* parent)
   m_edit->setLabel(Frame::Field::getFieldIdName(
                      static_cast<Frame::FieldId>(m_field.m_id)));
   m_edit->setText(m_field.m_value.toString());
-  m_edit->setFocus();
+  m_edit->setEditFocus();
   return m_edit;
 }
 
@@ -467,18 +467,18 @@ public:
    * Constructor.
    * @param field field to edit
    */
-  LineFieldControl(Frame::Field& field)
+  explicit LineFieldControl(Frame::Field& field)
     : Mp3FieldControl(field), m_edit(nullptr) {}
 
   /**
    * Destructor.
    */
-  virtual ~LineFieldControl() override = default;
+  ~LineFieldControl() override = default;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag() override;
+  void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -487,7 +487,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent) override;
+  QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Line editor widget */
@@ -528,18 +528,18 @@ public:
    * Constructor.
    * @param field field to edit
    */
-  IntFieldControl(Frame::Field& field)
+  explicit IntFieldControl(Frame::Field& field)
     : Mp3FieldControl(field), m_numInp(nullptr) {}
 
   /**
    * Destructor.
    */
-  virtual ~IntFieldControl() override = default;
+  ~IntFieldControl() override = default;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag() override;
+  void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -548,7 +548,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent) override;
+  QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Spin box widget */
@@ -597,12 +597,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~IntComboBoxControl() override = default;
+  ~IntComboBoxControl() override = default;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag() override;
+  void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -611,7 +611,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent) override;
+  QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Combo box widget */
@@ -670,12 +670,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~BinFieldControl() override = default;
+  ~BinFieldControl() override = default;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag() override;
+  void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -684,7 +684,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent) override;
+  QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Platform dependent tools */
@@ -775,12 +775,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~TimeEventFieldControl() override = default;
+  ~TimeEventFieldControl() override = default;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag() override;
+  void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -789,7 +789,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent) override;
+  QWidget* createWidget(QWidget* parent) override;
 
 protected:
   /** Platform dependent tools */
@@ -880,12 +880,12 @@ public:
   /**
    * Destructor.
    */
-  virtual ~SubframeFieldControl() override = default;
+  ~SubframeFieldControl() override = default;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag() override;
+  void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -894,7 +894,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent) override;
+  QWidget* createWidget(QWidget* parent) override;
 
 private:
   Q_DISABLE_COPY(SubframeFieldControl)
@@ -967,17 +967,17 @@ public:
    * Constructor.
    * @param field field to edit
    */
-  ChapterFieldControl(Frame::Field& field);
+  explicit ChapterFieldControl(Frame::Field& field);
 
   /**
    * Destructor.
    */
-  virtual ~ChapterFieldControl() override = default;
+  ~ChapterFieldControl() override = default;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag() override;
+  void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -986,7 +986,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent) override;
+  QWidget* createWidget(QWidget* parent) override;
 
 private:
   Q_DISABLE_COPY(ChapterFieldControl)
@@ -1026,8 +1026,7 @@ void ChapterFieldControl::updateTag()
  */
 QWidget* ChapterFieldControl::createWidget(QWidget* parent) {
   m_editor = new ChapterEditor(parent);
-  QVariantList lst = m_field.m_value.toList();
-  if (lst.size() >= 4) {
+  if (QVariantList lst = m_field.m_value.toList(); lst.size() >= 4) {
     m_editor->setValues(lst.at(0).toUInt(), lst.at(1).toUInt(),
                         lst.at(2).toUInt(), lst.at(3).toUInt());
   }
@@ -1042,17 +1041,17 @@ public:
    * Constructor.
    * @param field field to edit
    */
-  TableOfContentsFieldControl(Frame::Field& field);
+  explicit TableOfContentsFieldControl(Frame::Field& field);
 
   /**
    * Destructor.
    */
-  virtual ~TableOfContentsFieldControl() override = default;
+  ~TableOfContentsFieldControl() override = default;
 
   /**
    * Update field from data in field control.
    */
-  virtual void updateTag() override;
+  void updateTag() override;
 
   /**
    * Create widget to edit field data.
@@ -1061,7 +1060,7 @@ public:
    *
    * @return widget to edit field data.
    */
-  virtual QWidget* createWidget(QWidget* parent) override;
+  QWidget* createWidget(QWidget* parent) override;
 
 private:
   Q_DISABLE_COPY(TableOfContentsFieldControl)
@@ -1101,8 +1100,7 @@ void TableOfContentsFieldControl::updateTag()
  */
 QWidget* TableOfContentsFieldControl::createWidget(QWidget* parent) {
   m_editor = new TableOfContentsEditor(parent);
-  QVariantList lst = m_field.m_value.toList();
-  if (lst.size() >= 3) {
+  if (QVariantList lst = m_field.m_value.toList(); lst.size() >= 3) {
     m_editor->setValues(lst.at(0).toBool(), lst.at(1).toBool(),
                         lst.at(2).toStringList());
   }
@@ -1134,10 +1132,10 @@ BinaryOpenSave::BinaryOpenSave(IPlatformTools* platformTools,
   auto layout = new QHBoxLayout(this);
   m_label = new QLabel(this);
   m_clipButton = new QPushButton(tr("From Clip&board"), this);
-  QPushButton* toClipboardButton = new QPushButton(tr("&To Clipboard"), this);
-  QPushButton* openButton = new QPushButton(tr("&Import..."), this);
-  QPushButton* saveButton = new QPushButton(tr("&Export..."), this);
-  QPushButton* viewButton = new QPushButton(tr("&View..."), this);
+  auto toClipboardButton = new QPushButton(tr("&To Clipboard"), this);
+  auto openButton = new QPushButton(tr("&Import..."), this);
+  auto saveButton = new QPushButton(tr("&Export..."), this);
+  auto viewButton = new QPushButton(tr("&View..."), this);
   layout->setContentsMargins(0, 0, 0, 0);
   layout->addWidget(m_label);
   layout->addWidget(m_clipButton);
@@ -1177,8 +1175,7 @@ void BinaryOpenSave::setClipButtonState()
  */
 void BinaryOpenSave::clipData()
 {
-  QClipboard* cb = QApplication::clipboard();
-  if (cb) {
+  if (QClipboard* cb = QApplication::clipboard()) {
     if (cb->mimeData()->hasFormat(QLatin1String("image/jpeg"))) {
       m_byteArray = cb->mimeData()->data(QLatin1String("image/jpeg"));
       m_isChanged = true;
@@ -1200,10 +1197,11 @@ void BinaryOpenSave::clipData()
  */
 void BinaryOpenSave::loadData()
 {
-  QString loadfilename = m_platformTools->getOpenFileName(this, QString(),
+  if (QString loadfilename = m_platformTools->getOpenFileName(
+        this, QString(),
         m_defaultDir.isEmpty() ? m_app->getDirName() : m_defaultDir,
         m_filter, nullptr);
-  if (!loadfilename.isEmpty()) {
+      !loadfilename.isEmpty()) {
     QFile file(loadfilename);
     if (file.open(QIODevice::ReadOnly)) {
       auto size = file.size();
@@ -1228,8 +1226,7 @@ void BinaryOpenSave::saveData()
   if (fileName.isEmpty()) {
     fileName = QLatin1String("untitled");
   }
-  QChar separator = QDir::separator();
-  if (!dir.endsWith(separator)) {
+  if (QChar separator = QDir::separator(); !dir.endsWith(separator)) {
     dir += separator;
   }
   QFileInfo fileInfo(fileName);
@@ -1243,9 +1240,9 @@ void BinaryOpenSave::saveData()
     dir += QLatin1Char('.');
     dir += suffix;
   }
-  QString fn = m_platformTools->getSaveFileName(
+  if (QString fn = m_platformTools->getSaveFileName(
         this, QString(), dir, m_filter, nullptr);
-  if (!fn.isEmpty()) {
+      !fn.isEmpty()) {
     QFile file(fn);
     if (file.open(QIODevice::WriteOnly)) {
       QDataStream stream(&file);
@@ -1260,15 +1257,13 @@ void BinaryOpenSave::saveData()
  */
 void BinaryOpenSave::copyData()
 {
-  QClipboard* cb = QApplication::clipboard();
-  if (cb) {
-    QImage image;
-    if (image.loadFromData(m_byteArray)) {
+  if (QClipboard* cb = QApplication::clipboard()) {
+    if (QImage image; image.loadFromData(m_byteArray)) {
       cb->setImage(image, QClipboard::Clipboard);
     } else {
       QMimeDatabase mimeDb;
-      QString mimeType = mimeDb.mimeTypeForData(m_byteArray).name();
-      if (!mimeType.isEmpty()) {
+      if (QString mimeType = mimeDb.mimeTypeForData(m_byteArray).name();
+          !mimeType.isEmpty()) {
         auto mimeData = new QMimeData;
         mimeData->setData(mimeType, m_byteArray);
         cb->setMimeData(mimeData);
@@ -1282,8 +1277,7 @@ void BinaryOpenSave::copyData()
  */
 void BinaryOpenSave::viewData()
 {
-  QImage image;
-  if (image.loadFromData(m_byteArray)) {
+  if (QImage image; image.loadFromData(m_byteArray)) {
     ImageViewer iv(this, image);
     iv.exec();
   }
@@ -1313,8 +1307,8 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
   m_vlayout = new QVBoxLayout(this);
 
   auto hlayout = new QHBoxLayout;
-  QPushButton* okButton = new QPushButton(tr("&OK"));
-  QPushButton* cancelButton = new QPushButton(tr("&Cancel"));
+  auto okButton = new QPushButton(tr("&OK"));
+  auto cancelButton = new QPushButton(tr("&Cancel"));
   hlayout->addStretch();
   hlayout->addWidget(okButton);
   hlayout->addWidget(cancelButton);
@@ -1324,7 +1318,7 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
   m_vlayout->addLayout(hlayout);
   setMinimumWidth(525);
   // Ctrl-Enter to OK
-  QAction* action = new QAction(okButton);
+  auto action = new QAction(okButton);
   action->setAutoRepeat(false);
   action->setShortcut(Qt::CTRL | Qt::Key_Return);
   connect(action, &QAction::triggered, okButton, &QPushButton::click);
@@ -1371,7 +1365,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       continue;
 
     if (fld.m_id == Frame::ID_Subframe) {
-      SubframeFieldControl* subframeCtl =
+      auto subframeCtl =
           new SubframeFieldControl(m_platformTools, m_app, taggedFile, tagNr,
             m_fields, fldIt, m_fields.end()); // clazy:exclude=detaching-member
       m_fieldcontrols.append(subframeCtl);
@@ -1448,8 +1442,8 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
       case QVariant::List:
 #endif
       {
-        QString frameName = frame.getName();
-        if (frameName.startsWith(QLatin1String("SYLT")) ||
+        if (QString frameName = frame.getName();
+            frameName.startsWith(QLatin1String("SYLT")) ||
             frameName == QLatin1String("Chapters")) {
           auto timeEventCtl = new TimeEventFieldControl(
                 m_platformTools, m_app, fld, m_fields, taggedFile, tagNr,
@@ -1486,7 +1480,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
 
   if (subframeMissing) {
     // Add an empty subframe so that subframes can be added
-    SubframeFieldControl* subframeCtl =
+    auto subframeCtl =
         new SubframeFieldControl(m_platformTools, m_app, taggedFile, tagNr,
           m_fields, m_fields.end(), m_fields.end()); // clazy:exclude=detaching-member
     m_fieldcontrols.append(subframeCtl);
@@ -1501,7 +1495,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
     m_valueField.m_value = QString();
   }
 
-  QListIterator<FieldControl*> it(m_fieldcontrols);
+  QListIterator it(m_fieldcontrols);
   it.toBack();
   while (it.hasPrevious()) {
     m_vlayout->insertWidget(0, it.previous()->createWidget(this));
@@ -1515,7 +1509,7 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
  */
 const Frame::FieldList& EditFrameFieldsDialog::getUpdatedFieldList()
 {
-  QListIterator<FieldControl*> it(m_fieldcontrols);
+  QListIterator it(m_fieldcontrols);
   while (it.hasNext()) {
     it.next()->updateTag();
   }

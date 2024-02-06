@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 24-Aug-2010
  *
- * Copyright (C) 2010-2018  Urs Fleisch
+ * Copyright (C) 2010-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -59,7 +59,7 @@ public:
   /**
    * Destructor.
    */
-  virtual ~PlayToolBar() override;
+  ~PlayToolBar() override;
 
   /**
    * Toggle time display mode.
@@ -155,7 +155,7 @@ protected:
   /**
    * Stop sound when window is closed.
    */
-  virtual void closeEvent(QCloseEvent*) override;
+  void closeEvent(QCloseEvent*) override;
 
 private:
   QIcon m_playIcon;

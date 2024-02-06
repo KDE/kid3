@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 28 Jul 2019
  *
- * Copyright (C) 2019  Urs Fleisch
+ * Copyright (C) 2019-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -113,7 +113,7 @@ void printFiles(AbstractCliIO* io, const QVariantList& lst, int indent)
     QString propsStr = map.value(QLatin1String("selected")).toBool()
         ? QLatin1String(">") : QLatin1String(" ");
     propsStr +=
-        (map.value(QLatin1String("changed")).toBool() ? QLatin1String("*") : QLatin1String(" "));
+        map.value(QLatin1String("changed")).toBool() ? QLatin1String("*") : QLatin1String(" ");
     if (map.contains(QLatin1String("tags"))) {
       const QVariantList tags = map.value(QLatin1String("tags")).toList();
       FOR_ALL_TAGS(tagNr) {
@@ -129,7 +129,7 @@ void printFiles(AbstractCliIO* io, const QVariantList& lst, int indent)
       printFiles(io, map.value(QLatin1String("files")).toList(), indent + 2);
     }
   }
-};
+}
 
 }
 /** @endcond */
@@ -230,8 +230,7 @@ void TextCliFormatter::writeResult(bool result)
 void TextCliFormatter::writeResult(const QVariantMap& map)
 {
   for (auto it = map.constBegin(); it != map.constEnd(); ++it) {
-    const QString& key = it.key();
-    if (key == QLatin1String("tags")) {
+    if (const QString& key = it.key(); key == QLatin1String("tags")) {
       QVariantList value = it.value().toList();
       QString tagStr;
       for (const QVariant& var : value) {
@@ -262,10 +261,10 @@ void TextCliFormatter::writeResult(const QVariantMap& map)
       }
       FOR_ALL_TAGS(tagNr) {
         QString tagNrStr = Frame::tagNumberToString(tagNr);
-        const QVariantMap tag = value.value(QLatin1String("tag") + tagNrStr).toMap();
-        if (!tag.isEmpty()) {
-          const QVariantList frames = tag.value(QLatin1String("frames")).toList();
-          if (!frames.isEmpty()) {
+        if (const QVariantMap tag = value.value(QLatin1String("tag") + tagNrStr).toMap();
+            !tag.isEmpty()) {
+          if (const QVariantList frames = tag.value(QLatin1String("frames")).toList();
+              !frames.isEmpty()) {
             int maxLength = 0;
             for (const QVariant& var : frames) {
               QString name = var.toMap().value(QLatin1String("name")).toString();
@@ -280,14 +279,14 @@ void TextCliFormatter::writeResult(const QVariantMap& map)
             io()->writeLine(tagStr);
             for (const QVariant& var : frames) {
               QString name = var.toMap().value(QLatin1String("name")).toString();
-              QString value = var.toMap().value(QLatin1String("value")).toString();
+              QString frameValue = var.toMap().value(QLatin1String("value")).toString();
               bool changed =  var.toMap().value(QLatin1String("changed")).toBool();
               QString line = changed ? QLatin1String("*") : QLatin1String(" ");
               line += QLatin1Char(' ');
               line += name;
               line += QString(maxLength - name.size() + 2,
                               QLatin1Char(' '));
-              line += value;
+              line += frameValue;
               io()->writeLine(line);
             }
           }
@@ -333,8 +332,7 @@ void TextCliFormatter::writeResult(const QVariantMap& map)
 #else
       if (data.type() == QVariant::String) {
 #endif
-        QString text = data.toString();
-        if (!text.isEmpty()) {
+        if (QString text = data.toString(); !text.isEmpty()) {
           if (type == QLatin1String("filterEntered")) {
             eventText = QLatin1String("  ") + text;
           } else if (type == QLatin1String("filterPassed")) {

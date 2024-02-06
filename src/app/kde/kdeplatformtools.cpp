@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 30 Mar 2013
  *
- * Copyright (C) 2013-2018  Urs Fleisch
+ * Copyright (C) 2013-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -194,10 +194,9 @@ int KdePlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
     const QString& caption)
 {
 #if KWIDGETSADDONS_VERSION >= 0x05f000
-  int rc = KMessageBox::warningTwoActionsCancel(parent, text, caption,
-    KGuiItem(QCoreApplication::translate("@default", "&Yes")),
-    KGuiItem(QCoreApplication::translate("@default", "&No")));
-  switch (rc) {
+switch (KMessageBox::warningTwoActionsCancel(parent, text, caption,
+          KGuiItem(QCoreApplication::translate("@default", "&Yes")),
+          KGuiItem(QCoreApplication::translate("@default", "&No")))) {
   case KMessageBox::Ok:
     return QMessageBox::Ok;
   case KMessageBox::Cancel:
@@ -211,8 +210,7 @@ int KdePlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
     return QMessageBox::Ignore;
   }
 #else
-  int rc = KMessageBox::warningYesNoCancel(parent, text, caption);
-  switch (rc) {
+  switch (KMessageBox::warningYesNoCancel(parent, text, caption)) {
   case KMessageBox::Ok:
     return QMessageBox::Ok;
   case KMessageBox::Cancel:
@@ -240,10 +238,9 @@ int KdePlatformTools::warningYesNoList(QWidget* parent, const QString& text,
     const QStringList& strlist, const QString& caption)
 {
 #if KWIDGETSADDONS_VERSION >= 0x05f000
-  int rc = KMessageBox::warningTwoActionsList(parent, text, strlist, caption,
-    KGuiItem(QCoreApplication::translate("@default", "&Yes")),
-    KGuiItem(QCoreApplication::translate("@default", "&No")));
-  switch (rc) {
+  switch (KMessageBox::warningTwoActionsList(parent, text, strlist, caption,
+            KGuiItem(QCoreApplication::translate("@default", "&Yes")),
+            KGuiItem(QCoreApplication::translate("@default", "&No")))) {
   case KMessageBox::PrimaryAction:
     return QMessageBox::Yes;
   case KMessageBox::SecondaryAction:
@@ -251,8 +248,7 @@ int KdePlatformTools::warningYesNoList(QWidget* parent, const QString& text,
     return QMessageBox::No;
   }
 #else
-  int rc = KMessageBox::warningYesNoList(parent, text, strlist, caption);
-  switch (rc) {
+  switch (KMessageBox::warningYesNoList(parent, text, strlist, caption)) {
   case KMessageBox::Yes:
     return QMessageBox::Yes;
   case KMessageBox::No:

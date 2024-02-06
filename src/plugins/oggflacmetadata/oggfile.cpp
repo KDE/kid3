@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 26 Sep 2005
  *
- * Copyright (C) 2005-2023  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -60,8 +60,8 @@ size_t oggread(void* ptr, size_t size, size_t nmemb, void* stream)
   if (!stream || !size)
     return 0;
 
-  auto iodev = reinterpret_cast<QIODevice*>(stream);
-  qint64 len = iodev->read(reinterpret_cast<char*>(ptr), size * nmemb);
+  auto iodev = static_cast<QIODevice*>(stream);
+  qint64 len = iodev->read(static_cast<char*>(ptr), size * nmemb);
   return len / size;
 }
 
@@ -78,8 +78,8 @@ size_t oggwrite(const void* ptr, size_t size, size_t nmemb, void* stream)
   if (!stream || !size)
     return 0;
 
-  auto iodev = reinterpret_cast<QIODevice*>(stream);
-  qint64 len = iodev->write(reinterpret_cast<const char*>(ptr), size * nmemb);
+  auto iodev = static_cast<QIODevice*>(stream);
+  qint64 len = iodev->write(static_cast<const char*>(ptr), size * nmemb);
   return len / size;
 }
 
@@ -92,7 +92,7 @@ size_t oggwrite(const void* ptr, size_t size, size_t nmemb, void* stream)
  */
 int oggseek(void* stream, ogg_int64_t offset, int whence)
 {
-  auto iodev = reinterpret_cast<QIODevice*>(stream);
+  auto iodev = static_cast<QIODevice*>(stream);
   if (!iodev || iodev->isSequential())
     return -1;
 
@@ -115,7 +115,7 @@ int oggseek(void* stream, ogg_int64_t offset, int whence)
  */
 int oggclose(void* stream)
 {
-  if (auto iodev = reinterpret_cast<QIODevice*>(stream)) {
+  if (auto iodev = static_cast<QIODevice*>(stream)) {
     iodev->close();
     return 0;
   }
@@ -129,7 +129,7 @@ int oggclose(void* stream)
  */
 long oggtell(void* stream)
 {
-  if (auto iodev = reinterpret_cast<QIODevice*>(stream)) {
+  if (auto iodev = static_cast<QIODevice*>(stream)) {
     return iodev->pos();
   }
   return -1;
@@ -178,27 +178,24 @@ void OggFile::readTags(bool force)
     m_comments.clear();
     markTagUnchanged(Frame::Tag_2);
     m_fileRead = true;
-    QString fnIn = currentFilePath();
 
-    if (readFileInfo(m_fileInfo, fnIn)) {
+    if (QString fnIn = currentFilePath(); readFileInfo(m_fileInfo, fnIn)) {
       QFile fpIn(fnIn);
       if (fpIn.open(QIODevice::ReadOnly)) {
-        vcedit_state* state = ::vcedit_new_state();
-        if (state) {
+        if (vcedit_state* state = ::vcedit_new_state()) {
           if (::vcedit_open_callbacks(state, &fpIn, oggread, oggwrite) >= 0) {
-            vorbis_comment* vc = ::vcedit_comments(state);
-            if (vc) {
+            if (vorbis_comment* vc = ::vcedit_comments(state)) {
               for (int i = 0; i < vc->comments; ++i) {
                 QString userComment =
                   QString::fromUtf8(vc->user_comments[i],
                                     vc->comment_lengths[i]);
-                int equalPos = userComment.indexOf(QLatin1Char('='));
-                if (equalPos != -1) {
+                if (int equalPos = userComment.indexOf(QLatin1Char('='));
+                    equalPos != -1) {
                   QString name(
                     userComment.left(equalPos).trimmed().toUpper());
-                  QString value(
-                    userComment.mid(equalPos + 1).trimmed());
-                  if (!value.isEmpty()) {
+                  if (QString value(
+                        userComment.mid(equalPos + 1).trimmed());
+                      !value.isEmpty()) {
                     m_comments.push_back(CommentField(name, value));
                   }
                 }
@@ -263,18 +260,15 @@ bool OggFile::writeTags(bool force, bool* renamed, bool preserve)
 
       QFile fpOut(fnOut);
       if (fpOut.open(QIODevice::WriteOnly)) {
-        vcedit_state* state = ::vcedit_new_state();
-        if (state) {
+        if (vcedit_state* state = ::vcedit_new_state()) {
           if (::vcedit_open_callbacks(state, &fpIn, oggread, oggwrite) >= 0) {
-            vorbis_comment* vc = ::vcedit_comments(state);
-            if (vc) {
+            if (vorbis_comment* vc = ::vcedit_comments(state)) {
               ::vorbis_comment_clear(vc);
               ::vorbis_comment_init(vc);
               auto it = m_comments.begin(); // clazy:exclude=detaching-member
               while (it != m_comments.end()) {
                 QString name = fixUpTagKey(it->getName(), TT_Vorbis);
-                QString value((*it).getValue());
-                if (!value.isEmpty()) {
+                if (QString value(it->getValue()); !value.isEmpty()) {
                   ::vorbis_comment_add_tag(
                     vc,
                     name.toLatin1().data(),
@@ -420,7 +414,7 @@ const char* getVorbisNameFromType(Frame::Type type)
     "WORK"             // FT_Work,
                        // FT_Custom1
   };
-  Q_STATIC_ASSERT(sizeof(names) / sizeof(names[0]) == Frame::FT_Custom1);
+  Q_STATIC_ASSERT(std::size(names) == Frame::FT_Custom1);
   if (type == Frame::FT_Picture &&
       TagConfig::instance().pictureNameIndex() == TagConfig::VP_COVERART) {
     return "COVERART";
@@ -450,8 +444,8 @@ Frame::Type getTypeFromVorbisName(QString name)
     strNumMap.insert(QLatin1String("COVERART"), Frame::FT_Picture);
     strNumMap.insert(QLatin1String("METADATA_BLOCK_PICTURE"), Frame::FT_Picture);
   }
-  auto it = strNumMap.constFind(name.remove(QLatin1Char('=')).toUpper());
-  if (it != strNumMap.constEnd()) {
+  if (auto it = strNumMap.constFind(name.remove(QLatin1Char('=')).toUpper());
+      it != strNumMap.constEnd()) {
     return static_cast<Frame::Type>(*it);
   }
   return Frame::getTypeFromCustomFrameName(name.toLatin1());
@@ -466,12 +460,10 @@ Frame::Type getTypeFromVorbisName(QString name)
  */
 QString getVorbisName(const Frame& frame)
 {
-  Frame::Type type = frame.getType();
-  if (type <= Frame::FT_LastFrame) {
+  if (Frame::Type type = frame.getType(); type <= Frame::FT_LastFrame) {
     return QString::fromLatin1(getVorbisNameFromType(type));
-  } else {
-    return frame.getName().remove(QLatin1Char('=')).toUpper();
   }
+  return frame.getName().remove(QLatin1Char('=')).toUpper();
 }
 
 }
@@ -493,8 +485,8 @@ void OggFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
   } else {
     bool changed = false;
     for (auto it = m_comments.begin(); it != m_comments.end();) { // clazy:exclude=detaching-member
-      QString name((*it).getName());
-      if (flt.isEnabled(getTypeFromVorbisName(name), name)) {
+      if (QString name(it->getName());
+          flt.isEnabled(getTypeFromVorbisName(name), name)) {
         it = m_comments.erase(it);
         changed = true;
       } else {
@@ -660,12 +652,11 @@ bool OggFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     if (frame.getType() == Frame::FT_Track) {
-      int numTracks = getTotalNumberOfTracksIfEnabled();
-      if (numTracks > 0) {
+      if (int numTracks = getTotalNumberOfTracksIfEnabled(); numTracks > 0) {
         QString numTracksStr = QString::number(numTracks);
         formatTrackNumberIfEnabled(numTracksStr, false);
-        const QString trackTotalName(QLatin1String("TRACKTOTAL"));
-        if (getTextField(trackTotalName) != numTracksStr) {
+        if (const QString trackTotalName(QLatin1String("TRACKTOTAL"));
+            getTextField(trackTotalName) != numTracksStr) {
           Frame::ExtendedType extendedType(Frame::FT_Other, trackTotalName);
           setTextField(trackTotalName, numTracksStr, extendedType);
           markTagChanged(Frame::Tag_2, extendedType);
@@ -674,8 +665,8 @@ bool OggFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     }
 
     // If the frame has an index, change that specific frame
-    int index = frame.getIndex();
-    if (index >= 0 && index < static_cast<int>(m_comments.size())) {
+    if (int index = frame.getIndex();
+        index >= 0 && index < m_comments.size()) {
       QString value = frame.getValue();
       if (frame.getType() == Frame::FT_Picture) {
         Frame newFrame(frame);
@@ -708,8 +699,8 @@ bool OggFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
   if (tagNr == Frame::Tag_2) {
     if (type == Frame::FT_Track) {
       int numTracks;
-      int num = splitNumberAndTotal(frame.getValue(), &numTracks);
-      if (num >= 0) {
+      if (int num = splitNumberAndTotal(frame.getValue(), &numTracks);
+          num >= 0) {
         QString str;
         if (num != 0) {
           str.setNum(num);
@@ -783,8 +774,8 @@ bool OggFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
 {
   if (tagNr == Frame::Tag_2) {
     // If the frame has an index, delete that specific frame
-    int index = frame.getIndex();
-    if (index >= 0 && index < static_cast<int>(m_comments.size())) {
+    if (int index = frame.getIndex();
+        index >= 0 && index < m_comments.size()) {
       m_comments.removeAt(index);
       markTagChanged(Frame::Tag_2, frame.getExtendedType());
       return true;
@@ -805,20 +796,19 @@ void OggFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
 {
   if (tagNr == Frame::Tag_2) {
     frames.clear();
-    QString name;
     int i = 0;
     for (auto it = m_comments.constBegin(); it != m_comments.constEnd(); ++it) {
-      name = (*it).getName();
-      Frame::Type type = getTypeFromVorbisName(name);
-      if (type == Frame::FT_Picture) {
+      QString name = it->getName();
+      if (Frame::Type type = getTypeFromVorbisName(name);
+          type == Frame::FT_Picture) {
         Frame frame(type, QLatin1String(""), name, i++);
-        PictureFrame::setFieldsFromBase64(frame, (*it).getValue());
+        PictureFrame::setFieldsFromBase64(frame, it->getValue());
         if (name == QLatin1String("COVERART")) {
           PictureFrame::setMimeType(frame, getTextField(QLatin1String("COVERARTMIME")));
         }
         frames.insert(frame);
       } else {
-        frames.insert(Frame(type, (*it).getValue(), name, i++));
+        frames.insert(Frame(type, it->getValue(), name, i++));
       }
     }
     updateMarkedState(tagNr, frames);
@@ -864,11 +854,11 @@ QStringList OggFile::getFrameIds(Frame::TagNumber tagNr) const
 
   QStringList lst;
   lst.reserve(Frame::FT_LastFrame - Frame::FT_FirstFrame + 1 +
-              sizeof(fieldNames) / sizeof(fieldNames[0]));
+              std::size(fieldNames));
   for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-    auto name = Frame::ExtendedType(static_cast<Frame::Type>(k),
-                                    QLatin1String("")).getName();
-    if (!name.isEmpty()) {
+    if (auto name = Frame::ExtendedType(static_cast<Frame::Type>(k),
+                                        QLatin1String("")).getName();
+        !name.isEmpty()) {
       lst.append(name);
     }
   }
@@ -895,8 +885,7 @@ bool OggFile::readFileInfo(FileInfo& info, const QString& fn) const
   if (fp.open(QIODevice::ReadOnly)) {
     OggVorbis_File vf;
     if (::ov_open_callbacks(&fp, &vf, nullptr, 0, ovcb) == 0) {
-      vorbis_info* vi = ::ov_info(&vf, -1);
-      if (vi) {
+      if (vorbis_info* vi = ::ov_info(&vf, -1)) {
         info.valid = true;
         info.version = vi->version;
         info.channels = vi->channels;
@@ -927,8 +916,8 @@ bool OggFile::readFileInfo(FileInfo& info, const QString& fn) const
 QString OggFile::CommentList::getValue(const QString& name) const
 {
   for (const_iterator it = begin(); it != end(); ++it) {
-    if ((*it).getName() == name) {
-      return (*it).getValue();
+    if (it->getName() == name) {
+      return it->getValue();
     }
   }
   return QLatin1String("");
@@ -943,21 +932,18 @@ QString OggFile::CommentList::getValue(const QString& name) const
 bool OggFile::CommentList::setValue(const QString& name, const QString& value)
 {
   for (iterator it = begin(); it != end(); ++it) {
-    if ((*it).getName() == name) {
-      QString oldValue = (*it).getValue();
-      if (value != oldValue) {
-        (*it).setValue(value);
+    if (it->getName() == name) {
+      if (QString oldValue = it->getValue(); value != oldValue) {
+        it->setValue(value);
         return true;
-      } else {
-        return false;
       }
+      return false;
     }
   }
   if (!value.isEmpty()) {
     CommentField cf(name, value);
     push_back(cf);
     return true;
-  } else {
-    return false;
   }
+  return false;
 }

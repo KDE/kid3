@@ -67,7 +67,7 @@ class DSFFile : public TagLib::File
    * \note In the current implementation, \a propertiesStyle is ignored.
    */
   // BIC: merge with the above constructor
-  DSFFile(TagLib::FileName file, TagLib::ID3v2::FrameFactory *frameFactory,
+  DSFFile(TagLib::FileName file, const TagLib::ID3v2::FrameFactory *frameFactory,
        bool readProperties = true,
        TagLib::AudioProperties::ReadStyle propertiesStyle
           = TagLib::AudioProperties::Average);
@@ -84,7 +84,7 @@ class DSFFile : public TagLib::File
    *
    * \note In the current implementation, \a propertiesStyle is ignored.
    */
-  DSFFile(TagLib::IOStream *stream, TagLib::ID3v2::FrameFactory *frameFactory,
+  DSFFile(TagLib::IOStream *stream, const TagLib::ID3v2::FrameFactory *frameFactory,
           bool readProperties = true,
           TagLib::AudioProperties::ReadStyle propertiesStyle =
           TagLib::AudioProperties::Average);
@@ -92,12 +92,12 @@ class DSFFile : public TagLib::File
   /*!
    * Destroys this instance of the File.
    */
-  virtual ~DSFFile() override;
+  ~DSFFile() override;
 
   /*!
    * Returns a pointer to a ID3v2 tag
    */
-  virtual TagLib::Tag *tag() const override;
+  TagLib::Tag *tag() const override;
 
   /*!
    * Implements the reading part of the unified property interface.
@@ -121,7 +121,7 @@ class DSFFile : public TagLib::File
    * Returns the DSF::Properties for this file.  If no audio properties
    * were read then this will return a null pointer.
    */
-  virtual TagLib::AudioProperties *audioProperties() const override;
+  TagLib::AudioProperties *audioProperties() const override;
 
   /*!
    * Save the file.  If at least one tag -- ID3v1 or ID3v2 -- exists this
@@ -138,7 +138,7 @@ class DSFFile : public TagLib::File
    *
    * \see save(int tags)
    */
-  virtual bool save() override;
+  bool save() override;
 
   /*!
    * Save the file.  If at least one tag -- ID3v1 or ID3v2 -- exists this

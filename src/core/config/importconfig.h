@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 17 Sep 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -112,21 +112,21 @@ public:
   /**
    * Destructor.
    */
-  virtual ~ImportConfig() override = default;
+  ~ImportConfig() override = default;
 
   /**
    * Persist configuration.
    *
    * @param config configuration
    */
-  virtual void writeToConfig(ISettings* config) const override;
+  void writeToConfig(ISettings* config) const override;
 
   /**
    * Read persisted configuration.
    *
    * @param config configuration
    */
-  virtual void readFromConfig(ISettings* config) override;
+  void readFromConfig(ISettings* config) override;
 
   /** Get list of available plugins. */
   QStringList availablePlugins() const { return m_availablePlugins; }

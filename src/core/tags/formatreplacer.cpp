@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 06 Jul 2008
  *
- * Copyright (C) 2008-2018  Urs Fleisch
+ * Copyright (C) 2008-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -50,14 +50,14 @@ FormatReplacer::~FormatReplacer()
 void FormatReplacer::replaceEscapedChars()
 {
   if (!m_str.isEmpty()) {
-    const int numEscCodes = 8;
-    const QChar escCode[numEscCodes] = {
+    constexpr int numEscCodes = 8;
+    constexpr QChar escCode[numEscCodes] = {
       QLatin1Char('n'), QLatin1Char('t'), QLatin1Char('r'), QLatin1Char('\\'),
       QLatin1Char('a'), QLatin1Char('b'), QLatin1Char('f'), QLatin1Char('v')};
-    const char escChar[numEscCodes] = {
+    constexpr char escChar[numEscCodes] = {
       '\n', '\t', '\r', '\\', '\a', '\b', '\f', '\v'};
 
-    for (int pos = 0; pos < static_cast<int>(m_str.length());) {
+    for (int pos = 0; pos < m_str.length();) {
       pos = m_str.indexOf(QLatin1Char('\\'), pos);
       if (pos == -1) break;
       ++pos;
@@ -91,7 +91,7 @@ void FormatReplacer::replaceEscapedChars()
 void FormatReplacer::replacePercentCodes(unsigned flags)
 {
   if (!m_str.isEmpty()) {
-    for (int pos = 0; pos < static_cast<int>(m_str.length());) {
+    for (int pos = 0; pos < m_str.length();) {
       pos = m_str.indexOf(QLatin1Char('%'), pos);
       if (pos == -1) break;
 
@@ -110,20 +110,20 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
         htmlEscape = true;
       }
       if (m_str[codePos] == QLatin1Char('{')) {
-        int closingBracePos = m_str.indexOf(QLatin1Char('}'), codePos + 1);
-        if (closingBracePos > codePos + 1) {
+        if (int closingBracePos = m_str.indexOf(QLatin1Char('}'), codePos + 1);
+            closingBracePos > codePos + 1) {
           QString longCode =
             m_str.mid(codePos + 1, closingBracePos - codePos - 1).toLower();
           if (longCode.startsWith(QLatin1Char('"'))) {
-            int prefixEnd = longCode.indexOf(QLatin1Char('"'), 1);
-            if (prefixEnd != -1 && prefixEnd < longCode.length() - 2) {
+            if (int prefixEnd = longCode.indexOf(QLatin1Char('"'), 1);
+                prefixEnd != -1 && prefixEnd < longCode.length() - 2) {
               prefix = longCode.mid(1, prefixEnd - 1);
               longCode.remove(0, prefixEnd + 1);
             }
           }
           if (longCode.endsWith(QLatin1Char('"'))) {
-            int postfixStart = longCode.lastIndexOf(QLatin1Char('"'), -2);
-            if (postfixStart > 1) {
+            if (int postfixStart = longCode.lastIndexOf(QLatin1Char('"'), -2);
+                postfixStart > 1) {
               postfix = longCode.mid(postfixStart + 1,
                                      longCode.length() - postfixStart - 2);
               longCode.truncate(postfixStart);
@@ -140,11 +140,11 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
       if (codeLen > 0) {
         if (flags & FSF_ReplaceSeparators) {
 #ifdef Q_OS_WIN32
-          static const char illegalChars[] = "<>:\"|?*\\/";
+          static constexpr char illegalChars[] = "<>:\"|?*\\/";
 #else
           // ':' and '\' are included in the set of illegal characters to
           // keep the old behavior when no string replacement is enabled.
-          static const char illegalChars[] = ":\\/";
+          static constexpr char illegalChars[] = ":\\/";
 #endif
           Utils::replaceIllegalFileNameCharacters(repl, QLatin1String("-"),
                                                   illegalChars);
@@ -185,10 +185,9 @@ void FormatReplacer::replacePercentCodes(unsigned flags)
 QString FormatReplacer::escapeHtml(const QString& plain)
 {
   QString rich;
-  rich.reserve(int(plain.length() * qreal(1.1)));
+  rich.reserve(static_cast<int>(plain.length() * 1.1));
   for (int i = 0; i < plain.length(); ++i) {
-    ushort ch = plain.at(i).unicode();
-    if (ch == '<')
+    if (ushort ch = plain.at(i).unicode(); ch == '<')
       rich += QLatin1String("&lt;");
     else if (ch == '>')
       rich += QLatin1String("&gt;");

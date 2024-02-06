@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 14 Apr 2007
  *
- * Copyright (C) 2007-2018  Urs Fleisch
+ * Copyright (C) 2007-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -48,10 +48,10 @@ StringListEdit::StringListEdit(QAbstractItemModel* model, QWidget* parent)
 void StringListEdit::addItem()
 {
   bool ok;
-  QString txt = QInputDialog::getText(
-    this, tr("Add Item"), QString(), QLineEdit::Normal,
-    QString(), &ok);
-  if (ok && !txt.isEmpty()) {
+  if (QString txt = QInputDialog::getText(
+        this, tr("Add Item"), QString(), QLineEdit::Normal,
+        QString(), &ok);
+      ok && !txt.isEmpty()) {
     QAbstractItemModel* model = getItemView()->model();
     int row = model->rowCount();
     model->insertRow(row);
@@ -64,14 +64,13 @@ void StringListEdit::addItem()
  */
 void StringListEdit::editItem()
 {
-  QModelIndex index = getItemView()->currentIndex();
-  if (index.isValid()) {
+  if (QModelIndex index = getItemView()->currentIndex(); index.isValid()) {
     QAbstractItemModel* model = getItemView()->model();
     bool ok;
-    QString txt = QInputDialog::getText(
-      this, tr("Edit Item"), QString(), QLineEdit::Normal,
-      model->data(index, Qt::EditRole).toString(), &ok);
-    if (ok && !txt.isEmpty()) {
+    if (QString txt = QInputDialog::getText(
+          this, tr("Edit Item"), QString(), QLineEdit::Normal,
+          model->data(index, Qt::EditRole).toString(), &ok);
+        ok && !txt.isEmpty()) {
       model->setData(index, txt);
     }
   }

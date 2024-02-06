@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 04 Oct 2005
  *
- * Copyright (C) 2005-2011  Urs Fleisch
+ * Copyright (C) 2005-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -52,20 +52,20 @@ public:
   /**
    * Destructor.
    */
-  virtual ~FlacFile() override;
+  ~FlacFile() override;
 
   /**
    * Get key of tagged file format.
    * @return "FlacMetadata".
    */
-  virtual QString taggedFileKey() const override;
+  QString taggedFileKey() const override;
 
   /**
    * Read tags from file.
    *
    * @param force true to force reading even if tags were already read.
    */
-  virtual void readTags(bool force) override;
+  void readTags(bool force) override;
 
   /**
    * Write tags to file and rename it if necessary.
@@ -78,21 +78,21 @@ public:
    *
    * @return true if ok, false if the file could not be written or renamed.
    */
-  virtual bool writeTags(bool force, bool* renamed, bool preserve) override;
+  bool writeTags(bool force, bool* renamed, bool preserve) override;
 
   /**
    * Free resources allocated when calling readTags().
    *
    * @param force true to force clearing even if the tags are modified
    */
-  virtual void clearTags(bool force) override;
+  void clearTags(bool force) override;
 
   /**
    * Get technical detail information.
    *
    * @param info the detail information is returned here
    */
-  virtual void getDetailInfo(DetailInfo& info) const override;
+  void getDetailInfo(DetailInfo& info) const override;
 
   /**
    * Get duration of file.
@@ -100,14 +100,14 @@ public:
    * @return duration in seconds,
    *         0 if unknown.
    */
-  virtual unsigned getDuration() const override;
+  unsigned getDuration() const override;
 
   /**
    * Get file extension including the dot.
    *
    * @return file extension ".flac".
    */
-  virtual QString getFileExtension() const override;
+  QString getFileExtension() const override;
 
 #ifdef HAVE_FLAC_PICTURE
   /**
@@ -117,7 +117,7 @@ public:
    * @return true if a tag is available.
    * @see isTagInformationRead()
    */
-  virtual bool hasTag(Frame::TagNumber tagNr) const override;
+  bool hasTag(Frame::TagNumber tagNr) const override;
 
   /**
    * Set a frame in the tags.
@@ -127,7 +127,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool setFrame(Frame::TagNumber tagNr, const Frame& frame) override;
+  bool setFrame(Frame::TagNumber tagNr, const Frame& frame) override;
 
   /**
    * Add a frame in the tags.
@@ -137,7 +137,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool addFrame(Frame::TagNumber tagNr, Frame& frame) override;
+  bool addFrame(Frame::TagNumber tagNr, Frame& frame) override;
 
   /**
    * Delete a frame from the tags.
@@ -147,7 +147,7 @@ public:
    *
    * @return true if ok.
    */
-  virtual bool deleteFrame(Frame::TagNumber tagNr, const Frame& frame) override;
+  bool deleteFrame(Frame::TagNumber tagNr, const Frame& frame) override;
 
   /**
    * Remove frames.
@@ -155,7 +155,7 @@ public:
    * @param tagNr tag number
    * @param flt filter specifying which frames to remove
    */
-  virtual void deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt) override;
+  void deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt) override;
 
   /**
    * Get all frames in tag.
@@ -163,7 +163,7 @@ public:
    * @param tagNr tag number
    * @param frames frame collection to set.
    */
-  virtual void getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames) override;
+  void getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames) override;
 #endif // HAVE_FLAC_PICTURE
 
 private:
@@ -176,7 +176,7 @@ private:
    * @param si stream info
    * @return true if ok.
    */
-  bool readFileInfo(FileInfo& info, FLAC::Metadata::StreamInfo* si) const;
+  bool readFileInfo(FileInfo& info, const FLAC::Metadata::StreamInfo* si) const;
 
   /**
    * Set the vorbis comment block with the comments.

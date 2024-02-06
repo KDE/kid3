@@ -190,14 +190,14 @@ public:
     void clear();
     void addPath(const QString &path);
     void removePath(const QString &path);
-    ExtendedInformation getInfo(const QFileInfo &info) const;
+    ExtendedInformation getInfo(const QFileInfo &fileInfo) const;
     AbstractFileDecorationProvider *decorationProvider() const;
     bool resolveSymlinks() const;
 
 public Q_SLOTS:
     void list(const QString &directoryPath);
     void fetchExtendedInformation(const QString &path, const QStringList &files);
-    void updateFile(const QString &path);
+    void updateFile(const QString &filePath);
     void setResolveSymlinks(bool enable);
     void setDecorationProvider(AbstractFileDecorationProvider *provider);
 
@@ -209,7 +209,7 @@ private:
     void run() Q_DECL_OVERRIDE;
     // called by run():
     void getFileInfos(const QString &path, const QStringList &files);
-    void fetch(const QFileInfo &info, QElapsedTimer &base, bool &firstTime, QVector<QPair<QString, QFileInfo> > &updatedFiles, const QString &path);
+    void fetch(const QFileInfo &fileInfo, QElapsedTimer &base, bool &firstTime, QVector<QPair<QString, QFileInfo> > &updatedFiles, const QString &path);
 
 private:
     mutable QMutex mutex;

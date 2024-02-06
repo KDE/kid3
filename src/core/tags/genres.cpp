@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 9 Jan 2003
  *
- * Copyright (C) 2003-2018  Urs Fleisch
+ * Copyright (C) 2003-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -456,8 +456,7 @@ const char* Genres::getName(int num)
  */
 int Genres::getIndex(int num)
 {
-  int i;
-  for (i = 0; i < Genres::count + 1; i++) {
+  for (int i = 0; i < Genres::count + 1; i++) {
     if (s_genreNum[i] == num) {
       return i;
     }
@@ -481,8 +480,7 @@ int Genres::getNumber(const QString& str)
       strNumMap.insert(QString::fromLatin1(s_genre[i]), s_genreNum[i]);
     }
   }
-  auto it = strNumMap.constFind(str);
-  if (it != strNumMap.constEnd()) {
+  if (auto it = strNumMap.constFind(str); it != strNumMap.constEnd()) {
     return *it;
   }
   return 255; // 255 for unknown
@@ -519,8 +517,8 @@ QString Genres::getNameString(const QString& str)
             genreCode == QLatin1String("CR")) {
           genres.append(genreCode);
         } else if (ok && n >= 0 && n <= 0xff) {
-          QString genreText = QString::fromLatin1(getName(n));
-          if (!genreText.isEmpty()) {
+          if (QString genreText = QString::fromLatin1(getName(n));
+              !genreText.isEmpty()) {
             genres.append(genreText);
           }
         }
@@ -529,10 +527,9 @@ QString Genres::getNameString(const QString& str)
       s = s.trimmed();
       if (!s.isEmpty()) {
         bool ok;
-        int n = s.toInt(&ok);
-        if (ok && n >= 0 && n <= 0xff) {
-          QString genreText = QString::fromLatin1(getName(n));
-          if (!genreText.isEmpty()) {
+        if (int n = s.toInt(&ok); ok && n >= 0 && n <= 0xff) {
+          if (QString genreText = QString::fromLatin1(getName(n));
+              !genreText.isEmpty()) {
             genres.append(genreText);
           }
         } else {
@@ -584,11 +581,10 @@ QString Genres::getNumberString(const QString& str, bool parentheses)
   }
   if (!parentheses) {
     return Frame::joinStringList(genres);
-  } else {
-    if (!genres.isEmpty()) {
-      genreText.prepend(QLatin1Char('(') + genres.join(QLatin1String(")(")) +
-                        QLatin1Char(')'));
-    }
-    return genreText;
   }
+  if (!genres.isEmpty()) {
+    genreText.prepend(QLatin1Char('(') + genres.join(QLatin1String(")(")) +
+      QLatin1Char(')'));
+  }
+  return genreText;
 }

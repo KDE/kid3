@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 28 Mar 2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -83,12 +83,12 @@ AttributeData::AttributeData(const QString& name)
   static QMap<QString, int> strNumMap;
   if (strNumMap.empty()) {
     // first time initialization
-    for (const auto& twp : typeOfWmPriv) {
-      strNumMap.insert(QString::fromLatin1(twp.str), twp.type);
+    for (const auto& [str, type] : typeOfWmPriv) {
+      strNumMap.insert(QString::fromLatin1(str), type);
     }
   }
   auto it = strNumMap.constFind(name);
-  m_type = (it != strNumMap.constEnd()) ? static_cast<Type>(*it) : Unknown;
+  m_type = it != strNumMap.constEnd() ? static_cast<Type>(*it) : Unknown;
 }
 
 /**
@@ -99,14 +99,14 @@ AttributeData::AttributeData(const QString& name)
  *
  * @return true if ok.
  */
-bool AttributeData::toString(const QByteArray& data, QString& str)
+bool AttributeData::toString(const QByteArray& data, QString& str) const
 {
   switch (m_type) {
     case Utf16: {
 #if QT_VERSION >= 0x060000
-      const char16_t* unicode = reinterpret_cast<const char16_t*>(data.data());
+      auto unicode = reinterpret_cast<const char16_t*>(data.data());
 #else
-      const ushort* unicode = reinterpret_cast<const ushort*>(data.data());
+      auto unicode = reinterpret_cast<const ushort*>(data.data());
 #endif
       int size = data.size() / 2;
       while (size > 0 && unicode[size - 1] == 0) {
@@ -157,7 +157,7 @@ bool AttributeData::toString(const QByteArray& data, QString& str)
  *
  * @return true if ok.
  */
-bool AttributeData::toByteArray(const QString& str, QByteArray& data)
+bool AttributeData::toByteArray(const QString& str, QByteArray& data) const
 {
   switch (m_type) {
     case Utf16: {
@@ -224,9 +224,9 @@ bool AttributeData::isHexString(const QString& str, char lastAllowedLetter,
     return false;
   }
   const char lowerLastAllowedLetter = std::tolower(lastAllowedLetter);
-  for (int i = 0; i < static_cast<int>(str.length()); ++i) {
-    char c = str[i].toLatin1();
-    if (!((c >= '0' && c <= '9') || (c >= 'A' && c <= lastAllowedLetter) ||
+  for (int i = 0; i < str.length(); ++i) {
+    if (char c = str[i].toLatin1();
+        !((c >= '0' && c <= '9') || (c >= 'A' && c <= lastAllowedLetter) ||
           (c >= 'a' && c <= lowerLastAllowedLetter) ||
           additionalChars.indexOf(QLatin1Char(c)) != -1)) {
       return false;

@@ -6,7 +6,7 @@
  * \author Urs Fleisch
  * \date 11-Jan-2009
  *
- * Copyright (C) 2009-2018  Urs Fleisch
+ * Copyright (C) 2009-2024  Urs Fleisch
  *
  * This file is part of Kid3.
  *
@@ -89,7 +89,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   m_edit->setReadOnly(true);
   vlayout->addWidget(m_edit);
 
-  QGroupBox* artistAlbumBox = new QGroupBox(tr("&Artist/Album"), this);
+  auto artistAlbumBox = new QGroupBox(tr("&Artist/Album"), this);
   m_artistLineEdit = new QLineEdit(artistAlbumBox);
   m_albumLineEdit = new QLineEdit(artistAlbumBox);
   auto hbox = new QHBoxLayout;
@@ -102,7 +102,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   connect(m_albumLineEdit, &QLineEdit::returnPressed,
           this, &BrowseCoverArtDialog::showPreview);
 
-  QGroupBox* srcbox = new QGroupBox(tr("&Source"), this);
+  auto srcbox = new QGroupBox(tr("&Source"), this);
   m_formatListEdit = new FormatListEdit(
         {tr("Source:"), tr("URL:")},
         {QString(), getToolTip()},
@@ -115,7 +115,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   connect(m_formatListEdit, &FormatListEdit::formatChanged,
           this, &BrowseCoverArtDialog::showPreview);
 
-  QGroupBox* tabbox = new QGroupBox(tr("&URL extraction"), this);
+  auto tabbox = new QGroupBox(tr("&URL extraction"), this);
   m_matchUrlTableModel = new ConfigTableModel(tabbox);
   m_matchUrlTableModel->setLabels({tr("Match"), tr("Picture URL")});
   m_matchUrlTable = new ConfigTable(m_matchUrlTableModel, tabbox);
@@ -127,12 +127,12 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
   vlayout->addWidget(tabbox);
 
   auto hlayout = new QHBoxLayout;
-  QPushButton* helpButton = new QPushButton(tr("&Help"), this);
+  auto helpButton = new QPushButton(tr("&Help"), this);
   helpButton->setAutoDefault(false);
   hlayout->addWidget(helpButton);
   connect(helpButton, &QAbstractButton::clicked, this, &BrowseCoverArtDialog::showHelp);
 
-  QPushButton* saveButton = new QPushButton(tr("&Save Settings"), this);
+  auto saveButton = new QPushButton(tr("&Save Settings"), this);
   saveButton->setAutoDefault(false);
   hlayout->addWidget(saveButton);
   connect(saveButton, &QAbstractButton::clicked, this, &BrowseCoverArtDialog::saveConfig);
@@ -141,8 +141,8 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
                                          QSizePolicy::Minimum);
   hlayout->addItem(hspacer);
 
-  QPushButton* browseButton = new QPushButton(tr("&Browse"), this);
-  QPushButton* cancelButton = new QPushButton(tr("&Cancel"), this);
+  auto browseButton = new QPushButton(tr("&Browse"), this);
+  auto cancelButton = new QPushButton(tr("&Cancel"), this);
   browseButton->setAutoDefault(false);
   browseButton->setDefault(true);
   cancelButton->setAutoDefault(false);
