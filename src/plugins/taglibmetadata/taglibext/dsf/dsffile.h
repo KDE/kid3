@@ -53,7 +53,7 @@ class DSFFile : public TagLib::File
    * \deprecated This constructor will be dropped in favor of the one below
    * in a future version.
    */
-  DSFFile(TagLib::FileName file, bool readProperties = true,
+  explicit DSFFile(TagLib::FileName file, bool readProperties = true,
        TagLib::AudioProperties::ReadStyle propertiesStyle
        = TagLib::AudioProperties::Average);
 

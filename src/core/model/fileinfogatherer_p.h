@@ -82,7 +82,7 @@ public:
     enum Type { Dir, File, System };
 
     ExtendedInformation() {}
-    ExtendedInformation(const QFileInfo &info) : mFileInfo(info) {}
+    explicit ExtendedInformation(const QFileInfo &info) : mFileInfo(info) {}
 
     inline bool isDir() { return type() == Dir; }
     inline bool isFile() { return type() == File; }

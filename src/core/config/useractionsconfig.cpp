@@ -219,7 +219,7 @@ void UserActionsConfig::setDefaultUserActions(bool upgradeOnly)
             QLatin1String("Export CSV"),
             QLatin1String("@qml %{qmlpath}/script/ExportCsv.qml"),
             false, true));
-  } else if (upgradeOnly && ConfigStore::getConfigVersion() == 2) {
+  } else if (ConfigStore::getConfigVersion() == 2) {
     // Remove default argument from "Export CSV", a file selector is now used.
     if (int exportCsvIdx = m_contextMenuCommands.indexOf(
           UserActionsConfig::MenuCommand(

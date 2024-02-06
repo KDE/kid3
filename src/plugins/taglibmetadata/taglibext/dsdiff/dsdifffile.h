@@ -65,7 +65,7 @@ public:
    *
    * \note In the current implementation, \a propertiesStyle is ignored.
    */
-  DSDIFFFile(TagLib::FileName file, bool readProperties = true,
+  explicit DSDIFFFile(TagLib::FileName file, bool readProperties = true,
        TagLib::AudioProperties::ReadStyle propertiesStyle
        = TagLib::AudioProperties::Average);
 

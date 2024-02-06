@@ -60,8 +60,7 @@ QVariant TextTableModel::data(const QModelIndex& index, int role) const
   if (!index.isValid())
     return QVariant();
   int rowNr = index.row() + (m_hasHeaderLine ? 1 : 0);
-  if (!index.isValid() ||
-      rowNr < 0 || rowNr >= m_cells.size() || index.column() < 0)
+  if (rowNr < 0 || rowNr >= m_cells.size() || index.column() < 0)
     return QVariant();
   if (const QStringList& row = m_cells.at(rowNr);
       index.column() < row.size() &&

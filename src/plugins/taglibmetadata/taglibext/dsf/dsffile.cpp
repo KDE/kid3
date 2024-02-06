@@ -42,7 +42,7 @@
 class DSFFile::FilePrivate
 {
 public:
-  FilePrivate(const TagLib::ID3v2::FrameFactory *frameFactory
+  explicit FilePrivate(const TagLib::ID3v2::FrameFactory *frameFactory
               = TagLib::ID3v2::FrameFactory::instance())
     : ID3v2FrameFactory(frameFactory),
       ID3v2Location(0),
@@ -79,7 +79,7 @@ public:
     char raw[8];
 
     for (int i = 0; i < 8; i++) {
-      raw[i] = ((0xff << (i * 8)) & num) >> (i * 8);
+      raw[i] = ((0xffULL << (i * 8)) & num) >> (i * 8);
     }
     v.setData(raw, 8);
     return v;

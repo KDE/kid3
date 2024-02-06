@@ -139,13 +139,11 @@ void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
   QAction* action;
   if (row >= -1) {
     action = menu.addAction(tr("&Insert row"));
-    if (action) action->setData((row << 2) | 0);
+    if (action) action->setData(row << 2);
   }
   if (row >= 0) {
     action = menu.addAction(tr("&Delete row"));
     if (action) action->setData((row << 2) | 1);
-  }
-  if (row >= 0) {
     action = menu.addAction(tr("&Clear row"));
     if (action) action->setData((row << 2) | 2);
   }

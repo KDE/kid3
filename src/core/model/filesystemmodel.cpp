@@ -1733,7 +1733,7 @@ FileSystemModelPrivate::FileSystemNode* FileSystemModelPrivate::addNode(FileSyst
     // In the common case, itemLocation == count() so check there first
     auto node = new FileSystemModelPrivate::FileSystemNode(fileName, parentNode);
 #ifndef QT_NO_FILESYSTEMWATCHER
-    node->populate(info);
+    node->populate(ExtendedInformation(info));
 #else
     Q_UNUSED(info)
 #endif

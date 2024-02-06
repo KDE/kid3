@@ -372,10 +372,10 @@ ExtendedInformation FileInfoGatherer::getInfo(const QFileInfo &fileInfo) const
         if (!fileInfo.exists() && !fileInfo.isSymLink()) {
             watcher->removePath(fileInfo.absoluteFilePath());
         } else {
-            if (const QString path = fileInfo.absoluteFilePath();
-                !path.isEmpty() && fileInfo.exists() && fileInfo.isFile() && fileInfo.isReadable()
-                && !watcher->files().contains(path)) {
-                watcher->addPath(path);
+            if (const QString filePath = fileInfo.absoluteFilePath();
+                !filePath.isEmpty() && fileInfo.exists() && fileInfo.isFile() && fileInfo.isReadable()
+                && !watcher->files().contains(filePath)) {
+                watcher->addPath(filePath);
             }
         }
     }

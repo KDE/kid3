@@ -80,7 +80,7 @@ namespace
 class DSDIFFFile::FilePrivate
 {
 public:
-FilePrivate(const TagLib::ID3v2::FrameFactory *frameFactory
+explicit FilePrivate(const TagLib::ID3v2::FrameFactory *frameFactory
         = TagLib::ID3v2::FrameFactory::instance())
   : ID3v2FrameFactory(frameFactory),
     properties(nullptr),
