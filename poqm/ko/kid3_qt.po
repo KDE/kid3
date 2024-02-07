@@ -13,418 +13,418 @@ msgstr ""
 "X-Generator: Lokalize 22.12.3\n"
 "X-Qt-Contexts: true\n"
 
-#: src/app/cli/clicommand.cpp:350
+#: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
 msgid "Timeout"
 msgstr "시간 제한"
 
-#: src/app/cli/clicommand.cpp:394
+#: src/app/cli/clicommand.cpp:389
 msgctxt "HelpCommand|"
 msgid "Help"
 msgstr "도움말"
 
-#: src/app/cli/clicommand.cpp:395
+#: src/app/cli/clicommand.cpp:390
 msgctxt "HelpCommand|"
 msgid "Command name"
 msgstr "명령 이름"
 
-#: src/app/cli/clicommand.cpp:406
+#: src/app/cli/clicommand.cpp:401
 msgctxt "TimeoutCommand|"
 msgid "Overwrite timeout"
 msgstr "덮어쓰기 시간 제한"
 
-#: src/app/cli/clicommand.cpp:407
+#: src/app/cli/clicommand.cpp:402
 msgctxt "TimeoutCommand|"
 msgid "Time"
 msgstr "시간"
 
-#: src/app/cli/clicommand.cpp:448
+#: src/app/cli/clicommand.cpp:441
 msgctxt "QuitCommand|"
 msgid "Quit application"
 msgstr "앱 끝내기"
 
-#: src/app/cli/clicommand.cpp:457
+#: src/app/cli/clicommand.cpp:450
 msgctxt "QuitCommand|"
 msgid "The current folder has been modified."
 msgstr "현재 폴더를 수정했습니다."
 
-#: src/app/cli/clicommand.cpp:459
+#: src/app/cli/clicommand.cpp:452
 msgctxt "QuitCommand|"
 msgid "Type 'exit force' to quit."
 msgstr "끝내려면 'exit force'를 입력하십시오."
 
-#: src/app/cli/clicommand.cpp:475
+#: src/app/cli/clicommand.cpp:468
 msgctxt "CdCommand|"
 msgid "Change folder"
 msgstr "폴더 변경"
 
-#: src/app/cli/clicommand.cpp:489
+#: src/app/cli/clicommand.cpp:482
 #, qt-format
 msgctxt "CdCommand|"
 msgid "%1 does not exist"
 msgstr "%1이(가) 없음"
 
-#: src/app/cli/clicommand.cpp:509
+#: src/app/cli/clicommand.cpp:502
 msgctxt "PwdCommand|"
 msgid "Print the filename of the current folder"
 msgstr "현재 폴더의 파일 이름 표시"
 
-#: src/app/cli/clicommand.cpp:525
+#: src/app/cli/clicommand.cpp:518
 msgctxt "LsCommand|"
 msgid "Folder list"
 msgstr "폴더 목록"
 
-#: src/app/cli/clicommand.cpp:537
+#: src/app/cli/clicommand.cpp:530
 msgctxt "SaveCommand|"
 msgid "Saves the changed files"
 msgstr "변경된 파일 저장"
 
-#: src/app/cli/clicommand.cpp:548
+#: src/app/cli/clicommand.cpp:541
 msgctxt "SaveCommand|"
 msgid "Error while writing file:\n"
 msgstr "파일에 쓰는 중 오류 발생:\n"
 
-#: src/app/cli/clicommand.cpp:557
+#: src/app/cli/clicommand.cpp:550
 msgctxt "SelectCommand|"
 msgid "Select file"
 msgstr "파일 선택"
 
-#: src/app/cli/clicommand.cpp:580
+#: src/app/cli/clicommand.cpp:572
 #, qt-format
 msgctxt "SelectCommand|"
 msgid "%1 not found"
 msgstr "%1을(를) 찾을 수 없음"
 
-#: src/app/cli/clicommand.cpp:590
+#: src/app/cli/clicommand.cpp:582
 msgctxt "TagCommand|"
 msgid "Select tag"
 msgstr "태그 선택"
 
-#: src/app/cli/clicommand.cpp:607
+#: src/app/cli/clicommand.cpp:599
 msgctxt "GetCommand|"
 msgid "Get tag frame"
 msgstr "태그 프레임 가져오기"
 
-#: src/app/cli/clicommand.cpp:635
+#: src/app/cli/clicommand.cpp:627
 msgctxt "SetCommand|"
 msgid "Set tag frame"
 msgstr "태그 프레임 설정"
 
-#: src/app/cli/clicommand.cpp:653
+#: src/app/cli/clicommand.cpp:644
 #, qt-format
 msgctxt "SetCommand|"
 msgid "Could not set \"%1\" for %2"
 msgstr "%2의 \"%1\"을(를) 설정할 수 없음"
 
-#: src/app/cli/clicommand.cpp:663
+#: src/app/cli/clicommand.cpp:654
 msgctxt "RevertCommand|"
 msgid "Revert"
 msgstr "되돌리기"
 
-#: src/app/cli/clicommand.cpp:675
+#: src/app/cli/clicommand.cpp:666
 msgctxt "ImportCommand|"
 msgid "Import from file"
 msgstr "파일에서 가져오기"
 
-#: src/app/cli/clicommand.cpp:677
+#: src/app/cli/clicommand.cpp:668
 msgctxt "ImportCommand|"
 msgid "File path"
 msgstr "파일 경로"
 
-#: src/app/cli/clicommand.cpp:677
+#: src/app/cli/clicommand.cpp:668
 msgctxt "ImportCommand|"
 msgid "Format name"
 msgstr "형식 이름"
 
-#: src/app/cli/clicommand.cpp:678
+#: src/app/cli/clicommand.cpp:669
 msgctxt "ImportCommand|"
 msgid "Source"
 msgstr "원본"
 
-#: src/app/cli/clicommand.cpp:679
+#: src/app/cli/clicommand.cpp:670
 msgctxt "ImportCommand|"
 msgid "Extraction"
 msgstr "추출"
 
-#: src/app/cli/clicommand.cpp:707
+#: src/app/cli/clicommand.cpp:698
 #, qt-format
 msgctxt "ImportCommand|"
 msgid "%1 not found."
 msgstr "%1을(를) 찾을 수 없습니다."
 
-#: src/app/cli/clicommand.cpp:709
+#: src/app/cli/clicommand.cpp:700
 msgctxt "ImportCommand|"
 msgid "Available"
 msgstr "사용 가능"
 
-#: src/app/cli/clicommand.cpp:720
+#: src/app/cli/clicommand.cpp:711
 msgctxt "ImportCommand|"
 msgid "Error"
 msgstr "오류"
 
-#: src/app/cli/clicommand.cpp:730
+#: src/app/cli/clicommand.cpp:721
 msgctxt "BatchImportCommand|"
 msgid "Automatic import"
 msgstr "자동으로 가져오기"
 
-#: src/app/cli/clicommand.cpp:731
+#: src/app/cli/clicommand.cpp:722
 msgctxt "BatchImportCommand|"
 msgid "Profile name"
 msgstr "프로필 이름"
 
-#: src/app/cli/clicommand.cpp:743
+#: src/app/cli/clicommand.cpp:734
 #, qt-format
 msgctxt "BatchImportCommand|"
 msgid "%1 not found."
 msgstr "%1을(를) 찾을 수 없습니다."
 
-#: src/app/cli/clicommand.cpp:745
+#: src/app/cli/clicommand.cpp:736
 msgctxt "BatchImportCommand|"
 msgid "Available"
 msgstr "사용 가능"
 
-#: src/app/cli/clicommand.cpp:818
+#: src/app/cli/clicommand.cpp:809
 msgctxt "AlbumArtCommand|"
 msgid "Download album cover artwork"
 msgstr "앨범 커버 그림 다운로드"
 
-#: src/app/cli/clicommand.cpp:862
+#: src/app/cli/clicommand.cpp:852
 msgctxt "ExportCommand|"
 msgid "Export to file"
 msgstr "파일로 내보내기"
 
-#: src/app/cli/clicommand.cpp:863
+#: src/app/cli/clicommand.cpp:853
 msgctxt "ExportCommand|"
 msgid "Format name"
 msgstr "형식 이름"
 
-#: src/app/cli/clicommand.cpp:878
+#: src/app/cli/clicommand.cpp:867
 #, qt-format
 msgctxt "ExportCommand|"
 msgid "%1 not found."
 msgstr "%1을(를) 찾을 수 없습니다."
 
-#: src/app/cli/clicommand.cpp:880
+#: src/app/cli/clicommand.cpp:869
 msgctxt "ExportCommand|"
 msgid "Available"
 msgstr "사용 가능"
 
-#: src/app/cli/clicommand.cpp:891
+#: src/app/cli/clicommand.cpp:880
 msgctxt "ExportCommand|"
 msgid "Error"
 msgstr "오류"
 
-#: src/app/cli/clicommand.cpp:900
+#: src/app/cli/clicommand.cpp:889
 msgctxt "PlaylistCommand|"
 msgid "Create playlist"
 msgstr "재생 목록 만들기"
 
-#: src/app/cli/clicommand.cpp:907
+#: src/app/cli/clicommand.cpp:896
 msgctxt "PlaylistCommand|"
 msgid "Error"
 msgstr "오류"
 
-#: src/app/cli/clicommand.cpp:914
+#: src/app/cli/clicommand.cpp:903
 msgctxt "FilenameFormatCommand|"
 msgid "Apply filename format"
 msgstr "파일 이름 형식 적용"
 
-#: src/app/cli/clicommand.cpp:925
+#: src/app/cli/clicommand.cpp:914
 msgctxt "TagFormatCommand|"
 msgid "Apply tag format"
 msgstr "태그 형식 적용"
 
-#: src/app/cli/clicommand.cpp:937
+#: src/app/cli/clicommand.cpp:926
 msgctxt "TextEncodingCommand|"
 msgid "Apply text encoding"
 msgstr "텍스트 인코딩 적용"
 
-#: src/app/cli/clicommand.cpp:948
+#: src/app/cli/clicommand.cpp:937
 msgctxt "RenameDirectoryCommand|"
 msgid "Rename folder"
 msgstr "폴더 이름 바꾸기"
 
-#: src/app/cli/clicommand.cpp:1040
+#: src/app/cli/clicommand.cpp:1028
 msgctxt "NumberTracksCommand|"
 msgid "Number tracks"
 msgstr "트랙 번호 매기기"
 
-#: src/app/cli/clicommand.cpp:1041
+#: src/app/cli/clicommand.cpp:1029
 msgctxt "NumberTracksCommand|"
 msgid "Track number"
 msgstr "트랙 번호"
 
-#: src/app/cli/clicommand.cpp:1065
+#: src/app/cli/clicommand.cpp:1053
 msgctxt "FilterCommand|"
 msgid "Filter"
 msgstr "필터"
 
-#: src/app/cli/clicommand.cpp:1066
+#: src/app/cli/clicommand.cpp:1054
 msgctxt "FilterCommand|"
 msgid "Filter name"
 msgstr "필터 이름"
 
-#: src/app/cli/clicommand.cpp:1081
+#: src/app/cli/clicommand.cpp:1069
 #, qt-format
 msgctxt "FilterCommand|"
 msgid "%1 not found."
 msgstr "%1을(를) 찾을 수 없습니다."
 
-#: src/app/cli/clicommand.cpp:1083
+#: src/app/cli/clicommand.cpp:1071
 msgctxt "FilterCommand|"
 msgid "Available"
 msgstr "사용 가능"
 
-#: src/app/cli/clicommand.cpp:1157
+#: src/app/cli/clicommand.cpp:1145
 msgctxt "ToId3v24Command|"
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "ID3v2.3을 ID3v2.4로 변환"
 
-#: src/app/cli/clicommand.cpp:1168
+#: src/app/cli/clicommand.cpp:1156
 msgctxt "ToId3v23Command|"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "ID3v2.4를 ID3v2.3으로 변환"
 
-#: src/app/cli/clicommand.cpp:1179
+#: src/app/cli/clicommand.cpp:1167
 msgctxt "TagToFilenameCommand|"
 msgid "Filename from tag"
 msgstr "태그에서 파일 이름으로"
 
-#: src/app/cli/clicommand.cpp:1209
+#: src/app/cli/clicommand.cpp:1197
 msgctxt "FilenameToTagCommand|"
 msgid "Tag from filename"
 msgstr "파일 이름에서 태그로"
 
-#: src/app/cli/clicommand.cpp:1239
+#: src/app/cli/clicommand.cpp:1227
 msgctxt "TagToOtherTagCommand|"
 msgid "Tag to other tag"
 msgstr "태그를 다른 태그로"
 
-#: src/app/cli/clicommand.cpp:1256
+#: src/app/cli/clicommand.cpp:1244
 msgctxt "CopyCommand|"
 msgid "Copy"
 msgstr "복사"
 
-#: src/app/cli/clicommand.cpp:1269
+#: src/app/cli/clicommand.cpp:1257
 msgctxt "PasteCommand|"
 msgid "Paste"
 msgstr "붙여넣기"
 
-#: src/app/cli/clicommand.cpp:1282
+#: src/app/cli/clicommand.cpp:1270
 msgctxt "RemoveCommand|"
 msgid "Remove"
 msgstr "삭제"
 
-#: src/app/cli/clicommand.cpp:1295
+#: src/app/cli/clicommand.cpp:1283
 msgctxt "ConfigCommand|"
 msgid "Configure Kid3"
 msgstr "Kid3 설정"
 
-#: src/app/cli/clicommand.cpp:1296
+#: src/app/cli/clicommand.cpp:1284
 msgctxt "ConfigCommand|"
 msgid "Group.Option Value"
 msgstr "그룹.옵션 값"
 
-#: src/app/cli/clicommand.cpp:1317 src/app/cli/clicommand.cpp:1323
+#: src/app/cli/clicommand.cpp:1304 src/app/cli/clicommand.cpp:1310
 #, qt-format
 msgctxt "ConfigCommand|"
 msgid "%1 does not exist"
 msgstr "%1이(가) 없음"
 
-#: src/app/cli/clicommand.cpp:1350 src/app/cli/clicommand.cpp:1370
+#: src/app/cli/clicommand.cpp:1337 src/app/cli/clicommand.cpp:1357
 #, qt-format
 msgctxt "ConfigCommand|"
 msgid "Invalid value %1"
 msgstr "잘못된 값 %1"
 
-#: src/app/cli/clicommand.cpp:1424
+#: src/app/cli/clicommand.cpp:1411
 msgctxt "ExecuteCommand|"
 msgid "Execute command"
 msgstr "명령 실행"
 
-#: src/app/cli/clicommand.cpp:1425
+#: src/app/cli/clicommand.cpp:1412
 msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
 msgstr "실행 파일 [인자]"
 
-#: src/app/cli/clicommand.cpp:1454
+#: src/app/cli/clicommand.cpp:1441
 msgctxt "ExecuteCommand|"
 msgid "Could not execute "
 msgstr "실행할 수 없음"
 
-#: src/app/cli/jsoncliformatter.cpp:190 src/app/cli/jsoncliformatter.cpp:193
+#: src/app/cli/jsoncliformatter.cpp:188 src/app/cli/jsoncliformatter.cpp:191
 #, qt-format
 msgctxt "JsonCliFormatter|"
 msgid "Unknown command '%1'"
 msgstr "알 수 없는 명령 '%1'"
 
-#: src/app/cli/jsoncliformatter.cpp:209
+#: src/app/cli/jsoncliformatter.cpp:207
 msgctxt "JsonCliFormatter|"
 msgid "Usage:"
 msgstr "사용 방법:"
 
-#: src/app/cli/kid3cli.cpp:301
+#: src/app/cli/kid3cli.cpp:299
 msgctxt "Kid3Cli|"
 msgid "Parameter"
 msgstr "인자"
 
-#: src/app/cli/kid3cli.cpp:302
+#: src/app/cli/kid3cli.cpp:300
 msgctxt "Kid3Cli|"
 msgid "File path"
 msgstr "파일 경로"
 
-#: src/app/cli/kid3cli.cpp:303
+#: src/app/cli/kid3cli.cpp:301
 msgctxt "Kid3Cli|"
 msgid "URL"
 msgstr "URL"
 
-#: src/app/cli/kid3cli.cpp:304
+#: src/app/cli/kid3cli.cpp:302
 msgctxt "Kid3Cli|"
 msgid "Tag numbers"
 msgstr "태그 번호"
 
-#: src/app/cli/kid3cli.cpp:306
+#: src/app/cli/kid3cli.cpp:304
 msgctxt "Kid3Cli|"
 msgid "Frame name"
 msgstr "프레임 이름"
 
-#: src/app/cli/kid3cli.cpp:309
+#: src/app/cli/kid3cli.cpp:307
 msgctxt "Kid3Cli|"
 msgid "Frame value"
 msgstr "프레임 값"
 
-#: src/app/cli/kid3cli.cpp:310
+#: src/app/cli/kid3cli.cpp:308
 msgctxt "Kid3Cli|"
 msgid "Format"
 msgstr "형식"
 
-#: src/app/cli/kid3cli.cpp:311
+#: src/app/cli/kid3cli.cpp:309
 msgctxt "Kid3Cli|"
 msgid "Command specific"
 msgstr "명령 특정"
 
-#: src/app/cli/kid3cli.cpp:312
+#: src/app/cli/kid3cli.cpp:310
 msgctxt "Kid3Cli|"
 msgid "Available Commands"
 msgstr "사용 가능한 명령"
 
-#: src/app/cli/kid3cli.cpp:760
+#: src/app/cli/kid3cli.cpp:754
 msgctxt "Kid3Cli|"
 msgid "Usage:"
 msgstr "사용 방법:"
 
-#: src/app/cli/kid3cli.cpp:778
+#: src/app/cli/kid3cli.cpp:772
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "%1 does not exist"
 msgstr "%1이(가) 없음"
 
-#: src/app/cli/kid3cli.cpp:808
+#: src/app/cli/kid3cli.cpp:802
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
 msgstr "파일에 쓰는 중 오류 발생:\n"
 
-#: src/app/cli/kid3cli.cpp:828
+#: src/app/cli/kid3cli.cpp:821
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
@@ -441,78 +441,78 @@ msgctxt "TextCliFormatter|"
 msgid "Usage:"
 msgstr "사용 방법:"
 
-#: src/app/cli/textcliformatter.cpp:246
+#: src/app/cli/textcliformatter.cpp:245
 msgctxt "TextCliFormatter|"
 msgid "Tags"
 msgstr "태그"
 
-#: src/app/cli/textcliformatter.cpp:253
+#: src/app/cli/textcliformatter.cpp:252
 msgctxt "TextCliFormatter|"
 msgid "File"
 msgstr "파일"
 
-#: src/app/cli/textcliformatter.cpp:258
+#: src/app/cli/textcliformatter.cpp:257
 msgctxt "TextCliFormatter|"
 msgid "Name"
 msgstr "이름"
 
-#: src/app/cli/textcliformatter.cpp:279
+#: src/app/cli/textcliformatter.cpp:278
 #, qt-format
 msgctxt "TextCliFormatter|"
 msgid "Tag %1"
 msgstr "태그 %1"
 
-#: src/app/cli/textcliformatter.cpp:300
+#: src/app/cli/textcliformatter.cpp:299
 msgctxt "TextCliFormatter|"
 msgid "Timeout"
 msgstr "시간 초과됨"
 
-#: src/app/cli/textcliformatter.cpp:306
+#: src/app/cli/textcliformatter.cpp:305
 msgctxt "TextCliFormatter|"
 msgid "Reading Folder"
 msgstr "폴더 읽는 중"
 
-#: src/app/cli/textcliformatter.cpp:308
+#: src/app/cli/textcliformatter.cpp:307
 msgctxt "TextCliFormatter|"
 msgid "Started"
 msgstr "시작됨"
 
-#: src/app/cli/textcliformatter.cpp:310
+#: src/app/cli/textcliformatter.cpp:309
 msgctxt "TextCliFormatter|"
 msgid "Source"
 msgstr "원본"
 
-#: src/app/cli/textcliformatter.cpp:312
+#: src/app/cli/textcliformatter.cpp:311
 msgctxt "TextCliFormatter|"
 msgid "Querying"
 msgstr "질의 중"
 
-#: src/app/cli/textcliformatter.cpp:314
+#: src/app/cli/textcliformatter.cpp:313
 msgctxt "TextCliFormatter|"
 msgid "Fetching"
 msgstr "가져오는 중"
 
-#: src/app/cli/textcliformatter.cpp:316
+#: src/app/cli/textcliformatter.cpp:315
 msgctxt "TextCliFormatter|"
 msgid "Data received"
 msgstr "데이터 받음"
 
-#: src/app/cli/textcliformatter.cpp:318
+#: src/app/cli/textcliformatter.cpp:317
 msgctxt "TextCliFormatter|"
 msgid "Cover"
 msgstr "앨범 커버"
 
-#: src/app/cli/textcliformatter.cpp:320
+#: src/app/cli/textcliformatter.cpp:319
 msgctxt "TextCliFormatter|"
 msgid "Finished"
 msgstr "완료됨"
 
-#: src/app/cli/textcliformatter.cpp:322
+#: src/app/cli/textcliformatter.cpp:321
 msgctxt "TextCliFormatter|"
 msgid "Aborted"
 msgstr "중단됨"
 
-#: src/app/cli/textcliformatter.cpp:324
+#: src/app/cli/textcliformatter.cpp:323
 msgctxt "TextCliFormatter|"
 msgid "Error"
 msgstr "오류"
@@ -647,302 +647,302 @@ msgctxt "KdeMainWindow|"
 msgid "Import from file or clipboard"
 msgstr "파일이나 클립보드에서 가져오기"
 
-#: src/app/kde/kdemainwindow.cpp:232 src/app/kde/kdemainwindow.cpp:249
+#: src/app/kde/kdemainwindow.cpp:231 src/app/kde/kdemainwindow.cpp:247
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1..."
 msgstr "%1에서 가져오기..."
 
-#: src/app/kde/kdemainwindow.cpp:234 src/app/kde/kdemainwindow.cpp:250
+#: src/app/kde/kdemainwindow.cpp:233 src/app/kde/kdemainwindow.cpp:248
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1"
 msgstr "%1에서 가져오기"
 
-#: src/app/kde/kdemainwindow.cpp:257
+#: src/app/kde/kdemainwindow.cpp:255
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags..."
 msgstr "태그에서 가져오기..."
 
-#: src/app/kde/kdemainwindow.cpp:258
+#: src/app/kde/kdemainwindow.cpp:256
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags"
 msgstr "태그에서 가져오기"
 
-#: src/app/kde/kdemainwindow.cpp:262
+#: src/app/kde/kdemainwindow.cpp:260
 msgctxt "KdeMainWindow|"
 msgid "Automatic I&mport..."
 msgstr "자동으로 가져오기(&M)..."
 
-#: src/app/kde/kdemainwindow.cpp:263
+#: src/app/kde/kdemainwindow.cpp:261
 msgctxt "KdeMainWindow|"
 msgid "Automatic import"
 msgstr "자동으로 가져오기"
 
-#: src/app/kde/kdemainwindow.cpp:267
+#: src/app/kde/kdemainwindow.cpp:265
 msgctxt "KdeMainWindow|"
 msgid "&Browse Cover Art..."
 msgstr "앨범 커버 탐색(&B)..."
 
-#: src/app/kde/kdemainwindow.cpp:268
+#: src/app/kde/kdemainwindow.cpp:266
 msgctxt "KdeMainWindow|"
 msgid "Browse album cover artwork"
 msgstr "앨범 커버 그림 탐색"
 
-#: src/app/kde/kdemainwindow.cpp:272
+#: src/app/kde/kdemainwindow.cpp:270
 msgctxt "KdeMainWindow|"
 msgid "&Export..."
 msgstr "내보내기(&E)..."
 
-#: src/app/kde/kdemainwindow.cpp:273
+#: src/app/kde/kdemainwindow.cpp:271
 msgctxt "KdeMainWindow|"
 msgid "Export to file or clipboard"
 msgstr "파일이나 클립보드로 내보내기"
 
-#: src/app/kde/kdemainwindow.cpp:277
+#: src/app/kde/kdemainwindow.cpp:275
 msgctxt "KdeMainWindow|"
 msgid "&Create Playlist..."
 msgstr "재생 목록 만들기(&C)..."
 
-#: src/app/kde/kdemainwindow.cpp:278
+#: src/app/kde/kdemainwindow.cpp:276
 msgctxt "KdeMainWindow|"
 msgid "Create M3U Playlist"
 msgstr "M3U 재생 목록 만들기"
 
-#: src/app/kde/kdemainwindow.cpp:281
+#: src/app/kde/kdemainwindow.cpp:279
 msgctxt "KdeMainWindow|"
 msgid "Apply &Filename Format"
 msgstr "파일 이름 형식 적용(&F)"
 
-#: src/app/kde/kdemainwindow.cpp:282
+#: src/app/kde/kdemainwindow.cpp:280
 msgctxt "KdeMainWindow|"
 msgid "Apply Filename Format"
 msgstr "파일 이름 형식 적용"
 
-#: src/app/kde/kdemainwindow.cpp:285
+#: src/app/kde/kdemainwindow.cpp:283
 msgctxt "KdeMainWindow|"
 msgid "Apply &Tag Format"
 msgstr "태그 형식 적용(&T)"
 
-#: src/app/kde/kdemainwindow.cpp:286
+#: src/app/kde/kdemainwindow.cpp:284
 msgctxt "KdeMainWindow|"
 msgid "Apply Tag Format"
 msgstr "태그 형식 적용"
 
-#: src/app/kde/kdemainwindow.cpp:289
+#: src/app/kde/kdemainwindow.cpp:287
 msgctxt "KdeMainWindow|"
 msgid "Apply Text &Encoding"
 msgstr "텍스트 인코딩 적용(&E)"
 
-#: src/app/kde/kdemainwindow.cpp:290
+#: src/app/kde/kdemainwindow.cpp:288
 msgctxt "KdeMainWindow|"
 msgid "Apply Text Encoding"
 msgstr "텍스트 인코딩 적용"
 
-#: src/app/kde/kdemainwindow.cpp:293
+#: src/app/kde/kdemainwindow.cpp:291
 msgctxt "KdeMainWindow|"
 msgid "&Rename Folder..."
 msgstr "폴더 이름 바꾸기(&R)..."
 
-#: src/app/kde/kdemainwindow.cpp:294
+#: src/app/kde/kdemainwindow.cpp:292
 msgctxt "KdeMainWindow|"
 msgid "Rename Folder"
 msgstr "폴더 이름 바꾸기"
 
-#: src/app/kde/kdemainwindow.cpp:297
+#: src/app/kde/kdemainwindow.cpp:295
 msgctxt "KdeMainWindow|"
 msgid "&Number Tracks..."
 msgstr "트랙 번호 매기기(&N)..."
 
-#: src/app/kde/kdemainwindow.cpp:298
+#: src/app/kde/kdemainwindow.cpp:296
 msgctxt "KdeMainWindow|"
 msgid "Number Tracks"
 msgstr "트랙 번호 매기기"
 
-#: src/app/kde/kdemainwindow.cpp:301
+#: src/app/kde/kdemainwindow.cpp:299
 msgctxt "KdeMainWindow|"
 msgid "F&ilter..."
 msgstr "필터(&I)..."
 
-#: src/app/kde/kdemainwindow.cpp:302
+#: src/app/kde/kdemainwindow.cpp:300
 msgctxt "KdeMainWindow|"
 msgid "Filter"
 msgstr "필터"
 
-#: src/app/kde/kdemainwindow.cpp:307
+#: src/app/kde/kdemainwindow.cpp:305
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "ID3v2.3을 ID3v2.4로 변환(&4)"
 
-#: src/app/kde/kdemainwindow.cpp:308
+#: src/app/kde/kdemainwindow.cpp:306
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "ID3v2.3을 ID3v2.4로 변환"
 
-#: src/app/kde/kdemainwindow.cpp:312
+#: src/app/kde/kdemainwindow.cpp:310
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "ID3v2.4를 ID3v2.3으로 변환(&3)"
 
-#: src/app/kde/kdemainwindow.cpp:313
+#: src/app/kde/kdemainwindow.cpp:311
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "ID3v2.4를 ID3v2.3으로 변환"
 
-#: src/app/kde/kdemainwindow.cpp:320
+#: src/app/kde/kdemainwindow.cpp:318
 msgctxt "KdeMainWindow|"
 msgid "&Play"
 msgstr "재생(&P)"
 
-#: src/app/kde/kdemainwindow.cpp:321
+#: src/app/kde/kdemainwindow.cpp:319
 msgctxt "KdeMainWindow|"
 msgid "Play"
 msgstr "재생"
 
-#: src/app/kde/kdemainwindow.cpp:325
+#: src/app/kde/kdemainwindow.cpp:323
 msgctxt "KdeMainWindow|"
 msgid "Show &Picture"
 msgstr "그림 표시(&P)"
 
-#: src/app/kde/kdemainwindow.cpp:326
+#: src/app/kde/kdemainwindow.cpp:324
 msgctxt "KdeMainWindow|"
 msgid "Show Picture"
 msgstr "그림 표시"
 
-#: src/app/kde/kdemainwindow.cpp:331
+#: src/app/kde/kdemainwindow.cpp:329
 msgctxt "KdeMainWindow|"
 msgid "Auto &Hide Tags"
 msgstr "자동으로 태그 숨기기(&H)"
 
-#: src/app/kde/kdemainwindow.cpp:332
+#: src/app/kde/kdemainwindow.cpp:330
 msgctxt "KdeMainWindow|"
 msgid "Auto Hide Tags"
 msgstr "자동으로 태그 숨기기"
 
-#: src/app/kde/kdemainwindow.cpp:337
+#: src/app/kde/kdemainwindow.cpp:335
 msgctxt "KdeMainWindow|"
 msgid "Select All in &Folder"
 msgstr "폴더에서 모두 선택(&F)"
 
-#: src/app/kde/kdemainwindow.cpp:338
+#: src/app/kde/kdemainwindow.cpp:336
 msgctxt "KdeMainWindow|"
 msgid "Select all files in the current folder"
 msgstr "현재 폴더의 모든 파일 선택"
 
-#: src/app/kde/kdemainwindow.cpp:341
+#: src/app/kde/kdemainwindow.cpp:339
 msgctxt "KdeMainWindow|"
 msgid "&Invert Selection"
 msgstr "선택 반전(&I)"
 
-#: src/app/kde/kdemainwindow.cpp:345
+#: src/app/kde/kdemainwindow.cpp:343
 msgctxt "KdeMainWindow|"
 msgid "&Previous File"
 msgstr "이전 파일(&P)"
 
-#: src/app/kde/kdemainwindow.cpp:346
+#: src/app/kde/kdemainwindow.cpp:344
 msgctxt "KdeMainWindow|"
 msgid "Select previous file"
 msgstr "이전 파일 선택"
 
-#: src/app/kde/kdemainwindow.cpp:352
+#: src/app/kde/kdemainwindow.cpp:350
 msgctxt "KdeMainWindow|"
 msgid "&Next File"
 msgstr "다음 파일(&N)"
 
-#: src/app/kde/kdemainwindow.cpp:353
+#: src/app/kde/kdemainwindow.cpp:351
 msgctxt "KdeMainWindow|"
 msgid "Select next file"
 msgstr "다음 파일 선택"
 
-#: src/app/kde/kdemainwindow.cpp:365
+#: src/app/kde/kdemainwindow.cpp:363
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Tag %1"
 msgstr "태그 %1"
 
-#: src/app/kde/kdemainwindow.cpp:367 src/app/kde/kdemainwindow.cpp:419
+#: src/app/kde/kdemainwindow.cpp:365 src/app/kde/kdemainwindow.cpp:417
 msgctxt "KdeMainWindow|"
 msgid "Filename"
 msgstr "파일 이름"
 
-#: src/app/kde/kdemainwindow.cpp:368 src/app/kde/kdemainwindow.cpp:379
+#: src/app/kde/kdemainwindow.cpp:366 src/app/kde/kdemainwindow.cpp:377
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "From Tag %1"
 msgstr "태그 %1에서"
 
-#: src/app/kde/kdemainwindow.cpp:373
+#: src/app/kde/kdemainwindow.cpp:371
 msgctxt "KdeMainWindow|"
 msgid "From Filename"
 msgstr "파일 이름에서"
 
-#: src/app/kde/kdemainwindow.cpp:386
+#: src/app/kde/kdemainwindow.cpp:384
 msgctxt "KdeMainWindow|"
 msgid "Copy"
 msgstr "복사"
 
-#: src/app/kde/kdemainwindow.cpp:390
+#: src/app/kde/kdemainwindow.cpp:388
 msgctxt "KdeMainWindow|"
 msgid "Paste"
 msgstr "붙여넣기"
 
-#: src/app/kde/kdemainwindow.cpp:394
+#: src/app/kde/kdemainwindow.cpp:392
 msgctxt "KdeMainWindow|"
 msgid "Remove"
 msgstr "삭제"
 
-#: src/app/kde/kdemainwindow.cpp:398 src/app/kde/kdemainwindow.cpp:419
-#: src/app/kde/kdemainwindow.cpp:424 src/app/kde/kdemainwindow.cpp:443
+#: src/app/kde/kdemainwindow.cpp:396 src/app/kde/kdemainwindow.cpp:417
+#: src/app/kde/kdemainwindow.cpp:422 src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
 msgid "Focus"
 msgstr "포커스"
 
-#: src/app/kde/kdemainwindow.cpp:403
+#: src/app/kde/kdemainwindow.cpp:401
 msgctxt "KdeMainWindow|"
 msgid "Frames:"
 msgstr "프레임:"
 
-#: src/app/kde/kdemainwindow.cpp:404
+#: src/app/kde/kdemainwindow.cpp:402
 msgctxt "KdeMainWindow|"
 msgid "Edit"
 msgstr "편집"
 
-#: src/app/kde/kdemainwindow.cpp:408
+#: src/app/kde/kdemainwindow.cpp:406
 msgctxt "KdeMainWindow|"
 msgid "Add"
 msgstr "추가"
 
-#: src/app/kde/kdemainwindow.cpp:412
+#: src/app/kde/kdemainwindow.cpp:410
 msgctxt "KdeMainWindow|"
 msgid "Delete"
 msgstr "삭제"
 
-#: src/app/kde/kdemainwindow.cpp:424
+#: src/app/kde/kdemainwindow.cpp:422
 msgctxt "KdeMainWindow|"
 msgid "File List"
 msgstr "파일 목록"
 
-#: src/app/kde/kdemainwindow.cpp:428
+#: src/app/kde/kdemainwindow.cpp:426
 msgctxt "KdeMainWindow|"
 msgid "&Rename"
 msgstr "이름 바꾸기(&R)"
 
-#: src/app/kde/kdemainwindow.cpp:437
+#: src/app/kde/kdemainwindow.cpp:435
 msgctxt "KdeMainWindow|"
 msgid "&Move to Trash"
 msgstr "휴지통으로 이동(&M)"
 
-#: src/app/kde/kdemainwindow.cpp:443
+#: src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
 msgid "Folder List"
 msgstr "폴더 목록"
 
-#: src/app/kde/kdemainwindow.cpp:461
+#: src/app/kde/kdemainwindow.cpp:459
 msgctxt "KdeMainWindow|"
 msgid "Section"
 msgstr "구역"
 
-#: src/app/kde/kdemainwindow.cpp:475
+#: src/app/kde/kdemainwindow.cpp:473
 #, fuzzy
 #| msgctxt "KdeMainWindow|"
 #| msgid "Play"
@@ -950,17 +950,17 @@ msgctxt "KdeMainWindow|"
 msgid "Player"
 msgstr "재생"
 
-#: src/app/kde/kdemainwindow.cpp:675
+#: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "설정 - Kid3"
 
-#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
+#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
 msgctxt "@default|"
 msgid "&Yes"
 msgstr "예(&Y)"
 
-#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
+#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:243
 msgctxt "@default|"
 msgid "&No"
 msgstr "아니요(&N)"
@@ -1182,344 +1182,344 @@ msgctxt "Kid3MainWindow|"
 msgid "&Import..."
 msgstr "가져오기(&I)..."
 
-#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:242
+#: src/app/qt/kid3mainwindow.cpp:220 src/app/qt/kid3mainwindow.cpp:240
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1"
 msgstr "%1에서 가져오기"
 
-#: src/app/qt/kid3mainwindow.cpp:222 src/app/qt/kid3mainwindow.cpp:243
+#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:241
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1..."
 msgstr "%1에서 가져오기..."
 
-#: src/app/qt/kid3mainwindow.cpp:253
+#: src/app/qt/kid3mainwindow.cpp:251
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags"
 msgstr "태그에서 가져오기"
 
-#: src/app/qt/kid3mainwindow.cpp:254
+#: src/app/qt/kid3mainwindow.cpp:252
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags..."
 msgstr "태그에서 가져오기..."
 
-#: src/app/qt/kid3mainwindow.cpp:262
+#: src/app/qt/kid3mainwindow.cpp:260
 msgctxt "Kid3MainWindow|"
 msgid "Automatic import"
 msgstr "자동으로 가져오기"
 
-#: src/app/qt/kid3mainwindow.cpp:263
+#: src/app/qt/kid3mainwindow.cpp:261
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
 msgstr "자동으로 가져오기(&M)..."
 
-#: src/app/qt/kid3mainwindow.cpp:271
+#: src/app/qt/kid3mainwindow.cpp:269
 msgctxt "Kid3MainWindow|"
 msgid "Browse album cover artwork"
 msgstr "앨범 커버 그림 탐색"
 
-#: src/app/qt/kid3mainwindow.cpp:272
+#: src/app/qt/kid3mainwindow.cpp:270
 msgctxt "Kid3MainWindow|"
 msgid "&Browse Cover Art..."
 msgstr "앨범 커버 탐색(&B)..."
 
-#: src/app/qt/kid3mainwindow.cpp:281
+#: src/app/qt/kid3mainwindow.cpp:279
 msgctxt "Kid3MainWindow|"
 msgid "Export to file or clipboard"
 msgstr "파일이나 클립보드로 내보내기"
 
-#: src/app/qt/kid3mainwindow.cpp:282
+#: src/app/qt/kid3mainwindow.cpp:280
 msgctxt "Kid3MainWindow|"
 msgid "&Export..."
 msgstr "내보내기(&E)..."
 
-#: src/app/qt/kid3mainwindow.cpp:292
+#: src/app/qt/kid3mainwindow.cpp:290
 msgctxt "Kid3MainWindow|"
 msgid "Create M3U Playlist"
 msgstr "M3U 재생 목록 만들기"
 
-#: src/app/qt/kid3mainwindow.cpp:293
+#: src/app/qt/kid3mainwindow.cpp:291
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
 msgstr "재생 목록 만들기(&C)..."
 
-#: src/app/qt/kid3mainwindow.cpp:306
+#: src/app/qt/kid3mainwindow.cpp:304
 msgctxt "Kid3MainWindow|"
 msgid "Quits the application"
 msgstr "앱을 끝냅니다"
 
-#: src/app/qt/kid3mainwindow.cpp:307
+#: src/app/qt/kid3mainwindow.cpp:305
 msgctxt "Kid3MainWindow|"
 msgid "&Quit"
 msgstr "끝내기(&Q)"
 
-#: src/app/qt/kid3mainwindow.cpp:318
+#: src/app/qt/kid3mainwindow.cpp:316
 msgctxt "Kid3MainWindow|"
 msgid "&Edit"
 msgstr "편집(&E)"
 
-#: src/app/qt/kid3mainwindow.cpp:321
+#: src/app/qt/kid3mainwindow.cpp:319
 msgctxt "Kid3MainWindow|"
 msgid "Select all files"
 msgstr "모든 파일 선택"
 
-#: src/app/qt/kid3mainwindow.cpp:322
+#: src/app/qt/kid3mainwindow.cpp:320
 msgctxt "Kid3MainWindow|"
 msgid "Select &All"
 msgstr "모두 선택(&A)"
 
-#: src/app/qt/kid3mainwindow.cpp:337
+#: src/app/qt/kid3mainwindow.cpp:335
 msgctxt "Kid3MainWindow|"
 msgid "Deselect all files"
 msgstr "모든 파일 선택 해제"
 
-#: src/app/qt/kid3mainwindow.cpp:338
+#: src/app/qt/kid3mainwindow.cpp:336
 msgctxt "Kid3MainWindow|"
 msgid "Dese&lect"
 msgstr "선택 해제(&L)"
 
-#: src/app/qt/kid3mainwindow.cpp:348
+#: src/app/qt/kid3mainwindow.cpp:346
 msgctxt "Kid3MainWindow|"
 msgid "Select all files in the current folder"
 msgstr "현재 폴더의 모든 파일 선택"
 
-#: src/app/qt/kid3mainwindow.cpp:349
+#: src/app/qt/kid3mainwindow.cpp:347
 msgctxt "Kid3MainWindow|"
 msgid "Select All in &Folder"
 msgstr "폴더에서 모두 선택(&F)"
 
-#: src/app/qt/kid3mainwindow.cpp:357
+#: src/app/qt/kid3mainwindow.cpp:355
 msgctxt "Kid3MainWindow|"
 msgid "&Invert Selection"
 msgstr "선택 반전(&I)"
 
-#: src/app/qt/kid3mainwindow.cpp:365
+#: src/app/qt/kid3mainwindow.cpp:363
 msgctxt "Kid3MainWindow|"
 msgid "Select previous file"
 msgstr "이전 파일 선택"
 
-#: src/app/qt/kid3mainwindow.cpp:366
+#: src/app/qt/kid3mainwindow.cpp:364
 msgctxt "Kid3MainWindow|"
 msgid "&Previous File"
 msgstr "이전 파일(&P)"
 
-#: src/app/qt/kid3mainwindow.cpp:378
+#: src/app/qt/kid3mainwindow.cpp:376
 msgctxt "Kid3MainWindow|"
 msgid "Select next file"
 msgstr "다음 파일 선택"
 
-#: src/app/qt/kid3mainwindow.cpp:379
+#: src/app/qt/kid3mainwindow.cpp:377
 msgctxt "Kid3MainWindow|"
 msgid "&Next File"
 msgstr "다음 파일(&N)"
 
-#: src/app/qt/kid3mainwindow.cpp:392
+#: src/app/qt/kid3mainwindow.cpp:390
 msgctxt "Kid3MainWindow|"
 msgid "Find"
 msgstr "찾기"
 
-#: src/app/qt/kid3mainwindow.cpp:393
+#: src/app/qt/kid3mainwindow.cpp:391
 msgctxt "Kid3MainWindow|"
 msgid "&Find..."
 msgstr "찾기(&F)..."
 
-#: src/app/qt/kid3mainwindow.cpp:406
+#: src/app/qt/kid3mainwindow.cpp:404
 msgctxt "Kid3MainWindow|"
 msgid "Find and replace"
 msgstr "찾기 및 바꾸기"
 
-#: src/app/qt/kid3mainwindow.cpp:407
+#: src/app/qt/kid3mainwindow.cpp:405
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
 msgstr "바꾸기(&R)..."
 
-#: src/app/qt/kid3mainwindow.cpp:419
+#: src/app/qt/kid3mainwindow.cpp:417
 msgctxt "Kid3MainWindow|"
 msgid "&Tools"
 msgstr "도구(&T)"
 
-#: src/app/qt/kid3mainwindow.cpp:422
+#: src/app/qt/kid3mainwindow.cpp:420
 msgctxt "Kid3MainWindow|"
 msgid "Apply Filename Format"
 msgstr "파일 이름 형식 적용"
 
-#: src/app/qt/kid3mainwindow.cpp:423
+#: src/app/qt/kid3mainwindow.cpp:421
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Filename Format"
 msgstr "파일 이름 형식 적용(&F)"
 
-#: src/app/qt/kid3mainwindow.cpp:432
+#: src/app/qt/kid3mainwindow.cpp:430
 msgctxt "Kid3MainWindow|"
 msgid "Apply Tag Format"
 msgstr "태그 형식 적용"
 
-#: src/app/qt/kid3mainwindow.cpp:433
+#: src/app/qt/kid3mainwindow.cpp:431
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Tag Format"
 msgstr "태그 형식 적용(&T)"
 
-#: src/app/qt/kid3mainwindow.cpp:441
+#: src/app/qt/kid3mainwindow.cpp:439
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text Encoding"
 msgstr "텍스트 인코딩 적용"
 
-#: src/app/qt/kid3mainwindow.cpp:442
+#: src/app/qt/kid3mainwindow.cpp:440
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text &Encoding"
 msgstr "텍스트 인코딩 적용(&E)"
 
-#: src/app/qt/kid3mainwindow.cpp:451
+#: src/app/qt/kid3mainwindow.cpp:449
 msgctxt "Kid3MainWindow|"
 msgid "Rename Folder"
 msgstr "폴더 이름 바꾸기"
 
-#: src/app/qt/kid3mainwindow.cpp:452
+#: src/app/qt/kid3mainwindow.cpp:450
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
 msgstr "폴더 이름 바꾸기(&R)..."
 
-#: src/app/qt/kid3mainwindow.cpp:460
+#: src/app/qt/kid3mainwindow.cpp:458
 msgctxt "Kid3MainWindow|"
 msgid "Number Tracks"
 msgstr "트랙 번호 매기기"
 
-#: src/app/qt/kid3mainwindow.cpp:461
+#: src/app/qt/kid3mainwindow.cpp:459
 msgctxt "Kid3MainWindow|"
 msgid "&Number Tracks..."
 msgstr "트랙 번호 매기기(&N)..."
 
-#: src/app/qt/kid3mainwindow.cpp:469
+#: src/app/qt/kid3mainwindow.cpp:467
 msgctxt "Kid3MainWindow|"
 msgid "Filter"
 msgstr "필터"
 
-#: src/app/qt/kid3mainwindow.cpp:470
+#: src/app/qt/kid3mainwindow.cpp:468
 msgctxt "Kid3MainWindow|"
 msgid "F&ilter..."
 msgstr "필터(&I)..."
 
-#: src/app/qt/kid3mainwindow.cpp:481
+#: src/app/qt/kid3mainwindow.cpp:479
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "ID3v2.3을 ID3v2.4로 변환"
 
-#: src/app/qt/kid3mainwindow.cpp:482
+#: src/app/qt/kid3mainwindow.cpp:480
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "ID3v2.3을 ID3v2.4로 변환(&4)"
 
-#: src/app/qt/kid3mainwindow.cpp:491
+#: src/app/qt/kid3mainwindow.cpp:489
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "ID3v2.4를 ID3v2.3으로 변환"
 
-#: src/app/qt/kid3mainwindow.cpp:492
+#: src/app/qt/kid3mainwindow.cpp:490
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "ID3v2.4를 ID3v2.3으로 변환(&3)"
 
-#: src/app/qt/kid3mainwindow.cpp:504
+#: src/app/qt/kid3mainwindow.cpp:502
 msgctxt "Kid3MainWindow|"
 msgid "Play"
 msgstr "재생"
 
-#: src/app/qt/kid3mainwindow.cpp:505
+#: src/app/qt/kid3mainwindow.cpp:503
 msgctxt "Kid3MainWindow|"
 msgid "&Play"
 msgstr "재생(&P)"
 
-#: src/app/qt/kid3mainwindow.cpp:515
+#: src/app/qt/kid3mainwindow.cpp:513
 msgctxt "Kid3MainWindow|"
 msgid "&Settings"
 msgstr "설정(&S)"
 
-#: src/app/qt/kid3mainwindow.cpp:519
+#: src/app/qt/kid3mainwindow.cpp:517
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the toolbar"
 msgstr "도구 모음 사용/사용 안 함"
 
-#: src/app/qt/kid3mainwindow.cpp:520
+#: src/app/qt/kid3mainwindow.cpp:518
 msgctxt "Kid3MainWindow|"
 msgid "Show &Toolbar"
 msgstr "도구 모음 표시(&T)"
 
-#: src/app/qt/kid3mainwindow.cpp:530
+#: src/app/qt/kid3mainwindow.cpp:528
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the statusbar"
 msgstr "상태 표시줄 표시/숨기기"
 
-#: src/app/qt/kid3mainwindow.cpp:531
+#: src/app/qt/kid3mainwindow.cpp:529
 msgctxt "Kid3MainWindow|"
 msgid "Show St&atusbar"
 msgstr "상태 표시줄 표시(&A)"
 
-#: src/app/qt/kid3mainwindow.cpp:540
+#: src/app/qt/kid3mainwindow.cpp:538
 msgctxt "Kid3MainWindow|"
 msgid "Show Picture"
 msgstr "그림 표시"
 
-#: src/app/qt/kid3mainwindow.cpp:541
+#: src/app/qt/kid3mainwindow.cpp:539
 msgctxt "Kid3MainWindow|"
 msgid "Show &Picture"
 msgstr "그림 표시(&P)"
 
-#: src/app/qt/kid3mainwindow.cpp:550
+#: src/app/qt/kid3mainwindow.cpp:548
 msgctxt "Kid3MainWindow|"
 msgid "Auto Hide Tags"
 msgstr "자동으로 태그 숨기기"
 
-#: src/app/qt/kid3mainwindow.cpp:551
+#: src/app/qt/kid3mainwindow.cpp:549
 msgctxt "Kid3MainWindow|"
 msgid "Auto &Hide Tags"
 msgstr "자동으로 태그 숨기기(&H)"
 
-#: src/app/qt/kid3mainwindow.cpp:560
+#: src/app/qt/kid3mainwindow.cpp:558
 msgctxt "Kid3MainWindow|"
 msgid "Configure Kid3"
 msgstr "Kid3 설정"
 
-#: src/app/qt/kid3mainwindow.cpp:561
+#: src/app/qt/kid3mainwindow.cpp:559
 msgctxt "Kid3MainWindow|"
 msgid "&Configure Kid3..."
 msgstr "Kid3 설정(&C)..."
 
-#: src/app/qt/kid3mainwindow.cpp:575
+#: src/app/qt/kid3mainwindow.cpp:573
 msgctxt "Kid3MainWindow|"
 msgid "&Help"
 msgstr "도움말(&H)"
 
-#: src/app/qt/kid3mainwindow.cpp:578
+#: src/app/qt/kid3mainwindow.cpp:576
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 Handbook"
 msgstr "Kid3 도움말"
 
-#: src/app/qt/kid3mainwindow.cpp:579
+#: src/app/qt/kid3mainwindow.cpp:577
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 &Handbook"
 msgstr "Kid3 도움말(&H)"
 
-#: src/app/qt/kid3mainwindow.cpp:590
+#: src/app/qt/kid3mainwindow.cpp:588
 msgctxt "Kid3MainWindow|"
 msgid "About Kid3"
 msgstr "Kid3 정보"
 
-#: src/app/qt/kid3mainwindow.cpp:591
+#: src/app/qt/kid3mainwindow.cpp:589
 msgctxt "Kid3MainWindow|"
 msgid "&About Kid3"
 msgstr "Kid3 정보(&A)"
 
-#: src/app/qt/kid3mainwindow.cpp:604
+#: src/app/qt/kid3mainwindow.cpp:602
 msgctxt "Kid3MainWindow|"
 msgid "About Qt"
 msgstr "Qt 정보"
 
-#: src/app/qt/kid3mainwindow.cpp:605
+#: src/app/qt/kid3mainwindow.cpp:603
 msgctxt "Kid3MainWindow|"
 msgid "About &Qt"
 msgstr "Qt 정보(&Q)"
 
-#: src/app/qt/kid3mainwindow.cpp:629
+#: src/app/qt/kid3mainwindow.cpp:627
 #, fuzzy
 #| msgctxt "Kid3MainWindow|"
 #| msgid "Play"
@@ -1527,110 +1527,110 @@ msgctxt "Kid3MainWindow|"
 msgid "Player"
 msgstr "재생"
 
-#: src/app/qt/kid3mainwindow.cpp:653
+#: src/app/qt/kid3mainwindow.cpp:651
 msgctxt "Kid3MainWindow|"
 msgid "Filename"
 msgstr "파일 이름"
 
-#: src/app/qt/kid3mainwindow.cpp:656 src/app/qt/kid3mainwindow.cpp:679
+#: src/app/qt/kid3mainwindow.cpp:654 src/app/qt/kid3mainwindow.cpp:677
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "From Tag %1"
 msgstr "태그 %1에서"
 
-#: src/app/qt/kid3mainwindow.cpp:661 src/app/qt/kid3mainwindow.cpp:704
-#: src/app/qt/kid3mainwindow.cpp:709 src/app/qt/kid3mainwindow.cpp:727
+#: src/app/qt/kid3mainwindow.cpp:659 src/app/qt/kid3mainwindow.cpp:702
+#: src/app/qt/kid3mainwindow.cpp:707 src/app/qt/kid3mainwindow.cpp:725
 msgctxt "Kid3MainWindow|"
 msgid "Focus"
 msgstr "포커스"
 
-#: src/app/qt/kid3mainwindow.cpp:671
+#: src/app/qt/kid3mainwindow.cpp:669
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Tag %1"
 msgstr "태그 %1"
 
-#: src/app/qt/kid3mainwindow.cpp:673
+#: src/app/qt/kid3mainwindow.cpp:671
 msgctxt "Kid3MainWindow|"
 msgid "From Filename"
 msgstr "파일 이름에서"
 
-#: src/app/qt/kid3mainwindow.cpp:684
+#: src/app/qt/kid3mainwindow.cpp:682
 msgctxt "Kid3MainWindow|"
 msgid "Copy"
 msgstr "복사"
 
-#: src/app/qt/kid3mainwindow.cpp:687
+#: src/app/qt/kid3mainwindow.cpp:685
 msgctxt "Kid3MainWindow|"
 msgid "Paste"
 msgstr "붙여넣기"
 
-#: src/app/qt/kid3mainwindow.cpp:690
+#: src/app/qt/kid3mainwindow.cpp:688
 msgctxt "Kid3MainWindow|"
 msgid "Remove"
 msgstr "삭제"
 
-#: src/app/qt/kid3mainwindow.cpp:694
+#: src/app/qt/kid3mainwindow.cpp:692
 msgctxt "Kid3MainWindow|"
 msgid "Edit"
 msgstr "편집"
 
-#: src/app/qt/kid3mainwindow.cpp:697
+#: src/app/qt/kid3mainwindow.cpp:695
 msgctxt "Kid3MainWindow|"
 msgid "Add"
 msgstr "추가"
 
-#: src/app/qt/kid3mainwindow.cpp:700
+#: src/app/qt/kid3mainwindow.cpp:698
 msgctxt "Kid3MainWindow|"
 msgid "Delete"
 msgstr "삭제"
 
-#: src/app/qt/kid3mainwindow.cpp:708
+#: src/app/qt/kid3mainwindow.cpp:706
 msgctxt "Kid3MainWindow|"
 msgid "File List"
 msgstr "파일 목록"
 
-#: src/app/qt/kid3mainwindow.cpp:712
+#: src/app/qt/kid3mainwindow.cpp:710
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
 msgstr "이름 바꾸기(&R)"
 
-#: src/app/qt/kid3mainwindow.cpp:719
+#: src/app/qt/kid3mainwindow.cpp:717
 msgctxt "Kid3MainWindow|"
 msgid "&Move to Trash"
 msgstr "휴지통으로 이동(&M)"
 
-#: src/app/qt/kid3mainwindow.cpp:726
+#: src/app/qt/kid3mainwindow.cpp:724
 msgctxt "Kid3MainWindow|"
 msgid "Folder List"
 msgstr "폴더 목록"
 
-#: src/app/qt/kid3mainwindow.cpp:732
+#: src/app/qt/kid3mainwindow.cpp:730
 msgctxt "Kid3MainWindow|"
 msgid "Section"
 msgstr "구역"
 
-#: src/app/qt/kid3mainwindow.cpp:817
+#: src/app/qt/kid3mainwindow.cpp:815
 msgctxt "Kid3MainWindow|"
 msgid " [modified]"
 msgstr "[수정됨]"
 
-#: src/app/qt/kid3mainwindow.cpp:912
+#: src/app/qt/kid3mainwindow.cpp:910
 msgctxt "Kid3MainWindow|"
 msgid "Audio Tag Editor"
 msgstr "오디오 태그 편집기"
 
-#: src/app/qt/kid3mainwindow.cpp:917
+#: src/app/qt/kid3mainwindow.cpp:915
 msgctxt "Kid3MainWindow|"
 msgid "License"
 msgstr "라이선스"
 
-#: src/app/qt/kid3mainwindow.cpp:935
+#: src/app/qt/kid3mainwindow.cpp:933
 msgctxt "Kid3MainWindow|"
 msgid "Configure - Kid3"
 msgstr "설정 - Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:979 src/app/qt/kid3mainwindow.cpp:991
+#: src/app/qt/kid3mainwindow.cpp:977 src/app/qt/kid3mainwindow.cpp:989
 msgctxt "Kid3MainWindow|"
 msgid "User Actions"
 msgstr "사용자 작업"
@@ -1640,22 +1640,22 @@ msgctxt "@default|"
 msgid "Kid3 Handbook"
 msgstr "Kid3 도움말"
 
-#: src/app/qt/recentfilesmenu.cpp:120
+#: src/app/qt/recentfilesmenu.cpp:119
 msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
 msgstr "목록 비우기(&C)"
 
-#: src/app/qt/shortcutsdelegate.cpp:190
+#: src/app/qt/shortcutsdelegate.cpp:189
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Clear"
 msgstr "지우기"
 
-#: src/app/qt/shortcutsdelegate.cpp:195
+#: src/app/qt/shortcutsdelegate.cpp:194
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Reset"
 msgstr "초기화"
 
-#: src/app/qt/shortcutsmodel.cpp:112
+#: src/app/qt/shortcutsmodel.cpp:113
 msgctxt "ShortcutsModel|"
 msgid "Press F2 or double click to edit cell contents."
 msgstr "셀 내용을 편집하려면 F2 키를 누르거나 두 번 클릭하십시오."
@@ -1665,7 +1665,7 @@ msgctxt "ShortcutsModel|"
 msgid "Action"
 msgstr "동작"
 
-#: src/app/qt/shortcutsmodel.cpp:191
+#: src/app/qt/shortcutsmodel.cpp:192
 msgctxt "ShortcutsModel|"
 msgid "Shortcut"
 msgstr "단축키"
@@ -1700,52 +1700,52 @@ msgctxt "Kid3Application|"
 msgid "All Supported Files"
 msgstr "모든 지원하는 파일"
 
-#: src/core/config/formatconfig.cpp:504
+#: src/core/config/formatconfig.cpp:501
 msgctxt "@default|"
 msgid "No changes"
 msgstr "변경 사항 없음"
 
-#: src/core/config/formatconfig.cpp:505
+#: src/core/config/formatconfig.cpp:502
 msgctxt "@default|"
 msgid "All lowercase"
 msgstr "모두 소문자"
 
-#: src/core/config/formatconfig.cpp:506
+#: src/core/config/formatconfig.cpp:503
 msgctxt "@default|"
 msgid "All uppercase"
 msgstr "모두 대문자"
 
-#: src/core/config/formatconfig.cpp:507
+#: src/core/config/formatconfig.cpp:504
 msgctxt "@default|"
 msgid "First letter uppercase"
 msgstr "첫 글자 대문자"
 
-#: src/core/config/formatconfig.cpp:508
+#: src/core/config/formatconfig.cpp:505
 msgctxt "@default|"
 msgid "All first letters uppercase"
 msgstr "모든 첫 글자 대문자"
 
-#: src/core/config/formatconfig.cpp:523
+#: src/core/config/formatconfig.cpp:520
 msgctxt "FormatConfig|"
 msgid "None"
 msgstr "없음"
 
-#: src/core/config/starratingmappingsmodel.cpp:128
+#: src/core/config/starratingmappingsmodel.cpp:129
 msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "이름"
 
-#: src/core/config/tagconfig.cpp:736 src/core/tags/frame.cpp:77
+#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:77
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:737 src/core/tags/frame.cpp:78
+#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:78
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:738 src/core/tags/frame.cpp:80
+#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:80
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -1787,49 +1787,49 @@ msgctxt "HttpClient|"
 msgid "Data received: %1"
 msgstr "데이터 받음: %1"
 
-#: src/core/import/httpclient.cpp:230
+#: src/core/import/httpclient.cpp:228
 msgctxt "HttpClient|"
 msgid "Request sent..."
 msgstr "요청 보냄..."
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:2007
+#: src/core/tags/frame.cpp:1984
 msgctxt "@default|"
 msgid "Title"
 msgstr "제목"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:2011
+#: src/core/tags/frame.cpp:1988
 msgctxt "@default|"
 msgid "Album"
 msgstr "앨범"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:2015
+#: src/core/tags/frame.cpp:1992
 msgctxt "@default|"
 msgid "Artist"
 msgstr "아티스트"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:2019
+#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1996
 msgctxt "@default|"
 msgid "Comment"
 msgstr "설명"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:2023
+#: src/core/tags/frame.cpp:2000
 msgctxt "@default|"
 msgid "Year"
 msgstr "연도"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2028
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2005
 msgctxt "@default|"
 msgid "Track"
 msgstr "트랙"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2041
+#: src/core/tags/frame.cpp:2018
 msgctxt "@default|"
 msgid "Genre"
 msgstr "장르"
@@ -1951,99 +1951,99 @@ msgctxt "CommandsTableModel|"
 msgid "Command"
 msgstr "명령"
 
-#: src/core/model/dirrenamer.cpp:250
+#: src/core/model/dirrenamer.cpp:249
 #, qt-format
 msgctxt "@default|"
 msgid "Create folder %1 failed\n"
 msgstr "폴더 %1 생성 실패\n"
 
-#: src/core/model/dirrenamer.cpp:280
+#: src/core/model/dirrenamer.cpp:279
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "Create folder %1 failed\n"
 msgstr "폴더 %1 생성 실패\n"
 
-#: src/core/model/dirrenamer.cpp:287
+#: src/core/model/dirrenamer.cpp:285
 #, qt-format
 msgctxt "@default|"
 msgid "File %1 already exists\n"
 msgstr "파일 %1이(가) 이미 존재함\n"
 
-#: src/core/model/dirrenamer.cpp:289
+#: src/core/model/dirrenamer.cpp:287
 #, qt-format
 msgctxt "@default|"
 msgid "%1 is not a folder\n"
 msgstr "%1은(는) 폴더가 아님\n"
 
-#: src/core/model/dirrenamer.cpp:291
+#: src/core/model/dirrenamer.cpp:289
 #, qt-format
 msgctxt "@default|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1의 이름을 %2(으)로 바꿀 수 없음\n"
 
-#: src/core/model/dirrenamer.cpp:310
+#: src/core/model/dirrenamer.cpp:308
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "File %1 already exists\n"
 msgstr "파일 %1이(가) 이미 존재함\n"
 
-#: src/core/model/dirrenamer.cpp:316
+#: src/core/model/dirrenamer.cpp:314
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 is not a folder\n"
 msgstr "%1이(가) 폴더가 아님\n"
 
-#: src/core/model/dirrenamer.cpp:336 src/core/model/dirrenamer.cpp:385
+#: src/core/model/dirrenamer.cpp:334 src/core/model/dirrenamer.cpp:382
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1의 이름을 %2(으)로 바꿀 수 없음\n"
 
-#: src/core/model/dirrenamer.cpp:343
+#: src/core/model/dirrenamer.cpp:340
 #, qt-format
 msgctxt "@default|"
 msgid "%1 already exists\n"
 msgstr "%1이(가) 이미 존재함\n"
 
-#: src/core/model/dirrenamer.cpp:345
+#: src/core/model/dirrenamer.cpp:342
 #, qt-format
 msgctxt "@default|"
 msgid "%1 is not a file\n"
 msgstr "%1이(가) 파일이 아님\n"
 
-#: src/core/model/dirrenamer.cpp:366
+#: src/core/model/dirrenamer.cpp:363
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 already exists\n"
 msgstr "%1이(가) 이미 존재함\n"
 
-#: src/core/model/dirrenamer.cpp:372
+#: src/core/model/dirrenamer.cpp:369
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 is not a file\n"
 msgstr "%1이(가) 파일이 아님\n"
 
-#: src/core/model/dirrenamer.cpp:624
+#: src/core/model/dirrenamer.cpp:620
 msgctxt "DirRenamer|"
 msgid "New folder name is too different\n"
 msgstr "새 폴더 이름이 너무 다름\n"
 
-#: src/core/model/dirrenamer.cpp:690
+#: src/core/model/dirrenamer.cpp:686
 msgctxt "@default|"
 msgid "Create folder"
 msgstr "폴더 만들기"
 
-#: src/core/model/dirrenamer.cpp:691
+#: src/core/model/dirrenamer.cpp:687
 msgctxt "@default|"
 msgid "Rename folder"
 msgstr "폴더 이름 바꾸기"
 
-#: src/core/model/dirrenamer.cpp:692
+#: src/core/model/dirrenamer.cpp:688
 msgctxt "@default|"
 msgid "Rename file"
 msgstr "파일 이름 바꾸기"
 
-#: src/core/model/dirrenamer.cpp:693
+#: src/core/model/dirrenamer.cpp:689
 msgctxt "@default|"
 msgid "Error"
 msgstr "오류"
@@ -2304,67 +2304,67 @@ msgctxt "@default|"
 msgid "Logical negation"
 msgstr "논리 부정"
 
-#: src/core/model/fileproxymodel.cpp:836
+#: src/core/model/fileproxymodel.cpp:828
 msgctxt "FileProxyModel|"
 msgid "All Supported Files"
 msgstr "모든 지원하는 파일"
 
-#: src/core/model/fileproxymodel.cpp:838
+#: src/core/model/fileproxymodel.cpp:830
 msgctxt "FileProxyModel|"
 msgid "All Files"
 msgstr "모든 파일"
 
-#: src/core/model/filesystemmodel.cpp:823
+#: src/core/model/filesystemmodel.cpp:822
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 TB"
 msgstr "%1 TB"
 
-#: src/core/model/filesystemmodel.cpp:825
+#: src/core/model/filesystemmodel.cpp:824
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 GB"
 msgstr "%1 GB"
 
-#: src/core/model/filesystemmodel.cpp:827
+#: src/core/model/filesystemmodel.cpp:826
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 MB"
 msgstr "%1 MB"
 
-#: src/core/model/filesystemmodel.cpp:829
+#: src/core/model/filesystemmodel.cpp:828
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 KB"
 msgstr "%1 KB"
 
-#: src/core/model/filesystemmodel.cpp:830
+#: src/core/model/filesystemmodel.cpp:829
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 bytes"
 msgstr "%1바이트"
 
-#: src/core/model/filesystemmodel.cpp:985
+#: src/core/model/filesystemmodel.cpp:983
 msgctxt "FileSystemModel|"
 msgid "Name"
 msgstr "이름"
 
-#: src/core/model/filesystemmodel.cpp:987
+#: src/core/model/filesystemmodel.cpp:985
 msgctxt "FileSystemModel|"
 msgid "Size"
 msgstr "크기"
 
-#: src/core/model/filesystemmodel.cpp:991
+#: src/core/model/filesystemmodel.cpp:989
 msgctxt "FileSystemModel|Match OS X Finder"
 msgid "Kind"
 msgstr "종류"
 
-#: src/core/model/filesystemmodel.cpp:993
+#: src/core/model/filesystemmodel.cpp:991
 msgctxt "FileSystemModel|All other platforms"
 msgid "Type"
 msgstr "형식"
 
-#: src/core/model/filesystemmodel.cpp:1000
+#: src/core/model/filesystemmodel.cpp:998
 msgctxt "FileSystemModel|"
 msgid "Date Modified"
 msgstr "수정한 날짜"
@@ -2379,7 +2379,7 @@ msgctxt "FileSystemModel|"
 msgid "Computer"
 msgstr "컴퓨터"
 
-#: src/core/model/frameobjectmodel.cpp:178
+#: src/core/model/frameobjectmodel.cpp:175
 msgctxt "FrameFieldObject|"
 msgid "Text"
 msgstr "텍스트"
@@ -2389,32 +2389,32 @@ msgctxt "FrameTableModel|"
 msgid "Volume"
 msgstr "음량"
 
-#: src/core/model/frametablemodel.cpp:168
+#: src/core/model/frametablemodel.cpp:167
 msgctxt "FrameTableModel|"
 msgid "File ID"
 msgstr "파일 ID"
 
-#: src/core/model/frametablemodel.cpp:307
+#: src/core/model/frametablemodel.cpp:308
 msgctxt "FrameTableModel|"
 msgid "Name"
 msgstr "이름"
 
-#: src/core/model/frametablemodel.cpp:307
+#: src/core/model/frametablemodel.cpp:308
 msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "데이터"
 
-#: src/core/model/kid3application.cpp:1041
+#: src/core/model/kid3application.cpp:1032
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "폴더 저장 중..."
 
-#: src/core/model/kid3application.cpp:1251
+#: src/core/model/kid3application.cpp:1237
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "선택"
 
-#: src/core/model/kid3application.cpp:3465
+#: src/core/model/kid3application.cpp:3442
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "모든 파일"
@@ -2449,12 +2449,12 @@ msgctxt "TagSearcher|"
 msgid "Search finished"
 msgstr "검색 완료"
 
-#: src/core/model/tagsearcher.cpp:464
+#: src/core/model/tagsearcher.cpp:462
 msgctxt "TagSearcher|"
 msgid "Filename"
 msgstr "파일 이름"
 
-#: src/core/model/tagsearcher.cpp:466
+#: src/core/model/tagsearcher.cpp:464
 #, qt-format
 msgctxt "TagSearcher|"
 msgid "Tag %1"
@@ -2465,12 +2465,12 @@ msgctxt "TimeEventModel|"
 msgid "Time"
 msgstr "시간"
 
-#: src/core/model/timeeventmodel.cpp:125
+#: src/core/model/timeeventmodel.cpp:126
 msgctxt "TimeEventModel|"
 msgid "Event Code"
 msgstr "이벤트 코드"
 
-#: src/core/model/timeeventmodel.cpp:127
+#: src/core/model/timeeventmodel.cpp:128
 msgctxt "TimeEventModel|"
 msgid "Text"
 msgstr "텍스트"
@@ -2645,7 +2645,7 @@ msgid "Milliseconds as unit"
 msgstr "밀리초를 단위로 사용"
 
 #: src/core/tags/frame.cpp:93 src/core/tags/frame.cpp:144
-#: src/gui/widgets/timeeventeditor.cpp:351
+#: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "가사"
@@ -3458,93 +3458,93 @@ msgctxt "@default|"
 msgid "Source Form"
 msgstr "원본 형태"
 
-#: src/core/tags/frame.cpp:1218
+#: src/core/tags/frame.cpp:1204
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "태그 %1"
 
-#: src/core/tags/frame.cpp:1223
+#: src/core/tags/frame.cpp:1209
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "태그 1과 태그 2"
 
-#: src/core/tags/frame.cpp:1227
+#: src/core/tags/frame.cpp:1213
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "모든 태그"
 
-#: src/core/tags/frame.cpp:2046
+#: src/core/tags/frame.cpp:2023
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "비어 있지 않은 경우 T1을 앞에/T2를 뒤에 붙임"
 
-#: src/core/tags/framenotice.cpp:187
+#: src/core/tags/framenotice.cpp:184
 msgctxt "@default|"
 msgid "Truncated"
 msgstr "잘림"
 
-#: src/core/tags/framenotice.cpp:188
+#: src/core/tags/framenotice.cpp:185
 msgctxt "@default|"
 msgid "Size is too large"
 msgstr "크기가 너무 큼"
 
-#: src/core/tags/framenotice.cpp:189
+#: src/core/tags/framenotice.cpp:186
 msgctxt "@default|"
 msgid "Must be unique"
 msgstr "유일해야 함"
 
-#: src/core/tags/framenotice.cpp:190
+#: src/core/tags/framenotice.cpp:187
 msgctxt "@default|"
 msgid "New line is forbidden"
 msgstr "새 줄을 사용할 수 없음"
 
-#: src/core/tags/framenotice.cpp:191
+#: src/core/tags/framenotice.cpp:188
 msgctxt "@default|"
 msgid "Carriage return is forbidden"
 msgstr "캐리지 리턴을 사용할 수 없음"
 
-#: src/core/tags/framenotice.cpp:192
+#: src/core/tags/framenotice.cpp:189
 msgctxt "@default|"
 msgid "Owner must be non-empty"
 msgstr "소유자는 비어 있지 않아야 함"
 
-#: src/core/tags/framenotice.cpp:193
+#: src/core/tags/framenotice.cpp:190
 msgctxt "@default|"
 msgid "Must be numeric"
 msgstr "숫자 값이어야 함"
 
-#: src/core/tags/framenotice.cpp:194
+#: src/core/tags/framenotice.cpp:191
 msgctxt "@default|"
 msgid "Must be numeric or number/total"
 msgstr "숫자 또는 숫자/합계 형식이어야 함"
 
-#: src/core/tags/framenotice.cpp:195
+#: src/core/tags/framenotice.cpp:192
 msgctxt "@default|"
 msgid "Format is DDMM"
 msgstr "DDMM 형식으로 입력해야 함"
 
-#: src/core/tags/framenotice.cpp:196
+#: src/core/tags/framenotice.cpp:193
 msgctxt "@default|"
 msgid "Format is HHMM"
 msgstr "HHMM 형식으로 입력해야 함"
 
-#: src/core/tags/framenotice.cpp:197
+#: src/core/tags/framenotice.cpp:194
 msgctxt "@default|"
 msgid "Format is YYYY"
 msgstr "YYYY 형식으로 입력해야 함"
 
-#: src/core/tags/framenotice.cpp:198
+#: src/core/tags/framenotice.cpp:195
 msgctxt "@default|"
 msgid "Must begin with a year and a space character"
 msgstr "연도와 공백 문자로 시작해야 함"
 
-#: src/core/tags/framenotice.cpp:199
+#: src/core/tags/framenotice.cpp:196
 msgctxt "@default|"
 msgid "Must be ISO 8601 date/time"
 msgstr "ISO 8601 날짜/시간이어야 함"
 
-#: src/core/tags/framenotice.cpp:200
+#: src/core/tags/framenotice.cpp:197
 msgctxt "@default|"
 msgid ""
 "Must be musical key, 3 characters, A-G, b, #, m, o\n"
@@ -3553,22 +3553,22 @@ msgstr ""
 "음계(3글자, A-G, b, #, m, o)또는\n"
 "카멜롯 휠 값(1A-12A, 1B-12B)이어야 함"
 
-#: src/core/tags/framenotice.cpp:202
+#: src/core/tags/framenotice.cpp:199
 msgctxt "@default|"
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
 msgstr "3글자 소문자 ISO 639-2 언어 코드여야 함"
 
-#: src/core/tags/framenotice.cpp:203
+#: src/core/tags/framenotice.cpp:200
 msgctxt "@default|"
 msgid "Must be ISRC code, 12 characters"
 msgstr "12글자 ISRC 코드여야 함"
 
-#: src/core/tags/framenotice.cpp:204
+#: src/core/tags/framenotice.cpp:201
 msgctxt "@default|"
 msgid "Must be list of strings separated by '|'"
 msgstr "'|' 기호로 구분된 문자열이어야 함"
 
-#: src/core/tags/framenotice.cpp:205
+#: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
 msgid "Has excess white space"
 msgstr "너무 많은 공백 문자가 있음"
@@ -3718,107 +3718,107 @@ msgctxt "@default|"
 msgid "Escape for HTML"
 msgstr "HTML 탈출 문자"
 
-#: src/gui/dialogs/batchimportdialog.cpp:163
+#: src/gui/dialogs/batchimportdialog.cpp:162
 msgctxt "BatchImportDialog|"
 msgid "Automatic Import"
 msgstr "자동으로 가져오기"
 
-#: src/gui/dialogs/batchimportdialog.cpp:179
+#: src/gui/dialogs/batchimportdialog.cpp:178
 msgctxt "BatchImportDialog|"
 msgid "D&estination:"
 msgstr "대상(&E):"
 
-#: src/gui/dialogs/batchimportdialog.cpp:194
+#: src/gui/dialogs/batchimportdialog.cpp:193
 msgctxt "BatchImportDialog|"
 msgid "&Profile:"
 msgstr "프로필(&P):"
 
-#: src/gui/dialogs/batchimportdialog.cpp:205
+#: src/gui/dialogs/batchimportdialog.cpp:204
 msgctxt "BatchImportDialog|"
 msgid "Add"
 msgstr "추가"
 
-#: src/gui/dialogs/batchimportdialog.cpp:209
+#: src/gui/dialogs/batchimportdialog.cpp:208
 msgctxt "BatchImportDialog|"
 msgid "Remove"
 msgstr "삭제"
 
-#: src/gui/dialogs/batchimportdialog.cpp:230
+#: src/gui/dialogs/batchimportdialog.cpp:229
 msgctxt "BatchImportDialog|"
 msgid "&Help"
 msgstr "도움말(&H)"
 
-#: src/gui/dialogs/batchimportdialog.cpp:236
+#: src/gui/dialogs/batchimportdialog.cpp:235
 msgctxt "BatchImportDialog|"
 msgid "&Save Settings"
 msgstr "설정 저장(&S)"
 
-#: src/gui/dialogs/batchimportdialog.cpp:245
+#: src/gui/dialogs/batchimportdialog.cpp:244
 msgctxt "BatchImportDialog|"
 msgid "&Close"
 msgstr "닫기(&C)"
 
-#: src/gui/dialogs/batchimportdialog.cpp:285
+#: src/gui/dialogs/batchimportdialog.cpp:284
 msgctxt "BatchImportDialog|"
 msgid "New"
 msgstr "새로 만들기"
 
-#: src/gui/dialogs/batchimportdialog.cpp:477
+#: src/gui/dialogs/batchimportdialog.cpp:476
 msgctxt "BatchImportDialog|"
 msgid "Reading Folder"
 msgstr "폴더 읽는 중"
 
-#: src/gui/dialogs/batchimportdialog.cpp:481
+#: src/gui/dialogs/batchimportdialog.cpp:480
 msgctxt "BatchImportDialog|"
 msgid "Started"
 msgstr "시작됨"
 
-#: src/gui/dialogs/batchimportdialog.cpp:484
+#: src/gui/dialogs/batchimportdialog.cpp:483
 msgctxt "BatchImportDialog|"
 msgid "Source"
 msgstr "원본"
 
-#: src/gui/dialogs/batchimportdialog.cpp:487
+#: src/gui/dialogs/batchimportdialog.cpp:486
 msgctxt "BatchImportDialog|"
 msgid "Querying"
 msgstr "질의 중"
 
-#: src/gui/dialogs/batchimportdialog.cpp:491
+#: src/gui/dialogs/batchimportdialog.cpp:490
 msgctxt "BatchImportDialog|"
 msgid "Fetching"
 msgstr "가져오는 중"
 
-#: src/gui/dialogs/batchimportdialog.cpp:494
+#: src/gui/dialogs/batchimportdialog.cpp:493
 msgctxt "BatchImportDialog|"
 msgid "Data received"
 msgstr "데이터 받음"
 
-#: src/gui/dialogs/batchimportdialog.cpp:497
+#: src/gui/dialogs/batchimportdialog.cpp:496
 msgctxt "BatchImportDialog|"
 msgid "Cover"
 msgstr "앨범 커버"
 
-#: src/gui/dialogs/batchimportdialog.cpp:501
+#: src/gui/dialogs/batchimportdialog.cpp:500
 msgctxt "BatchImportDialog|"
 msgid "Finished"
 msgstr "완료됨"
 
-#: src/gui/dialogs/batchimportdialog.cpp:505
+#: src/gui/dialogs/batchimportdialog.cpp:504
 msgctxt "BatchImportDialog|"
 msgid "Aborted"
 msgstr "중단됨"
 
-#: src/gui/dialogs/batchimportdialog.cpp:508
+#: src/gui/dialogs/batchimportdialog.cpp:507
 msgctxt "BatchImportDialog|"
 msgid "Error"
 msgstr "오류"
 
-#: src/gui/dialogs/batchimportdialog.cpp:524
+#: src/gui/dialogs/batchimportdialog.cpp:523
 msgctxt "BatchImportDialog|"
 msgid "A&bort"
 msgstr "중단(&B)"
 
-#: src/gui/dialogs/batchimportdialog.cpp:524
+#: src/gui/dialogs/batchimportdialog.cpp:523
 msgctxt "BatchImportDialog|"
 msgid "S&tart"
 msgstr "시작(&T)"
@@ -3924,284 +3924,284 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "그 다음 파일 브라우저에서 Kid3으로 그림 파일을 드래그하십시오."
 
-#: src/gui/dialogs/configdialogpages.cpp:178
+#: src/gui/dialogs/configdialogpages.cpp:176
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:181
+#: src/gui/dialogs/configdialogpages.cpp:179
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "잘린 필드 표시(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:183
-#: src/gui/dialogs/configdialogpages.cpp:212
+#: src/gui/dialogs/configdialogpages.cpp:181
+#: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "텍스트 인코딩(&E):"
 
-#: src/gui/dialogs/configdialogpages.cpp:197
+#: src/gui/dialogs/configdialogpages.cpp:195
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:200
+#: src/gui/dialogs/configdialogpages.cpp:198
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "트랙 번호/총 트랙 수 형식 사용(&T)"
 
-#: src/gui/dialogs/configdialogpages.cpp:203
+#: src/gui/dialogs/configdialogpages.cpp:201
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "트랙 번호 자릿수(&D):"
 
-#: src/gui/dialogs/configdialogpages.cpp:207
+#: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "숫자 대신 텍스트로 장르 기록(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:209
+#: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "WAV 파일에 소문자 ID3 청크 사용(&W)"
 
-#: src/gui/dialogs/configdialogpages.cpp:211
+#: src/gui/dialogs/configdialogpages.cpp:209
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "표준 위반 표시(&K)"
 
-#: src/gui/dialogs/configdialogpages.cpp:230
+#: src/gui/dialogs/configdialogpages.cpp:228
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "새 태그에 사용할 버전(&V):"
 
-#: src/gui/dialogs/configdialogpages.cpp:234
+#: src/gui/dialogs/configdialogpages.cpp:232
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:236
+#: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:250
+#: src/gui/dialogs/configdialogpages.cpp:248
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:251
+#: src/gui/dialogs/configdialogpages.cpp:249
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "설명 필드 이름(&M):"
 
-#: src/gui/dialogs/configdialogpages.cpp:254
+#: src/gui/dialogs/configdialogpages.cpp:252
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "그림 필드 이름(&P):"
 
-#: src/gui/dialogs/configdialogpages.cpp:276
+#: src/gui/dialogs/configdialogpages.cpp:274
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "그림"
 
-#: src/gui/dialogs/configdialogpages.cpp:279
+#: src/gui/dialogs/configdialogpages.cpp:277
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "다음 바이트보다 큰 경우 표시(&L):"
 
-#: src/gui/dialogs/configdialogpages.cpp:292
+#: src/gui/dialogs/configdialogpages.cpp:290
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "사용자 정의 장르만 표시(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:300
+#: src/gui/dialogs/configdialogpages.cpp:298
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "사용자 정의 장르(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:312
+#: src/gui/dialogs/configdialogpages.cpp:310
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "사용자 정의 프레임(&R)"
 
-#: src/gui/dialogs/configdialogpages.cpp:327
+#: src/gui/dialogs/configdialogpages.cpp:325
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "드래그 앤 드롭으로 항목 순서를 바꾸십시오"
 
-#: src/gui/dialogs/configdialogpages.cpp:330
+#: src/gui/dialogs/configdialogpages.cpp:328
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "빠른 접근 프레임(&Q)"
 
-#: src/gui/dialogs/configdialogpages.cpp:337
+#: src/gui/dialogs/configdialogpages.cpp:335
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF 정보"
 
-#: src/gui/dialogs/configdialogpages.cpp:338
+#: src/gui/dialogs/configdialogpages.cpp:336
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "트랙 번호 필드 이름(&M):"
 
-#: src/gui/dialogs/configdialogpages.cpp:355
+#: src/gui/dialogs/configdialogpages.cpp:353
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "태그 형식(&T)"
 
-#: src/gui/dialogs/configdialogpages.cpp:357
+#: src/gui/dialogs/configdialogpages.cpp:355
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "별점"
 
-#: src/gui/dialogs/configdialogpages.cpp:367
+#: src/gui/dialogs/configdialogpages.cpp:365
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "태그 1(&1)"
 
-#: src/gui/dialogs/configdialogpages.cpp:369
+#: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "태그 2(&2)"
 
-#: src/gui/dialogs/configdialogpages.cpp:370
+#: src/gui/dialogs/configdialogpages.cpp:368
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "태그 3(&3)"
 
-#: src/gui/dialogs/configdialogpages.cpp:371
+#: src/gui/dialogs/configdialogpages.cpp:369
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "모든 태그(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:389
+#: src/gui/dialogs/configdialogpages.cpp:387
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "시작"
 
-#: src/gui/dialogs/configdialogpages.cpp:390
+#: src/gui/dialogs/configdialogpages.cpp:388
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "마지막으로 불러온 파일 열기(&L)"
 
-#: src/gui/dialogs/configdialogpages.cpp:396
+#: src/gui/dialogs/configdialogpages.cpp:394
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "저장"
 
-#: src/gui/dialogs/configdialogpages.cpp:397
+#: src/gui/dialogs/configdialogpages.cpp:395
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "파일 타임스탬프 유지(&P)"
 
-#: src/gui/dialogs/configdialogpages.cpp:399
+#: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "변경 사항 표시(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:409
+#: src/gui/dialogs/configdialogpages.cpp:407
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "앨범 커버 파일 이름(&I):"
 
-#: src/gui/dialogs/configdialogpages.cpp:410
+#: src/gui/dialogs/configdialogpages.cpp:408
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "텍스트 인코딩(내보내기, 재생 목록)(&E):"
 
-#: src/gui/dialogs/configdialogpages.cpp:415
+#: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "파일 목록"
 
-#: src/gui/dialogs/configdialogpages.cpp:416
+#: src/gui/dialogs/configdialogpages.cpp:414
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "필터(&R):"
 
-#: src/gui/dialogs/configdialogpages.cpp:426
+#: src/gui/dialogs/configdialogpages.cpp:424
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "포함할 폴더(&D):"
 
-#: src/gui/dialogs/configdialogpages.cpp:430
+#: src/gui/dialogs/configdialogpages.cpp:428
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "제외할 폴더(&X):"
 
-#: src/gui/dialogs/configdialogpages.cpp:434
+#: src/gui/dialogs/configdialogpages.cpp:432
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "숨겨진 파일 표시(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:446
+#: src/gui/dialogs/configdialogpages.cpp:444
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "형식"
 
-#: src/gui/dialogs/configdialogpages.cpp:450
+#: src/gui/dialogs/configdialogpages.cpp:448
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "태그에서 파일 이름으로"
 
-#: src/gui/dialogs/configdialogpages.cpp:455
+#: src/gui/dialogs/configdialogpages.cpp:453
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "파일 이름에서 태그로"
 
-#: src/gui/dialogs/configdialogpages.cpp:461
-#: src/gui/dialogs/configdialogpages.cpp:521
+#: src/gui/dialogs/configdialogpages.cpp:459
+#: src/gui/dialogs/configdialogpages.cpp:519
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "재생 목록"
 
-#: src/gui/dialogs/configdialogpages.cpp:473
+#: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "파일 이름 형식(&F)"
 
-#: src/gui/dialogs/configdialogpages.cpp:489
+#: src/gui/dialogs/configdialogpages.cpp:487
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "태그에서 파일 이름으로"
 
-#: src/gui/dialogs/configdialogpages.cpp:505
+#: src/gui/dialogs/configdialogpages.cpp:503
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "파일 이름에서 태그로"
 
-#: src/gui/dialogs/configdialogpages.cpp:535
+#: src/gui/dialogs/configdialogpages.cpp:533
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "탐색기"
 
-#: src/gui/dialogs/configdialogpages.cpp:536
+#: src/gui/dialogs/configdialogpages.cpp:534
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "웹 브라우저(&B):"
 
-#: src/gui/dialogs/configdialogpages.cpp:545
+#: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "콘텍스트 메뉴 명령(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:548
+#: src/gui/dialogs/configdialogpages.cpp:546
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "두 번 클릭할 때 재생(&P)"
 
-#: src/gui/dialogs/configdialogpages.cpp:550
+#: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "선택할 때 재생(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:553
+#: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:555
+#: src/gui/dialogs/configdialogpages.cpp:553
 #, fuzzy
 #| msgctxt "ConfigDialog|"
 #| msgid "System"
@@ -4209,42 +4209,42 @@ msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "시스템"
 
-#: src/gui/dialogs/configdialogpages.cpp:588
+#: src/gui/dialogs/configdialogpages.cpp:586
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "프록시"
 
-#: src/gui/dialogs/configdialogpages.cpp:589
+#: src/gui/dialogs/configdialogpages.cpp:587
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "프록시(&P):"
 
-#: src/gui/dialogs/configdialogpages.cpp:592
+#: src/gui/dialogs/configdialogpages.cpp:590
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "프록시 인증 사용(&U)"
 
-#: src/gui/dialogs/configdialogpages.cpp:594
+#: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "프록시 사용자 이름(&N):"
 
-#: src/gui/dialogs/configdialogpages.cpp:598
+#: src/gui/dialogs/configdialogpages.cpp:596
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "프록시 암호(&W):"
 
-#: src/gui/dialogs/configdialogpages.cpp:632
+#: src/gui/dialogs/configdialogpages.cpp:630
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "메타데이터 플러그인과 우선 순위(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:644
+#: src/gui/dialogs/configdialogpages.cpp:642
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "사용 가능한 플러그인(&V)"
 
-#: src/gui/dialogs/configdialogpages.cpp:655
+#: src/gui/dialogs/configdialogpages.cpp:653
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "변경 사항은 다시 시작한 후 적용됩니다!"
@@ -4255,42 +4255,42 @@ msgid "Images"
 msgstr "그림"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:741
-#: src/gui/widgets/timeeventeditor.cpp:352
+#: src/gui/widgets/timeeventeditor.cpp:350
 msgctxt "@default|"
 msgid "All Files"
 msgstr "모든 파일"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1136
+#: src/gui/dialogs/editframefieldsdialog.cpp:1134
 msgctxt "BinaryOpenSave|"
 msgid "From Clip&board"
 msgstr "클립보드에서(&B)"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1137
+#: src/gui/dialogs/editframefieldsdialog.cpp:1135
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
 msgstr "클립보드로(&T)"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1138
+#: src/gui/dialogs/editframefieldsdialog.cpp:1136
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
 msgstr "가져오기(&I)..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1139
+#: src/gui/dialogs/editframefieldsdialog.cpp:1137
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
 msgstr "내보내기(&E)..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1140
+#: src/gui/dialogs/editframefieldsdialog.cpp:1138
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
 msgstr "보기(&V)..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1316
+#: src/gui/dialogs/editframefieldsdialog.cpp:1310
 msgctxt "EditFrameFieldsDialog|"
 msgid "&OK"
 msgstr "확인(&O)"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1317
+#: src/gui/dialogs/editframefieldsdialog.cpp:1311
 msgctxt "EditFrameFieldsDialog|"
 msgid "&Cancel"
 msgstr "취소(&C)"
@@ -4356,12 +4356,12 @@ msgctxt "ExportDialog|"
 msgid "&Close"
 msgstr "닫기(&C)"
 
-#: src/gui/dialogs/exportdialog.cpp:154
+#: src/gui/dialogs/exportdialog.cpp:155
 msgctxt "ExportDialog|"
 msgid "File Error"
 msgstr "파일 오류"
 
-#: src/gui/dialogs/exportdialog.cpp:155
+#: src/gui/dialogs/exportdialog.cpp:156
 msgctxt "ExportDialog|"
 msgid "Error while writing file:\n"
 msgstr "파일에 쓰는 중 오류 발생:\n"
@@ -4832,7 +4832,7 @@ msgctxt "RenDirDialog|"
 msgid "To:"
 msgstr "대상:"
 
-#: src/gui/dialogs/rendirdialog.cpp:326
+#: src/gui/dialogs/rendirdialog.cpp:325
 msgctxt "RenDirDialog|"
 msgid "Folder Name from Tag"
 msgstr "태그에서 폴더 이름으로"
@@ -5045,41 +5045,41 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Download"
 msgstr "다운로드"
 
-#: src/gui/forms/basemainwindow.cpp:234
+#: src/gui/forms/basemainwindow.cpp:233
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
 msgstr "폴더 여는 중..."
 
-#: src/gui/forms/basemainwindow.cpp:325
+#: src/gui/forms/basemainwindow.cpp:324
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
 msgstr "중지"
 
-#: src/gui/forms/basemainwindow.cpp:396
+#: src/gui/forms/basemainwindow.cpp:393
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
 msgstr "%1에 쓸 수 없음"
 
-#: src/gui/forms/basemainwindow.cpp:406
+#: src/gui/forms/basemainwindow.cpp:403
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
 msgstr "파일에 쓰는 중 오류 발생:\n"
 
-#: src/gui/forms/basemainwindow.cpp:408 src/gui/forms/basemainwindow.cpp:414
-#: src/gui/forms/basemainwindow.cpp:1136 src/gui/forms/basemainwindow.cpp:1141
-#: src/gui/forms/basemainwindow.cpp:1574 src/gui/forms/basemainwindow.cpp:1583
-#: src/gui/forms/basemainwindow.cpp:1659
+#: src/gui/forms/basemainwindow.cpp:405 src/gui/forms/basemainwindow.cpp:411
+#: src/gui/forms/basemainwindow.cpp:1128 src/gui/forms/basemainwindow.cpp:1133
+#: src/gui/forms/basemainwindow.cpp:1565 src/gui/forms/basemainwindow.cpp:1574
+#: src/gui/forms/basemainwindow.cpp:1649
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "파일 오류"
 
-#: src/gui/forms/basemainwindow.cpp:411
+#: src/gui/forms/basemainwindow.cpp:408
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "파일에 쓰는 중 오류가 발생했습니다. 권한을 변경하시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:465
+#: src/gui/forms/basemainwindow.cpp:461
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "The current folder has been modified.\n"
@@ -5088,12 +5088,12 @@ msgstr ""
 "현재 폴더가 수정되었습니다.\n"
 "저장하시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:467 src/gui/forms/basemainwindow.cpp:508
+#: src/gui/forms/basemainwindow.cpp:463 src/gui/forms/basemainwindow.cpp:502
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
 msgstr "경고"
 
-#: src/gui/forms/basemainwindow.cpp:506
+#: src/gui/forms/basemainwindow.cpp:500
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "A playlist has been modified.\n"
@@ -5102,148 +5102,148 @@ msgstr ""
 "재생 목록을 수정했습니다.\n"
 "저장하시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:617
+#: src/gui/forms/basemainwindow.cpp:610
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
 msgstr "종료 중..."
 
-#: src/gui/forms/basemainwindow.cpp:704
+#: src/gui/forms/basemainwindow.cpp:697
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
 msgid_plural "%n folders"
 msgstr[0] "폴더 %n개"
 
-#: src/gui/forms/basemainwindow.cpp:709
+#: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
 msgid_plural "%n files"
 msgstr[0] "파일 %n개"
 
-#: src/gui/forms/basemainwindow.cpp:714
+#: src/gui/forms/basemainwindow.cpp:707
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
 msgid_plural "%n selected"
 msgstr[0] "%n개 선택됨"
 
-#: src/gui/forms/basemainwindow.cpp:717
+#: src/gui/forms/basemainwindow.cpp:710
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
 msgstr "준비."
 
-#: src/gui/forms/basemainwindow.cpp:779
+#: src/gui/forms/basemainwindow.cpp:772
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
 msgstr "재생 목록 만드는 중..."
 
-#: src/gui/forms/basemainwindow.cpp:827
+#: src/gui/forms/basemainwindow.cpp:820
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
 msgstr "파일을 찾을 수 없음"
 
-#: src/gui/forms/basemainwindow.cpp:828
+#: src/gui/forms/basemainwindow.cpp:821
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
 msgstr "오류"
 
-#: src/gui/forms/basemainwindow.cpp:854
+#: src/gui/forms/basemainwindow.cpp:847
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
 msgstr "가져오기"
 
-#: src/gui/forms/basemainwindow.cpp:1134 src/gui/forms/basemainwindow.cpp:1140
-#: src/gui/forms/basemainwindow.cpp:1575 src/gui/forms/basemainwindow.cpp:1584
+#: src/gui/forms/basemainwindow.cpp:1126 src/gui/forms/basemainwindow.cpp:1132
+#: src/gui/forms/basemainwindow.cpp:1566 src/gui/forms/basemainwindow.cpp:1575
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "이름 변경 중 오류 발생:\n"
 
-#: src/gui/forms/basemainwindow.cpp:1135
+#: src/gui/forms/basemainwindow.cpp:1127
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
 msgstr "디렉터리를 닫은 다음 다시 시도하시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:1212
+#: src/gui/forms/basemainwindow.cpp:1204
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "필터"
 
-#: src/gui/forms/basemainwindow.cpp:1277
+#: src/gui/forms/basemainwindow.cpp:1269
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " [%1/%2 필터됨]"
 
-#: src/gui/forms/basemainwindow.cpp:1391
+#: src/gui/forms/basemainwindow.cpp:1383
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "프레임 추가"
 
-#: src/gui/forms/basemainwindow.cpp:1392
+#: src/gui/forms/basemainwindow.cpp:1384
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "프레임 ID 선택"
 
-#: src/gui/forms/basemainwindow.cpp:1538
+#: src/gui/forms/basemainwindow.cpp:1529
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "파일 이름 바꾸기"
 
-#: src/gui/forms/basemainwindow.cpp:1539
+#: src/gui/forms/basemainwindow.cpp:1530
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "새 파일 이름 입력:"
 
-#: src/gui/forms/basemainwindow.cpp:1576 src/gui/forms/basemainwindow.cpp:1585
+#: src/gui/forms/basemainwindow.cpp:1567 src/gui/forms/basemainwindow.cpp:1576
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1의 이름을 %2(으)로 바꿀 수 없음\n"
 
-#: src/gui/forms/basemainwindow.cpp:1577
+#: src/gui/forms/basemainwindow.cpp:1568
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "폴더를 닫은 다음 다시 시도하시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:1595
+#: src/gui/forms/basemainwindow.cpp:1586
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "이 항목 %1개를 휴지통에 버리시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:1624
+#: src/gui/forms/basemainwindow.cpp:1614
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "이 항목 %1개를 휴지통에 버리시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:1626
+#: src/gui/forms/basemainwindow.cpp:1616
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "이 항목을 휴지통으로 이동하시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:1628
+#: src/gui/forms/basemainwindow.cpp:1618
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "휴지통으로 이동"
 
-#: src/gui/forms/basemainwindow.cpp:1657
+#: src/gui/forms/basemainwindow.cpp:1647
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "폴더가 비어 있어야 합니다.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1658
+#: src/gui/forms/basemainwindow.cpp:1648
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "다음 파일을 휴지통으로 옮길 수 없습니다"
 
-#: src/gui/forms/basemainwindow.cpp:1691
+#: src/gui/forms/basemainwindow.cpp:1681
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "모두 펴기"
 
-#: src/gui/forms/basemainwindow.cpp:1803
+#: src/gui/forms/basemainwindow.cpp:1793
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "중단(&B)"
@@ -5268,204 +5268,204 @@ msgctxt "FileList|"
 msgid "&Close"
 msgstr "닫기(&C)"
 
-#: src/gui/forms/filelist.cpp:359 src/gui/forms/filelist.cpp:363
+#: src/gui/forms/filelist.cpp:358 src/gui/forms/filelist.cpp:362
 msgctxt "FileList|"
 msgid "&Expand all"
 msgstr "모두 펴기(&E)"
 
-#: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:364
+#: src/gui/forms/filelist.cpp:360 src/gui/forms/filelist.cpp:363
 msgctxt "FileList|"
 msgid "&Collapse all"
 msgstr "모두 접기(&C)"
 
-#: src/gui/forms/filelist.cpp:374 src/gui/forms/filelist.cpp:376
+#: src/gui/forms/filelist.cpp:373 src/gui/forms/filelist.cpp:375
 msgctxt "FileList|"
 msgid "&Play"
 msgstr "재생(&P)"
 
-#: src/gui/forms/filelist.cpp:380
+#: src/gui/forms/filelist.cpp:379
 msgctxt "FileList|"
 msgid "E&dit"
 msgstr "편집(&D)"
 
-#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
+#: src/gui/forms/filelist.cpp:386 src/gui/forms/filelist.cpp:390
 msgctxt "FileList|"
 msgid "&Open"
 msgstr "열기(&O)"
 
-#: src/gui/forms/filelist.cpp:388 src/gui/forms/filelist.cpp:392
+#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
 msgctxt "FileList|"
 msgid "Open Containing &Folder"
 msgstr "포함하는 폴더 열기(&F)"
 
-#: src/gui/forms/filelist.cpp:563
+#: src/gui/forms/filelist.cpp:561
 msgctxt "FileList|"
 msgid "Execute "
 msgstr "실행"
 
-#: src/gui/forms/filelist.cpp:572
+#: src/gui/forms/filelist.cpp:570
 msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "실행할 수 없음"
 
-#: src/gui/forms/kid3form.cpp:280
+#: src/gui/forms/kid3form.cpp:281
 msgctxt "Kid3Form|"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: src/gui/forms/kid3form.cpp:335 src/gui/forms/kid3form.cpp:1243
-#: src/gui/forms/kid3form.cpp:1244
+#: src/gui/forms/kid3form.cpp:336 src/gui/forms/kid3form.cpp:1246
+#: src/gui/forms/kid3form.cpp:1247
 msgctxt "Kid3Form|"
 msgid "F&ile"
 msgstr "파일(&I)"
 
-#: src/gui/forms/kid3form.cpp:346
+#: src/gui/forms/kid3form.cpp:347
 msgctxt "Kid3Form|"
 msgid "Name:"
 msgstr "이름:"
 
-#: src/gui/forms/kid3form.cpp:355 src/gui/forms/kid3form.cpp:405
+#: src/gui/forms/kid3form.cpp:356 src/gui/forms/kid3form.cpp:406
 msgctxt "Kid3Form|"
 msgid "Format:"
 msgstr "형식:"
 
-#: src/gui/forms/kid3form.cpp:386
+#: src/gui/forms/kid3form.cpp:387
 msgctxt "Kid3Form|"
 msgid "From:"
 msgstr "원본:"
 
-#: src/gui/forms/kid3form.cpp:392 src/gui/forms/kid3form.cpp:418
-#: src/gui/forms/kid3form.cpp:500 src/gui/forms/kid3form.cpp:524
+#: src/gui/forms/kid3form.cpp:393 src/gui/forms/kid3form.cpp:419
+#: src/gui/forms/kid3form.cpp:501 src/gui/forms/kid3form.cpp:525
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1"
 msgstr "태그 %1"
 
-#: src/gui/forms/kid3form.cpp:394
+#: src/gui/forms/kid3form.cpp:395
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Filename from Tag %1"
 msgstr "태그 %1에서 파일 이름으로"
 
-#: src/gui/forms/kid3form.cpp:411
+#: src/gui/forms/kid3form.cpp:412
 msgctxt "Kid3Form|"
 msgid "To:"
 msgstr "대상:"
 
-#: src/gui/forms/kid3form.cpp:419
+#: src/gui/forms/kid3form.cpp:420
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
 msgstr "파일 이름에서 태그 %1(으)로"
 
-#: src/gui/forms/kid3form.cpp:440 src/gui/forms/kid3form.cpp:891
+#: src/gui/forms/kid3form.cpp:441 src/gui/forms/kid3form.cpp:892
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
 msgstr "태그 %1(&%1)"
 
-#: src/gui/forms/kid3form.cpp:469
+#: src/gui/forms/kid3form.cpp:470
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "From Tag %1"
 msgstr "태그 %1에서"
 
-#: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:533
+#: src/gui/forms/kid3form.cpp:478 src/gui/forms/kid3form.cpp:534
 msgctxt "Kid3Form|"
 msgid "Copy"
 msgstr "복사"
 
-#: src/gui/forms/kid3form.cpp:485 src/gui/forms/kid3form.cpp:509
+#: src/gui/forms/kid3form.cpp:486 src/gui/forms/kid3form.cpp:510
 msgctxt "Kid3Form|"
 msgid "Paste"
 msgstr "붙여넣기"
 
-#: src/gui/forms/kid3form.cpp:492
+#: src/gui/forms/kid3form.cpp:493
 msgctxt "Kid3Form|"
 msgid "From"
 msgstr "원본"
 
-#: src/gui/forms/kid3form.cpp:494 src/gui/forms/kid3form.cpp:518
+#: src/gui/forms/kid3form.cpp:495 src/gui/forms/kid3form.cpp:519
 msgctxt "Kid3Form|"
 msgid "Filename"
 msgstr "파일 이름"
 
-#: src/gui/forms/kid3form.cpp:516
+#: src/gui/forms/kid3form.cpp:517
 msgctxt "Kid3Form|"
 msgid "To"
 msgstr "대상"
 
-#: src/gui/forms/kid3form.cpp:543
+#: src/gui/forms/kid3form.cpp:544
 msgctxt "Kid3Form|"
 msgid "Remove"
 msgstr "삭제"
 
-#: src/gui/forms/kid3form.cpp:557
+#: src/gui/forms/kid3form.cpp:558
 msgctxt "Kid3Form|"
 msgid "Edit..."
 msgstr "편집..."
 
-#: src/gui/forms/kid3form.cpp:563
+#: src/gui/forms/kid3form.cpp:564
 msgctxt "Kid3Form|"
 msgid "Add..."
 msgstr "추가..."
 
-#: src/gui/forms/kid3form.cpp:569
+#: src/gui/forms/kid3form.cpp:570
 msgctxt "Kid3Form|"
 msgid "Delete"
 msgstr "삭제"
 
-#: src/gui/forms/sectionactions.cpp:147
+#: src/gui/forms/sectionactions.cpp:146
 msgctxt "SectionActions|"
 msgid "Previous"
 msgstr "이전"
 
-#: src/gui/forms/sectionactions.cpp:149
+#: src/gui/forms/sectionactions.cpp:148
 msgctxt "SectionActions|"
 msgid "Next"
 msgstr "다음"
 
-#: src/gui/forms/sectionactions.cpp:151
+#: src/gui/forms/sectionactions.cpp:150
 msgctxt "SectionActions|"
 msgid "Transfer"
 msgstr "전송"
 
-#: src/gui/forms/sectionactions.cpp:154
+#: src/gui/forms/sectionactions.cpp:153
 msgctxt "SectionActions|"
 msgid "Copy"
 msgstr "복사"
 
-#: src/gui/forms/sectionactions.cpp:156
+#: src/gui/forms/sectionactions.cpp:155
 msgctxt "SectionActions|"
 msgid "Paste"
 msgstr "붙여넣기"
 
-#: src/gui/forms/sectionactions.cpp:158
+#: src/gui/forms/sectionactions.cpp:157
 msgctxt "SectionActions|"
 msgid "Remove"
 msgstr "삭제"
 
-#: src/gui/forms/sectionactions.cpp:161
+#: src/gui/forms/sectionactions.cpp:160
 msgctxt "SectionActions|"
 msgid "Edit"
 msgstr "편집"
 
-#: src/gui/forms/sectionactions.cpp:163
+#: src/gui/forms/sectionactions.cpp:162
 msgctxt "SectionActions|"
 msgid "Add"
 msgstr "추가"
 
-#: src/gui/forms/sectionactions.cpp:165
+#: src/gui/forms/sectionactions.cpp:164
 msgctxt "SectionActions|"
 msgid "Delete"
 msgstr "삭제"
 
-#: src/gui/forms/sectionactions.cpp:168
+#: src/gui/forms/sectionactions.cpp:167
 msgctxt "SectionActions|"
 msgid "Open Parent Folder"
 msgstr "부모 폴더 열기"
 
-#: src/gui/forms/sectionactions.cpp:171
+#: src/gui/forms/sectionactions.cpp:170
 msgctxt "SectionActions|"
 msgid "Open Current Folder"
 msgstr "현재 폴더 열기"
@@ -5515,7 +5515,7 @@ msgctxt "ChapterEditor|"
 msgid "End offset"
 msgstr "끝 지점"
 
-#: src/gui/widgets/configtable.cpp:41
+#: src/gui/widgets/configtable.cpp:42
 msgctxt "ConfigTable|"
 msgid "&Add"
 msgstr "추가(&A)"
@@ -5530,7 +5530,7 @@ msgctxt "ConfigTable|"
 msgid "&Delete row"
 msgstr "줄 삭제(&D)"
 
-#: src/gui/widgets/configtable.cpp:149
+#: src/gui/widgets/configtable.cpp:147
 msgctxt "ConfigTable|"
 msgid "&Clear row"
 msgstr "줄 지우기(&C)"
@@ -5585,7 +5585,7 @@ msgctxt "FormatListEdit|"
 msgid "&Remove"
 msgstr "삭제(&R)"
 
-#: src/gui/widgets/formatlistedit.cpp:247
+#: src/gui/widgets/formatlistedit.cpp:245
 msgctxt "FormatListEdit|"
 msgid "New"
 msgstr "새로 만들기"
@@ -5595,12 +5595,12 @@ msgctxt "FrameTable|"
 msgid "WWW Audio Source"
 msgstr "WWW 오디오 원본"
 
-#: src/gui/widgets/frametable.cpp:161
+#: src/gui/widgets/frametable.cpp:160
 msgctxt "FrameTable|"
 msgid "&Select all"
 msgstr "전체 선택(&S)"
 
-#: src/gui/widgets/frametable.cpp:163
+#: src/gui/widgets/frametable.cpp:162
 msgctxt "FrameTable|"
 msgid "&Deselect all"
 msgstr "모두 선택 해제(&D)"
@@ -5656,12 +5656,12 @@ msgctxt "PlayToolBar|"
 msgid "Close"
 msgstr "닫기"
 
-#: src/gui/widgets/playtoolbar.cpp:142
+#: src/gui/widgets/playtoolbar.cpp:141
 msgctxt "PlayToolBar|"
 msgid "Mute"
 msgstr "음소거"
 
-#: src/gui/widgets/playtoolbar.cpp:326
+#: src/gui/widgets/playtoolbar.cpp:324
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
@@ -5677,22 +5677,22 @@ msgctxt "StringListEdit|"
 msgid "Add Item"
 msgstr "항목 추가"
 
-#: src/gui/widgets/stringlistedit.cpp:72
+#: src/gui/widgets/stringlistedit.cpp:71
 msgctxt "StringListEdit|"
 msgid "Edit Item"
 msgstr "항목 편집"
 
-#: src/gui/widgets/subframeseditor.cpp:66
+#: src/gui/widgets/subframeseditor.cpp:67
 msgctxt "SubframesEditor|"
 msgid "Edit..."
 msgstr "편집..."
 
-#: src/gui/widgets/subframeseditor.cpp:71
+#: src/gui/widgets/subframeseditor.cpp:72
 msgctxt "SubframesEditor|"
 msgid "Add..."
 msgstr "추가..."
 
-#: src/gui/widgets/subframeseditor.cpp:76
+#: src/gui/widgets/subframeseditor.cpp:77
 msgctxt "SubframesEditor|"
 msgid "Delete"
 msgstr "삭제"
@@ -5727,117 +5727,117 @@ msgctxt "TagFormatBox|"
 msgid "Validation"
 msgstr "검사"
 
-#: src/gui/widgets/timeeventeditor.cpp:120
+#: src/gui/widgets/timeeventeditor.cpp:119
 msgctxt "TimeEventEditor|"
 msgid "&Add"
 msgstr "추가(&A)"
 
-#: src/gui/widgets/timeeventeditor.cpp:122
+#: src/gui/widgets/timeeventeditor.cpp:121
 msgctxt "TimeEventEditor|"
 msgid "&Delete"
 msgstr "삭제(&D)"
 
-#: src/gui/widgets/timeeventeditor.cpp:124
+#: src/gui/widgets/timeeventeditor.cpp:123
 msgctxt "TimeEventEditor|"
 msgid "From Clip&board"
 msgstr "클립보드에서(&B)"
 
-#: src/gui/widgets/timeeventeditor.cpp:126
+#: src/gui/widgets/timeeventeditor.cpp:125
 msgctxt "TimeEventEditor|"
 msgid "&Import..."
 msgstr "가져오기(&I)..."
 
-#: src/gui/widgets/timeeventeditor.cpp:128
+#: src/gui/widgets/timeeventeditor.cpp:127
 msgctxt "TimeEventEditor|"
 msgid "&Export..."
 msgstr "내보내기(&E)..."
 
-#: src/gui/widgets/timeeventeditor.cpp:130
+#: src/gui/widgets/timeeventeditor.cpp:129
 msgctxt "TimeEventEditor|"
 msgid "Help"
 msgstr "도움말"
 
-#: src/gui/widgets/timeeventeditor.cpp:188
+#: src/gui/widgets/timeeventeditor.cpp:187
 msgctxt "TimeEventEditor|"
 msgid "Events"
 msgstr "이벤트"
 
-#: src/gui/widgets/timeeventeditor.cpp:194
+#: src/gui/widgets/timeeventeditor.cpp:193
 msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "가사"
 
-#: src/gui/widgets/timeeventeditor.cpp:431
+#: src/gui/widgets/timeeventeditor.cpp:429
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "위치"
 
-#: src/gui/widgets/timeeventeditor.cpp:431
+#: src/gui/widgets/timeeventeditor.cpp:429
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
 msgstr "밀리초"
 
-#: src/gui/widgets/timeeventeditor.cpp:470
+#: src/gui/widgets/timeeventeditor.cpp:468
 msgctxt "TimeEventEditor|"
 msgid "&Insert row"
 msgstr "줄 추가(&I)"
 
-#: src/gui/widgets/timeeventeditor.cpp:474
+#: src/gui/widgets/timeeventeditor.cpp:471
 msgctxt "TimeEventEditor|"
 msgid "&Delete rows"
 msgstr "줄 삭제(&D)"
 
-#: src/gui/widgets/timeeventeditor.cpp:476
+#: src/gui/widgets/timeeventeditor.cpp:473
 msgctxt "TimeEventEditor|"
 msgid "C&lear"
 msgstr "지우기(&L)"
 
-#: src/gui/widgets/timeeventeditor.cpp:478
+#: src/gui/widgets/timeeventeditor.cpp:475
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
 msgstr "오프셋 추가(&A)..."
 
-#: src/gui/widgets/timeeventeditor.cpp:480
+#: src/gui/widgets/timeeventeditor.cpp:477
 msgctxt "TimeEventEditor|"
 msgid "&Seek to position"
 msgstr "위치로 이동(&S)"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:209
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:206
 msgctxt "@default|"
 msgid "MusicBrainz Fingerprint"
 msgstr "MusicBrainz 지문"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:285
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:282
 msgctxt "MusicBrainzClient|"
 msgid "Unrecognized"
 msgstr "인식되지 않음"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:293
 msgctxt "MusicBrainzClient|"
 msgid "Recognized"
 msgstr "인식함"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:293
 msgctxt "MusicBrainzClient|"
 msgid "User Selection"
 msgstr "사용자 선택"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:318
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:315
 msgctxt "MusicBrainzClient|"
 msgid "ID Lookup"
 msgstr "ID 찾아보기"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:326
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:323
 msgctxt "MusicBrainzClient|"
 msgid "Error"
 msgstr "오류"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:345
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:342
 msgctxt "MusicBrainzClient|"
 msgid "Fingerprint"
 msgstr "지문"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:355
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:351
 msgctxt "MusicBrainzClient|"
 msgid "Metadata Lookup"
 msgstr "메타데이터 찾아보기"
@@ -5847,7 +5847,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1481
+#: src/plugins/discogsimport/discogsimporter.cpp:1470
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
@@ -5857,437 +5857,437 @@ msgctxt "@default|"
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:914
-#: src/plugins/taglibmetadata/taglibfile.cpp:2505
+#: src/plugins/id3libmetadata/mp3file.cpp:907
+#: src/plugins/taglibmetadata/taglibfile.cpp:2486
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
 msgstr "AENC - 오디오 암호화"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:915
-#: src/plugins/taglibmetadata/taglibfile.cpp:2506
+#: src/plugins/id3libmetadata/mp3file.cpp:908
+#: src/plugins/taglibmetadata/taglibfile.cpp:2487
 msgctxt "@default|"
 msgid "APIC - Attached picture"
 msgstr "APIC - 첨부된 그림"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:917
-#: src/plugins/taglibmetadata/taglibfile.cpp:2511
+#: src/plugins/id3libmetadata/mp3file.cpp:910
+#: src/plugins/taglibmetadata/taglibfile.cpp:2492
 msgctxt "@default|"
 msgid "COMM - Comments"
 msgstr "COMM - 설명"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:918
-#: src/plugins/taglibmetadata/taglibfile.cpp:2512
+#: src/plugins/id3libmetadata/mp3file.cpp:911
+#: src/plugins/taglibmetadata/taglibfile.cpp:2493
 msgctxt "@default|"
 msgid "COMR - Commercial"
 msgstr "COMR - 광고"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:919
-#: src/plugins/taglibmetadata/taglibfile.cpp:2516
+#: src/plugins/id3libmetadata/mp3file.cpp:912
+#: src/plugins/taglibmetadata/taglibfile.cpp:2497
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - 암호화 방법 등록"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/id3libmetadata/mp3file.cpp:914
 msgctxt "@default|"
 msgid "EQUA - Equalization"
 msgstr "EQUA - 평준화"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:922
-#: src/plugins/taglibmetadata/taglibfile.cpp:2518
+#: src/plugins/id3libmetadata/mp3file.cpp:915
+#: src/plugins/taglibmetadata/taglibfile.cpp:2499
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
 msgstr "ETCO - 이벤트 타이밍 코드"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:923
-#: src/plugins/taglibmetadata/taglibfile.cpp:2519
+#: src/plugins/id3libmetadata/mp3file.cpp:916
+#: src/plugins/taglibmetadata/taglibfile.cpp:2500
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB - 일반 캡슐화된 객체"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:924
-#: src/plugins/taglibmetadata/taglibfile.cpp:2520
+#: src/plugins/id3libmetadata/mp3file.cpp:917
+#: src/plugins/taglibmetadata/taglibfile.cpp:2501
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
 msgstr "GRID - 그룹 식별자 등록"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/id3libmetadata/mp3file.cpp:918
 msgctxt "@default|"
 msgid "IPLS - Involved people list"
 msgstr "IPLS - 참여한 사람 목록"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:926
-#: src/plugins/taglibmetadata/taglibfile.cpp:2524
+#: src/plugins/id3libmetadata/mp3file.cpp:919
+#: src/plugins/taglibmetadata/taglibfile.cpp:2505
 msgctxt "@default|"
 msgid "LINK - Linked information"
 msgstr "LINK - 연결된 정보"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:927
-#: src/plugins/taglibmetadata/taglibfile.cpp:2525
+#: src/plugins/id3libmetadata/mp3file.cpp:920
+#: src/plugins/taglibmetadata/taglibfile.cpp:2506
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - 음악 CD 식별자"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:928
-#: src/plugins/taglibmetadata/taglibfile.cpp:2526
+#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/taglibmetadata/taglibfile.cpp:2507
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT - MPEG 위치 찾아보기 테이블"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:929
-#: src/plugins/taglibmetadata/taglibfile.cpp:2531
+#: src/plugins/id3libmetadata/mp3file.cpp:922
+#: src/plugins/taglibmetadata/taglibfile.cpp:2512
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
 msgstr "OWNE - 소유자 프레임"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:930
-#: src/plugins/taglibmetadata/taglibfile.cpp:2532
+#: src/plugins/id3libmetadata/mp3file.cpp:923
+#: src/plugins/taglibmetadata/taglibfile.cpp:2513
 msgctxt "@default|"
 msgid "PRIV - Private frame"
 msgstr "PRIV - 사용자 정의 프레임"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:931
-#: src/plugins/taglibmetadata/taglibfile.cpp:2533
+#: src/plugins/id3libmetadata/mp3file.cpp:924
+#: src/plugins/taglibmetadata/taglibfile.cpp:2514
 msgctxt "@default|"
 msgid "PCNT - Play counter"
 msgstr "PCNT - 재생 횟수"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:932
-#: src/plugins/taglibmetadata/taglibfile.cpp:2537
+#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/taglibmetadata/taglibfile.cpp:2518
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
 msgstr "POPM - 인기도 미터"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:933
-#: src/plugins/taglibmetadata/taglibfile.cpp:2538
+#: src/plugins/id3libmetadata/mp3file.cpp:926
+#: src/plugins/taglibmetadata/taglibfile.cpp:2519
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - 위치 동기화 프레임"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:934
-#: src/plugins/taglibmetadata/taglibfile.cpp:2539
+#: src/plugins/id3libmetadata/mp3file.cpp:927
+#: src/plugins/taglibmetadata/taglibfile.cpp:2520
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - 추천하는 버퍼 크기"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:936
+#: src/plugins/id3libmetadata/mp3file.cpp:929
 msgctxt "@default|"
 msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD - 상대적 음량 조절"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:937
-#: src/plugins/taglibmetadata/taglibfile.cpp:2541
+#: src/plugins/id3libmetadata/mp3file.cpp:930
+#: src/plugins/taglibmetadata/taglibfile.cpp:2522
 msgctxt "@default|"
 msgid "RVRB - Reverb"
 msgstr "RVRB - 리버브"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:940
-#: src/plugins/taglibmetadata/taglibfile.cpp:2544
+#: src/plugins/id3libmetadata/mp3file.cpp:933
+#: src/plugins/taglibmetadata/taglibfile.cpp:2525
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
 msgstr "SYLT - 동기화된 가사/텍스트"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:941
-#: src/plugins/taglibmetadata/taglibfile.cpp:2545
+#: src/plugins/id3libmetadata/mp3file.cpp:934
+#: src/plugins/taglibmetadata/taglibfile.cpp:2526
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC - 동기화된 템포 코드"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:942
-#: src/plugins/taglibmetadata/taglibfile.cpp:2546
+#: src/plugins/id3libmetadata/mp3file.cpp:935
+#: src/plugins/taglibmetadata/taglibfile.cpp:2527
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB - 앨범/영화/쇼 제목"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:943
-#: src/plugins/taglibmetadata/taglibfile.cpp:2547
+#: src/plugins/id3libmetadata/mp3file.cpp:936
+#: src/plugins/taglibmetadata/taglibfile.cpp:2528
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM - BPM(분당 비트 수)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:944
-#: src/plugins/taglibmetadata/taglibfile.cpp:2552
+#: src/plugins/id3libmetadata/mp3file.cpp:937
+#: src/plugins/taglibmetadata/taglibfile.cpp:2533
 msgctxt "@default|"
 msgid "TCOM - Composer"
 msgstr "TCOM - 작곡가"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:945
-#: src/plugins/taglibmetadata/taglibfile.cpp:2553
+#: src/plugins/id3libmetadata/mp3file.cpp:938
+#: src/plugins/taglibmetadata/taglibfile.cpp:2534
 msgctxt "@default|"
 msgid "TCON - Content type"
 msgstr "TCON - 콘텐츠 형식"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:946
-#: src/plugins/taglibmetadata/taglibfile.cpp:2554
+#: src/plugins/id3libmetadata/mp3file.cpp:939
+#: src/plugins/taglibmetadata/taglibfile.cpp:2535
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
 msgstr "TCOP - 저작권 메시지"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:947
+#: src/plugins/id3libmetadata/mp3file.cpp:940
 msgctxt "@default|"
 msgid "TDAT - Date"
 msgstr "TDAT - 날짜"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:949
-#: src/plugins/taglibmetadata/taglibfile.cpp:2559
+#: src/plugins/id3libmetadata/mp3file.cpp:942
+#: src/plugins/taglibmetadata/taglibfile.cpp:2540
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - 재생 목록 지연"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:955
-#: src/plugins/taglibmetadata/taglibfile.cpp:2564
+#: src/plugins/id3libmetadata/mp3file.cpp:948
+#: src/plugins/taglibmetadata/taglibfile.cpp:2545
 msgctxt "@default|"
 msgid "TENC - Encoded by"
 msgstr "TENC - 인코딩 도구"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:956
-#: src/plugins/taglibmetadata/taglibfile.cpp:2565
+#: src/plugins/id3libmetadata/mp3file.cpp:949
+#: src/plugins/taglibmetadata/taglibfile.cpp:2546
 msgctxt "@default|"
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - 작사자/텍스트 작성자"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:957
-#: src/plugins/taglibmetadata/taglibfile.cpp:2566
+#: src/plugins/id3libmetadata/mp3file.cpp:950
+#: src/plugins/taglibmetadata/taglibfile.cpp:2547
 msgctxt "@default|"
 msgid "TFLT - File type"
 msgstr "TFLT - 파일 형식"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:958
+#: src/plugins/id3libmetadata/mp3file.cpp:951
 msgctxt "@default|"
 msgid "TIME - Time"
 msgstr "TIME - 시간"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:959
-#: src/plugins/taglibmetadata/taglibfile.cpp:2571
+#: src/plugins/id3libmetadata/mp3file.cpp:952
+#: src/plugins/taglibmetadata/taglibfile.cpp:2552
 msgctxt "@default|"
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - 콘텐츠 그룹 설명"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:960
-#: src/plugins/taglibmetadata/taglibfile.cpp:2572
+#: src/plugins/id3libmetadata/mp3file.cpp:953
+#: src/plugins/taglibmetadata/taglibfile.cpp:2553
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - 제목/노래 이름/내용 설명"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:961
-#: src/plugins/taglibmetadata/taglibfile.cpp:2573
+#: src/plugins/id3libmetadata/mp3file.cpp:954
+#: src/plugins/taglibmetadata/taglibfile.cpp:2554
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr "TIT3 - 부제목/내용 보충"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:962
-#: src/plugins/taglibmetadata/taglibfile.cpp:2574
+#: src/plugins/id3libmetadata/mp3file.cpp:955
+#: src/plugins/taglibmetadata/taglibfile.cpp:2555
 msgctxt "@default|"
 msgid "TKEY - Initial key"
 msgstr "TKEY - 초기 키"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:963
-#: src/plugins/taglibmetadata/taglibfile.cpp:2578
+#: src/plugins/id3libmetadata/mp3file.cpp:956
+#: src/plugins/taglibmetadata/taglibfile.cpp:2559
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
 msgstr "TLAN - 언어"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:964
-#: src/plugins/taglibmetadata/taglibfile.cpp:2579
+#: src/plugins/id3libmetadata/mp3file.cpp:957
+#: src/plugins/taglibmetadata/taglibfile.cpp:2560
 msgctxt "@default|"
 msgid "TLEN - Length"
 msgstr "TLEN - 길이"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:966
-#: src/plugins/taglibmetadata/taglibfile.cpp:2581
+#: src/plugins/id3libmetadata/mp3file.cpp:959
+#: src/plugins/taglibmetadata/taglibfile.cpp:2562
 msgctxt "@default|"
 msgid "TMED - Media type"
 msgstr "TMED - 미디어 형식"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:968
-#: src/plugins/taglibmetadata/taglibfile.cpp:2583
+#: src/plugins/id3libmetadata/mp3file.cpp:961
+#: src/plugins/taglibmetadata/taglibfile.cpp:2564
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL - 원래 앨범/영화/쇼 제목"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:969
-#: src/plugins/taglibmetadata/taglibfile.cpp:2584
+#: src/plugins/id3libmetadata/mp3file.cpp:962
+#: src/plugins/taglibmetadata/taglibfile.cpp:2565
 msgctxt "@default|"
 msgid "TOFN - Original filename"
 msgstr "TOFN - 원래 파일 이름"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:970
-#: src/plugins/taglibmetadata/taglibfile.cpp:2585
+#: src/plugins/id3libmetadata/mp3file.cpp:963
+#: src/plugins/taglibmetadata/taglibfile.cpp:2566
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY - 원래 작사자/텍스트 작성자"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:971
-#: src/plugins/taglibmetadata/taglibfile.cpp:2586
+#: src/plugins/id3libmetadata/mp3file.cpp:964
+#: src/plugins/taglibmetadata/taglibfile.cpp:2567
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE - 원래 아티스트/연주가"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:972
+#: src/plugins/id3libmetadata/mp3file.cpp:965
 msgctxt "@default|"
 msgid "TORY - Original release year"
 msgstr "TORY - 원래 출시한 연도"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:973
-#: src/plugins/taglibmetadata/taglibfile.cpp:2587
+#: src/plugins/id3libmetadata/mp3file.cpp:966
+#: src/plugins/taglibmetadata/taglibfile.cpp:2568
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN - 파일 소유자/라이선스"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:974
-#: src/plugins/taglibmetadata/taglibfile.cpp:2588
+#: src/plugins/id3libmetadata/mp3file.cpp:967
+#: src/plugins/taglibmetadata/taglibfile.cpp:2569
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 - 리드 음악가/솔로"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:975
-#: src/plugins/taglibmetadata/taglibfile.cpp:2589
+#: src/plugins/id3libmetadata/mp3file.cpp:968
+#: src/plugins/taglibmetadata/taglibfile.cpp:2570
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - 밴드/오케스트라/추가 인원"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:976
-#: src/plugins/taglibmetadata/taglibfile.cpp:2590
+#: src/plugins/id3libmetadata/mp3file.cpp:969
+#: src/plugins/taglibmetadata/taglibfile.cpp:2571
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
 msgstr "TPE3 - 지휘자/연주가 보충"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:977
-#: src/plugins/taglibmetadata/taglibfile.cpp:2591
+#: src/plugins/id3libmetadata/mp3file.cpp:970
+#: src/plugins/taglibmetadata/taglibfile.cpp:2572
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr "TPE4 - 해석, 리믹스, 수정한 사람"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:978
-#: src/plugins/taglibmetadata/taglibfile.cpp:2592
+#: src/plugins/id3libmetadata/mp3file.cpp:971
+#: src/plugins/taglibmetadata/taglibfile.cpp:2573
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
 msgstr "TPOS - 집합의 일부"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:980
-#: src/plugins/taglibmetadata/taglibfile.cpp:2594
+#: src/plugins/id3libmetadata/mp3file.cpp:973
+#: src/plugins/taglibmetadata/taglibfile.cpp:2575
 msgctxt "@default|"
 msgid "TPUB - Publisher"
 msgstr "TPUB - 출판사"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:981
-#: src/plugins/taglibmetadata/taglibfile.cpp:2595
+#: src/plugins/id3libmetadata/mp3file.cpp:974
+#: src/plugins/taglibmetadata/taglibfile.cpp:2576
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - 트랙 번호/집합 내 위치"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:982
+#: src/plugins/id3libmetadata/mp3file.cpp:975
 msgctxt "@default|"
 msgid "TRDA - Recording dates"
 msgstr "TRDA - 녹음한 날짜"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:983
-#: src/plugins/taglibmetadata/taglibfile.cpp:2596
+#: src/plugins/id3libmetadata/mp3file.cpp:976
+#: src/plugins/taglibmetadata/taglibfile.cpp:2577
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN - 인터넷 방송국 이름"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:984
-#: src/plugins/taglibmetadata/taglibfile.cpp:2597
+#: src/plugins/id3libmetadata/mp3file.cpp:977
+#: src/plugins/taglibmetadata/taglibfile.cpp:2578
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO - 인터넷 방송국 소유자"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:985
+#: src/plugins/id3libmetadata/mp3file.cpp:978
 msgctxt "@default|"
 msgid "TSIZ - Size"
 msgstr "TSIZ - 크기"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:989
-#: src/plugins/taglibmetadata/taglibfile.cpp:2603
+#: src/plugins/id3libmetadata/mp3file.cpp:982
+#: src/plugins/taglibmetadata/taglibfile.cpp:2584
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - 국제 표준 녹음 코드(ISRC)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:990
-#: src/plugins/taglibmetadata/taglibfile.cpp:2604
+#: src/plugins/id3libmetadata/mp3file.cpp:983
+#: src/plugins/taglibmetadata/taglibfile.cpp:2585
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - 인코딩에 사용한 소프트웨어/하드웨어 설정"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:992
-#: src/plugins/taglibmetadata/taglibfile.cpp:2606
+#: src/plugins/id3libmetadata/mp3file.cpp:985
+#: src/plugins/taglibmetadata/taglibfile.cpp:2587
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
 msgstr "TXXX - 사용자 정의 텍스트 정보"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:993
+#: src/plugins/id3libmetadata/mp3file.cpp:986
 msgctxt "@default|"
 msgid "TYER - Year"
 msgstr "TYER - 연도"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:994
-#: src/plugins/taglibmetadata/taglibfile.cpp:2607
+#: src/plugins/id3libmetadata/mp3file.cpp:987
+#: src/plugins/taglibmetadata/taglibfile.cpp:2588
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
 msgstr "UFID - 고유 파일 식별자"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:995
-#: src/plugins/taglibmetadata/taglibfile.cpp:2608
+#: src/plugins/id3libmetadata/mp3file.cpp:988
+#: src/plugins/taglibmetadata/taglibfile.cpp:2589
 msgctxt "@default|"
 msgid "USER - Terms of use"
 msgstr "USER - 이용 약관"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:996
-#: src/plugins/taglibmetadata/taglibfile.cpp:2609
+#: src/plugins/id3libmetadata/mp3file.cpp:989
+#: src/plugins/taglibmetadata/taglibfile.cpp:2590
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr "USLT - 동기화되지 않은 가사/텍스트"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:997
-#: src/plugins/taglibmetadata/taglibfile.cpp:2610
+#: src/plugins/id3libmetadata/mp3file.cpp:990
+#: src/plugins/taglibmetadata/taglibfile.cpp:2591
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
 msgstr "WCOM - 상업적 정보"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:998
-#: src/plugins/taglibmetadata/taglibfile.cpp:2611
+#: src/plugins/id3libmetadata/mp3file.cpp:991
+#: src/plugins/taglibmetadata/taglibfile.cpp:2592
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - 저작권/법적 정보"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:999
-#: src/plugins/taglibmetadata/taglibfile.cpp:2615
+#: src/plugins/id3libmetadata/mp3file.cpp:992
+#: src/plugins/taglibmetadata/taglibfile.cpp:2596
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF - 공식 오디오 파일 웹 페이지"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1000
-#: src/plugins/taglibmetadata/taglibfile.cpp:2616
+#: src/plugins/id3libmetadata/mp3file.cpp:993
+#: src/plugins/taglibmetadata/taglibfile.cpp:2597
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR - 공식 아티스트/연주가 웹 페이지"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1001
-#: src/plugins/taglibmetadata/taglibfile.cpp:2617
+#: src/plugins/id3libmetadata/mp3file.cpp:994
+#: src/plugins/taglibmetadata/taglibfile.cpp:2598
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
 msgstr "WOAS - 공식 오디오 원본 웹 페이지"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1002
-#: src/plugins/taglibmetadata/taglibfile.cpp:2618
+#: src/plugins/id3libmetadata/mp3file.cpp:995
+#: src/plugins/taglibmetadata/taglibfile.cpp:2599
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
 msgstr "WORS - 공식 인터넷 라디오 방송국 홈페이지"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1003
-#: src/plugins/taglibmetadata/taglibfile.cpp:2619
+#: src/plugins/id3libmetadata/mp3file.cpp:996
+#: src/plugins/taglibmetadata/taglibfile.cpp:2600
 msgctxt "@default|"
 msgid "WPAY - Payment"
 msgstr "WPAY - 지불 정보"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1004
-#: src/plugins/taglibmetadata/taglibfile.cpp:2620
+#: src/plugins/id3libmetadata/mp3file.cpp:997
+#: src/plugins/taglibmetadata/taglibfile.cpp:2601
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
 msgstr "WPUB - 공식 출판사 웹 페이지"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1005
-#: src/plugins/taglibmetadata/taglibfile.cpp:2621
+#: src/plugins/id3libmetadata/mp3file.cpp:998
+#: src/plugins/taglibmetadata/taglibfile.cpp:2602
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - 사용자 정의 URL 링크"
@@ -6297,167 +6297,167 @@ msgctxt "@default|"
 msgid "MusicBrainz Release"
 msgstr "MusicBrainz 릴리스"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2507
+#: src/plugins/taglibmetadata/taglibfile.cpp:2488
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - 오디오 이동 지점 인덱스"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2509
+#: src/plugins/taglibmetadata/taglibfile.cpp:2490
 msgctxt "@default|"
 msgid "CHAP - Chapter"
 msgstr "CHAP - 챕터"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2514
+#: src/plugins/taglibmetadata/taglibfile.cpp:2495
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
 msgstr "CTOC - 목차"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2517
+#: src/plugins/taglibmetadata/taglibfile.cpp:2498
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - 평준화(2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2522
+#: src/plugins/taglibmetadata/taglibfile.cpp:2503
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
 msgstr "GRP1 - 그룹화"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2528
+#: src/plugins/taglibmetadata/taglibfile.cpp:2509
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
 msgstr "MVIN - 악장 번호"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2529
+#: src/plugins/taglibmetadata/taglibfile.cpp:2510
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
 msgstr "MVNM - 악장 이름"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2535
+#: src/plugins/taglibmetadata/taglibfile.cpp:2516
 msgctxt "@default|"
 msgid "PCST - Podcast"
 msgstr "PCST - 팟캐스트"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2540
+#: src/plugins/taglibmetadata/taglibfile.cpp:2521
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - 상대적 음량 조절(2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2542
+#: src/plugins/taglibmetadata/taglibfile.cpp:2523
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
 msgstr "SEEK - 검색 프레임"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2543
+#: src/plugins/taglibmetadata/taglibfile.cpp:2524
 msgctxt "@default|"
 msgid "SIGN - Signature frame"
 msgstr "SIGN - 서명 프레임"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2549
+#: src/plugins/taglibmetadata/taglibfile.cpp:2530
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
 msgstr "TCAT - 팟캐스트 분류"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2551
+#: src/plugins/taglibmetadata/taglibfile.cpp:2532
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - iTunes 모음집 플래그"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2555
+#: src/plugins/taglibmetadata/taglibfile.cpp:2536
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - 인코딩한 시간"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2557
+#: src/plugins/taglibmetadata/taglibfile.cpp:2538
 msgctxt "@default|"
 msgid "TDES - Podcast description"
 msgstr "TDES - 팟캐스트 설명"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2560
+#: src/plugins/taglibmetadata/taglibfile.cpp:2541
 msgctxt "@default|"
 msgid "TDOR - Original release time"
 msgstr "TDOR - 원래 출시한 시간"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2561
+#: src/plugins/taglibmetadata/taglibfile.cpp:2542
 msgctxt "@default|"
 msgid "TDRC - Recording time"
 msgstr "TDRC - 녹음한 시간"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2562
+#: src/plugins/taglibmetadata/taglibfile.cpp:2543
 msgctxt "@default|"
 msgid "TDRL - Release time"
 msgstr "TDRL - 출시한 시간"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2563
+#: src/plugins/taglibmetadata/taglibfile.cpp:2544
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
 msgstr "TDTG - 태그한 시간"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2568
+#: src/plugins/taglibmetadata/taglibfile.cpp:2549
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
 msgstr "TGID - 팟캐스트 식별자"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2570
+#: src/plugins/taglibmetadata/taglibfile.cpp:2551
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
 msgstr "TIPL - 참여한 사람 목록"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2576
+#: src/plugins/taglibmetadata/taglibfile.cpp:2557
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
 msgstr "TKWD - 팟캐스트 키워드"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2580
+#: src/plugins/taglibmetadata/taglibfile.cpp:2561
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - 음악가 크레딧 목록"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2582
+#: src/plugins/taglibmetadata/taglibfile.cpp:2563
 msgctxt "@default|"
 msgid "TMOO - Mood"
 msgstr "TMOD - 분위기"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2593
+#: src/plugins/taglibmetadata/taglibfile.cpp:2574
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
 msgstr "TPRO - 생성된 공지"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2598
+#: src/plugins/taglibmetadata/taglibfile.cpp:2579
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 - 앨범 아티스트 정렬 순서"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2599
+#: src/plugins/taglibmetadata/taglibfile.cpp:2580
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
 msgstr "TSOA - 앨범 정렬 순서"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2600
+#: src/plugins/taglibmetadata/taglibfile.cpp:2581
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
 msgstr "TSOC - 작곡가 정렬 순서"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2601
+#: src/plugins/taglibmetadata/taglibfile.cpp:2582
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
 msgstr "TSOP - 연주가 정렬 순서"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2602
+#: src/plugins/taglibmetadata/taglibfile.cpp:2583
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
 msgstr "TSOT - 제목 정렬 순서"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2605
+#: src/plugins/taglibmetadata/taglibfile.cpp:2586
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
 msgstr "TSST - 집합 자막"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2613
+#: src/plugins/taglibmetadata/taglibfile.cpp:2594
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - 팟캐스트 피드"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6870
+#: src/plugins/taglibmetadata/taglibfile.cpp:6818
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "등급 정보"

@@ -19,420 +19,420 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 21.04.0\n"
 
-#: src/app/cli/clicommand.cpp:350
+#: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
 msgid "Timeout"
 msgstr "Denbora-muga"
 
-#: src/app/cli/clicommand.cpp:394
+#: src/app/cli/clicommand.cpp:389
 msgctxt "HelpCommand|"
 msgid "Help"
 msgstr "Laguntza"
 
-#: src/app/cli/clicommand.cpp:395
+#: src/app/cli/clicommand.cpp:390
 msgctxt "HelpCommand|"
 msgid "Command name"
 msgstr "Komando-izena"
 
-#: src/app/cli/clicommand.cpp:406
+#: src/app/cli/clicommand.cpp:401
 msgctxt "TimeoutCommand|"
 msgid "Overwrite timeout"
 msgstr "Gainidatzi denbora-muga"
 
-#: src/app/cli/clicommand.cpp:407
+#: src/app/cli/clicommand.cpp:402
 msgctxt "TimeoutCommand|"
 msgid "Time"
 msgstr "Denbora"
 
-#: src/app/cli/clicommand.cpp:448
+#: src/app/cli/clicommand.cpp:441
 msgctxt "QuitCommand|"
 msgid "Quit application"
 msgstr "Irten aplikaziotik"
 
-#: src/app/cli/clicommand.cpp:457
+#: src/app/cli/clicommand.cpp:450
 msgctxt "QuitCommand|"
 msgid "The current folder has been modified."
 msgstr "Uneko karpeta aldatu egin da."
 
-#: src/app/cli/clicommand.cpp:459
+#: src/app/cli/clicommand.cpp:452
 msgctxt "QuitCommand|"
 msgid "Type 'exit force' to quit."
 msgstr "Tekleatu 'exit force'  irteteko."
 
-#: src/app/cli/clicommand.cpp:475
+#: src/app/cli/clicommand.cpp:468
 msgctxt "CdCommand|"
 msgid "Change folder"
 msgstr "Aldatu KARPETA"
 
-#: src/app/cli/clicommand.cpp:489
+#: src/app/cli/clicommand.cpp:482
 #, qt-format
 msgctxt "CdCommand|"
 msgid "%1 does not exist"
 msgstr "%1 ez dago"
 
-#: src/app/cli/clicommand.cpp:509
+#: src/app/cli/clicommand.cpp:502
 msgctxt "PwdCommand|"
 msgid "Print the filename of the current folder"
 msgstr "Inprimatu uneko karpetaren fitxategi-izena"
 
-#: src/app/cli/clicommand.cpp:525
+#: src/app/cli/clicommand.cpp:518
 msgctxt "LsCommand|"
 msgid "Folder list"
 msgstr "Karpeten zerrenda"
 
-#: src/app/cli/clicommand.cpp:537
+#: src/app/cli/clicommand.cpp:530
 msgctxt "SaveCommand|"
 msgid "Saves the changed files"
 msgstr "Aldatutako fitxategiak gordetzen ditu"
 
-#: src/app/cli/clicommand.cpp:548
+#: src/app/cli/clicommand.cpp:541
 msgctxt "SaveCommand|"
 msgid "Error while writing file:\n"
 msgstr "Errorea fitxategia idazterakoan:\n"
 
-#: src/app/cli/clicommand.cpp:557
+#: src/app/cli/clicommand.cpp:550
 msgctxt "SelectCommand|"
 msgid "Select file"
 msgstr "Hautatu fitxategia"
 
-#: src/app/cli/clicommand.cpp:580
+#: src/app/cli/clicommand.cpp:572
 #, qt-format
 msgctxt "SelectCommand|"
 msgid "%1 not found"
 msgstr "%1 ez da aurkitu"
 
-#: src/app/cli/clicommand.cpp:590
+#: src/app/cli/clicommand.cpp:582
 msgctxt "TagCommand|"
 msgid "Select tag"
 msgstr "Hautatu etiketa"
 
-#: src/app/cli/clicommand.cpp:607
+#: src/app/cli/clicommand.cpp:599
 msgctxt "GetCommand|"
 msgid "Get tag frame"
 msgstr "Lortu etiketako bilbea"
 
-#: src/app/cli/clicommand.cpp:635
+#: src/app/cli/clicommand.cpp:627
 msgctxt "SetCommand|"
 msgid "Set tag frame"
 msgstr "Ezarri etiketako bilbea"
 
-#: src/app/cli/clicommand.cpp:653
+#: src/app/cli/clicommand.cpp:644
 #, qt-format
 msgctxt "SetCommand|"
 msgid "Could not set \"%1\" for %2"
 msgstr "Ezin izan da %2(r)en «%1» ezarri"
 
-#: src/app/cli/clicommand.cpp:663
+#: src/app/cli/clicommand.cpp:654
 msgctxt "RevertCommand|"
 msgid "Revert"
 msgstr "Lehengoratu"
 
-#: src/app/cli/clicommand.cpp:675
+#: src/app/cli/clicommand.cpp:666
 msgctxt "ImportCommand|"
 msgid "Import from file"
 msgstr "Inportatu fitxategitik"
 
-#: src/app/cli/clicommand.cpp:677
+#: src/app/cli/clicommand.cpp:668
 msgctxt "ImportCommand|"
 msgid "File path"
 msgstr "Fitxategiaren bide-izena"
 
-#: src/app/cli/clicommand.cpp:677
+#: src/app/cli/clicommand.cpp:668
 msgctxt "ImportCommand|"
 msgid "Format name"
 msgstr "Formatu-izena"
 
-#: src/app/cli/clicommand.cpp:678
+#: src/app/cli/clicommand.cpp:669
 msgctxt "ImportCommand|"
 msgid "Source"
 msgstr "Sorburua"
 
-#: src/app/cli/clicommand.cpp:679
+#: src/app/cli/clicommand.cpp:670
 msgctxt "ImportCommand|"
 msgid "Extraction"
 msgstr "Erauztea"
 
-#: src/app/cli/clicommand.cpp:707
+#: src/app/cli/clicommand.cpp:698
 #, qt-format
 msgctxt "ImportCommand|"
 msgid "%1 not found."
 msgstr "%1 ez da aurkitu."
 
-#: src/app/cli/clicommand.cpp:709
+#: src/app/cli/clicommand.cpp:700
 msgctxt "ImportCommand|"
 msgid "Available"
 msgstr "Erabilgarri"
 
-#: src/app/cli/clicommand.cpp:720
+#: src/app/cli/clicommand.cpp:711
 msgctxt "ImportCommand|"
 msgid "Error"
 msgstr "Errorea"
 
-#: src/app/cli/clicommand.cpp:730
+#: src/app/cli/clicommand.cpp:721
 msgctxt "BatchImportCommand|"
 msgid "Automatic import"
 msgstr "Inportatze automatikoa"
 
-#: src/app/cli/clicommand.cpp:731
+#: src/app/cli/clicommand.cpp:722
 msgctxt "BatchImportCommand|"
 msgid "Profile name"
 msgstr "Profil-izena"
 
-#: src/app/cli/clicommand.cpp:743
+#: src/app/cli/clicommand.cpp:734
 #, qt-format
 msgctxt "BatchImportCommand|"
 msgid "%1 not found."
 msgstr "%1 ez da aurkitu."
 
-#: src/app/cli/clicommand.cpp:745
+#: src/app/cli/clicommand.cpp:736
 msgctxt "BatchImportCommand|"
 msgid "Available"
 msgstr "Erabilgarri"
 
-#: src/app/cli/clicommand.cpp:818
+#: src/app/cli/clicommand.cpp:809
 msgctxt "AlbumArtCommand|"
 msgid "Download album cover artwork"
 msgstr "Zama-jaitsi albumaren azaleko artelana"
 
-#: src/app/cli/clicommand.cpp:862
+#: src/app/cli/clicommand.cpp:852
 msgctxt "ExportCommand|"
 msgid "Export to file"
 msgstr "Esportatu fitxategira"
 
-#: src/app/cli/clicommand.cpp:863
+#: src/app/cli/clicommand.cpp:853
 msgctxt "ExportCommand|"
 msgid "Format name"
 msgstr "Formatu-izena"
 
-#: src/app/cli/clicommand.cpp:878
+#: src/app/cli/clicommand.cpp:867
 #, qt-format
 msgctxt "ExportCommand|"
 msgid "%1 not found."
 msgstr "%1 ez da aurkitu."
 
-#: src/app/cli/clicommand.cpp:880
+#: src/app/cli/clicommand.cpp:869
 msgctxt "ExportCommand|"
 msgid "Available"
 msgstr "Erabilgarri"
 
-#: src/app/cli/clicommand.cpp:891
+#: src/app/cli/clicommand.cpp:880
 msgctxt "ExportCommand|"
 msgid "Error"
 msgstr "Errorea"
 
-#: src/app/cli/clicommand.cpp:900
+#: src/app/cli/clicommand.cpp:889
 msgctxt "PlaylistCommand|"
 msgid "Create playlist"
 msgstr "Sortu jotze-zerrenda"
 
-#: src/app/cli/clicommand.cpp:907
+#: src/app/cli/clicommand.cpp:896
 msgctxt "PlaylistCommand|"
 msgid "Error"
 msgstr "Errorea"
 
-#: src/app/cli/clicommand.cpp:914
+#: src/app/cli/clicommand.cpp:903
 msgctxt "FilenameFormatCommand|"
 msgid "Apply filename format"
 msgstr "Ezarri fitxategi-izen formatua"
 
-#: src/app/cli/clicommand.cpp:925
+#: src/app/cli/clicommand.cpp:914
 msgctxt "TagFormatCommand|"
 msgid "Apply tag format"
 msgstr "Aplikatu etiketa formatua"
 
-#: src/app/cli/clicommand.cpp:937
+#: src/app/cli/clicommand.cpp:926
 msgctxt "TextEncodingCommand|"
 msgid "Apply text encoding"
 msgstr "Ezarri testu kodeketa"
 
-#: src/app/cli/clicommand.cpp:948
+#: src/app/cli/clicommand.cpp:937
 msgctxt "RenameDirectoryCommand|"
 msgid "Rename folder"
 msgstr "Berrizendatu karpeta"
 
-#: src/app/cli/clicommand.cpp:1040
+#: src/app/cli/clicommand.cpp:1028
 msgctxt "NumberTracksCommand|"
 msgid "Number tracks"
 msgstr "Pistak zenbakitu"
 
-#: src/app/cli/clicommand.cpp:1041
+#: src/app/cli/clicommand.cpp:1029
 msgctxt "NumberTracksCommand|"
 msgid "Track number"
 msgstr "Pista-zenbakia"
 
-#: src/app/cli/clicommand.cpp:1065
+#: src/app/cli/clicommand.cpp:1053
 msgctxt "FilterCommand|"
 msgid "Filter"
 msgstr "Iragazi"
 
-#: src/app/cli/clicommand.cpp:1066
+#: src/app/cli/clicommand.cpp:1054
 msgctxt "FilterCommand|"
 msgid "Filter name"
 msgstr "Iragazi izena"
 
-#: src/app/cli/clicommand.cpp:1081
+#: src/app/cli/clicommand.cpp:1069
 #, qt-format
 msgctxt "FilterCommand|"
 msgid "%1 not found."
 msgstr "%1 ez da aurkitu."
 
-#: src/app/cli/clicommand.cpp:1083
+#: src/app/cli/clicommand.cpp:1071
 msgctxt "FilterCommand|"
 msgid "Available"
 msgstr "Erabilgarri"
 
-#: src/app/cli/clicommand.cpp:1157
+#: src/app/cli/clicommand.cpp:1145
 msgctxt "ToId3v24Command|"
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "Bihurtu ID3v2.3 -> ID3v2.4"
 
-#: src/app/cli/clicommand.cpp:1168
+#: src/app/cli/clicommand.cpp:1156
 msgctxt "ToId3v23Command|"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Bihurtu ID3v2.4 -> ID3v2.3"
 
-#: src/app/cli/clicommand.cpp:1179
+#: src/app/cli/clicommand.cpp:1167
 msgctxt "TagToFilenameCommand|"
 msgid "Filename from tag"
 msgstr "Fitxategi-izena etiketatik"
 
-#: src/app/cli/clicommand.cpp:1209
+#: src/app/cli/clicommand.cpp:1197
 msgctxt "FilenameToTagCommand|"
 msgid "Tag from filename"
 msgstr "Etiketa fitxategi-izenetik"
 
-#: src/app/cli/clicommand.cpp:1239
+#: src/app/cli/clicommand.cpp:1227
 msgctxt "TagToOtherTagCommand|"
 msgid "Tag to other tag"
 msgstr "Etiketa beste etiketa batera"
 
-#: src/app/cli/clicommand.cpp:1256
+#: src/app/cli/clicommand.cpp:1244
 msgctxt "CopyCommand|"
 msgid "Copy"
 msgstr "Kopiatu"
 
-#: src/app/cli/clicommand.cpp:1269
+#: src/app/cli/clicommand.cpp:1257
 msgctxt "PasteCommand|"
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: src/app/cli/clicommand.cpp:1282
+#: src/app/cli/clicommand.cpp:1270
 msgctxt "RemoveCommand|"
 msgid "Remove"
 msgstr "Kendu"
 
-#: src/app/cli/clicommand.cpp:1295
+#: src/app/cli/clicommand.cpp:1283
 msgctxt "ConfigCommand|"
 msgid "Configure Kid3"
 msgstr "Konfiguratu Kid3"
 
-#: src/app/cli/clicommand.cpp:1296
+#: src/app/cli/clicommand.cpp:1284
 msgctxt "ConfigCommand|"
 msgid "Group.Option Value"
 msgstr ""
 
-#: src/app/cli/clicommand.cpp:1317 src/app/cli/clicommand.cpp:1323
+#: src/app/cli/clicommand.cpp:1304 src/app/cli/clicommand.cpp:1310
 #, qt-format
 msgctxt "ConfigCommand|"
 msgid "%1 does not exist"
 msgstr "%1 ez dago"
 
-#: src/app/cli/clicommand.cpp:1350 src/app/cli/clicommand.cpp:1370
+#: src/app/cli/clicommand.cpp:1337 src/app/cli/clicommand.cpp:1357
 #, qt-format
 msgctxt "ConfigCommand|"
 msgid "Invalid value %1"
 msgstr "%1 balio baliogabea"
 
-#: src/app/cli/clicommand.cpp:1424
+#: src/app/cli/clicommand.cpp:1411
 #, fuzzy
 msgctxt "ExecuteCommand|"
 msgid "Execute command"
 msgstr "Exekutatu"
 
-#: src/app/cli/clicommand.cpp:1425
+#: src/app/cli/clicommand.cpp:1412
 msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
 msgstr ""
 
-#: src/app/cli/clicommand.cpp:1454
+#: src/app/cli/clicommand.cpp:1441
 #, fuzzy
 msgctxt "ExecuteCommand|"
 msgid "Could not execute "
 msgstr "ezin izan da %1 exekutatu"
 
-#: src/app/cli/jsoncliformatter.cpp:190 src/app/cli/jsoncliformatter.cpp:193
+#: src/app/cli/jsoncliformatter.cpp:188 src/app/cli/jsoncliformatter.cpp:191
 #, qt-format
 msgctxt "JsonCliFormatter|"
 msgid "Unknown command '%1'"
 msgstr "Komando ezezaguna '%1'"
 
-#: src/app/cli/jsoncliformatter.cpp:209
+#: src/app/cli/jsoncliformatter.cpp:207
 msgctxt "JsonCliFormatter|"
 msgid "Usage:"
 msgstr "Erabilera:"
 
-#: src/app/cli/kid3cli.cpp:301
+#: src/app/cli/kid3cli.cpp:299
 msgctxt "Kid3Cli|"
 msgid "Parameter"
 msgstr "Parametroa"
 
-#: src/app/cli/kid3cli.cpp:302
+#: src/app/cli/kid3cli.cpp:300
 msgctxt "Kid3Cli|"
 msgid "File path"
 msgstr "Fitxategiaren bide-izena"
 
-#: src/app/cli/kid3cli.cpp:303
+#: src/app/cli/kid3cli.cpp:301
 msgctxt "Kid3Cli|"
 msgid "URL"
 msgstr "URL"
 
-#: src/app/cli/kid3cli.cpp:304
+#: src/app/cli/kid3cli.cpp:302
 msgctxt "Kid3Cli|"
 msgid "Tag numbers"
 msgstr "Etiketa zenbakiak"
 
-#: src/app/cli/kid3cli.cpp:306
+#: src/app/cli/kid3cli.cpp:304
 msgctxt "Kid3Cli|"
 msgid "Frame name"
 msgstr "Bilbe-izena"
 
-#: src/app/cli/kid3cli.cpp:309
+#: src/app/cli/kid3cli.cpp:307
 msgctxt "Kid3Cli|"
 msgid "Frame value"
 msgstr "Markoaren balioa"
 
-#: src/app/cli/kid3cli.cpp:310
+#: src/app/cli/kid3cli.cpp:308
 msgctxt "Kid3Cli|"
 msgid "Format"
 msgstr "Formatua"
 
-#: src/app/cli/kid3cli.cpp:311
+#: src/app/cli/kid3cli.cpp:309
 msgctxt "Kid3Cli|"
 msgid "Command specific"
 msgstr "Komandoaren berariazkoa"
 
-#: src/app/cli/kid3cli.cpp:312
+#: src/app/cli/kid3cli.cpp:310
 msgctxt "Kid3Cli|"
 msgid "Available Commands"
 msgstr "Komando erabilgarriak"
 
-#: src/app/cli/kid3cli.cpp:760
+#: src/app/cli/kid3cli.cpp:754
 msgctxt "Kid3Cli|"
 msgid "Usage:"
 msgstr "Erabilera:"
 
-#: src/app/cli/kid3cli.cpp:778
+#: src/app/cli/kid3cli.cpp:772
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "%1 does not exist"
 msgstr "%1 ez dago"
 
-#: src/app/cli/kid3cli.cpp:808
+#: src/app/cli/kid3cli.cpp:802
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
 msgstr "Errorea fitxategia idaztean:\n"
 
-#: src/app/cli/kid3cli.cpp:828
+#: src/app/cli/kid3cli.cpp:821
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
@@ -449,78 +449,78 @@ msgctxt "TextCliFormatter|"
 msgid "Usage:"
 msgstr "Erabilera:"
 
-#: src/app/cli/textcliformatter.cpp:246
+#: src/app/cli/textcliformatter.cpp:245
 msgctxt "TextCliFormatter|"
 msgid "Tags"
 msgstr "Etiketak"
 
-#: src/app/cli/textcliformatter.cpp:253
+#: src/app/cli/textcliformatter.cpp:252
 msgctxt "TextCliFormatter|"
 msgid "File"
 msgstr "Fitxategia"
 
-#: src/app/cli/textcliformatter.cpp:258
+#: src/app/cli/textcliformatter.cpp:257
 msgctxt "TextCliFormatter|"
 msgid "Name"
 msgstr "Izena"
 
-#: src/app/cli/textcliformatter.cpp:279
+#: src/app/cli/textcliformatter.cpp:278
 #, qt-format
 msgctxt "TextCliFormatter|"
 msgid "Tag %1"
 msgstr "%1 etiketa"
 
-#: src/app/cli/textcliformatter.cpp:300
+#: src/app/cli/textcliformatter.cpp:299
 msgctxt "TextCliFormatter|"
 msgid "Timeout"
 msgstr "Denbora-muga"
 
-#: src/app/cli/textcliformatter.cpp:306
+#: src/app/cli/textcliformatter.cpp:305
 msgctxt "TextCliFormatter|"
 msgid "Reading Folder"
 msgstr "Karpeta irakurtzen"
 
-#: src/app/cli/textcliformatter.cpp:308
+#: src/app/cli/textcliformatter.cpp:307
 msgctxt "TextCliFormatter|"
 msgid "Started"
 msgstr "Hasita"
 
-#: src/app/cli/textcliformatter.cpp:310
+#: src/app/cli/textcliformatter.cpp:309
 msgctxt "TextCliFormatter|"
 msgid "Source"
 msgstr "Sorburua"
 
-#: src/app/cli/textcliformatter.cpp:312
+#: src/app/cli/textcliformatter.cpp:311
 msgctxt "TextCliFormatter|"
 msgid "Querying"
 msgstr "Itauntzen"
 
-#: src/app/cli/textcliformatter.cpp:314
+#: src/app/cli/textcliformatter.cpp:313
 msgctxt "TextCliFormatter|"
 msgid "Fetching"
 msgstr "Eskuratzen"
 
-#: src/app/cli/textcliformatter.cpp:316
+#: src/app/cli/textcliformatter.cpp:315
 msgctxt "TextCliFormatter|"
 msgid "Data received"
 msgstr "Jasotako datuak"
 
-#: src/app/cli/textcliformatter.cpp:318
+#: src/app/cli/textcliformatter.cpp:317
 msgctxt "TextCliFormatter|"
 msgid "Cover"
 msgstr "Azala"
 
-#: src/app/cli/textcliformatter.cpp:320
+#: src/app/cli/textcliformatter.cpp:319
 msgctxt "TextCliFormatter|"
 msgid "Finished"
 msgstr "Amaituta"
 
-#: src/app/cli/textcliformatter.cpp:322
+#: src/app/cli/textcliformatter.cpp:321
 msgctxt "TextCliFormatter|"
 msgid "Aborted"
 msgstr "Bertan behera utzi da"
 
-#: src/app/cli/textcliformatter.cpp:324
+#: src/app/cli/textcliformatter.cpp:323
 msgctxt "TextCliFormatter|"
 msgid "Error"
 msgstr "Errorea"
@@ -655,302 +655,302 @@ msgctxt "KdeMainWindow|"
 msgid "Import from file or clipboard"
 msgstr "Inportatu fitxategitik edo arbeletik"
 
-#: src/app/kde/kdemainwindow.cpp:232 src/app/kde/kdemainwindow.cpp:249
+#: src/app/kde/kdemainwindow.cpp:231 src/app/kde/kdemainwindow.cpp:247
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1..."
 msgstr "Inportatu «%1»-etik..."
 
-#: src/app/kde/kdemainwindow.cpp:234 src/app/kde/kdemainwindow.cpp:250
+#: src/app/kde/kdemainwindow.cpp:233 src/app/kde/kdemainwindow.cpp:248
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1"
 msgstr "Inportatu «%1»-etik"
 
-#: src/app/kde/kdemainwindow.cpp:257
+#: src/app/kde/kdemainwindow.cpp:255
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags..."
 msgstr "Inportatu etiketetatik..."
 
-#: src/app/kde/kdemainwindow.cpp:258
+#: src/app/kde/kdemainwindow.cpp:256
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags"
 msgstr "Inportatu etiketetatik"
 
-#: src/app/kde/kdemainwindow.cpp:262
+#: src/app/kde/kdemainwindow.cpp:260
 msgctxt "KdeMainWindow|"
 msgid "Automatic I&mport..."
 msgstr "I&nportatze automatikoa..."
 
-#: src/app/kde/kdemainwindow.cpp:263
+#: src/app/kde/kdemainwindow.cpp:261
 msgctxt "KdeMainWindow|"
 msgid "Automatic import"
 msgstr "Inportatze automatikoa"
 
-#: src/app/kde/kdemainwindow.cpp:267
+#: src/app/kde/kdemainwindow.cpp:265
 msgctxt "KdeMainWindow|"
 msgid "&Browse Cover Art..."
 msgstr "Ara&katu azaletako artelana..."
 
-#: src/app/kde/kdemainwindow.cpp:268
+#: src/app/kde/kdemainwindow.cpp:266
 msgctxt "KdeMainWindow|"
 msgid "Browse album cover artwork"
 msgstr "Arakatu albumen azaleko artelana"
 
-#: src/app/kde/kdemainwindow.cpp:272
+#: src/app/kde/kdemainwindow.cpp:270
 msgctxt "KdeMainWindow|"
 msgid "&Export..."
 msgstr "&Esportatu..."
 
-#: src/app/kde/kdemainwindow.cpp:273
+#: src/app/kde/kdemainwindow.cpp:271
 msgctxt "KdeMainWindow|"
 msgid "Export to file or clipboard"
 msgstr "Esportatu fitxategira edo arbelera"
 
-#: src/app/kde/kdemainwindow.cpp:277
+#: src/app/kde/kdemainwindow.cpp:275
 msgctxt "KdeMainWindow|"
 msgid "&Create Playlist..."
 msgstr "&Sortu jotze-zerrenda..."
 
-#: src/app/kde/kdemainwindow.cpp:278
+#: src/app/kde/kdemainwindow.cpp:276
 msgctxt "KdeMainWindow|"
 msgid "Create M3U Playlist"
 msgstr "Sortu M3U jotze-zerrenda"
 
-#: src/app/kde/kdemainwindow.cpp:281
+#: src/app/kde/kdemainwindow.cpp:279
 msgctxt "KdeMainWindow|"
 msgid "Apply &Filename Format"
 msgstr "Ezarri &fitxategi-izen formatua"
 
-#: src/app/kde/kdemainwindow.cpp:282
+#: src/app/kde/kdemainwindow.cpp:280
 msgctxt "KdeMainWindow|"
 msgid "Apply Filename Format"
 msgstr "Ezarri fitxategi-izen formatua"
 
-#: src/app/kde/kdemainwindow.cpp:285
+#: src/app/kde/kdemainwindow.cpp:283
 msgctxt "KdeMainWindow|"
 msgid "Apply &Tag Format"
 msgstr "Aplikatu e&tiketa formatua"
 
-#: src/app/kde/kdemainwindow.cpp:286
+#: src/app/kde/kdemainwindow.cpp:284
 msgctxt "KdeMainWindow|"
 msgid "Apply Tag Format"
 msgstr "Aplikatu etiketa formatua"
 
-#: src/app/kde/kdemainwindow.cpp:289
+#: src/app/kde/kdemainwindow.cpp:287
 msgctxt "KdeMainWindow|"
 msgid "Apply Text &Encoding"
 msgstr "Ezarri testu kod&eketa"
 
-#: src/app/kde/kdemainwindow.cpp:290
+#: src/app/kde/kdemainwindow.cpp:288
 msgctxt "KdeMainWindow|"
 msgid "Apply Text Encoding"
 msgstr "Ezarri testu kodeketa"
 
-#: src/app/kde/kdemainwindow.cpp:293
+#: src/app/kde/kdemainwindow.cpp:291
 msgctxt "KdeMainWindow|"
 msgid "&Rename Folder..."
 msgstr "Be&rrizendatu karpeta..."
 
-#: src/app/kde/kdemainwindow.cpp:294
+#: src/app/kde/kdemainwindow.cpp:292
 msgctxt "KdeMainWindow|"
 msgid "Rename Folder"
 msgstr "Berrizendatu karpeta"
 
-#: src/app/kde/kdemainwindow.cpp:297
+#: src/app/kde/kdemainwindow.cpp:295
 msgctxt "KdeMainWindow|"
 msgid "&Number Tracks..."
 msgstr "Pistak ze&nbakitu..."
 
-#: src/app/kde/kdemainwindow.cpp:298
+#: src/app/kde/kdemainwindow.cpp:296
 msgctxt "KdeMainWindow|"
 msgid "Number Tracks"
 msgstr "Pistak zenbakitu"
 
-#: src/app/kde/kdemainwindow.cpp:301
+#: src/app/kde/kdemainwindow.cpp:299
 msgctxt "KdeMainWindow|"
 msgid "F&ilter..."
 msgstr "&Iragazkia..."
 
-#: src/app/kde/kdemainwindow.cpp:302
+#: src/app/kde/kdemainwindow.cpp:300
 msgctxt "KdeMainWindow|"
 msgid "Filter"
 msgstr "Iragazkia"
 
-#: src/app/kde/kdemainwindow.cpp:307
+#: src/app/kde/kdemainwindow.cpp:305
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "Bihurtu ID3v2.3 -> ID3v2.&4"
 
-#: src/app/kde/kdemainwindow.cpp:308
+#: src/app/kde/kdemainwindow.cpp:306
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "Bihurtu ID3v2.3 -> ID3v2.4"
 
-#: src/app/kde/kdemainwindow.cpp:312
+#: src/app/kde/kdemainwindow.cpp:310
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "Bihurtu ID3v2.4 -> ID3v2.&3"
 
-#: src/app/kde/kdemainwindow.cpp:313
+#: src/app/kde/kdemainwindow.cpp:311
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Bihurtu ID3v2.4 -> ID3v2.3"
 
-#: src/app/kde/kdemainwindow.cpp:320
+#: src/app/kde/kdemainwindow.cpp:318
 msgctxt "KdeMainWindow|"
 msgid "&Play"
 msgstr "&Jo"
 
-#: src/app/kde/kdemainwindow.cpp:321
+#: src/app/kde/kdemainwindow.cpp:319
 msgctxt "KdeMainWindow|"
 msgid "Play"
 msgstr "Jo"
 
-#: src/app/kde/kdemainwindow.cpp:325
+#: src/app/kde/kdemainwindow.cpp:323
 msgctxt "KdeMainWindow|"
 msgid "Show &Picture"
 msgstr "Erakutsi &irudia"
 
-#: src/app/kde/kdemainwindow.cpp:326
+#: src/app/kde/kdemainwindow.cpp:324
 msgctxt "KdeMainWindow|"
 msgid "Show Picture"
 msgstr "Erakutsi irudia"
 
-#: src/app/kde/kdemainwindow.cpp:331
+#: src/app/kde/kdemainwindow.cpp:329
 msgctxt "KdeMainWindow|"
 msgid "Auto &Hide Tags"
 msgstr "Auto ez&kutatu etiketak"
 
-#: src/app/kde/kdemainwindow.cpp:332
+#: src/app/kde/kdemainwindow.cpp:330
 msgctxt "KdeMainWindow|"
 msgid "Auto Hide Tags"
 msgstr "Auto ezkutatu etiketak"
 
-#: src/app/kde/kdemainwindow.cpp:337
+#: src/app/kde/kdemainwindow.cpp:335
 msgctxt "KdeMainWindow|"
 msgid "Select All in &Folder"
 msgstr "Hautatu &karpetako dena"
 
-#: src/app/kde/kdemainwindow.cpp:338
+#: src/app/kde/kdemainwindow.cpp:336
 msgctxt "KdeMainWindow|"
 msgid "Select all files in the current folder"
 msgstr "Hautatu uneko karpetako fitxategi denak"
 
-#: src/app/kde/kdemainwindow.cpp:341
+#: src/app/kde/kdemainwindow.cpp:339
 msgctxt "KdeMainWindow|"
 msgid "&Invert Selection"
 msgstr "Alderantz&ikatu hautapena"
 
-#: src/app/kde/kdemainwindow.cpp:345
+#: src/app/kde/kdemainwindow.cpp:343
 msgctxt "KdeMainWindow|"
 msgid "&Previous File"
 msgstr "&Aurreko fitxategia"
 
-#: src/app/kde/kdemainwindow.cpp:346
+#: src/app/kde/kdemainwindow.cpp:344
 msgctxt "KdeMainWindow|"
 msgid "Select previous file"
 msgstr "Hautatu aurreko fitxategia"
 
-#: src/app/kde/kdemainwindow.cpp:352
+#: src/app/kde/kdemainwindow.cpp:350
 msgctxt "KdeMainWindow|"
 msgid "&Next File"
 msgstr "&Hurrengo fitxategia"
 
-#: src/app/kde/kdemainwindow.cpp:353
+#: src/app/kde/kdemainwindow.cpp:351
 msgctxt "KdeMainWindow|"
 msgid "Select next file"
 msgstr "Hautatu hurrengo fitxategia"
 
-#: src/app/kde/kdemainwindow.cpp:365
+#: src/app/kde/kdemainwindow.cpp:363
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Tag %1"
 msgstr "%1 etiketa"
 
-#: src/app/kde/kdemainwindow.cpp:367 src/app/kde/kdemainwindow.cpp:419
+#: src/app/kde/kdemainwindow.cpp:365 src/app/kde/kdemainwindow.cpp:417
 msgctxt "KdeMainWindow|"
 msgid "Filename"
 msgstr "Fitxategi-izena"
 
-#: src/app/kde/kdemainwindow.cpp:368 src/app/kde/kdemainwindow.cpp:379
+#: src/app/kde/kdemainwindow.cpp:366 src/app/kde/kdemainwindow.cpp:377
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "From Tag %1"
 msgstr "%1 etiketatik"
 
-#: src/app/kde/kdemainwindow.cpp:373
+#: src/app/kde/kdemainwindow.cpp:371
 msgctxt "KdeMainWindow|"
 msgid "From Filename"
 msgstr "Fitxategi-izenetik"
 
-#: src/app/kde/kdemainwindow.cpp:386
+#: src/app/kde/kdemainwindow.cpp:384
 msgctxt "KdeMainWindow|"
 msgid "Copy"
 msgstr "Kopiatu"
 
-#: src/app/kde/kdemainwindow.cpp:390
+#: src/app/kde/kdemainwindow.cpp:388
 msgctxt "KdeMainWindow|"
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: src/app/kde/kdemainwindow.cpp:394
+#: src/app/kde/kdemainwindow.cpp:392
 msgctxt "KdeMainWindow|"
 msgid "Remove"
 msgstr "Kendu"
 
-#: src/app/kde/kdemainwindow.cpp:398 src/app/kde/kdemainwindow.cpp:419
-#: src/app/kde/kdemainwindow.cpp:424 src/app/kde/kdemainwindow.cpp:443
+#: src/app/kde/kdemainwindow.cpp:396 src/app/kde/kdemainwindow.cpp:417
+#: src/app/kde/kdemainwindow.cpp:422 src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
 msgid "Focus"
 msgstr "Fokatu"
 
-#: src/app/kde/kdemainwindow.cpp:403
+#: src/app/kde/kdemainwindow.cpp:401
 msgctxt "KdeMainWindow|"
 msgid "Frames:"
 msgstr "Bilbeak:"
 
-#: src/app/kde/kdemainwindow.cpp:404
+#: src/app/kde/kdemainwindow.cpp:402
 msgctxt "KdeMainWindow|"
 msgid "Edit"
 msgstr "Editatu"
 
-#: src/app/kde/kdemainwindow.cpp:408
+#: src/app/kde/kdemainwindow.cpp:406
 msgctxt "KdeMainWindow|"
 msgid "Add"
 msgstr "Gehitu"
 
-#: src/app/kde/kdemainwindow.cpp:412
+#: src/app/kde/kdemainwindow.cpp:410
 msgctxt "KdeMainWindow|"
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/app/kde/kdemainwindow.cpp:424
+#: src/app/kde/kdemainwindow.cpp:422
 msgctxt "KdeMainWindow|"
 msgid "File List"
 msgstr "Fitxategi-zerrenda"
 
-#: src/app/kde/kdemainwindow.cpp:428
+#: src/app/kde/kdemainwindow.cpp:426
 msgctxt "KdeMainWindow|"
 msgid "&Rename"
 msgstr "&Berrizendatu"
 
-#: src/app/kde/kdemainwindow.cpp:437
+#: src/app/kde/kdemainwindow.cpp:435
 msgctxt "KdeMainWindow|"
 msgid "&Move to Trash"
 msgstr "Era&man zakarrontzira"
 
-#: src/app/kde/kdemainwindow.cpp:443
+#: src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
 msgid "Folder List"
 msgstr "Karpeten zerrenda"
 
-#: src/app/kde/kdemainwindow.cpp:461
+#: src/app/kde/kdemainwindow.cpp:459
 msgctxt "KdeMainWindow|"
 msgid "Section"
 msgstr "Atala"
 
-#: src/app/kde/kdemainwindow.cpp:475
+#: src/app/kde/kdemainwindow.cpp:473
 #, fuzzy
 #| msgctxt "KdeMainWindow|"
 #| msgid "Play"
@@ -958,17 +958,17 @@ msgctxt "KdeMainWindow|"
 msgid "Player"
 msgstr "Jo"
 
-#: src/app/kde/kdemainwindow.cpp:675
+#: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Konfiguratu - Kid3"
 
-#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
+#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
 msgctxt "@default|"
 msgid "&Yes"
 msgstr ""
 
-#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
+#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:243
 msgctxt "@default|"
 msgid "&No"
 msgstr ""
@@ -1191,344 +1191,344 @@ msgctxt "Kid3MainWindow|"
 msgid "&Import..."
 msgstr "&Inportatu..."
 
-#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:242
+#: src/app/qt/kid3mainwindow.cpp:220 src/app/qt/kid3mainwindow.cpp:240
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1"
 msgstr "Inportatu «%1»etik"
 
-#: src/app/qt/kid3mainwindow.cpp:222 src/app/qt/kid3mainwindow.cpp:243
+#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:241
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1..."
 msgstr "Inportatu «%1»etik..."
 
-#: src/app/qt/kid3mainwindow.cpp:253
+#: src/app/qt/kid3mainwindow.cpp:251
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags"
 msgstr "Inportatu etiketetatik"
 
-#: src/app/qt/kid3mainwindow.cpp:254
+#: src/app/qt/kid3mainwindow.cpp:252
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags..."
 msgstr "Inportatu etiketetatik..."
 
-#: src/app/qt/kid3mainwindow.cpp:262
+#: src/app/qt/kid3mainwindow.cpp:260
 msgctxt "Kid3MainWindow|"
 msgid "Automatic import"
 msgstr "Inportatze automatikoa"
 
-#: src/app/qt/kid3mainwindow.cpp:263
+#: src/app/qt/kid3mainwindow.cpp:261
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
 msgstr "I&nportatze automatikoa..."
 
-#: src/app/qt/kid3mainwindow.cpp:271
+#: src/app/qt/kid3mainwindow.cpp:269
 msgctxt "Kid3MainWindow|"
 msgid "Browse album cover artwork"
 msgstr "Arakatu albumen azaleko artelana"
 
-#: src/app/qt/kid3mainwindow.cpp:272
+#: src/app/qt/kid3mainwindow.cpp:270
 msgctxt "Kid3MainWindow|"
 msgid "&Browse Cover Art..."
 msgstr "Ara&katu azaletako artelana..."
 
-#: src/app/qt/kid3mainwindow.cpp:281
+#: src/app/qt/kid3mainwindow.cpp:279
 msgctxt "Kid3MainWindow|"
 msgid "Export to file or clipboard"
 msgstr "Esportatu fitxategira edo arbelera"
 
-#: src/app/qt/kid3mainwindow.cpp:282
+#: src/app/qt/kid3mainwindow.cpp:280
 msgctxt "Kid3MainWindow|"
 msgid "&Export..."
 msgstr "&Esportatu..."
 
-#: src/app/qt/kid3mainwindow.cpp:292
+#: src/app/qt/kid3mainwindow.cpp:290
 msgctxt "Kid3MainWindow|"
 msgid "Create M3U Playlist"
 msgstr "Sortu M3U jotze-zerrenda"
 
-#: src/app/qt/kid3mainwindow.cpp:293
+#: src/app/qt/kid3mainwindow.cpp:291
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
 msgstr "&Sortu jotze-zerrenda..."
 
-#: src/app/qt/kid3mainwindow.cpp:306
+#: src/app/qt/kid3mainwindow.cpp:304
 msgctxt "Kid3MainWindow|"
 msgid "Quits the application"
 msgstr "Aplikaziotik ateratzen du"
 
-#: src/app/qt/kid3mainwindow.cpp:307
+#: src/app/qt/kid3mainwindow.cpp:305
 msgctxt "Kid3MainWindow|"
 msgid "&Quit"
 msgstr "&Irten"
 
-#: src/app/qt/kid3mainwindow.cpp:318
+#: src/app/qt/kid3mainwindow.cpp:316
 msgctxt "Kid3MainWindow|"
 msgid "&Edit"
 msgstr "&Editatu"
 
-#: src/app/qt/kid3mainwindow.cpp:321
+#: src/app/qt/kid3mainwindow.cpp:319
 msgctxt "Kid3MainWindow|"
 msgid "Select all files"
 msgstr "Hautatu fitxategi denak"
 
-#: src/app/qt/kid3mainwindow.cpp:322
+#: src/app/qt/kid3mainwindow.cpp:320
 msgctxt "Kid3MainWindow|"
 msgid "Select &All"
 msgstr "&Hautatu dena"
 
-#: src/app/qt/kid3mainwindow.cpp:337
+#: src/app/qt/kid3mainwindow.cpp:335
 msgctxt "Kid3MainWindow|"
 msgid "Deselect all files"
 msgstr "Desautatu fitxategi denak"
 
-#: src/app/qt/kid3mainwindow.cpp:338
+#: src/app/qt/kid3mainwindow.cpp:336
 msgctxt "Kid3MainWindow|"
 msgid "Dese&lect"
 msgstr "Desau&tatu"
 
-#: src/app/qt/kid3mainwindow.cpp:348
+#: src/app/qt/kid3mainwindow.cpp:346
 msgctxt "Kid3MainWindow|"
 msgid "Select all files in the current folder"
 msgstr "Hautatu uneko karpetako fitxategi guztiak"
 
-#: src/app/qt/kid3mainwindow.cpp:349
+#: src/app/qt/kid3mainwindow.cpp:347
 msgctxt "Kid3MainWindow|"
 msgid "Select All in &Folder"
 msgstr "Hautatu &karpetako guztia"
 
-#: src/app/qt/kid3mainwindow.cpp:357
+#: src/app/qt/kid3mainwindow.cpp:355
 msgctxt "Kid3MainWindow|"
 msgid "&Invert Selection"
 msgstr "&Alderantzikatu hautapena"
 
-#: src/app/qt/kid3mainwindow.cpp:365
+#: src/app/qt/kid3mainwindow.cpp:363
 msgctxt "Kid3MainWindow|"
 msgid "Select previous file"
 msgstr "Hautatu aurreko fitxategia"
 
-#: src/app/qt/kid3mainwindow.cpp:366
+#: src/app/qt/kid3mainwindow.cpp:364
 msgctxt "Kid3MainWindow|"
 msgid "&Previous File"
 msgstr "&Aurreko fitxategia"
 
-#: src/app/qt/kid3mainwindow.cpp:378
+#: src/app/qt/kid3mainwindow.cpp:376
 msgctxt "Kid3MainWindow|"
 msgid "Select next file"
 msgstr "Hautatu hurrengo fitxategia"
 
-#: src/app/qt/kid3mainwindow.cpp:379
+#: src/app/qt/kid3mainwindow.cpp:377
 msgctxt "Kid3MainWindow|"
 msgid "&Next File"
 msgstr "&Hurrengo fitxategia"
 
-#: src/app/qt/kid3mainwindow.cpp:392
+#: src/app/qt/kid3mainwindow.cpp:390
 msgctxt "Kid3MainWindow|"
 msgid "Find"
 msgstr "Aurkitu"
 
-#: src/app/qt/kid3mainwindow.cpp:393
+#: src/app/qt/kid3mainwindow.cpp:391
 msgctxt "Kid3MainWindow|"
 msgid "&Find..."
 msgstr "&Aurkitu..."
 
-#: src/app/qt/kid3mainwindow.cpp:406
+#: src/app/qt/kid3mainwindow.cpp:404
 msgctxt "Kid3MainWindow|"
 msgid "Find and replace"
 msgstr "Aurkitu eta ordeztu"
 
-#: src/app/qt/kid3mainwindow.cpp:407
+#: src/app/qt/kid3mainwindow.cpp:405
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
 msgstr "&Ordeztu..."
 
-#: src/app/qt/kid3mainwindow.cpp:419
+#: src/app/qt/kid3mainwindow.cpp:417
 msgctxt "Kid3MainWindow|"
 msgid "&Tools"
 msgstr "&Tresnak"
 
-#: src/app/qt/kid3mainwindow.cpp:422
+#: src/app/qt/kid3mainwindow.cpp:420
 msgctxt "Kid3MainWindow|"
 msgid "Apply Filename Format"
 msgstr "Ezarri fitxategi-izen formatua"
 
-#: src/app/qt/kid3mainwindow.cpp:423
+#: src/app/qt/kid3mainwindow.cpp:421
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Filename Format"
 msgstr "Ezarri &fitxategi-izen formatua"
 
-#: src/app/qt/kid3mainwindow.cpp:432
+#: src/app/qt/kid3mainwindow.cpp:430
 msgctxt "Kid3MainWindow|"
 msgid "Apply Tag Format"
 msgstr "Ezarri etiketa formatua"
 
-#: src/app/qt/kid3mainwindow.cpp:433
+#: src/app/qt/kid3mainwindow.cpp:431
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Tag Format"
 msgstr "Ezarri e&tiketa formatua"
 
-#: src/app/qt/kid3mainwindow.cpp:441
+#: src/app/qt/kid3mainwindow.cpp:439
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text Encoding"
 msgstr "Ezarri testu kodeketa"
 
-#: src/app/qt/kid3mainwindow.cpp:442
+#: src/app/qt/kid3mainwindow.cpp:440
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text &Encoding"
 msgstr "Ezarri testu kod&eketa"
 
-#: src/app/qt/kid3mainwindow.cpp:451
+#: src/app/qt/kid3mainwindow.cpp:449
 msgctxt "Kid3MainWindow|"
 msgid "Rename Folder"
 msgstr "Berrizendatu karpeta"
 
-#: src/app/qt/kid3mainwindow.cpp:452
+#: src/app/qt/kid3mainwindow.cpp:450
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
 msgstr "Be&rrizendatu karpeta..."
 
-#: src/app/qt/kid3mainwindow.cpp:460
+#: src/app/qt/kid3mainwindow.cpp:458
 msgctxt "Kid3MainWindow|"
 msgid "Number Tracks"
 msgstr "Pistak zenbakitu"
 
-#: src/app/qt/kid3mainwindow.cpp:461
+#: src/app/qt/kid3mainwindow.cpp:459
 msgctxt "Kid3MainWindow|"
 msgid "&Number Tracks..."
 msgstr "Pistak ze&nbakitu..."
 
-#: src/app/qt/kid3mainwindow.cpp:469
+#: src/app/qt/kid3mainwindow.cpp:467
 msgctxt "Kid3MainWindow|"
 msgid "Filter"
 msgstr "Iragazkia"
 
-#: src/app/qt/kid3mainwindow.cpp:470
+#: src/app/qt/kid3mainwindow.cpp:468
 msgctxt "Kid3MainWindow|"
 msgid "F&ilter..."
 msgstr "Iragazk&ia"
 
-#: src/app/qt/kid3mainwindow.cpp:481
+#: src/app/qt/kid3mainwindow.cpp:479
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "Bihurtu ID3v2.3 -> ID3v2.4"
 
-#: src/app/qt/kid3mainwindow.cpp:482
+#: src/app/qt/kid3mainwindow.cpp:480
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "Bihurtu ID3v2.3 -> ID3v2.&4"
 
-#: src/app/qt/kid3mainwindow.cpp:491
+#: src/app/qt/kid3mainwindow.cpp:489
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Bihurtu ID3v2.4 -> ID3v2.3"
 
-#: src/app/qt/kid3mainwindow.cpp:492
+#: src/app/qt/kid3mainwindow.cpp:490
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "Bihurtu ID3v2.4 -> ID3v2.&3"
 
-#: src/app/qt/kid3mainwindow.cpp:504
+#: src/app/qt/kid3mainwindow.cpp:502
 msgctxt "Kid3MainWindow|"
 msgid "Play"
 msgstr "Jo"
 
-#: src/app/qt/kid3mainwindow.cpp:505
+#: src/app/qt/kid3mainwindow.cpp:503
 msgctxt "Kid3MainWindow|"
 msgid "&Play"
 msgstr "&Jo"
 
-#: src/app/qt/kid3mainwindow.cpp:515
+#: src/app/qt/kid3mainwindow.cpp:513
 msgctxt "Kid3MainWindow|"
 msgid "&Settings"
 msgstr "E&zarpenak"
 
-#: src/app/qt/kid3mainwindow.cpp:519
+#: src/app/qt/kid3mainwindow.cpp:517
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the toolbar"
 msgstr "Tresna-barra gaintzen/ezgaitzen du"
 
-#: src/app/qt/kid3mainwindow.cpp:520
+#: src/app/qt/kid3mainwindow.cpp:518
 msgctxt "Kid3MainWindow|"
 msgid "Show &Toolbar"
 msgstr "Erakutsi &tresna-barra"
 
-#: src/app/qt/kid3mainwindow.cpp:530
+#: src/app/qt/kid3mainwindow.cpp:528
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the statusbar"
 msgstr "Egoera-barra gaitzen/ezgaitzen du"
 
-#: src/app/qt/kid3mainwindow.cpp:531
+#: src/app/qt/kid3mainwindow.cpp:529
 msgctxt "Kid3MainWindow|"
 msgid "Show St&atusbar"
 msgstr "Erakutsi egoer&a-barra"
 
-#: src/app/qt/kid3mainwindow.cpp:540
+#: src/app/qt/kid3mainwindow.cpp:538
 msgctxt "Kid3MainWindow|"
 msgid "Show Picture"
 msgstr "Erakutsi irudia"
 
-#: src/app/qt/kid3mainwindow.cpp:541
+#: src/app/qt/kid3mainwindow.cpp:539
 msgctxt "Kid3MainWindow|"
 msgid "Show &Picture"
 msgstr "Erakutsi iru&dia"
 
-#: src/app/qt/kid3mainwindow.cpp:550
+#: src/app/qt/kid3mainwindow.cpp:548
 msgctxt "Kid3MainWindow|"
 msgid "Auto Hide Tags"
 msgstr "Etiketak automatikoki ezkutatu"
 
-#: src/app/qt/kid3mainwindow.cpp:551
+#: src/app/qt/kid3mainwindow.cpp:549
 msgctxt "Kid3MainWindow|"
 msgid "Auto &Hide Tags"
 msgstr "Etiketak automatikoki e&zkutatu"
 
-#: src/app/qt/kid3mainwindow.cpp:560
+#: src/app/qt/kid3mainwindow.cpp:558
 msgctxt "Kid3MainWindow|"
 msgid "Configure Kid3"
 msgstr "Konfiguratu Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:561
+#: src/app/qt/kid3mainwindow.cpp:559
 msgctxt "Kid3MainWindow|"
 msgid "&Configure Kid3..."
 msgstr "&Konfiguratu Kid3..."
 
-#: src/app/qt/kid3mainwindow.cpp:575
+#: src/app/qt/kid3mainwindow.cpp:573
 msgctxt "Kid3MainWindow|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/app/qt/kid3mainwindow.cpp:578
+#: src/app/qt/kid3mainwindow.cpp:576
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 Handbook"
 msgstr "Kid3 eskuliburua"
 
-#: src/app/qt/kid3mainwindow.cpp:579
+#: src/app/qt/kid3mainwindow.cpp:577
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 &Handbook"
 msgstr "Kid3 es&kuliburua"
 
-#: src/app/qt/kid3mainwindow.cpp:590
+#: src/app/qt/kid3mainwindow.cpp:588
 msgctxt "Kid3MainWindow|"
 msgid "About Kid3"
 msgstr "Kid3-ri buruz"
 
-#: src/app/qt/kid3mainwindow.cpp:591
+#: src/app/qt/kid3mainwindow.cpp:589
 msgctxt "Kid3MainWindow|"
 msgid "&About Kid3"
 msgstr "Kid3-ri buru&z"
 
-#: src/app/qt/kid3mainwindow.cpp:604
+#: src/app/qt/kid3mainwindow.cpp:602
 msgctxt "Kid3MainWindow|"
 msgid "About Qt"
 msgstr "Qt-ri buruz"
 
-#: src/app/qt/kid3mainwindow.cpp:605
+#: src/app/qt/kid3mainwindow.cpp:603
 msgctxt "Kid3MainWindow|"
 msgid "About &Qt"
 msgstr "&Qt-ri buruz"
 
-#: src/app/qt/kid3mainwindow.cpp:629
+#: src/app/qt/kid3mainwindow.cpp:627
 #, fuzzy
 #| msgctxt "Kid3MainWindow|"
 #| msgid "Play"
@@ -1536,110 +1536,110 @@ msgctxt "Kid3MainWindow|"
 msgid "Player"
 msgstr "Jo"
 
-#: src/app/qt/kid3mainwindow.cpp:653
+#: src/app/qt/kid3mainwindow.cpp:651
 msgctxt "Kid3MainWindow|"
 msgid "Filename"
 msgstr "Fitxategi-izena"
 
-#: src/app/qt/kid3mainwindow.cpp:656 src/app/qt/kid3mainwindow.cpp:679
+#: src/app/qt/kid3mainwindow.cpp:654 src/app/qt/kid3mainwindow.cpp:677
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "From Tag %1"
 msgstr "%1 etiketatik"
 
-#: src/app/qt/kid3mainwindow.cpp:661 src/app/qt/kid3mainwindow.cpp:704
-#: src/app/qt/kid3mainwindow.cpp:709 src/app/qt/kid3mainwindow.cpp:727
+#: src/app/qt/kid3mainwindow.cpp:659 src/app/qt/kid3mainwindow.cpp:702
+#: src/app/qt/kid3mainwindow.cpp:707 src/app/qt/kid3mainwindow.cpp:725
 msgctxt "Kid3MainWindow|"
 msgid "Focus"
 msgstr "Fokuratu"
 
-#: src/app/qt/kid3mainwindow.cpp:671
+#: src/app/qt/kid3mainwindow.cpp:669
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Tag %1"
 msgstr "%1 etiketa"
 
-#: src/app/qt/kid3mainwindow.cpp:673
+#: src/app/qt/kid3mainwindow.cpp:671
 msgctxt "Kid3MainWindow|"
 msgid "From Filename"
 msgstr "Fitxategi-izenetik"
 
-#: src/app/qt/kid3mainwindow.cpp:684
+#: src/app/qt/kid3mainwindow.cpp:682
 msgctxt "Kid3MainWindow|"
 msgid "Copy"
 msgstr "Kopiatu"
 
-#: src/app/qt/kid3mainwindow.cpp:687
+#: src/app/qt/kid3mainwindow.cpp:685
 msgctxt "Kid3MainWindow|"
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: src/app/qt/kid3mainwindow.cpp:690
+#: src/app/qt/kid3mainwindow.cpp:688
 msgctxt "Kid3MainWindow|"
 msgid "Remove"
 msgstr "Kendu"
 
-#: src/app/qt/kid3mainwindow.cpp:694
+#: src/app/qt/kid3mainwindow.cpp:692
 msgctxt "Kid3MainWindow|"
 msgid "Edit"
 msgstr "Editatu"
 
-#: src/app/qt/kid3mainwindow.cpp:697
+#: src/app/qt/kid3mainwindow.cpp:695
 msgctxt "Kid3MainWindow|"
 msgid "Add"
 msgstr "Gehitu"
 
-#: src/app/qt/kid3mainwindow.cpp:700
+#: src/app/qt/kid3mainwindow.cpp:698
 msgctxt "Kid3MainWindow|"
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/app/qt/kid3mainwindow.cpp:708
+#: src/app/qt/kid3mainwindow.cpp:706
 msgctxt "Kid3MainWindow|"
 msgid "File List"
 msgstr "Fitxategi-zerrenda"
 
-#: src/app/qt/kid3mainwindow.cpp:712
+#: src/app/qt/kid3mainwindow.cpp:710
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
 msgstr "Be&rrizendatu"
 
-#: src/app/qt/kid3mainwindow.cpp:719
+#: src/app/qt/kid3mainwindow.cpp:717
 msgctxt "Kid3MainWindow|"
 msgid "&Move to Trash"
 msgstr "Era&man zakarrontzira"
 
-#: src/app/qt/kid3mainwindow.cpp:726
+#: src/app/qt/kid3mainwindow.cpp:724
 msgctxt "Kid3MainWindow|"
 msgid "Folder List"
 msgstr "Karpeten zerrenda"
 
-#: src/app/qt/kid3mainwindow.cpp:732
+#: src/app/qt/kid3mainwindow.cpp:730
 msgctxt "Kid3MainWindow|"
 msgid "Section"
 msgstr "Atala"
 
-#: src/app/qt/kid3mainwindow.cpp:817
+#: src/app/qt/kid3mainwindow.cpp:815
 msgctxt "Kid3MainWindow|"
 msgid " [modified]"
 msgstr "[aldatuta]"
 
-#: src/app/qt/kid3mainwindow.cpp:912
+#: src/app/qt/kid3mainwindow.cpp:910
 msgctxt "Kid3MainWindow|"
 msgid "Audio Tag Editor"
 msgstr "Audio etiketa editorea"
 
-#: src/app/qt/kid3mainwindow.cpp:917
+#: src/app/qt/kid3mainwindow.cpp:915
 msgctxt "Kid3MainWindow|"
 msgid "License"
 msgstr "Lizentzia"
 
-#: src/app/qt/kid3mainwindow.cpp:935
+#: src/app/qt/kid3mainwindow.cpp:933
 msgctxt "Kid3MainWindow|"
 msgid "Configure - Kid3"
 msgstr "Konfiguratu - Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:979 src/app/qt/kid3mainwindow.cpp:991
+#: src/app/qt/kid3mainwindow.cpp:977 src/app/qt/kid3mainwindow.cpp:989
 msgctxt "Kid3MainWindow|"
 msgid "User Actions"
 msgstr "Erabiltzaile-ekintzak"
@@ -1649,22 +1649,22 @@ msgctxt "@default|"
 msgid "Kid3 Handbook"
 msgstr "Kid3 eskuliburua"
 
-#: src/app/qt/recentfilesmenu.cpp:120
+#: src/app/qt/recentfilesmenu.cpp:119
 msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
 msgstr "&Hustu zerrenda"
 
-#: src/app/qt/shortcutsdelegate.cpp:190
+#: src/app/qt/shortcutsdelegate.cpp:189
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Clear"
 msgstr "Hustu"
 
-#: src/app/qt/shortcutsdelegate.cpp:195
+#: src/app/qt/shortcutsdelegate.cpp:194
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Reset"
 msgstr "Berrezarri"
 
-#: src/app/qt/shortcutsmodel.cpp:112
+#: src/app/qt/shortcutsmodel.cpp:113
 msgctxt "ShortcutsModel|"
 msgid "Press F2 or double click to edit cell contents."
 msgstr "Sakatu F2 edo egin klik bikoitza gelaxketako edukia editatzeko."
@@ -1674,7 +1674,7 @@ msgctxt "ShortcutsModel|"
 msgid "Action"
 msgstr "Ekintza"
 
-#: src/app/qt/shortcutsmodel.cpp:191
+#: src/app/qt/shortcutsmodel.cpp:192
 msgctxt "ShortcutsModel|"
 msgid "Shortcut"
 msgstr "Lasterbidea"
@@ -1709,52 +1709,52 @@ msgctxt "Kid3Application|"
 msgid "All Supported Files"
 msgstr "Onartutako fitxategi guztiak"
 
-#: src/core/config/formatconfig.cpp:504
+#: src/core/config/formatconfig.cpp:501
 msgctxt "@default|"
 msgid "No changes"
 msgstr "Aldaketarik ez"
 
-#: src/core/config/formatconfig.cpp:505
+#: src/core/config/formatconfig.cpp:502
 msgctxt "@default|"
 msgid "All lowercase"
 msgstr "Dena letra xehez"
 
-#: src/core/config/formatconfig.cpp:506
+#: src/core/config/formatconfig.cpp:503
 msgctxt "@default|"
 msgid "All uppercase"
 msgstr "Dena letra larriz"
 
-#: src/core/config/formatconfig.cpp:507
+#: src/core/config/formatconfig.cpp:504
 msgctxt "@default|"
 msgid "First letter uppercase"
 msgstr "Lehen letra larria"
 
-#: src/core/config/formatconfig.cpp:508
+#: src/core/config/formatconfig.cpp:505
 msgctxt "@default|"
 msgid "All first letters uppercase"
 msgstr "Lehen letrak larriak"
 
-#: src/core/config/formatconfig.cpp:523
+#: src/core/config/formatconfig.cpp:520
 msgctxt "FormatConfig|"
 msgid "None"
 msgstr "Bat ere ez"
 
-#: src/core/config/starratingmappingsmodel.cpp:128
+#: src/core/config/starratingmappingsmodel.cpp:129
 msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "Izena"
 
-#: src/core/config/tagconfig.cpp:736 src/core/tags/frame.cpp:77
+#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:77
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:737 src/core/tags/frame.cpp:78
+#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:78
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:738 src/core/tags/frame.cpp:80
+#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:80
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -1796,49 +1796,49 @@ msgctxt "HttpClient|"
 msgid "Data received: %1"
 msgstr "Datuak jaso dira: %1"
 
-#: src/core/import/httpclient.cpp:230
+#: src/core/import/httpclient.cpp:228
 msgctxt "HttpClient|"
 msgid "Request sent..."
 msgstr "Eskaera bidali da..."
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:2007
+#: src/core/tags/frame.cpp:1984
 msgctxt "@default|"
 msgid "Title"
 msgstr "Titulua"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:2011
+#: src/core/tags/frame.cpp:1988
 msgctxt "@default|"
 msgid "Album"
 msgstr "Albuma"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:2015
+#: src/core/tags/frame.cpp:1992
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Artista"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:2019
+#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1996
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Iruzkina"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:2023
+#: src/core/tags/frame.cpp:2000
 msgctxt "@default|"
 msgid "Year"
 msgstr "Urtea"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2028
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2005
 msgctxt "@default|"
 msgid "Track"
 msgstr "Pista"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2041
+#: src/core/tags/frame.cpp:2018
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Generoa"
@@ -1960,99 +1960,99 @@ msgctxt "CommandsTableModel|"
 msgid "Command"
 msgstr "Komandoa"
 
-#: src/core/model/dirrenamer.cpp:250
+#: src/core/model/dirrenamer.cpp:249
 #, qt-format
 msgctxt "@default|"
 msgid "Create folder %1 failed\n"
 msgstr "%1 karpeta sortzea huts egin du\n"
 
-#: src/core/model/dirrenamer.cpp:280
+#: src/core/model/dirrenamer.cpp:279
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "Create folder %1 failed\n"
 msgstr "%1 karpeta sortzea huts egin du\n"
 
-#: src/core/model/dirrenamer.cpp:287
+#: src/core/model/dirrenamer.cpp:285
 #, qt-format
 msgctxt "@default|"
 msgid "File %1 already exists\n"
 msgstr "%1 fitxategia aurretik ere badago\n"
 
-#: src/core/model/dirrenamer.cpp:289
+#: src/core/model/dirrenamer.cpp:287
 #, qt-format
 msgctxt "@default|"
 msgid "%1 is not a folder\n"
 msgstr "%1 ez da karpeta bat\n"
 
-#: src/core/model/dirrenamer.cpp:291
+#: src/core/model/dirrenamer.cpp:289
 #, qt-format
 msgctxt "@default|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1 -> %2 berrizendatzea huts egin du\n"
 
-#: src/core/model/dirrenamer.cpp:310
+#: src/core/model/dirrenamer.cpp:308
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "File %1 already exists\n"
 msgstr "%1 fitxategi aurretik ere badago\n"
 
-#: src/core/model/dirrenamer.cpp:316
+#: src/core/model/dirrenamer.cpp:314
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 is not a folder\n"
 msgstr "%1 ez da karpeta bat\n"
 
-#: src/core/model/dirrenamer.cpp:336 src/core/model/dirrenamer.cpp:385
+#: src/core/model/dirrenamer.cpp:334 src/core/model/dirrenamer.cpp:382
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1 -> %2 berrizendatzea huts egin du\n"
 
-#: src/core/model/dirrenamer.cpp:343
+#: src/core/model/dirrenamer.cpp:340
 #, qt-format
 msgctxt "@default|"
 msgid "%1 already exists\n"
 msgstr "%1 aurretik ere badago\n"
 
-#: src/core/model/dirrenamer.cpp:345
+#: src/core/model/dirrenamer.cpp:342
 #, qt-format
 msgctxt "@default|"
 msgid "%1 is not a file\n"
 msgstr "%1 ez da fitxategi bat\n"
 
-#: src/core/model/dirrenamer.cpp:366
+#: src/core/model/dirrenamer.cpp:363
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 already exists\n"
 msgstr "%1 aurretik ere badago\n"
 
-#: src/core/model/dirrenamer.cpp:372
+#: src/core/model/dirrenamer.cpp:369
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 is not a file\n"
 msgstr "%1 ez da fitxategi bat\n"
 
-#: src/core/model/dirrenamer.cpp:624
+#: src/core/model/dirrenamer.cpp:620
 msgctxt "DirRenamer|"
 msgid "New folder name is too different\n"
 msgstr "Karpeta berriaren izena desberdinegia da\n"
 
-#: src/core/model/dirrenamer.cpp:690
+#: src/core/model/dirrenamer.cpp:686
 msgctxt "@default|"
 msgid "Create folder"
 msgstr "Sortu karpeta"
 
-#: src/core/model/dirrenamer.cpp:691
+#: src/core/model/dirrenamer.cpp:687
 msgctxt "@default|"
 msgid "Rename folder"
 msgstr "Berrizendatu karpeta"
 
-#: src/core/model/dirrenamer.cpp:692
+#: src/core/model/dirrenamer.cpp:688
 msgctxt "@default|"
 msgid "Rename file"
 msgstr "Berrizendatu fitxategia"
 
-#: src/core/model/dirrenamer.cpp:693
+#: src/core/model/dirrenamer.cpp:689
 msgctxt "@default|"
 msgid "Error"
 msgstr "Errorea"
@@ -2313,67 +2313,67 @@ msgctxt "@default|"
 msgid "Logical negation"
 msgstr "Ezeztapen logikoa"
 
-#: src/core/model/fileproxymodel.cpp:836
+#: src/core/model/fileproxymodel.cpp:828
 msgctxt "FileProxyModel|"
 msgid "All Supported Files"
 msgstr "Onartutako fitxategi guztiak"
 
-#: src/core/model/fileproxymodel.cpp:838
+#: src/core/model/fileproxymodel.cpp:830
 msgctxt "FileProxyModel|"
 msgid "All Files"
 msgstr "Fitxategi guztiak"
 
-#: src/core/model/filesystemmodel.cpp:823
+#: src/core/model/filesystemmodel.cpp:822
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 TB"
 msgstr "%1 TB"
 
-#: src/core/model/filesystemmodel.cpp:825
+#: src/core/model/filesystemmodel.cpp:824
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 GB"
 msgstr "%1 GB"
 
-#: src/core/model/filesystemmodel.cpp:827
+#: src/core/model/filesystemmodel.cpp:826
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 MB"
 msgstr "%1 MB"
 
-#: src/core/model/filesystemmodel.cpp:829
+#: src/core/model/filesystemmodel.cpp:828
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 KB"
 msgstr "%1 KB"
 
-#: src/core/model/filesystemmodel.cpp:830
+#: src/core/model/filesystemmodel.cpp:829
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 bytes"
 msgstr "%1 byte"
 
-#: src/core/model/filesystemmodel.cpp:985
+#: src/core/model/filesystemmodel.cpp:983
 msgctxt "FileSystemModel|"
 msgid "Name"
 msgstr "Izena"
 
-#: src/core/model/filesystemmodel.cpp:987
+#: src/core/model/filesystemmodel.cpp:985
 msgctxt "FileSystemModel|"
 msgid "Size"
 msgstr "Neurria"
 
-#: src/core/model/filesystemmodel.cpp:991
+#: src/core/model/filesystemmodel.cpp:989
 msgctxt "FileSystemModel|Match OS X Finder"
 msgid "Kind"
 msgstr "Mota"
 
-#: src/core/model/filesystemmodel.cpp:993
+#: src/core/model/filesystemmodel.cpp:991
 msgctxt "FileSystemModel|All other platforms"
 msgid "Type"
 msgstr "Mota"
 
-#: src/core/model/filesystemmodel.cpp:1000
+#: src/core/model/filesystemmodel.cpp:998
 msgctxt "FileSystemModel|"
 msgid "Date Modified"
 msgstr "Aldatze data"
@@ -2388,7 +2388,7 @@ msgctxt "FileSystemModel|"
 msgid "Computer"
 msgstr "Ordenagailua"
 
-#: src/core/model/frameobjectmodel.cpp:178
+#: src/core/model/frameobjectmodel.cpp:175
 msgctxt "FrameFieldObject|"
 msgid "Text"
 msgstr "Testua"
@@ -2398,32 +2398,32 @@ msgctxt "FrameTableModel|"
 msgid "Volume"
 msgstr "Bolumena"
 
-#: src/core/model/frametablemodel.cpp:168
+#: src/core/model/frametablemodel.cpp:167
 msgctxt "FrameTableModel|"
 msgid "File ID"
 msgstr "Fitxategi ID"
 
-#: src/core/model/frametablemodel.cpp:307
+#: src/core/model/frametablemodel.cpp:308
 msgctxt "FrameTableModel|"
 msgid "Name"
 msgstr "Izena"
 
-#: src/core/model/frametablemodel.cpp:307
+#: src/core/model/frametablemodel.cpp:308
 msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Datuak"
 
-#: src/core/model/kid3application.cpp:1041
+#: src/core/model/kid3application.cpp:1032
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "... karpeta gordetzen"
 
-#: src/core/model/kid3application.cpp:1251
+#: src/core/model/kid3application.cpp:1237
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Hautapena"
 
-#: src/core/model/kid3application.cpp:3465
+#: src/core/model/kid3application.cpp:3442
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "Fitxategi guztiak"
@@ -2458,12 +2458,12 @@ msgctxt "TagSearcher|"
 msgid "Search finished"
 msgstr "Bilaketa amaitu da"
 
-#: src/core/model/tagsearcher.cpp:464
+#: src/core/model/tagsearcher.cpp:462
 msgctxt "TagSearcher|"
 msgid "Filename"
 msgstr "Fitxategi-izena"
 
-#: src/core/model/tagsearcher.cpp:466
+#: src/core/model/tagsearcher.cpp:464
 #, qt-format
 msgctxt "TagSearcher|"
 msgid "Tag %1"
@@ -2474,12 +2474,12 @@ msgctxt "TimeEventModel|"
 msgid "Time"
 msgstr "Denbora"
 
-#: src/core/model/timeeventmodel.cpp:125
+#: src/core/model/timeeventmodel.cpp:126
 msgctxt "TimeEventModel|"
 msgid "Event Code"
 msgstr "Gertaera kodea"
 
-#: src/core/model/timeeventmodel.cpp:127
+#: src/core/model/timeeventmodel.cpp:128
 msgctxt "TimeEventModel|"
 msgid "Text"
 msgstr "Testua"
@@ -2654,7 +2654,7 @@ msgid "Milliseconds as unit"
 msgstr "Milisegundoak unitate gisa"
 
 #: src/core/tags/frame.cpp:93 src/core/tags/frame.cpp:144
-#: src/gui/widgets/timeeventeditor.cpp:351
+#: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Hitzak"
@@ -3477,115 +3477,115 @@ msgctxt "@default|"
 msgid "Source Form"
 msgstr "Sorburuaren forma"
 
-#: src/core/tags/frame.cpp:1218
+#: src/core/tags/frame.cpp:1204
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "%1 etiketa"
 
-#: src/core/tags/frame.cpp:1223
+#: src/core/tags/frame.cpp:1209
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "1 etiketa eta 2 etiketa"
 
-#: src/core/tags/frame.cpp:1227
+#: src/core/tags/frame.cpp:1213
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "Etiketa guztiak"
 
-#: src/core/tags/frame.cpp:2046
+#: src/core/tags/frame.cpp:2023
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:187
+#: src/core/tags/framenotice.cpp:184
 msgctxt "@default|"
 msgid "Truncated"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:188
+#: src/core/tags/framenotice.cpp:185
 msgctxt "@default|"
 msgid "Size is too large"
 msgstr "Neurria handiegia da"
 
-#: src/core/tags/framenotice.cpp:189
+#: src/core/tags/framenotice.cpp:186
 msgctxt "@default|"
 msgid "Must be unique"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:190
+#: src/core/tags/framenotice.cpp:187
 msgctxt "@default|"
 msgid "New line is forbidden"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:191
+#: src/core/tags/framenotice.cpp:188
 msgctxt "@default|"
 msgid "Carriage return is forbidden"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:192
+#: src/core/tags/framenotice.cpp:189
 msgctxt "@default|"
 msgid "Owner must be non-empty"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:193
+#: src/core/tags/framenotice.cpp:190
 msgctxt "@default|"
 msgid "Must be numeric"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:194
+#: src/core/tags/framenotice.cpp:191
 msgctxt "@default|"
 msgid "Must be numeric or number/total"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:195
+#: src/core/tags/framenotice.cpp:192
 msgctxt "@default|"
 msgid "Format is DDMM"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:196
+#: src/core/tags/framenotice.cpp:193
 msgctxt "@default|"
 msgid "Format is HHMM"
 msgstr "Formatua HHMM da"
 
-#: src/core/tags/framenotice.cpp:197
+#: src/core/tags/framenotice.cpp:194
 msgctxt "@default|"
 msgid "Format is YYYY"
 msgstr "Formatu YYYY da"
 
-#: src/core/tags/framenotice.cpp:198
+#: src/core/tags/framenotice.cpp:195
 msgctxt "@default|"
 msgid "Must begin with a year and a space character"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:199
+#: src/core/tags/framenotice.cpp:196
 msgctxt "@default|"
 msgid "Must be ISO 8601 date/time"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:200
+#: src/core/tags/framenotice.cpp:197
 msgctxt "@default|"
 msgid ""
 "Must be musical key, 3 characters, A-G, b, #, m, o\n"
 "or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:202
+#: src/core/tags/framenotice.cpp:199
 msgctxt "@default|"
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:203
+#: src/core/tags/framenotice.cpp:200
 msgctxt "@default|"
 msgid "Must be ISRC code, 12 characters"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:204
+#: src/core/tags/framenotice.cpp:201
 msgctxt "@default|"
 msgid "Must be list of strings separated by '|'"
 msgstr ""
 
-#: src/core/tags/framenotice.cpp:205
+#: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
 msgid "Has excess white space"
 msgstr ""
@@ -3743,61 +3743,61 @@ msgctxt "@default|"
 msgid "Escape for HTML"
 msgstr ""
 
-#: src/gui/dialogs/batchimportdialog.cpp:163
+#: src/gui/dialogs/batchimportdialog.cpp:162
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Automatic Import"
 msgstr "Inportatze automatikoa"
 
-#: src/gui/dialogs/batchimportdialog.cpp:179
+#: src/gui/dialogs/batchimportdialog.cpp:178
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "D&estination:"
 msgstr "Helburua"
 
-#: src/gui/dialogs/batchimportdialog.cpp:194
+#: src/gui/dialogs/batchimportdialog.cpp:193
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "&Profile:"
 msgstr "Profila"
 
-#: src/gui/dialogs/batchimportdialog.cpp:205
+#: src/gui/dialogs/batchimportdialog.cpp:204
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Add"
 msgstr "Gehitu"
 
-#: src/gui/dialogs/batchimportdialog.cpp:209
+#: src/gui/dialogs/batchimportdialog.cpp:208
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Remove"
 msgstr "Kendu"
 
-#: src/gui/dialogs/batchimportdialog.cpp:230
+#: src/gui/dialogs/batchimportdialog.cpp:229
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/batchimportdialog.cpp:236
+#: src/gui/dialogs/batchimportdialog.cpp:235
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/batchimportdialog.cpp:245
+#: src/gui/dialogs/batchimportdialog.cpp:244
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "&Close"
 msgstr "&Itxi"
 
-#: src/gui/dialogs/batchimportdialog.cpp:285
+#: src/gui/dialogs/batchimportdialog.cpp:284
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "New"
 msgstr "Berria"
 
-#: src/gui/dialogs/batchimportdialog.cpp:477
+#: src/gui/dialogs/batchimportdialog.cpp:476
 #, fuzzy
 #| msgctxt "TextCliFormatter|"
 #| msgid "Reading Directory"
@@ -3805,66 +3805,66 @@ msgctxt "BatchImportDialog|"
 msgid "Reading Folder"
 msgstr "Direktorioa irakurtzen"
 
-#: src/gui/dialogs/batchimportdialog.cpp:481
+#: src/gui/dialogs/batchimportdialog.cpp:480
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Started"
 msgstr "Hasita"
 
-#: src/gui/dialogs/batchimportdialog.cpp:484
+#: src/gui/dialogs/batchimportdialog.cpp:483
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Source"
 msgstr "Sorburua"
 
-#: src/gui/dialogs/batchimportdialog.cpp:487
+#: src/gui/dialogs/batchimportdialog.cpp:486
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Querying"
 msgstr "Itauntzen"
 
-#: src/gui/dialogs/batchimportdialog.cpp:491
+#: src/gui/dialogs/batchimportdialog.cpp:490
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Fetching"
 msgstr "Eskuratzen"
 
-#: src/gui/dialogs/batchimportdialog.cpp:494
+#: src/gui/dialogs/batchimportdialog.cpp:493
 msgctxt "BatchImportDialog|"
 msgid "Data received"
 msgstr ""
 
-#: src/gui/dialogs/batchimportdialog.cpp:497
+#: src/gui/dialogs/batchimportdialog.cpp:496
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Cover"
 msgstr "Azala"
 
-#: src/gui/dialogs/batchimportdialog.cpp:501
+#: src/gui/dialogs/batchimportdialog.cpp:500
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Finished"
 msgstr "Amaituta"
 
-#: src/gui/dialogs/batchimportdialog.cpp:505
+#: src/gui/dialogs/batchimportdialog.cpp:504
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Aborted"
 msgstr "Abortatuta"
 
-#: src/gui/dialogs/batchimportdialog.cpp:508
+#: src/gui/dialogs/batchimportdialog.cpp:507
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Error"
 msgstr "Errorea"
 
-#: src/gui/dialogs/batchimportdialog.cpp:524
+#: src/gui/dialogs/batchimportdialog.cpp:523
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "A&bort"
 msgstr "Abortatu"
 
-#: src/gui/dialogs/batchimportdialog.cpp:524
+#: src/gui/dialogs/batchimportdialog.cpp:523
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "S&tart"
@@ -3982,295 +3982,295 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:178
+#: src/gui/dialogs/configdialogpages.cpp:176
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:181
+#: src/gui/dialogs/configdialogpages.cpp:179
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:183
-#: src/gui/dialogs/configdialogpages.cpp:212
+#: src/gui/dialogs/configdialogpages.cpp:181
+#: src/gui/dialogs/configdialogpages.cpp:210
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "Testu-kodeketa:"
 
-#: src/gui/dialogs/configdialogpages.cpp:197
+#: src/gui/dialogs/configdialogpages.cpp:195
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:200
+#: src/gui/dialogs/configdialogpages.cpp:198
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:203
+#: src/gui/dialogs/configdialogpages.cpp:201
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:207
+#: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:209
+#: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:211
+#: src/gui/dialogs/configdialogpages.cpp:209
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:230
+#: src/gui/dialogs/configdialogpages.cpp:228
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:234
+#: src/gui/dialogs/configdialogpages.cpp:232
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:236
+#: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:250
+#: src/gui/dialogs/configdialogpages.cpp:248
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:251
+#: src/gui/dialogs/configdialogpages.cpp:249
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:254
+#: src/gui/dialogs/configdialogpages.cpp:252
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:276
+#: src/gui/dialogs/configdialogpages.cpp:274
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Irudia"
 
-#: src/gui/dialogs/configdialogpages.cpp:279
+#: src/gui/dialogs/configdialogpages.cpp:277
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:292
+#: src/gui/dialogs/configdialogpages.cpp:290
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:300
+#: src/gui/dialogs/configdialogpages.cpp:298
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:312
+#: src/gui/dialogs/configdialogpages.cpp:310
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:327
+#: src/gui/dialogs/configdialogpages.cpp:325
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:330
+#: src/gui/dialogs/configdialogpages.cpp:328
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:337
+#: src/gui/dialogs/configdialogpages.cpp:335
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:338
+#: src/gui/dialogs/configdialogpages.cpp:336
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:355
+#: src/gui/dialogs/configdialogpages.cpp:353
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:357
+#: src/gui/dialogs/configdialogpages.cpp:355
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Balorazioa"
 
-#: src/gui/dialogs/configdialogpages.cpp:367
+#: src/gui/dialogs/configdialogpages.cpp:365
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "%1 etiketa"
 
-#: src/gui/dialogs/configdialogpages.cpp:369
+#: src/gui/dialogs/configdialogpages.cpp:367
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "%1 etiketa"
 
-#: src/gui/dialogs/configdialogpages.cpp:370
+#: src/gui/dialogs/configdialogpages.cpp:368
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "%1 etiketa"
 
-#: src/gui/dialogs/configdialogpages.cpp:371
+#: src/gui/dialogs/configdialogpages.cpp:369
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "Etiketa guztiak"
 
-#: src/gui/dialogs/configdialogpages.cpp:389
+#: src/gui/dialogs/configdialogpages.cpp:387
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Abioa"
 
-#: src/gui/dialogs/configdialogpages.cpp:390
+#: src/gui/dialogs/configdialogpages.cpp:388
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:396
+#: src/gui/dialogs/configdialogpages.cpp:394
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Gorde"
 
-#: src/gui/dialogs/configdialogpages.cpp:397
+#: src/gui/dialogs/configdialogpages.cpp:395
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:399
+#: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:409
+#: src/gui/dialogs/configdialogpages.cpp:407
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:410
+#: src/gui/dialogs/configdialogpages.cpp:408
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:415
+#: src/gui/dialogs/configdialogpages.cpp:413
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Fitxategi-zerrenda"
 
-#: src/gui/dialogs/configdialogpages.cpp:416
+#: src/gui/dialogs/configdialogpages.cpp:414
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Iragazkia"
 
-#: src/gui/dialogs/configdialogpages.cpp:426
+#: src/gui/dialogs/configdialogpages.cpp:424
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:430
+#: src/gui/dialogs/configdialogpages.cpp:428
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:434
+#: src/gui/dialogs/configdialogpages.cpp:432
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "Erakutsi ezkutuko fitxategiak"
 
-#: src/gui/dialogs/configdialogpages.cpp:446
+#: src/gui/dialogs/configdialogpages.cpp:444
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Formatua"
 
-#: src/gui/dialogs/configdialogpages.cpp:450
+#: src/gui/dialogs/configdialogpages.cpp:448
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "Fitxategi-izena etiketatik"
 
-#: src/gui/dialogs/configdialogpages.cpp:455
+#: src/gui/dialogs/configdialogpages.cpp:453
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "Etiketa fitxategi-izenetik"
 
-#: src/gui/dialogs/configdialogpages.cpp:461
-#: src/gui/dialogs/configdialogpages.cpp:521
+#: src/gui/dialogs/configdialogpages.cpp:459
+#: src/gui/dialogs/configdialogpages.cpp:519
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Jotze-zerrenda"
 
-#: src/gui/dialogs/configdialogpages.cpp:473
+#: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:489
+#: src/gui/dialogs/configdialogpages.cpp:487
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "Fitxategi-izena etiketatik"
 
-#: src/gui/dialogs/configdialogpages.cpp:505
+#: src/gui/dialogs/configdialogpages.cpp:503
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "Etiketa fitxategi-izenetik"
 
-#: src/gui/dialogs/configdialogpages.cpp:535
+#: src/gui/dialogs/configdialogpages.cpp:533
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Arakatzailea"
 
-#: src/gui/dialogs/configdialogpages.cpp:536
+#: src/gui/dialogs/configdialogpages.cpp:534
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "Web arakatzailea"
 
-#: src/gui/dialogs/configdialogpages.cpp:545
+#: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:548
+#: src/gui/dialogs/configdialogpages.cpp:546
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:550
+#: src/gui/dialogs/configdialogpages.cpp:548
 #, fuzzy
 #| msgctxt "SelectCommand|"
 #| msgid "Select file"
@@ -4278,12 +4278,12 @@ msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "Hautatu fitxategia"
 
-#: src/gui/dialogs/configdialogpages.cpp:553
+#: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:555
+#: src/gui/dialogs/configdialogpages.cpp:553
 #, fuzzy
 #| msgctxt "ConfigDialog|"
 #| msgid "System"
@@ -4291,46 +4291,46 @@ msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "Sistema"
 
-#: src/gui/dialogs/configdialogpages.cpp:588
+#: src/gui/dialogs/configdialogpages.cpp:586
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Proxya"
 
-#: src/gui/dialogs/configdialogpages.cpp:589
+#: src/gui/dialogs/configdialogpages.cpp:587
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Ordezkaria:"
 
-#: src/gui/dialogs/configdialogpages.cpp:592
+#: src/gui/dialogs/configdialogpages.cpp:590
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:594
+#: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:598
+#: src/gui/dialogs/configdialogpages.cpp:596
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "Proxyko pasahitza:"
 
-#: src/gui/dialogs/configdialogpages.cpp:632
+#: src/gui/dialogs/configdialogpages.cpp:630
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:644
+#: src/gui/dialogs/configdialogpages.cpp:642
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "Plugin eskuragarriak"
 
-#: src/gui/dialogs/configdialogpages.cpp:655
+#: src/gui/dialogs/configdialogpages.cpp:653
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr ""
@@ -4342,49 +4342,49 @@ msgid "Images"
 msgstr "Irudiak"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:741
-#: src/gui/widgets/timeeventeditor.cpp:352
+#: src/gui/widgets/timeeventeditor.cpp:350
 #, fuzzy
 msgctxt "@default|"
 msgid "All Files"
 msgstr "Fitxategi guztiak"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1136
+#: src/gui/dialogs/editframefieldsdialog.cpp:1134
 #, fuzzy
 msgctxt "BinaryOpenSave|"
 msgid "From Clip&board"
 msgstr "Arbeletik"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1137
+#: src/gui/dialogs/editframefieldsdialog.cpp:1135
 #, fuzzy
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
 msgstr "&Arbelera"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1138
+#: src/gui/dialogs/editframefieldsdialog.cpp:1136
 #, fuzzy
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
 msgstr "&Inportatu..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1139
+#: src/gui/dialogs/editframefieldsdialog.cpp:1137
 #, fuzzy
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
 msgstr "&Esportatu..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1140
+#: src/gui/dialogs/editframefieldsdialog.cpp:1138
 #, fuzzy
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
 msgstr "&Ikusi"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1316
+#: src/gui/dialogs/editframefieldsdialog.cpp:1310
 #, fuzzy
 msgctxt "EditFrameFieldsDialog|"
 msgid "&OK"
 msgstr "&Ados"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1317
+#: src/gui/dialogs/editframefieldsdialog.cpp:1311
 #, fuzzy
 msgctxt "EditFrameFieldsDialog|"
 msgid "&Cancel"
@@ -4461,12 +4461,12 @@ msgctxt "ExportDialog|"
 msgid "&Close"
 msgstr "&Itxi"
 
-#: src/gui/dialogs/exportdialog.cpp:154
+#: src/gui/dialogs/exportdialog.cpp:155
 msgctxt "ExportDialog|"
 msgid "File Error"
 msgstr ""
 
-#: src/gui/dialogs/exportdialog.cpp:155
+#: src/gui/dialogs/exportdialog.cpp:156
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "Error while writing file:\n"
@@ -5007,7 +5007,7 @@ msgctxt "RenDirDialog|"
 msgid "To:"
 msgstr "Nori:"
 
-#: src/gui/dialogs/rendirdialog.cpp:326
+#: src/gui/dialogs/rendirdialog.cpp:325
 #, fuzzy
 #| msgctxt "TagToFilenameCommand|"
 #| msgid "Filename from tag"
@@ -5256,43 +5256,43 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Download"
 msgstr "Deskargatu"
 
-#: src/gui/forms/basemainwindow.cpp:234
+#: src/gui/forms/basemainwindow.cpp:233
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:325
+#: src/gui/forms/basemainwindow.cpp:324
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
 msgstr "Abortatu"
 
-#: src/gui/forms/basemainwindow.cpp:396
+#: src/gui/forms/basemainwindow.cpp:393
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:406
+#: src/gui/forms/basemainwindow.cpp:403
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
 msgstr "Errorea fitxategia idazterakoan:\n"
 
-#: src/gui/forms/basemainwindow.cpp:408 src/gui/forms/basemainwindow.cpp:414
-#: src/gui/forms/basemainwindow.cpp:1136 src/gui/forms/basemainwindow.cpp:1141
-#: src/gui/forms/basemainwindow.cpp:1574 src/gui/forms/basemainwindow.cpp:1583
-#: src/gui/forms/basemainwindow.cpp:1659
+#: src/gui/forms/basemainwindow.cpp:405 src/gui/forms/basemainwindow.cpp:411
+#: src/gui/forms/basemainwindow.cpp:1128 src/gui/forms/basemainwindow.cpp:1133
+#: src/gui/forms/basemainwindow.cpp:1565 src/gui/forms/basemainwindow.cpp:1574
+#: src/gui/forms/basemainwindow.cpp:1649
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:411
+#: src/gui/forms/basemainwindow.cpp:408
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:465
+#: src/gui/forms/basemainwindow.cpp:461
 #, fuzzy
 #| msgctxt "QuitCommand|"
 #| msgid "The current directory has been modified."
@@ -5302,26 +5302,26 @@ msgid ""
 "Do you want to save it?"
 msgstr "Uneko direktorioa aldatu egin da."
 
-#: src/gui/forms/basemainwindow.cpp:467 src/gui/forms/basemainwindow.cpp:508
+#: src/gui/forms/basemainwindow.cpp:463 src/gui/forms/basemainwindow.cpp:502
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
 msgstr "Abisua"
 
-#: src/gui/forms/basemainwindow.cpp:506
+#: src/gui/forms/basemainwindow.cpp:500
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:617
+#: src/gui/forms/basemainwindow.cpp:610
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
 msgstr "Irteten..."
 
-#: src/gui/forms/basemainwindow.cpp:704
+#: src/gui/forms/basemainwindow.cpp:697
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
@@ -5329,7 +5329,7 @@ msgid_plural "%n folders"
 msgstr[0] "%n karpeta"
 msgstr[1] "%n karpeta"
 
-#: src/gui/forms/basemainwindow.cpp:709
+#: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
@@ -5337,7 +5337,7 @@ msgid_plural "%n files"
 msgstr[0] "%n fitxategi"
 msgstr[1] "%n fitxategi"
 
-#: src/gui/forms/basemainwindow.cpp:714
+#: src/gui/forms/basemainwindow.cpp:707
 #, fuzzy, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
@@ -5345,131 +5345,131 @@ msgid_plural "%n selected"
 msgstr[0] "%n hautatuta"
 msgstr[1] "%n hautatuta"
 
-#: src/gui/forms/basemainwindow.cpp:717
+#: src/gui/forms/basemainwindow.cpp:710
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
 msgstr "Prest."
 
-#: src/gui/forms/basemainwindow.cpp:779
+#: src/gui/forms/basemainwindow.cpp:772
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:827
+#: src/gui/forms/basemainwindow.cpp:820
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:828
+#: src/gui/forms/basemainwindow.cpp:821
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
 msgstr "Errorea"
 
-#: src/gui/forms/basemainwindow.cpp:854
+#: src/gui/forms/basemainwindow.cpp:847
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
 msgstr "Inportatu"
 
-#: src/gui/forms/basemainwindow.cpp:1134 src/gui/forms/basemainwindow.cpp:1140
-#: src/gui/forms/basemainwindow.cpp:1575 src/gui/forms/basemainwindow.cpp:1584
+#: src/gui/forms/basemainwindow.cpp:1126 src/gui/forms/basemainwindow.cpp:1132
+#: src/gui/forms/basemainwindow.cpp:1566 src/gui/forms/basemainwindow.cpp:1575
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1135
+#: src/gui/forms/basemainwindow.cpp:1127
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1212
+#: src/gui/forms/basemainwindow.cpp:1204
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "Iragazkia"
 
-#: src/gui/forms/basemainwindow.cpp:1277
+#: src/gui/forms/basemainwindow.cpp:1269
 #, fuzzy, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr "(%1 iragazita)"
 
-#: src/gui/forms/basemainwindow.cpp:1391
+#: src/gui/forms/basemainwindow.cpp:1383
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1392
+#: src/gui/forms/basemainwindow.cpp:1384
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1538
+#: src/gui/forms/basemainwindow.cpp:1529
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "Aldatu fitxategiaren izena"
 
-#: src/gui/forms/basemainwindow.cpp:1539
+#: src/gui/forms/basemainwindow.cpp:1530
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1576 src/gui/forms/basemainwindow.cpp:1585
+#: src/gui/forms/basemainwindow.cpp:1567 src/gui/forms/basemainwindow.cpp:1576
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1577
+#: src/gui/forms/basemainwindow.cpp:1568
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1595
+#: src/gui/forms/basemainwindow.cpp:1586
 #, fuzzy, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Benetan eraman nahi dituzu %1 elementu hauek zakarrontzira?"
 
-#: src/gui/forms/basemainwindow.cpp:1624
+#: src/gui/forms/basemainwindow.cpp:1614
 #, fuzzy, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Benetan eraman nahi dituzu %1 elementu hauek zakarrontzira?"
 
-#: src/gui/forms/basemainwindow.cpp:1626
+#: src/gui/forms/basemainwindow.cpp:1616
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "Benetan eraman nahi duzu elementu hau zakarrontzira?"
 
-#: src/gui/forms/basemainwindow.cpp:1628
+#: src/gui/forms/basemainwindow.cpp:1618
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "Bota zakarrontzira"
 
-#: src/gui/forms/basemainwindow.cpp:1657
+#: src/gui/forms/basemainwindow.cpp:1647
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1658
+#: src/gui/forms/basemainwindow.cpp:1648
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "Ezin izan dira zakarrontzira eraman fitxategi hauek"
 
-#: src/gui/forms/basemainwindow.cpp:1691
+#: src/gui/forms/basemainwindow.cpp:1681
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "Zabaldu guztiak"
 
-#: src/gui/forms/basemainwindow.cpp:1803
+#: src/gui/forms/basemainwindow.cpp:1793
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
@@ -5501,177 +5501,177 @@ msgctxt "FileList|"
 msgid "&Close"
 msgstr "&Itxi"
 
-#: src/gui/forms/filelist.cpp:359 src/gui/forms/filelist.cpp:363
+#: src/gui/forms/filelist.cpp:358 src/gui/forms/filelist.cpp:362
 #, fuzzy
 msgctxt "FileList|"
 msgid "&Expand all"
 msgstr "Zabaldu guztiak"
 
-#: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:364
+#: src/gui/forms/filelist.cpp:360 src/gui/forms/filelist.cpp:363
 #, fuzzy
 msgctxt "FileList|"
 msgid "&Collapse all"
 msgstr "Tolestu guztiak"
 
-#: src/gui/forms/filelist.cpp:374 src/gui/forms/filelist.cpp:376
+#: src/gui/forms/filelist.cpp:373 src/gui/forms/filelist.cpp:375
 #, fuzzy
 msgctxt "FileList|"
 msgid "&Play"
 msgstr "&Jo"
 
-#: src/gui/forms/filelist.cpp:380
+#: src/gui/forms/filelist.cpp:379
 #, fuzzy
 msgctxt "FileList|"
 msgid "E&dit"
 msgstr "Editatu"
 
-#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
+#: src/gui/forms/filelist.cpp:386 src/gui/forms/filelist.cpp:390
 #, fuzzy
 msgctxt "FileList|"
 msgid "&Open"
 msgstr "&Ireki"
 
-#: src/gui/forms/filelist.cpp:388 src/gui/forms/filelist.cpp:392
+#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
 #, fuzzy
 msgctxt "FileList|"
 msgid "Open Containing &Folder"
 msgstr "Ireki hau barnean duen karpeta"
 
-#: src/gui/forms/filelist.cpp:563
+#: src/gui/forms/filelist.cpp:561
 #, fuzzy
 msgctxt "FileList|"
 msgid "Execute "
 msgstr "Exekutatu"
 
-#: src/gui/forms/filelist.cpp:572
+#: src/gui/forms/filelist.cpp:570
 #, fuzzy
 msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "ezin izan da %1 exekutatu"
 
-#: src/gui/forms/kid3form.cpp:280
+#: src/gui/forms/kid3form.cpp:281
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: src/gui/forms/kid3form.cpp:335 src/gui/forms/kid3form.cpp:1243
-#: src/gui/forms/kid3form.cpp:1244
+#: src/gui/forms/kid3form.cpp:336 src/gui/forms/kid3form.cpp:1246
+#: src/gui/forms/kid3form.cpp:1247
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "F&ile"
 msgstr "Fitxategia"
 
-#: src/gui/forms/kid3form.cpp:346
+#: src/gui/forms/kid3form.cpp:347
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Name:"
 msgstr "Izena:"
 
-#: src/gui/forms/kid3form.cpp:355 src/gui/forms/kid3form.cpp:405
+#: src/gui/forms/kid3form.cpp:356 src/gui/forms/kid3form.cpp:406
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Format:"
 msgstr "Formatua:"
 
-#: src/gui/forms/kid3form.cpp:386
+#: src/gui/forms/kid3form.cpp:387
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "From:"
 msgstr "Nondik:"
 
-#: src/gui/forms/kid3form.cpp:392 src/gui/forms/kid3form.cpp:418
-#: src/gui/forms/kid3form.cpp:500 src/gui/forms/kid3form.cpp:524
+#: src/gui/forms/kid3form.cpp:393 src/gui/forms/kid3form.cpp:419
+#: src/gui/forms/kid3form.cpp:501 src/gui/forms/kid3form.cpp:525
 #, fuzzy, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1"
 msgstr "%1 etiketa"
 
-#: src/gui/forms/kid3form.cpp:394
+#: src/gui/forms/kid3form.cpp:395
 #, fuzzy, qt-format
 msgctxt "Kid3Form|"
 msgid "Filename from Tag %1"
 msgstr "Fitxategi-izena etiketatik"
 
-#: src/gui/forms/kid3form.cpp:411
+#: src/gui/forms/kid3form.cpp:412
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "To:"
 msgstr "Nori:"
 
-#: src/gui/forms/kid3form.cpp:419
+#: src/gui/forms/kid3form.cpp:420
 #, fuzzy, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
 msgstr "Etiketa fitxategi-izenetik"
 
-#: src/gui/forms/kid3form.cpp:440 src/gui/forms/kid3form.cpp:891
+#: src/gui/forms/kid3form.cpp:441 src/gui/forms/kid3form.cpp:892
 #, fuzzy, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
 msgstr "%1 etiketa"
 
-#: src/gui/forms/kid3form.cpp:469
+#: src/gui/forms/kid3form.cpp:470
 #, fuzzy, qt-format
 msgctxt "Kid3Form|"
 msgid "From Tag %1"
 msgstr "%1 etiketatik"
 
-#: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:533
+#: src/gui/forms/kid3form.cpp:478 src/gui/forms/kid3form.cpp:534
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Copy"
 msgstr "Kopiatu"
 
-#: src/gui/forms/kid3form.cpp:485 src/gui/forms/kid3form.cpp:509
+#: src/gui/forms/kid3form.cpp:486 src/gui/forms/kid3form.cpp:510
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: src/gui/forms/kid3form.cpp:492
+#: src/gui/forms/kid3form.cpp:493
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "From"
 msgstr "Nork"
 
-#: src/gui/forms/kid3form.cpp:494 src/gui/forms/kid3form.cpp:518
+#: src/gui/forms/kid3form.cpp:495 src/gui/forms/kid3form.cpp:519
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Filename"
 msgstr "Fitxategi-izena"
 
-#: src/gui/forms/kid3form.cpp:516
+#: src/gui/forms/kid3form.cpp:517
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "To"
 msgstr "Nori"
 
-#: src/gui/forms/kid3form.cpp:543
+#: src/gui/forms/kid3form.cpp:544
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Remove"
 msgstr "Kendu"
 
-#: src/gui/forms/kid3form.cpp:557
+#: src/gui/forms/kid3form.cpp:558
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Edit..."
 msgstr "Editatu..."
 
-#: src/gui/forms/kid3form.cpp:563
+#: src/gui/forms/kid3form.cpp:564
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Add..."
 msgstr "Gehitu..."
 
-#: src/gui/forms/kid3form.cpp:569
+#: src/gui/forms/kid3form.cpp:570
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/gui/forms/sectionactions.cpp:147
+#: src/gui/forms/sectionactions.cpp:146
 #, fuzzy
 #| msgctxt "BrowserDialog|"
 #| msgid "Find Previous"
@@ -5679,7 +5679,7 @@ msgctxt "SectionActions|"
 msgid "Previous"
 msgstr "Aurrekoa"
 
-#: src/gui/forms/sectionactions.cpp:149
+#: src/gui/forms/sectionactions.cpp:148
 #, fuzzy
 #| msgctxt "BrowserDialog|"
 #| msgid "Find Next"
@@ -5687,13 +5687,13 @@ msgctxt "SectionActions|"
 msgid "Next"
 msgstr "Hurrengoa"
 
-#: src/gui/forms/sectionactions.cpp:151
+#: src/gui/forms/sectionactions.cpp:150
 #, fuzzy
 msgctxt "SectionActions|"
 msgid "Transfer"
 msgstr "Transferentzia"
 
-#: src/gui/forms/sectionactions.cpp:154
+#: src/gui/forms/sectionactions.cpp:153
 #, fuzzy
 #| msgctxt "CopyCommand|"
 #| msgid "Copy"
@@ -5701,7 +5701,7 @@ msgctxt "SectionActions|"
 msgid "Copy"
 msgstr "Kopiatu"
 
-#: src/gui/forms/sectionactions.cpp:156
+#: src/gui/forms/sectionactions.cpp:155
 #, fuzzy
 #| msgctxt "PasteCommand|"
 #| msgid "Paste"
@@ -5709,7 +5709,7 @@ msgctxt "SectionActions|"
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: src/gui/forms/sectionactions.cpp:158
+#: src/gui/forms/sectionactions.cpp:157
 #, fuzzy
 #| msgctxt "RemoveCommand|"
 #| msgid "Remove"
@@ -5717,7 +5717,7 @@ msgctxt "SectionActions|"
 msgid "Remove"
 msgstr "Kendu"
 
-#: src/gui/forms/sectionactions.cpp:161
+#: src/gui/forms/sectionactions.cpp:160
 #, fuzzy
 #| msgctxt "KdeMainWindow|"
 #| msgid "Edit"
@@ -5725,7 +5725,7 @@ msgctxt "SectionActions|"
 msgid "Edit"
 msgstr "Editatu"
 
-#: src/gui/forms/sectionactions.cpp:163
+#: src/gui/forms/sectionactions.cpp:162
 #, fuzzy
 #| msgctxt "KdeMainWindow|"
 #| msgid "Add"
@@ -5733,7 +5733,7 @@ msgctxt "SectionActions|"
 msgid "Add"
 msgstr "Gehitu"
 
-#: src/gui/forms/sectionactions.cpp:165
+#: src/gui/forms/sectionactions.cpp:164
 #, fuzzy
 #| msgctxt "KdeMainWindow|"
 #| msgid "Delete"
@@ -5741,7 +5741,7 @@ msgctxt "SectionActions|"
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/gui/forms/sectionactions.cpp:168
+#: src/gui/forms/sectionactions.cpp:167
 #, fuzzy
 #| msgctxt "KdeMainWindow|"
 #| msgid "Opens a directory"
@@ -5749,7 +5749,7 @@ msgctxt "SectionActions|"
 msgid "Open Parent Folder"
 msgstr "Direktorio bat irekitzen du"
 
-#: src/gui/forms/sectionactions.cpp:171
+#: src/gui/forms/sectionactions.cpp:170
 #, fuzzy
 #| msgctxt "KdeMainWindow|"
 #| msgid "Opens a directory"
@@ -5811,7 +5811,7 @@ msgctxt "ChapterEditor|"
 msgid "End offset"
 msgstr "Jatorri-aldaketaren amaiera:"
 
-#: src/gui/widgets/configtable.cpp:41
+#: src/gui/widgets/configtable.cpp:42
 #, fuzzy
 msgctxt "ConfigTable|"
 msgid "&Add"
@@ -5829,7 +5829,7 @@ msgctxt "ConfigTable|"
 msgid "&Delete row"
 msgstr "&Ezabatu lerroa"
 
-#: src/gui/widgets/configtable.cpp:149
+#: src/gui/widgets/configtable.cpp:147
 #, fuzzy
 msgctxt "ConfigTable|"
 msgid "&Clear row"
@@ -5891,7 +5891,7 @@ msgctxt "FormatListEdit|"
 msgid "&Remove"
 msgstr "&Kendu"
 
-#: src/gui/widgets/formatlistedit.cpp:247
+#: src/gui/widgets/formatlistedit.cpp:245
 #, fuzzy
 msgctxt "FormatListEdit|"
 msgid "New"
@@ -5902,13 +5902,13 @@ msgctxt "FrameTable|"
 msgid "WWW Audio Source"
 msgstr ""
 
-#: src/gui/widgets/frametable.cpp:161
+#: src/gui/widgets/frametable.cpp:160
 #, fuzzy
 msgctxt "FrameTable|"
 msgid "&Select all"
 msgstr "Hautatu &denak"
 
-#: src/gui/widgets/frametable.cpp:163
+#: src/gui/widgets/frametable.cpp:162
 #, fuzzy
 msgctxt "FrameTable|"
 msgid "&Deselect all"
@@ -5969,13 +5969,13 @@ msgctxt "PlayToolBar|"
 msgid "Close"
 msgstr "Itxi"
 
-#: src/gui/widgets/playtoolbar.cpp:142
+#: src/gui/widgets/playtoolbar.cpp:141
 #, fuzzy
 msgctxt "PlayToolBar|"
 msgid "Mute"
 msgstr "Isilarazi"
 
-#: src/gui/widgets/playtoolbar.cpp:326
+#: src/gui/widgets/playtoolbar.cpp:324
 #, fuzzy, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
@@ -5993,25 +5993,25 @@ msgctxt "StringListEdit|"
 msgid "Add Item"
 msgstr "Gehitu gaia"
 
-#: src/gui/widgets/stringlistedit.cpp:72
+#: src/gui/widgets/stringlistedit.cpp:71
 #, fuzzy
 msgctxt "StringListEdit|"
 msgid "Edit Item"
 msgstr "Editatu elementua"
 
-#: src/gui/widgets/subframeseditor.cpp:66
+#: src/gui/widgets/subframeseditor.cpp:67
 #, fuzzy
 msgctxt "SubframesEditor|"
 msgid "Edit..."
 msgstr "Editatu..."
 
-#: src/gui/widgets/subframeseditor.cpp:71
+#: src/gui/widgets/subframeseditor.cpp:72
 #, fuzzy
 msgctxt "SubframesEditor|"
 msgid "Add..."
 msgstr "Gehitu..."
 
-#: src/gui/widgets/subframeseditor.cpp:76
+#: src/gui/widgets/subframeseditor.cpp:77
 #, fuzzy
 msgctxt "SubframesEditor|"
 msgid "Delete"
@@ -6049,132 +6049,132 @@ msgctxt "TagFormatBox|"
 msgid "Validation"
 msgstr ""
 
-#: src/gui/widgets/timeeventeditor.cpp:120
+#: src/gui/widgets/timeeventeditor.cpp:119
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Add"
 msgstr "&Gehitu"
 
-#: src/gui/widgets/timeeventeditor.cpp:122
+#: src/gui/widgets/timeeventeditor.cpp:121
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Delete"
 msgstr "&Ezabatu"
 
-#: src/gui/widgets/timeeventeditor.cpp:124
+#: src/gui/widgets/timeeventeditor.cpp:123
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "From Clip&board"
 msgstr "Arbeletik"
 
-#: src/gui/widgets/timeeventeditor.cpp:126
+#: src/gui/widgets/timeeventeditor.cpp:125
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Import..."
 msgstr "&Inportatu..."
 
-#: src/gui/widgets/timeeventeditor.cpp:128
+#: src/gui/widgets/timeeventeditor.cpp:127
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Export..."
 msgstr "&Esportatu..."
 
-#: src/gui/widgets/timeeventeditor.cpp:130
+#: src/gui/widgets/timeeventeditor.cpp:129
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Help"
 msgstr "Laguntza"
 
-#: src/gui/widgets/timeeventeditor.cpp:188
+#: src/gui/widgets/timeeventeditor.cpp:187
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Events"
 msgstr "Gertaerak"
 
-#: src/gui/widgets/timeeventeditor.cpp:194
+#: src/gui/widgets/timeeventeditor.cpp:193
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "Hitzak"
 
-#: src/gui/widgets/timeeventeditor.cpp:431
+#: src/gui/widgets/timeeventeditor.cpp:429
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "Desplazamendua"
 
-#: src/gui/widgets/timeeventeditor.cpp:431
+#: src/gui/widgets/timeeventeditor.cpp:429
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
 msgstr "Milisegundoak"
 
-#: src/gui/widgets/timeeventeditor.cpp:470
+#: src/gui/widgets/timeeventeditor.cpp:468
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Insert row"
 msgstr "%1: txertatu errenkada 1"
 
-#: src/gui/widgets/timeeventeditor.cpp:474
+#: src/gui/widgets/timeeventeditor.cpp:471
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Delete rows"
 msgstr "Ezabatu errenkadak"
 
-#: src/gui/widgets/timeeventeditor.cpp:476
+#: src/gui/widgets/timeeventeditor.cpp:473
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "C&lear"
 msgstr "&Garbitu"
 
-#: src/gui/widgets/timeeventeditor.cpp:478
+#: src/gui/widgets/timeeventeditor.cpp:475
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
 msgstr ""
 
-#: src/gui/widgets/timeeventeditor.cpp:480
+#: src/gui/widgets/timeeventeditor.cpp:477
 msgctxt "TimeEventEditor|"
 msgid "&Seek to position"
 msgstr ""
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:209
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:206
 msgctxt "@default|"
 msgid "MusicBrainz Fingerprint"
 msgstr ""
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:285
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:282
 msgctxt "MusicBrainzClient|"
 msgid "Unrecognized"
 msgstr ""
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:293
 msgctxt "MusicBrainzClient|"
 msgid "Recognized"
 msgstr ""
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:293
 msgctxt "MusicBrainzClient|"
 msgid "User Selection"
 msgstr ""
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:318
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:315
 msgctxt "MusicBrainzClient|"
 msgid "ID Lookup"
 msgstr ""
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:326
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:323
 #, fuzzy
 msgctxt "MusicBrainzClient|"
 msgid "Error"
 msgstr "Errorea"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:345
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:342
 #, fuzzy
 msgctxt "MusicBrainzClient|"
 msgid "Fingerprint"
 msgstr "Hatz-marka"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:355
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:351
 msgctxt "MusicBrainzClient|"
 msgid "Metadata Lookup"
 msgstr ""
@@ -6185,7 +6185,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1481
+#: src/plugins/discogsimport/discogsimporter.cpp:1470
 #, fuzzy
 msgctxt "@default|"
 msgid "Discogs"
@@ -6196,437 +6196,437 @@ msgctxt "@default|"
 msgid "gnudb.org"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:914
-#: src/plugins/taglibmetadata/taglibfile.cpp:2505
+#: src/plugins/id3libmetadata/mp3file.cpp:907
+#: src/plugins/taglibmetadata/taglibfile.cpp:2486
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:915
-#: src/plugins/taglibmetadata/taglibfile.cpp:2506
+#: src/plugins/id3libmetadata/mp3file.cpp:908
+#: src/plugins/taglibmetadata/taglibfile.cpp:2487
 msgctxt "@default|"
 msgid "APIC - Attached picture"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:917
-#: src/plugins/taglibmetadata/taglibfile.cpp:2511
+#: src/plugins/id3libmetadata/mp3file.cpp:910
+#: src/plugins/taglibmetadata/taglibfile.cpp:2492
 msgctxt "@default|"
 msgid "COMM - Comments"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:918
-#: src/plugins/taglibmetadata/taglibfile.cpp:2512
+#: src/plugins/id3libmetadata/mp3file.cpp:911
+#: src/plugins/taglibmetadata/taglibfile.cpp:2493
 msgctxt "@default|"
 msgid "COMR - Commercial"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:919
-#: src/plugins/taglibmetadata/taglibfile.cpp:2516
+#: src/plugins/id3libmetadata/mp3file.cpp:912
+#: src/plugins/taglibmetadata/taglibfile.cpp:2497
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/id3libmetadata/mp3file.cpp:914
 msgctxt "@default|"
 msgid "EQUA - Equalization"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:922
-#: src/plugins/taglibmetadata/taglibfile.cpp:2518
+#: src/plugins/id3libmetadata/mp3file.cpp:915
+#: src/plugins/taglibmetadata/taglibfile.cpp:2499
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:923
-#: src/plugins/taglibmetadata/taglibfile.cpp:2519
+#: src/plugins/id3libmetadata/mp3file.cpp:916
+#: src/plugins/taglibmetadata/taglibfile.cpp:2500
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:924
-#: src/plugins/taglibmetadata/taglibfile.cpp:2520
+#: src/plugins/id3libmetadata/mp3file.cpp:917
+#: src/plugins/taglibmetadata/taglibfile.cpp:2501
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/id3libmetadata/mp3file.cpp:918
 msgctxt "@default|"
 msgid "IPLS - Involved people list"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:926
-#: src/plugins/taglibmetadata/taglibfile.cpp:2524
+#: src/plugins/id3libmetadata/mp3file.cpp:919
+#: src/plugins/taglibmetadata/taglibfile.cpp:2505
 msgctxt "@default|"
 msgid "LINK - Linked information"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:927
-#: src/plugins/taglibmetadata/taglibfile.cpp:2525
+#: src/plugins/id3libmetadata/mp3file.cpp:920
+#: src/plugins/taglibmetadata/taglibfile.cpp:2506
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:928
-#: src/plugins/taglibmetadata/taglibfile.cpp:2526
+#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/taglibmetadata/taglibfile.cpp:2507
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:929
-#: src/plugins/taglibmetadata/taglibfile.cpp:2531
+#: src/plugins/id3libmetadata/mp3file.cpp:922
+#: src/plugins/taglibmetadata/taglibfile.cpp:2512
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:930
-#: src/plugins/taglibmetadata/taglibfile.cpp:2532
+#: src/plugins/id3libmetadata/mp3file.cpp:923
+#: src/plugins/taglibmetadata/taglibfile.cpp:2513
 msgctxt "@default|"
 msgid "PRIV - Private frame"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:931
-#: src/plugins/taglibmetadata/taglibfile.cpp:2533
+#: src/plugins/id3libmetadata/mp3file.cpp:924
+#: src/plugins/taglibmetadata/taglibfile.cpp:2514
 msgctxt "@default|"
 msgid "PCNT - Play counter"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:932
-#: src/plugins/taglibmetadata/taglibfile.cpp:2537
+#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/taglibmetadata/taglibfile.cpp:2518
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:933
-#: src/plugins/taglibmetadata/taglibfile.cpp:2538
+#: src/plugins/id3libmetadata/mp3file.cpp:926
+#: src/plugins/taglibmetadata/taglibfile.cpp:2519
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:934
-#: src/plugins/taglibmetadata/taglibfile.cpp:2539
+#: src/plugins/id3libmetadata/mp3file.cpp:927
+#: src/plugins/taglibmetadata/taglibfile.cpp:2520
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:936
+#: src/plugins/id3libmetadata/mp3file.cpp:929
 msgctxt "@default|"
 msgid "RVAD - Relative volume adjustment"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:937
-#: src/plugins/taglibmetadata/taglibfile.cpp:2541
+#: src/plugins/id3libmetadata/mp3file.cpp:930
+#: src/plugins/taglibmetadata/taglibfile.cpp:2522
 msgctxt "@default|"
 msgid "RVRB - Reverb"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:940
-#: src/plugins/taglibmetadata/taglibfile.cpp:2544
+#: src/plugins/id3libmetadata/mp3file.cpp:933
+#: src/plugins/taglibmetadata/taglibfile.cpp:2525
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:941
-#: src/plugins/taglibmetadata/taglibfile.cpp:2545
+#: src/plugins/id3libmetadata/mp3file.cpp:934
+#: src/plugins/taglibmetadata/taglibfile.cpp:2526
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:942
-#: src/plugins/taglibmetadata/taglibfile.cpp:2546
+#: src/plugins/id3libmetadata/mp3file.cpp:935
+#: src/plugins/taglibmetadata/taglibfile.cpp:2527
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:943
-#: src/plugins/taglibmetadata/taglibfile.cpp:2547
+#: src/plugins/id3libmetadata/mp3file.cpp:936
+#: src/plugins/taglibmetadata/taglibfile.cpp:2528
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:944
-#: src/plugins/taglibmetadata/taglibfile.cpp:2552
+#: src/plugins/id3libmetadata/mp3file.cpp:937
+#: src/plugins/taglibmetadata/taglibfile.cpp:2533
 msgctxt "@default|"
 msgid "TCOM - Composer"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:945
-#: src/plugins/taglibmetadata/taglibfile.cpp:2553
+#: src/plugins/id3libmetadata/mp3file.cpp:938
+#: src/plugins/taglibmetadata/taglibfile.cpp:2534
 msgctxt "@default|"
 msgid "TCON - Content type"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:946
-#: src/plugins/taglibmetadata/taglibfile.cpp:2554
+#: src/plugins/id3libmetadata/mp3file.cpp:939
+#: src/plugins/taglibmetadata/taglibfile.cpp:2535
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:947
+#: src/plugins/id3libmetadata/mp3file.cpp:940
 msgctxt "@default|"
 msgid "TDAT - Date"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:949
-#: src/plugins/taglibmetadata/taglibfile.cpp:2559
+#: src/plugins/id3libmetadata/mp3file.cpp:942
+#: src/plugins/taglibmetadata/taglibfile.cpp:2540
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:955
-#: src/plugins/taglibmetadata/taglibfile.cpp:2564
+#: src/plugins/id3libmetadata/mp3file.cpp:948
+#: src/plugins/taglibmetadata/taglibfile.cpp:2545
 msgctxt "@default|"
 msgid "TENC - Encoded by"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:956
-#: src/plugins/taglibmetadata/taglibfile.cpp:2565
+#: src/plugins/id3libmetadata/mp3file.cpp:949
+#: src/plugins/taglibmetadata/taglibfile.cpp:2546
 msgctxt "@default|"
 msgid "TEXT - Lyricist/Text writer"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:957
-#: src/plugins/taglibmetadata/taglibfile.cpp:2566
+#: src/plugins/id3libmetadata/mp3file.cpp:950
+#: src/plugins/taglibmetadata/taglibfile.cpp:2547
 msgctxt "@default|"
 msgid "TFLT - File type"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:958
+#: src/plugins/id3libmetadata/mp3file.cpp:951
 msgctxt "@default|"
 msgid "TIME - Time"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:959
-#: src/plugins/taglibmetadata/taglibfile.cpp:2571
+#: src/plugins/id3libmetadata/mp3file.cpp:952
+#: src/plugins/taglibmetadata/taglibfile.cpp:2552
 msgctxt "@default|"
 msgid "TIT1 - Content group description"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:960
-#: src/plugins/taglibmetadata/taglibfile.cpp:2572
+#: src/plugins/id3libmetadata/mp3file.cpp:953
+#: src/plugins/taglibmetadata/taglibfile.cpp:2553
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:961
-#: src/plugins/taglibmetadata/taglibfile.cpp:2573
+#: src/plugins/id3libmetadata/mp3file.cpp:954
+#: src/plugins/taglibmetadata/taglibfile.cpp:2554
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:962
-#: src/plugins/taglibmetadata/taglibfile.cpp:2574
+#: src/plugins/id3libmetadata/mp3file.cpp:955
+#: src/plugins/taglibmetadata/taglibfile.cpp:2555
 msgctxt "@default|"
 msgid "TKEY - Initial key"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:963
-#: src/plugins/taglibmetadata/taglibfile.cpp:2578
+#: src/plugins/id3libmetadata/mp3file.cpp:956
+#: src/plugins/taglibmetadata/taglibfile.cpp:2559
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:964
-#: src/plugins/taglibmetadata/taglibfile.cpp:2579
+#: src/plugins/id3libmetadata/mp3file.cpp:957
+#: src/plugins/taglibmetadata/taglibfile.cpp:2560
 msgctxt "@default|"
 msgid "TLEN - Length"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:966
-#: src/plugins/taglibmetadata/taglibfile.cpp:2581
+#: src/plugins/id3libmetadata/mp3file.cpp:959
+#: src/plugins/taglibmetadata/taglibfile.cpp:2562
 msgctxt "@default|"
 msgid "TMED - Media type"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:968
-#: src/plugins/taglibmetadata/taglibfile.cpp:2583
+#: src/plugins/id3libmetadata/mp3file.cpp:961
+#: src/plugins/taglibmetadata/taglibfile.cpp:2564
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:969
-#: src/plugins/taglibmetadata/taglibfile.cpp:2584
+#: src/plugins/id3libmetadata/mp3file.cpp:962
+#: src/plugins/taglibmetadata/taglibfile.cpp:2565
 msgctxt "@default|"
 msgid "TOFN - Original filename"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:970
-#: src/plugins/taglibmetadata/taglibfile.cpp:2585
+#: src/plugins/id3libmetadata/mp3file.cpp:963
+#: src/plugins/taglibmetadata/taglibfile.cpp:2566
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:971
-#: src/plugins/taglibmetadata/taglibfile.cpp:2586
+#: src/plugins/id3libmetadata/mp3file.cpp:964
+#: src/plugins/taglibmetadata/taglibfile.cpp:2567
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:972
+#: src/plugins/id3libmetadata/mp3file.cpp:965
 msgctxt "@default|"
 msgid "TORY - Original release year"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:973
-#: src/plugins/taglibmetadata/taglibfile.cpp:2587
+#: src/plugins/id3libmetadata/mp3file.cpp:966
+#: src/plugins/taglibmetadata/taglibfile.cpp:2568
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:974
-#: src/plugins/taglibmetadata/taglibfile.cpp:2588
+#: src/plugins/id3libmetadata/mp3file.cpp:967
+#: src/plugins/taglibmetadata/taglibfile.cpp:2569
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:975
-#: src/plugins/taglibmetadata/taglibfile.cpp:2589
+#: src/plugins/id3libmetadata/mp3file.cpp:968
+#: src/plugins/taglibmetadata/taglibfile.cpp:2570
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:976
-#: src/plugins/taglibmetadata/taglibfile.cpp:2590
+#: src/plugins/id3libmetadata/mp3file.cpp:969
+#: src/plugins/taglibmetadata/taglibfile.cpp:2571
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:977
-#: src/plugins/taglibmetadata/taglibfile.cpp:2591
+#: src/plugins/id3libmetadata/mp3file.cpp:970
+#: src/plugins/taglibmetadata/taglibfile.cpp:2572
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:978
-#: src/plugins/taglibmetadata/taglibfile.cpp:2592
+#: src/plugins/id3libmetadata/mp3file.cpp:971
+#: src/plugins/taglibmetadata/taglibfile.cpp:2573
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:980
-#: src/plugins/taglibmetadata/taglibfile.cpp:2594
+#: src/plugins/id3libmetadata/mp3file.cpp:973
+#: src/plugins/taglibmetadata/taglibfile.cpp:2575
 msgctxt "@default|"
 msgid "TPUB - Publisher"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:981
-#: src/plugins/taglibmetadata/taglibfile.cpp:2595
+#: src/plugins/id3libmetadata/mp3file.cpp:974
+#: src/plugins/taglibmetadata/taglibfile.cpp:2576
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:982
+#: src/plugins/id3libmetadata/mp3file.cpp:975
 msgctxt "@default|"
 msgid "TRDA - Recording dates"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:983
-#: src/plugins/taglibmetadata/taglibfile.cpp:2596
+#: src/plugins/id3libmetadata/mp3file.cpp:976
+#: src/plugins/taglibmetadata/taglibfile.cpp:2577
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:984
-#: src/plugins/taglibmetadata/taglibfile.cpp:2597
+#: src/plugins/id3libmetadata/mp3file.cpp:977
+#: src/plugins/taglibmetadata/taglibfile.cpp:2578
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:985
+#: src/plugins/id3libmetadata/mp3file.cpp:978
 msgctxt "@default|"
 msgid "TSIZ - Size"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:989
-#: src/plugins/taglibmetadata/taglibfile.cpp:2603
+#: src/plugins/id3libmetadata/mp3file.cpp:982
+#: src/plugins/taglibmetadata/taglibfile.cpp:2584
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:990
-#: src/plugins/taglibmetadata/taglibfile.cpp:2604
+#: src/plugins/id3libmetadata/mp3file.cpp:983
+#: src/plugins/taglibmetadata/taglibfile.cpp:2585
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:992
-#: src/plugins/taglibmetadata/taglibfile.cpp:2606
+#: src/plugins/id3libmetadata/mp3file.cpp:985
+#: src/plugins/taglibmetadata/taglibfile.cpp:2587
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:993
+#: src/plugins/id3libmetadata/mp3file.cpp:986
 msgctxt "@default|"
 msgid "TYER - Year"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:994
-#: src/plugins/taglibmetadata/taglibfile.cpp:2607
+#: src/plugins/id3libmetadata/mp3file.cpp:987
+#: src/plugins/taglibmetadata/taglibfile.cpp:2588
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:995
-#: src/plugins/taglibmetadata/taglibfile.cpp:2608
+#: src/plugins/id3libmetadata/mp3file.cpp:988
+#: src/plugins/taglibmetadata/taglibfile.cpp:2589
 msgctxt "@default|"
 msgid "USER - Terms of use"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:996
-#: src/plugins/taglibmetadata/taglibfile.cpp:2609
+#: src/plugins/id3libmetadata/mp3file.cpp:989
+#: src/plugins/taglibmetadata/taglibfile.cpp:2590
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:997
-#: src/plugins/taglibmetadata/taglibfile.cpp:2610
+#: src/plugins/id3libmetadata/mp3file.cpp:990
+#: src/plugins/taglibmetadata/taglibfile.cpp:2591
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:998
-#: src/plugins/taglibmetadata/taglibfile.cpp:2611
+#: src/plugins/id3libmetadata/mp3file.cpp:991
+#: src/plugins/taglibmetadata/taglibfile.cpp:2592
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:999
-#: src/plugins/taglibmetadata/taglibfile.cpp:2615
+#: src/plugins/id3libmetadata/mp3file.cpp:992
+#: src/plugins/taglibmetadata/taglibfile.cpp:2596
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1000
-#: src/plugins/taglibmetadata/taglibfile.cpp:2616
+#: src/plugins/id3libmetadata/mp3file.cpp:993
+#: src/plugins/taglibmetadata/taglibfile.cpp:2597
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1001
-#: src/plugins/taglibmetadata/taglibfile.cpp:2617
+#: src/plugins/id3libmetadata/mp3file.cpp:994
+#: src/plugins/taglibmetadata/taglibfile.cpp:2598
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1002
-#: src/plugins/taglibmetadata/taglibfile.cpp:2618
+#: src/plugins/id3libmetadata/mp3file.cpp:995
+#: src/plugins/taglibmetadata/taglibfile.cpp:2599
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1003
-#: src/plugins/taglibmetadata/taglibfile.cpp:2619
+#: src/plugins/id3libmetadata/mp3file.cpp:996
+#: src/plugins/taglibmetadata/taglibfile.cpp:2600
 msgctxt "@default|"
 msgid "WPAY - Payment"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1004
-#: src/plugins/taglibmetadata/taglibfile.cpp:2620
+#: src/plugins/id3libmetadata/mp3file.cpp:997
+#: src/plugins/taglibmetadata/taglibfile.cpp:2601
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
 msgstr ""
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1005
-#: src/plugins/taglibmetadata/taglibfile.cpp:2621
+#: src/plugins/id3libmetadata/mp3file.cpp:998
+#: src/plugins/taglibmetadata/taglibfile.cpp:2602
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
 msgstr ""
@@ -6636,167 +6636,167 @@ msgctxt "@default|"
 msgid "MusicBrainz Release"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2507
+#: src/plugins/taglibmetadata/taglibfile.cpp:2488
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2509
+#: src/plugins/taglibmetadata/taglibfile.cpp:2490
 msgctxt "@default|"
 msgid "CHAP - Chapter"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2514
+#: src/plugins/taglibmetadata/taglibfile.cpp:2495
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2517
+#: src/plugins/taglibmetadata/taglibfile.cpp:2498
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2522
+#: src/plugins/taglibmetadata/taglibfile.cpp:2503
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2528
+#: src/plugins/taglibmetadata/taglibfile.cpp:2509
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2529
+#: src/plugins/taglibmetadata/taglibfile.cpp:2510
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2535
+#: src/plugins/taglibmetadata/taglibfile.cpp:2516
 msgctxt "@default|"
 msgid "PCST - Podcast"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2540
+#: src/plugins/taglibmetadata/taglibfile.cpp:2521
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2542
+#: src/plugins/taglibmetadata/taglibfile.cpp:2523
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2543
+#: src/plugins/taglibmetadata/taglibfile.cpp:2524
 msgctxt "@default|"
 msgid "SIGN - Signature frame"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2549
+#: src/plugins/taglibmetadata/taglibfile.cpp:2530
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2551
+#: src/plugins/taglibmetadata/taglibfile.cpp:2532
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2555
+#: src/plugins/taglibmetadata/taglibfile.cpp:2536
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2557
+#: src/plugins/taglibmetadata/taglibfile.cpp:2538
 msgctxt "@default|"
 msgid "TDES - Podcast description"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2560
+#: src/plugins/taglibmetadata/taglibfile.cpp:2541
 msgctxt "@default|"
 msgid "TDOR - Original release time"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2561
+#: src/plugins/taglibmetadata/taglibfile.cpp:2542
 msgctxt "@default|"
 msgid "TDRC - Recording time"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2562
+#: src/plugins/taglibmetadata/taglibfile.cpp:2543
 msgctxt "@default|"
 msgid "TDRL - Release time"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2563
+#: src/plugins/taglibmetadata/taglibfile.cpp:2544
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2568
+#: src/plugins/taglibmetadata/taglibfile.cpp:2549
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2570
+#: src/plugins/taglibmetadata/taglibfile.cpp:2551
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2576
+#: src/plugins/taglibmetadata/taglibfile.cpp:2557
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2580
+#: src/plugins/taglibmetadata/taglibfile.cpp:2561
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2582
+#: src/plugins/taglibmetadata/taglibfile.cpp:2563
 msgctxt "@default|"
 msgid "TMOO - Mood"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2593
+#: src/plugins/taglibmetadata/taglibfile.cpp:2574
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2598
+#: src/plugins/taglibmetadata/taglibfile.cpp:2579
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2599
+#: src/plugins/taglibmetadata/taglibfile.cpp:2580
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2600
+#: src/plugins/taglibmetadata/taglibfile.cpp:2581
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2601
+#: src/plugins/taglibmetadata/taglibfile.cpp:2582
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2602
+#: src/plugins/taglibmetadata/taglibfile.cpp:2583
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2605
+#: src/plugins/taglibmetadata/taglibfile.cpp:2586
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2613
+#: src/plugins/taglibmetadata/taglibfile.cpp:2594
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6870
+#: src/plugins/taglibmetadata/taglibfile.cpp:6818
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr ""

@@ -22,418 +22,418 @@ msgstr ""
 "X-Source-Language: en\n"
 "X-Qt-Contexts: true\n"
 
-#: src/app/cli/clicommand.cpp:350
+#: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
 msgid "Timeout"
 msgstr "Časové omezení"
 
-#: src/app/cli/clicommand.cpp:394
+#: src/app/cli/clicommand.cpp:389
 msgctxt "HelpCommand|"
 msgid "Help"
 msgstr "Nápověda"
 
-#: src/app/cli/clicommand.cpp:395
+#: src/app/cli/clicommand.cpp:390
 msgctxt "HelpCommand|"
 msgid "Command name"
 msgstr "Název příkazu"
 
-#: src/app/cli/clicommand.cpp:406
+#: src/app/cli/clicommand.cpp:401
 msgctxt "TimeoutCommand|"
 msgid "Overwrite timeout"
 msgstr "Přepsat časové omezení"
 
-#: src/app/cli/clicommand.cpp:407
+#: src/app/cli/clicommand.cpp:402
 msgctxt "TimeoutCommand|"
 msgid "Time"
 msgstr "Čas"
 
-#: src/app/cli/clicommand.cpp:448
+#: src/app/cli/clicommand.cpp:441
 msgctxt "QuitCommand|"
 msgid "Quit application"
 msgstr "Ukončit program"
 
-#: src/app/cli/clicommand.cpp:457
+#: src/app/cli/clicommand.cpp:450
 msgctxt "QuitCommand|"
 msgid "The current folder has been modified."
 msgstr "Nynější složka byla změněna."
 
-#: src/app/cli/clicommand.cpp:459
+#: src/app/cli/clicommand.cpp:452
 msgctxt "QuitCommand|"
 msgid "Type 'exit force' to quit."
 msgstr "Napište 'exit force' pro skončení."
 
-#: src/app/cli/clicommand.cpp:475
+#: src/app/cli/clicommand.cpp:468
 msgctxt "CdCommand|"
 msgid "Change folder"
 msgstr "Změnit složku"
 
-#: src/app/cli/clicommand.cpp:489
+#: src/app/cli/clicommand.cpp:482
 #, qt-format
 msgctxt "CdCommand|"
 msgid "%1 does not exist"
 msgstr "%1 neexistuje"
 
-#: src/app/cli/clicommand.cpp:509
+#: src/app/cli/clicommand.cpp:502
 msgctxt "PwdCommand|"
 msgid "Print the filename of the current folder"
 msgstr "Vypíše celý název současného pracovní složky"
 
-#: src/app/cli/clicommand.cpp:525
+#: src/app/cli/clicommand.cpp:518
 msgctxt "LsCommand|"
 msgid "Folder list"
 msgstr "Seznam složek"
 
-#: src/app/cli/clicommand.cpp:537
+#: src/app/cli/clicommand.cpp:530
 msgctxt "SaveCommand|"
 msgid "Saves the changed files"
 msgstr "Uloží změněné soubory"
 
-#: src/app/cli/clicommand.cpp:548
+#: src/app/cli/clicommand.cpp:541
 msgctxt "SaveCommand|"
 msgid "Error while writing file:\n"
 msgstr "Při zápisu do souboru nastala chyba:\n"
 
-#: src/app/cli/clicommand.cpp:557
+#: src/app/cli/clicommand.cpp:550
 msgctxt "SelectCommand|"
 msgid "Select file"
 msgstr "Vybrat soubor"
 
-#: src/app/cli/clicommand.cpp:580
+#: src/app/cli/clicommand.cpp:572
 #, qt-format
 msgctxt "SelectCommand|"
 msgid "%1 not found"
 msgstr "%1 nenalezen"
 
-#: src/app/cli/clicommand.cpp:590
+#: src/app/cli/clicommand.cpp:582
 msgctxt "TagCommand|"
 msgid "Select tag"
 msgstr "Vybrat štítek"
 
-#: src/app/cli/clicommand.cpp:607
+#: src/app/cli/clicommand.cpp:599
 msgctxt "GetCommand|"
 msgid "Get tag frame"
 msgstr "Získat prvek značky"
 
-#: src/app/cli/clicommand.cpp:635
+#: src/app/cli/clicommand.cpp:627
 msgctxt "SetCommand|"
 msgid "Set tag frame"
 msgstr "Nastavit prvek značky"
 
-#: src/app/cli/clicommand.cpp:653
+#: src/app/cli/clicommand.cpp:644
 #, qt-format
 msgctxt "SetCommand|"
 msgid "Could not set \"%1\" for %2"
 msgstr "Souboru %2 nelze nastavit vlastnost \"%1\""
 
-#: src/app/cli/clicommand.cpp:663
+#: src/app/cli/clicommand.cpp:654
 msgctxt "RevertCommand|"
 msgid "Revert"
 msgstr "Naposledy uložené znění"
 
-#: src/app/cli/clicommand.cpp:675
+#: src/app/cli/clicommand.cpp:666
 msgctxt "ImportCommand|"
 msgid "Import from file"
 msgstr "Importovat ze souboru"
 
-#: src/app/cli/clicommand.cpp:677
+#: src/app/cli/clicommand.cpp:668
 msgctxt "ImportCommand|"
 msgid "File path"
 msgstr "Cesta k souboru"
 
-#: src/app/cli/clicommand.cpp:677
+#: src/app/cli/clicommand.cpp:668
 msgctxt "ImportCommand|"
 msgid "Format name"
 msgstr "Název formátu"
 
-#: src/app/cli/clicommand.cpp:678
+#: src/app/cli/clicommand.cpp:669
 msgctxt "ImportCommand|"
 msgid "Source"
 msgstr "Zdroj"
 
-#: src/app/cli/clicommand.cpp:679
+#: src/app/cli/clicommand.cpp:670
 msgctxt "ImportCommand|"
 msgid "Extraction"
 msgstr "Rozbalování"
 
-#: src/app/cli/clicommand.cpp:707
+#: src/app/cli/clicommand.cpp:698
 #, qt-format
 msgctxt "ImportCommand|"
 msgid "%1 not found."
 msgstr "%1 nenalezen."
 
-#: src/app/cli/clicommand.cpp:709
+#: src/app/cli/clicommand.cpp:700
 msgctxt "ImportCommand|"
 msgid "Available"
 msgstr "Dostupné"
 
-#: src/app/cli/clicommand.cpp:720
+#: src/app/cli/clicommand.cpp:711
 msgctxt "ImportCommand|"
 msgid "Error"
 msgstr "Chyba"
 
-#: src/app/cli/clicommand.cpp:730
+#: src/app/cli/clicommand.cpp:721
 msgctxt "BatchImportCommand|"
 msgid "Automatic import"
 msgstr "Importovat automaticky"
 
-#: src/app/cli/clicommand.cpp:731
+#: src/app/cli/clicommand.cpp:722
 msgctxt "BatchImportCommand|"
 msgid "Profile name"
 msgstr "Název profilu"
 
-#: src/app/cli/clicommand.cpp:743
+#: src/app/cli/clicommand.cpp:734
 #, qt-format
 msgctxt "BatchImportCommand|"
 msgid "%1 not found."
 msgstr "%1 nenalezen."
 
-#: src/app/cli/clicommand.cpp:745
+#: src/app/cli/clicommand.cpp:736
 msgctxt "BatchImportCommand|"
 msgid "Available"
 msgstr "Dostupné"
 
-#: src/app/cli/clicommand.cpp:818
+#: src/app/cli/clicommand.cpp:809
 msgctxt "AlbumArtCommand|"
 msgid "Download album cover artwork"
 msgstr "Stáhnout obrázek obalu"
 
-#: src/app/cli/clicommand.cpp:862
+#: src/app/cli/clicommand.cpp:852
 msgctxt "ExportCommand|"
 msgid "Export to file"
 msgstr "Exportovat do souboru"
 
-#: src/app/cli/clicommand.cpp:863
+#: src/app/cli/clicommand.cpp:853
 msgctxt "ExportCommand|"
 msgid "Format name"
 msgstr "Název formátu"
 
-#: src/app/cli/clicommand.cpp:878
+#: src/app/cli/clicommand.cpp:867
 #, qt-format
 msgctxt "ExportCommand|"
 msgid "%1 not found."
 msgstr "%1 nenalezen."
 
-#: src/app/cli/clicommand.cpp:880
+#: src/app/cli/clicommand.cpp:869
 msgctxt "ExportCommand|"
 msgid "Available"
 msgstr "Dostupné"
 
-#: src/app/cli/clicommand.cpp:891
+#: src/app/cli/clicommand.cpp:880
 msgctxt "ExportCommand|"
 msgid "Error"
 msgstr "Chyba"
 
-#: src/app/cli/clicommand.cpp:900
+#: src/app/cli/clicommand.cpp:889
 msgctxt "PlaylistCommand|"
 msgid "Create playlist"
 msgstr "Vytvořit seznam skladeb"
 
-#: src/app/cli/clicommand.cpp:907
+#: src/app/cli/clicommand.cpp:896
 msgctxt "PlaylistCommand|"
 msgid "Error"
 msgstr "Chyba"
 
-#: src/app/cli/clicommand.cpp:914
+#: src/app/cli/clicommand.cpp:903
 msgctxt "FilenameFormatCommand|"
 msgid "Apply filename format"
 msgstr "Použít formát pro název souboru"
 
-#: src/app/cli/clicommand.cpp:925
+#: src/app/cli/clicommand.cpp:914
 msgctxt "TagFormatCommand|"
 msgid "Apply tag format"
 msgstr "Použít formát pro značku"
 
-#: src/app/cli/clicommand.cpp:937
+#: src/app/cli/clicommand.cpp:926
 msgctxt "TextEncodingCommand|"
 msgid "Apply text encoding"
 msgstr "Použít kódování textu"
 
-#: src/app/cli/clicommand.cpp:948
+#: src/app/cli/clicommand.cpp:937
 msgctxt "RenameDirectoryCommand|"
 msgid "Rename folder"
 msgstr "Přejmenovat složku"
 
-#: src/app/cli/clicommand.cpp:1040
+#: src/app/cli/clicommand.cpp:1028
 msgctxt "NumberTracksCommand|"
 msgid "Number tracks"
 msgstr "Číslovat skladby"
 
-#: src/app/cli/clicommand.cpp:1041
+#: src/app/cli/clicommand.cpp:1029
 msgctxt "NumberTracksCommand|"
 msgid "Track number"
 msgstr "Číslo skladby"
 
-#: src/app/cli/clicommand.cpp:1065
+#: src/app/cli/clicommand.cpp:1053
 msgctxt "FilterCommand|"
 msgid "Filter"
 msgstr "Filtr"
 
-#: src/app/cli/clicommand.cpp:1066
+#: src/app/cli/clicommand.cpp:1054
 msgctxt "FilterCommand|"
 msgid "Filter name"
 msgstr "Název filtru"
 
-#: src/app/cli/clicommand.cpp:1081
+#: src/app/cli/clicommand.cpp:1069
 #, qt-format
 msgctxt "FilterCommand|"
 msgid "%1 not found."
 msgstr "%1 nenalezen."
 
-#: src/app/cli/clicommand.cpp:1083
+#: src/app/cli/clicommand.cpp:1071
 msgctxt "FilterCommand|"
 msgid "Available"
 msgstr "Dostupné"
 
-#: src/app/cli/clicommand.cpp:1157
+#: src/app/cli/clicommand.cpp:1145
 msgctxt "ToId3v24Command|"
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "Převést ID3v2.3 na ID3v2.4"
 
-#: src/app/cli/clicommand.cpp:1168
+#: src/app/cli/clicommand.cpp:1156
 msgctxt "ToId3v23Command|"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Převést ID3v2.4 na ID3v2.3"
 
-#: src/app/cli/clicommand.cpp:1179
+#: src/app/cli/clicommand.cpp:1167
 msgctxt "TagToFilenameCommand|"
 msgid "Filename from tag"
 msgstr "Název souboru ze značky"
 
-#: src/app/cli/clicommand.cpp:1209
+#: src/app/cli/clicommand.cpp:1197
 msgctxt "FilenameToTagCommand|"
 msgid "Tag from filename"
 msgstr "Značka z názvu souboru"
 
-#: src/app/cli/clicommand.cpp:1239
+#: src/app/cli/clicommand.cpp:1227
 msgctxt "TagToOtherTagCommand|"
 msgid "Tag to other tag"
 msgstr "Značka do jiné značky"
 
-#: src/app/cli/clicommand.cpp:1256
+#: src/app/cli/clicommand.cpp:1244
 msgctxt "CopyCommand|"
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: src/app/cli/clicommand.cpp:1269
+#: src/app/cli/clicommand.cpp:1257
 msgctxt "PasteCommand|"
 msgid "Paste"
 msgstr "Vložit"
 
-#: src/app/cli/clicommand.cpp:1282
+#: src/app/cli/clicommand.cpp:1270
 msgctxt "RemoveCommand|"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/app/cli/clicommand.cpp:1295
+#: src/app/cli/clicommand.cpp:1283
 msgctxt "ConfigCommand|"
 msgid "Configure Kid3"
 msgstr "Nastavit Kid3"
 
-#: src/app/cli/clicommand.cpp:1296
+#: src/app/cli/clicommand.cpp:1284
 msgctxt "ConfigCommand|"
 msgid "Group.Option Value"
 msgstr "Hodnota Group.Option"
 
-#: src/app/cli/clicommand.cpp:1317 src/app/cli/clicommand.cpp:1323
+#: src/app/cli/clicommand.cpp:1304 src/app/cli/clicommand.cpp:1310
 #, qt-format
 msgctxt "ConfigCommand|"
 msgid "%1 does not exist"
 msgstr "%1 neexistuje"
 
-#: src/app/cli/clicommand.cpp:1350 src/app/cli/clicommand.cpp:1370
+#: src/app/cli/clicommand.cpp:1337 src/app/cli/clicommand.cpp:1357
 #, qt-format
 msgctxt "ConfigCommand|"
 msgid "Invalid value %1"
 msgstr "Neplatná hodnota %1"
 
-#: src/app/cli/clicommand.cpp:1424
+#: src/app/cli/clicommand.cpp:1411
 msgctxt "ExecuteCommand|"
 msgid "Execute command"
 msgstr "Spustit příkaz"
 
-#: src/app/cli/clicommand.cpp:1425
+#: src/app/cli/clicommand.cpp:1412
 msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
 msgstr "Aplikace [argumenty]"
 
-#: src/app/cli/clicommand.cpp:1454
+#: src/app/cli/clicommand.cpp:1441
 msgctxt "ExecuteCommand|"
 msgid "Could not execute "
 msgstr "Nelze spustit "
 
-#: src/app/cli/jsoncliformatter.cpp:190 src/app/cli/jsoncliformatter.cpp:193
+#: src/app/cli/jsoncliformatter.cpp:188 src/app/cli/jsoncliformatter.cpp:191
 #, qt-format
 msgctxt "JsonCliFormatter|"
 msgid "Unknown command '%1'"
 msgstr "Neznámý příkaz '%1'"
 
-#: src/app/cli/jsoncliformatter.cpp:209
+#: src/app/cli/jsoncliformatter.cpp:207
 msgctxt "JsonCliFormatter|"
 msgid "Usage:"
 msgstr "Použití:"
 
-#: src/app/cli/kid3cli.cpp:301
+#: src/app/cli/kid3cli.cpp:299
 msgctxt "Kid3Cli|"
 msgid "Parameter"
 msgstr "Parametr"
 
-#: src/app/cli/kid3cli.cpp:302
+#: src/app/cli/kid3cli.cpp:300
 msgctxt "Kid3Cli|"
 msgid "File path"
 msgstr "Cesta k souboru"
 
-#: src/app/cli/kid3cli.cpp:303
+#: src/app/cli/kid3cli.cpp:301
 msgctxt "Kid3Cli|"
 msgid "URL"
 msgstr "URL"
 
-#: src/app/cli/kid3cli.cpp:304
+#: src/app/cli/kid3cli.cpp:302
 msgctxt "Kid3Cli|"
 msgid "Tag numbers"
 msgstr "Číslo značky"
 
-#: src/app/cli/kid3cli.cpp:306
+#: src/app/cli/kid3cli.cpp:304
 msgctxt "Kid3Cli|"
 msgid "Frame name"
 msgstr "Název prvku"
 
-#: src/app/cli/kid3cli.cpp:309
+#: src/app/cli/kid3cli.cpp:307
 msgctxt "Kid3Cli|"
 msgid "Frame value"
 msgstr "Hodnota prvku"
 
-#: src/app/cli/kid3cli.cpp:310
+#: src/app/cli/kid3cli.cpp:308
 msgctxt "Kid3Cli|"
 msgid "Format"
 msgstr "Formát"
 
-#: src/app/cli/kid3cli.cpp:311
+#: src/app/cli/kid3cli.cpp:309
 msgctxt "Kid3Cli|"
 msgid "Command specific"
 msgstr ""
 
-#: src/app/cli/kid3cli.cpp:312
+#: src/app/cli/kid3cli.cpp:310
 msgctxt "Kid3Cli|"
 msgid "Available Commands"
 msgstr "Dostupné příkazy"
 
-#: src/app/cli/kid3cli.cpp:760
+#: src/app/cli/kid3cli.cpp:754
 msgctxt "Kid3Cli|"
 msgid "Usage:"
 msgstr "Použití:"
 
-#: src/app/cli/kid3cli.cpp:778
+#: src/app/cli/kid3cli.cpp:772
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "%1 does not exist"
 msgstr "%1 neexistuje"
 
-#: src/app/cli/kid3cli.cpp:808
+#: src/app/cli/kid3cli.cpp:802
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
 msgstr "Při zápisu do souboru nastala chyba:\n"
 
-#: src/app/cli/kid3cli.cpp:828
+#: src/app/cli/kid3cli.cpp:821
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
@@ -450,78 +450,78 @@ msgctxt "TextCliFormatter|"
 msgid "Usage:"
 msgstr "Použití:"
 
-#: src/app/cli/textcliformatter.cpp:246
+#: src/app/cli/textcliformatter.cpp:245
 msgctxt "TextCliFormatter|"
 msgid "Tags"
 msgstr "Značky"
 
-#: src/app/cli/textcliformatter.cpp:253
+#: src/app/cli/textcliformatter.cpp:252
 msgctxt "TextCliFormatter|"
 msgid "File"
 msgstr "Soubor"
 
-#: src/app/cli/textcliformatter.cpp:258
+#: src/app/cli/textcliformatter.cpp:257
 msgctxt "TextCliFormatter|"
 msgid "Name"
 msgstr "Název"
 
-#: src/app/cli/textcliformatter.cpp:279
+#: src/app/cli/textcliformatter.cpp:278
 #, qt-format
 msgctxt "TextCliFormatter|"
 msgid "Tag %1"
 msgstr "Značka %1"
 
-#: src/app/cli/textcliformatter.cpp:300
+#: src/app/cli/textcliformatter.cpp:299
 msgctxt "TextCliFormatter|"
 msgid "Timeout"
 msgstr "Vypršení časového limitu"
 
-#: src/app/cli/textcliformatter.cpp:306
+#: src/app/cli/textcliformatter.cpp:305
 msgctxt "TextCliFormatter|"
 msgid "Reading Folder"
 msgstr "Čtu složku"
 
-#: src/app/cli/textcliformatter.cpp:308
+#: src/app/cli/textcliformatter.cpp:307
 msgctxt "TextCliFormatter|"
 msgid "Started"
 msgstr "Spuštěno"
 
-#: src/app/cli/textcliformatter.cpp:310
+#: src/app/cli/textcliformatter.cpp:309
 msgctxt "TextCliFormatter|"
 msgid "Source"
 msgstr "Zdroj"
 
-#: src/app/cli/textcliformatter.cpp:312
+#: src/app/cli/textcliformatter.cpp:311
 msgctxt "TextCliFormatter|"
 msgid "Querying"
 msgstr "Dotazování"
 
-#: src/app/cli/textcliformatter.cpp:314
+#: src/app/cli/textcliformatter.cpp:313
 msgctxt "TextCliFormatter|"
 msgid "Fetching"
 msgstr "Stahuji"
 
-#: src/app/cli/textcliformatter.cpp:316
+#: src/app/cli/textcliformatter.cpp:315
 msgctxt "TextCliFormatter|"
 msgid "Data received"
 msgstr "Přijata data"
 
-#: src/app/cli/textcliformatter.cpp:318
+#: src/app/cli/textcliformatter.cpp:317
 msgctxt "TextCliFormatter|"
 msgid "Cover"
 msgstr "Obal"
 
-#: src/app/cli/textcliformatter.cpp:320
+#: src/app/cli/textcliformatter.cpp:319
 msgctxt "TextCliFormatter|"
 msgid "Finished"
 msgstr "Dokončeno"
 
-#: src/app/cli/textcliformatter.cpp:322
+#: src/app/cli/textcliformatter.cpp:321
 msgctxt "TextCliFormatter|"
 msgid "Aborted"
 msgstr "Přerušeno"
 
-#: src/app/cli/textcliformatter.cpp:324
+#: src/app/cli/textcliformatter.cpp:323
 msgctxt "TextCliFormatter|"
 msgid "Error"
 msgstr "Chyba"
@@ -656,317 +656,317 @@ msgctxt "KdeMainWindow|"
 msgid "Import from file or clipboard"
 msgstr "Importovat ze souboru nebo ze schránky"
 
-#: src/app/kde/kdemainwindow.cpp:232 src/app/kde/kdemainwindow.cpp:249
+#: src/app/kde/kdemainwindow.cpp:231 src/app/kde/kdemainwindow.cpp:247
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1..."
 msgstr "Importovat z %1..."
 
-#: src/app/kde/kdemainwindow.cpp:234 src/app/kde/kdemainwindow.cpp:250
+#: src/app/kde/kdemainwindow.cpp:233 src/app/kde/kdemainwindow.cpp:248
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1"
 msgstr "Importovat z %1"
 
-#: src/app/kde/kdemainwindow.cpp:257
+#: src/app/kde/kdemainwindow.cpp:255
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags..."
 msgstr "Importovat ze značek..."
 
-#: src/app/kde/kdemainwindow.cpp:258
+#: src/app/kde/kdemainwindow.cpp:256
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags"
 msgstr "Importovat ze značek"
 
-#: src/app/kde/kdemainwindow.cpp:262
+#: src/app/kde/kdemainwindow.cpp:260
 msgctxt "KdeMainWindow|"
 msgid "Automatic I&mport..."
 msgstr "Automaticky i&mportovat..."
 
-#: src/app/kde/kdemainwindow.cpp:263
+#: src/app/kde/kdemainwindow.cpp:261
 msgctxt "KdeMainWindow|"
 msgid "Automatic import"
 msgstr "Importovat automaticky"
 
-#: src/app/kde/kdemainwindow.cpp:267
+#: src/app/kde/kdemainwindow.cpp:265
 msgctxt "KdeMainWindow|"
 msgid "&Browse Cover Art..."
 msgstr "Procházet o&brázky obalů..."
 
-#: src/app/kde/kdemainwindow.cpp:268
+#: src/app/kde/kdemainwindow.cpp:266
 msgctxt "KdeMainWindow|"
 msgid "Browse album cover artwork"
 msgstr "Procházet obrázky obalů"
 
-#: src/app/kde/kdemainwindow.cpp:272
+#: src/app/kde/kdemainwindow.cpp:270
 msgctxt "KdeMainWindow|"
 msgid "&Export..."
 msgstr "&Exportovat..."
 
-#: src/app/kde/kdemainwindow.cpp:273
+#: src/app/kde/kdemainwindow.cpp:271
 msgctxt "KdeMainWindow|"
 msgid "Export to file or clipboard"
 msgstr "Exportovat do souboru nebo do schránky"
 
-#: src/app/kde/kdemainwindow.cpp:277
+#: src/app/kde/kdemainwindow.cpp:275
 msgctxt "KdeMainWindow|"
 msgid "&Create Playlist..."
 msgstr "Vy&tvořit seznam skladeb..."
 
-#: src/app/kde/kdemainwindow.cpp:278
+#: src/app/kde/kdemainwindow.cpp:276
 msgctxt "KdeMainWindow|"
 msgid "Create M3U Playlist"
 msgstr "Vytvořit seznam skladeb M3U"
 
-#: src/app/kde/kdemainwindow.cpp:281
+#: src/app/kde/kdemainwindow.cpp:279
 msgctxt "KdeMainWindow|"
 msgid "Apply &Filename Format"
 msgstr "Použít formát pro &název souboru"
 
-#: src/app/kde/kdemainwindow.cpp:282
+#: src/app/kde/kdemainwindow.cpp:280
 msgctxt "KdeMainWindow|"
 msgid "Apply Filename Format"
 msgstr "Použít formát pro název souboru"
 
-#: src/app/kde/kdemainwindow.cpp:285
+#: src/app/kde/kdemainwindow.cpp:283
 msgctxt "KdeMainWindow|"
 msgid "Apply &Tag Format"
 msgstr "Použít formát pro &značku"
 
-#: src/app/kde/kdemainwindow.cpp:286
+#: src/app/kde/kdemainwindow.cpp:284
 msgctxt "KdeMainWindow|"
 msgid "Apply Tag Format"
 msgstr "Použít formát pro značku"
 
-#: src/app/kde/kdemainwindow.cpp:289
+#: src/app/kde/kdemainwindow.cpp:287
 msgctxt "KdeMainWindow|"
 msgid "Apply Text &Encoding"
 msgstr "Použít kódování t&extu"
 
-#: src/app/kde/kdemainwindow.cpp:290
+#: src/app/kde/kdemainwindow.cpp:288
 msgctxt "KdeMainWindow|"
 msgid "Apply Text Encoding"
 msgstr "Použít kódování textu"
 
-#: src/app/kde/kdemainwindow.cpp:293
+#: src/app/kde/kdemainwindow.cpp:291
 msgctxt "KdeMainWindow|"
 msgid "&Rename Folder..."
 msgstr "Pře&jmenovat složku..."
 
-#: src/app/kde/kdemainwindow.cpp:294
+#: src/app/kde/kdemainwindow.cpp:292
 msgctxt "KdeMainWindow|"
 msgid "Rename Folder"
 msgstr "Přejmenovat složku"
 
-#: src/app/kde/kdemainwindow.cpp:297
+#: src/app/kde/kdemainwindow.cpp:295
 msgctxt "KdeMainWindow|"
 msgid "&Number Tracks..."
 msgstr "Čís&lovat skladby..."
 
-#: src/app/kde/kdemainwindow.cpp:298
+#: src/app/kde/kdemainwindow.cpp:296
 msgctxt "KdeMainWindow|"
 msgid "Number Tracks"
 msgstr "Číslovat skladby"
 
-#: src/app/kde/kdemainwindow.cpp:301
+#: src/app/kde/kdemainwindow.cpp:299
 msgctxt "KdeMainWindow|"
 msgid "F&ilter..."
 msgstr "F&iltrovat..."
 
-#: src/app/kde/kdemainwindow.cpp:302
+#: src/app/kde/kdemainwindow.cpp:300
 msgctxt "KdeMainWindow|"
 msgid "Filter"
 msgstr "Filtr..."
 
-#: src/app/kde/kdemainwindow.cpp:307
+#: src/app/kde/kdemainwindow.cpp:305
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "Převést ID3v2.3 na ID3v2.&4"
 
-#: src/app/kde/kdemainwindow.cpp:308
+#: src/app/kde/kdemainwindow.cpp:306
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "Převést ID3v2.3 na ID3v2.4"
 
-#: src/app/kde/kdemainwindow.cpp:312
+#: src/app/kde/kdemainwindow.cpp:310
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "Převést ID3v2.4 na ID3v2.&3"
 
-#: src/app/kde/kdemainwindow.cpp:313
+#: src/app/kde/kdemainwindow.cpp:311
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Převést ID3v2.4 na ID3v2.3"
 
-#: src/app/kde/kdemainwindow.cpp:320
+#: src/app/kde/kdemainwindow.cpp:318
 msgctxt "KdeMainWindow|"
 msgid "&Play"
 msgstr "&Přehrát"
 
-#: src/app/kde/kdemainwindow.cpp:321
+#: src/app/kde/kdemainwindow.cpp:319
 msgctxt "KdeMainWindow|"
 msgid "Play"
 msgstr "Přehrát"
 
-#: src/app/kde/kdemainwindow.cpp:325
+#: src/app/kde/kdemainwindow.cpp:323
 msgctxt "KdeMainWindow|"
 msgid "Show &Picture"
 msgstr "Ukázat &obrázek"
 
-#: src/app/kde/kdemainwindow.cpp:326
+#: src/app/kde/kdemainwindow.cpp:324
 msgctxt "KdeMainWindow|"
 msgid "Show Picture"
 msgstr "Ukázat obrázek"
 
-#: src/app/kde/kdemainwindow.cpp:331
+#: src/app/kde/kdemainwindow.cpp:329
 msgctxt "KdeMainWindow|"
 msgid "Auto &Hide Tags"
 msgstr "Automaticky skrýt &značky"
 
-#: src/app/kde/kdemainwindow.cpp:332
+#: src/app/kde/kdemainwindow.cpp:330
 msgctxt "KdeMainWindow|"
 msgid "Auto Hide Tags"
 msgstr "Automaticky skrýt značky"
 
-#: src/app/kde/kdemainwindow.cpp:337
+#: src/app/kde/kdemainwindow.cpp:335
 msgctxt "KdeMainWindow|"
 msgid "Select All in &Folder"
 msgstr "Vy&brat vše ve složce"
 
-#: src/app/kde/kdemainwindow.cpp:338
+#: src/app/kde/kdemainwindow.cpp:336
 msgctxt "KdeMainWindow|"
 msgid "Select all files in the current folder"
 msgstr "Zvolí všechny položky v aktuální složce"
 
-#: src/app/kde/kdemainwindow.cpp:341
+#: src/app/kde/kdemainwindow.cpp:339
 msgctxt "KdeMainWindow|"
 msgid "&Invert Selection"
 msgstr "O&brátit výběr"
 
-#: src/app/kde/kdemainwindow.cpp:345
+#: src/app/kde/kdemainwindow.cpp:343
 msgctxt "KdeMainWindow|"
 msgid "&Previous File"
 msgstr "&Předchozí soubor"
 
-#: src/app/kde/kdemainwindow.cpp:346
+#: src/app/kde/kdemainwindow.cpp:344
 msgctxt "KdeMainWindow|"
 msgid "Select previous file"
 msgstr "Vybrat předchozí soubor"
 
-#: src/app/kde/kdemainwindow.cpp:352
+#: src/app/kde/kdemainwindow.cpp:350
 msgctxt "KdeMainWindow|"
 msgid "&Next File"
 msgstr "&Následující soubor"
 
-#: src/app/kde/kdemainwindow.cpp:353
+#: src/app/kde/kdemainwindow.cpp:351
 msgctxt "KdeMainWindow|"
 msgid "Select next file"
 msgstr "Vybrat další soubor"
 
-#: src/app/kde/kdemainwindow.cpp:365
+#: src/app/kde/kdemainwindow.cpp:363
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Tag %1"
 msgstr "Značka %1"
 
-#: src/app/kde/kdemainwindow.cpp:367 src/app/kde/kdemainwindow.cpp:419
+#: src/app/kde/kdemainwindow.cpp:365 src/app/kde/kdemainwindow.cpp:417
 msgctxt "KdeMainWindow|"
 msgid "Filename"
 msgstr "Název souboru"
 
-#: src/app/kde/kdemainwindow.cpp:368 src/app/kde/kdemainwindow.cpp:379
+#: src/app/kde/kdemainwindow.cpp:366 src/app/kde/kdemainwindow.cpp:377
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "From Tag %1"
 msgstr "Ze značky %1"
 
-#: src/app/kde/kdemainwindow.cpp:373
+#: src/app/kde/kdemainwindow.cpp:371
 msgctxt "KdeMainWindow|"
 msgid "From Filename"
 msgstr "Z názvu souboru"
 
-#: src/app/kde/kdemainwindow.cpp:386
+#: src/app/kde/kdemainwindow.cpp:384
 msgctxt "KdeMainWindow|"
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: src/app/kde/kdemainwindow.cpp:390
+#: src/app/kde/kdemainwindow.cpp:388
 msgctxt "KdeMainWindow|"
 msgid "Paste"
 msgstr "Vložit"
 
-#: src/app/kde/kdemainwindow.cpp:394
+#: src/app/kde/kdemainwindow.cpp:392
 msgctxt "KdeMainWindow|"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/app/kde/kdemainwindow.cpp:398 src/app/kde/kdemainwindow.cpp:419
-#: src/app/kde/kdemainwindow.cpp:424 src/app/kde/kdemainwindow.cpp:443
+#: src/app/kde/kdemainwindow.cpp:396 src/app/kde/kdemainwindow.cpp:417
+#: src/app/kde/kdemainwindow.cpp:422 src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
 msgid "Focus"
 msgstr "Zaměření"
 
-#: src/app/kde/kdemainwindow.cpp:403
+#: src/app/kde/kdemainwindow.cpp:401
 msgctxt "KdeMainWindow|"
 msgid "Frames:"
 msgstr "Rámce:"
 
-#: src/app/kde/kdemainwindow.cpp:404
+#: src/app/kde/kdemainwindow.cpp:402
 msgctxt "KdeMainWindow|"
 msgid "Edit"
 msgstr "Upravit"
 
-#: src/app/kde/kdemainwindow.cpp:408
+#: src/app/kde/kdemainwindow.cpp:406
 msgctxt "KdeMainWindow|"
 msgid "Add"
 msgstr "Přidat"
 
-#: src/app/kde/kdemainwindow.cpp:412
+#: src/app/kde/kdemainwindow.cpp:410
 msgctxt "KdeMainWindow|"
 msgid "Delete"
 msgstr "Smazat"
 
-#: src/app/kde/kdemainwindow.cpp:424
+#: src/app/kde/kdemainwindow.cpp:422
 msgctxt "KdeMainWindow|"
 msgid "File List"
 msgstr "Seznam souborů"
 
-#: src/app/kde/kdemainwindow.cpp:428
+#: src/app/kde/kdemainwindow.cpp:426
 msgctxt "KdeMainWindow|"
 msgid "&Rename"
 msgstr "&Přejmenovat"
 
-#: src/app/kde/kdemainwindow.cpp:437
+#: src/app/kde/kdemainwindow.cpp:435
 msgctxt "KdeMainWindow|"
 msgid "&Move to Trash"
 msgstr "Pře&sunout do koše"
 
-#: src/app/kde/kdemainwindow.cpp:443
+#: src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
 msgid "Folder List"
 msgstr "Seznam složek"
 
-#: src/app/kde/kdemainwindow.cpp:461
+#: src/app/kde/kdemainwindow.cpp:459
 msgctxt "KdeMainWindow|"
 msgid "Section"
 msgstr "Oddíl"
 
-#: src/app/kde/kdemainwindow.cpp:475
+#: src/app/kde/kdemainwindow.cpp:473
 msgctxt "KdeMainWindow|"
 msgid "Player"
 msgstr ""
 
-#: src/app/kde/kdemainwindow.cpp:675
+#: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Nastavit Kid3"
 
-#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:244
+#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
 msgctxt "@default|"
 msgid "&Yes"
 msgstr "&Ano"
 
-#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:245
+#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:243
 msgctxt "@default|"
 msgid "&No"
 msgstr "&Ne"
@@ -1188,452 +1188,452 @@ msgctxt "Kid3MainWindow|"
 msgid "&Import..."
 msgstr "&Importovat..."
 
-#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:242
+#: src/app/qt/kid3mainwindow.cpp:220 src/app/qt/kid3mainwindow.cpp:240
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1"
 msgstr "Importovat z %1"
 
-#: src/app/qt/kid3mainwindow.cpp:222 src/app/qt/kid3mainwindow.cpp:243
+#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:241
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1..."
 msgstr "Importovat z %1..."
 
-#: src/app/qt/kid3mainwindow.cpp:253
+#: src/app/qt/kid3mainwindow.cpp:251
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags"
 msgstr "Importovat ze značek"
 
-#: src/app/qt/kid3mainwindow.cpp:254
+#: src/app/qt/kid3mainwindow.cpp:252
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags..."
 msgstr "Importovat ze značek..."
 
-#: src/app/qt/kid3mainwindow.cpp:262
+#: src/app/qt/kid3mainwindow.cpp:260
 msgctxt "Kid3MainWindow|"
 msgid "Automatic import"
 msgstr "Importovat automaticky"
 
-#: src/app/qt/kid3mainwindow.cpp:263
+#: src/app/qt/kid3mainwindow.cpp:261
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
 msgstr "Automaticky i&mportovat..."
 
-#: src/app/qt/kid3mainwindow.cpp:271
+#: src/app/qt/kid3mainwindow.cpp:269
 msgctxt "Kid3MainWindow|"
 msgid "Browse album cover artwork"
 msgstr "Procházet obrázky obalů"
 
-#: src/app/qt/kid3mainwindow.cpp:272
+#: src/app/qt/kid3mainwindow.cpp:270
 msgctxt "Kid3MainWindow|"
 msgid "&Browse Cover Art..."
 msgstr "Procházet o&brázky obalů..."
 
-#: src/app/qt/kid3mainwindow.cpp:281
+#: src/app/qt/kid3mainwindow.cpp:279
 msgctxt "Kid3MainWindow|"
 msgid "Export to file or clipboard"
 msgstr "Exportovat do souboru nebo do schránky"
 
-#: src/app/qt/kid3mainwindow.cpp:282
+#: src/app/qt/kid3mainwindow.cpp:280
 msgctxt "Kid3MainWindow|"
 msgid "&Export..."
 msgstr "&Exportovat..."
 
-#: src/app/qt/kid3mainwindow.cpp:292
+#: src/app/qt/kid3mainwindow.cpp:290
 msgctxt "Kid3MainWindow|"
 msgid "Create M3U Playlist"
 msgstr "Vytvořit seznam skladeb M3U"
 
-#: src/app/qt/kid3mainwindow.cpp:293
+#: src/app/qt/kid3mainwindow.cpp:291
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
 msgstr "Vy&tvořit seznam skladeb..."
 
-#: src/app/qt/kid3mainwindow.cpp:306
+#: src/app/qt/kid3mainwindow.cpp:304
 msgctxt "Kid3MainWindow|"
 msgid "Quits the application"
 msgstr "Ukončí aplikaci"
 
-#: src/app/qt/kid3mainwindow.cpp:307
+#: src/app/qt/kid3mainwindow.cpp:305
 msgctxt "Kid3MainWindow|"
 msgid "&Quit"
 msgstr "U&končit"
 
-#: src/app/qt/kid3mainwindow.cpp:318
+#: src/app/qt/kid3mainwindow.cpp:316
 msgctxt "Kid3MainWindow|"
 msgid "&Edit"
 msgstr "&Upravit"
 
-#: src/app/qt/kid3mainwindow.cpp:321
+#: src/app/qt/kid3mainwindow.cpp:319
 msgctxt "Kid3MainWindow|"
 msgid "Select all files"
 msgstr "Vybrat všechny soubory"
 
-#: src/app/qt/kid3mainwindow.cpp:322
+#: src/app/qt/kid3mainwindow.cpp:320
 msgctxt "Kid3MainWindow|"
 msgid "Select &All"
 msgstr "Vybr&at vše"
 
-#: src/app/qt/kid3mainwindow.cpp:337
+#: src/app/qt/kid3mainwindow.cpp:335
 msgctxt "Kid3MainWindow|"
 msgid "Deselect all files"
 msgstr "Zrušit výběr všech souborů"
 
-#: src/app/qt/kid3mainwindow.cpp:338
+#: src/app/qt/kid3mainwindow.cpp:336
 msgctxt "Kid3MainWindow|"
 msgid "Dese&lect"
 msgstr "Zrušit vý&běr"
 
-#: src/app/qt/kid3mainwindow.cpp:348
+#: src/app/qt/kid3mainwindow.cpp:346
 msgctxt "Kid3MainWindow|"
 msgid "Select all files in the current folder"
 msgstr "Zvolí všechny položky v aktuální složce"
 
-#: src/app/qt/kid3mainwindow.cpp:349
+#: src/app/qt/kid3mainwindow.cpp:347
 msgctxt "Kid3MainWindow|"
 msgid "Select All in &Folder"
 msgstr "Vy&brat vše ve složce"
 
-#: src/app/qt/kid3mainwindow.cpp:357
+#: src/app/qt/kid3mainwindow.cpp:355
 msgctxt "Kid3MainWindow|"
 msgid "&Invert Selection"
 msgstr "O&brátit výběr"
 
-#: src/app/qt/kid3mainwindow.cpp:365
+#: src/app/qt/kid3mainwindow.cpp:363
 msgctxt "Kid3MainWindow|"
 msgid "Select previous file"
 msgstr "Vybrat předchozí soubor"
 
-#: src/app/qt/kid3mainwindow.cpp:366
+#: src/app/qt/kid3mainwindow.cpp:364
 msgctxt "Kid3MainWindow|"
 msgid "&Previous File"
 msgstr "&Předchozí soubor"
 
-#: src/app/qt/kid3mainwindow.cpp:378
+#: src/app/qt/kid3mainwindow.cpp:376
 msgctxt "Kid3MainWindow|"
 msgid "Select next file"
 msgstr "Vybrat další soubor"
 
-#: src/app/qt/kid3mainwindow.cpp:379
+#: src/app/qt/kid3mainwindow.cpp:377
 msgctxt "Kid3MainWindow|"
 msgid "&Next File"
 msgstr "&Následující soubor"
 
-#: src/app/qt/kid3mainwindow.cpp:392
+#: src/app/qt/kid3mainwindow.cpp:390
 msgctxt "Kid3MainWindow|"
 msgid "Find"
 msgstr "Najít"
 
-#: src/app/qt/kid3mainwindow.cpp:393
+#: src/app/qt/kid3mainwindow.cpp:391
 msgctxt "Kid3MainWindow|"
 msgid "&Find..."
 msgstr "&Najít..."
 
-#: src/app/qt/kid3mainwindow.cpp:406
+#: src/app/qt/kid3mainwindow.cpp:404
 msgctxt "Kid3MainWindow|"
 msgid "Find and replace"
 msgstr "Najít a nahradit"
 
-#: src/app/qt/kid3mainwindow.cpp:407
+#: src/app/qt/kid3mainwindow.cpp:405
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
 msgstr "Nah&radit..."
 
-#: src/app/qt/kid3mainwindow.cpp:419
+#: src/app/qt/kid3mainwindow.cpp:417
 msgctxt "Kid3MainWindow|"
 msgid "&Tools"
 msgstr "Nás&troje"
 
-#: src/app/qt/kid3mainwindow.cpp:422
+#: src/app/qt/kid3mainwindow.cpp:420
 msgctxt "Kid3MainWindow|"
 msgid "Apply Filename Format"
 msgstr "Použít formát pro název souboru"
 
-#: src/app/qt/kid3mainwindow.cpp:423
+#: src/app/qt/kid3mainwindow.cpp:421
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Filename Format"
 msgstr "Použít formát pro &název souboru"
 
-#: src/app/qt/kid3mainwindow.cpp:432
+#: src/app/qt/kid3mainwindow.cpp:430
 msgctxt "Kid3MainWindow|"
 msgid "Apply Tag Format"
 msgstr "Použít formát pro značku"
 
-#: src/app/qt/kid3mainwindow.cpp:433
+#: src/app/qt/kid3mainwindow.cpp:431
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Tag Format"
 msgstr "Použít formát pro &značku"
 
-#: src/app/qt/kid3mainwindow.cpp:441
+#: src/app/qt/kid3mainwindow.cpp:439
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text Encoding"
 msgstr "Použít kódování textu"
 
-#: src/app/qt/kid3mainwindow.cpp:442
+#: src/app/qt/kid3mainwindow.cpp:440
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text &Encoding"
 msgstr "Použít kódování t&extu"
 
-#: src/app/qt/kid3mainwindow.cpp:451
+#: src/app/qt/kid3mainwindow.cpp:449
 msgctxt "Kid3MainWindow|"
 msgid "Rename Folder"
 msgstr "Přejmenovat složku"
 
-#: src/app/qt/kid3mainwindow.cpp:452
+#: src/app/qt/kid3mainwindow.cpp:450
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
 msgstr "Pře&jmenovat složku..."
 
-#: src/app/qt/kid3mainwindow.cpp:460
+#: src/app/qt/kid3mainwindow.cpp:458
 msgctxt "Kid3MainWindow|"
 msgid "Number Tracks"
 msgstr "Číslovat skladby"
 
-#: src/app/qt/kid3mainwindow.cpp:461
+#: src/app/qt/kid3mainwindow.cpp:459
 msgctxt "Kid3MainWindow|"
 msgid "&Number Tracks..."
 msgstr "Čís&lovat skladby..."
 
-#: src/app/qt/kid3mainwindow.cpp:469
+#: src/app/qt/kid3mainwindow.cpp:467
 msgctxt "Kid3MainWindow|"
 msgid "Filter"
 msgstr "Filtr"
 
-#: src/app/qt/kid3mainwindow.cpp:470
+#: src/app/qt/kid3mainwindow.cpp:468
 msgctxt "Kid3MainWindow|"
 msgid "F&ilter..."
 msgstr "F&iltr..."
 
-#: src/app/qt/kid3mainwindow.cpp:481
+#: src/app/qt/kid3mainwindow.cpp:479
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "Převést ID3v2.3 na ID3v2.4"
 
-#: src/app/qt/kid3mainwindow.cpp:482
+#: src/app/qt/kid3mainwindow.cpp:480
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "Převést ID3v2.3 na ID3v2.&4"
 
-#: src/app/qt/kid3mainwindow.cpp:491
+#: src/app/qt/kid3mainwindow.cpp:489
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Převést ID3v2.4 na ID3v2.3"
 
-#: src/app/qt/kid3mainwindow.cpp:492
+#: src/app/qt/kid3mainwindow.cpp:490
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "Převést ID3v2.4 na ID3v2.&3"
 
-#: src/app/qt/kid3mainwindow.cpp:504
+#: src/app/qt/kid3mainwindow.cpp:502
 msgctxt "Kid3MainWindow|"
 msgid "Play"
 msgstr "Přehrát"
 
-#: src/app/qt/kid3mainwindow.cpp:505
+#: src/app/qt/kid3mainwindow.cpp:503
 msgctxt "Kid3MainWindow|"
 msgid "&Play"
 msgstr "&Přehrát"
 
-#: src/app/qt/kid3mainwindow.cpp:515
+#: src/app/qt/kid3mainwindow.cpp:513
 msgctxt "Kid3MainWindow|"
 msgid "&Settings"
 msgstr "Na&stavení"
 
-#: src/app/qt/kid3mainwindow.cpp:519
+#: src/app/qt/kid3mainwindow.cpp:517
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the toolbar"
 msgstr "Povolí/zakáže panel nástrojů"
 
-#: src/app/qt/kid3mainwindow.cpp:520
+#: src/app/qt/kid3mainwindow.cpp:518
 msgctxt "Kid3MainWindow|"
 msgid "Show &Toolbar"
 msgstr "Zobrazi&t panel nástrojů"
 
-#: src/app/qt/kid3mainwindow.cpp:530
+#: src/app/qt/kid3mainwindow.cpp:528
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the statusbar"
 msgstr "Povolí/zakáže stavový panel"
 
-#: src/app/qt/kid3mainwindow.cpp:531
+#: src/app/qt/kid3mainwindow.cpp:529
 msgctxt "Kid3MainWindow|"
 msgid "Show St&atusbar"
 msgstr "Zobrazovat st&avový panel"
 
-#: src/app/qt/kid3mainwindow.cpp:540
+#: src/app/qt/kid3mainwindow.cpp:538
 msgctxt "Kid3MainWindow|"
 msgid "Show Picture"
 msgstr "Ukázat obrázek"
 
-#: src/app/qt/kid3mainwindow.cpp:541
+#: src/app/qt/kid3mainwindow.cpp:539
 msgctxt "Kid3MainWindow|"
 msgid "Show &Picture"
 msgstr "Ukázat &obrázek"
 
-#: src/app/qt/kid3mainwindow.cpp:550
+#: src/app/qt/kid3mainwindow.cpp:548
 msgctxt "Kid3MainWindow|"
 msgid "Auto Hide Tags"
 msgstr "Automaticky skrýt značky"
 
-#: src/app/qt/kid3mainwindow.cpp:551
+#: src/app/qt/kid3mainwindow.cpp:549
 msgctxt "Kid3MainWindow|"
 msgid "Auto &Hide Tags"
 msgstr "Automaticky skrýt &značky"
 
-#: src/app/qt/kid3mainwindow.cpp:560
+#: src/app/qt/kid3mainwindow.cpp:558
 msgctxt "Kid3MainWindow|"
 msgid "Configure Kid3"
 msgstr "Nastavit Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:561
+#: src/app/qt/kid3mainwindow.cpp:559
 msgctxt "Kid3MainWindow|"
 msgid "&Configure Kid3..."
 msgstr "&Nastavit Kid3..."
 
-#: src/app/qt/kid3mainwindow.cpp:575
+#: src/app/qt/kid3mainwindow.cpp:573
 msgctxt "Kid3MainWindow|"
 msgid "&Help"
 msgstr "Nápo&věda"
 
-#: src/app/qt/kid3mainwindow.cpp:578
+#: src/app/qt/kid3mainwindow.cpp:576
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 Handbook"
 msgstr "Příručka k programu Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:579
+#: src/app/qt/kid3mainwindow.cpp:577
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 &Handbook"
 msgstr "&Příručka k programu Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:590
+#: src/app/qt/kid3mainwindow.cpp:588
 msgctxt "Kid3MainWindow|"
 msgid "About Kid3"
 msgstr "O programu Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:591
+#: src/app/qt/kid3mainwindow.cpp:589
 msgctxt "Kid3MainWindow|"
 msgid "&About Kid3"
 msgstr "&O programu Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:604
+#: src/app/qt/kid3mainwindow.cpp:602
 msgctxt "Kid3MainWindow|"
 msgid "About Qt"
 msgstr "O &Qt"
 
-#: src/app/qt/kid3mainwindow.cpp:605
+#: src/app/qt/kid3mainwindow.cpp:603
 msgctxt "Kid3MainWindow|"
 msgid "About &Qt"
 msgstr "O &Qt"
 
-#: src/app/qt/kid3mainwindow.cpp:629
+#: src/app/qt/kid3mainwindow.cpp:627
 msgctxt "Kid3MainWindow|"
 msgid "Player"
 msgstr ""
 
-#: src/app/qt/kid3mainwindow.cpp:653
+#: src/app/qt/kid3mainwindow.cpp:651
 msgctxt "Kid3MainWindow|"
 msgid "Filename"
 msgstr "Název souboru"
 
-#: src/app/qt/kid3mainwindow.cpp:656 src/app/qt/kid3mainwindow.cpp:679
+#: src/app/qt/kid3mainwindow.cpp:654 src/app/qt/kid3mainwindow.cpp:677
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "From Tag %1"
 msgstr "Ze značky %1"
 
-#: src/app/qt/kid3mainwindow.cpp:661 src/app/qt/kid3mainwindow.cpp:704
-#: src/app/qt/kid3mainwindow.cpp:709 src/app/qt/kid3mainwindow.cpp:727
+#: src/app/qt/kid3mainwindow.cpp:659 src/app/qt/kid3mainwindow.cpp:702
+#: src/app/qt/kid3mainwindow.cpp:707 src/app/qt/kid3mainwindow.cpp:725
 msgctxt "Kid3MainWindow|"
 msgid "Focus"
 msgstr "Zaměření"
 
-#: src/app/qt/kid3mainwindow.cpp:671
+#: src/app/qt/kid3mainwindow.cpp:669
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Tag %1"
 msgstr "Značka %1"
 
-#: src/app/qt/kid3mainwindow.cpp:673
+#: src/app/qt/kid3mainwindow.cpp:671
 msgctxt "Kid3MainWindow|"
 msgid "From Filename"
 msgstr "Z názvu souboru"
 
-#: src/app/qt/kid3mainwindow.cpp:684
+#: src/app/qt/kid3mainwindow.cpp:682
 msgctxt "Kid3MainWindow|"
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: src/app/qt/kid3mainwindow.cpp:687
+#: src/app/qt/kid3mainwindow.cpp:685
 msgctxt "Kid3MainWindow|"
 msgid "Paste"
 msgstr "Vložit"
 
-#: src/app/qt/kid3mainwindow.cpp:690
+#: src/app/qt/kid3mainwindow.cpp:688
 msgctxt "Kid3MainWindow|"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/app/qt/kid3mainwindow.cpp:694
+#: src/app/qt/kid3mainwindow.cpp:692
 msgctxt "Kid3MainWindow|"
 msgid "Edit"
 msgstr "Upravit"
 
-#: src/app/qt/kid3mainwindow.cpp:697
+#: src/app/qt/kid3mainwindow.cpp:695
 msgctxt "Kid3MainWindow|"
 msgid "Add"
 msgstr "Přidat"
 
-#: src/app/qt/kid3mainwindow.cpp:700
+#: src/app/qt/kid3mainwindow.cpp:698
 msgctxt "Kid3MainWindow|"
 msgid "Delete"
 msgstr "Smazat"
 
-#: src/app/qt/kid3mainwindow.cpp:708
+#: src/app/qt/kid3mainwindow.cpp:706
 msgctxt "Kid3MainWindow|"
 msgid "File List"
 msgstr "Seznam souborů"
 
-#: src/app/qt/kid3mainwindow.cpp:712
+#: src/app/qt/kid3mainwindow.cpp:710
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
 msgstr "&Přejmenovat"
 
-#: src/app/qt/kid3mainwindow.cpp:719
+#: src/app/qt/kid3mainwindow.cpp:717
 msgctxt "Kid3MainWindow|"
 msgid "&Move to Trash"
 msgstr "Pře&sunout do koše"
 
-#: src/app/qt/kid3mainwindow.cpp:726
+#: src/app/qt/kid3mainwindow.cpp:724
 msgctxt "Kid3MainWindow|"
 msgid "Folder List"
 msgstr "Seznam složek"
 
-#: src/app/qt/kid3mainwindow.cpp:732
+#: src/app/qt/kid3mainwindow.cpp:730
 msgctxt "Kid3MainWindow|"
 msgid "Section"
 msgstr "Oddíl"
 
-#: src/app/qt/kid3mainwindow.cpp:817
+#: src/app/qt/kid3mainwindow.cpp:815
 msgctxt "Kid3MainWindow|"
 msgid " [modified]"
 msgstr " [změněno]"
 
-#: src/app/qt/kid3mainwindow.cpp:912
+#: src/app/qt/kid3mainwindow.cpp:910
 msgctxt "Kid3MainWindow|"
 msgid "Audio Tag Editor"
 msgstr "Editor značek zvukových záznamů"
 
-#: src/app/qt/kid3mainwindow.cpp:917
+#: src/app/qt/kid3mainwindow.cpp:915
 msgctxt "Kid3MainWindow|"
 msgid "License"
 msgstr "Licence"
 
-#: src/app/qt/kid3mainwindow.cpp:935
+#: src/app/qt/kid3mainwindow.cpp:933
 msgctxt "Kid3MainWindow|"
 msgid "Configure - Kid3"
 msgstr "Nastavit Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:979 src/app/qt/kid3mainwindow.cpp:991
+#: src/app/qt/kid3mainwindow.cpp:977 src/app/qt/kid3mainwindow.cpp:989
 msgctxt "Kid3MainWindow|"
 msgid "User Actions"
 msgstr "Uživatelské činnosti"
@@ -1643,22 +1643,22 @@ msgctxt "@default|"
 msgid "Kid3 Handbook"
 msgstr "Příručka k programu Kid3"
 
-#: src/app/qt/recentfilesmenu.cpp:120
+#: src/app/qt/recentfilesmenu.cpp:119
 msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
 msgstr "V&yčistit seznam"
 
-#: src/app/qt/shortcutsdelegate.cpp:190
+#: src/app/qt/shortcutsdelegate.cpp:189
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Clear"
 msgstr "Vyprázdnit"
 
-#: src/app/qt/shortcutsdelegate.cpp:195
+#: src/app/qt/shortcutsdelegate.cpp:194
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Reset"
 msgstr "Obnovit"
 
-#: src/app/qt/shortcutsmodel.cpp:112
+#: src/app/qt/shortcutsmodel.cpp:113
 msgctxt "ShortcutsModel|"
 msgid "Press F2 or double click to edit cell contents."
 msgstr "Obsah buňky upravte stisknutím F2 nebo dvojitým kliknutím."
@@ -1668,7 +1668,7 @@ msgctxt "ShortcutsModel|"
 msgid "Action"
 msgstr "Činnost"
 
-#: src/app/qt/shortcutsmodel.cpp:191
+#: src/app/qt/shortcutsmodel.cpp:192
 msgctxt "ShortcutsModel|"
 msgid "Shortcut"
 msgstr "Zkratka"
@@ -1703,52 +1703,52 @@ msgctxt "Kid3Application|"
 msgid "All Supported Files"
 msgstr "Všechny podporované soubory"
 
-#: src/core/config/formatconfig.cpp:504
+#: src/core/config/formatconfig.cpp:501
 msgctxt "@default|"
 msgid "No changes"
 msgstr "Žádné změny"
 
-#: src/core/config/formatconfig.cpp:505
+#: src/core/config/formatconfig.cpp:502
 msgctxt "@default|"
 msgid "All lowercase"
 msgstr "Vše malými písmeny"
 
-#: src/core/config/formatconfig.cpp:506
+#: src/core/config/formatconfig.cpp:503
 msgctxt "@default|"
 msgid "All uppercase"
 msgstr "Vše velkými písmeny"
 
-#: src/core/config/formatconfig.cpp:507
+#: src/core/config/formatconfig.cpp:504
 msgctxt "@default|"
 msgid "First letter uppercase"
 msgstr "První písmeno na velké"
 
-#: src/core/config/formatconfig.cpp:508
+#: src/core/config/formatconfig.cpp:505
 msgctxt "@default|"
 msgid "All first letters uppercase"
 msgstr "Všechna první písmena velká"
 
-#: src/core/config/formatconfig.cpp:523
+#: src/core/config/formatconfig.cpp:520
 msgctxt "FormatConfig|"
 msgid "None"
 msgstr "Žádný"
 
-#: src/core/config/starratingmappingsmodel.cpp:128
+#: src/core/config/starratingmappingsmodel.cpp:129
 msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "Název"
 
-#: src/core/config/tagconfig.cpp:736 src/core/tags/frame.cpp:77
+#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:77
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:737 src/core/tags/frame.cpp:78
+#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:78
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:738 src/core/tags/frame.cpp:80
+#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:80
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -1790,49 +1790,49 @@ msgctxt "HttpClient|"
 msgid "Data received: %1"
 msgstr "Přijata data: %1"
 
-#: src/core/import/httpclient.cpp:230
+#: src/core/import/httpclient.cpp:228
 msgctxt "HttpClient|"
 msgid "Request sent..."
 msgstr "Požadavek odeslán..."
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:2007
+#: src/core/tags/frame.cpp:1984
 msgctxt "@default|"
 msgid "Title"
 msgstr "Název"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:2011
+#: src/core/tags/frame.cpp:1988
 msgctxt "@default|"
 msgid "Album"
 msgstr "Album"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:2015
+#: src/core/tags/frame.cpp:1992
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Umělec"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:2019
+#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1996
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Komentář"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:2023
+#: src/core/tags/frame.cpp:2000
 msgctxt "@default|"
 msgid "Year"
 msgstr "Rok"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2028
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2005
 msgctxt "@default|"
 msgid "Track"
 msgstr "Skladba"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2041
+#: src/core/tags/frame.cpp:2018
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Žánr"
@@ -1954,99 +1954,99 @@ msgctxt "CommandsTableModel|"
 msgid "Command"
 msgstr "Příkaz"
 
-#: src/core/model/dirrenamer.cpp:250
+#: src/core/model/dirrenamer.cpp:249
 #, qt-format
 msgctxt "@default|"
 msgid "Create folder %1 failed\n"
 msgstr "Nepodařilo se vytvořit složku %1\n"
 
-#: src/core/model/dirrenamer.cpp:280
+#: src/core/model/dirrenamer.cpp:279
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "Create folder %1 failed\n"
 msgstr "Nepodařilo se vytvořit složku %1\n"
+
+#: src/core/model/dirrenamer.cpp:285
+#, qt-format
+msgctxt "@default|"
+msgid "File %1 already exists\n"
+msgstr "Soubor %1 již existuje\n"
 
 #: src/core/model/dirrenamer.cpp:287
 #, qt-format
 msgctxt "@default|"
-msgid "File %1 already exists\n"
-msgstr "Soubor %1 již existuje\n"
+msgid "%1 is not a folder\n"
+msgstr "%1 není složkou.\n"
 
 #: src/core/model/dirrenamer.cpp:289
 #, qt-format
 msgctxt "@default|"
-msgid "%1 is not a folder\n"
-msgstr "%1 není složkou.\n"
-
-#: src/core/model/dirrenamer.cpp:291
-#, qt-format
-msgctxt "@default|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "Nepodařilo se přejmenovat %1 na %2\n"
 
-#: src/core/model/dirrenamer.cpp:310
+#: src/core/model/dirrenamer.cpp:308
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "File %1 already exists\n"
 msgstr "Soubor %1 již existuje\n"
 
-#: src/core/model/dirrenamer.cpp:316
+#: src/core/model/dirrenamer.cpp:314
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 is not a folder\n"
 msgstr "%1 není složkou.\n"
 
-#: src/core/model/dirrenamer.cpp:336 src/core/model/dirrenamer.cpp:385
+#: src/core/model/dirrenamer.cpp:334 src/core/model/dirrenamer.cpp:382
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "Nepodařilo se přejmenovat %1 na %2\n"
 
-#: src/core/model/dirrenamer.cpp:343
+#: src/core/model/dirrenamer.cpp:340
 #, qt-format
 msgctxt "@default|"
 msgid "%1 already exists\n"
 msgstr "%1 již existuje\n"
 
-#: src/core/model/dirrenamer.cpp:345
+#: src/core/model/dirrenamer.cpp:342
 #, qt-format
 msgctxt "@default|"
 msgid "%1 is not a file\n"
 msgstr "%1 není soubor\n"
 
-#: src/core/model/dirrenamer.cpp:366
+#: src/core/model/dirrenamer.cpp:363
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 already exists\n"
 msgstr "%1 již existuje\n"
 
-#: src/core/model/dirrenamer.cpp:372
+#: src/core/model/dirrenamer.cpp:369
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 is not a file\n"
 msgstr "%1 není soubor\n"
 
-#: src/core/model/dirrenamer.cpp:624
+#: src/core/model/dirrenamer.cpp:620
 msgctxt "DirRenamer|"
 msgid "New folder name is too different\n"
 msgstr "Nový název složky se příliš liší\n"
 
-#: src/core/model/dirrenamer.cpp:690
+#: src/core/model/dirrenamer.cpp:686
 msgctxt "@default|"
 msgid "Create folder"
 msgstr "Vytvořit složku"
 
-#: src/core/model/dirrenamer.cpp:691
+#: src/core/model/dirrenamer.cpp:687
 msgctxt "@default|"
 msgid "Rename folder"
 msgstr "Přejmenovat složku"
 
-#: src/core/model/dirrenamer.cpp:692
+#: src/core/model/dirrenamer.cpp:688
 msgctxt "@default|"
 msgid "Rename file"
 msgstr "Přejmenovat soubor"
 
-#: src/core/model/dirrenamer.cpp:693
+#: src/core/model/dirrenamer.cpp:689
 msgctxt "@default|"
 msgid "Error"
 msgstr "Chyba"
@@ -2307,67 +2307,67 @@ msgctxt "@default|"
 msgid "Logical negation"
 msgstr "Logická negace"
 
-#: src/core/model/fileproxymodel.cpp:836
+#: src/core/model/fileproxymodel.cpp:828
 msgctxt "FileProxyModel|"
 msgid "All Supported Files"
 msgstr "Všechny podporované soubory"
 
-#: src/core/model/fileproxymodel.cpp:838
+#: src/core/model/fileproxymodel.cpp:830
 msgctxt "FileProxyModel|"
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: src/core/model/filesystemmodel.cpp:823
+#: src/core/model/filesystemmodel.cpp:822
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 TB"
 msgstr "%1 TB"
 
-#: src/core/model/filesystemmodel.cpp:825
+#: src/core/model/filesystemmodel.cpp:824
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 GB"
 msgstr "%1 GB"
 
-#: src/core/model/filesystemmodel.cpp:827
+#: src/core/model/filesystemmodel.cpp:826
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 MB"
 msgstr "%1 MB"
 
-#: src/core/model/filesystemmodel.cpp:829
+#: src/core/model/filesystemmodel.cpp:828
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 KB"
 msgstr "%1 KB"
 
-#: src/core/model/filesystemmodel.cpp:830
+#: src/core/model/filesystemmodel.cpp:829
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 bytes"
 msgstr "%1 bajtů"
 
-#: src/core/model/filesystemmodel.cpp:985
+#: src/core/model/filesystemmodel.cpp:983
 msgctxt "FileSystemModel|"
 msgid "Name"
 msgstr "Název"
 
-#: src/core/model/filesystemmodel.cpp:987
+#: src/core/model/filesystemmodel.cpp:985
 msgctxt "FileSystemModel|"
 msgid "Size"
 msgstr "Velikost"
 
-#: src/core/model/filesystemmodel.cpp:991
+#: src/core/model/filesystemmodel.cpp:989
 msgctxt "FileSystemModel|Match OS X Finder"
 msgid "Kind"
 msgstr "Typ"
 
-#: src/core/model/filesystemmodel.cpp:993
+#: src/core/model/filesystemmodel.cpp:991
 msgctxt "FileSystemModel|All other platforms"
 msgid "Type"
 msgstr "Typ"
 
-#: src/core/model/filesystemmodel.cpp:1000
+#: src/core/model/filesystemmodel.cpp:998
 msgctxt "FileSystemModel|"
 msgid "Date Modified"
 msgstr "Datum změny"
@@ -2382,7 +2382,7 @@ msgctxt "FileSystemModel|"
 msgid "Computer"
 msgstr "Počítač"
 
-#: src/core/model/frameobjectmodel.cpp:178
+#: src/core/model/frameobjectmodel.cpp:175
 msgctxt "FrameFieldObject|"
 msgid "Text"
 msgstr "Text"
@@ -2392,32 +2392,32 @@ msgctxt "FrameTableModel|"
 msgid "Volume"
 msgstr "Hlasitost"
 
-#: src/core/model/frametablemodel.cpp:168
+#: src/core/model/frametablemodel.cpp:167
 msgctxt "FrameTableModel|"
 msgid "File ID"
 msgstr "Identifikátor soubor"
 
-#: src/core/model/frametablemodel.cpp:307
+#: src/core/model/frametablemodel.cpp:308
 msgctxt "FrameTableModel|"
 msgid "Name"
 msgstr "Název"
 
-#: src/core/model/frametablemodel.cpp:307
+#: src/core/model/frametablemodel.cpp:308
 msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Data"
 
-#: src/core/model/kid3application.cpp:1041
+#: src/core/model/kid3application.cpp:1032
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "Ukládání složky..."
 
-#: src/core/model/kid3application.cpp:1251
+#: src/core/model/kid3application.cpp:1237
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Výběr"
 
-#: src/core/model/kid3application.cpp:3465
+#: src/core/model/kid3application.cpp:3442
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "Všechny soubory"
@@ -2452,12 +2452,12 @@ msgctxt "TagSearcher|"
 msgid "Search finished"
 msgstr "Hledání ukončeno"
 
-#: src/core/model/tagsearcher.cpp:464
+#: src/core/model/tagsearcher.cpp:462
 msgctxt "TagSearcher|"
 msgid "Filename"
 msgstr "Název souboru"
 
-#: src/core/model/tagsearcher.cpp:466
+#: src/core/model/tagsearcher.cpp:464
 #, qt-format
 msgctxt "TagSearcher|"
 msgid "Tag %1"
@@ -2468,12 +2468,12 @@ msgctxt "TimeEventModel|"
 msgid "Time"
 msgstr "Čas"
 
-#: src/core/model/timeeventmodel.cpp:125
+#: src/core/model/timeeventmodel.cpp:126
 msgctxt "TimeEventModel|"
 msgid "Event Code"
 msgstr "Kód události"
 
-#: src/core/model/timeeventmodel.cpp:127
+#: src/core/model/timeeventmodel.cpp:128
 msgctxt "TimeEventModel|"
 msgid "Text"
 msgstr "Text"
@@ -2648,7 +2648,7 @@ msgid "Milliseconds as unit"
 msgstr "Milisekundy jako jednotka"
 
 #: src/core/tags/frame.cpp:93 src/core/tags/frame.cpp:144
-#: src/gui/widgets/timeeventeditor.cpp:351
+#: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Text písně"
@@ -3461,93 +3461,93 @@ msgctxt "@default|"
 msgid "Source Form"
 msgstr "Druh zdroje"
 
-#: src/core/tags/frame.cpp:1218
+#: src/core/tags/frame.cpp:1204
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "Značka %1"
 
-#: src/core/tags/frame.cpp:1223
+#: src/core/tags/frame.cpp:1209
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "Značka 1 a značka 2"
 
-#: src/core/tags/frame.cpp:1227
+#: src/core/tags/frame.cpp:1213
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "Všechny značky"
 
-#: src/core/tags/frame.cpp:2046
+#: src/core/tags/frame.cpp:2023
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "Připojte t1/připojit t2, pokud není prázdný"
 
-#: src/core/tags/framenotice.cpp:187
+#: src/core/tags/framenotice.cpp:184
 msgctxt "@default|"
 msgid "Truncated"
 msgstr "Zkrácená"
 
-#: src/core/tags/framenotice.cpp:188
+#: src/core/tags/framenotice.cpp:185
 msgctxt "@default|"
 msgid "Size is too large"
 msgstr "Je příliš dlouhý"
 
-#: src/core/tags/framenotice.cpp:189
+#: src/core/tags/framenotice.cpp:186
 msgctxt "@default|"
 msgid "Must be unique"
 msgstr "Musí být jedinečný"
 
-#: src/core/tags/framenotice.cpp:190
+#: src/core/tags/framenotice.cpp:187
 msgctxt "@default|"
 msgid "New line is forbidden"
 msgstr "Nový řádek je zakázán"
 
-#: src/core/tags/framenotice.cpp:191
+#: src/core/tags/framenotice.cpp:188
 msgctxt "@default|"
 msgid "Carriage return is forbidden"
 msgstr "CR je zakázán"
 
-#: src/core/tags/framenotice.cpp:192
+#: src/core/tags/framenotice.cpp:189
 msgctxt "@default|"
 msgid "Owner must be non-empty"
 msgstr "Vlastník nesmí být prázdná"
 
-#: src/core/tags/framenotice.cpp:193
+#: src/core/tags/framenotice.cpp:190
 msgctxt "@default|"
 msgid "Must be numeric"
 msgstr "Musí být číselný"
 
-#: src/core/tags/framenotice.cpp:194
+#: src/core/tags/framenotice.cpp:191
 msgctxt "@default|"
 msgid "Must be numeric or number/total"
 msgstr "Musí být číselný nebo číselný/celkový"
 
-#: src/core/tags/framenotice.cpp:195
+#: src/core/tags/framenotice.cpp:192
 msgctxt "@default|"
 msgid "Format is DDMM"
 msgstr "Formát je DDMM"
 
-#: src/core/tags/framenotice.cpp:196
+#: src/core/tags/framenotice.cpp:193
 msgctxt "@default|"
 msgid "Format is HHMM"
 msgstr "Formát je HHMM"
 
-#: src/core/tags/framenotice.cpp:197
+#: src/core/tags/framenotice.cpp:194
 msgctxt "@default|"
 msgid "Format is YYYY"
 msgstr "Formát je YYYY"
 
-#: src/core/tags/framenotice.cpp:198
+#: src/core/tags/framenotice.cpp:195
 msgctxt "@default|"
 msgid "Must begin with a year and a space character"
 msgstr "Musí začít s rokem a prostorovým charakterem"
 
-#: src/core/tags/framenotice.cpp:199
+#: src/core/tags/framenotice.cpp:196
 msgctxt "@default|"
 msgid "Must be ISO 8601 date/time"
 msgstr "Musí být časové razítko ISO 8601"
 
-#: src/core/tags/framenotice.cpp:200
+#: src/core/tags/framenotice.cpp:197
 msgctxt "@default|"
 msgid ""
 "Must be musical key, 3 characters, A-G, b, #, m, o\n"
@@ -3556,22 +3556,22 @@ msgstr ""
 "Musí být tónina na začátku, 3 znaky, A-G, b, #, m, o\n"
 "nebo hodnotou Camelot Wheel 1A-12A, 1B-12B"
 
-#: src/core/tags/framenotice.cpp:202
+#: src/core/tags/framenotice.cpp:199
 msgctxt "@default|"
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
 msgstr "Není platný kód jazyka (podle ISO 639-2)"
 
-#: src/core/tags/framenotice.cpp:203
+#: src/core/tags/framenotice.cpp:200
 msgctxt "@default|"
 msgid "Must be ISRC code, 12 characters"
 msgstr "Musí být kód ISRC, 12 znaků"
 
-#: src/core/tags/framenotice.cpp:204
+#: src/core/tags/framenotice.cpp:201
 msgctxt "@default|"
 msgid "Must be list of strings separated by '|'"
 msgstr "Musí být seznam řetězců oddělených '|'"
 
-#: src/core/tags/framenotice.cpp:205
+#: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
 msgid "Has excess white space"
 msgstr "Má přebytek prázdných mezer"
@@ -3721,107 +3721,107 @@ msgctxt "@default|"
 msgid "Escape for HTML"
 msgstr "Escape pro HTML"
 
-#: src/gui/dialogs/batchimportdialog.cpp:163
+#: src/gui/dialogs/batchimportdialog.cpp:162
 msgctxt "BatchImportDialog|"
 msgid "Automatic Import"
 msgstr "Importovat automaticky"
 
-#: src/gui/dialogs/batchimportdialog.cpp:179
+#: src/gui/dialogs/batchimportdialog.cpp:178
 msgctxt "BatchImportDialog|"
 msgid "D&estination:"
 msgstr "Cí&l:"
 
-#: src/gui/dialogs/batchimportdialog.cpp:194
+#: src/gui/dialogs/batchimportdialog.cpp:193
 msgctxt "BatchImportDialog|"
 msgid "&Profile:"
 msgstr "&Profil:"
 
-#: src/gui/dialogs/batchimportdialog.cpp:205
+#: src/gui/dialogs/batchimportdialog.cpp:204
 msgctxt "BatchImportDialog|"
 msgid "Add"
 msgstr "Přidat"
 
-#: src/gui/dialogs/batchimportdialog.cpp:209
+#: src/gui/dialogs/batchimportdialog.cpp:208
 msgctxt "BatchImportDialog|"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/gui/dialogs/batchimportdialog.cpp:230
+#: src/gui/dialogs/batchimportdialog.cpp:229
 msgctxt "BatchImportDialog|"
 msgid "&Help"
 msgstr "Nápo&věda"
 
-#: src/gui/dialogs/batchimportdialog.cpp:236
+#: src/gui/dialogs/batchimportdialog.cpp:235
 msgctxt "BatchImportDialog|"
 msgid "&Save Settings"
 msgstr "Na&stavení pro uložení"
 
-#: src/gui/dialogs/batchimportdialog.cpp:245
+#: src/gui/dialogs/batchimportdialog.cpp:244
 msgctxt "BatchImportDialog|"
 msgid "&Close"
 msgstr "&Zavřít"
 
-#: src/gui/dialogs/batchimportdialog.cpp:285
+#: src/gui/dialogs/batchimportdialog.cpp:284
 msgctxt "BatchImportDialog|"
 msgid "New"
 msgstr "Nový"
 
-#: src/gui/dialogs/batchimportdialog.cpp:477
+#: src/gui/dialogs/batchimportdialog.cpp:476
 msgctxt "BatchImportDialog|"
 msgid "Reading Folder"
 msgstr "Čte se složka"
 
-#: src/gui/dialogs/batchimportdialog.cpp:481
+#: src/gui/dialogs/batchimportdialog.cpp:480
 msgctxt "BatchImportDialog|"
 msgid "Started"
 msgstr "Spuštěno"
 
-#: src/gui/dialogs/batchimportdialog.cpp:484
+#: src/gui/dialogs/batchimportdialog.cpp:483
 msgctxt "BatchImportDialog|"
 msgid "Source"
 msgstr "Zdroj"
 
-#: src/gui/dialogs/batchimportdialog.cpp:487
+#: src/gui/dialogs/batchimportdialog.cpp:486
 msgctxt "BatchImportDialog|"
 msgid "Querying"
 msgstr "Dotazování"
 
-#: src/gui/dialogs/batchimportdialog.cpp:491
+#: src/gui/dialogs/batchimportdialog.cpp:490
 msgctxt "BatchImportDialog|"
 msgid "Fetching"
 msgstr "Stahuji"
 
-#: src/gui/dialogs/batchimportdialog.cpp:494
+#: src/gui/dialogs/batchimportdialog.cpp:493
 msgctxt "BatchImportDialog|"
 msgid "Data received"
 msgstr "Přijatá data"
 
-#: src/gui/dialogs/batchimportdialog.cpp:497
+#: src/gui/dialogs/batchimportdialog.cpp:496
 msgctxt "BatchImportDialog|"
 msgid "Cover"
 msgstr "Přebal"
 
-#: src/gui/dialogs/batchimportdialog.cpp:501
+#: src/gui/dialogs/batchimportdialog.cpp:500
 msgctxt "BatchImportDialog|"
 msgid "Finished"
 msgstr "Dokončeno"
 
-#: src/gui/dialogs/batchimportdialog.cpp:505
+#: src/gui/dialogs/batchimportdialog.cpp:504
 msgctxt "BatchImportDialog|"
 msgid "Aborted"
 msgstr "Přerušeno"
 
-#: src/gui/dialogs/batchimportdialog.cpp:508
+#: src/gui/dialogs/batchimportdialog.cpp:507
 msgctxt "BatchImportDialog|"
 msgid "Error"
 msgstr "Chyba"
 
-#: src/gui/dialogs/batchimportdialog.cpp:524
+#: src/gui/dialogs/batchimportdialog.cpp:523
 msgctxt "BatchImportDialog|"
 msgid "A&bort"
 msgstr "Př&erušit"
 
-#: src/gui/dialogs/batchimportdialog.cpp:524
+#: src/gui/dialogs/batchimportdialog.cpp:523
 msgctxt "BatchImportDialog|"
 msgid "S&tart"
 msgstr "Spustit"
@@ -3927,324 +3927,324 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Potom přetáhněte obrázek z prohlížeče do okna Kid3."
 
-#: src/gui/dialogs/configdialogpages.cpp:178
+#: src/gui/dialogs/configdialogpages.cpp:176
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:181
+#: src/gui/dialogs/configdialogpages.cpp:179
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "&Označit zkrácená pole"
 
-#: src/gui/dialogs/configdialogpages.cpp:183
-#: src/gui/dialogs/configdialogpages.cpp:212
+#: src/gui/dialogs/configdialogpages.cpp:181
+#: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "Kódování t&extu:"
 
-#: src/gui/dialogs/configdialogpages.cpp:197
+#: src/gui/dialogs/configdialogpages.cpp:195
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr " ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:200
+#: src/gui/dialogs/configdialogpages.cpp:198
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "Použít formát číslo/celkový počet &skladeb"
 
-#: src/gui/dialogs/configdialogpages.cpp:203
+#: src/gui/dialogs/configdialogpages.cpp:201
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "&Počet číslic v čísle skladby:"
 
-#: src/gui/dialogs/configdialogpages.cpp:207
+#: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "Žá&nr jako text místo jako číslo"
 
-#: src/gui/dialogs/configdialogpages.cpp:209
+#: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "Soubory &WAV s blokem id3 s malými písmeny"
 
-#: src/gui/dialogs/configdialogpages.cpp:211
+#: src/gui/dialogs/configdialogpages.cpp:209
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "Označte &porušení standardu"
 
-#: src/gui/dialogs/configdialogpages.cpp:230
+#: src/gui/dialogs/configdialogpages.cpp:228
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "&Verze používaná pro nové značky:"
 
-#: src/gui/dialogs/configdialogpages.cpp:234
+#: src/gui/dialogs/configdialogpages.cpp:232
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:236
+#: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:250
+#: src/gui/dialogs/configdialogpages.cpp:248
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:251
+#: src/gui/dialogs/configdialogpages.cpp:249
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "Název pole s pozná&mkou:"
 
-#: src/gui/dialogs/configdialogpages.cpp:254
+#: src/gui/dialogs/configdialogpages.cpp:252
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "Název pole s &obrázkem:"
 
-#: src/gui/dialogs/configdialogpages.cpp:276
+#: src/gui/dialogs/configdialogpages.cpp:274
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Obrázek"
 
-#: src/gui/dialogs/configdialogpages.cpp:279
+#: src/gui/dialogs/configdialogpages.cpp:277
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "Označit, &je-li větší než (bajty):"
 
-#: src/gui/dialogs/configdialogpages.cpp:292
+#: src/gui/dialogs/configdialogpages.cpp:290
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "&Ukázat pouze vlastní žánry"
 
-#: src/gui/dialogs/configdialogpages.cpp:300
+#: src/gui/dialogs/configdialogpages.cpp:298
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "Vla&stní žánry"
 
-#: src/gui/dialogs/configdialogpages.cpp:312
+#: src/gui/dialogs/configdialogpages.cpp:310
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "Vlastní p&rvky"
 
-#: src/gui/dialogs/configdialogpages.cpp:327
+#: src/gui/dialogs/configdialogpages.cpp:325
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "Uspořádání můžete upravit přetahováním položek"
 
-#: src/gui/dialogs/configdialogpages.cpp:330
+#: src/gui/dialogs/configdialogpages.cpp:328
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "Prvky s &rychlým přístupem"
 
-#: src/gui/dialogs/configdialogpages.cpp:337
+#: src/gui/dialogs/configdialogpages.cpp:335
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF INFO"
 
-#: src/gui/dialogs/configdialogpages.cpp:338
+#: src/gui/dialogs/configdialogpages.cpp:336
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "Název skladby &číslo pole:"
 
-#: src/gui/dialogs/configdialogpages.cpp:355
+#: src/gui/dialogs/configdialogpages.cpp:353
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "&Formát značky"
 
-#: src/gui/dialogs/configdialogpages.cpp:357
+#: src/gui/dialogs/configdialogpages.cpp:355
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Hodnocení"
 
-#: src/gui/dialogs/configdialogpages.cpp:367
+#: src/gui/dialogs/configdialogpages.cpp:365
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "Značka &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:369
+#: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "Značka &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:370
+#: src/gui/dialogs/configdialogpages.cpp:368
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "Značka &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:371
+#: src/gui/dialogs/configdialogpages.cpp:369
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "Všechny značk&y"
 
-#: src/gui/dialogs/configdialogpages.cpp:389
+#: src/gui/dialogs/configdialogpages.cpp:387
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Spuštění"
 
-#: src/gui/dialogs/configdialogpages.cpp:390
+#: src/gui/dialogs/configdialogpages.cpp:388
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "&Načíst naposledy otevřené soubory"
 
-#: src/gui/dialogs/configdialogpages.cpp:396
+#: src/gui/dialogs/configdialogpages.cpp:394
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Uložit"
 
-#: src/gui/dialogs/configdialogpages.cpp:397
+#: src/gui/dialogs/configdialogpages.cpp:395
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "&Neměnit časové razítko souboru"
 
-#: src/gui/dialogs/configdialogpages.cpp:399
+#: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "&Označit změny"
 
-#: src/gui/dialogs/configdialogpages.cpp:409
+#: src/gui/dialogs/configdialogpages.cpp:407
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "&Název souboru s obalem:"
 
-#: src/gui/dialogs/configdialogpages.cpp:410
+#: src/gui/dialogs/configdialogpages.cpp:408
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Kódování t&extu (Export, seznam skladeb):"
 
-#: src/gui/dialogs/configdialogpages.cpp:415
+#: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Seznam souborů"
 
-#: src/gui/dialogs/configdialogpages.cpp:416
+#: src/gui/dialogs/configdialogpages.cpp:414
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Filt&r:"
 
-#: src/gui/dialogs/configdialogpages.cpp:426
+#: src/gui/dialogs/configdialogpages.cpp:424
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "Z&ahrnout složky:"
 
-#: src/gui/dialogs/configdialogpages.cpp:430
+#: src/gui/dialogs/configdialogpages.cpp:428
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "Přeskočit složk&y:"
 
-#: src/gui/dialogs/configdialogpages.cpp:434
+#: src/gui/dialogs/configdialogpages.cpp:432
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "Zobrazovat &skryté soubory"
 
-#: src/gui/dialogs/configdialogpages.cpp:446
+#: src/gui/dialogs/configdialogpages.cpp:444
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Formát"
 
-#: src/gui/dialogs/configdialogpages.cpp:450
+#: src/gui/dialogs/configdialogpages.cpp:448
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "Název souboru ze značky"
 
-#: src/gui/dialogs/configdialogpages.cpp:455
+#: src/gui/dialogs/configdialogpages.cpp:453
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "Značka z názvu souboru"
 
-#: src/gui/dialogs/configdialogpages.cpp:461
-#: src/gui/dialogs/configdialogpages.cpp:521
+#: src/gui/dialogs/configdialogpages.cpp:459
+#: src/gui/dialogs/configdialogpages.cpp:519
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Seznam skladeb"
 
-#: src/gui/dialogs/configdialogpages.cpp:473
+#: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "Formát názvu &souboru"
 
-#: src/gui/dialogs/configdialogpages.cpp:489
+#: src/gui/dialogs/configdialogpages.cpp:487
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "Název souboru ze značky"
 
-#: src/gui/dialogs/configdialogpages.cpp:505
+#: src/gui/dialogs/configdialogpages.cpp:503
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "Značka z názvu souboru"
 
-#: src/gui/dialogs/configdialogpages.cpp:535
+#: src/gui/dialogs/configdialogpages.cpp:533
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Prohlížeč"
 
-#: src/gui/dialogs/configdialogpages.cpp:536
+#: src/gui/dialogs/configdialogpages.cpp:534
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "We&bový prohlížeč:"
 
-#: src/gui/dialogs/configdialogpages.cpp:545
+#: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "Příkazy souvisejících &nabídek"
 
-#: src/gui/dialogs/configdialogpages.cpp:548
+#: src/gui/dialogs/configdialogpages.cpp:546
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "&Přehrát po dvojitém kliknutí"
 
-#: src/gui/dialogs/configdialogpages.cpp:550
+#: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:553
+#: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:555
+#: src/gui/dialogs/configdialogpages.cpp:553
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:588
+#: src/gui/dialogs/configdialogpages.cpp:586
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/gui/dialogs/configdialogpages.cpp:589
+#: src/gui/dialogs/configdialogpages.cpp:587
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Proxy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:592
+#: src/gui/dialogs/configdialogpages.cpp:590
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:594
+#: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:598
+#: src/gui/dialogs/configdialogpages.cpp:596
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "Heslo pro&xy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:632
+#: src/gui/dialogs/configdialogpages.cpp:630
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:644
+#: src/gui/dialogs/configdialogpages.cpp:642
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "Dostupné modul&y"
 
-#: src/gui/dialogs/configdialogpages.cpp:655
+#: src/gui/dialogs/configdialogpages.cpp:653
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr ""
@@ -4255,42 +4255,42 @@ msgid "Images"
 msgstr "Obrázky"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:741
-#: src/gui/widgets/timeeventeditor.cpp:352
+#: src/gui/widgets/timeeventeditor.cpp:350
 msgctxt "@default|"
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1136
+#: src/gui/dialogs/editframefieldsdialog.cpp:1134
 msgctxt "BinaryOpenSave|"
 msgid "From Clip&board"
 msgstr "Ze sc&hránky"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1137
+#: src/gui/dialogs/editframefieldsdialog.cpp:1135
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
 msgstr "&Do schránky"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1138
+#: src/gui/dialogs/editframefieldsdialog.cpp:1136
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
 msgstr "&Importovat..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1139
+#: src/gui/dialogs/editframefieldsdialog.cpp:1137
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
 msgstr "&Exportovat..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1140
+#: src/gui/dialogs/editframefieldsdialog.cpp:1138
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
 msgstr "Po&hled..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1316
+#: src/gui/dialogs/editframefieldsdialog.cpp:1310
 msgctxt "EditFrameFieldsDialog|"
 msgid "&OK"
 msgstr "&OK"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1317
+#: src/gui/dialogs/editframefieldsdialog.cpp:1311
 msgctxt "EditFrameFieldsDialog|"
 msgid "&Cancel"
 msgstr "Z&rušit"
@@ -4356,12 +4356,12 @@ msgctxt "ExportDialog|"
 msgid "&Close"
 msgstr "&Zavřít"
 
-#: src/gui/dialogs/exportdialog.cpp:154
+#: src/gui/dialogs/exportdialog.cpp:155
 msgctxt "ExportDialog|"
 msgid "File Error"
 msgstr "Chyba v souboru"
 
-#: src/gui/dialogs/exportdialog.cpp:155
+#: src/gui/dialogs/exportdialog.cpp:156
 msgctxt "ExportDialog|"
 msgid "Error while writing file:\n"
 msgstr "Při zápisu do souboru nastala chyba:\n"
@@ -4832,7 +4832,7 @@ msgctxt "RenDirDialog|"
 msgid "To:"
 msgstr "Komu:"
 
-#: src/gui/dialogs/rendirdialog.cpp:326
+#: src/gui/dialogs/rendirdialog.cpp:325
 msgctxt "RenDirDialog|"
 msgid "Folder Name from Tag"
 msgstr "Název složky ze značky"
@@ -5045,41 +5045,41 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Download"
 msgstr "Stáhnout"
 
-#: src/gui/forms/basemainwindow.cpp:234
+#: src/gui/forms/basemainwindow.cpp:233
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
 msgstr "Otevírá se složka..."
 
-#: src/gui/forms/basemainwindow.cpp:325
+#: src/gui/forms/basemainwindow.cpp:324
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
 msgstr "Přerušit"
 
-#: src/gui/forms/basemainwindow.cpp:396
+#: src/gui/forms/basemainwindow.cpp:393
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
 msgstr "%1 není zapisovatelný"
 
-#: src/gui/forms/basemainwindow.cpp:406
+#: src/gui/forms/basemainwindow.cpp:403
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
 msgstr "Při zápisu do souboru nastala chyba:\n"
 
-#: src/gui/forms/basemainwindow.cpp:408 src/gui/forms/basemainwindow.cpp:414
-#: src/gui/forms/basemainwindow.cpp:1136 src/gui/forms/basemainwindow.cpp:1141
-#: src/gui/forms/basemainwindow.cpp:1574 src/gui/forms/basemainwindow.cpp:1583
-#: src/gui/forms/basemainwindow.cpp:1659
+#: src/gui/forms/basemainwindow.cpp:405 src/gui/forms/basemainwindow.cpp:411
+#: src/gui/forms/basemainwindow.cpp:1128 src/gui/forms/basemainwindow.cpp:1133
+#: src/gui/forms/basemainwindow.cpp:1565 src/gui/forms/basemainwindow.cpp:1574
+#: src/gui/forms/basemainwindow.cpp:1649
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "Chyba v souboru"
 
-#: src/gui/forms/basemainwindow.cpp:411
+#: src/gui/forms/basemainwindow.cpp:408
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "Při zápisu do souboru nastala chyba. Chcete oprávnění změnit?"
 
-#: src/gui/forms/basemainwindow.cpp:465
+#: src/gui/forms/basemainwindow.cpp:461
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "The current folder has been modified.\n"
@@ -5088,12 +5088,12 @@ msgstr ""
 "Aktuální složka byla změněna.\n"
 "Přejete si jej uložit?"
 
-#: src/gui/forms/basemainwindow.cpp:467 src/gui/forms/basemainwindow.cpp:508
+#: src/gui/forms/basemainwindow.cpp:463 src/gui/forms/basemainwindow.cpp:502
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
 msgstr "Varování"
 
-#: src/gui/forms/basemainwindow.cpp:506
+#: src/gui/forms/basemainwindow.cpp:500
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "A playlist has been modified.\n"
@@ -5102,12 +5102,12 @@ msgstr ""
 "Seznam skladeb byl upraven.\n"
 "Chcete jej uložit?"
 
-#: src/gui/forms/basemainwindow.cpp:617
+#: src/gui/forms/basemainwindow.cpp:610
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
 msgstr "Ukončuji..."
 
-#: src/gui/forms/basemainwindow.cpp:704
+#: src/gui/forms/basemainwindow.cpp:697
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
@@ -5116,7 +5116,7 @@ msgstr[0] "%n složka"
 msgstr[1] "%n složky"
 msgstr[2] "%n složek"
 
-#: src/gui/forms/basemainwindow.cpp:709
+#: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
@@ -5125,7 +5125,7 @@ msgstr[0] "%n soubor"
 msgstr[1] "%n soubory"
 msgstr[2] "%n souborů"
 
-#: src/gui/forms/basemainwindow.cpp:714
+#: src/gui/forms/basemainwindow.cpp:707
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
@@ -5134,122 +5134,122 @@ msgstr[0] "%n vybrán"
 msgstr[1] "%n vybrány"
 msgstr[2] "%n vybráno"
 
-#: src/gui/forms/basemainwindow.cpp:717
+#: src/gui/forms/basemainwindow.cpp:710
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
 msgstr "Připraven."
 
-#: src/gui/forms/basemainwindow.cpp:779
+#: src/gui/forms/basemainwindow.cpp:772
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
 msgstr "Vytvářím seznam skladeb..."
 
-#: src/gui/forms/basemainwindow.cpp:827
+#: src/gui/forms/basemainwindow.cpp:820
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
 msgstr "Soubory nebyly nalezeny"
 
-#: src/gui/forms/basemainwindow.cpp:828
+#: src/gui/forms/basemainwindow.cpp:821
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
 msgstr "Chyba"
 
-#: src/gui/forms/basemainwindow.cpp:854
+#: src/gui/forms/basemainwindow.cpp:847
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
 msgstr "Importovat"
 
-#: src/gui/forms/basemainwindow.cpp:1134 src/gui/forms/basemainwindow.cpp:1140
-#: src/gui/forms/basemainwindow.cpp:1575 src/gui/forms/basemainwindow.cpp:1584
+#: src/gui/forms/basemainwindow.cpp:1126 src/gui/forms/basemainwindow.cpp:1132
+#: src/gui/forms/basemainwindow.cpp:1566 src/gui/forms/basemainwindow.cpp:1575
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "Chyba při přejmenovávání:\n"
 
-#: src/gui/forms/basemainwindow.cpp:1135
+#: src/gui/forms/basemainwindow.cpp:1127
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
 msgstr "Zkusit znovu po zavření adresářů?"
 
-#: src/gui/forms/basemainwindow.cpp:1212
+#: src/gui/forms/basemainwindow.cpp:1204
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "Filtr"
 
-#: src/gui/forms/basemainwindow.cpp:1277
+#: src/gui/forms/basemainwindow.cpp:1269
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " [filtrováno %1/%2]"
 
-#: src/gui/forms/basemainwindow.cpp:1391
+#: src/gui/forms/basemainwindow.cpp:1383
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "Přidat rámec"
 
-#: src/gui/forms/basemainwindow.cpp:1392
+#: src/gui/forms/basemainwindow.cpp:1384
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "Vybrat ID rámečku prvku"
 
-#: src/gui/forms/basemainwindow.cpp:1538
+#: src/gui/forms/basemainwindow.cpp:1529
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "Přejmenovat soubor"
 
-#: src/gui/forms/basemainwindow.cpp:1539
+#: src/gui/forms/basemainwindow.cpp:1530
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "Zadejte nový název souboru:"
 
-#: src/gui/forms/basemainwindow.cpp:1576 src/gui/forms/basemainwindow.cpp:1585
+#: src/gui/forms/basemainwindow.cpp:1567 src/gui/forms/basemainwindow.cpp:1576
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "Nepodařilo se přejmenovat %1 na %2\n"
 
-#: src/gui/forms/basemainwindow.cpp:1577
+#: src/gui/forms/basemainwindow.cpp:1568
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "Zkusit znovu po zavření složek?"
 
-#: src/gui/forms/basemainwindow.cpp:1595
+#: src/gui/forms/basemainwindow.cpp:1586
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Opravdu si přejete tyto %1 položky vyhodit do koše?"
 
-#: src/gui/forms/basemainwindow.cpp:1624
+#: src/gui/forms/basemainwindow.cpp:1614
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Opravdu si přejete tyto %1 položky vyhodit do koše?"
 
-#: src/gui/forms/basemainwindow.cpp:1626
+#: src/gui/forms/basemainwindow.cpp:1616
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "Opravdu si přejete tuto položku vyhodit do koše?"
 
-#: src/gui/forms/basemainwindow.cpp:1628
+#: src/gui/forms/basemainwindow.cpp:1618
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "Přesunout do koše"
 
-#: src/gui/forms/basemainwindow.cpp:1657
+#: src/gui/forms/basemainwindow.cpp:1647
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "Adresář musí být prázdný.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1658
+#: src/gui/forms/basemainwindow.cpp:1648
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "Nelze přesunout tyto soubory do koše"
 
-#: src/gui/forms/basemainwindow.cpp:1691
+#: src/gui/forms/basemainwindow.cpp:1681
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "Rozvinout vše"
 
-#: src/gui/forms/basemainwindow.cpp:1803
+#: src/gui/forms/basemainwindow.cpp:1793
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "Př&erušit"
@@ -5274,204 +5274,204 @@ msgctxt "FileList|"
 msgid "&Close"
 msgstr "&Zavřít"
 
-#: src/gui/forms/filelist.cpp:359 src/gui/forms/filelist.cpp:363
+#: src/gui/forms/filelist.cpp:358 src/gui/forms/filelist.cpp:362
 msgctxt "FileList|"
 msgid "&Expand all"
 msgstr "Rozvinout vš&e"
 
-#: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:364
+#: src/gui/forms/filelist.cpp:360 src/gui/forms/filelist.cpp:363
 msgctxt "FileList|"
 msgid "&Collapse all"
 msgstr "Svinout vš&e"
 
-#: src/gui/forms/filelist.cpp:374 src/gui/forms/filelist.cpp:376
+#: src/gui/forms/filelist.cpp:373 src/gui/forms/filelist.cpp:375
 msgctxt "FileList|"
 msgid "&Play"
 msgstr "&Přehrát"
 
-#: src/gui/forms/filelist.cpp:380
+#: src/gui/forms/filelist.cpp:379
 msgctxt "FileList|"
 msgid "E&dit"
 msgstr "U&pravit"
 
-#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
+#: src/gui/forms/filelist.cpp:386 src/gui/forms/filelist.cpp:390
 msgctxt "FileList|"
 msgid "&Open"
 msgstr "&Otevřít"
 
-#: src/gui/forms/filelist.cpp:388 src/gui/forms/filelist.cpp:392
+#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
 msgctxt "FileList|"
 msgid "Open Containing &Folder"
 msgstr "Otevřít odpovídající slož&ku"
 
-#: src/gui/forms/filelist.cpp:563
+#: src/gui/forms/filelist.cpp:561
 msgctxt "FileList|"
 msgid "Execute "
 msgstr "Spustit "
 
-#: src/gui/forms/filelist.cpp:572
+#: src/gui/forms/filelist.cpp:570
 msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "Nelze spustit "
 
-#: src/gui/forms/kid3form.cpp:280
+#: src/gui/forms/kid3form.cpp:281
 msgctxt "Kid3Form|"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: src/gui/forms/kid3form.cpp:335 src/gui/forms/kid3form.cpp:1243
-#: src/gui/forms/kid3form.cpp:1244
+#: src/gui/forms/kid3form.cpp:336 src/gui/forms/kid3form.cpp:1246
+#: src/gui/forms/kid3form.cpp:1247
 msgctxt "Kid3Form|"
 msgid "F&ile"
 msgstr "&Soubor"
 
-#: src/gui/forms/kid3form.cpp:346
+#: src/gui/forms/kid3form.cpp:347
 msgctxt "Kid3Form|"
 msgid "Name:"
 msgstr "Název:"
 
-#: src/gui/forms/kid3form.cpp:355 src/gui/forms/kid3form.cpp:405
+#: src/gui/forms/kid3form.cpp:356 src/gui/forms/kid3form.cpp:406
 msgctxt "Kid3Form|"
 msgid "Format:"
 msgstr "Formát:"
 
-#: src/gui/forms/kid3form.cpp:386
+#: src/gui/forms/kid3form.cpp:387
 msgctxt "Kid3Form|"
 msgid "From:"
 msgstr "Od:"
 
-#: src/gui/forms/kid3form.cpp:392 src/gui/forms/kid3form.cpp:418
-#: src/gui/forms/kid3form.cpp:500 src/gui/forms/kid3form.cpp:524
+#: src/gui/forms/kid3form.cpp:393 src/gui/forms/kid3form.cpp:419
+#: src/gui/forms/kid3form.cpp:501 src/gui/forms/kid3form.cpp:525
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1"
 msgstr "Značka %1"
 
-#: src/gui/forms/kid3form.cpp:394
+#: src/gui/forms/kid3form.cpp:395
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Filename from Tag %1"
 msgstr "Název souboru ze značky %1"
 
-#: src/gui/forms/kid3form.cpp:411
+#: src/gui/forms/kid3form.cpp:412
 msgctxt "Kid3Form|"
 msgid "To:"
 msgstr "Komu:"
 
-#: src/gui/forms/kid3form.cpp:419
+#: src/gui/forms/kid3form.cpp:420
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
 msgstr "Značka %1 z názvu souboru"
 
-#: src/gui/forms/kid3form.cpp:440 src/gui/forms/kid3form.cpp:891
+#: src/gui/forms/kid3form.cpp:441 src/gui/forms/kid3form.cpp:892
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
 msgstr "Značka &%1"
 
-#: src/gui/forms/kid3form.cpp:469
+#: src/gui/forms/kid3form.cpp:470
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "From Tag %1"
 msgstr "Ze značky %1"
 
-#: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:533
+#: src/gui/forms/kid3form.cpp:478 src/gui/forms/kid3form.cpp:534
 msgctxt "Kid3Form|"
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: src/gui/forms/kid3form.cpp:485 src/gui/forms/kid3form.cpp:509
+#: src/gui/forms/kid3form.cpp:486 src/gui/forms/kid3form.cpp:510
 msgctxt "Kid3Form|"
 msgid "Paste"
 msgstr "Vložit"
 
-#: src/gui/forms/kid3form.cpp:492
+#: src/gui/forms/kid3form.cpp:493
 msgctxt "Kid3Form|"
 msgid "From"
 msgstr "Od"
 
-#: src/gui/forms/kid3form.cpp:494 src/gui/forms/kid3form.cpp:518
+#: src/gui/forms/kid3form.cpp:495 src/gui/forms/kid3form.cpp:519
 msgctxt "Kid3Form|"
 msgid "Filename"
 msgstr "Název souboru"
 
-#: src/gui/forms/kid3form.cpp:516
+#: src/gui/forms/kid3form.cpp:517
 msgctxt "Kid3Form|"
 msgid "To"
 msgstr "Komu"
 
-#: src/gui/forms/kid3form.cpp:543
+#: src/gui/forms/kid3form.cpp:544
 msgctxt "Kid3Form|"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/gui/forms/kid3form.cpp:557
+#: src/gui/forms/kid3form.cpp:558
 msgctxt "Kid3Form|"
 msgid "Edit..."
 msgstr "Upravit..."
 
-#: src/gui/forms/kid3form.cpp:563
+#: src/gui/forms/kid3form.cpp:564
 msgctxt "Kid3Form|"
 msgid "Add..."
 msgstr "Přidat..."
 
-#: src/gui/forms/kid3form.cpp:569
+#: src/gui/forms/kid3form.cpp:570
 msgctxt "Kid3Form|"
 msgid "Delete"
 msgstr "Smazat"
 
-#: src/gui/forms/sectionactions.cpp:147
+#: src/gui/forms/sectionactions.cpp:146
 msgctxt "SectionActions|"
 msgid "Previous"
 msgstr "Předchozí"
 
-#: src/gui/forms/sectionactions.cpp:149
+#: src/gui/forms/sectionactions.cpp:148
 msgctxt "SectionActions|"
 msgid "Next"
 msgstr "Následující"
 
-#: src/gui/forms/sectionactions.cpp:151
+#: src/gui/forms/sectionactions.cpp:150
 msgctxt "SectionActions|"
 msgid "Transfer"
 msgstr "Převod"
 
-#: src/gui/forms/sectionactions.cpp:154
+#: src/gui/forms/sectionactions.cpp:153
 msgctxt "SectionActions|"
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: src/gui/forms/sectionactions.cpp:156
+#: src/gui/forms/sectionactions.cpp:155
 msgctxt "SectionActions|"
 msgid "Paste"
 msgstr "Vložit"
 
-#: src/gui/forms/sectionactions.cpp:158
+#: src/gui/forms/sectionactions.cpp:157
 msgctxt "SectionActions|"
 msgid "Remove"
 msgstr "Odstranit"
 
-#: src/gui/forms/sectionactions.cpp:161
+#: src/gui/forms/sectionactions.cpp:160
 msgctxt "SectionActions|"
 msgid "Edit"
 msgstr "Upravit"
 
-#: src/gui/forms/sectionactions.cpp:163
+#: src/gui/forms/sectionactions.cpp:162
 msgctxt "SectionActions|"
 msgid "Add"
 msgstr "Přidat"
 
-#: src/gui/forms/sectionactions.cpp:165
+#: src/gui/forms/sectionactions.cpp:164
 msgctxt "SectionActions|"
 msgid "Delete"
 msgstr "Smazat"
 
-#: src/gui/forms/sectionactions.cpp:168
+#: src/gui/forms/sectionactions.cpp:167
 msgctxt "SectionActions|"
 msgid "Open Parent Folder"
 msgstr "Otevřít rodičovskou složku"
 
-#: src/gui/forms/sectionactions.cpp:171
+#: src/gui/forms/sectionactions.cpp:170
 msgctxt "SectionActions|"
 msgid "Open Current Folder"
 msgstr "Otevřít současnou složku"
@@ -5521,7 +5521,7 @@ msgctxt "ChapterEditor|"
 msgid "End offset"
 msgstr "Konec posunu"
 
-#: src/gui/widgets/configtable.cpp:41
+#: src/gui/widgets/configtable.cpp:42
 msgctxt "ConfigTable|"
 msgid "&Add"
 msgstr "Přid&at"
@@ -5536,7 +5536,7 @@ msgctxt "ConfigTable|"
 msgid "&Delete row"
 msgstr "Smazat řá&dek"
 
-#: src/gui/widgets/configtable.cpp:149
+#: src/gui/widgets/configtable.cpp:147
 msgctxt "ConfigTable|"
 msgid "&Clear row"
 msgstr "Vy&prázdnit řádek"
@@ -5591,7 +5591,7 @@ msgctxt "FormatListEdit|"
 msgid "&Remove"
 msgstr "Odst&ranit"
 
-#: src/gui/widgets/formatlistedit.cpp:247
+#: src/gui/widgets/formatlistedit.cpp:245
 msgctxt "FormatListEdit|"
 msgid "New"
 msgstr "Nový"
@@ -5601,12 +5601,12 @@ msgctxt "FrameTable|"
 msgid "WWW Audio Source"
 msgstr "Internetová adresa zvukového zdroje"
 
-#: src/gui/widgets/frametable.cpp:161
+#: src/gui/widgets/frametable.cpp:160
 msgctxt "FrameTable|"
 msgid "&Select all"
 msgstr "Vybr&at vše"
 
-#: src/gui/widgets/frametable.cpp:163
+#: src/gui/widgets/frametable.cpp:162
 msgctxt "FrameTable|"
 msgid "&Deselect all"
 msgstr "Zrušit vý&běr"
@@ -5662,12 +5662,12 @@ msgctxt "PlayToolBar|"
 msgid "Close"
 msgstr "Zavřít"
 
-#: src/gui/widgets/playtoolbar.cpp:142
+#: src/gui/widgets/playtoolbar.cpp:141
 msgctxt "PlayToolBar|"
 msgid "Mute"
 msgstr "Ztlumit"
 
-#: src/gui/widgets/playtoolbar.cpp:326
+#: src/gui/widgets/playtoolbar.cpp:324
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
@@ -5683,22 +5683,22 @@ msgctxt "StringListEdit|"
 msgid "Add Item"
 msgstr "Přidat položku"
 
-#: src/gui/widgets/stringlistedit.cpp:72
+#: src/gui/widgets/stringlistedit.cpp:71
 msgctxt "StringListEdit|"
 msgid "Edit Item"
 msgstr "Upravit položku"
 
-#: src/gui/widgets/subframeseditor.cpp:66
+#: src/gui/widgets/subframeseditor.cpp:67
 msgctxt "SubframesEditor|"
 msgid "Edit..."
 msgstr "Upravit..."
 
-#: src/gui/widgets/subframeseditor.cpp:71
+#: src/gui/widgets/subframeseditor.cpp:72
 msgctxt "SubframesEditor|"
 msgid "Add..."
 msgstr "Přidat..."
 
-#: src/gui/widgets/subframeseditor.cpp:76
+#: src/gui/widgets/subframeseditor.cpp:77
 msgctxt "SubframesEditor|"
 msgid "Delete"
 msgstr "Smazat"
@@ -5733,117 +5733,117 @@ msgctxt "TagFormatBox|"
 msgid "Validation"
 msgstr "Ověření"
 
-#: src/gui/widgets/timeeventeditor.cpp:120
+#: src/gui/widgets/timeeventeditor.cpp:119
 msgctxt "TimeEventEditor|"
 msgid "&Add"
 msgstr "Přid&at"
 
-#: src/gui/widgets/timeeventeditor.cpp:122
+#: src/gui/widgets/timeeventeditor.cpp:121
 msgctxt "TimeEventEditor|"
 msgid "&Delete"
 msgstr "&Smazat"
 
-#: src/gui/widgets/timeeventeditor.cpp:124
+#: src/gui/widgets/timeeventeditor.cpp:123
 msgctxt "TimeEventEditor|"
 msgid "From Clip&board"
 msgstr "Ze sc&hránky"
 
-#: src/gui/widgets/timeeventeditor.cpp:126
+#: src/gui/widgets/timeeventeditor.cpp:125
 msgctxt "TimeEventEditor|"
 msgid "&Import..."
 msgstr "&Importovat..."
 
-#: src/gui/widgets/timeeventeditor.cpp:128
+#: src/gui/widgets/timeeventeditor.cpp:127
 msgctxt "TimeEventEditor|"
 msgid "&Export..."
 msgstr "&Exportovat..."
 
-#: src/gui/widgets/timeeventeditor.cpp:130
+#: src/gui/widgets/timeeventeditor.cpp:129
 msgctxt "TimeEventEditor|"
 msgid "Help"
 msgstr "Nápověda"
 
-#: src/gui/widgets/timeeventeditor.cpp:188
+#: src/gui/widgets/timeeventeditor.cpp:187
 msgctxt "TimeEventEditor|"
 msgid "Events"
 msgstr "Události"
 
-#: src/gui/widgets/timeeventeditor.cpp:194
+#: src/gui/widgets/timeeventeditor.cpp:193
 msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "Text písně"
 
-#: src/gui/widgets/timeeventeditor.cpp:431
+#: src/gui/widgets/timeeventeditor.cpp:429
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "Posun"
 
-#: src/gui/widgets/timeeventeditor.cpp:431
+#: src/gui/widgets/timeeventeditor.cpp:429
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
 msgstr "Milisekund"
 
-#: src/gui/widgets/timeeventeditor.cpp:470
+#: src/gui/widgets/timeeventeditor.cpp:468
 msgctxt "TimeEventEditor|"
 msgid "&Insert row"
 msgstr "Vlož&it řádek"
 
-#: src/gui/widgets/timeeventeditor.cpp:474
+#: src/gui/widgets/timeeventeditor.cpp:471
 msgctxt "TimeEventEditor|"
 msgid "&Delete rows"
 msgstr "Smazat řá&dky"
 
-#: src/gui/widgets/timeeventeditor.cpp:476
+#: src/gui/widgets/timeeventeditor.cpp:473
 msgctxt "TimeEventEditor|"
 msgid "C&lear"
 msgstr "Vyči&stit"
 
-#: src/gui/widgets/timeeventeditor.cpp:478
+#: src/gui/widgets/timeeventeditor.cpp:475
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
 msgstr "&Přidat posun..."
 
-#: src/gui/widgets/timeeventeditor.cpp:480
+#: src/gui/widgets/timeeventeditor.cpp:477
 msgctxt "TimeEventEditor|"
 msgid "&Seek to position"
 msgstr "&Přejít na pozici"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:209
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:206
 msgctxt "@default|"
 msgid "MusicBrainz Fingerprint"
 msgstr "Otisk MusicBrainz"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:285
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:282
 msgctxt "MusicBrainzClient|"
 msgid "Unrecognized"
 msgstr "Nerozpoznáno"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:293
 msgctxt "MusicBrainzClient|"
 msgid "Recognized"
 msgstr "Rozpoznáno"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:296
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:293
 msgctxt "MusicBrainzClient|"
 msgid "User Selection"
 msgstr "Výběr uživatele"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:318
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:315
 msgctxt "MusicBrainzClient|"
 msgid "ID Lookup"
 msgstr "Hledání ID"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:326
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:323
 msgctxt "MusicBrainzClient|"
 msgid "Error"
 msgstr "Chyba"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:345
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:342
 msgctxt "MusicBrainzClient|"
 msgid "Fingerprint"
 msgstr "Otisk"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:355
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:351
 msgctxt "MusicBrainzClient|"
 msgid "Metadata Lookup"
 msgstr "Vyhledat metadata"
@@ -5853,7 +5853,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1481
+#: src/plugins/discogsimport/discogsimporter.cpp:1470
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
@@ -5863,437 +5863,437 @@ msgctxt "@default|"
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:914
-#: src/plugins/taglibmetadata/taglibfile.cpp:2505
+#: src/plugins/id3libmetadata/mp3file.cpp:907
+#: src/plugins/taglibmetadata/taglibfile.cpp:2486
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
 msgstr "AENC - Kódování zvuku"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:915
-#: src/plugins/taglibmetadata/taglibfile.cpp:2506
+#: src/plugins/id3libmetadata/mp3file.cpp:908
+#: src/plugins/taglibmetadata/taglibfile.cpp:2487
 msgctxt "@default|"
 msgid "APIC - Attached picture"
 msgstr "APIC - Připojený obrázek"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:917
-#: src/plugins/taglibmetadata/taglibfile.cpp:2511
+#: src/plugins/id3libmetadata/mp3file.cpp:910
+#: src/plugins/taglibmetadata/taglibfile.cpp:2492
 msgctxt "@default|"
 msgid "COMM - Comments"
 msgstr "COMM - Poznámky"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:918
-#: src/plugins/taglibmetadata/taglibfile.cpp:2512
+#: src/plugins/id3libmetadata/mp3file.cpp:911
+#: src/plugins/taglibmetadata/taglibfile.cpp:2493
 msgctxt "@default|"
 msgid "COMR - Commercial"
 msgstr "COMR - Obchodní informace"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:919
-#: src/plugins/taglibmetadata/taglibfile.cpp:2516
+#: src/plugins/id3libmetadata/mp3file.cpp:912
+#: src/plugins/taglibmetadata/taglibfile.cpp:2497
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - Zápis způsobu kódování"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/id3libmetadata/mp3file.cpp:914
 msgctxt "@default|"
 msgid "EQUA - Equalization"
 msgstr "EQUA - Vyrovnání"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:922
-#: src/plugins/taglibmetadata/taglibfile.cpp:2518
+#: src/plugins/id3libmetadata/mp3file.cpp:915
+#: src/plugins/taglibmetadata/taglibfile.cpp:2499
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
 msgstr "ETCO - Časové kódy událostí"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:923
-#: src/plugins/taglibmetadata/taglibfile.cpp:2519
+#: src/plugins/id3libmetadata/mp3file.cpp:916
+#: src/plugins/taglibmetadata/taglibfile.cpp:2500
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB - Všeobecný uzavřený předmět"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:924
-#: src/plugins/taglibmetadata/taglibfile.cpp:2520
+#: src/plugins/id3libmetadata/mp3file.cpp:917
+#: src/plugins/taglibmetadata/taglibfile.cpp:2501
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
 msgstr "GRID - Zápis určení zařazení do skupin"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/id3libmetadata/mp3file.cpp:918
 msgctxt "@default|"
 msgid "IPLS - Involved people list"
 msgstr "IPLS - Seznam zúčastněných osob"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:926
-#: src/plugins/taglibmetadata/taglibfile.cpp:2524
+#: src/plugins/id3libmetadata/mp3file.cpp:919
+#: src/plugins/taglibmetadata/taglibfile.cpp:2505
 msgctxt "@default|"
 msgid "LINK - Linked information"
 msgstr "LINK - Spojená informace"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:927
-#: src/plugins/taglibmetadata/taglibfile.cpp:2525
+#: src/plugins/id3libmetadata/mp3file.cpp:920
+#: src/plugins/taglibmetadata/taglibfile.cpp:2506
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - Určení hudebního CD"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:928
-#: src/plugins/taglibmetadata/taglibfile.cpp:2526
+#: src/plugins/id3libmetadata/mp3file.cpp:921
+#: src/plugins/taglibmetadata/taglibfile.cpp:2507
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT - Vyhledávací tabulka poloh MPEG"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:929
-#: src/plugins/taglibmetadata/taglibfile.cpp:2531
+#: src/plugins/id3libmetadata/mp3file.cpp:922
+#: src/plugins/taglibmetadata/taglibfile.cpp:2512
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
 msgstr "OWNE - Vlastník"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:930
-#: src/plugins/taglibmetadata/taglibfile.cpp:2532
+#: src/plugins/id3libmetadata/mp3file.cpp:923
+#: src/plugins/taglibmetadata/taglibfile.cpp:2513
 msgctxt "@default|"
 msgid "PRIV - Private frame"
 msgstr "PRIV - Soukromé"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:931
-#: src/plugins/taglibmetadata/taglibfile.cpp:2533
+#: src/plugins/id3libmetadata/mp3file.cpp:924
+#: src/plugins/taglibmetadata/taglibfile.cpp:2514
 msgctxt "@default|"
 msgid "PCNT - Play counter"
 msgstr "PCNT - Počítadlo přehrání"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:932
-#: src/plugins/taglibmetadata/taglibfile.cpp:2537
+#: src/plugins/id3libmetadata/mp3file.cpp:925
+#: src/plugins/taglibmetadata/taglibfile.cpp:2518
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
 msgstr "POPM - Měřidlo oblíbenosti"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:933
-#: src/plugins/taglibmetadata/taglibfile.cpp:2538
+#: src/plugins/id3libmetadata/mp3file.cpp:926
+#: src/plugins/taglibmetadata/taglibfile.cpp:2519
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - Seřízení polohy"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:934
-#: src/plugins/taglibmetadata/taglibfile.cpp:2539
+#: src/plugins/id3libmetadata/mp3file.cpp:927
+#: src/plugins/taglibmetadata/taglibfile.cpp:2520
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - Doporučená velikost vyrovnávací paměti"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:936
+#: src/plugins/id3libmetadata/mp3file.cpp:929
 msgctxt "@default|"
 msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD - Poměrné přizpůsobení hlasitosti"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:937
-#: src/plugins/taglibmetadata/taglibfile.cpp:2541
+#: src/plugins/id3libmetadata/mp3file.cpp:930
+#: src/plugins/taglibmetadata/taglibfile.cpp:2522
 msgctxt "@default|"
 msgid "RVRB - Reverb"
 msgstr "RVRB - Ozvěna"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:940
-#: src/plugins/taglibmetadata/taglibfile.cpp:2544
+#: src/plugins/id3libmetadata/mp3file.cpp:933
+#: src/plugins/taglibmetadata/taglibfile.cpp:2525
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
 msgstr "SYLT - Souběžný text písně/text"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:941
-#: src/plugins/taglibmetadata/taglibfile.cpp:2545
+#: src/plugins/id3libmetadata/mp3file.cpp:934
+#: src/plugins/taglibmetadata/taglibfile.cpp:2526
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC - Souběžné časové kódy"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:942
-#: src/plugins/taglibmetadata/taglibfile.cpp:2546
+#: src/plugins/id3libmetadata/mp3file.cpp:935
+#: src/plugins/taglibmetadata/taglibfile.cpp:2527
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB - Album/Film/Ukázat název"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:943
-#: src/plugins/taglibmetadata/taglibfile.cpp:2547
+#: src/plugins/id3libmetadata/mp3file.cpp:936
+#: src/plugins/taglibmetadata/taglibfile.cpp:2528
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM - BPM (dob za minutu)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:944
-#: src/plugins/taglibmetadata/taglibfile.cpp:2552
+#: src/plugins/id3libmetadata/mp3file.cpp:937
+#: src/plugins/taglibmetadata/taglibfile.cpp:2533
 msgctxt "@default|"
 msgid "TCOM - Composer"
 msgstr "TCOM - Skladatel"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:945
-#: src/plugins/taglibmetadata/taglibfile.cpp:2553
+#: src/plugins/id3libmetadata/mp3file.cpp:938
+#: src/plugins/taglibmetadata/taglibfile.cpp:2534
 msgctxt "@default|"
 msgid "TCON - Content type"
 msgstr "TCON - Druh obsahu"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:946
-#: src/plugins/taglibmetadata/taglibfile.cpp:2554
+#: src/plugins/id3libmetadata/mp3file.cpp:939
+#: src/plugins/taglibmetadata/taglibfile.cpp:2535
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
 msgstr "TCOP - Sdělení o autorském právu"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:947
+#: src/plugins/id3libmetadata/mp3file.cpp:940
 msgctxt "@default|"
 msgid "TDAT - Date"
 msgstr "TDAT - Datum"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:949
-#: src/plugins/taglibmetadata/taglibfile.cpp:2559
+#: src/plugins/id3libmetadata/mp3file.cpp:942
+#: src/plugins/taglibmetadata/taglibfile.cpp:2540
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - Zdržení seznamu skladeb"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:955
-#: src/plugins/taglibmetadata/taglibfile.cpp:2564
+#: src/plugins/id3libmetadata/mp3file.cpp:948
+#: src/plugins/taglibmetadata/taglibfile.cpp:2545
 msgctxt "@default|"
 msgid "TENC - Encoded by"
 msgstr "TENC - Zakódováno"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:956
-#: src/plugins/taglibmetadata/taglibfile.cpp:2565
+#: src/plugins/id3libmetadata/mp3file.cpp:949
+#: src/plugins/taglibmetadata/taglibfile.cpp:2546
 msgctxt "@default|"
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - Textař/Skladatel textu"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:957
-#: src/plugins/taglibmetadata/taglibfile.cpp:2566
+#: src/plugins/id3libmetadata/mp3file.cpp:950
+#: src/plugins/taglibmetadata/taglibfile.cpp:2547
 msgctxt "@default|"
 msgid "TFLT - File type"
 msgstr "TFLT - Typ souboru"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:958
+#: src/plugins/id3libmetadata/mp3file.cpp:951
 msgctxt "@default|"
 msgid "TIME - Time"
 msgstr "TIME - Čas"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:959
-#: src/plugins/taglibmetadata/taglibfile.cpp:2571
+#: src/plugins/id3libmetadata/mp3file.cpp:952
+#: src/plugins/taglibmetadata/taglibfile.cpp:2552
 msgctxt "@default|"
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - Popis skupiny obsahu"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:960
-#: src/plugins/taglibmetadata/taglibfile.cpp:2572
+#: src/plugins/id3libmetadata/mp3file.cpp:953
+#: src/plugins/taglibmetadata/taglibfile.cpp:2553
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - Název/Název písně/Popis obsahu"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:961
-#: src/plugins/taglibmetadata/taglibfile.cpp:2573
+#: src/plugins/id3libmetadata/mp3file.cpp:954
+#: src/plugins/taglibmetadata/taglibfile.cpp:2554
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr "TIT3 - Jemný rozdíl Podnázev/Přesný popis"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:962
-#: src/plugins/taglibmetadata/taglibfile.cpp:2574
+#: src/plugins/id3libmetadata/mp3file.cpp:955
+#: src/plugins/taglibmetadata/taglibfile.cpp:2555
 msgctxt "@default|"
 msgid "TKEY - Initial key"
 msgstr "TKEY - Tónina na začátku"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:963
-#: src/plugins/taglibmetadata/taglibfile.cpp:2578
+#: src/plugins/id3libmetadata/mp3file.cpp:956
+#: src/plugins/taglibmetadata/taglibfile.cpp:2559
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
 msgstr "TLAN - Jazyk(y)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:964
-#: src/plugins/taglibmetadata/taglibfile.cpp:2579
+#: src/plugins/id3libmetadata/mp3file.cpp:957
+#: src/plugins/taglibmetadata/taglibfile.cpp:2560
 msgctxt "@default|"
 msgid "TLEN - Length"
 msgstr "TLEN - Délka"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:966
-#: src/plugins/taglibmetadata/taglibfile.cpp:2581
+#: src/plugins/id3libmetadata/mp3file.cpp:959
+#: src/plugins/taglibmetadata/taglibfile.cpp:2562
 msgctxt "@default|"
 msgid "TMED - Media type"
 msgstr "TMED - Typ média"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:968
-#: src/plugins/taglibmetadata/taglibfile.cpp:2583
+#: src/plugins/id3libmetadata/mp3file.cpp:961
+#: src/plugins/taglibmetadata/taglibfile.cpp:2564
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL - Původní album/Film/Ukázat název"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:969
-#: src/plugins/taglibmetadata/taglibfile.cpp:2584
+#: src/plugins/id3libmetadata/mp3file.cpp:962
+#: src/plugins/taglibmetadata/taglibfile.cpp:2565
 msgctxt "@default|"
 msgid "TOFN - Original filename"
 msgstr "TOFN - Původní název souboru"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:970
-#: src/plugins/taglibmetadata/taglibfile.cpp:2585
+#: src/plugins/id3libmetadata/mp3file.cpp:963
+#: src/plugins/taglibmetadata/taglibfile.cpp:2566
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY - Původní textař(i)/Skladatel(é) textu"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:971
-#: src/plugins/taglibmetadata/taglibfile.cpp:2586
+#: src/plugins/id3libmetadata/mp3file.cpp:964
+#: src/plugins/taglibmetadata/taglibfile.cpp:2567
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE - Původní umělec(i)/Účinkující"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:972
+#: src/plugins/id3libmetadata/mp3file.cpp:965
 msgctxt "@default|"
 msgid "TORY - Original release year"
 msgstr "TORY - Původní rok vydání"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:973
-#: src/plugins/taglibmetadata/taglibfile.cpp:2587
+#: src/plugins/id3libmetadata/mp3file.cpp:966
+#: src/plugins/taglibmetadata/taglibfile.cpp:2568
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN - Vlastník souboru/Držitel povolení"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:974
-#: src/plugins/taglibmetadata/taglibfile.cpp:2588
+#: src/plugins/id3libmetadata/mp3file.cpp:967
+#: src/plugins/taglibmetadata/taglibfile.cpp:2569
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 - Hlavní umělec(i)/Sólista(é)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:975
-#: src/plugins/taglibmetadata/taglibfile.cpp:2589
+#: src/plugins/id3libmetadata/mp3file.cpp:968
+#: src/plugins/taglibmetadata/taglibfile.cpp:2570
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - Hudební skupina/Orchestr/Doprovod"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:976
-#: src/plugins/taglibmetadata/taglibfile.cpp:2590
+#: src/plugins/id3libmetadata/mp3file.cpp:969
+#: src/plugins/taglibmetadata/taglibfile.cpp:2571
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
 msgstr "TPE3 - Jemný rozdíl Dirigent/Účinkující"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:977
-#: src/plugins/taglibmetadata/taglibfile.cpp:2591
+#: src/plugins/id3libmetadata/mp3file.cpp:970
+#: src/plugins/taglibmetadata/taglibfile.cpp:2572
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr "TPE4 - Umělecky ztvárněno, znovu zamícháno nebo jinak změněno od"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:978
-#: src/plugins/taglibmetadata/taglibfile.cpp:2592
+#: src/plugins/id3libmetadata/mp3file.cpp:971
+#: src/plugins/taglibmetadata/taglibfile.cpp:2573
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
 msgstr "TPOS - Část souboru skladeb"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:980
-#: src/plugins/taglibmetadata/taglibfile.cpp:2594
+#: src/plugins/id3libmetadata/mp3file.cpp:973
+#: src/plugins/taglibmetadata/taglibfile.cpp:2575
 msgctxt "@default|"
 msgid "TPUB - Publisher"
 msgstr "TPUB - Vydavatel"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:981
-#: src/plugins/taglibmetadata/taglibfile.cpp:2595
+#: src/plugins/id3libmetadata/mp3file.cpp:974
+#: src/plugins/taglibmetadata/taglibfile.cpp:2576
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - Číslo skladby/Poloha v souboru skladeb"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:982
+#: src/plugins/id3libmetadata/mp3file.cpp:975
 msgctxt "@default|"
 msgid "TRDA - Recording dates"
 msgstr "TRDA - Datum nahrávky"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:983
-#: src/plugins/taglibmetadata/taglibfile.cpp:2596
+#: src/plugins/id3libmetadata/mp3file.cpp:976
+#: src/plugins/taglibmetadata/taglibfile.cpp:2577
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN - Název internetové rozhlasové stanice"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:984
-#: src/plugins/taglibmetadata/taglibfile.cpp:2597
+#: src/plugins/id3libmetadata/mp3file.cpp:977
+#: src/plugins/taglibmetadata/taglibfile.cpp:2578
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO - Vlastník internetové rozhlasové stanice"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:985
+#: src/plugins/id3libmetadata/mp3file.cpp:978
 msgctxt "@default|"
 msgid "TSIZ - Size"
 msgstr "TSIZ - Velikost"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:989
-#: src/plugins/taglibmetadata/taglibfile.cpp:2603
+#: src/plugins/id3libmetadata/mp3file.cpp:982
+#: src/plugins/taglibmetadata/taglibfile.cpp:2584
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - ISRC (Obvyklý mezinárodní nahrávací kód)"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:990
-#: src/plugins/taglibmetadata/taglibfile.cpp:2604
+#: src/plugins/id3libmetadata/mp3file.cpp:983
+#: src/plugins/taglibmetadata/taglibfile.cpp:2585
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - Software/Hardware a nastavení kódování"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:992
-#: src/plugins/taglibmetadata/taglibfile.cpp:2606
+#: src/plugins/id3libmetadata/mp3file.cpp:985
+#: src/plugins/taglibmetadata/taglibfile.cpp:2587
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
 msgstr "TXXX - Uživatelsky stanovená textová informace"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:993
+#: src/plugins/id3libmetadata/mp3file.cpp:986
 msgctxt "@default|"
 msgid "TYER - Year"
 msgstr "TYER - Rok"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:994
-#: src/plugins/taglibmetadata/taglibfile.cpp:2607
+#: src/plugins/id3libmetadata/mp3file.cpp:987
+#: src/plugins/taglibmetadata/taglibfile.cpp:2588
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
 msgstr "UFID - Jedinečné určení souboru"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:995
-#: src/plugins/taglibmetadata/taglibfile.cpp:2608
+#: src/plugins/id3libmetadata/mp3file.cpp:988
+#: src/plugins/taglibmetadata/taglibfile.cpp:2589
 msgctxt "@default|"
 msgid "USER - Terms of use"
 msgstr "USER - Podmínky užití"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:996
-#: src/plugins/taglibmetadata/taglibfile.cpp:2609
+#: src/plugins/id3libmetadata/mp3file.cpp:989
+#: src/plugins/taglibmetadata/taglibfile.cpp:2590
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr "USLT - Nesouběžný přepis textu písně/textu"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:997
-#: src/plugins/taglibmetadata/taglibfile.cpp:2610
+#: src/plugins/id3libmetadata/mp3file.cpp:990
+#: src/plugins/taglibmetadata/taglibfile.cpp:2591
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
 msgstr "WCOM - Obchodní sdělení"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:998
-#: src/plugins/taglibmetadata/taglibfile.cpp:2611
+#: src/plugins/id3libmetadata/mp3file.cpp:991
+#: src/plugins/taglibmetadata/taglibfile.cpp:2592
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - Autorské právo/Zákonná sdělení"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:999
-#: src/plugins/taglibmetadata/taglibfile.cpp:2615
+#: src/plugins/id3libmetadata/mp3file.cpp:992
+#: src/plugins/taglibmetadata/taglibfile.cpp:2596
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF - Veřejné internetové stránky zvukového souboru"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1000
-#: src/plugins/taglibmetadata/taglibfile.cpp:2616
+#: src/plugins/id3libmetadata/mp3file.cpp:993
+#: src/plugins/taglibmetadata/taglibfile.cpp:2597
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR - Veřejné internetové stránky umělce/účinkujícího"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1001
-#: src/plugins/taglibmetadata/taglibfile.cpp:2617
+#: src/plugins/id3libmetadata/mp3file.cpp:994
+#: src/plugins/taglibmetadata/taglibfile.cpp:2598
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
 msgstr "WOAS - Veřejné internetové stránky zvukového zdroje"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1002
-#: src/plugins/taglibmetadata/taglibfile.cpp:2618
+#: src/plugins/id3libmetadata/mp3file.cpp:995
+#: src/plugins/taglibmetadata/taglibfile.cpp:2599
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
 msgstr "WORS - Veřejné internetové stránky internetové rozhlasové stanice"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1003
-#: src/plugins/taglibmetadata/taglibfile.cpp:2619
+#: src/plugins/id3libmetadata/mp3file.cpp:996
+#: src/plugins/taglibmetadata/taglibfile.cpp:2600
 msgctxt "@default|"
 msgid "WPAY - Payment"
 msgstr "WPAY - Platba"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1004
-#: src/plugins/taglibmetadata/taglibfile.cpp:2620
+#: src/plugins/id3libmetadata/mp3file.cpp:997
+#: src/plugins/taglibmetadata/taglibfile.cpp:2601
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
 msgstr "WPUB - Veřejné internetové stránky vydavatele"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:1005
-#: src/plugins/taglibmetadata/taglibfile.cpp:2621
+#: src/plugins/id3libmetadata/mp3file.cpp:998
+#: src/plugins/taglibmetadata/taglibfile.cpp:2602
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - Uživatelsky stanovená adresa (URL)"
@@ -6303,167 +6303,167 @@ msgctxt "@default|"
 msgid "MusicBrainz Release"
 msgstr "Vydání MusicBrainz"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2507
+#: src/plugins/taglibmetadata/taglibfile.cpp:2488
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - Rejstřík bodů hledání zvuku"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2509
+#: src/plugins/taglibmetadata/taglibfile.cpp:2490
 msgctxt "@default|"
 msgid "CHAP - Chapter"
 msgstr "CHAP - Kapitola"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2514
+#: src/plugins/taglibmetadata/taglibfile.cpp:2495
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
 msgstr "CTOC - Obsah"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2517
+#: src/plugins/taglibmetadata/taglibfile.cpp:2498
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Vyrovnání (2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2522
+#: src/plugins/taglibmetadata/taglibfile.cpp:2503
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
 msgstr "GRP1 - Třídění do skupin"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2528
+#: src/plugins/taglibmetadata/taglibfile.cpp:2509
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Číslo věta"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2529
+#: src/plugins/taglibmetadata/taglibfile.cpp:2510
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
 msgstr "MVNM - Název věty"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2535
+#: src/plugins/taglibmetadata/taglibfile.cpp:2516
 msgctxt "@default|"
 msgid "PCST - Podcast"
 msgstr "PCST - Podcast"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2540
+#: src/plugins/taglibmetadata/taglibfile.cpp:2521
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - Poměrné přizpůsobení hlasitosti (2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2542
+#: src/plugins/taglibmetadata/taglibfile.cpp:2523
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
 msgstr "SEEK - Hledání"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2543
+#: src/plugins/taglibmetadata/taglibfile.cpp:2524
 msgctxt "@default|"
 msgid "SIGN - Signature frame"
 msgstr "SIGN - Podpis"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2549
+#: src/plugins/taglibmetadata/taglibfile.cpp:2530
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
 msgstr "TCAT - Kategorie podcastu"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2551
+#: src/plugins/taglibmetadata/taglibfile.cpp:2532
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - Sestavení iTunes"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2555
+#: src/plugins/taglibmetadata/taglibfile.cpp:2536
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Čas zakódování"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2557
+#: src/plugins/taglibmetadata/taglibfile.cpp:2538
 msgctxt "@default|"
 msgid "TDES - Podcast description"
 msgstr "TDES - Popis Podcastu"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2560
+#: src/plugins/taglibmetadata/taglibfile.cpp:2541
 msgctxt "@default|"
 msgid "TDOR - Original release time"
 msgstr "TDOR - Původní rok vydání"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2561
+#: src/plugins/taglibmetadata/taglibfile.cpp:2542
 msgctxt "@default|"
 msgid "TDRC - Recording time"
 msgstr "TDRC - Čas nahrání"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2562
+#: src/plugins/taglibmetadata/taglibfile.cpp:2543
 msgctxt "@default|"
 msgid "TDRL - Release time"
 msgstr "TDRL - Čas vydání"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2563
+#: src/plugins/taglibmetadata/taglibfile.cpp:2544
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Čas opatření značkami"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2568
+#: src/plugins/taglibmetadata/taglibfile.cpp:2549
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
 msgstr "TGID - Identifikátor Podcastu"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2570
+#: src/plugins/taglibmetadata/taglibfile.cpp:2551
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
 msgstr "TIPL - Seznam zúčastněných osob"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2576
+#: src/plugins/taglibmetadata/taglibfile.cpp:2557
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
 msgstr "TKWD - Klíčová slova podcastu"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2580
+#: src/plugins/taglibmetadata/taglibfile.cpp:2561
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - Seznam hudebníků"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2582
+#: src/plugins/taglibmetadata/taglibfile.cpp:2563
 msgctxt "@default|"
 msgid "TMOO - Mood"
 msgstr "TMOO - Nálada"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2593
+#: src/plugins/taglibmetadata/taglibfile.cpp:2574
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
 msgstr "TPRO - Autorské právo výroby"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2598
+#: src/plugins/taglibmetadata/taglibfile.cpp:2579
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 - Seřazení podle umělce alba"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2599
+#: src/plugins/taglibmetadata/taglibfile.cpp:2580
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
 msgstr "TSOA - Seřazení podle alba"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2600
+#: src/plugins/taglibmetadata/taglibfile.cpp:2581
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
 msgstr "TSOC - Seřazení podle skladatele"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2601
+#: src/plugins/taglibmetadata/taglibfile.cpp:2582
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
 msgstr "TSOP - Seřazení podle výkonného umělce (účinkujícího)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2602
+#: src/plugins/taglibmetadata/taglibfile.cpp:2583
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
 msgstr "TSOT - Seřazení podle názvu"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2605
+#: src/plugins/taglibmetadata/taglibfile.cpp:2586
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
 msgstr "TSST - Podnázev skladby"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2613
+#: src/plugins/taglibmetadata/taglibfile.cpp:2594
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Kanál Podcastu"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:6870
+#: src/plugins/taglibmetadata/taglibfile.cpp:6818
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "Informace o hodnocení"
