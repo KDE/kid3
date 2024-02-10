@@ -1695,17 +1695,18 @@ EOF
     dmg dmg uncompressed.dmg kid3-$_version-Darwin.dmg
     rm uncompressed.dmg
   elif test "$compiler" = "cross-android"; then
+    export JAVA_HOME=$(grep _java_root= run-cmake.sh | cut -d'=' -f2)
+    export QT_ANDROID_KEYSTORE_PATH=$(grep ANDROID_KEYSTORE_PATH CMakeCache.txt | cut -d= -f2)
+    export QT_ANDROID_KEYSTORE_ALIAS=$(grep ANDROID_KEYSTORE_ALIAS CMakeCache.txt | cut -d= -f2)
     # Interactive input is not possible when building with Ninja.
     # Prompt the user for the password at the beginning. To avoid this prompt,
     # define the QT_ANDROID_KEYSTORE_STORE_PASS environment variable.
-    if test -z "${QT_ANDROID_KEYSTORE_STORE_PASS+x}"; then
+    if test -n "$QT_ANDROID_KEYSTORE_PATH" && test -n "$QT_ANDROID_KEYSTORE_ALIAS" &&
+       test -z "${QT_ANDROID_KEYSTORE_STORE_PASS+x}"; then
       read -p 'Android signing password: ' -s QT_ANDROID_KEYSTORE_STORE_PASS
       echo
       export QT_ANDROID_KEYSTORE_STORE_PASS
     fi
-    JAVA_HOME=$(grep _java_root= run-cmake.sh | cut -d'=' -f2) \
-    QT_ANDROID_KEYSTORE_PATH=$(grep ANDROID_KEYSTORE_PATH CMakeCache.txt | cut -d= -f2) \
-    QT_ANDROID_KEYSTORE_ALIAS=$(grep ANDROID_KEYSTORE_ALIAS CMakeCache.txt | cut -d= -f2) \
     ninja apk
     _version=$(grep VERSION config.h | cut -d'"' -f2)
     for prefix in android/build/outputs/apk/release/android-release android/build/outputs/apk/android-release android/bin/QtApp-release android/android-build/build/outputs/apk/release/android-build-release android/android-build/build/outputs/apk/debug/android-build-debug; do
