@@ -474,8 +474,35 @@ elif test "$compiler" = "cross-macos"; then
   # e.g. $osxprefix/SDK/MacOSX10.13.sdk
   osxsdk=($osxprefix/SDK/*.sdk)
 fi
+if test "$compiler" = "cross-android"; then
+  _java_root=${JAVA_HOME:-/usr/lib/jvm/java-8-openjdk-amd64}
+  _android_sdk_root=${ANDROID_SDK_ROOT:-/opt/android/sdk}
+  _android_ndk_root=${ANDROID_NDK_ROOT:-$_android_sdk_root/ndk-bundle}
+  _android_platform=${ANDROID_PLATFORM:-23}
+  _android_ccache=$(which ccache || true)
+  _android_qt_root=${QTPREFIX:-/opt/qt5/5.9.7/android_armv7}
+  _android_toolchain_cmake=$_android_ndk_root/build/cmake/android.toolchain.cmake
+  test -f $_android_toolchain_cmake ||
+    _android_toolchain_cmake=$srcdir/android/qt-android-cmake/toolchain/android.toolchain.cmake
+  test -f $_android_qt_root/bin/qmake ||
+    _android_qt_root=/opt/qt5/5.9.7/android_armv7
+  if test -z "${_android_qt_root%%*x86}"; then
+    _android_abi=x86
+    _android_prefix=i686-linux-android
+  else
+    _android_abi=armeabi-v7a
+    _android_prefix=arm-linux-androideabi
+  fi
+fi
 
-if [[ $target = *"libs"* ]]; then
+_chocoInstall=${ChocolateyInstall//\\/\/}
+_chocoInstall=${_chocoInstall/C:/\/c}
+for d in "$DOCBOOK_XSL_DIR" /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-* /usr/local/Cellar/docbook-xsl/*/docbook-xsl /opt/homebrew/Cellar/docbook-xsl/*/docbook-xsl /opt/local/share/xsl/docbook-xsl $_chocoInstall/lib/docbook-bundle/docbook-xsl-*; do
+  if test -e $d/xhtml/docbook.xsl; then
+    _docbook_xsl_dir=$d
+    break
+  fi
+done
 
 if test "$compiler" = "gcc-debug"; then
   export CFLAGS="-fPIC"
@@ -616,90 +643,6 @@ fixcmakeinst() {
     cd ..
   fi
 }
-
-
-# Download sources
-
-test -d source || mkdir source
-cd source
-
-if test -n "${taglib_githash}"; then
-  # Download an archive for a git hash
-  if ! test -f taglib-${taglib_githash}.tar.gz; then
-    $DOWNLOAD https://github.com/taglib/taglib/archive/${taglib_githash}.tar.gz
-    mv ${taglib_githash}.tar.gz taglib-${taglib_githash}.tar.gz
-  fi
-elif test -n "${taglib_version##v*}"; then
-  test -f taglib-${taglib_version}.tar.gz ||
-    $DOWNLOAD http://taglib.github.io/releases/taglib-${taglib_version}.tar.gz
-else
-  # Download an archive for a git tag
-  if ! test -f taglib-${taglib_version##v}.tar.gz; then
-    $DOWNLOAD https://github.com/taglib/taglib/archive/${taglib_version}.tar.gz
-    mv ${taglib_version}.tar.gz taglib-${taglib_version##v}.tar.gz
-  fi
-  taglib_version=${taglib_version##v}
-fi
-
-if ! test -f utfcpp-${utfcpp_version}.tar.gz; then
-  $DOWNLOAD https://github.com/nemtrif/utfcpp/archive/refs/tags/v${utfcpp_version}.tar.gz
-  mv v${utfcpp_version}.tar.gz utfcpp-${utfcpp_version}.tar.gz
-fi
-
-if test "$compiler" != "cross-android"; then
-
-  test -f flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
-  test -f flac_${libflac_version}.orig.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}.orig.tar.xz
-
-  test -f id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
-  test -f id3lib3.8.3_${id3lib_version}.orig.tar.gz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}.orig.tar.gz
-
-  test -f libogg_${libogg_version}-${libogg_patchlevel}.diff.gz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz
-  test -f libogg_${libogg_version}.orig.tar.gz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}.orig.tar.gz
-
-  test -f libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz
-  test -f libvorbis_${libvorbis_version}.orig.tar.gz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}.orig.tar.gz
-
-  if test -n "$ZLIB_ROOT_PATH"; then
-    test -f zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz ||
-      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz
-    test -f zlib_${zlib_version}.dfsg.orig.tar.bz2 ||
-      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.bz2
-  fi
-
-  test -f ffmpeg_${ffmpeg_version}.orig.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}.orig.tar.xz
-  test -f ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz
-
-  test -f chromaprint_${chromaprint_version}.orig.tar.gz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}.orig.tar.gz
-  test -f chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
-
-  test -f mp4v2-${mp4v2_version}.tar.bz2 ||
-    $DOWNLOAD https://github.com/enzo1982/mp4v2/releases/download/v${mp4v2_version}/mp4v2-${mp4v2_version}.tar.bz2
-
-fi # !cross-android
-
-if test "$compiler" = "cross-android" || test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" \
-   || ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "${openssl_version:0:3}" != "1.0" ); then
-  # See http://doc.qt.io/qt-5/opensslsupport.html
-  test -f Setenv-android.sh ||
-    $DOWNLOAD https://wiki.openssl.org/images/7/70/Setenv-android.sh
-  test -f openssl-${openssl_version}.tar.gz ||
-    $DOWNLOAD https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
-fi
-
-# Create patch files
 
 if test "$compiler" = "cross-mingw" || test "$compiler" = "cross-macos"; then
   if test -n "$QTBINARYDIR"; then
@@ -888,6 +831,89 @@ EOF
   fi
 fi # cross-mingw, cross-macos
 
+if [[ $target = *"libs"* ]]; then
+
+# Download sources
+
+test -d source || mkdir source
+cd source
+
+if test -n "${taglib_githash}"; then
+  # Download an archive for a git hash
+  if ! test -f taglib-${taglib_githash}.tar.gz; then
+    $DOWNLOAD https://github.com/taglib/taglib/archive/${taglib_githash}.tar.gz
+    mv ${taglib_githash}.tar.gz taglib-${taglib_githash}.tar.gz
+  fi
+elif test -n "${taglib_version##v*}"; then
+  test -f taglib-${taglib_version}.tar.gz ||
+    $DOWNLOAD http://taglib.github.io/releases/taglib-${taglib_version}.tar.gz
+else
+  # Download an archive for a git tag
+  if ! test -f taglib-${taglib_version##v}.tar.gz; then
+    $DOWNLOAD https://github.com/taglib/taglib/archive/${taglib_version}.tar.gz
+    mv ${taglib_version}.tar.gz taglib-${taglib_version##v}.tar.gz
+  fi
+  taglib_version=${taglib_version##v}
+fi
+
+if ! test -f utfcpp-${utfcpp_version}.tar.gz; then
+  $DOWNLOAD https://github.com/nemtrif/utfcpp/archive/refs/tags/v${utfcpp_version}.tar.gz
+  mv v${utfcpp_version}.tar.gz utfcpp-${utfcpp_version}.tar.gz
+fi
+
+if test "$compiler" != "cross-android"; then
+
+  test -f flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
+  test -f flac_${libflac_version}.orig.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}.orig.tar.xz
+
+  test -f id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
+  test -f id3lib3.8.3_${id3lib_version}.orig.tar.gz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}.orig.tar.gz
+
+  test -f libogg_${libogg_version}-${libogg_patchlevel}.diff.gz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz
+  test -f libogg_${libogg_version}.orig.tar.gz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}.orig.tar.gz
+
+  test -f libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz
+  test -f libvorbis_${libvorbis_version}.orig.tar.gz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}.orig.tar.gz
+
+  if test -n "$ZLIB_ROOT_PATH"; then
+    test -f zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz ||
+      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz
+    test -f zlib_${zlib_version}.dfsg.orig.tar.bz2 ||
+      $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.bz2
+  fi
+
+  test -f ffmpeg_${ffmpeg_version}.orig.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}.orig.tar.xz
+  test -f ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz
+
+  test -f chromaprint_${chromaprint_version}.orig.tar.gz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}.orig.tar.gz
+  test -f chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz ||
+    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
+
+  test -f mp4v2-${mp4v2_version}.tar.bz2 ||
+    $DOWNLOAD https://github.com/enzo1982/mp4v2/releases/download/v${mp4v2_version}/mp4v2-${mp4v2_version}.tar.bz2
+
+fi # !cross-android
+
+if test "$compiler" = "cross-android" || test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" \
+   || ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "${openssl_version:0:3}" != "1.0" ); then
+  # See http://doc.qt.io/qt-5/opensslsupport.html
+  test -f Setenv-android.sh ||
+    $DOWNLOAD https://wiki.openssl.org/images/7/70/Setenv-android.sh
+  test -f openssl-${openssl_version}.tar.gz ||
+    $DOWNLOAD https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
+fi
+
 cd ..
 
 
@@ -1044,35 +1070,8 @@ fi # cross-android
 
 test -d bin || mkdir bin
 
-_chocoInstall=${ChocolateyInstall//\\/\/}
-_chocoInstall=${_chocoInstall/C:/\/c}
-for d in "$DOCBOOK_XSL_DIR" /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-* /usr/local/Cellar/docbook-xsl/*/docbook-xsl /opt/homebrew/Cellar/docbook-xsl/*/docbook-xsl /opt/local/share/xsl/docbook-xsl $_chocoInstall/lib/docbook-bundle/docbook-xsl-*; do
-  if test -e $d/xhtml/docbook.xsl; then
-    _docbook_xsl_dir=$d
-    break
-  fi
-done
-
 if test "$compiler" = "cross-android"; then
 
-  _java_root=${JAVA_HOME:-/usr/lib/jvm/java-8-openjdk-amd64}
-  _android_sdk_root=${ANDROID_SDK_ROOT:-/opt/android/sdk}
-  _android_ndk_root=${ANDROID_NDK_ROOT:-$_android_sdk_root/ndk-bundle}
-  _android_platform=${ANDROID_PLATFORM:-23}
-  _android_ccache=$(which ccache || true)
-  _android_qt_root=${QTPREFIX:-/opt/qt5/5.9.7/android_armv7}
-  _android_toolchain_cmake=$_android_ndk_root/build/cmake/android.toolchain.cmake
-  test -f $_android_toolchain_cmake ||
-    _android_toolchain_cmake=$srcdir/android/qt-android-cmake/toolchain/android.toolchain.cmake
-  test -f $_android_qt_root/bin/qmake ||
-    _android_qt_root=/opt/qt5/5.9.7/android_armv7
-  if test -z "${_android_qt_root%%*x86}"; then
-    _android_abi=x86
-    _android_prefix=i686-linux-android
-  else
-    _android_abi=armeabi-v7a
-    _android_prefix=arm-linux-androideabi
-  fi
   if test ! -d openssl-${openssl_version}/inst; then
     echo "### Building OpenSSL"
 
@@ -1113,7 +1112,8 @@ if test "$compiler" = "cross-android"; then
       PATH=$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
       sed -i 's/shared_extension => ".so",/shared_extension => "_3.so",/' Configurations/15-android.conf
       ANDROID_NDK_HOME=$ANDROID_NDK_ROOT ./Configure shared android-arm
-      make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_3.so build_libs
+      sed -i "s,^DESTDIR=\$,DESTDIR=$PWD/inst," Makefile
+      make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_3.so build_libs install_dev
       _ssl_lib_suffix=_3.so
       _android_prefix=llvm
     fi
@@ -1533,8 +1533,7 @@ _android_keystore_path=
 _android_keystore_alias=
 fi
 _buildprefix=\$(cd ..; pwd)/buildroot/usr/local
-# Pass -DQT_ANDROID_USE_GRADLE=ON to use Gradle instead of ANT.
-cmake -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_EXTRA_LIBS_DIR=\$_buildprefix/lib -DANDROID_KEYSTORE_PATH=\$_android_keystore_path -DANDROID_KEYSTORE_ALIAS=\$_android_keystore_alias -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DQT_HOST_PATH=${QTBINARYDIR%/bin} -DCMAKE_BUILD_TYPE=Release -DCMAKE_FIND_ROOT_PATH=\$_buildprefix -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip -DCMAKE_MAKE_PROGRAM=make $srcdir
+cmake -GNinja -DJAVA_HOME=\$_java_root -DQT_ANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_SDK_ROOT=\$_android_sdk_root -DANDROID_NDK=\$_android_ndk_root -DAPK_ALL_TARGET=OFF -DANDROID_ABI=\$_android_abi -DANDROID_EXTRA_LIBS_DIR=\$_buildprefix/lib -DANDROID_KEYSTORE_PATH=\$_android_keystore_path -DANDROID_KEYSTORE_ALIAS=\$_android_keystore_alias -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DQT_QMAKE_EXECUTABLE=\$_android_qt_root/bin/qmake -DQT_HOST_PATH=${QTBINARYDIR%/bin} -DCMAKE_BUILD_TYPE=Release -DCMAKE_FIND_ROOT_PATH=\$_buildprefix -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} -DPYTHON_EXECUTABLE=/usr/bin/python -DXSLTPROC=/usr/bin/xsltproc -DGZIP_EXECUTABLE=/bin/gzip $srcdir
 EOF
       chmod +x kid3/run-cmake.sh
     fi
@@ -1696,10 +1695,18 @@ EOF
     dmg dmg uncompressed.dmg kid3-$_version-Darwin.dmg
     rm uncompressed.dmg
   elif test "$compiler" = "cross-android"; then
+    # Interactive input is not possible when building with Ninja.
+    # Prompt the user for the password at the beginning. To avoid this prompt,
+    # define the QT_ANDROID_KEYSTORE_STORE_PASS environment variable.
+    if test -z "${QT_ANDROID_KEYSTORE_STORE_PASS+x}"; then
+      read -p 'Android signing password: ' -s QT_ANDROID_KEYSTORE_STORE_PASS
+      echo
+      export QT_ANDROID_KEYSTORE_STORE_PASS
+    fi
     JAVA_HOME=$(grep _java_root= run-cmake.sh | cut -d'=' -f2) \
     QT_ANDROID_KEYSTORE_PATH=$(grep ANDROID_KEYSTORE_PATH CMakeCache.txt | cut -d= -f2) \
     QT_ANDROID_KEYSTORE_ALIAS=$(grep ANDROID_KEYSTORE_ALIAS CMakeCache.txt | cut -d= -f2) \
-    make apk
+    ninja apk
     _version=$(grep VERSION config.h | cut -d'"' -f2)
     for prefix in android/build/outputs/apk/release/android-release android/build/outputs/apk/android-release android/bin/QtApp-release android/android-build/build/outputs/apk/release/android-build-release android/android-build/build/outputs/apk/debug/android-build-debug; do
       for suffix in signed unsigned; do
