@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2024-01-24 22:05+0300\n"
+"PO-Revision-Date: 2024-02-09 19:02+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2933,7 +2933,7 @@ msgstr "Bağlanmış bilgi"
 #: src/core/tags/frame.cpp:200
 msgctxt "@default|"
 msgid "Music CD Identifier"
-msgstr "Ses CD'si tanımlayıcı"
+msgstr "Ses CD’si tanımlayıcı"
 
 #: src/core/tags/frame.cpp:201
 msgctxt "@default|"
@@ -5928,7 +5928,7 @@ msgstr "LINK - Bağlanmış bilgi"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2506
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
-msgstr "MCDI - Ses CD'si tanımlayıcı"
+msgstr "MCDI - Ses CD’si tanımlayıcı"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:921
 #: src/plugins/taglibmetadata/taglibfile.cpp:2507
