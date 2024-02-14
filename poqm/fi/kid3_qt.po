@@ -1,7 +1,7 @@
 # Kid3 Finnish Translation.
 # This file is put in the public domain.
 #
-# Tommi Nieminen <translator@legisign.org>, 2009, 2020, 2021, 2022, 2023.
+# Tommi Nieminen <translator@legisign.org>, 2009, 2020, 2021, 2022, 2023, 2024.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-05-02 14:55+0300\n"
+"PO-Revision-Date: 2024-02-08 10:42+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 23.04.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: fi\n"
 "X-Source-Language: en\n"
@@ -952,12 +952,9 @@ msgid "Section"
 msgstr "Osio"
 
 #: src/app/kde/kdemainwindow.cpp:473
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Play"
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr "Toista"
+msgstr "Soitin"
 
 #: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
@@ -1529,12 +1526,9 @@ msgid "About &Qt"
 msgstr "Tietoa &Qt:stä"
 
 #: src/app/qt/kid3mainwindow.cpp:627
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Play"
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr "Toista"
+msgstr "Soitin"
 
 #: src/app/qt/kid3mainwindow.cpp:651
 msgctxt "Kid3MainWindow|"
@@ -4213,12 +4207,9 @@ msgstr "&Valitse tiedosto toistettaessa"
 #: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "Äänen &ulostulo:"
 
 #: src/gui/dialogs/configdialogpages.cpp:553
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "System"
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "Järjestelmä"
