@@ -11,7 +11,7 @@ find_path(FLACPP_INCLUDE_DIR FLAC++/metadata.h)
 find_library(FLAC_LIBRARY NAMES FLAC)
 find_library(FLACPP_LIBRARY NAMES FLAC++)
 
-include (FindPackageHandleStandardArgs)
+include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(FLAC REQUIRED_VARS FLAC_LIBRARY FLACPP_LIBRARY FLAC_INCLUDE_DIR FLACPP_INCLUDE_DIR OGG_FOUND)
 
 if(FLAC_FOUND)

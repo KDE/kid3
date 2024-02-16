@@ -130,7 +130,7 @@ Timer {
       } else {
         return false
       }
-    } else  {
+    } else {
       return app.nextFile();
     }
   }
@@ -170,6 +170,7 @@ Timer {
       app.directoryOpened.disconnect(onDirectoryOpened)
       run()
     }
+
     app.directoryOpened.connect(onDirectoryOpened)
     app.openDirectory(paths)
   }

@@ -31,7 +31,7 @@ Rectangle {
   property alias labelColor: textLabel.color
   property alias control: controlContainer.control
 
-  property bool horizontal : !control ||
+  property bool horizontal: !control ||
                  control.width + textLabel.width + 2 * constants.margins < width
 
   signal clicked()

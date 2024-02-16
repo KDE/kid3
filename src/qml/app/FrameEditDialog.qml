@@ -185,9 +185,11 @@ Dialog {
                                                            coverFileName)
           }
           constants.openPopup(importFileSelectDialog, importButton,
-                        {"folder": app.dirName,
-                         "currentFile": coverFileName,
-                         "field": _modelData})
+            {
+              "folder": app.dirName,
+              "currentFile": coverFileName,
+              "field": _modelData
+            })
         }
       }
 
@@ -203,9 +205,11 @@ Dialog {
                                                            coverFileName)
           }
           constants.openPopup(exportFileSelectDialog, exportButton,
-                        {"folder": app.dirName,
-                         "currentFile": coverFileName,
-                         "field": _modelData})
+            {
+              "folder": app.dirName,
+              "currentFile": coverFileName,
+              "field": _modelData
+            })
         }
       }
 
@@ -251,23 +255,23 @@ Dialog {
         width: parent.width
         property QtObject _modelData: modelData
         sourceComponent:
-            if (typeof modelData.value === "number")
-              if (modelData.id === Kid3.Frame.ID_TextEnc ||
-                  modelData.id === Kid3.Frame.ID_PictureType ||
-                  modelData.id === Kid3.Frame.ID_TimestampFormat ||
-                  modelData.id === Kid3.Frame.ID_ContentType)
-                comboBoxEdit
-              else
-                textLineEdit
-            else if (typeof modelData.value === "string")
-              if (modelData.id === Kid3.Frame.ID_Text)
-                textEdit
-              else
-                textLineEdit
-            else if (typeof modelData.value === "object")
-              if (modelData.id === Kid3.Frame.ID_Data &&
-                  modelData.type === Kid3.Frame.FT_Picture)
-                imageView
+          if (typeof modelData.value === "number")
+            if (modelData.id === Kid3.Frame.ID_TextEnc ||
+                modelData.id === Kid3.Frame.ID_PictureType ||
+                modelData.id === Kid3.Frame.ID_TimestampFormat ||
+                modelData.id === Kid3.Frame.ID_ContentType)
+              comboBoxEdit
+            else
+              textLineEdit
+          else if (typeof modelData.value === "string")
+            if (modelData.id === Kid3.Frame.ID_Text)
+              textEdit
+            else
+              textLineEdit
+          else if (typeof modelData.value === "object")
+            if (modelData.id === Kid3.Frame.ID_Data &&
+                modelData.type === Kid3.Frame.FT_Picture)
+              imageView
       }
       ThinDivider {
         anchors {

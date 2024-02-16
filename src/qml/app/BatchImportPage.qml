@@ -113,7 +113,7 @@ Page {
   Grid {
     id: profileRow
     property int labelWidth: constants.gu(10)
-    property int valueWidth: width - labelWidth -spacing
+    property int valueWidth: width - labelWidth - spacing
     anchors {
       left: parent.left
       right: parent.right
@@ -139,6 +139,7 @@ Page {
                qsTr("Tag 1 and Tag 2"),
                qsTr("All Tags") ]
       currentIndex: tagVersions.indexOf(configs.batchImportConfig().importDest)
+
       function getTagVersion() {
         return tagVersions[currentIndex]
       }

@@ -4,7 +4,6 @@ import re
 import locale
 import subprocess
 
-
 _kid3_cli_path = ''
 
 

@@ -101,7 +101,7 @@ Page {
     id: filterGrid
     property int labelWidth: Math.max(filterLabel.implicitWidth,
                                       expressionLabel.implicitWidth)
-    property int valueWidth: width - labelWidth -spacing
+    property int valueWidth: width - labelWidth - spacing
     anchors {
       left: parent.left
       right: parent.right

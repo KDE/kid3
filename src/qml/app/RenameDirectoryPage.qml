@@ -92,7 +92,7 @@ Page {
     property int labelWidth: Math.max(actionLabel.implicitWidth,
                                       sourceLabel.implicitWidth,
                                       formatLabel.implicitWidth)
-    property int valueWidth: width - labelWidth -spacing
+    property int valueWidth: width - labelWidth - spacing
     anchors {
       left: parent.left
       right: parent.right
@@ -130,7 +130,7 @@ Page {
                qsTr("From Tag 1"),
                qsTr("From Tag 2"),
                qsTr("From Tag 3"),
-               qsTr("All Tags")]
+               qsTr("All Tags") ]
       onCurrentIndexChanged: {
         page.tagMask = [ Kid3.Frame.TagV2V1, Kid3.Frame.TagV1, Kid3.Frame.TagV2,
                          Kid3.Frame.TagV3, Kid3.Frame.TagVAll ][currentIndex] || 3

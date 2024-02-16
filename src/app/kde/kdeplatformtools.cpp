@@ -42,8 +42,7 @@
  * Constructor.
  */
 KdePlatformTools::KdePlatformTools()
-{
-}
+{}
 
 /**
  * Destructor.
@@ -106,7 +105,7 @@ QString KdePlatformTools::readFromClipboard() const
  * @return audio player, nullptr if not supported.
  */
 QObject* KdePlatformTools::createAudioPlayer(Kid3Application* app,
-                                   bool dbusEnabled) const
+                                             bool dbusEnabled) const
 {
   return GuiPlatformTools::createAudioPlayer(app, dbusEnabled);
 }
@@ -191,7 +190,7 @@ void KdePlatformTools::errorList(QWidget* parent, const QString& text,
  * @return QMessageBox::Yes, QMessageBox::No or QMessageBox::Cancel.
  */
 int KdePlatformTools::warningYesNoCancel(QWidget* parent, const QString& text,
-    const QString& caption)
+                                         const QString& caption)
 {
 #if KWIDGETSADDONS_VERSION >= 0x05f000
 switch (KMessageBox::warningTwoActionsCancel(parent, text, caption,

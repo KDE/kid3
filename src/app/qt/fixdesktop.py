@@ -31,5 +31,6 @@ def fix_desktop():
         if not line.startswith('X-DocPath'):
             sys.stdout.write(line)
 
+
 if __name__ == '__main__':
     fix_desktop()

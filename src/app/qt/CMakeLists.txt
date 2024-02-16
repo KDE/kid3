@@ -160,7 +160,7 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
   # standalone bundle on Mac OS X and Windows
   set(plugin_dest_dir ${WITH_BINDIR})
   set(bundle_app
-   "${destdir_prefix}/${WITH_BINDIR}/${KID3_EXECUTABLE}")
+    "${destdir_prefix}/${WITH_BINDIR}/${KID3_EXECUTABLE}")
   if(APPLE)
     set(plugin_dest_dir kid3.app/Contents/PlugIns)
     set(bundle_app "${destdir_prefix}/kid3.app")

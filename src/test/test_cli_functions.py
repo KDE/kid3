@@ -345,25 +345,25 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get comment[1]',
                  '-c', 'get comment',
                  '-c', 'get', flacpath]),
-                 'Comment 2\n'
-                 'Comment 1\n'
-                 'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
-                 '  Name: test\\.flac\n'
-                 'Tag 2: Vorbis\n'
-                 '\\* Artist                  A first artist\n'
-                 '\\* Artist                  A second artist\n'
-                 '\\* Album                   Album Name\n'
-                 '\\* Comment                 Comment 1\n'
-                 '\\* Comment                 Comment 2\n'
-                 '\\* Comment                 Comment 3\n'
-                 '\\* Date                    2017\n'
-                 '\\* Track Number            4\n'
-                 '\\* Genre                   Heavy Metal\n'
-                 '\\* Disc Number             1\n'
-                 '\\* Lyricist                A Lyricist\n'
-                 '\\* Picture: Cover \\(front\\)  Picture Description\n'
-                 '\\* Total Discs             2\n'
-                 '\\* Total Tracks            12\n')
+                'Comment 2\n'
+                'Comment 1\n'
+                'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
+                '  Name: test\\.flac\n'
+                'Tag 2: Vorbis\n'
+                '\\* Artist                  A first artist\n'
+                '\\* Artist                  A second artist\n'
+                '\\* Album                   Album Name\n'
+                '\\* Comment                 Comment 1\n'
+                '\\* Comment                 Comment 2\n'
+                '\\* Comment                 Comment 3\n'
+                '\\* Date                    2017\n'
+                '\\* Track Number            4\n'
+                '\\* Genre                   Heavy Metal\n'
+                '\\* Disc Number             1\n'
+                '\\* Lyricist                A Lyricist\n'
+                '\\* Picture: Cover \\(front\\)  Picture Description\n'
+                '\\* Total Discs             2\n'
+                '\\* Total Tracks            12\n')
             self.assertRegex(call_kid3_cli(
                 ['-c', 'set artist[1] ""',
                  '-c', 'set comment[1] "Comment B"',
@@ -377,25 +377,25 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get',
                  '-c', 'remove',
                  '-c', 'get', flacpath]),
-                 'Back Cover\n'
-                 'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
-                 '  Name: test\\.flac\n'
-                 'Tag 2: Vorbis\n'
-                 '\\* Artist                  A first artist\n'
-                 '  Album                   Album Name\n'
-                 '\\* Comment                 Comment A\n'
-                 '\\* Comment                 Comment B\n'
-                 '\\* Comment                 Comment C\n'
-                 '  Date                    2017\n'
-                 '  Track Number            4\n'
-                 '  Genre                   Heavy Metal\n'
-                 '  Disc Number             1\n'
-                 '\\* Picture: Cover \\(front\\)  Front Cover\n'
-                 '\\* Picture: Cover \\(back\\)   Back Cover\n'
-                 '  Total Discs             2\n'
-                 '  Total Tracks            12\n'
-                 'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
-                 '  Name: test\\.flac\n')
+                'Back Cover\n'
+                'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
+                '  Name: test\\.flac\n'
+                'Tag 2: Vorbis\n'
+                '\\* Artist                  A first artist\n'
+                '  Album                   Album Name\n'
+                '\\* Comment                 Comment A\n'
+                '\\* Comment                 Comment B\n'
+                '\\* Comment                 Comment C\n'
+                '  Date                    2017\n'
+                '  Track Number            4\n'
+                '  Genre                   Heavy Metal\n'
+                '  Disc Number             1\n'
+                '\\* Picture: Cover \\(front\\)  Front Cover\n'
+                '\\* Picture: Cover \\(back\\)   Back Cover\n'
+                '  Total Discs             2\n'
+                '  Total Tracks            12\n'
+                'File: FLAC [^\\n]+ kbps 44100 Hz 1 Channels\n'
+                '  Name: test\\.flac\n')
             with open(picpath, 'rb') as jpgfh:
                 ba = jpgfh.read()
                 self.assertEqual(ba, jpg_bytes)
@@ -437,7 +437,7 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'save',
                  '-c', 'select all',
                  '-c', 'get', tmpdir]),
-                 expected)
+                expected)
             self.assertEqual(call_kid3_cli(
                 ['-c', 'select first',
                  '-c', 'get',
@@ -462,44 +462,44 @@ class CliFunctionsTestCase(unittest.TestCase):
                  '-c', 'get',
                  '-c', 'select next',
                  '-c', 'get', tmpdir]),
-                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
-                 '  Name: test1.mp3\n'
-                 'Tag 2: ID3v2.3.0\n'
-                 '  Title        Title 1\n'
-                 '  Artist       An Artist\n'
-                 '  Album        An Album\n'
-                 '  Copyright    2017 Kid3\n'
-                 '  Disc Number  1/2\n'
-                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
-                 '  Name: test1.mp3\n'
-                 'Tag 2: ID3v2.3.0\n'
-                 '  Title        Title 1\n'
-                 '  Artist       An Artist\n'
-                 '  Copyright    2017 Kid3\n'
-                 '  Disc Number  1/2\n'
-                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
-                 '  Name: test2.mp3\n'
-                 'Tag 2: ID3v2.3.0\n'
-                 '  Title        Title 2\n'
-                 '  Artist       An Artist\n'
-                 '  Album        An Album\n'
-                 '* Copyright    2017 Kid3\n'
-                 '* Disc Number  1/2\n'
-                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
-                 '  Name: test1.mp3\n'
-                 'Tag 2: ID3v2.3.0\n'
-                 '  Title        Title 1\n'
-                 '  Artist       An Artist\n'
-                 '  Album        An Album\n'
-                 '  Copyright    2017 Kid3\n'
-                 '  Disc Number  1/2\n'
-                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
-                 '  Name: test2.mp3\n'
-                 'Tag 2: ID3v2.3.0\n'
-                 '  Title        Title 2\n'
-                 '  Artist       An Artist\n'
-                 '  Album        An Album\n'
-                 '* Disc Number  1/2\n')
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                '  Name: test1.mp3\n'
+                'Tag 2: ID3v2.3.0\n'
+                '  Title        Title 1\n'
+                '  Artist       An Artist\n'
+                '  Album        An Album\n'
+                '  Copyright    2017 Kid3\n'
+                '  Disc Number  1/2\n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                '  Name: test1.mp3\n'
+                'Tag 2: ID3v2.3.0\n'
+                '  Title        Title 1\n'
+                '  Artist       An Artist\n'
+                '  Copyright    2017 Kid3\n'
+                '  Disc Number  1/2\n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                '  Name: test2.mp3\n'
+                'Tag 2: ID3v2.3.0\n'
+                '  Title        Title 2\n'
+                '  Artist       An Artist\n'
+                '  Album        An Album\n'
+                '* Copyright    2017 Kid3\n'
+                '* Disc Number  1/2\n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                '  Name: test1.mp3\n'
+                'Tag 2: ID3v2.3.0\n'
+                '  Title        Title 1\n'
+                '  Artist       An Artist\n'
+                '  Album        An Album\n'
+                '  Copyright    2017 Kid3\n'
+                '  Disc Number  1/2\n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                '  Name: test2.mp3\n'
+                'Tag 2: ID3v2.3.0\n'
+                '  Title        Title 2\n'
+                '  Artist       An Artist\n'
+                '  Album        An Album\n'
+                '* Disc Number  1/2\n')
 
     def test_riff_info(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -910,7 +910,7 @@ class CliFunctionsJsonTestCase(unittest.TestCase):
             '{"result":{"timeout":"default"}}\n')
 
     def test_json_methods(self):
-        self.maxDiff=None
+        self.maxDiff = None
         with tempfile.TemporaryDirectory() as tmpdir:
             mp3path = os.path.join(tmpdir, 'test.mp3')
             create_test_file(mp3path)
@@ -931,24 +931,24 @@ class CliFunctionsJsonTestCase(unittest.TestCase):
                  '-c', '{"jsonrpc":"2.0","id":"1","method":"remove",'
                          '"params":[1]}',
                  '-c', '{"method":"ls"}',
-                mp3path]),
+                 mp3path]),
                 '{"result":null}\n'
                 '{"result":{"taggedFile":{"fileName":"test.mp3",'
-                  '"fileNameChanged":false,"format":'
-                  '"MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels"}}}\n'
+                '"fileNameChanged":false,"format":'
+                '"MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels"}}}\n'
                 '{"result":null}\n'
                 '{"result":"A Title"}\n'
                 '{\n'
                 '    "result": "A Title"\n'
                 '}\n\n'
                 '{"result":{"taggedFile":{"fileName":"test.mp3",'
-                  '"fileNameChanged":false,"format":'
-                  '"MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels",'
-                  '"tag2":{"format":"ID3v2.3.0","frames":[{"changed":true,'
-                  '"name":"Title","value":"A Title"}]}}}}\n'
+                '"fileNameChanged":false,"format":'
+                '"MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels",'
+                '"tag2":{"format":"ID3v2.3.0","frames":[{"changed":true,'
+                '"name":"Title","value":"A Title"}]}}}}\n'
                 '{"result":null}\n'
                 '{"result":{"files":[{"changed":true,"fileName":"test.mp3",'
-                  '"selected":false,"tags":[2]}]}}\n'
+                '"selected":false,"tags":[2]}]}}\n'
                 '{"result":null}\n'
                 '{"result":null}\n'
                 '{"result":null}\n'
@@ -956,7 +956,7 @@ class CliFunctionsJsonTestCase(unittest.TestCase):
                 '{"result":null}\n'
                 '{"id":"1","jsonrpc":"2.0","result":null}\n'
                 '{"result":{"files":[{"changed":true,"fileName":"test.mp3",'
-                  '"selected":true,"tags":[2]}]}}\n')
+                '"selected":true,"tags":[2]}]}}\n')
 
 
 if __name__ == '__main__':

@@ -403,7 +403,7 @@ AbstractSettingsPage {
       model: [
         SettingsElement {
           name: qsTr("Language")
-          dropDownModel: [qsTr("System")]
+          dropDownModel: [ qsTr("System") ]
             .concat(configs.mainWindowConfig().availableLanguages())
           onActivated: function() {
             value = mainWindowCfg.language

@@ -10,5 +10,6 @@ def fix_appdata():
                    .replace(b'kid3.desktop', b'kid3-qt.desktop')
         sys.stdout.buffer.write(line)
 
+
 if __name__ == '__main__':
     fix_appdata()

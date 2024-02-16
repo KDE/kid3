@@ -37,8 +37,7 @@ int UserActionsConfig::s_index = -1;
  */
 UserActionsConfig::UserActionsConfig()
   : StoredConfig(QLatin1String("MenuCommands"))
-{
-}
+{}
 
 /**
  * Persist configuration.
@@ -324,8 +323,7 @@ void UserActionsConfig::setContextMenuCommandVariantList(const QVariantList& lst
 UserActionsConfig::MenuCommand::MenuCommand(
     const QString& name, const QString& cmd, bool confirm, bool showOutput)
   : m_name(name), m_cmd(cmd), m_confirm(confirm), m_showOutput(showOutput)
-{
-}
+{}
 
 /**
  * Constructor.
@@ -354,7 +352,8 @@ UserActionsConfig::MenuCommand::MenuCommand(const QStringList& strList)
  *
  * @return string list with encoded command.
  */
-QStringList UserActionsConfig::MenuCommand::toStringList() const {
+QStringList UserActionsConfig::MenuCommand::toStringList() const
+{
   QStringList strList;
   strList.push_back(m_name);
   strList.push_back(m_cmd);

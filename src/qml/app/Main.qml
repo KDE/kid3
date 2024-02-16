@@ -270,6 +270,7 @@ ApplicationWindow {
             onCompleted();
           }
         }
+
         writeErrorDialog.errorMsgs = errorMsgs
         writeErrorDialog.completed.connect(resultReceived)
         writeErrorDialog.open()
@@ -284,12 +285,14 @@ ApplicationWindow {
         if (!script.fileExists(externalFilesDir)) {
           script.makeDir(externalFilesDir)
         }
+
         function resultReceived() {
           sdCardErrorDialog.completed.disconnect(resultReceived)
           if (onCompleted) {
             onCompleted();
           }
         }
+
         sdCardErrorDialog.externalFilesDir = externalFilesDir
         sdCardErrorDialog.completed.connect(resultReceived)
         sdCardErrorDialog.open()
@@ -309,6 +312,7 @@ ApplicationWindow {
             onCompleted();
           }
         }
+
         changePermissionsDialog.errorMsgs = errorMsgs
         changePermissionsDialog.completed.connect(resultReceived)
         changePermissionsDialog.open()

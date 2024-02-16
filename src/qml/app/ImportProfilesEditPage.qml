@@ -111,8 +111,10 @@ StringListEditPage {
         if (coverArtCheckBox.checked) {
           sources += "C"
         }
-        return {name: editProfilePage.sourceToString(sources),
-                sources: sources}
+        return {
+          name: editProfilePage.sourceToString(sources),
+          sources: sources
+        }
       }
 
       modal: true
@@ -137,7 +139,7 @@ StringListEditPage {
         }
         TextField {
           id: accuracyLineEdit
-          validator: IntValidator{
+          validator: IntValidator {
             bottom: 0
             top: 100
           }

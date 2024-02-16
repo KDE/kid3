@@ -36,69 +36,70 @@ Dialog {
   y: parent.height / 6
 
   ColumnLayout {
-  Row {
-    spacing: constants.spacing
-    CheckBox {
-      id: numberCheckBox
-      checked: true
+    Row {
+      spacing: constants.spacing
+      CheckBox {
+        id: numberCheckBox
+        checked: true
+      }
+      Label {
+        height: totalRow.height
+        verticalAlignment: Text.AlignVCenter
+        text: qsTr("Start number:")
+      }
+    }
+    TextField {
+      id: startNumberEdit
+      text: "1"
+      selectByMouse: true
     }
     Label {
-      height: totalRow.height
-      verticalAlignment: Text.AlignVCenter
-      text: qsTr("Start number:")
+      text: qsTr("Destination:")
+      width: parent.labelWidth
     }
-  }
-  TextField {
-    id: startNumberEdit
-    text: "1"
-    selectByMouse: true
-  }
-  Label {
-    text: qsTr("Destination:")
-    width: parent.labelWidth
-  }
-  ComboBox {
-    id: destinationComboBox
-    width: parent.valueWidth
-    model: [ qsTr("Tag 1"),
-             qsTr("Tag 2"),
-             qsTr("Tag 3"),
-             qsTr("Tag 1 and Tag 2"),
-             qsTr("All Tags") ]
-    function getTagVersion() {
-      return [ Kid3.Frame.TagV1, Kid3.Frame.TagV2, Kid3.Frame.TagV3,
-               Kid3.Frame.TagV2V1, Kid3.Frame.TagVAll ][currentIndex]
+    ComboBox {
+      id: destinationComboBox
+      width: parent.valueWidth
+      model: [qsTr("Tag 1"),
+        qsTr("Tag 2"),
+        qsTr("Tag 3"),
+        qsTr("Tag 1 and Tag 2"),
+        qsTr("All Tags")]
+
+      function getTagVersion() {
+        return [ Kid3.Frame.TagV1, Kid3.Frame.TagV2, Kid3.Frame.TagV3,
+                 Kid3.Frame.TagV2V1, Kid3.Frame.TagVAll ][currentIndex]
+      }
     }
-  }
-  Row {
-    spacing: constants.spacing
-    CheckBox {
-      id: resetCounterCheckBox
-      checked: true
+    Row {
+      spacing: constants.spacing
+      CheckBox {
+        id: resetCounterCheckBox
+        checked: true
+      }
+      Label {
+        height: totalRow.height
+        verticalAlignment: Text.AlignVCenter
+        text: qsTr("Reset counter for each folder")
+      }
     }
-    Label {
-      height: totalRow.height
-      verticalAlignment: Text.AlignVCenter
-      text: qsTr("Reset counter for each folder")
+    Row {
+      id: totalRow
+      spacing: constants.spacing
+      CheckBox {
+        id: totalCheckBox
+        checked: configs.tagConfig().enableTotalNumberOfTracks
+      }
+      Label {
+        height: totalRow.height
+        verticalAlignment: Text.AlignVCenter
+        text: qsTr("Total number of tracks")
+      }
     }
-  }
-  Row {
-    id: totalRow
-    spacing: constants.spacing
-    CheckBox {
-      id: totalCheckBox
-      checked: configs.tagConfig().enableTotalNumberOfTracks
+    TextField {
+      id: totalEdit
+      selectByMouse: true
     }
-    Label {
-      height: totalRow.height
-      verticalAlignment: Text.AlignVCenter
-      text: qsTr("Total number of tracks")
-    }
-  }
-  TextField {
-    id: totalEdit
-    selectByMouse: true
-  }
   }
 
   onAccepted: {

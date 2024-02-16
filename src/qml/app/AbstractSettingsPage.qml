@@ -207,22 +207,22 @@ Page {
         property int _index: index
         property variant _modelData: modelData
         sourceComponent:
-            if (modelData.dropDownModel)
-              if (onEdit)
-                selectionEditDelegate
-              else
-                selectionDelegate
-            else if (typeof modelData.value === "boolean")
-              if (onEdit)
-                booleanEditDelegate
-              else
-                booleanDelegate
-            else if (typeof modelData.value === "string")
-              stringDelegate
-            else if (typeof modelData.value === "number")
-              numberDelegate
+          if (modelData.dropDownModel)
+            if (onEdit)
+              selectionEditDelegate
             else
-              clickDelegate
+              selectionDelegate
+          else if (typeof modelData.value === "boolean")
+            if (onEdit)
+              booleanEditDelegate
+            else
+              booleanDelegate
+          else if (typeof modelData.value === "string")
+            stringDelegate
+          else if (typeof modelData.value === "number")
+            numberDelegate
+          else
+            clickDelegate
       }
     }
   }

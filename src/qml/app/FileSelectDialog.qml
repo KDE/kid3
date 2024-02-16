@@ -57,7 +57,7 @@ Dialog {
     if (typeof path === "object") {
       path = path.toString()
     }
-    if (path.substr(0,7) === "file://") {
+    if (path.substr(0, 7) === "file://") {
       path = path.substr(7)
     }
     return path
@@ -122,10 +122,12 @@ Dialog {
             case "android":
               var sd = /\/storage\/[0-9A-F]{4}-[0-9A-F]{4}/, sdc = 1
               var usb = /\/mnt\/media_rw\/[0-9A-F]{4}-[0-9A-F]{4}/, usbc = 1
-              result.push({name: "Internal Storage",
-                      rootPath: "/storage/emulated/0",
-                      isValid: true,
-                      isReady: true})
+              result.push({
+                            name: "Internal Storage",
+                            rootPath: "/storage/emulated/0",
+                            isValid: true,
+                            isReady: true
+                          })
               for (i = 0; i < vols.length; ++i) {
                 if (sd.test(vols[i].rootPath)) {
                   vols[i].name = "SD Card " + sdc++

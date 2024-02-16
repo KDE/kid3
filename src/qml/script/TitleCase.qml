@@ -25,14 +25,14 @@ import Kid3 1.1
 
 Kid3Script {
   onRun: {
-    var consideredTags = [Frame.Tag_1, Frame.Tag_2, Frame.Tag_3]
-    var consideredFrames = ["title", "album"]
+    var consideredTags = [ Frame.Tag_1, Frame.Tag_2, Frame.Tag_3 ]
+    var consideredFrames = [ "title", "album" ]
 
     var small = "(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v[.]?|via|vs[.]?)";
     var punct = "([!\"#$%&'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]*)";
     // This array only contains words which cannot be handled by the all lower
     // and upper case handling at the end of the toTitleCase() function.
-    var unmodifiableWords = ["Pi-hsien"];
+    var unmodifiableWords = [ "Pi-hsien" ];
 
     /*
      * Title Caps

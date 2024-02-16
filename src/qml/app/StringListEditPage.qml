@@ -41,7 +41,7 @@ Page {
       }
     }
 
-    editDialog.setElement({name: ""})
+    editDialog.setElement({ name: "" })
     editDialog.completed.connect(modifyIfCompleted)
     editDialog.open()
   }
@@ -70,7 +70,7 @@ Page {
   function setElements(lst) {
     listView.model.clear()
     for (var i = 0; i < lst.length; i++) {
-      listView.model.append({"name": lst[i]})
+      listView.model.append({ "name": lst[i] })
     }
   }
 
@@ -94,7 +94,7 @@ Page {
     }
 
     function getElement() {
-      return {name: textLineEdit.text}
+      return { name: textLineEdit.text }
     }
 
     modal: true
