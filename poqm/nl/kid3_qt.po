@@ -961,12 +961,12 @@ msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Configureren - Kid3"
 
-#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
+#: src/app/kde/kdeplatformtools.cpp:197 src/app/kde/kdeplatformtools.cpp:241
 msgctxt "@default|"
 msgid "&Yes"
 msgstr "&Ja"
 
-#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:243
+#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
 msgctxt "@default|"
 msgid "&No"
 msgstr "&Nee"
@@ -6578,7 +6578,7 @@ msgctxt "BatchImportPage|"
 msgid "All Tags"
 msgstr "Alle tags"
 
-#: src/qml/app/BatchImportPage.qml:152
+#: src/qml/app/BatchImportPage.qml:153
 msgctxt "BatchImportPage|"
 msgid "Profile:"
 msgstr "Profiel:"
@@ -6598,7 +6598,7 @@ msgctxt "FileSelectDialog|"
 msgid "Folder"
 msgstr "Map"
 
-#: src/qml/app/FileSelectDialog.qml:190
+#: src/qml/app/FileSelectDialog.qml:192
 msgctxt "FileSelectDialog|"
 msgid "File"
 msgstr "Bestand"
@@ -6648,7 +6648,7 @@ msgctxt "FrameEditDialog|"
 msgid "File already exists. Overwrite?"
 msgstr "Bestand bestaat reeds. Overschrijven?"
 
-#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:197
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:199
 msgctxt "FrameEditDialog|"
 msgid "Export"
 msgstr "Exporteren"
@@ -6679,30 +6679,30 @@ msgid "Profile"
 msgstr "Profiel"
 
 #: src/qml/app/ImportProfilesEditPage.qml:68
-#: src/qml/app/ImportProfilesEditPage.qml:136
+#: src/qml/app/ImportProfilesEditPage.qml:138
 msgctxt "ImportProfilesEditPage|"
 msgid "Accuracy"
 msgstr "Nauwkeurigheid"
 
 #: src/qml/app/ImportProfilesEditPage.qml:71
-#: src/qml/app/ImportProfilesEditPage.qml:149
+#: src/qml/app/ImportProfilesEditPage.qml:151
 msgctxt "ImportProfilesEditPage|"
 msgid "Standard Tags"
 msgstr "Standaard tags"
 
 #: src/qml/app/ImportProfilesEditPage.qml:74
-#: src/qml/app/ImportProfilesEditPage.qml:154
+#: src/qml/app/ImportProfilesEditPage.qml:156
 msgctxt "ImportProfilesEditPage|"
 msgid "Additional Tags"
 msgstr "Additionele tags"
 
 #: src/qml/app/ImportProfilesEditPage.qml:77
-#: src/qml/app/ImportProfilesEditPage.qml:159
+#: src/qml/app/ImportProfilesEditPage.qml:161
 msgctxt "ImportProfilesEditPage|"
 msgid "Cover Art"
 msgstr "Hoesillustratie"
 
-#: src/qml/app/ImportProfilesEditPage.qml:128
+#: src/qml/app/ImportProfilesEditPage.qml:130
 msgctxt "ImportProfilesEditPage|"
 msgid "Server"
 msgstr "Server"
@@ -6876,12 +6876,12 @@ msgctxt "NumberTracksDialog|"
 msgid "All Tags"
 msgstr "Alle tags"
 
-#: src/qml/app/NumberTracksDialog.qml:82
+#: src/qml/app/NumberTracksDialog.qml:83
 msgctxt "NumberTracksDialog|"
 msgid "Reset counter for each folder"
 msgstr "Teller resetten voor elke map"
 
-#: src/qml/app/NumberTracksDialog.qml:95
+#: src/qml/app/NumberTracksDialog.qml:96
 msgctxt "NumberTracksDialog|"
 msgid "Total number of tracks"
 msgstr "Totaal aantal tracks"

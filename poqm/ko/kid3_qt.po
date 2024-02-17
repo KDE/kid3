@@ -952,12 +952,12 @@ msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "설정 - Kid3"
 
-#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
+#: src/app/kde/kdeplatformtools.cpp:197 src/app/kde/kdeplatformtools.cpp:241
 msgctxt "@default|"
 msgid "&Yes"
 msgstr "예(&Y)"
 
-#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:243
+#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
 msgctxt "@default|"
 msgid "&No"
 msgstr "아니요(&N)"
@@ -6565,7 +6565,7 @@ msgctxt "BatchImportPage|"
 msgid "All Tags"
 msgstr "모든 태그"
 
-#: src/qml/app/BatchImportPage.qml:152
+#: src/qml/app/BatchImportPage.qml:153
 msgctxt "BatchImportPage|"
 msgid "Profile:"
 msgstr "프로필:"
@@ -6585,7 +6585,7 @@ msgctxt "FileSelectDialog|"
 msgid "Folder"
 msgstr "폴더"
 
-#: src/qml/app/FileSelectDialog.qml:190
+#: src/qml/app/FileSelectDialog.qml:192
 msgctxt "FileSelectDialog|"
 msgid "File"
 msgstr "파일"
@@ -6635,7 +6635,7 @@ msgctxt "FrameEditDialog|"
 msgid "File already exists. Overwrite?"
 msgstr "파일이 이미 존재합니다. 덮어쓰시겠습니까?"
 
-#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:197
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:199
 msgctxt "FrameEditDialog|"
 msgid "Export"
 msgstr "내보내기"
@@ -6666,30 +6666,30 @@ msgid "Profile"
 msgstr "프로필"
 
 #: src/qml/app/ImportProfilesEditPage.qml:68
-#: src/qml/app/ImportProfilesEditPage.qml:136
+#: src/qml/app/ImportProfilesEditPage.qml:138
 msgctxt "ImportProfilesEditPage|"
 msgid "Accuracy"
 msgstr "정확도"
 
 #: src/qml/app/ImportProfilesEditPage.qml:71
-#: src/qml/app/ImportProfilesEditPage.qml:149
+#: src/qml/app/ImportProfilesEditPage.qml:151
 msgctxt "ImportProfilesEditPage|"
 msgid "Standard Tags"
 msgstr "표준 태그"
 
 #: src/qml/app/ImportProfilesEditPage.qml:74
-#: src/qml/app/ImportProfilesEditPage.qml:154
+#: src/qml/app/ImportProfilesEditPage.qml:156
 msgctxt "ImportProfilesEditPage|"
 msgid "Additional Tags"
 msgstr "추가 태그"
 
 #: src/qml/app/ImportProfilesEditPage.qml:77
-#: src/qml/app/ImportProfilesEditPage.qml:159
+#: src/qml/app/ImportProfilesEditPage.qml:161
 msgctxt "ImportProfilesEditPage|"
 msgid "Cover Art"
 msgstr "앨범 커버"
 
-#: src/qml/app/ImportProfilesEditPage.qml:128
+#: src/qml/app/ImportProfilesEditPage.qml:130
 msgctxt "ImportProfilesEditPage|"
 msgid "Server"
 msgstr "서버"
@@ -6861,12 +6861,12 @@ msgctxt "NumberTracksDialog|"
 msgid "All Tags"
 msgstr "모든 태그"
 
-#: src/qml/app/NumberTracksDialog.qml:82
+#: src/qml/app/NumberTracksDialog.qml:83
 msgctxt "NumberTracksDialog|"
 msgid "Reset counter for each folder"
 msgstr "각각 폴더마다 카운터 초기화"
 
-#: src/qml/app/NumberTracksDialog.qml:95
+#: src/qml/app/NumberTracksDialog.qml:96
 msgctxt "NumberTracksDialog|"
 msgid "Total number of tracks"
 msgstr "총 트랙 수"
