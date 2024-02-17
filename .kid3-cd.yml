@@ -1,0 +1,79 @@
+include:
+  - project: sysadmin/ci-utilities
+    file:
+      - /gitlab-templates/blocks/workflow.yml
+
+.kid3_build_job:
+  stage: deploy
+  rules:
+    - when: manual
+  variables:
+    GIT_STRATEGY: none
+  interruptible: true
+  before_script:
+    - rm -rf .kde-ci-packages ci-utilities ci-notary-service kid3
+    - export LANG=en_US.UTF-8
+    - git clone https://invent.kde.org/sysadmin/ci-utilities.git --depth=1
+    - git clone https://invent.kde.org/sysadmin/ci-notary-service.git --depth=1
+    - python3 -u ci-utilities/gitlab-ci-clone.py kid3/
+  script:
+    - mkdir -p build-${KID3_CI_PLATFORM}
+    - rm -f build-${KID3_CI_PLATFORM}/kid3/${KID3_CI_SRC_PKG}
+    - (cd build-${KID3_CI_PLATFORM} && ../kid3/build.sh)
+    - mkdir .kde-ci-packages/
+    - cp -vf build-${KID3_CI_PLATFORM}/kid3/${KID3_CI_SRC_PKG} .kde-ci-packages/${KID3_CI_DST_PKG}
+  after_script:
+    #- (cd build-${KID3_CI_PLATFORM} && ../kid3/build.sh clean)
+    - rm -rf build-${KID3_CI_PLATFORM} kid3 ci-utilities ci-notary-service
+  artifacts:
+    expire_in: 3 days
+    when: always
+    paths:
+      - ".kde-ci-packages/"
+
+.kid3_macos_base:
+  extends: .kid3_build_job
+  tags:
+    - macOS
+  variables:
+    KDECI_SIGNMACAPP_CONFIG: $CI_PROJECT_DIR/ci-utilities/signing/signmacapp.ini
+    KDECI_NOTARIZEMACAPP_CONFIG: $CI_PROJECT_DIR/ci-utilities/signing/notarizemacapp.ini
+    KID3_CI_PLATFORM: macos-$ARCH
+    KID3_CI_SRC_PKG: "*.dmg"
+    KID3_CI_DST_PKG: kid3-macos-$ARCH.dmg
+    KID3_HOMEBREW_PKGS: "cmake ninja autoconf automake libtool xz nasm docbook-xsl p7zip"
+    QTPREFIX: $CI_PROJECT_DIR/build-${KID3_CI_PLATFORM}/qt-6.5.3/6.5.3/macos
+  script:
+    - !reference [.kid3_build_job, script]
+    - python3 ci-notary-service/signmacapp.py -v --config $KDECI_SIGNMACAPP_CONFIG $CI_PROJECT_DIR/.kde-ci-packages/${KID3_CI_DST_PKG}
+    - python3 ci-notary-service/notarizemacapp.py -v --config $KDECI_NOTARIZEMACAPP_CONFIG $CI_PROJECT_DIR/.kde-ci-packages/${KID3_CI_DST_PKG}
+    - python3 -u ci-notary-service/publishbuild.py --config ci-utilities/signing/publishbuild.ini --platform $KID3_CI_PLATFORM "$CI_PROJECT_DIR/.kde-ci-packages/"
+
+kid3_macos_arm64:
+  extends: .kid3_macos_base
+  variables:
+    ARCH: arm64
+  artifacts:
+    expose_as: "Kid3 macOS ARM"
+
+kid3_macos_amd64:
+  extends: .kid3_macos_base
+  variables:
+    ARCH: x86_64
+  artifacts:
+    expose_as: "Kid3 macOS Intel"
+
+kid3_linux_amd64:
+  extends: .kid3_build_job
+  image: invent-registry.kde.org/sysadmin/ci-images/suse-qt67:latest
+  tags:
+    - Linux
+  variables:
+    KID3_CI_PLATFORM: linux
+    KID3_CI_SRC_PKG: "*.tgz"
+    KID3_CI_DST_PKG: kid3-linux-amd64.tgz
+    KID3_HOMEBREW_PKGS: "nasm p7zip chrpath"
+    QTPREFIX: $CI_PROJECT_DIR/build-${KID3_CI_PLATFORM}/qt-6.5.3/6.5.3/gcc_64
+    COMPILER: gcc-self-contained
+  artifacts:
+    expose_as: "Kid3 Linux"
