@@ -21,7 +21,3 @@ include:
   rules:
   - when: manual
     allow_failure: true
-flatpak:
-  rules:
-  - when: manual
-    allow_failure: true
