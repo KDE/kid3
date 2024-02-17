@@ -16,9 +16,12 @@ include:
 .craft_macos_base:
   rules:
   - when: manual
+    allow_failure: true
 .craft_windows_base:
   rules:
   - when: manual
+    allow_failure: true
 flatpak:
   rules:
   - when: manual
+    allow_failure: true
