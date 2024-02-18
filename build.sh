@@ -13,12 +13,13 @@
 # Chocolatey, e.g.
 # choco install cmake docbook-bundle ninja python3 Wget xsltproc yasm
 # Install additional packages in the MSYS2 MinGW 64-bit shell:
-# pacman -S git patch make autoconf automake nasm libtool
+# pacman -S git patch autoconf automake make docbook-xsl mingw-w64-x86_64-make \
+#   mingw-w64-x86_64-ninja mingw-w64-x86_64-nasm mingw-w64-x86_64-libtool
 # Start the msys shell, add Qt and cmake to the path and start this script.
 #
 # export QTPREFIX=/c/Qt/6.5.3/mingw_64
 # test -z "${PATH##$QTPREFIX*}" ||
-# PATH=$QTPREFIX/bin:$QTPREFIX/../../Tools/mingw730_64/bin:$QTPREFIX/../../Tools/mingw730_64/opt/bin:$PROGRAMFILES/CMake/bin:$PATH
+# PATH=$QTPREFIX/bin:$QTPREFIX/../../Tools/mingw1120_64/bin:$QTPREFIX/../../Tools/mingw1120_64/opt/bin:$PROGRAMFILES/CMake/bin:$PATH
 # ../kid3/build.sh
 #
 # You can also build a Windows version from Linux using the MinGW cross
@@ -376,8 +377,8 @@ libvorbis_version=1.3.7
 libvorbis_patchlevel=1
 ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
-ffmpeg_version=5.1.3
-ffmpeg_patchlevel=1
+ffmpeg_version=5.1.4
+ffmpeg_patchlevel=0+deb12u1
 libflac_version=1.4.3+ds
 libflac_patchlevel=2
 id3lib_version=3.8.3
@@ -545,11 +546,13 @@ if test $kernel = "MINGW"; then
     echo "QTPREFIX is not set"
     exit 1
   fi
-  CMAKE_OPTIONS="-G \"MSYS Makefiles\" -DCMAKE_INSTALL_PREFIX=/usr/local"
+  CMAKE_OPTIONS="-GNinja -DCMAKE_INSTALL_PREFIX=/usr/local"
   CONFIGURE_OPTIONS+=" --prefix=/usr/local"
 elif test $kernel = "Darwin"; then
-  CMAKE_OPTIONS="-G \"Unix Makefiles\""
+  CMAKE_OPTIONS="-GNinja"
   _macosx_version_min=10.7
+else
+  CMAKE_OPTIONS="-GNinja"
 fi
 
 if test "$compiler" = "cross-mingw"; then
@@ -577,7 +580,7 @@ fi
 
 if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
   # Build zlib only for Windows.
-  ZLIB_ROOT_PATH="$thisdir/zlib-${zlib_version}.dfsg/inst/usr/local"
+  ZLIB_ROOT_PATH="$thisdir/buildroot/usr/local"
   TAGLIB_ZLIB_ROOT_OPTION="-DZLIB_ROOT=${ZLIB_ROOT_PATH}"
   CHROMAPRINT_ZLIB_OPTION="-DEXTRA_LIBS=\"-L${ZLIB_ROOT_PATH}/lib -lz\""
 fi
@@ -587,7 +590,7 @@ if test $kernel = "Darwin"; then
   #ARCH=i386
   if test "$ARCH" = "i386"; then
     # To build a 32-bit Mac OS X version of Kid3 use:
-    # cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-arch i386" -DCMAKE_C_FLAGS="-arch i386" -DCMAKE_EXE_LINKER_FLAGS="-arch i386" -DQT_QMAKE_EXECUTABLE=/usr/local/Trolltech/Qt-${qt_version}-i386/bin/qmake -DCMAKE_BUILD_TYPE=Release -DWITH_FFMPEG=ON -DCMAKE_INSTALL_PREFIX= ../kid3
+    # cmake -GNinja -DCMAKE_CXX_FLAGS="-arch i386" -DCMAKE_C_FLAGS="-arch i386" -DCMAKE_EXE_LINKER_FLAGS="-arch i386" -DQT_QMAKE_EXECUTABLE=/usr/local/Trolltech/Qt-${qt_version}-i386/bin/qmake -DCMAKE_BUILD_TYPE=Release -DWITH_FFMPEG=ON -DCMAKE_INSTALL_PREFIX= ../kid3
     # Building multiple architectures needs ARCH_FLAG="-arch i386 -arch x86_64",
     # CONFIGURE_OPTIONS="--disable-dependency-tracking", but it fails with libav.
     ARCH_FLAG="-arch i386"
@@ -644,6 +647,19 @@ fixcmakeinst() {
   fi
 }
 
+create_binary_archive() {
+  if test -d "$2"; then
+    find "$2" -type f -exec touch {} +
+    tar czf "$1" "$2"
+  fi
+}
+
+extract_binary_archive() {
+  if test -f "$1"; then
+    tar xzf "$1" -C $BUILDROOT
+  fi
+}
+
 if test "$compiler" = "cross-mingw" || test "$compiler" = "cross-macos"; then
   if test -n "$QTBINARYDIR"; then
     _qt_bin_dir=$QTBINARYDIR
@@ -684,7 +700,7 @@ set(CMAKE_SYSTEM_NAME Windows)
 set(CMAKE_C_COMPILER ${_crossprefix}gcc${_crosssuffix})
 set(CMAKE_CXX_COMPILER ${_crossprefix}g++${_crosssuffix})
 set(CMAKE_RC_COMPILER ${_crossprefix}windres)
-set(CMAKE_FIND_ROOT_PATH /usr/${cross_host} \${QT_PREFIX} $thisdir/buildroot/usr/local ${ZLIB_ROOT_PATH} $thisdir/ffmpeg-${ffmpeg_version}/inst/usr/local)
+set(CMAKE_FIND_ROOT_PATH /usr/${cross_host} \${QT_PREFIX} $thisdir/buildroot/usr/local ${ZLIB_ROOT_PATH})
 set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
 set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
 set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
@@ -835,172 +851,217 @@ if [[ $target = *"libs"* ]]; then
 
 # Download sources
 
-test -d source || mkdir source
-cd source
+test -d ${SRC_ARCHIVE_DIR:=$thisdir/source} || mkdir -p $SRC_ARCHIVE_DIR
 
-if test -n "${taglib_githash}"; then
-  # Download an archive for a git hash
-  if ! test -f taglib-${taglib_githash}.tar.gz; then
-    $DOWNLOAD https://github.com/taglib/taglib/archive/${taglib_githash}.tar.gz
-    mv ${taglib_githash}.tar.gz taglib-${taglib_githash}.tar.gz
+download_taglib() {
+  cd $SRC_ARCHIVE_DIR
+  if test -n "${taglib_githash}"; then
+    # Download an archive for a git hash
+    if ! test -f taglib-${taglib_githash}.tar.gz; then
+      $DOWNLOAD https://github.com/taglib/taglib/archive/${taglib_githash}.tar.gz
+      mv ${taglib_githash}.tar.gz taglib-${taglib_githash}.tar.gz
+    fi
+  elif test -n "${taglib_version##v*}"; then
+    test -f taglib-${taglib_version}.tar.gz ||
+      $DOWNLOAD http://taglib.github.io/releases/taglib-${taglib_version}.tar.gz
+  else
+    # Download an archive for a git tag
+    if ! test -f taglib-${taglib_version##v}.tar.gz; then
+      $DOWNLOAD https://github.com/taglib/taglib/archive/${taglib_version}.tar.gz
+      mv ${taglib_version}.tar.gz taglib-${taglib_version##v}.tar.gz
+    fi
+    taglib_version=${taglib_version##v}
   fi
-elif test -n "${taglib_version##v*}"; then
-  test -f taglib-${taglib_version}.tar.gz ||
-    $DOWNLOAD http://taglib.github.io/releases/taglib-${taglib_version}.tar.gz
-else
-  # Download an archive for a git tag
-  if ! test -f taglib-${taglib_version##v}.tar.gz; then
-    $DOWNLOAD https://github.com/taglib/taglib/archive/${taglib_version}.tar.gz
-    mv ${taglib_version}.tar.gz taglib-${taglib_version##v}.tar.gz
+  cd -
+}
+
+download_utfcpp() {
+  cd $SRC_ARCHIVE_DIR
+  if ! test -f utfcpp-${utfcpp_version}.tar.gz; then
+    $DOWNLOAD https://github.com/nemtrif/utfcpp/archive/refs/tags/v${utfcpp_version}.tar.gz
+    mv v${utfcpp_version}.tar.gz utfcpp-${utfcpp_version}.tar.gz
   fi
-  taglib_version=${taglib_version##v}
-fi
+  cd -
+}
 
-if ! test -f utfcpp-${utfcpp_version}.tar.gz; then
-  $DOWNLOAD https://github.com/nemtrif/utfcpp/archive/refs/tags/v${utfcpp_version}.tar.gz
-  mv v${utfcpp_version}.tar.gz utfcpp-${utfcpp_version}.tar.gz
-fi
-
-if test "$compiler" != "cross-android"; then
-
+download_libflac() {
+  cd $SRC_ARCHIVE_DIR
   test -f flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
   test -f flac_${libflac_version}.orig.tar.xz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/flac/flac_${libflac_version}.orig.tar.xz
+  cd -
+}
 
+download_id3lib() {
+  cd $SRC_ARCHIVE_DIR
   test -f id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
   test -f id3lib3.8.3_${id3lib_version}.orig.tar.gz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}.orig.tar.gz
+  cd -
+}
 
+download_libogg() {
+  cd $SRC_ARCHIVE_DIR
   test -f libogg_${libogg_version}-${libogg_patchlevel}.diff.gz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz
   test -f libogg_${libogg_version}.orig.tar.gz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libo/libogg/libogg_${libogg_version}.orig.tar.gz
+  cd -
+}
 
+download_libvorbis() {
+  cd $SRC_ARCHIVE_DIR
   test -f libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz
   test -f libvorbis_${libvorbis_version}.orig.tar.gz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/libv/libvorbis/libvorbis_${libvorbis_version}.orig.tar.gz
+  cd -
+}
 
+download_zlib() {
+  cd $SRC_ARCHIVE_DIR
   if test -n "$ZLIB_ROOT_PATH"; then
     test -f zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz ||
       $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz
     test -f zlib_${zlib_version}.dfsg.orig.tar.bz2 ||
       $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/z/zlib/zlib_${zlib_version}.dfsg.orig.tar.bz2
   fi
+  cd -
+}
 
+download_ffmpeg() {
+  cd $SRC_ARCHIVE_DIR
   test -f ffmpeg_${ffmpeg_version}.orig.tar.xz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}.orig.tar.xz
   test -f ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/f/ffmpeg/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz
+  cd -
+}
 
+download_chromaprint() {
+  cd $SRC_ARCHIVE_DIR
   test -f chromaprint_${chromaprint_version}.orig.tar.gz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}.orig.tar.gz
   test -f chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz ||
     $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/c/chromaprint/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
+  cd -
+}
 
+download_mp4v2() {
+  cd $SRC_ARCHIVE_DIR
   test -f mp4v2-${mp4v2_version}.tar.bz2 ||
     $DOWNLOAD https://github.com/enzo1982/mp4v2/releases/download/v${mp4v2_version}/mp4v2-${mp4v2_version}.tar.bz2
+  cd -
+}
 
-fi # !cross-android
-
-if test "$compiler" = "cross-android" || test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" \
-   || ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "${openssl_version:0:3}" != "1.0" ); then
+download_openssl() {
+  cd $SRC_ARCHIVE_DIR
   # See http://doc.qt.io/qt-5/opensslsupport.html
   test -f Setenv-android.sh ||
     $DOWNLOAD https://wiki.openssl.org/images/7/70/Setenv-android.sh
   test -f openssl-${openssl_version}.tar.gz ||
-    $DOWNLOAD https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
-fi
-
-cd ..
+    $DOWNLOAD https://ftp.openssl.org/source/openssl-${openssl_version}.tar.gz
+  cd -
+}
 
 
 # Extract and patch sources
 
-if ! test -d utfcpp-${utfcpp_version}; then
-  echo "### Extracting utfcpp"
-  tar xzf source/utfcpp-${utfcpp_version}.tar.gz
-fi
-
-if ! test -d taglib-${taglib_version}; then
-  echo "### Extracting taglib"
-
-  if test -n "${taglib_githash}"; then
-    tar xzf source/taglib-${taglib_githash}.tar.gz
-    mv taglib-${taglib_githash} taglib-${taglib_version}
-  else
-    tar xzf source/taglib-${taglib_version}.tar.gz
+extract_utfcpp() {
+  if ! test -d utfcpp-${utfcpp_version}; then
+    echo "### Extracting utfcpp"
+    tar xzf $SRC_ARCHIVE_DIR/utfcpp-${utfcpp_version}.tar.gz
   fi
-  cd taglib-${taglib_version}/
-  if test "$cross_host" = "x86_64-w64-mingw32"; then
-    if test -f $srcdir/packaging/patches/taglib-${taglib_githash}-win00-large_file.patch; then
-      patch -p1 <$srcdir/packaging/patches/taglib-${taglib_githash}-win00-large_file.patch
-    elif test -f $srcdir/packaging/patches/taglib-${taglib_version}-win00-large_file.patch; then
-      patch -p1 <$srcdir/packaging/patches/taglib-${taglib_version}-win00-large_file.patch
+}
+
+extract_taglib() {
+  if ! test -d taglib-${taglib_version}; then
+    echo "### Extracting taglib"
+
+    if test -n "${taglib_githash}"; then
+      tar xzf $SRC_ARCHIVE_DIR/taglib-${taglib_githash}.tar.gz
+      mv taglib-${taglib_githash} taglib-${taglib_version}
+    else
+      tar xzf $SRC_ARCHIVE_DIR/taglib-${taglib_version}.tar.gz
     fi
+    cd taglib-${taglib_version}/
+    if test "$cross_host" = "x86_64-w64-mingw32"; then
+      if test -f $srcdir/packaging/patches/taglib-${taglib_githash}-win00-large_file.patch; then
+        patch -p1 <$srcdir/packaging/patches/taglib-${taglib_githash}-win00-large_file.patch
+      elif test -f $srcdir/packaging/patches/taglib-${taglib_version}-win00-large_file.patch; then
+        patch -p1 <$srcdir/packaging/patches/taglib-${taglib_version}-win00-large_file.patch
+      fi
+    fi
+    cd ..
   fi
-  cd ..
-fi
+}
 
-if test "$compiler" != "cross-android"; then
-
+extract_zlib() {
   if test -n "$ZLIB_ROOT_PATH"; then
     if ! test -d zlib-${zlib_version}; then
       echo "### Extracting zlib"
 
-      tar xjf source/zlib_${zlib_version}.dfsg.orig.tar.bz2
+      tar xjf $SRC_ARCHIVE_DIR/zlib_${zlib_version}.dfsg.orig.tar.bz2
       cd zlib-${zlib_version}.dfsg/
 
-      tar xJf ../source/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz || true
+      tar xJf $SRC_ARCHIVE_DIR/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz || true
       echo Can be ignored: Cannot create symlink to debian.series
       for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
       cd ..
     fi
   fi
+}
 
+extract_libogg() {
   if ! test -d libogg-${libogg_version}; then
     echo "### Extracting libogg"
 
-    tar xzf source/libogg_${libogg_version}.orig.tar.gz
+    tar xzf $SRC_ARCHIVE_DIR/libogg_${libogg_version}.orig.tar.gz
     cd libogg-${libogg_version}/
-    gunzip -c ../source/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz | patch -p1
+    gunzip -c $SRC_ARCHIVE_DIR/libogg_${libogg_version}-${libogg_patchlevel}.diff.gz | patch -p1
     if test $kernel = "Darwin" || test "$compiler" = "cross-macos"; then
       patch -p1 <$srcdir/packaging/patches/libogg-1.3.4-00-mac.patch
     fi
     cd ..
   fi
+}
 
+extract_libvorbis() {
   if ! test -d libvorbis-${libvorbis_version}; then
     echo "### Extracting libvorbis"
 
-    tar xzf source/libvorbis_${libvorbis_version}.orig.tar.gz
+    tar xzf $SRC_ARCHIVE_DIR/libvorbis_${libvorbis_version}.orig.tar.gz
     cd libvorbis-${libvorbis_version}/
-    tar xJf ../source/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz
+    tar xJf $SRC_ARCHIVE_DIR/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     test -f win32/VS2010/libogg.props.orig || mv win32/VS2010/libogg.props win32/VS2010/libogg.props.orig
     sed "s/<LIBOGG_VERSION>1.2.0</<LIBOGG_VERSION>$libogg_version</" win32/VS2010/libogg.props.orig >win32/VS2010/libogg.props
     cd ..
   fi
+}
 
+extract_libflac() {
   if ! test -d flac-${libflac_version%+ds*}; then
     echo "### Extracting libflac"
 
-    tar xJf source/flac_${libflac_version}.orig.tar.xz
+    tar xJf $SRC_ARCHIVE_DIR/flac_${libflac_version}.orig.tar.xz
     cd flac-${libflac_version%+ds*}/
-    tar xJf ../source/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
+    tar xJf $SRC_ARCHIVE_DIR/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     patch -p1 <$srcdir/packaging/patches/flac-1.2.1-00-size_t_max.patch
     cd ..
   fi
+}
 
+extract_id3lib() {
   if ! test -d id3lib-${id3lib_version}; then
     echo "### Extracting id3lib"
 
-    tar xzf source/id3lib3.8.3_${id3lib_version}.orig.tar.gz
+    tar xzf $SRC_ARCHIVE_DIR/id3lib3.8.3_${id3lib_version}.orig.tar.gz
     cd id3lib-${id3lib_version}/
-    tar xJf ../source/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
+    tar xJf $SRC_ARCHIVE_DIR/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch --binary -p1 <debian/patches/$f; done
     patch -p1 <$srcdir/packaging/patches/id3lib-3.8.3-win00-mingw.patch
     patch -p1 <$srcdir/packaging/patches/id3lib-3.8.3-win01-tempfile.patch
@@ -1008,43 +1069,47 @@ if test "$compiler" != "cross-android"; then
     sed 's/-W3 -WX -GX/-W3 -EHsc/; s/-MD -D "WIN32" -D "_DEBUG"/-MDd -D "WIN32" -D "_DEBUG"/' makefile.win32.orig >makefile.win32
     cd ..
   fi
+}
 
+extract_ffmpeg() {
   if ! test -d ffmpeg-${ffmpeg_version}; then
     echo "### Extracting ffmpeg"
 
-    tar xJf source/ffmpeg_${ffmpeg_version}.orig.tar.xz || true
+    tar xJf $SRC_ARCHIVE_DIR/ffmpeg_${ffmpeg_version}.orig.tar.xz || true
     cd ffmpeg-${ffmpeg_version}/
-    tar xJf ../source/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz || true
+    tar xJf $SRC_ARCHIVE_DIR/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz || true
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     cd ..
   fi
+}
 
+extract_chromaprint() {
   if ! test -d chromaprint-${chromaprint_version}; then
     echo "### Extracting chromaprint"
 
-    tar xzf source/chromaprint_${chromaprint_version}.orig.tar.gz
+    tar xzf $SRC_ARCHIVE_DIR/chromaprint_${chromaprint_version}.orig.tar.gz
     cd chromaprint-${chromaprint_version}/
-    tar xJf ../source/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
+    tar xJf $SRC_ARCHIVE_DIR/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
     for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     cd ..
   fi
+}
 
+extract_mp4v2() {
   if ! test -d mp4v2-${mp4v2_version}; then
     echo "### Extracting mp4v2"
 
-    tar xjf source/mp4v2-${mp4v2_version}.tar.bz2
+    tar xjf $SRC_ARCHIVE_DIR/mp4v2-${mp4v2_version}.tar.bz2
   fi
+}
 
-fi # !cross-android
-
-if test "$compiler" = "cross-android"; then
-
+extract_openssl() {
   if ! test -d openssl-${openssl_version}; then
     echo "### Extracting openssl"
 
-    tar xzf source/openssl-${openssl_version}.tar.gz
-    if test "$qt_nr" -lt 60000; then
-      cp source/Setenv-android.sh openssl-${openssl_version}/
+    tar xzf $SRC_ARCHIVE_DIR/openssl-${openssl_version}.tar.gz
+    if test "$compiler" = "cross-android" && test "$qt_nr" -lt 60000; then
+      cp $SRC_ARCHIVE_DIR/Setenv-android.sh openssl-${openssl_version}/
       cd openssl-${openssl_version}/
       sed -i 's/\r$//' Setenv-android.sh
       test -n "$ANDROID_NDK_ROOT" && \
@@ -1055,24 +1120,17 @@ if test "$compiler" = "cross-android"; then
       cd ..
     fi
   fi
-
-elif test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" \
-     || ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "${openssl_version:0:3}" != "1.0" ); then
-
-  if ! test -d openssl-${openssl_version}; then
-    echo "### Extracting openssl"
-    tar xzf source/openssl-${openssl_version}.tar.gz
-  fi
-
-fi # cross-android
+}
 
 # Build from sources
 
-test -d bin || mkdir bin
+test -d ${BIN_ARCHIVE_DIR:=$thisdir/bin} || mkdir -p $BIN_ARCHIVE_DIR
 
 if test "$compiler" = "cross-android"; then
 
-  if test ! -d openssl-${openssl_version}/inst; then
+  if test ! -f $BIN_ARCHIVE_DIR/openssl-${openssl_version}.tgz; then
+    download_openssl
+    extract_openssl
     echo "### Building OpenSSL"
 
     cd openssl-${openssl_version}/
@@ -1102,10 +1160,10 @@ if test "$compiler" = "cross-android"; then
       fi
 
       if test "${openssl_version:0:3}" = "1.0"; then
-        make CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
+        make -j CALC_VERSIONS="SHLIB_COMPAT=; SHLIB_SOVER=" build_libs
         _ssl_lib_suffix=.so
       else
-        make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_1_1.so build_libs
+        make -j ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_1_1.so build_libs
         _ssl_lib_suffix=_1_1.so
       fi
     else
@@ -1113,7 +1171,7 @@ if test "$compiler" = "cross-android"; then
       sed -i 's/shared_extension => ".so",/shared_extension => "_3.so",/' Configurations/15-android.conf
       ANDROID_NDK_HOME=$ANDROID_NDK_ROOT ./Configure shared android-arm
       sed -i "s,^DESTDIR=\$,DESTDIR=$PWD/inst," Makefile
-      make ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_3.so build_libs install_dev
+      make -j ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_3.so build_libs install_dev
       _ssl_lib_suffix=_3.so
       _android_prefix=llvm
     fi
@@ -1121,64 +1179,65 @@ if test "$compiler" = "cross-android"; then
     cp --dereference libssl${_ssl_lib_suffix} libcrypto${_ssl_lib_suffix} inst/usr/local/lib/
     $_android_prefix-strip -s inst/usr/local/lib/*.so
     cd inst
-    tar czf ../../bin/openssl-${openssl_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/openssl-${openssl_version}.tgz usr
     cd ../..
-    tar xmzf bin/openssl-${openssl_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/openssl-${openssl_version}.tgz
 
-  if test ! -d utfcpp-${utfcpp_version}/inst; then
+  if test ! -f $BIN_ARCHIVE_DIR/utfcpp-${utfcpp_version}.tgz; then
+    download_utfcpp
+    extract_utfcpp
     echo "### Building utfcpp"
 
     cd utfcpp-${utfcpp_version}/
-    test -f Makefile || eval cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DUTF8_TESTS=OFF
-    make VERBOSE=1
-    mkdir -p inst
-    make install DESTDIR=`pwd`/inst
+    test -f build.ninja || eval cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DUTF8_TESTS=OFF
+    ninja
+    DESTDIR=`pwd`/inst ninja install
     fixcmakeinst
     cd inst
-    tar czf ../../bin/utfcpp-${utfcpp_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/utfcpp-${utfcpp_version}.tgz usr
     cd ../..
-    tar xmzf bin/utfcpp-${utfcpp_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/utfcpp-${utfcpp_version}.tgz
 
-  if ! test -f $BUILDROOT/usr/local/lib/libtag.a; then
+  if test ! -f $BIN_ARCHIVE_DIR/taglib-${taglib_version}.tgz; then
+    download_taglib
+    extract_taglib
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$BUILDROOT/usr/local -DCMAKE_FIND_ROOT_PATH=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache -DCMAKE_MAKE_PROGRAM=make
-    make install
-    cd ..
+    test -f build.ninja || cmake -GNinja -DBUILD_SHARED_LIBS=OFF -DCMAKE_BUILD_TYPE=Release -DCMAKE_FIND_ROOT_PATH=$BUILDROOT/usr/local -DANDROID_NDK=$_android_ndk_root -DANDROID_ABI=$_android_abi -DCMAKE_TOOLCHAIN_FILE=$_android_toolchain_cmake -DANDROID_PLATFORM=$_android_platform -DANDROID_CCACHE=$_android_ccache
+    ninja
+    DESTDIR=`pwd`/inst ninja install
+    fixcmakeinst
+    cd inst
+    create_binary_archive $BIN_ARCHIVE_DIR/taglib-${taglib_version}.tgz usr
+    cd ../..
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/taglib-${taglib_version}.tgz
 
 else #  cross-android
 
-  if test "$1" = "clean"; then
-    for d in zlib-${zlib_version}.dfsg libogg-${libogg_version} \
-             libvorbis-${libvorbis_version} flac-${libflac_version%+ds*} \
-             id3lib-${id3lib_version} taglib-${taglib_version} \
-             ffmpeg-${ffmpeg_version} chromaprint-${chromaprint_version} \
-             mp4v2-${mp4v2_version} utfcpp-${utfcpp_version}; do
-      test -d $d/inst && rm -rf $d/inst
-    done
-  fi
-
-  if ( test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" ) && test ! -d openssl-${openssl_version}/inst; then
+  if ( test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" ) \
+       && test ! -f $BIN_ARCHIVE_DIR/openssl-${openssl_version}.tgz; then
+    download_openssl
+    extract_openssl
     echo "### Building OpenSSL"
 
     cd openssl-${openssl_version}
     ./Configure shared enable-ec_nistp_64_gcc_128 linux-x86_64 -Wa,--noexecstack
     make depend || true
-    make build_libs
+    make -j build_libs
     mkdir -p inst/usr/local/ssl
     cp --dereference libssl.so libcrypto.so inst/usr/local/ssl/
     strip -s inst/usr/local/ssl/*.so
     cd inst
-    tar czf ../../bin/openssl-${openssl_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/openssl-${openssl_version}.tgz usr
     cd ../..
-    tar xmzf bin/openssl-${openssl_version}.tgz -C $BUILDROOT
-
   elif ( ( test "$compiler" = "cross-mingw" || test "$kernel" = "MINGW" ) && test "${openssl_version:0:3}" != "1.0" ) \
-       && test ! -d openssl-${openssl_version}/inst; then
+       && test ! -f $BIN_ARCHIVE_DIR/openssl-${openssl_version}.tgz; then
+    download_openssl
+    extract_openssl
     echo "### Building OpenSSL"
 
     cd openssl-${openssl_version}
@@ -1196,7 +1255,7 @@ else #  cross-android
     fi
     ./Configure shared enable-ec_nistp_64_gcc_128 $_target --cross-compile-prefix=$_crossprefix
     make depend || true
-    make build_libs
+    make -j build_libs
     if test "$cross_host" = "x86_64-w64-mingw32"; then
       CC=$_cctmp
     fi
@@ -1204,91 +1263,88 @@ else #  cross-android
     cp lib{ssl,crypto}*.dll inst/usr/local/ssl/
     ${_crossprefix}strip -s inst/usr/local/ssl/*.dll
     cd inst
-    tar czf ../../bin/openssl-${openssl_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/openssl-${openssl_version}.tgz usr
     cd ../..
-    tar xmzf bin/openssl-${openssl_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/openssl-${openssl_version}.tgz
 
-  if test -n "$ZLIB_ROOT_PATH" && test ! -d zlib-${zlib_version}.dfsg/inst; then
+  if test -n "$ZLIB_ROOT_PATH" && test ! -f $BIN_ARCHIVE_DIR/zlib-${zlib_version}.tgz; then
+    download_zlib
+    extract_zlib
     echo "### Building zlib"
 
     cd zlib-${zlib_version}.dfsg/
     mkdir -p inst/usr/local
     if test $kernel = "MINGW"; then
       CFLAGS="$CFLAGS -g -O3 -Wall -DNO_FSEEKO" ./configure --static
-      make install prefix=`pwd`/inst/usr/local
+      make -j install prefix=`pwd`/inst/usr/local
     elif test "$compiler" = "cross-mingw"; then
       CHOST=${_crossprefix} CFLAGS="$CFLAGS -g -O3 -Wall -DNO_FSEEKO" ./configure --static
-      make install prefix=`pwd`/inst/usr/local
+      make -j install prefix=`pwd`/inst/usr/local
     else
       CFLAGS="$CFLAGS -g -O3 -Wall -DNO_FSEEKO" ./configure --static
       sed 's/LIBS=$(STATICLIB) $(SHAREDLIB) $(SHAREDLIBV)/LIBS=$(STATICLIB)/' Makefile >Makefile.inst
-      make install -f Makefile.inst prefix=`pwd`/inst/usr/local
+      make -j install -f Makefile.inst prefix=`pwd`/inst/usr/local
     fi
     cd inst
-    tar czf ../../bin/zlib-${zlib_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/zlib-${zlib_version}.tgz usr
     cd ../..
-    tar xmzf bin/zlib-${zlib_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/zlib-${zlib_version}.tgz
 
-  if test ! -d libogg-${libogg_version}/inst; then
+  if test ! -f $BIN_ARCHIVE_DIR/libogg-${libogg_version}.tgz; then
+    download_libogg
+    extract_libogg
     echo "### Building libogg"
 
     cd libogg-${libogg_version}/
-    test -f Makefile || ./configure --enable-shared=no --enable-static=yes $CONFIGURE_OPTIONS
-    make
-    mkdir -p inst
-    make install DESTDIR=`pwd`/inst
+    test -f build.ninja || eval cmake -DBUILD_SHARED_LIBS=OFF $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    DESTDIR=`pwd`/inst ninja install
+    fixcmakeinst
     cd inst
-    tar czf ../../bin/libogg-${libogg_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/libogg-${libogg_version}.tgz usr
     cd ../..
-    tar xmzf bin/libogg-${libogg_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/libogg-${libogg_version}.tgz
 
-  if test ! -d libvorbis-${libvorbis_version}/inst; then
+  if test ! -f $BIN_ARCHIVE_DIR/libvorbis-${libvorbis_version}.tgz; then
+    download_libvorbis
+    extract_libvorbis
     echo "### Building libvorbis"
 
     cd libvorbis-${libvorbis_version}/
-    if test "$compiler" = "cross-mingw"; then
-      test -f Makefile || CFLAGS="$CFLAGS -g" PKG_CONFIG= ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $CONFIGURE_OPTIONS
-    else
-      test -f Makefile || CFLAGS="$CFLAGS -g" ./configure --enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local $CONFIGURE_OPTIONS
-    fi
-    make
-    mkdir -p inst
-    make install DESTDIR=`pwd`/inst
+    test -f build.ninja || eval cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    DESTDIR=`pwd`/inst ninja install
+    fixcmakeinst
     cd inst
-    tar czf ../../bin/libvorbis-${libvorbis_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/libvorbis-${libvorbis_version}.tgz usr
     cd ../..
-    tar xmzf bin/libvorbis-${libvorbis_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/libvorbis-${libvorbis_version}.tgz
 
-  if test ! -d flac-${libflac_version%+ds*}/inst; then
+  if test ! -f $BIN_ARCHIVE_DIR/flac-${libflac_version}.tgz; then
+    download_libflac
+    extract_libflac
     echo "### Building libflac"
 
     cd flac-${libflac_version%+ds*}/
-    autoreconf -i
-    configure_args="--enable-shared=no --enable-static=yes --with-ogg=$thisdir/libogg-$libogg_version/inst/usr/local --disable-thorough-tests --disable-doxygen-docs --disable-xmms-plugin $FLAC_BUILD_OPTION $CONFIGURE_OPTIONS"
-    if test $kernel = "Darwin"; then
-      configure_args="$configure_args --disable-asm-optimizations"
-    elif test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
+    _cmake_args="-DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF -DBUILD_DOCS=OFF -DINSTALL_MANPAGES=OFF -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local"
+    if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
       # Avoid having to ship with libssp-0.dll
-      configure_args="$configure_args --disable-stack-smash-protection --disable-fortify-source"
+      _cmake_args+=" -DWITH_STACK_PROTECTOR=OFF -DWITH_FORTIFY_SOURCE=OFF"
     fi
-    test -f Makefile || ./configure $configure_args
-    # On msys32, an error "changed before entering" occurred, can be fixed by
-    # modifying /usr/share/perl5/core_perl/File/Path.pm
-    # my $Need_Stat_Check = !($^O eq 'MSWin32' || $^O eq 'msys');
-    make V=1
-    mkdir -p inst
-    make install DESTDIR=`pwd`/inst
+    test -f build.ninja || eval cmake $_cmake_args $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    DESTDIR=`pwd`/inst ninja install
+    fixcmakeinst
     cd inst
-    tar czf ../../bin/flac-${libflac_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/flac-${libflac_version}.tgz usr
     cd ../..
-    tar xmzf bin/flac-${libflac_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/flac-${libflac_version}.tgz
 
-  if test ! -d id3lib-${id3lib_version}/inst && ! test $kernel = "Darwin" -a $ARCH = "arm64"; then
+  if test ! -f $BIN_ARCHIVE_DIR/id3lib-${id3lib_version}.tgz && ! test $kernel = "Darwin" -a $ARCH = "arm64"; then
+    download_id3lib
+    extract_id3lib
     echo "### Building id3lib"
 
     cd id3lib-${id3lib_version}/
@@ -1303,44 +1359,47 @@ else #  cross-android
     test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS="$LDFLAGS -L/usr/local/lib" ./configure $configure_args
     SED=sed make
     mkdir -p inst
-    make install DESTDIR=`pwd`/inst
+    make -j install DESTDIR=`pwd`/inst
     cd inst
-    tar czf ../../bin/id3lib-${id3lib_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/id3lib-${id3lib_version}.tgz usr
     cd ../..
-    tar xmzf bin/id3lib-${id3lib_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/id3lib-${id3lib_version}.tgz
 
-  if test ! -d utfcpp-${utfcpp_version}/inst; then
+  if test ! -f $BIN_ARCHIVE_DIR/utfcpp-${utfcpp_version}.tgz; then
+    download_utfcpp
+    extract_utfcpp
     echo "### Building utfcpp"
 
     cd utfcpp-${utfcpp_version}/
-    test -f Makefile || eval cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DUTF8_TESTS=OFF
-    make VERBOSE=1
-    mkdir -p inst
-    make install DESTDIR=`pwd`/inst
+    test -f build.ninja || eval cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DUTF8_TESTS=OFF
+    DESTDIR=`pwd`/inst ninja install
     fixcmakeinst
     cd inst
-    tar czf ../../bin/utfcpp-${utfcpp_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/utfcpp-${utfcpp_version}.tgz usr
     cd ../..
-    tar xmzf bin/utfcpp-${utfcpp_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/utfcpp-${utfcpp_version}.tgz
 
-  if test ! -d taglib-${taglib_version}/inst; then
+  if test ! -f $BIN_ARCHIVE_DIR/taglib-${taglib_version}.tgz; then
+    download_taglib
+    extract_taglib
     echo "### Building taglib"
 
     cd taglib-${taglib_version}/
-    test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF $TAGLIB_ZLIB_ROOT_OPTION $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DCMAKE_PREFIX_PATH=$BUILDROOT/usr/local
-    make VERBOSE=1
-    mkdir -p inst
-    make install DESTDIR=`pwd`/inst
+    test -f build.ninja || eval cmake -DBUILD_SHARED_LIBS=OFF $TAGLIB_ZLIB_ROOT_OPTION $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DCMAKE_PREFIX_PATH=$BUILDROOT/usr/local
+    ninja
+    DESTDIR=`pwd`/inst ninja install
     fixcmakeinst
     cd inst
-    tar czf ../../bin/taglib-${taglib_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/taglib-${taglib_version}.tgz usr
     cd ../..
-    tar xmzf bin/taglib-${taglib_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/taglib-${taglib_version}.tgz
 
-  if test ! -d ffmpeg-${ffmpeg_version}/inst; then
+  if test ! -f $BIN_ARCHIVE_DIR/ffmpeg-${ffmpeg_version}.tgz; then
+    download_ffmpeg
+    extract_ffmpeg
     echo "### Building ffmpeg"
 
     cd ffmpeg-${ffmpeg_version}
@@ -1466,45 +1525,45 @@ else #  cross-android
       --disable-vdpau \
       --disable-hwaccel=h264_dxva2 \
       --disable-hwaccel=mpeg2_dxva2 $AV_CONFIGURE_OPTIONS
-    make V=1
+    make -j V=1
     mkdir -p inst
     make install DESTDIR=`pwd`/inst
     cd inst
-    tar czf ../../bin/ffmpeg-${ffmpeg_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/ffmpeg-${ffmpeg_version}.tgz usr
     cd ../..
-    tar xmzf bin/ffmpeg-${ffmpeg_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/ffmpeg-${ffmpeg_version}.tgz
 
-  if test ! -d chromaprint-${chromaprint_version}/inst; then
+  if test ! -f $BIN_ARCHIVE_DIR/chromaprint-${chromaprint_version}.tgz; then
+    download_chromaprint
+    extract_chromaprint
     echo "### Building chromaprint"
 
     # The zlib library path was added for MinGW-builds GCC 4.7.2.
     cd chromaprint-${chromaprint_version}/
-    test -f Makefile || eval cmake -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF $CHROMAPRINT_ZLIB_OPTION -DFFMPEG_ROOT=$thisdir/ffmpeg-${ffmpeg_version}/inst/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
-    make VERBOSE=1
-    mkdir -p inst
-    make install DESTDIR=`pwd`/inst
+    test -f build.ninja || eval cmake -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF $CHROMAPRINT_ZLIB_OPTION -DFFMPEG_ROOT=$thisdir/buildroot/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    DESTDIR=`pwd`/inst ninja install
     fixcmakeinst
     cd inst
-    tar czf ../../bin/chromaprint-${chromaprint_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/chromaprint-${chromaprint_version}.tgz usr
     cd ../..
-    tar xmzf bin/chromaprint-${chromaprint_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/chromaprint-${chromaprint_version}.tgz
 
-  if test ! -d mp4v2-${mp4v2_version}/inst; then
+  if test ! -f $BIN_ARCHIVE_DIR/mp4v2-${mp4v2_version}.tgz; then
+    download_mp4v2
+    extract_mp4v2
     echo "### Building mp4v2"
 
     cd mp4v2-${mp4v2_version}/
-    test -f Makefile || eval cmake -DBUILD_SHARED=OFF -DBUILD_UTILS=OFF -DBUILD_SHARED_LIBS=OFF $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
-    make VERBOSE=1
-    mkdir -p inst
-    make install DESTDIR=`pwd`/inst
+    test -f build.ninja || eval cmake -DBUILD_SHARED=OFF -DBUILD_UTILS=OFF -DBUILD_SHARED_LIBS=OFF $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    DESTDIR=`pwd`/inst ninja install
     fixcmakeinst
     cd inst
-    tar czf ../../bin/mp4v2-${mp4v2_version}.tgz usr
+    create_binary_archive $BIN_ARCHIVE_DIR/mp4v2-${mp4v2_version}.tgz usr
     cd ../..
-    tar xmzf bin/mp4v2-${mp4v2_version}.tgz -C $BUILDROOT
   fi
+  extract_binary_archive $BIN_ARCHIVE_DIR/mp4v2-${mp4v2_version}.tgz
 
 fi # cross-android, else
 fi # libs
@@ -1572,39 +1631,38 @@ BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
 cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_CXX_COMPILER=${gcc_self_contained_cxx} -DCMAKE_C_COMPILER=${gcc_self_contained_cc} -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
 EOF
-      elif test $kernel = "Darwin" -a $ARCH = "arm64"; then
+      elif test $kernel = "Darwin" -a "$ARCH" = "arm64"; then
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test $kernel = "Darwin"; then
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test $kernel = "MINGW"; then
         _qtToolsMingw=($QTPREFIX/../../Tools/mingw*)
         _qtToolsMingw=$(realpath $_qtToolsMingw)
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir:-$HOME/prg/docbook-xsl-1.72.0} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
         _qtPrefixWin=${QTPREFIX//\//\\}
         _qtPrefixWin=${_qtPrefixWin/\\c/C:}
         _qtToolsMingwWin=${_qtToolsMingw//\//\\}
         _qtToolsMingwWin=${_qtToolsMingwWin/\\c/C:}
-        _docbookXslDirWin=${_docbook_xsl_dir//\//\\}
-        _docbookXslDirWin=${_docbookXslDirWin/\\c/C:}
         cat >kid3/build.bat <<EOF
 set INCLUDE=../buildroot/usr/local/include
 set LIB=../buildroot/usr/local/lib
 echo ;%PATH%; | find /C /I ";$_qtPrefixWin\bin;"
 if errorlevel 1 (
-path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\Python38;%PATH%
+path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\msys64\mingw64\bin;%PATH%
 )
-cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbookXslDirWin:-%HOME%/prg/docbook-xsl-1.72.0} ../../kid3
+cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=%cd%/../buildroot/usr/local -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR="C:\msys64\usr\share\xml\docbook\xsl-stylesheets-1.79.2" -DXSLTPROC=C:/msys64/usr/bin/xsltproc.exe ../../kid3
+cmake --build .
 EOF
     cat >kid3/run.bat <<EOF
 set thisdir=%~dp0
@@ -1728,7 +1786,7 @@ EOF
     if test -f build.ninja; then
       ninja package
     else
-      make package
+      make -j package
     fi
   fi
   popd >/dev/null
