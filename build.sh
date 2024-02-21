@@ -82,6 +82,27 @@ srcdir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 kernel=$(uname)
 test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
+qt_version=6.5.3
+zlib_version=1.2.13
+zlib_patchlevel=3
+libogg_version=1.3.4
+libogg_patchlevel=0.1
+libvorbis_version=1.3.7
+libvorbis_patchlevel=1
+ffmpeg3_version=3.2.14
+ffmpeg3_patchlevel=1~deb9u1
+ffmpeg_version=5.1.4
+ffmpeg_patchlevel=0+deb12u1
+libflac_version=1.4.3+ds
+libflac_patchlevel=2
+id3lib_version=3.8.3
+id3lib_patchlevel=18
+taglib_version=2.0
+chromaprint_version=1.5.1
+chromaprint_patchlevel=4
+mp4v2_version=2.1.3
+utfcpp_version=4.0.5
+
 verify_not_in_srcdir() {
   if test -f CMakeLists.txt; then
     echo "Do not run this script from the source directory!"
@@ -223,6 +244,15 @@ set -e
    QTPREFIX=$HOME/Development/Qt6.5.3-mingw64/6.5.3/mingw_64 \
    QTBINARYDIR=$HOME/Development/Qt6.5.3-linux/6.5.3/gcc_64/bin \
    ../kid3/build.sh)
+(cd mingw64_qt5_build && \
+   PATH=/opt/mxe/usr/bin:$PATH \
+   COMPILER=cross-mingw \
+   QTPREFIX=$HOME/Development/Qt5.15.2-mingw64/5.15.2/mingw81_64 \
+   QTBINARYDIR=$HOME/Development/Qt5.15.2-linux/5.15.2/gcc_64/bin \
+   ../kid3/build.sh && \
+   origzip=(kid3/*-x64.zip) && \
+   qt5zip=${origzip/-x64./-x64-Qt5.} && \
+   mv $origzip $qt5zip)
 (cd macos_build && \
    rm -f kid3/*-Darwin.dmg && \
    PATH=/opt/cmake/bin:$PATH \
@@ -316,7 +346,7 @@ if test "$1" = "rundocker"; then
          -v /opt/cmake:/opt/cmake:ro \
          -v /opt/osxcross:/opt/osxcross:ro \
          -v /opt/mxe11:/opt/mxe11:ro \
-         -v /opt/jdk8:/opt/jdk8:ro \
+         -v /opt/mxe:/opt/mxe:ro \
          -v $HOME/Development:$HOME/Development:ro ufleisch/kid3dev:bullseye "$@"
   exit 0
 fi
@@ -362,32 +392,20 @@ if test "$1" = "deb"; then
   exit 0
 fi
 
+if test "$1" = "clean"; then
+  rm -rf zlib-${zlib_version}.dfsg libogg-${libogg_version} \
+         libvorbis-${libvorbis_version} flac-${libflac_version%+ds*} \
+         id3lib-${id3lib_version} taglib-${taglib_version} \
+         ffmpeg-${ffmpeg_version} chromaprint-${chromaprint_version} \
+         mp4v2-${mp4v2_version} utfcpp-${utfcpp_version} openssl-*
+  exit 0
+fi
+
 # End of subtasks
 
 verify_not_in_srcdir
 
 target=${*:-libs package}
-
-qt_version=6.5.3
-zlib_version=1.2.13
-zlib_patchlevel=3
-libogg_version=1.3.4
-libogg_patchlevel=0.1
-libvorbis_version=1.3.7
-libvorbis_patchlevel=1
-ffmpeg3_version=3.2.14
-ffmpeg3_patchlevel=1~deb9u1
-ffmpeg_version=5.1.4
-ffmpeg_patchlevel=0+deb12u1
-libflac_version=1.4.3+ds
-libflac_patchlevel=2
-id3lib_version=3.8.3
-id3lib_patchlevel=18
-taglib_version=2.0
-chromaprint_version=1.5.1
-chromaprint_patchlevel=4
-mp4v2_version=2.1.3
-utfcpp_version=4.0.5
 
 # Try to find the configuration from an existing build.
 if test -z "$COMPILER"; then
