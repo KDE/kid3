@@ -437,7 +437,8 @@ Builds:
     timeout: 14400
     sudo:
       - apt-get update
-      - apt-get install -y 7zip build-essential cmake docbook-xsl make ninja-build python-is-python3 libclang-dev
+      - apt-get install -y 7zip build-essential cmake docbook-xsl make ninja-build
+        python-is-python3 libclang-dev
     output: android-build/kid3/android/android-build/build/outputs/apk/release/android-build-release-unsigned.apk
     srclibs:
       - Qt5@v6.5.3
@@ -464,8 +465,8 @@ Builds:
       - pushd ${QT_HOST_BUILD}
       - $$Qt5$$/configure -opensource -confirm-license -prefix $QT_HOST_PREFIX -release
         -submodules qtbase,qttools -nomake tests -nomake examples -no-sql-mysql -no-dbus
-        -no-openssl -no-glib -no-icu -no-cups -no-fontconfig -no-gtk -no-egl
-        -skip qtnetwork,qtsql,qtxml,qtprintsupport,qttestlib,qtwebengine,qtgamepad,qtwebchannel
+        -no-openssl -no-glib -no-icu -no-cups -no-fontconfig -no-gtk -no-egl -skip
+        qtnetwork,qtsql,qtxml,qtprintsupport,qttestlib,qtwebengine,qtgamepad,qtwebchannel
         -skip qtwebview,qtwebsockets,qtwebglplugin,qtserialport,qtnetworkauth,qt3d,qtsensors
         -skip qtwayland,qtxmlpatterns,qtscxml,qtscript,qtconnectivity,qtimageformats
         -skip qtlanguageserver,qtquicktimeline,qtquick3d,qt5compat,qtactiveqt,qtcharts
@@ -480,15 +481,15 @@ Builds:
       - $$Qt5$$/configure -platform android-clang --disable-rpath -opensource -confirm-license
         -silent -prefix $QTPREFIX -release -nomake tests -nomake examples -no-sql-mysql
         -no-dbus -no-use-gold-linker -sysconfdir /etc/xdg -opengl es2 -android-sdk
-        $$SDK$$ -android-ndk $$NDK$$ -android-arch armeabi-v7a -android-ndk-platform android-23
-        -skip qtwebengine,qtgamepad,qtwebchannel,qtwebview,qtwebsockets,qtwebglplugin
+        $$SDK$$ -android-ndk $$NDK$$ -android-arch armeabi-v7a -android-ndk-platform
+        android-23 -skip qtwebengine,qtgamepad,qtwebchannel,qtwebview,qtwebsockets,qtwebglplugin
         -skip qtserialport,qtnetworkauth,qt3d,qtsensors,qtwayland,qtxmlpatterns,qtscxml
         -skip qtscript,qtconnectivity,qtlanguageserver,qtquicktimeline,qtquick3d,qt5compat
         -skip qtactiveqt,qtcharts,qtcoap,qtdatavis3d,qthttpserver,qtpositioning,qtdoc,qtgrpc
         -skip qtlocation,qtlottie,qtmqtt,qtopcua,qtquick3dphysics,qtquickeffectmaker
         -skip qtremoteobjects,qtserialbus,qtspeech,qtvirtualkeyboard -no-feature-debug
-        -no-feature-itemmodeltester -qt-host-path $QT_HOST_PREFIX -openssl-runtime --
-        -D OPENSSL_ROOT_DIR=$BUILD_DIR/buildroot/usr/local -D CMAKE_INSTALL_MESSAGE=NEVER
+        -no-feature-itemmodeltester -qt-host-path $QT_HOST_PREFIX -openssl-runtime
+        -- -D OPENSSL_ROOT_DIR=$BUILD_DIR/buildroot/usr/local -D CMAKE_INSTALL_MESSAGE=NEVER
       - cmake --build . --parallel
       - cmake --install .
       - popd
