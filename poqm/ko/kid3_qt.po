@@ -4178,7 +4178,7 @@ msgstr "웹 브라우저(&B):"
 #: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
-msgstr "콘텍스트 메뉴 명령(&M)"
+msgstr "상황에 맞는 메뉴 명령(&M)"
 
 #: src/gui/dialogs/configdialogpages.cpp:546
 msgctxt "ConfigDialogPages|"
