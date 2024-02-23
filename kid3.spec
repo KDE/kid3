@@ -1,7 +1,7 @@
 %global gstversion 1.0
 
 Name:           kid3
-Version:        3.9.4
+Version:        3.9.5
 Release:        1%{?dist}
 Summary:        Efficient ID3 tag editor
 
