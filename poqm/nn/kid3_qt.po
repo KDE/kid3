@@ -963,12 +963,12 @@ msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Set opp – Kid3"
 
-#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
+#: src/app/kde/kdeplatformtools.cpp:197 src/app/kde/kdeplatformtools.cpp:241
 msgctxt "@default|"
 msgid "&Yes"
 msgstr "&Ja"
 
-#: src/app/kde/kdeplatformtools.cpp:199 src/app/kde/kdeplatformtools.cpp:243
+#: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
 msgctxt "@default|"
 msgid "&No"
 msgstr "&Nei"
@@ -6621,7 +6621,7 @@ msgctxt "BatchImportPage|"
 msgid "All Tags"
 msgstr "Alle merkelappar"
 
-#: src/qml/app/BatchImportPage.qml:152
+#: src/qml/app/BatchImportPage.qml:153
 msgctxt "BatchImportPage|"
 msgid "Profile:"
 msgstr "Profil:"
@@ -6641,7 +6641,7 @@ msgctxt "FileSelectDialog|"
 msgid "Folder"
 msgstr "Mappe"
 
-#: src/qml/app/FileSelectDialog.qml:190
+#: src/qml/app/FileSelectDialog.qml:192
 msgctxt "FileSelectDialog|"
 msgid "File"
 msgstr "Fil"
@@ -6691,7 +6691,7 @@ msgctxt "FrameEditDialog|"
 msgid "File already exists. Overwrite?"
 msgstr "Fila finst frå før. Vil du skriva over ho?"
 
-#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:197
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:199
 msgctxt "FrameEditDialog|"
 msgid "Export"
 msgstr "Eksporter"
@@ -6722,30 +6722,30 @@ msgid "Profile"
 msgstr "Profil"
 
 #: src/qml/app/ImportProfilesEditPage.qml:68
-#: src/qml/app/ImportProfilesEditPage.qml:136
+#: src/qml/app/ImportProfilesEditPage.qml:138
 msgctxt "ImportProfilesEditPage|"
 msgid "Accuracy"
 msgstr "Nøyaktigheit"
 
 #: src/qml/app/ImportProfilesEditPage.qml:71
-#: src/qml/app/ImportProfilesEditPage.qml:149
+#: src/qml/app/ImportProfilesEditPage.qml:151
 msgctxt "ImportProfilesEditPage|"
 msgid "Standard Tags"
 msgstr "Standard­merkelappar"
 
 #: src/qml/app/ImportProfilesEditPage.qml:74
-#: src/qml/app/ImportProfilesEditPage.qml:154
+#: src/qml/app/ImportProfilesEditPage.qml:156
 msgctxt "ImportProfilesEditPage|"
 msgid "Additional Tags"
 msgstr "Fleire merkelappar"
 
 #: src/qml/app/ImportProfilesEditPage.qml:77
-#: src/qml/app/ImportProfilesEditPage.qml:159
+#: src/qml/app/ImportProfilesEditPage.qml:161
 msgctxt "ImportProfilesEditPage|"
 msgid "Cover Art"
 msgstr "Omslagsbilete"
 
-#: src/qml/app/ImportProfilesEditPage.qml:128
+#: src/qml/app/ImportProfilesEditPage.qml:130
 msgctxt "ImportProfilesEditPage|"
 msgid "Server"
 msgstr "Tenar"
@@ -6918,12 +6918,12 @@ msgctxt "NumberTracksDialog|"
 msgid "All Tags"
 msgstr "Alle merkelappar"
 
-#: src/qml/app/NumberTracksDialog.qml:82
+#: src/qml/app/NumberTracksDialog.qml:83
 msgctxt "NumberTracksDialog|"
 msgid "Reset counter for each folder"
 msgstr "Nullstill teljaren for kvar mappe"
 
-#: src/qml/app/NumberTracksDialog.qml:95
+#: src/qml/app/NumberTracksDialog.qml:96
 msgctxt "NumberTracksDialog|"
 msgid "Total number of tracks"
 msgstr "Talet på spor i alt"
