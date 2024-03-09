@@ -355,7 +355,7 @@ fi
 if test "$1" = "flatpak"; then
   verify_not_in_srcdir
   echo "### Build flatpak"
-  flatpak-builder --sandbox --force-clean --ccache --repo=repo --subject="Build of org.kde.kid3 $(date --iso-8601=seconds)" app "$srcdir/packaging/flatpak/org.kde.kid3-local.json"
+  flatpak-builder --force-clean --ccache --repo=repo --subject="Build of org.kde.kid3 $(date --iso-8601=seconds)" app "$srcdir/packaging/flatpak/org.kde.kid3-local.json"
   exit 0
 fi
 

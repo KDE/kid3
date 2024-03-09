@@ -51,6 +51,22 @@
             ]
         },
         {
+            "name": "utfcpp",
+            "buildsystem": "cmake-ninja",
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://github.com/nemtrif/utfcpp/archive/refs/tags/v4.0.5.tar.gz",
+                    "sha256": "ffc668a310e77607d393f3c18b32715f223da1eac4c4d6e0579a11df8e6b59cf",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 20545,
+                        "url-template": "https://github.com/nemtrif/utfcpp/archive/refs/tags/v$version.tar.gz"
+                    }
+                }
+            ]
+        },
+        {
             "name": "taglib",
             "buildsystem": "cmake-ninja",
             "config-opts": [
@@ -60,14 +76,25 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://taglib.github.io/releases/taglib-1.13.1.tar.gz",
-                    "sha256": "c8da2b10f1bfec2cd7dbfcd33f4a2338db0765d851a50583d410bacf055cfd0b",
+                    "url": "https://taglib.github.io/releases/taglib-2.0.tar.gz",
+                    "sha256": "e36ea877a6370810b97d84cf8f72b1e4ed205149ab3ac8232d44c850f38a2859",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 1982,
                         "stable-only": true,
                         "url-template": "https://taglib.github.io/releases/taglib-$version.tar.gz"
                     }
+                },
+                {
+                    "type": "file",
+                    "url": "https://github.com/taglib/taglib/commit/c8c4e5fa.patch",
+                    "sha256": "321306346f8a049481b2fee93ccc73a3d4f831407798e50a62b1307274c0b61f"
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "patch -p1 -i c8c4e5fa.patch"
+                    ]
                 }
             ]
         },
@@ -116,16 +143,27 @@
         {
             "name": "kid3",
             "buildsystem": "cmake-ninja",
+            "make-install-args": [
+                "check"
+            ],
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DWITH_APPS=KDE;Qt;CLI",
                 "-DWITH_MP4V2=ON",
-                "-DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/xml/xsl-stylesheets"
+                "-DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/xml/xsl-stylesheets",
+                "-DKDE_SKIP_TEST_SETTINGS=ON"
             ],
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://download.kde.org/stable/kid3/3.9.5/kid3-3.9.5.tar.xz"
+                    "url": "https://download.kde.org/stable/kid3/3.9.5/kid3-3.9.5.tar.xz",
+                    "sha256": "a424fedde35c176e3b44334422aad43848418772da020751d00d0874e5ce8145",
+                    "x-checker-data": {
+                        "type": "anitya",
+                        "project-id": 1509,
+                        "stable-only": true,
+                        "url-template": "https://download.kde.org/stable/kid3/$version/kid3-$version.tar.xz"
+                    }
                 }
             ]
         }
