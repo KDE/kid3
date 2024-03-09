@@ -71,7 +71,7 @@ void FrameEditorObject::editFrameOfTaggedFile(const Frame* frame,
  *
  * @see frameEditRequested()
  */
-void FrameEditorObject::onFrameEditFinished(const FrameObjectModel* frame)
+void FrameEditorObject::onFrameEditFinished(FrameObjectModel* frame)
 {
   if (frame) {
     m_editFrame = frame->getFrame();

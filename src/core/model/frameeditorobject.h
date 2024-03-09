@@ -118,7 +118,7 @@ public slots:
    *
    * @see frameEditRequested()
    */
-  void onFrameEditFinished(const FrameObjectModel* frame);
+  void onFrameEditFinished(FrameObjectModel* frame);
 
 signals:
   // IFrameEditor implementation
