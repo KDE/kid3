@@ -1,7 +1,7 @@
 {
     "app-id": "org.kde.kid3",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-23.08",
+    "runtime-version": "6.6",
     "sdk": "org.kde.Sdk",
     "command": "kid3",
     "rename-icon": "kid3",
@@ -151,7 +151,8 @@
                 "-DWITH_APPS=KDE;Qt;CLI",
                 "-DWITH_MP4V2=ON",
                 "-DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/xml/xsl-stylesheets",
-                "-DKDE_SKIP_TEST_SETTINGS=ON"
+                "-DKDE_SKIP_TEST_SETTINGS=ON",
+                "-DBUILD_WITH_QT6=ON"
             ],
             "sources": [
                 {
@@ -164,6 +165,17 @@
                         "stable-only": true,
                         "url-template": "https://download.kde.org/stable/kid3/$version/kid3-$version.tar.xz"
                     }
+                },
+                {
+                    "type": "file",
+                    "url": "https://invent.kde.org/multimedia/kid3/-/commit/b3c65a8c1a3a4d6fe5655a5c2bf1c9e7eabb7ffb.patch",
+                    "sha256": "d5502567094c6331b5192775e58920ce0d92235f9de3c72d3736af7abd082523"
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "patch -p1 -i b3c65a8c1a3a4d6fe5655a5c2bf1c9e7eabb7ffb.patch"
+                    ]
                 }
             ]
         }
