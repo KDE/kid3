@@ -513,8 +513,9 @@ void FileList::executeContextCommand(int id)
 {
   if (id < UserActionsConfig::instance().contextMenuCommands().size()) {
     QStringList args;
-    const UserActionsConfig::MenuCommand& menuCmd =
-        UserActionsConfig::instance().contextMenuCommands().at(id);
+    const QList<UserActionsConfig::MenuCommand> menuCmds =
+        UserActionsConfig::instance().contextMenuCommands();
+    const UserActionsConfig::MenuCommand& menuCmd = menuCmds.at(id);
     QString cmd = menuCmd.getCommand();
 
     int len = cmd.length();

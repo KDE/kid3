@@ -89,9 +89,11 @@ bool Kid3KdeApplication::notify(QObject* receiver, QEvent* event)
 int main(int argc, char* argv[])
 {
   // Enable support for high resolution "@2x" images
+#if QT_VERSION < 0x060000
   QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 #if QT_VERSION >= 0x050600
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
 #endif
   Kid3KdeApplication app(argc, argv);
   KAboutData aboutData(QStringLiteral("kid3"),
@@ -127,7 +129,7 @@ int main(int argc, char* argv[])
   aboutData.processCommandLine(&parser);
 
   QString configuredLanguage =
-      KConfigGroup(KSharedConfig::openConfig(), "Locale").readEntry("Language");
+      KConfigGroup(KSharedConfig::openConfig(), QLatin1String("Locale")).readEntry("Language");
   Utils::loadTranslation(configuredLanguage);
 
   const char* const audioTagEditorStr =

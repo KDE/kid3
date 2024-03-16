@@ -336,14 +336,14 @@ void FileInfoGatherer::run()
             return;
 #endif
 #if QT_VERSION >= 0x050700
-        const QString thisPath = qAsConst(path).front();
+        const QString thisPath = std::as_const(path).front();
 #else
         const auto constPath = path;
         const QString thisPath = constPath.front();
 #endif
         path.pop_front();
 #if QT_VERSION >= 0x050700
-        const QStringList thisList = qAsConst(files).front();
+        const QStringList thisList = std::as_const(files).front();
 #else
         const auto constFiles = files;
         const QStringList thisList = constFiles.front();

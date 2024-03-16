@@ -523,12 +523,12 @@ void KdeMainWindow::readConfig()
 #else
   auto stateCfg = cfg;
 #endif
-  setAutoSaveSettings(stateCfg->group("MainWindow"));
+  setAutoSaveSettings(stateCfg->group(QLatin1String("MainWindow")));
   m_settingsShowHidePicture->setChecked(!GuiConfig::instance().hidePicture());
   m_settingsAutoHideTags->setChecked(GuiConfig::instance().autoHideTags());
-  m_fileOpenRecent->loadEntries(stateCfg->group("Recent Files"));
+  m_fileOpenRecent->loadEntries(stateCfg->group(QLatin1String("Recent Files")));
 
-  QString entry = cfg->group("MainWindow").readEntry("StatusBar", "Enabled");
+  QString entry = cfg->group(QLatin1String("MainWindow")).readEntry("StatusBar", "Enabled");
   bool statusBarVisible = entry != QLatin1String("Disabled");
   if (m_settingsShowStatusbar) {
     m_settingsShowStatusbar->setChecked(statusBarVisible);
@@ -546,7 +546,7 @@ void KdeMainWindow::saveConfig()
 #else
   auto stateCfg = KSharedConfig::openConfig();
 #endif
-  m_fileOpenRecent->saveEntries(stateCfg->group("Recent Files"));
+  m_fileOpenRecent->saveEntries(stateCfg->group(QLatin1String("Recent Files")));
 }
 
 /**

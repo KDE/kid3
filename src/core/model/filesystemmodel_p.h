@@ -204,7 +204,7 @@ public:
             if (info)
                 info->icon = iconProvider->decoration(QFileInfo(path));
 #if QT_VERSION >= 0x050700
-            for (FileSystemNode *child : qAsConst(children)) {
+            for (FileSystemNode *child : std::as_const(children)) {
 #else
             const auto constChildren = children;
             for (FileSystemNode *child : constChildren) {
@@ -226,7 +226,7 @@ public:
             if (info)
                 info->displayType = iconProvider->type(QFileInfo(path));
 #if QT_VERSION >= 0x050700
-            for (FileSystemNode *child : qAsConst(children)) {
+            for (FileSystemNode *child : std::as_const(children)) {
 #else
             const auto constChildren = children;
             for (FileSystemNode *child : constChildren) {
