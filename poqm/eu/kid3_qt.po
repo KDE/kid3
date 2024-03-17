@@ -973,12 +973,12 @@ msgctxt "@default|"
 msgid "&No"
 msgstr ""
 
-#: src/app/kde/mainkde.cpp:121
+#: src/app/kde/mainkde.cpp:123
 msgctxt "@default|"
 msgid "folder to open"
 msgstr "ireki beharreko karpeta"
 
-#: src/app/kde/mainkde.cpp:134
+#: src/app/kde/mainkde.cpp:136
 msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "Audio etiketa editorea"
@@ -5537,13 +5537,13 @@ msgctxt "FileList|"
 msgid "Open Containing &Folder"
 msgstr "Ireki hau barnean duen karpeta"
 
-#: src/gui/forms/filelist.cpp:561
+#: src/gui/forms/filelist.cpp:562
 #, fuzzy
 msgctxt "FileList|"
 msgid "Execute "
 msgstr "Exekutatu"
 
-#: src/gui/forms/filelist.cpp:570
+#: src/gui/forms/filelist.cpp:571
 #, fuzzy
 msgctxt "FileList|"
 msgid "Could not execute "

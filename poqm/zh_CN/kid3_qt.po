@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
-"PO-Revision-Date: 2024-03-15 21:03\n"
+"PO-Revision-Date: 2024-03-16 20:48\n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -964,12 +964,12 @@ msgctxt "@default|"
 msgid "&No"
 msgstr "否(&N)"
 
-#: src/app/kde/mainkde.cpp:121
+#: src/app/kde/mainkde.cpp:123
 msgctxt "@default|"
 msgid "folder to open"
 msgstr "要打开的目录"
 
-#: src/app/kde/mainkde.cpp:134
+#: src/app/kde/mainkde.cpp:136
 msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "音频标记器"
@@ -5291,12 +5291,12 @@ msgctxt "FileList|"
 msgid "Open Containing &Folder"
 msgstr "打开所在文件夹(&F)"
 
-#: src/gui/forms/filelist.cpp:561
+#: src/gui/forms/filelist.cpp:562
 msgctxt "FileList|"
 msgid "Execute "
 msgstr "执行 "
 
-#: src/gui/forms/filelist.cpp:570
+#: src/gui/forms/filelist.cpp:571
 msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "无法执行 "

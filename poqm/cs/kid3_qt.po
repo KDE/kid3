@@ -971,12 +971,12 @@ msgctxt "@default|"
 msgid "&No"
 msgstr "&Ne"
 
-#: src/app/kde/mainkde.cpp:121
+#: src/app/kde/mainkde.cpp:123
 msgctxt "@default|"
 msgid "folder to open"
 msgstr "složka k otevření"
 
-#: src/app/kde/mainkde.cpp:134
+#: src/app/kde/mainkde.cpp:136
 msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "Editor značek zvukových záznamů"
@@ -5304,12 +5304,12 @@ msgctxt "FileList|"
 msgid "Open Containing &Folder"
 msgstr "Otevřít odpovídající slož&ku"
 
-#: src/gui/forms/filelist.cpp:561
+#: src/gui/forms/filelist.cpp:562
 msgctxt "FileList|"
 msgid "Execute "
 msgstr "Spustit "
 
-#: src/gui/forms/filelist.cpp:570
+#: src/gui/forms/filelist.cpp:571
 msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "Nelze spustit "

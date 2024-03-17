@@ -969,12 +969,12 @@ msgctxt "@default|"
 msgid "&No"
 msgstr "&No"
 
-#: src/app/kde/mainkde.cpp:121
+#: src/app/kde/mainkde.cpp:123
 msgctxt "@default|"
 msgid "folder to open"
 msgstr "carpeta que s'ha d'obrir"
 
-#: src/app/kde/mainkde.cpp:134
+#: src/app/kde/mainkde.cpp:136
 msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "Editor per a les etiquetes d'àudio"
@@ -5311,12 +5311,12 @@ msgctxt "FileList|"
 msgid "Open Containing &Folder"
 msgstr "Obri la &carpeta contenidora"
 
-#: src/gui/forms/filelist.cpp:561
+#: src/gui/forms/filelist.cpp:562
 msgctxt "FileList|"
 msgid "Execute "
 msgstr "Executa"
 
-#: src/gui/forms/filelist.cpp:570
+#: src/gui/forms/filelist.cpp:571
 msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "No s'ha pogut executar "

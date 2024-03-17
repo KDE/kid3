@@ -976,12 +976,12 @@ msgctxt "@default|"
 msgid "&No"
 msgstr "&Nie"
 
-#: src/app/kde/mainkde.cpp:121
+#: src/app/kde/mainkde.cpp:123
 msgctxt "@default|"
 msgid "folder to open"
 msgstr "katalog do otwarcia"
 
-#: src/app/kde/mainkde.cpp:134
+#: src/app/kde/mainkde.cpp:136
 msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "Edytor znaczników dźwięku"
@@ -5317,12 +5317,12 @@ msgctxt "FileList|"
 msgid "Open Containing &Folder"
 msgstr "Ot&wórz jego katalog"
 
-#: src/gui/forms/filelist.cpp:561
+#: src/gui/forms/filelist.cpp:562
 msgctxt "FileList|"
 msgid "Execute "
 msgstr "Wykonaj "
 
-#: src/gui/forms/filelist.cpp:570
+#: src/gui/forms/filelist.cpp:571
 msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "Nie można wykonać "
