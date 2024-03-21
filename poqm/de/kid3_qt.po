@@ -1,6 +1,7 @@
 # Kid3 German Translation.
 # This file is put in the public domain.
 #
+# SPDX-FileCopyrightText: 2024 Johannes Obermayr <johannesobermayr@gmx.de>
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
 # Frank Steinmetzger <Warp_7@gmx.de>, 2011, 2022.
 # Burkhard Lück <lueck@hube-lueck.de>, 2020, 2021.
@@ -10,15 +11,15 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-03-17 23:12+0100\n"
-"Last-Translator: Frederik Schwarzer <schwarzer@kde.org>\n"
+"PO-Revision-Date: 2024-03-20 21:15+0100\n"
+"Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 24.02.0\n"
 "X-Qt-Contexts: true\n"
 
 #: src/app/cli/clicommand.cpp:345
@@ -951,12 +952,9 @@ msgid "Section"
 msgstr "Abschnitt"
 
 #: src/app/kde/kdemainwindow.cpp:473
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Play"
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr "Wiedergabe"
+msgstr "Wiedergabegerät"
 
 #: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
@@ -1528,12 +1526,9 @@ msgid "About &Qt"
 msgstr "Über &Qt"
 
 #: src/app/qt/kid3mainwindow.cpp:627
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Play"
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr "Wiedergabe"
+msgstr "Wiedergabegerät"
 
 #: src/app/qt/kid3mainwindow.cpp:651
 msgctxt "Kid3MainWindow|"
@@ -4207,12 +4202,9 @@ msgstr "Datei beim Abspielen &wählen"
 #: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "A&udio-Ausgabe:"
 
 #: src/gui/dialogs/configdialogpages.cpp:553
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "System"
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "System"
