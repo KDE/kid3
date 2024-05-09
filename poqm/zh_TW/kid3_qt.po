@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.7\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2024-02-29 03:24+0900\n"
+"PO-Revision-Date: 2024-05-09 07:36+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -5468,7 +5468,7 @@ msgstr "開啟母資料夾"
 #: src/gui/forms/sectionactions.cpp:170
 msgctxt "SectionActions|"
 msgid "Open Current Folder"
-msgstr "啟目前資料夾"
+msgstr "開啟目前資料夾"
 
 #: src/gui/widgets/abstractlistedit.cpp:50
 msgctxt "AbstractListEdit|"
