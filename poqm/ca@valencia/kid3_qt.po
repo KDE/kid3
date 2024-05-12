@@ -621,7 +621,7 @@ msgstr "Diàleg de preferències"
 #: src/app/kde/kdemainwindow.cpp:191
 msgctxt "KdeMainWindow|"
 msgid "O&pen Folder..."
-msgstr "O&bri una carpeta..."
+msgstr "O&bri una carpeta…"
 
 #: src/app/kde/kdemainwindow.cpp:192
 msgctxt "KdeMainWindow|"
@@ -646,7 +646,7 @@ msgstr "Descarrega"
 #: src/app/kde/kdemainwindow.cpp:216
 msgctxt "KdeMainWindow|"
 msgid "&Import..."
-msgstr "&Importa..."
+msgstr "&Importa…"
 
 #: src/app/kde/kdemainwindow.cpp:217
 msgctxt "KdeMainWindow|"
@@ -657,7 +657,7 @@ msgstr "Importa des del fitxer o porta-retalls"
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1..."
-msgstr "Importa des de %1..."
+msgstr "Importa des de %1…"
 
 #: src/app/kde/kdemainwindow.cpp:233 src/app/kde/kdemainwindow.cpp:248
 #, qt-format
@@ -668,7 +668,7 @@ msgstr "Importa des de %1"
 #: src/app/kde/kdemainwindow.cpp:255
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags..."
-msgstr "Importa des de les etiquetes..."
+msgstr "Importa des de les etiquetes…"
 
 #: src/app/kde/kdemainwindow.cpp:256
 msgctxt "KdeMainWindow|"
@@ -678,7 +678,7 @@ msgstr "Importa des de les etiquetes"
 #: src/app/kde/kdemainwindow.cpp:260
 msgctxt "KdeMainWindow|"
 msgid "Automatic I&mport..."
-msgstr "I&mporta automàticament..."
+msgstr "I&mporta automàticament…"
 
 #: src/app/kde/kdemainwindow.cpp:261
 msgctxt "KdeMainWindow|"
@@ -688,7 +688,7 @@ msgstr "Importa automàticament"
 #: src/app/kde/kdemainwindow.cpp:265
 msgctxt "KdeMainWindow|"
 msgid "&Browse Cover Art..."
-msgstr "E&xplora les caràtules..."
+msgstr "E&xplora les caràtules…"
 
 #: src/app/kde/kdemainwindow.cpp:266
 msgctxt "KdeMainWindow|"
@@ -698,7 +698,7 @@ msgstr "Explora el treball artístic de la caràtula de l'àlbum"
 #: src/app/kde/kdemainwindow.cpp:270
 msgctxt "KdeMainWindow|"
 msgid "&Export..."
-msgstr "&Exporta..."
+msgstr "&Exporta…"
 
 #: src/app/kde/kdemainwindow.cpp:271
 msgctxt "KdeMainWindow|"
@@ -708,7 +708,7 @@ msgstr "Exporta cap a un fitxer o cap a dins del porta-retalls"
 #: src/app/kde/kdemainwindow.cpp:275
 msgctxt "KdeMainWindow|"
 msgid "&Create Playlist..."
-msgstr "&Crea una llista de reproducció..."
+msgstr "&Crea una llista de reproducció…"
 
 #: src/app/kde/kdemainwindow.cpp:276
 msgctxt "KdeMainWindow|"
@@ -749,7 +749,7 @@ msgstr "Aplica la codificació del text"
 #: src/app/kde/kdemainwindow.cpp:291
 msgctxt "KdeMainWindow|"
 msgid "&Rename Folder..."
-msgstr "Ca&nvia el nom de la carpeta..."
+msgstr "Ca&nvia el nom de la carpeta…"
 
 #: src/app/kde/kdemainwindow.cpp:292
 msgctxt "KdeMainWindow|"
@@ -759,7 +759,7 @@ msgstr "Canvia el nom de la carpeta"
 #: src/app/kde/kdemainwindow.cpp:295
 msgctxt "KdeMainWindow|"
 msgid "&Number Tracks..."
-msgstr "&Número de les peces..."
+msgstr "&Número de les peces…"
 
 #: src/app/kde/kdemainwindow.cpp:296
 msgctxt "KdeMainWindow|"
@@ -769,7 +769,7 @@ msgstr "Número de les peces"
 #: src/app/kde/kdemainwindow.cpp:299
 msgctxt "KdeMainWindow|"
 msgid "F&ilter..."
-msgstr "F&iltre..."
+msgstr "F&iltre…"
 
 #: src/app/kde/kdemainwindow.cpp:300
 msgctxt "KdeMainWindow|"
@@ -1058,7 +1058,7 @@ msgstr "Utilitza el tipus de lletra personalitzat de l'ap&licació"
 #: src/app/qt/configdialog.cpp:124
 msgctxt "ConfigDialog|"
 msgid "A&pplication Font..."
-msgstr "Tipus de lletra de l'a&plicació..."
+msgstr "Tipus de lletra de l'a&plicació…"
 
 # skip-rule: t-e_sola
 #: src/app/qt/configdialog.cpp:126
@@ -1120,7 +1120,7 @@ msgstr "Obri alguns fitxers"
 #: src/app/qt/kid3mainwindow.cpp:114
 msgctxt "Kid3MainWindow|"
 msgid "&Open..."
-msgstr "O&bri..."
+msgstr "O&bri…"
 
 #: src/app/qt/kid3mainwindow.cpp:128
 msgctxt "Kid3MainWindow|"
@@ -1140,7 +1140,7 @@ msgstr "Obri una carpeta"
 #: src/app/qt/kid3mainwindow.cpp:137
 msgctxt "Kid3MainWindow|"
 msgid "O&pen Folder..."
-msgstr "O&bri una carpeta..."
+msgstr "O&bri una carpeta…"
 
 #: src/app/qt/kid3mainwindow.cpp:148
 msgctxt "Kid3MainWindow|"
@@ -1185,7 +1185,7 @@ msgstr "Importa des del fitxer o porta-retalls"
 #: src/app/qt/kid3mainwindow.cpp:200
 msgctxt "Kid3MainWindow|"
 msgid "&Import..."
-msgstr "&Importa..."
+msgstr "&Importa…"
 
 #: src/app/qt/kid3mainwindow.cpp:220 src/app/qt/kid3mainwindow.cpp:240
 #, qt-format
@@ -1197,7 +1197,7 @@ msgstr "Importa des de %1"
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1..."
-msgstr "Importa des de %1..."
+msgstr "Importa des de %1…"
 
 #: src/app/qt/kid3mainwindow.cpp:251
 msgctxt "Kid3MainWindow|"
@@ -1207,7 +1207,7 @@ msgstr "Importa des de les etiquetes"
 #: src/app/qt/kid3mainwindow.cpp:252
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags..."
-msgstr "Importa des de les etiquetes..."
+msgstr "Importa des de les etiquetes…"
 
 #: src/app/qt/kid3mainwindow.cpp:260
 msgctxt "Kid3MainWindow|"
@@ -1217,7 +1217,7 @@ msgstr "Importa automàticament"
 #: src/app/qt/kid3mainwindow.cpp:261
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
-msgstr "I&mporta automàticament..."
+msgstr "I&mporta automàticament…"
 
 #: src/app/qt/kid3mainwindow.cpp:269
 msgctxt "Kid3MainWindow|"
@@ -1227,7 +1227,7 @@ msgstr "Explora el treball artístic de la caràtula de l'àlbum"
 #: src/app/qt/kid3mainwindow.cpp:270
 msgctxt "Kid3MainWindow|"
 msgid "&Browse Cover Art..."
-msgstr "E&xplora les caràtules..."
+msgstr "E&xplora les caràtules…"
 
 #: src/app/qt/kid3mainwindow.cpp:279
 msgctxt "Kid3MainWindow|"
@@ -1237,7 +1237,7 @@ msgstr "Exporta cap a un fitxer o cap a dins del porta-retalls"
 #: src/app/qt/kid3mainwindow.cpp:280
 msgctxt "Kid3MainWindow|"
 msgid "&Export..."
-msgstr "&Exporta..."
+msgstr "&Exporta…"
 
 #: src/app/qt/kid3mainwindow.cpp:290
 msgctxt "Kid3MainWindow|"
@@ -1247,7 +1247,7 @@ msgstr "Crea una llista de reproducció M3U"
 #: src/app/qt/kid3mainwindow.cpp:291
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
-msgstr "&Crea una llista de reproducció..."
+msgstr "&Crea una llista de reproducció…"
 
 #: src/app/qt/kid3mainwindow.cpp:304
 msgctxt "Kid3MainWindow|"
@@ -1327,7 +1327,7 @@ msgstr "Busca"
 #: src/app/qt/kid3mainwindow.cpp:391
 msgctxt "Kid3MainWindow|"
 msgid "&Find..."
-msgstr "Bu&sca..."
+msgstr "Bu&sca…"
 
 #: src/app/qt/kid3mainwindow.cpp:404
 msgctxt "Kid3MainWindow|"
@@ -1337,7 +1337,7 @@ msgstr "Busca i substituïx"
 #: src/app/qt/kid3mainwindow.cpp:405
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
-msgstr "Su&bstituïx..."
+msgstr "Su&bstituïx…"
 
 #: src/app/qt/kid3mainwindow.cpp:417
 msgctxt "Kid3MainWindow|"
@@ -1383,7 +1383,7 @@ msgstr "Canvia el nom de la carpeta"
 #: src/app/qt/kid3mainwindow.cpp:450
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
-msgstr "Ca&nvia el nom de la carpeta..."
+msgstr "Ca&nvia el nom de la carpeta…"
 
 #: src/app/qt/kid3mainwindow.cpp:458
 msgctxt "Kid3MainWindow|"
@@ -1393,7 +1393,7 @@ msgstr "Nombre de peces"
 #: src/app/qt/kid3mainwindow.cpp:459
 msgctxt "Kid3MainWindow|"
 msgid "&Number Tracks..."
-msgstr "&Nombre de peces..."
+msgstr "&Nombre de peces…"
 
 #: src/app/qt/kid3mainwindow.cpp:467
 msgctxt "Kid3MainWindow|"
@@ -1403,7 +1403,7 @@ msgstr "Filtre"
 #: src/app/qt/kid3mainwindow.cpp:468
 msgctxt "Kid3MainWindow|"
 msgid "F&ilter..."
-msgstr "F&iltre..."
+msgstr "F&iltre…"
 
 #: src/app/qt/kid3mainwindow.cpp:479
 msgctxt "Kid3MainWindow|"
@@ -1488,7 +1488,7 @@ msgstr "Configura Kid3"
 #: src/app/qt/kid3mainwindow.cpp:559
 msgctxt "Kid3MainWindow|"
 msgid "&Configure Kid3..."
-msgstr "&Configura Kid3..."
+msgstr "&Configura Kid3…"
 
 #: src/app/qt/kid3mainwindow.cpp:573
 msgctxt "Kid3MainWindow|"
@@ -1794,7 +1794,7 @@ msgstr "Dades rebudes: %1"
 #: src/core/import/httpclient.cpp:228
 msgctxt "HttpClient|"
 msgid "Request sent..."
-msgstr "S'ha enviat la sol·licitud..."
+msgstr "S'ha enviat la sol·licitud…"
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
 #: src/core/tags/frame.cpp:1984
@@ -2411,7 +2411,7 @@ msgstr "Dades"
 #: src/core/model/kid3application.cpp:1032
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
-msgstr "S'està guardant la carpeta..."
+msgstr "S'està guardant la carpeta…"
 
 #: src/core/model/kid3application.cpp:1237
 msgctxt "Kid3Application|"
@@ -3196,7 +3196,7 @@ msgstr "VBR"
 #: src/core/tags/frame.cpp:262 src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Gapless Playback"
-msgstr "Reproducció sense pauses"
+msgstr "Reproduïu sense pauses"
 
 #: src/core/tags/frame.cpp:263
 msgctxt "@default|"
@@ -4280,17 +4280,17 @@ msgstr "A dins del &porta-retalls"
 #: src/gui/dialogs/editframefieldsdialog.cpp:1136
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
-msgstr "&Importa..."
+msgstr "&Importa…"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1137
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
-msgstr "&Exporta..."
+msgstr "&Exporta…"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1138
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
-msgstr "Vi&sualitza..."
+msgstr "Vi&sualitza…"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1310
 msgctxt "EditFrameFieldsDialog|"
@@ -4330,7 +4330,7 @@ msgstr "P&eu de pàgina:"
 #: src/gui/dialogs/exportdialog.cpp:91
 msgctxt "ExportDialog|"
 msgid "To F&ile..."
-msgstr "A un fi&txer..."
+msgstr "A un fi&txer…"
 
 #: src/gui/dialogs/exportdialog.cpp:96
 msgctxt "ExportDialog|"
@@ -4532,17 +4532,17 @@ msgstr "Caràtula:"
 #: src/gui/dialogs/importdialog.cpp:148
 msgctxt "ImportDialog|"
 msgid "From F&ile/Clipboard..."
-msgstr "Des del fi&txer/porta-retalls..."
+msgstr "Des del fi&txer/porta-retalls…"
 
 #: src/gui/dialogs/importdialog.cpp:151
 msgctxt "ImportDialog|"
 msgid "From T&ags..."
-msgstr "Des de les &etiquetes..."
+msgstr "Des de les &etiquetes…"
 
 #: src/gui/dialogs/importdialog.cpp:154
 msgctxt "ImportDialog|"
 msgid "&From Server..."
-msgstr "Des del se&rvidor..."
+msgstr "Des del se&rvidor…"
 
 #: src/gui/dialogs/importdialog.cpp:176
 msgctxt "ImportDialog|"
@@ -4823,7 +4823,7 @@ msgstr "&Font:"
 #: src/gui/dialogs/rendirdialog.cpp:122
 msgctxt "RenDirDialog|"
 msgid "&Edit..."
-msgstr "&Edita..."
+msgstr "&Edita…"
 
 #: src/gui/dialogs/rendirdialog.cpp:126
 msgctxt "RenDirDialog|"
@@ -5037,7 +5037,7 @@ msgstr "Guar&da la configuració"
 #: src/gui/dialogs/textimportdialog.cpp:80
 msgctxt "TextImportDialog|"
 msgid "From F&ile..."
-msgstr "Des del fi&txer..."
+msgstr "Des del fi&txer…"
 
 #: src/gui/dialogs/textimportdialog.cpp:84
 msgctxt "TextImportDialog|"
@@ -5057,7 +5057,7 @@ msgstr "Baixa"
 #: src/gui/forms/basemainwindow.cpp:233
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
-msgstr "S'està obrint la carpeta..."
+msgstr "S'està obrint la carpeta…"
 
 #: src/gui/forms/basemainwindow.cpp:324
 msgctxt "BaseMainWindowImpl|"
@@ -5115,7 +5115,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:610
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
-msgstr "S'està eixint..."
+msgstr "S'està eixint…"
 
 #: src/gui/forms/basemainwindow.cpp:697
 #, qt-format
@@ -5149,7 +5149,7 @@ msgstr "Llest."
 #: src/gui/forms/basemainwindow.cpp:772
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
-msgstr "S'està creant una llista de reproducció..."
+msgstr "S'està creant una llista de reproducció…"
 
 #: src/gui/forms/basemainwindow.cpp:820
 msgctxt "BaseMainWindowImpl|"
@@ -5416,12 +5416,12 @@ msgstr "Elimina"
 #: src/gui/forms/kid3form.cpp:558
 msgctxt "Kid3Form|"
 msgid "Edit..."
-msgstr "Edita..."
+msgstr "Edita…"
 
 #: src/gui/forms/kid3form.cpp:564
 msgctxt "Kid3Form|"
 msgid "Add..."
-msgstr "Afig..."
+msgstr "Afig…"
 
 #: src/gui/forms/kid3form.cpp:570
 msgctxt "Kid3Form|"
@@ -5486,7 +5486,7 @@ msgstr "Obri la carpeta actual"
 #: src/gui/widgets/abstractlistedit.cpp:50
 msgctxt "AbstractListEdit|"
 msgid "&Add..."
-msgstr "Afi&g..."
+msgstr "Afi&g…"
 
 #: src/gui/widgets/abstractlistedit.cpp:51
 msgctxt "AbstractListEdit|"
@@ -5501,7 +5501,7 @@ msgstr "A&vall"
 #: src/gui/widgets/abstractlistedit.cpp:53
 msgctxt "AbstractListEdit|"
 msgid "&Edit..."
-msgstr "&Edita..."
+msgstr "&Edita…"
 
 #: src/gui/widgets/abstractlistedit.cpp:54
 msgctxt "AbstractListEdit|"
@@ -5698,12 +5698,12 @@ msgstr "Edita l'element"
 #: src/gui/widgets/subframeseditor.cpp:67
 msgctxt "SubframesEditor|"
 msgid "Edit..."
-msgstr "Edita..."
+msgstr "Edita…"
 
 #: src/gui/widgets/subframeseditor.cpp:72
 msgctxt "SubframesEditor|"
 msgid "Add..."
-msgstr "Afig..."
+msgstr "Afig…"
 
 #: src/gui/widgets/subframeseditor.cpp:77
 msgctxt "SubframesEditor|"
@@ -5758,12 +5758,12 @@ msgstr "&Des del porta-retalls"
 #: src/gui/widgets/timeeventeditor.cpp:125
 msgctxt "TimeEventEditor|"
 msgid "&Import..."
-msgstr "&Importa..."
+msgstr "&Importa…"
 
 #: src/gui/widgets/timeeventeditor.cpp:127
 msgctxt "TimeEventEditor|"
 msgid "&Export..."
-msgstr "&Exporta..."
+msgstr "&Exporta…"
 
 #: src/gui/widgets/timeeventeditor.cpp:129
 msgctxt "TimeEventEditor|"
@@ -5808,7 +5808,7 @@ msgstr "&Neteja"
 #: src/gui/widgets/timeeventeditor.cpp:475
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
-msgstr "Afi&g un desplaçament..."
+msgstr "Afi&g un desplaçament…"
 
 #: src/gui/widgets/timeeventeditor.cpp:477
 msgctxt "TimeEventEditor|"
