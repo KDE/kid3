@@ -1058,7 +1058,7 @@ msgstr "应用程序字体(&P)..."
 #: src/app/qt/configdialog.cpp:126
 msgctxt "ConfigDialog|"
 msgid "Use custom application &style"
-msgstr "使用自定义的应用程序风格(&S)"
+msgstr "使用自定义的应用程序外观样式(&S)"
 
 #: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
 msgctxt "ConfigDialog|"
