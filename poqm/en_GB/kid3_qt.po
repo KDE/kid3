@@ -1,17 +1,17 @@
-# Steve Allewell <steve.allewell@gmail.com>, 2020, 2021, 2022, 2023.
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Steve Allewell <steve.allewell@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2023-02-27 19:33+0000\n"
+"PO-Revision-Date: 2024-05-24 19:12+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
-"Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
+"Language-Team: British English\n"
 "Language: en_GB\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 21.12.3\n"
+"X-Generator: Lokalize 24.02.2\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -943,12 +943,9 @@ msgid "Section"
 msgstr "Section"
 
 #: src/app/kde/kdemainwindow.cpp:473
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Play"
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr "Play"
+msgstr "Player"
 
 #: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
@@ -1520,12 +1517,9 @@ msgid "About &Qt"
 msgstr "About &Qt"
 
 #: src/app/qt/kid3mainwindow.cpp:627
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Play"
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr "Play"
+msgstr "Player"
 
 #: src/app/qt/kid3mainwindow.cpp:651
 msgctxt "Kid3MainWindow|"
@@ -4199,12 +4193,9 @@ msgstr "&Select file on play"
 #: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "A&udio output:"
 
 #: src/gui/dialogs/configdialogpages.cpp:553
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "System"
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "System"
