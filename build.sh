@@ -88,18 +88,18 @@ zlib_patchlevel=3
 libogg_version=1.3.4
 libogg_patchlevel=0.1
 libvorbis_version=1.3.7
-libvorbis_patchlevel=1
+libvorbis_patchlevel=2
 ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
 ffmpeg_version=5.1.4
 ffmpeg_patchlevel=0+deb12u1
 libflac_version=1.4.3+ds
-libflac_patchlevel=2
+libflac_patchlevel=2.1
 id3lib_version=3.8.3
 id3lib_patchlevel=18
-taglib_version=2.0
+taglib_version=2.0.1
 chromaprint_version=1.5.1
-chromaprint_patchlevel=4
+chromaprint_patchlevel=5
 mp4v2_version=2.1.3
 utfcpp_version=4.0.5
 
@@ -516,7 +516,7 @@ fi
 
 _chocoInstall=${ChocolateyInstall//\\/\/}
 _chocoInstall=${_chocoInstall/C:/\/c}
-for d in "$DOCBOOK_XSL_DIR" /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-* /usr/local/Cellar/docbook-xsl/*/docbook-xsl /opt/homebrew/Cellar/docbook-xsl/*/docbook-xsl /opt/local/share/xsl/docbook-xsl $_chocoInstall/lib/docbook-bundle/docbook-xsl-*; do
+for d in "$DOCBOOK_XSL_DIR" /usr/share/xml/docbook/stylesheet/nwalsh /usr/share/xml/docbook/xsl-stylesheets-* /usr/local/Cellar/docbook-xsl/*/docbook-xsl /opt/homebrew/Cellar/docbook-xsl/*/docbook-xsl $HOMEBREW_CELLAR/docbook-xsl/*/docbook-xsl /opt/local/share/xsl/docbook-xsl $_chocoInstall/lib/docbook-bundle/docbook-xsl-*; do
   if test -e $d/xhtml/docbook.xsl; then
     _docbook_xsl_dir=$d
     break
@@ -980,7 +980,7 @@ download_openssl() {
   test -f Setenv-android.sh ||
     $DOWNLOAD https://wiki.openssl.org/images/7/70/Setenv-android.sh
   test -f openssl-${openssl_version}.tar.gz ||
-    $DOWNLOAD https://ftp.openssl.org/source/openssl-${openssl_version}.tar.gz
+    $DOWNLOAD https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
   cd -
 }
 
