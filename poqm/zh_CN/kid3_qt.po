@@ -5768,7 +5768,7 @@ msgstr "偏移"
 #: src/gui/widgets/timeeventeditor.cpp:429
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
-msgstr "亳秒"
+msgstr "毫秒"
 
 #: src/gui/widgets/timeeventeditor.cpp:468
 msgctxt "TimeEventEditor|"
