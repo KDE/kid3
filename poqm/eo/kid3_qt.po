@@ -1,15 +1,15 @@
 # translation of kid3_qt.pot to Esperanto
 # Copyright (C) 2024 Free Software Foundation, Inc.
 # This file is distributed under the same license as the kid3 package.
-# Oliver Kellogg <okellogg@users.sourceforge.net>, 2024.
+# Oliver Kellogg <olivermkellogg@gmail.com>, 2024.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 13:43+0100\n"
-"PO-Revision-Date: 2024-03-24 10:34+0100\n"
-"Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
+"PO-Revision-Date: 2024-05-30 22:41+0200\n"
+"Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo.org>\n"
 "Language: eo\n"
 "MIME-Version: 1.0\n"
@@ -1052,7 +1052,7 @@ msgstr "Sistemo"
 #: src/app/qt/configdialog.cpp:122
 msgctxt "ConfigDialog|"
 msgid "Use custom app&lication font"
-msgstr "Uzi propran aplikaĵon kaj aplikaĵon"
+msgstr "Uzi propran ap&likaĵan tiparon"
 
 #: src/app/qt/configdialog.cpp:124
 msgctxt "ConfigDialog|"
@@ -1062,7 +1062,7 @@ msgstr "A&plika tiparo..."
 #: src/app/qt/configdialog.cpp:126
 msgctxt "ConfigDialog|"
 msgid "Use custom application &style"
-msgstr "Uzi propran aplikaĵon kaj stilon"
+msgstr "Uzi propran aplikaĵan &stilon"
 
 #: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
 msgctxt "ConfigDialog|"
@@ -3574,7 +3574,7 @@ msgstr "Havas troan blankan spacon"
 #: src/core/tags/pictureframe.cpp:42
 msgctxt "@default|"
 msgid "32x32 pixels PNG file icon"
-msgstr "32x32 rastrumeroj PNG-dosierikono"
+msgstr "32x32 rastrumeroj PNG-dosierpiktogramo"
 
 #: src/core/tags/pictureframe.cpp:43
 msgctxt "@default|"
@@ -4177,7 +4177,7 @@ msgstr "Retumilo"
 #: src/gui/dialogs/configdialogpages.cpp:534
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
-msgstr "Retumilo:"
+msgstr "&Retumilo:"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
@@ -4313,17 +4313,17 @@ msgstr "&Trakoj:"
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "F&ooter:"
-msgstr "Subvojo:"
+msgstr "Piedlini&o:"
 
 #: src/gui/dialogs/exportdialog.cpp:91
 msgctxt "ExportDialog|"
 msgid "To F&ile..."
-msgstr "Al F&ile..."
+msgstr "Al Dos&iero..."
 
 #: src/gui/dialogs/exportdialog.cpp:96
 msgctxt "ExportDialog|"
 msgid "To Clip&board"
-msgstr "Al Tondujo"
+msgstr "Al Ton&dujo"
 
 #: src/gui/dialogs/exportdialog.cpp:105
 msgctxt "ExportDialog|"
@@ -4480,7 +4480,7 @@ msgstr "E&tikedoj"
 #: src/gui/dialogs/findreplacedialog.cpp:107
 msgctxt "FindReplaceDialog|"
 msgid "Select a&ll"
-msgstr "Elekti ĉiujn"
+msgstr "E&lekti ĉiujn"
 
 #: src/gui/dialogs/findreplacedialog.cpp:117
 msgctxt "FindReplaceDialog|"
@@ -4545,7 +4545,7 @@ msgstr "Reiri"
 #: src/gui/dialogs/importdialog.cpp:199
 msgctxt "ImportDialog|"
 msgid "Check maximum allowable time &difference (sec):"
-msgstr "Kontroli maksimume permeseblan tempon kaj diferencon (sec):"
+msgstr "Kontroli maksimume permeseblan tempon kaj &diferencon (sek):"
 
 #: src/gui/dialogs/importdialog.cpp:207
 msgctxt "ImportDialog|"
@@ -4656,7 +4656,7 @@ msgstr "&Formato:"
 #: src/gui/dialogs/playlistdialog.cpp:152
 msgctxt "PlaylistDialog|"
 msgid "Create ne&w empty playlist:"
-msgstr "Krei novan malplenan ludliston:"
+msgstr "Krei no&van malplenan ludliston:"
 
 #: src/gui/dialogs/playlistdialog.cpp:153
 msgctxt "PlaylistDialog|"
@@ -4701,7 +4701,7 @@ msgstr "Inkl&uzivi nur la elektitajn dosierojn"
 #: src/gui/dialogs/playlistdialog.cpp:172
 msgctxt "PlaylistDialog|"
 msgid "Sort by file &name"
-msgstr "Ordigi laŭ dosiernomo"
+msgstr "Ordigi laŭ dosier&nomo"
 
 #: src/gui/dialogs/playlistdialog.cpp:174
 msgctxt "PlaylistDialog|"
@@ -5101,24 +5101,24 @@ msgstr "Finante..."
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
 msgid_plural "%n folders"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%n dosierujoj"
+msgstr[1] "%n dosierujoj"
 
 #: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
 msgid_plural "%n files"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%n dosieroj"
+msgstr[1] "%n dosieroj"
 
 #: src/gui/forms/basemainwindow.cpp:707
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
 msgid_plural "%n selected"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%n elektitaj"
+msgstr[1] "%n elektitaj"
 
 #: src/gui/forms/basemainwindow.cpp:710
 msgctxt "BaseMainWindowImpl|"
@@ -5590,7 +5590,7 @@ msgstr "WWW Sonfonto"
 #: src/gui/widgets/frametable.cpp:160
 msgctxt "FrameTable|"
 msgid "&Select all"
-msgstr "Elekti ĉiujn"
+msgstr "&Selekti ĉiujn"
 
 #: src/gui/widgets/frametable.cpp:162
 msgctxt "FrameTable|"
