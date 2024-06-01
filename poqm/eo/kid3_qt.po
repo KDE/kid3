@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kid3\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 13:43+0100\n"
-"PO-Revision-Date: 2024-05-30 22:41+0200\n"
+"PO-Revision-Date: 2024-05-31 19:37+0200\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: Esperanto <kde-i18n-eo.org>\n"
 "Language: eo\n"
@@ -3550,6 +3550,8 @@ msgid ""
 "Must be musical key, 3 characters, A-G, b, #, m, o\n"
 "or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
+"Devas esti muzika tonalo, 3 signoj, A-G, b, #, m, o\n"
+"aŭ Camelot-rada valoro 1A-12A, 1B-12B"
 
 #: src/core/tags/framenotice.cpp:199
 msgctxt "@default|"
@@ -4769,6 +4771,8 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"Ludlisto estis modifita.\n"
+"Ĉu vi volas konservi ĝin?"
 
 #: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:100
 msgctxt "RenDirDialog|"
@@ -5078,6 +5082,8 @@ msgid ""
 "The current folder has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"La aktuala dosierujo estis modifita.\n"
+"Ĉu vi volas konservi ĝin?"
 
 #: src/gui/forms/basemainwindow.cpp:463 src/gui/forms/basemainwindow.cpp:502
 msgctxt "BaseMainWindowImpl|"
@@ -5090,6 +5096,8 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"Ludlisto estis modifita.\n"
+"Ĉu vi volas konservi ĝin?"
 
 #: src/gui/forms/basemainwindow.cpp:610
 msgctxt "BaseMainWindowImpl|"
@@ -5614,6 +5622,9 @@ msgid ""
 "artwork\n"
 "here"
 msgstr ""
+"Trenu albuman\n"
+"artverkaĵon\n"
+"tien ĉi"
 
 #: src/gui/widgets/playtoolbar.cpp:103
 msgctxt "PlayToolBar|"
@@ -6702,6 +6713,8 @@ msgid ""
 "The current folder has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"La aktuala dosierujo estis modifita.\n"
+"Ĉu vi volas konservi ĝin?"
 
 #: src/qml/app/Main.qml:128 src/qml/app/Main.qml:145 src/qml/app/Main.qml:162
 msgctxt "Main|"
