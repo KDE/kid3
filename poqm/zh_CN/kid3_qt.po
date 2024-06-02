@@ -1925,7 +1925,7 @@ msgstr "子菜单起点"
 #: src/core/model/commandformatreplacer.cpp:199
 msgctxt "@default|"
 msgid "End of submenu"
-msgstr "子菜单結束"
+msgstr "子菜单结束"
 
 #: src/core/model/commandstablemodel.cpp:165
 msgctxt "CommandsTableModel|"
@@ -5496,7 +5496,7 @@ msgstr "开始时间"
 #: src/gui/widgets/chaptereditor.cpp:55
 msgctxt "ChapterEditor|"
 msgid "End time"
-msgstr "結束時間"
+msgstr "结束时间"
 
 #: src/gui/widgets/chaptereditor.cpp:56
 msgctxt "ChapterEditor|"
@@ -5506,7 +5506,7 @@ msgstr "起始偏移"
 #: src/gui/widgets/chaptereditor.cpp:57
 msgctxt "ChapterEditor|"
 msgid "End offset"
-msgstr "結束偏移"
+msgstr "结束偏移"
 
 #: src/gui/widgets/configtable.cpp:42
 msgctxt "ConfigTable|"
