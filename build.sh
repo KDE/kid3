@@ -118,6 +118,20 @@ verify_in_srcdir() {
   fi
 }
 
+# The environment variable KID3_HOMEBREW_PKGS can be set to install packages
+# needed to build using Homebrew, if brew is not yet available a local instance
+# is installed.
+# Example: KID3_HOMEBREW_PKGS="cmake ninja autoconf automake libtool xz nasm docbook-xsl p7zip"
+if test -n "$KID3_HOMEBREW_PKGS"; then
+  export HOMEBREW_NO_INSTALL_UPGRADE=1
+  if ! brew install $KID3_HOMEBREW_PKGS; then
+    mkdir -p tools/Homebrew
+    curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C tools/Homebrew
+    eval "$(tools/Homebrew/bin/brew shellenv)"
+    brew install $KID3_HOMEBREW_PKGS
+  fi
+fi
+
 # Administrative subtasks
 
 # Changes version and date strings in all known Kid3 files.
@@ -984,6 +998,59 @@ download_openssl() {
   cd -
 }
 
+download_and_extract_qt() {
+  if ! test -d qt-${qt_version}; then
+    mkdir qt-${qt_version}
+    cd qt-${qt_version}
+    if test $qt_version = "6.5.3"; then
+      if test "$compiler" = "cross-android"; then
+        for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+          fn=6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Clang-Android-Android_ANY-ARMv7.7z
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_armv7/qt.qt6.653.android_armv7/$fn
+        done
+        for m in qtmultimedia qtimageformats; do
+          fn=qt.qt6.653.addons.${m}.android_armv7/6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Clang-Android-Android_ANY-ARMv7.7z
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_armv7/$fn
+        done
+      elif test $kernel = "Linux"; then
+        for m in qttranslations qttools qtsvg qtdeclarative qtbase qtwayland; do
+          fn=6.5.3-0-202309260341${m}-Linux-RHEL_8_4-GCC-Linux-RHEL_8_4-X86_64.7z
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_653/qt.qt6.653.gcc_64/$fn
+        done
+        $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_653/qt.qt6.653.gcc_64/6.5.3-0-202309260341icu-linux-Rhel7.2-x64.7z
+        for m in qtmultimedia qtimageformats; do
+          fn=qt.qt6.653.addons.${m}.gcc_64/6.5.3-0-202309260341${m}-Linux-RHEL_8_4-GCC-Linux-RHEL_8_4-X86_64.7z
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_653/$fn
+        done
+      elif test $kernel = "Darwin"; then
+        for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+          fn=6.5.3-0-202309260341${m}-MacOS-MacOS_12-Clang-MacOS-MacOS_12-X86_64-ARM64.7z
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_653/qt.qt6.653.clang_64/$fn
+        done
+        for m in qtmultimedia qtimageformats; do
+          fn=qt.qt6.653.addons.${m}.clang_64/6.5.3-0-202309260341${m}-MacOS-MacOS_12-Clang-MacOS-MacOS_12-X86_64-ARM64.7z
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_653/$fn
+        done
+      elif test $kernel = "MINGW"; then
+        for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+          fn=6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Mingw-Windows-Windows_10_22H2-X86_64.7z
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_653/qt.qt6.653.win64_mingw/$fn
+        done
+        for m in opengl32sw-64-mesa_11_2_2-signed_sha256 d3dcompiler_47-x64 MinGW-w64-x86_64-11.2.0-release-posix-seh-rt_v9-rev1-runtime; do
+          fn=6.5.3-0-202309260341${m}.7z
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_653/qt.qt6.653.win64_mingw/$fn
+        done
+        for m in qtmultimedia qtimageformats; do
+          fn=qt.qt6.653.addons.${m}.win64_mingw/6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Mingw-Windows-Windows_10_22H2-X86_64.7z
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_653/$fn
+        done
+      fi
+      for fn in *.7z; do 7za x $fn; done
+      rm -f *.7z
+    fi
+    cd -
+  fi
+}
 
 # Extract and patch sources
 
@@ -1583,6 +1650,12 @@ else #  cross-android
   fi
   extract_binary_archive $BIN_ARCHIVE_DIR/mp4v2-${mp4v2_version}.tgz
 
+  # Set a QTPREFIX starting with "$(pwd)/qt-", e.g. $(pwd)/qt-6.5.3/6.5.3/gcc_64
+  # for Linux or $(pwd)/qt-6.5.3/6.5.3/macos for macOS in order to download Qt
+  # binaries to the given $QTPREFIX if it does not already exist.
+  if test "${QTPREFIX%%/qt-*}" = "$(pwd)" -a ! -d "$QTPREFIX"; then
+    download_and_extract_qt
+  fi
 fi # cross-android, else
 fi # libs
 
@@ -1647,7 +1720,7 @@ EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_CXX_COMPILER=${gcc_self_contained_cxx} -DCMAKE_C_COMPILER=${gcc_self_contained_cc} -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_CXX_COMPILER=${gcc_self_contained_cxx} -DCMAKE_C_COMPILER=${gcc_self_contained_cc} -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test $kernel = "Darwin" -a "$ARCH" = "arm64"; then
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
@@ -1700,14 +1773,14 @@ EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-cmake -GNinja -DQT_QMAKE_EXECUTABLE=${QTPREFIX:-$QT_PREFIX}/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+cmake -GNinja -DQT_QMAKE_EXECUTABLE=${QTPREFIX:-$QT_PREFIX}/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       else
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-cmake -GNinja -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins ../../kid3
+cmake -GNinja -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       fi
       chmod +x kid3/run-cmake.sh

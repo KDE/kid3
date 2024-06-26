@@ -236,7 +236,7 @@ include (CheckLibraryExists)
 
 # Find Qt
 set(_qtDir)
-string(REGEX MATCH "^(.*[Qq]t[/\\]?([56]).*).bin.qmake.*" _qtDir "${QT_QMAKE_EXECUTABLE}")
+string(REGEX MATCH "^(.*[Qq]t[/\\-]?([56]).*).bin.qmake.*" _qtDir "${QT_QMAKE_EXECUTABLE}")
 if(_qtDir)
   set(_qtDir ${CMAKE_MATCH_1})
   set(_qtVersionMajor ${CMAKE_MATCH_2})
@@ -408,18 +408,26 @@ endif()
 
 ### Check for HTML docbook.xsl
 file(GLOB _versionedStyleSheetDir /usr/share/xml/docbook/xsl-stylesheets-*)
+set(_docbookdirPaths /usr/share/xml/docbook/stylesheet/nwalsh
+    /usr/share/xml/docbook/stylesheet/nwalsh/current
+    /usr/share/xml/docbook/stylesheet/docbook-xsl
+    /usr/share/xml/docbook/stylesheet/docbook-xsl-ns
+    /usr/share/sgml/docbook/xsl-stylesheets
+    /usr/share/apps/ksgmltools2/docbook/xsl)
+if(WITH_DOCBOOKDIR)
+  list(PREPEND _docbookdirPaths ${WITH_DOCBOOKDIR})
+endif()
+if(_versionedStyleSheetDir)
+  list(APPEND _docbookdirPaths ${_versionedStyleSheetDir})
+endif()
+if(DEFINED ENV{DOCBOOKDIR})
+  list(APPEND _docbookdirPaths $ENV{DOCBOOKDIR})
+endif()
+if(DEFINED ENV{HOME})
+  list(APPEND _docbookdirPaths $ENV{HOME}/docbook-xsl-1.72.0)
+endif()
 find_path(DOCBOOK_XSL_DIR xhtml/docbook.xsl
-  PATHS ${WITH_DOCBOOKDIR}
-        /usr/share/xml/docbook/stylesheet/nwalsh
-        /usr/share/xml/docbook/stylesheet/nwalsh/current
-        /usr/share/xml/docbook/stylesheet/docbook-xsl
-        /usr/share/xml/docbook/stylesheet/docbook-xsl-ns
-        /usr/share/sgml/docbook/xsl-stylesheets
-        /usr/share/apps/ksgmltools2/docbook/xsl
-       ${_versionedStyleSheetDir}
-       $ENV{DOCBOOKDIR}
-       $ENV{HOME}/docbook-xsl-1.72.0
-  NO_DEFAULT_PATH)
+  PATHS ${_docbookdirPaths} NO_DEFAULT_PATH)
 if(NOT DOCBOOK_XSL_DIR)
   message(FATAL_ERROR "Could not find HTML docbook.xsl")
 endif()
