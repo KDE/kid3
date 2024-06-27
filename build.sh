@@ -618,20 +618,30 @@ if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
 fi
 
 if test $kernel = "Darwin"; then
-  ARCH=$(uname -m)
-  #ARCH=i386
-  if test "$ARCH" = "i386"; then
+  MACHINE_ARCH=$(uname -m)
+  #MACHINE_ARCH=i386
+  if test "$MACHINE_ARCH" = "i386"; then
     # To build a 32-bit Mac OS X version of Kid3 use:
     # cmake -GNinja -DCMAKE_CXX_FLAGS="-arch i386" -DCMAKE_C_FLAGS="-arch i386" -DCMAKE_EXE_LINKER_FLAGS="-arch i386" -DQT_QMAKE_EXECUTABLE=/usr/local/Trolltech/Qt-${qt_version}-i386/bin/qmake -DCMAKE_BUILD_TYPE=Release -DWITH_FFMPEG=ON -DCMAKE_INSTALL_PREFIX= ../kid3
     # Building multiple architectures needs ARCH_FLAG="-arch i386 -arch x86_64",
     # CONFIGURE_OPTIONS="--disable-dependency-tracking", but it fails with libav.
+    ARCH=$MACHINE_ARCH
     ARCH_FLAG="-arch i386"
     export CC=gcc
     export CXX=g++
+  elif test "$MACHINE_ARCH" = "arm64"; then
+    # On Apple silicon, we can build for Intel or ARM. The environment variable
+    # ARCH=x86_64 or ARCH=arm64 can be passed to this script.
+    if test "$ARCH" != "x86_64"; then
+      ARCH=$MACHINE_ARCH
+    fi
+    _macosx_version_min=10.15
+    ARCH_FLAG="-arch $ARCH"
   else
+    ARCH=$MACHINE_ARCH
     ARCH_FLAG="-Xarch_x86_64"
   fi
-  if [[ $(sw_vers -productVersion) = 10.1* || $(sw_vers -productVersion) = 11.* ]]; then
+  if [[ $(sw_vers -productVersion) = 10.1* || $(sw_vers -productVersion) =~ ^1[1-9]\..*$ ]]; then
     CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min}\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min} -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_MODULE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_SHARED_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\""
     export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min}"
     export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min} -stdlib=libc++"
@@ -1427,7 +1437,7 @@ else #  cross-android
   fi
   extract_binary_archive $BIN_ARCHIVE_DIR/flac-${libflac_version}.tgz
 
-  if test ! -f $BIN_ARCHIVE_DIR/id3lib-${id3lib_version}.tgz && ! test $kernel = "Darwin" -a $ARCH = "arm64"; then
+  if test ! -f $BIN_ARCHIVE_DIR/id3lib-${id3lib_version}.tgz && ! test $kernel = "Darwin" -a $(uname -m) = "arm64"; then
     download_id3lib
     extract_id3lib
     echo "### Building id3lib"
@@ -1529,6 +1539,9 @@ else #  cross-android
     fi
     if test $kernel = "Darwin" || test $kernel = "MINGW"; then
       AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-iconv"
+    fi
+    if test $kernel = "Darwin" && test $(uname -m) = "arm64"; then
+      AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --arch=$ARCH"
     fi
     AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
     ./configure \
@@ -1703,7 +1716,7 @@ EOF
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 test -z \${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxsdk/usr/bin:\$PATH
-cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
+cmake -GNinja $CMAKE_BUILD_OPTION -DREMOVE_ARCH=arm64 -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test "$compiler" = "gcc-self-contained"; then
         if test -n "$QTPREFIX"; then
@@ -1722,11 +1735,11 @@ BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
 cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_CXX_COMPILER=${gcc_self_contained_cxx} -DCMAKE_C_COMPILER=${gcc_self_contained_cc} -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
-      elif test $kernel = "Darwin" -a "$ARCH" = "arm64"; then
+      elif test $kernel = "Darwin" -a "$(uname -m)" = "arm64"; then
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DCMAKE_APPLE_SILICON_PROCESSOR=$ARCH -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test $kernel = "Darwin"; then
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
