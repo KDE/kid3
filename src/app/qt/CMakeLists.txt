@@ -348,6 +348,24 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
 
 endif()
 
+if(APPLE AND REMOVE_ARCH)
+  # Strip architecture from universal binaries.
+  install(CODE "
+    file(GLOB_RECURSE _filesToStrip \"${destdir_prefix}/*\")
+    foreach(_fileToStrip \${_filesToStrip})
+      if(NOT IS_SYMLINK \"\${_fileToStrip}\")
+        execute_process(COMMAND lipo -archs \"\${_fileToStrip}\"
+                        OUTPUT_VARIABLE _archs ERROR_QUIET)
+        if(_archs MATCHES \"^.*${REMOVE_ARCH}.*\$\")
+          message(STATUS \"Stripping ${REMOVE_ARCH}: \${_fileToStrip}\")
+          execute_process(COMMAND lipo \"\${_fileToStrip}\" -remove ${REMOVE_ARCH}
+                               -output \"\${_fileToStrip}\")
+        endif()
+      endif()
+    endforeach()
+    ")
+endif()
+
 if(WIN32)
   # Use reduced size ICU libraries, QTBUG-29828, QTBUG-38259.
   # A folder with reduced ICU libraries can be copied to the Qt bin directory.

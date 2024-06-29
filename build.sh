@@ -275,10 +275,9 @@ set -e
    OSXPREFIX=/opt/osxcross/target \
    QTBINARYDIR=$HOME/Development/Qt6.5.3-linux/6.5.3/gcc_64/bin \
    ../kid3/build.sh && \
-   fatdmg=(kid3/*-Darwin.dmg) && \
-   slimdmg=${fatdmg/-Darwin./-Darwin-amd64.} && \
-   PATH=$PATH:/opt/osxcross/target/bin \
-   ../kid3/macosx/mac-strip-arm64.sh $fatdmg $slimdmg)
+   origdmg=(kid3/*-Darwin.dmg) && \
+   qt6dmg=${origdmg/-Darwin./-Darwin-amd64.} && \
+   mv $origdmg $qt6dmg)
 (cd macos_qt5_build && \
    rm -f kid3/*-Darwin.dmg && \
    COMPILER=cross-macos \
@@ -1736,10 +1735,15 @@ export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
 cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_CXX_COMPILER=${gcc_self_contained_cxx} -DCMAKE_C_COMPILER=${gcc_self_contained_cc} -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DWITH_READLINE=OFF -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test $kernel = "Darwin" -a "$(uname -m)" = "arm64"; then
+        if test "$ARCH" = "arm64"; then
+          _other_arch=x86_64
+        else
+          _other_arch=arm64
+        fi
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DCMAKE_APPLE_SILICON_PROCESSOR=$ARCH -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DCMAKE_APPLE_SILICON_PROCESSOR=$ARCH -DREMOVE_ARCH=$_other_arch -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test $kernel = "Darwin"; then
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
