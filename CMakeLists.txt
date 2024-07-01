@@ -569,6 +569,10 @@ endif()
 if(APPLE)
   if(CMAKE_HOST_APPLE)
     install(SCRIPT ${CMAKE_SOURCE_DIR}/macosx/mac-codesign.cmake)
+    # KDE's appleutils.getDmgApplicationId() searches for the Info.plist file
+    # containing the application ID in CFBundleIdentifier using a "*.dmg/*.app"
+    # wildcard, so the volume name has to be adapted.
+    set(CPACK_DMG_VOLUME_NAME "kid3.dmg")
   endif()
   set(CPACK_BINARY_DRAGNDROP ON)
   set(CPACK_GENERATOR DragNDrop)
