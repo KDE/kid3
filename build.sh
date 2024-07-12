@@ -73,7 +73,8 @@
 # ../kid3/build.sh package
 
 # Exit if an error occurs
-set -e
+set -eE
+trap 'echo "Error on line $LINENO: $BASH_COMMAND"' ERR
 shopt -s extglob
 
 thisdir=$(pwd)
@@ -84,14 +85,14 @@ test ${kernel:0:5} = "MINGW" && kernel="MINGW"
 
 qt_version=6.5.3
 zlib_version=1.2.13
-zlib_patchlevel=3
+zlib_patchlevel=1
 libogg_version=1.3.4
 libogg_patchlevel=0.1
 libvorbis_version=1.3.7
 libvorbis_patchlevel=2
 ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
-ffmpeg_version=5.1.4
+ffmpeg_version=5.1.5
 ffmpeg_patchlevel=0+deb12u1
 libflac_version=1.4.3+ds
 libflac_patchlevel=2.1
@@ -1102,7 +1103,9 @@ extract_zlib() {
 
       tar xJf $SRC_ARCHIVE_DIR/zlib_${zlib_version}.dfsg-${zlib_patchlevel}.debian.tar.xz || true
       echo Can be ignored: Cannot create symlink to debian.series
-      for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
+      if test -f debian/patches/debian.series; then
+        for f in $(cat debian/patches/debian.series); do patch -p1 <debian/patches/$f; done
+      fi
       cd ..
     fi
   fi
@@ -1129,7 +1132,9 @@ extract_libvorbis() {
     tar xzf $SRC_ARCHIVE_DIR/libvorbis_${libvorbis_version}.orig.tar.gz
     cd libvorbis-${libvorbis_version}/
     tar xJf $SRC_ARCHIVE_DIR/libvorbis_${libvorbis_version}-${libvorbis_patchlevel}.debian.tar.xz
-    for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    if test -f debian/patches/series; then
+      for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    fi
     test -f win32/VS2010/libogg.props.orig || mv win32/VS2010/libogg.props win32/VS2010/libogg.props.orig
     sed "s/<LIBOGG_VERSION>1.2.0</<LIBOGG_VERSION>$libogg_version</" win32/VS2010/libogg.props.orig >win32/VS2010/libogg.props
     cd ..
@@ -1143,7 +1148,9 @@ extract_libflac() {
     tar xJf $SRC_ARCHIVE_DIR/flac_${libflac_version}.orig.tar.xz
     cd flac-${libflac_version%+ds*}/
     tar xJf $SRC_ARCHIVE_DIR/flac_${libflac_version}-${libflac_patchlevel}.debian.tar.xz
-    for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    if test -f debian/patches/series; then
+      for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    fi
     patch -p1 <$srcdir/packaging/patches/flac-1.2.1-00-size_t_max.patch
     cd ..
   fi
@@ -1156,7 +1163,9 @@ extract_id3lib() {
     tar xzf $SRC_ARCHIVE_DIR/id3lib3.8.3_${id3lib_version}.orig.tar.gz
     cd id3lib-${id3lib_version}/
     tar xJf $SRC_ARCHIVE_DIR/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
-    for f in $(cat debian/patches/series); do patch --binary -p1 <debian/patches/$f; done
+    if test -f debian/patches/series; then
+      for f in $(cat debian/patches/series); do patch --binary -p1 <debian/patches/$f; done
+    fi
     patch -p1 <$srcdir/packaging/patches/id3lib-3.8.3-win00-mingw.patch
     patch -p1 <$srcdir/packaging/patches/id3lib-3.8.3-win01-tempfile.patch
     test -f makefile.win32.orig || mv makefile.win32 makefile.win32.orig
@@ -1172,7 +1181,9 @@ extract_ffmpeg() {
     tar xJf $SRC_ARCHIVE_DIR/ffmpeg_${ffmpeg_version}.orig.tar.xz || true
     cd ffmpeg-${ffmpeg_version}/
     tar xJf $SRC_ARCHIVE_DIR/ffmpeg_${ffmpeg_version}-${ffmpeg_patchlevel}.debian.tar.xz || true
-    for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    if test -f debian/patches/series; then
+      for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    fi
     cd ..
   fi
 }
@@ -1184,7 +1195,9 @@ extract_chromaprint() {
     tar xzf $SRC_ARCHIVE_DIR/chromaprint_${chromaprint_version}.orig.tar.gz
     cd chromaprint-${chromaprint_version}/
     tar xJf $SRC_ARCHIVE_DIR/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
-    for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    if test -f debian/patches/series; then
+      for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
+    fi
     cd ..
   fi
 }
@@ -1899,5 +1912,7 @@ EOF
   fi
   popd >/dev/null
 fi # package
+
+trap - ERR
 
 echo "### Built successfully"
