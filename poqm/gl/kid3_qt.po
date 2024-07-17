@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-07-15 23:39+0200\n"
+"PO-Revision-Date: 2024-07-16 20:05+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -2105,7 +2105,7 @@ msgstr "inicio da variación"
 #: src/core/model/eventtimingcode.cpp:48
 msgctxt "@default|"
 msgid "key change"
-msgstr "cambio clave"
+msgstr "cambio de clave"
 
 #: src/core/model/eventtimingcode.cpp:49
 msgctxt "@default|"
@@ -2738,7 +2738,7 @@ msgstr "Configuración do codificador"
 #: src/core/tags/frame.cpp:138 src/core/tags/frame.cpp:220
 msgctxt "@default|"
 msgid "Encoding Time"
-msgstr "Tempo de codificación"
+msgstr "Hora da codificación"
 
 #: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:198
 #: src/core/tags/frame.cpp:251
@@ -2749,7 +2749,7 @@ msgstr "Agrupamento"
 #: src/core/tags/frame.cpp:140
 msgctxt "@default|"
 msgid "Initial Key"
-msgstr "Chave inicial"
+msgstr "Clave inicial"
 
 #: src/core/tags/frame.cpp:141
 msgctxt "@default|"
@@ -3544,121 +3544,123 @@ msgid ""
 "Must be musical key, 3 characters, A-G, b, #, m, o\n"
 "or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
+"Debe ser unha clave musical, 3 caracteres, A-G (La-Sol), b, #, m, o\n"
+"ou un valor da roda de Camelot (1A-12A, 1B-12B)."
 
 #: src/core/tags/framenotice.cpp:199
 msgctxt "@default|"
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
-msgstr ""
+msgstr "Debe ser un código de idioma ISO 639-2, 3 minúsculas."
 
 #: src/core/tags/framenotice.cpp:200
 msgctxt "@default|"
 msgid "Must be ISRC code, 12 characters"
-msgstr ""
+msgstr "Debe ser un código ISRC, 12 caracteres."
 
 #: src/core/tags/framenotice.cpp:201
 msgctxt "@default|"
 msgid "Must be list of strings separated by '|'"
-msgstr ""
+msgstr "Debe ser unha lista de cadeas separadas por «|»."
 
 #: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
 msgid "Has excess white space"
-msgstr ""
+msgstr "Ten demasiado espazo."
 
 #: src/core/tags/pictureframe.cpp:42
 msgctxt "@default|"
 msgid "32x32 pixels PNG file icon"
-msgstr ""
+msgstr "Icona de ficheiro PNG de 32×32 píxeles"
 
 #: src/core/tags/pictureframe.cpp:43
 msgctxt "@default|"
 msgid "Other file icon"
-msgstr ""
+msgstr "Outra icona de ficheiro"
 
 #: src/core/tags/pictureframe.cpp:44
 msgctxt "@default|"
 msgid "Cover (front)"
-msgstr ""
+msgstr "Portada"
 
 #: src/core/tags/pictureframe.cpp:45
 msgctxt "@default|"
 msgid "Cover (back)"
-msgstr ""
+msgstr "Contraportada"
 
 #: src/core/tags/pictureframe.cpp:46
 msgctxt "@default|"
 msgid "Leaflet page"
-msgstr ""
+msgstr "Páxina de folleto"
 
 #: src/core/tags/pictureframe.cpp:48
 msgctxt "@default|"
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "Intérprete principal"
 
 #: src/core/tags/pictureframe.cpp:49
 msgctxt "@default|"
 msgid "Artist/performer"
-msgstr ""
+msgstr "Intérprete"
 
 #: src/core/tags/pictureframe.cpp:51
 msgctxt "@default|"
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Banda ou orquestra"
 
 #: src/core/tags/pictureframe.cpp:53
 msgctxt "@default|"
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "Letrista"
 
 #: src/core/tags/pictureframe.cpp:54
 msgctxt "@default|"
 msgid "Recording Location"
-msgstr ""
+msgstr "Localización de gravación"
 
 #: src/core/tags/pictureframe.cpp:55
 msgctxt "@default|"
 msgid "During recording"
-msgstr ""
+msgstr "Durante a gravación"
 
 #: src/core/tags/pictureframe.cpp:56
 msgctxt "@default|"
 msgid "During performance"
-msgstr ""
+msgstr "Durante a interpretación"
 
 #: src/core/tags/pictureframe.cpp:57
 msgctxt "@default|"
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Captura de pantalla de película ou vídeo"
 
 #: src/core/tags/pictureframe.cpp:58
 msgctxt "@default|"
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "Un peixe de cores brillantes"
 
 #: src/core/tags/pictureframe.cpp:59
 msgctxt "@default|"
 msgid "Illustration"
-msgstr ""
+msgstr "Ilustración"
 
 #: src/core/tags/pictureframe.cpp:60
 msgctxt "@default|"
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Logotipo de intérprete ou banda"
 
 #: src/core/tags/pictureframe.cpp:61
 msgctxt "@default|"
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Logotipo de editorial ou estudio"
 
 #: src/core/tags/trackdata.cpp:204
 msgctxt "@default|"
 msgid "Absolute path to file"
-msgstr ""
+msgstr "Ruta absoluta de ficheiro"
 
 #: src/core/tags/trackdata.cpp:210
 msgctxt "@default|"
 msgid "Modification date"
-msgstr ""
+msgstr "Data de modificación"
 
 #: src/core/tags/trackdata.cpp:216
 msgctxt "@default|"
@@ -3673,12 +3675,12 @@ msgstr "Nome do directorio"
 #: src/core/tags/trackdata.cpp:241
 msgctxt "@default|"
 msgid "Number of tracks"
-msgstr ""
+msgstr "Número de pistas"
 
 #: src/core/tags/trackdata.cpp:246
 msgctxt "@default|"
 msgid "Extension"
-msgstr ""
+msgstr "Extensión"
 
 #: src/core/tags/trackdata.cpp:259
 msgctxt "@default|"
@@ -3708,37 +3710,37 @@ msgstr "Marcada"
 #: src/core/tags/trackdata.cpp:292
 msgctxt "@default|"
 msgid "Escape for HTML"
-msgstr ""
+msgstr "Escapar para HTML"
 
 #: src/gui/dialogs/batchimportdialog.cpp:162
 msgctxt "BatchImportDialog|"
 msgid "Automatic Import"
-msgstr ""
+msgstr "Importación automática"
 
 #: src/gui/dialogs/batchimportdialog.cpp:178
 msgctxt "BatchImportDialog|"
 msgid "D&estination:"
-msgstr ""
+msgstr "D&estino:"
 
 #: src/gui/dialogs/batchimportdialog.cpp:193
 msgctxt "BatchImportDialog|"
 msgid "&Profile:"
-msgstr ""
+msgstr "&Perfil:"
 
 #: src/gui/dialogs/batchimportdialog.cpp:204
 msgctxt "BatchImportDialog|"
 msgid "Add"
-msgstr ""
+msgstr "Engadir"
 
 #: src/gui/dialogs/batchimportdialog.cpp:208
 msgctxt "BatchImportDialog|"
 msgid "Remove"
-msgstr ""
+msgstr "Retirar"
 
 #: src/gui/dialogs/batchimportdialog.cpp:229
 msgctxt "BatchImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/batchimportdialog.cpp:235
 msgctxt "BatchImportDialog|"
@@ -3748,27 +3750,27 @@ msgstr "&Gardar a configuración"
 #: src/gui/dialogs/batchimportdialog.cpp:244
 msgctxt "BatchImportDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "Pe&char"
 
 #: src/gui/dialogs/batchimportdialog.cpp:284
 msgctxt "BatchImportDialog|"
 msgid "New"
-msgstr ""
+msgstr "Novo"
 
 #: src/gui/dialogs/batchimportdialog.cpp:476
 msgctxt "BatchImportDialog|"
 msgid "Reading Folder"
-msgstr ""
+msgstr "Lendo o cartafol"
 
 #: src/gui/dialogs/batchimportdialog.cpp:480
 msgctxt "BatchImportDialog|"
 msgid "Started"
-msgstr ""
+msgstr "Iniciouse"
 
 #: src/gui/dialogs/batchimportdialog.cpp:483
 msgctxt "BatchImportDialog|"
 msgid "Source"
-msgstr ""
+msgstr "Orixe"
 
 #: src/gui/dialogs/batchimportdialog.cpp:486
 msgctxt "BatchImportDialog|"
@@ -3783,7 +3785,7 @@ msgstr "Obtendo"
 #: src/gui/dialogs/batchimportdialog.cpp:493
 msgctxt "BatchImportDialog|"
 msgid "Data received"
-msgstr ""
+msgstr "Recibíronse datos"
 
 #: src/gui/dialogs/batchimportdialog.cpp:496
 msgctxt "BatchImportDialog|"
@@ -3793,17 +3795,17 @@ msgstr "Portada"
 #: src/gui/dialogs/batchimportdialog.cpp:500
 msgctxt "BatchImportDialog|"
 msgid "Finished"
-msgstr ""
+msgstr "Rematou"
 
 #: src/gui/dialogs/batchimportdialog.cpp:504
 msgctxt "BatchImportDialog|"
 msgid "Aborted"
-msgstr ""
+msgstr "Interrompeuse"
 
 #: src/gui/dialogs/batchimportdialog.cpp:507
 msgctxt "BatchImportDialog|"
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: src/gui/dialogs/batchimportdialog.cpp:523
 msgctxt "BatchImportDialog|"
@@ -3813,17 +3815,17 @@ msgstr "I&nterromper"
 #: src/gui/dialogs/batchimportdialog.cpp:523
 msgctxt "BatchImportDialog|"
 msgid "S&tart"
-msgstr ""
+msgstr "&Iniciar"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:44
 msgctxt "BatchImportSourceDialog|"
 msgid "Import Source"
-msgstr ""
+msgstr "Orixe da importación"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:50
 msgctxt "BatchImportSourceDialog|"
 msgid "&Server:"
-msgstr ""
+msgstr "&Servidor:"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:58
 msgctxt "BatchImportSourceDialog|"
@@ -3833,38 +3835,38 @@ msgstr "&Precisión:"
 #: src/gui/dialogs/batchimportsourcedialog.cpp:68
 msgctxt "BatchImportSourceDialog|"
 msgid "&Standard Tags"
-msgstr ""
+msgstr "Etiquetas e&stándar"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:70
 msgctxt "BatchImportSourceDialog|"
 msgid "&Additional Tags"
-msgstr ""
+msgstr "Etiquetas &adicionais"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:72
 msgctxt "BatchImportSourceDialog|"
 msgid "C&over Art"
-msgstr ""
+msgstr "P&ortada"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:83
 #: src/gui/dialogs/browsecoverartdialog.cpp:263
 msgctxt "BrowseCoverArtDialog|"
 msgid "Browse Cover Art"
-msgstr ""
+msgstr "Examinar as portadas"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:92
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Artist/Album"
-msgstr ""
+msgstr "&Intérprete ou álbum"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:105
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Source"
-msgstr ""
+msgstr "Ori&xe"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:107
 msgctxt "BrowseCoverArtDialog|"
 msgid "Source:"
-msgstr ""
+msgstr "Orixe:"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:107
 msgctxt "BrowseCoverArtDialog|"
@@ -3874,22 +3876,22 @@ msgstr "URL:"
 #: src/gui/dialogs/browsecoverartdialog.cpp:118
 msgctxt "BrowseCoverArtDialog|"
 msgid "&URL extraction"
-msgstr ""
+msgstr "Extracción de &URL"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
 msgid "Match"
-msgstr ""
+msgstr "Coincidencia"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
 msgid "Picture URL"
-msgstr ""
+msgstr "URL da imaxe"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:130
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:135
 msgctxt "BrowseCoverArtDialog|"
@@ -3899,7 +3901,7 @@ msgstr "&Gardar a configuración"
 #: src/gui/dialogs/browsecoverartdialog.cpp:144
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Browse"
-msgstr ""
+msgstr "&Examinar"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:145
 msgctxt "BrowseCoverArtDialog|"
@@ -3909,88 +3911,88 @@ msgstr "&Cancelar"
 #: src/gui/dialogs/browsecoverartdialog.cpp:177
 msgctxt "BrowseCoverArtDialog|"
 msgid "Click Browse to start"
-msgstr ""
+msgstr "Prema «Examinar» para comezar."
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:183
 msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
-msgstr ""
+msgstr "A continuación arrastre a imaxe do navegador a Kid3."
 
 #: src/gui/dialogs/configdialogpages.cpp:176
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
-msgstr ""
+msgstr "ID3v1"
 
 #: src/gui/dialogs/configdialogpages.cpp:179
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
-msgstr ""
+msgstr "&Marcar os campos recortados."
 
 #: src/gui/dialogs/configdialogpages.cpp:181
 #: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
-msgstr ""
+msgstr "Codificación de t&exto:"
 
 #: src/gui/dialogs/configdialogpages.cpp:195
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
-msgstr ""
+msgstr "ID3v2"
 
 #: src/gui/dialogs/configdialogpages.cpp:198
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
-msgstr ""
+msgstr "Usar o formato «pista/pistas &totais»."
 
 #: src/gui/dialogs/configdialogpages.cpp:201
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
-msgstr ""
+msgstr "&Díxitos dos números de pista:"
 
 #: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
-msgstr ""
+msgstr "&Xénero como texto en vez de cadea numérica."
 
 #: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
-msgstr ""
+msgstr "Ficheiros &WAV cun fragmento id3 en minúsculas."
 
 #: src/gui/dialogs/configdialogpages.cpp:209
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
-msgstr ""
+msgstr "Mar&car os incumprimentos do estándar."
 
 #: src/gui/dialogs/configdialogpages.cpp:228
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
-msgstr ""
+msgstr "&Versión que se usa para novas etiquetas:"
 
 #: src/gui/dialogs/configdialogpages.cpp:232
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
-msgstr ""
+msgstr "ID3v2.3.0"
 
 #: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
-msgstr ""
+msgstr "ID3v2.4.0"
 
 #: src/gui/dialogs/configdialogpages.cpp:248
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
-msgstr ""
+msgstr "Ogg/Vorbis"
 
 #: src/gui/dialogs/configdialogpages.cpp:249
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
-msgstr ""
+msgstr "Nome do campo de co&mentario:"
 
 #: src/gui/dialogs/configdialogpages.cpp:252
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
-msgstr ""
+msgstr "Nome do cam&po de imaxe:"
 
 #: src/gui/dialogs/configdialogpages.cpp:274
 msgctxt "ConfigDialogPages|"
@@ -4000,17 +4002,17 @@ msgstr "Imaxe"
 #: src/gui/dialogs/configdialogpages.cpp:277
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
-msgstr ""
+msgstr "Marcar se s&upera (bytes):"
 
 #: src/gui/dialogs/configdialogpages.cpp:290
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
-msgstr ""
+msgstr "Amo&sar só xéneros personalizados."
 
 #: src/gui/dialogs/configdialogpages.cpp:298
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
-msgstr ""
+msgstr "Xénero&s personalizados"
 
 #: src/gui/dialogs/configdialogpages.cpp:310
 msgctxt "ConfigDialogPages|"
@@ -4020,7 +4022,7 @@ msgstr "Seccións pe&rsonalizadas"
 #: src/gui/dialogs/configdialogpages.cpp:325
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
-msgstr ""
+msgstr "Arrastre e solte para reordenar os elementos."
 
 #: src/gui/dialogs/configdialogpages.cpp:328
 msgctxt "ConfigDialogPages|"
@@ -4030,52 +4032,52 @@ msgstr "Seccións de acceso &rápido"
 #: src/gui/dialogs/configdialogpages.cpp:335
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
-msgstr ""
+msgstr "Información de RIFF"
 
 #: src/gui/dialogs/configdialogpages.cpp:336
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
-msgstr ""
+msgstr "No&me do campo de número de pista:"
 
 #: src/gui/dialogs/configdialogpages.cpp:353
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
-msgstr ""
+msgstr "Formato das e&tiquetas"
 
 #: src/gui/dialogs/configdialogpages.cpp:355
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
-msgstr ""
+msgstr "Cualificación"
 
 #: src/gui/dialogs/configdialogpages.cpp:365
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
-msgstr ""
+msgstr "Etiqueta &1"
 
 #: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
-msgstr ""
+msgstr "Etiqueta &2"
 
 #: src/gui/dialogs/configdialogpages.cpp:368
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
-msgstr ""
+msgstr "Etiqueta &3"
 
 #: src/gui/dialogs/configdialogpages.cpp:369
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
-msgstr ""
+msgstr "Todas as eti&quetas"
 
 #: src/gui/dialogs/configdialogpages.cpp:387
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
-msgstr ""
+msgstr "Inicio"
 
 #: src/gui/dialogs/configdialogpages.cpp:388
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
-msgstr ""
+msgstr "Cargar os ú&ltimos ficheiros abertos."
 
 #: src/gui/dialogs/configdialogpages.cpp:394
 msgctxt "ConfigDialogPages|"
@@ -4085,22 +4087,22 @@ msgstr "Gardar"
 #: src/gui/dialogs/configdialogpages.cpp:395
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
-msgstr ""
+msgstr "&Preservar a marca temporal dos ficheiros."
 
 #: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
-msgstr ""
+msgstr "&Marcar os cambios."
 
 #: src/gui/dialogs/configdialogpages.cpp:407
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
-msgstr ""
+msgstr "Nome de f&icheiro da portada:"
 
 #: src/gui/dialogs/configdialogpages.cpp:408
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
-msgstr ""
+msgstr "Codificación de t&exto (exportar, lista de reprodución):"
 
 #: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
@@ -4110,37 +4112,37 @@ msgstr "Lista de ficheiros"
 #: src/gui/dialogs/configdialogpages.cpp:414
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
-msgstr ""
+msgstr "Filt&ro:"
 
 #: src/gui/dialogs/configdialogpages.cpp:424
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
-msgstr ""
+msgstr "Cartafoles para incl&uír:"
 
 #: src/gui/dialogs/configdialogpages.cpp:428
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
-msgstr ""
+msgstr "Cartafoles para e&xcluír:"
 
 #: src/gui/dialogs/configdialogpages.cpp:432
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
-msgstr ""
+msgstr "Amo&sar os ficheiros agochados."
 
 #: src/gui/dialogs/configdialogpages.cpp:444
 msgctxt "ConfigDialogPages|"
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: src/gui/dialogs/configdialogpages.cpp:448
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
-msgstr ""
+msgstr "Nome do ficheiro a partir da etiqueta"
 
 #: src/gui/dialogs/configdialogpages.cpp:453
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
-msgstr ""
+msgstr "Etiqueta a partir do nome do ficheiro"
 
 #: src/gui/dialogs/configdialogpages.cpp:459
 #: src/gui/dialogs/configdialogpages.cpp:519
@@ -4151,17 +4153,17 @@ msgstr "Lista de reprodución"
 #: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
-msgstr ""
+msgstr "&Formato do nome de ficheiro"
 
 #: src/gui/dialogs/configdialogpages.cpp:487
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
-msgstr ""
+msgstr "Nome do ficheiro a partir da etiqueta"
 
 #: src/gui/dialogs/configdialogpages.cpp:503
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
-msgstr ""
+msgstr "Etiqueta a partir do nome do ficheiro"
 
 #: src/gui/dialogs/configdialogpages.cpp:533
 msgctxt "ConfigDialogPages|"
@@ -4171,37 +4173,37 @@ msgstr "Navegador"
 #: src/gui/dialogs/configdialogpages.cpp:534
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
-msgstr ""
+msgstr "&Navegador web:"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
-msgstr ""
+msgstr "Ordes do &menú contextual"
 
 #: src/gui/dialogs/configdialogpages.cpp:546
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
-msgstr ""
+msgstr "Re&producir ao facer clic duplo."
 
 #: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr ""
+msgstr "&Seleccionar o ficheiro que soa."
 
 #: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "Saída de &son:"
 
 #: src/gui/dialogs/configdialogpages.cpp:553
 msgctxt "ConfigDialogPages|"
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: src/gui/dialogs/configdialogpages.cpp:586
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
-msgstr ""
+msgstr "Mandatario"
 
 #: src/gui/dialogs/configdialogpages.cpp:587
 msgctxt "ConfigDialogPages|"
@@ -4211,32 +4213,32 @@ msgstr "&Proxy:"
 #: src/gui/dialogs/configdialogpages.cpp:590
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
-msgstr ""
+msgstr "&Usar autenticación co mandatario."
 
 #: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
-msgstr ""
+msgstr "&Nome de persoa usuaria do mandatario:"
 
 #: src/gui/dialogs/configdialogpages.cpp:596
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
-msgstr ""
+msgstr "&Contrasinal do mandatario:"
 
 #: src/gui/dialogs/configdialogpages.cpp:630
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
-msgstr ""
+msgstr "Complementos e prioridade dos &metadatos"
 
 #: src/gui/dialogs/configdialogpages.cpp:642
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
-msgstr ""
+msgstr "Complementos &dispoñíbeis"
 
 #: src/gui/dialogs/configdialogpages.cpp:653
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
-msgstr ""
+msgstr "Os cambios só xorden efecto tras reiniciar!"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:740
 msgctxt "@default|"
@@ -4252,12 +4254,12 @@ msgstr "Todos os ficheiros"
 #: src/gui/dialogs/editframefieldsdialog.cpp:1134
 msgctxt "BinaryOpenSave|"
 msgid "From Clip&board"
-msgstr ""
+msgstr "Do &portapapeis"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1135
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
-msgstr ""
+msgstr "Ao por&tapapeis"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1136
 msgctxt "BinaryOpenSave|"
@@ -4272,7 +4274,7 @@ msgstr "&Exportar…"
 #: src/gui/dialogs/editframefieldsdialog.cpp:1138
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
-msgstr ""
+msgstr "&Vista…"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1310
 msgctxt "EditFrameFieldsDialog|"
@@ -4287,37 +4289,37 @@ msgstr "&Cancelar"
 #: src/gui/dialogs/exportdialog.cpp:68
 msgctxt "ExportDialog|"
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "&Format:"
-msgstr ""
+msgstr "&Formato:"
 
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "H&eader:"
-msgstr ""
+msgstr "Cab&eceira:"
 
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "&Tracks:"
-msgstr ""
+msgstr "Pis&tas:"
 
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "F&ooter:"
-msgstr ""
+msgstr "&Pé:"
 
 #: src/gui/dialogs/exportdialog.cpp:91
 msgctxt "ExportDialog|"
 msgid "To F&ile..."
-msgstr ""
+msgstr "A un fiche&iro…"
 
 #: src/gui/dialogs/exportdialog.cpp:96
 msgctxt "ExportDialog|"
 msgid "To Clip&board"
-msgstr ""
+msgstr "Ao &portapapeis"
 
 #: src/gui/dialogs/exportdialog.cpp:105
 msgctxt "ExportDialog|"
@@ -4333,7 +4335,7 @@ msgstr "Etiqueta %1"
 #: src/gui/dialogs/exportdialog.cpp:122
 msgctxt "ExportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/exportdialog.cpp:127
 msgctxt "ExportDialog|"
@@ -4343,27 +4345,27 @@ msgstr "&Gardar a configuración"
 #: src/gui/dialogs/exportdialog.cpp:136
 msgctxt "ExportDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "Pe&char"
 
 #: src/gui/dialogs/exportdialog.cpp:155
 msgctxt "ExportDialog|"
 msgid "File Error"
-msgstr ""
+msgstr "Erro de ficheiro"
 
 #: src/gui/dialogs/exportdialog.cpp:156
 msgctxt "ExportDialog|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "Produciuse un erro ao escribir o ficheiro:\n"
 
 #: src/gui/dialogs/filterdialog.cpp:49
 msgctxt "FilterDialog|"
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: src/gui/dialogs/filterdialog.cpp:53
 msgctxt "FilterDialog|"
 msgid "&Preview"
-msgstr ""
+msgstr "Vista &previa"
 
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
@@ -4373,12 +4375,12 @@ msgstr "&Filtro:"
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
 msgid "&Expression:"
-msgstr ""
+msgstr "&Expresión:"
 
 #: src/gui/dialogs/filterdialog.cpp:75
 msgctxt "FilterDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/filterdialog.cpp:80
 msgctxt "FilterDialog|"
@@ -4388,22 +4390,22 @@ msgstr "&Gardar a configuración"
 #: src/gui/dialogs/filterdialog.cpp:91
 msgctxt "FilterDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "Pe&char"
 
 #: src/gui/dialogs/filterdialog.cpp:182
 msgctxt "FilterDialog|"
 msgid "Started"
-msgstr ""
+msgstr "Comezou"
 
 #: src/gui/dialogs/filterdialog.cpp:198
 msgctxt "FilterDialog|"
 msgid "Finished"
-msgstr ""
+msgstr "Rematou"
 
 #: src/gui/dialogs/filterdialog.cpp:202
 msgctxt "FilterDialog|"
 msgid "Aborted"
-msgstr ""
+msgstr "Interrompeuse"
 
 #: src/gui/dialogs/filterdialog.cpp:215
 msgctxt "FilterDialog|"
@@ -4424,37 +4426,37 @@ msgstr "Atopar e substituír"
 #: src/gui/dialogs/findreplacedialog.cpp:59
 msgctxt "FindReplaceDialog|"
 msgid "F&ind:"
-msgstr ""
+msgstr "&Atopar:"
 
 #: src/gui/dialogs/findreplacedialog.cpp:66
 msgctxt "FindReplaceDialog|"
 msgid "&Find"
-msgstr ""
+msgstr "&Atopar"
 
 #: src/gui/dialogs/findreplacedialog.cpp:69
 msgctxt "FindReplaceDialog|"
 msgid "Re&place:"
-msgstr ""
+msgstr "&Substituír:"
 
 #: src/gui/dialogs/findreplacedialog.cpp:76
 msgctxt "FindReplaceDialog|"
 msgid "&Replace"
-msgstr ""
+msgstr "&Substituír"
 
 #: src/gui/dialogs/findreplacedialog.cpp:79
 msgctxt "FindReplaceDialog|"
 msgid "Replace &all"
-msgstr ""
+msgstr "Substituír &todo"
 
 #: src/gui/dialogs/findreplacedialog.cpp:94
 msgctxt "FindReplaceDialog|"
 msgid "Options"
-msgstr ""
+msgstr "Opcións"
 
 #: src/gui/dialogs/findreplacedialog.cpp:96
 msgctxt "FindReplaceDialog|"
 msgid "&Match case"
-msgstr ""
+msgstr "&Distinguir as maiúsculas das minúsculas."
 
 #: src/gui/dialogs/findreplacedialog.cpp:98
 msgctxt "FindReplaceDialog|"
@@ -4464,27 +4466,27 @@ msgstr "Cara a&trás"
 #: src/gui/dialogs/findreplacedialog.cpp:100
 msgctxt "FindReplaceDialog|"
 msgid "Regular &expression"
-msgstr ""
+msgstr "&Expresión regular."
 
 #: src/gui/dialogs/findreplacedialog.cpp:105
 msgctxt "FindReplaceDialog|"
 msgid "&Tags"
-msgstr ""
+msgstr "E&tiquetas"
 
 #: src/gui/dialogs/findreplacedialog.cpp:107
 msgctxt "FindReplaceDialog|"
 msgid "Select a&ll"
-msgstr ""
+msgstr "Se&leccionar todo"
 
 #: src/gui/dialogs/findreplacedialog.cpp:117
 msgctxt "FindReplaceDialog|"
 msgid "Filename"
-msgstr ""
+msgstr "Nome de ficheiro"
 
 #: src/gui/dialogs/findreplacedialog.cpp:132
 msgctxt "FindReplaceDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/findreplacedialog.cpp:137
 msgctxt "FindReplaceDialog|"
@@ -4494,7 +4496,7 @@ msgstr "&Gardar a configuración"
 #: src/gui/dialogs/findreplacedialog.cpp:144
 msgctxt "FindReplaceDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "Pe&char"
 
 #: src/gui/dialogs/findreplacedialog.cpp:170
 msgctxt "FindReplaceDialog|"
@@ -4504,32 +4506,32 @@ msgstr "Atopar"
 #: src/gui/dialogs/importdialog.cpp:128
 msgctxt "ImportDialog|"
 msgid "Accuracy:"
-msgstr ""
+msgstr "Precisión:"
 
 #: src/gui/dialogs/importdialog.cpp:139
 msgctxt "ImportDialog|"
 msgid "Cover Art:"
-msgstr ""
+msgstr "Portada:"
 
 #: src/gui/dialogs/importdialog.cpp:148
 msgctxt "ImportDialog|"
 msgid "From F&ile/Clipboard..."
-msgstr ""
+msgstr "Dun f&icheiro ou do portapapeis…"
 
 #: src/gui/dialogs/importdialog.cpp:151
 msgctxt "ImportDialog|"
 msgid "From T&ags..."
-msgstr ""
+msgstr "De etiquet&as…"
 
 #: src/gui/dialogs/importdialog.cpp:154
 msgctxt "ImportDialog|"
 msgid "&From Server..."
-msgstr ""
+msgstr "&Dun servidor…"
 
 #: src/gui/dialogs/importdialog.cpp:176
 msgctxt "ImportDialog|"
 msgid "D&estination:"
-msgstr ""
+msgstr "D&estino:"
 
 #: src/gui/dialogs/importdialog.cpp:190
 msgctxt "ImportDialog|"
@@ -4539,32 +4541,32 @@ msgstr "Reverter"
 #: src/gui/dialogs/importdialog.cpp:199
 msgctxt "ImportDialog|"
 msgid "Check maximum allowable time &difference (sec):"
-msgstr ""
+msgstr "Comprobar a máxima &diferenza de tempo permisíbel (en segundos):"
 
 #: src/gui/dialogs/importdialog.cpp:207
 msgctxt "ImportDialog|"
 msgid "Match with:"
-msgstr ""
+msgstr "Casar con:"
 
 #: src/gui/dialogs/importdialog.cpp:209
 msgctxt "ImportDialog|"
 msgid "&Length"
-msgstr ""
+msgstr "&Duración"
 
 #: src/gui/dialogs/importdialog.cpp:212
 msgctxt "ImportDialog|"
 msgid "T&rack"
-msgstr ""
+msgstr "&Pista"
 
 #: src/gui/dialogs/importdialog.cpp:215
 msgctxt "ImportDialog|"
 msgid "&Title"
-msgstr ""
+msgstr "&Título"
 
 #: src/gui/dialogs/importdialog.cpp:243
 msgctxt "ImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/importdialog.cpp:245
 msgctxt "ImportDialog|"
@@ -4585,32 +4587,32 @@ msgstr "&Cancelar"
 #: src/qml/app/NumberTracksDialog.qml:32
 msgctxt "NumberTracksDialog|"
 msgid "Number Tracks"
-msgstr ""
+msgstr "Numerar as pistas"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:55
 msgctxt "NumberTracksDialog|"
 msgid "Start &number:"
-msgstr ""
+msgstr "&Número inicial:"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:67
 msgctxt "NumberTracksDialog|"
 msgid "&Destination:"
-msgstr ""
+msgstr "&Destino:"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:83
 msgctxt "NumberTracksDialog|"
 msgid "&Reset counter for each folder"
-msgstr ""
+msgstr "&Restabelecer o contador en cada cartafol."
 
 #: src/gui/dialogs/numbertracksdialog.cpp:89
 msgctxt "NumberTracksDialog|"
 msgid "&Total number of tracks:"
-msgstr ""
+msgstr "Número &total de pistas:"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:103
 msgctxt "NumberTracksDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:108
 msgctxt "NumberTracksDialog|"
@@ -4630,102 +4632,102 @@ msgstr "&Cancelar"
 #: src/gui/dialogs/playlistdialog.cpp:56
 msgctxt "PlaylistDialog|"
 msgid "Create Playlist"
-msgstr ""
+msgstr "Crear unha lista de reprodución"
 
 #: src/gui/dialogs/playlistdialog.cpp:144
 msgctxt "PlaylistDialog|"
 msgid "Playlist File Name"
-msgstr ""
+msgstr "Nome de ficheiro da lista de reprodución"
 
 #: src/gui/dialogs/playlistdialog.cpp:145
 msgctxt "PlaylistDialog|"
 msgid "Same as &folder name"
-msgstr ""
+msgstr "Igual que o nome do carta&fol."
 
 #: src/gui/dialogs/playlistdialog.cpp:147
 msgctxt "PlaylistDialog|"
 msgid "&Format:"
-msgstr ""
+msgstr "&Formato:"
 
 #: src/gui/dialogs/playlistdialog.cpp:152
 msgctxt "PlaylistDialog|"
 msgid "Create ne&w empty playlist:"
-msgstr ""
+msgstr "Crear unha no&va lista de reprodución baleira:"
 
 #: src/gui/dialogs/playlistdialog.cpp:153
 msgctxt "PlaylistDialog|"
 msgid "New"
-msgstr ""
+msgstr "Nova"
 
 #: src/gui/dialogs/playlistdialog.cpp:159
 msgctxt "PlaylistDialog|"
 msgid "Cr&eate in:"
-msgstr ""
+msgstr "Cr&ear en:"
 
 #: src/gui/dialogs/playlistdialog.cpp:162
 msgctxt "PlaylistDialog|"
 msgid "Current folder"
-msgstr ""
+msgstr "Cartafol actual"
 
 #: src/gui/dialogs/playlistdialog.cpp:163
 msgctxt "PlaylistDialog|"
 msgid "Every folder"
-msgstr ""
+msgstr "Cada cartafol"
 
 #: src/gui/dialogs/playlistdialog.cpp:164
 msgctxt "PlaylistDialog|"
 msgid "Top-level folder"
-msgstr ""
+msgstr "Cartafol raíz"
 
 #: src/gui/dialogs/playlistdialog.cpp:166
 msgctxt "PlaylistDialog|"
 msgid "Playlist Content"
-msgstr ""
+msgstr "Contido da lista de reprodución"
 
 #: src/gui/dialogs/playlistdialog.cpp:167
 msgctxt "PlaylistDialog|"
 msgid "For&mat:"
-msgstr ""
+msgstr "For&mato:"
 
 #: src/gui/dialogs/playlistdialog.cpp:171
 msgctxt "PlaylistDialog|"
 msgid "Incl&ude only the selected files"
-msgstr ""
+msgstr "Incl&uír só os ficheiros seleccionados."
 
 #: src/gui/dialogs/playlistdialog.cpp:172
 msgctxt "PlaylistDialog|"
 msgid "Sort by file &name"
-msgstr ""
+msgstr "Ordenar polo &nome de ficheiro."
 
 #: src/gui/dialogs/playlistdialog.cpp:174
 msgctxt "PlaylistDialog|"
 msgid "Sort by &tag field"
-msgstr ""
+msgstr "Ordenar polo campo de e&tiquetas."
 
 #: src/gui/dialogs/playlistdialog.cpp:191
 msgctxt "PlaylistDialog|"
 msgid "Use &relative path for files in playlist"
-msgstr ""
+msgstr "Usar rutas &relativas para os ficheiros da lista de reprodución."
 
 #: src/gui/dialogs/playlistdialog.cpp:193
 msgctxt "PlaylistDialog|"
 msgid "Use full p&ath for files in playlist"
-msgstr ""
+msgstr "Usar rutas &absolutas para os ficheiros da lista de reprodución."
 
 #: src/gui/dialogs/playlistdialog.cpp:194
 msgctxt "PlaylistDialog|"
 msgid "Write only &list of files"
-msgstr ""
+msgstr "Escribir só a &lista de ficheiros."
 
 #: src/gui/dialogs/playlistdialog.cpp:196
 msgctxt "PlaylistDialog|"
 msgid "Write &info using"
-msgstr ""
+msgstr "Escribir a &información con"
 
 #: src/gui/dialogs/playlistdialog.cpp:207
 msgctxt "PlaylistDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/playlistdialog.cpp:211
 msgctxt "PlaylistDialog|"
@@ -4755,7 +4757,7 @@ msgstr "(modificado)"
 #: src/gui/dialogs/playlisteditdialog.cpp:130
 msgctxt "PlaylistEditDialog|"
 msgid "Warning"
-msgstr ""
+msgstr "Aviso"
 
 #: src/gui/dialogs/playlisteditdialog.cpp:131
 msgctxt "PlaylistEditDialog|"
@@ -4763,6 +4765,8 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"Modificouse unha lista de reprodución.\n"
+"Quere gardala?"
 
 #: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:100
 msgctxt "RenDirDialog|"
@@ -4772,12 +4776,12 @@ msgstr "Renomear o cartafol"
 #: src/gui/dialogs/rendirdialog.cpp:69
 msgctxt "RenDirDialog|"
 msgid "Format"
-msgstr ""
+msgstr "Formato"
 
 #: src/gui/dialogs/rendirdialog.cpp:74
 msgctxt "RenDirDialog|"
 msgid "Preview"
-msgstr ""
+msgstr "Vista previa"
 
 #: src/gui/dialogs/rendirdialog.cpp:78
 msgctxt "RenDirDialog|"
@@ -4787,12 +4791,12 @@ msgstr "&Gardar a configuración"
 #: src/gui/dialogs/rendirdialog.cpp:101
 msgctxt "RenDirDialog|"
 msgid "Create Folder"
-msgstr ""
+msgstr "Crear un cartafol"
 
 #: src/gui/dialogs/rendirdialog.cpp:102
 msgctxt "RenDirDialog|"
 msgid "&Action:"
-msgstr ""
+msgstr "&Acción:"
 
 #: src/gui/dialogs/rendirdialog.cpp:110
 msgctxt "RenDirDialog|"
@@ -4807,62 +4811,62 @@ msgstr "&Editar…"
 #: src/gui/dialogs/rendirdialog.cpp:126
 msgctxt "RenDirDialog|"
 msgid "&Format:"
-msgstr ""
+msgstr "&Formato:"
 
 #: src/gui/dialogs/rendirdialog.cpp:138
 msgctxt "RenDirDialog|"
 msgid "From:"
-msgstr ""
+msgstr "De:"
 
 #: src/gui/dialogs/rendirdialog.cpp:139
 msgctxt "RenDirDialog|"
 msgid "To:"
-msgstr ""
+msgstr "A:"
 
 #: src/gui/dialogs/rendirdialog.cpp:325
 msgctxt "RenDirDialog|"
 msgid "Folder Name from Tag"
-msgstr ""
+msgstr "Nome do cartafol a partir dunha etiqueta"
 
 #: src/gui/dialogs/serverimportdialog.cpp:61
 msgctxt "ServerImportDialog|"
 msgid "&Find"
-msgstr ""
+msgstr "&Atopar"
 
 #: src/gui/dialogs/serverimportdialog.cpp:75
 msgctxt "ServerImportDialog|"
 msgid "&Server:"
-msgstr ""
+msgstr "&Servidor:"
 
 #: src/gui/dialogs/serverimportdialog.cpp:78
 msgctxt "ServerImportDialog|"
 msgid "C&GI Path:"
-msgstr ""
+msgstr "Ruta C&GI:"
 
 #: src/gui/dialogs/serverimportdialog.cpp:89
 msgctxt "ServerImportDialog|"
 msgid "&Token:"
-msgstr ""
+msgstr "&Pase:"
 
 #: src/gui/dialogs/serverimportdialog.cpp:97
 msgctxt "ServerImportDialog|"
 msgid "&Standard Tags"
-msgstr ""
+msgstr "Etiquetas e&stándar"
 
 #: src/gui/dialogs/serverimportdialog.cpp:98
 msgctxt "ServerImportDialog|"
 msgid "&Additional Tags"
-msgstr ""
+msgstr "Etiquetas &adicionais"
 
 #: src/gui/dialogs/serverimportdialog.cpp:99
 msgctxt "ServerImportDialog|"
 msgid "C&over Art"
-msgstr ""
+msgstr "P&ortada"
 
 #: src/gui/dialogs/serverimportdialog.cpp:113
 msgctxt "ServerImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/serverimportdialog.cpp:115
 msgctxt "ServerImportDialog|"
@@ -4872,7 +4876,7 @@ msgstr "&Gardar a configuración"
 #: src/gui/dialogs/serverimportdialog.cpp:117
 msgctxt "ServerImportDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "Pe&char"
 
 #: src/gui/dialogs/serverimportdialog.cpp:132
 msgctxt "ServerImportDialog|"
@@ -4882,12 +4886,12 @@ msgstr "Listo."
 #: src/gui/dialogs/servertrackimportdialog.cpp:83
 msgctxt "ServerTrackImportDialog|"
 msgid "&Server:"
-msgstr ""
+msgstr "&Servidor:"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:106
 msgctxt "ServerTrackImportDialog|"
 msgid "Track Title/Artist - Album"
-msgstr ""
+msgstr "Título da pista/intérprete - álbum"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:107
 msgctxt "ServerTrackImportDialog|"
@@ -4897,7 +4901,7 @@ msgstr "Estado"
 #: src/gui/dialogs/servertrackimportdialog.cpp:115
 msgctxt "ServerTrackImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:117
 msgctxt "ServerTrackImportDialog|"
@@ -4923,24 +4927,24 @@ msgstr "&Cancelar"
 #: src/gui/dialogs/servertrackimportdialog.cpp:368
 msgctxt "ServerTrackImportDialog|"
 msgid "No result"
-msgstr ""
+msgstr "Non hai resultados."
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:229
 #: src/gui/dialogs/servertrackimportdialog.cpp:234
 #: src/gui/dialogs/servertrackimportdialog.cpp:247
 msgctxt "ServerTrackImportDialog|"
 msgid "Unknown"
-msgstr ""
+msgstr "Descoñecida"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:368
 msgctxt "ServerTrackImportDialog|"
 msgid "No result selected"
-msgstr ""
+msgstr "Non se seleccionou ningún resultado."
 
 #: src/gui/dialogs/tagimportdialog.cpp:52
 msgctxt "TagImportDialog|"
 msgid "Import from Tags"
-msgstr ""
+msgstr "Importar de etiquetas"
 
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
@@ -4950,22 +4954,22 @@ msgstr "Formato:"
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
 msgid "Source:"
-msgstr ""
+msgstr "Orixe:"
 
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
 msgid "Extraction:"
-msgstr ""
+msgstr "Extracción:"
 
 #: src/gui/dialogs/tagimportdialog.cpp:72
 msgctxt "TagImportDialog|"
 msgid "D&estination:"
-msgstr ""
+msgstr "D&estino:"
 
 #: src/gui/dialogs/tagimportdialog.cpp:79
 msgctxt "TagImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/tagimportdialog.cpp:83
 msgctxt "TagImportDialog|"
@@ -4980,12 +4984,12 @@ msgstr "&Aplicar"
 #: src/gui/dialogs/tagimportdialog.cpp:92
 msgctxt "TagImportDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "Pe&char"
 
 #: src/gui/dialogs/textimportdialog.cpp:58
 msgctxt "TextImportDialog|"
 msgid "Import from File/Clipboard"
-msgstr ""
+msgstr "Importar dun ficheiro ou do portapapeis"
 
 #: src/gui/dialogs/textimportdialog.cpp:65
 msgctxt "TextImportDialog|"
@@ -5005,7 +5009,7 @@ msgstr "Pistas:"
 #: src/gui/dialogs/textimportdialog.cpp:71
 msgctxt "TextImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Axuda"
 
 #: src/gui/dialogs/textimportdialog.cpp:75
 msgctxt "TextImportDialog|"
@@ -5015,27 +5019,27 @@ msgstr "&Gardar a configuración"
 #: src/gui/dialogs/textimportdialog.cpp:80
 msgctxt "TextImportDialog|"
 msgid "From F&ile..."
-msgstr ""
+msgstr "Dun f&icheiro…"
 
 #: src/gui/dialogs/textimportdialog.cpp:84
 msgctxt "TextImportDialog|"
 msgid "From Clip&board"
-msgstr ""
+msgstr "Do &portapapeis"
 
 #: src/gui/dialogs/textimportdialog.cpp:88
 msgctxt "TextImportDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "Pe&char"
 
 #: src/gui/forms/basemainwindow.cpp:112
 msgctxt "BaseMainWindowImpl|"
 msgid "Download"
-msgstr ""
+msgstr "Descargar"
 
 #: src/gui/forms/basemainwindow.cpp:233
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
-msgstr ""
+msgstr "Abrindo o cartafol…"
 
 #: src/gui/forms/basemainwindow.cpp:324
 msgctxt "BaseMainWindowImpl|"
@@ -5046,12 +5050,12 @@ msgstr "Interromper"
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
-msgstr ""
+msgstr "%1 non permite escritura"
 
 #: src/gui/forms/basemainwindow.cpp:403
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "Produciuse un erro ao escribir o ficheiro:\n"
 
 #: src/gui/forms/basemainwindow.cpp:405 src/gui/forms/basemainwindow.cpp:411
 #: src/gui/forms/basemainwindow.cpp:1128 src/gui/forms/basemainwindow.cpp:1133
@@ -5059,12 +5063,12 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:1649
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
-msgstr ""
+msgstr "Erro de ficheiro"
 
 #: src/gui/forms/basemainwindow.cpp:408
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
-msgstr ""
+msgstr "Erro ao escribir o ficheiro. Quere cambiar os permisos?"
 
 #: src/gui/forms/basemainwindow.cpp:461
 msgctxt "BaseMainWindowImpl|"
@@ -5072,11 +5076,13 @@ msgid ""
 "The current folder has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"Modificouse o cartafol actual.\n"
+"Quere gardalo?"
 
 #: src/gui/forms/basemainwindow.cpp:463 src/gui/forms/basemainwindow.cpp:502
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
-msgstr ""
+msgstr "Aviso"
 
 #: src/gui/forms/basemainwindow.cpp:500
 msgctxt "BaseMainWindowImpl|"
@@ -5084,32 +5090,37 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"Modificouse unha lista de reprodución.\n"
+"Quere gardala?"
 
 #: src/gui/forms/basemainwindow.cpp:610
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
-msgstr ""
+msgstr "Saíndo…"
 
 #: src/gui/forms/basemainwindow.cpp:697
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
 msgid_plural "%n folders"
-msgstr[0] ""
+msgstr[0] "%n cartafol"
+msgstr[1] "%n cartafoles"
 
 #: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
 msgid_plural "%n files"
-msgstr[0] ""
+msgstr[0] "%n ficheiro"
+msgstr[1] "%n ficheiros"
 
 #: src/gui/forms/basemainwindow.cpp:707
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
 msgid_plural "%n selected"
-msgstr[0] ""
+msgstr[0] "%n seleccionado"
+msgstr[1] "%n seleccionados"
 
 #: src/gui/forms/basemainwindow.cpp:710
 msgctxt "BaseMainWindowImpl|"
@@ -5119,17 +5130,17 @@ msgstr "Listo."
 #: src/gui/forms/basemainwindow.cpp:772
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
-msgstr ""
+msgstr "Creando a lista de reprodución…"
 
 #: src/gui/forms/basemainwindow.cpp:820
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
-msgstr ""
+msgstr "Non se atoparon os ficheiros."
 
 #: src/gui/forms/basemainwindow.cpp:821
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: src/gui/forms/basemainwindow.cpp:847
 msgctxt "BaseMainWindowImpl|"
@@ -5140,23 +5151,23 @@ msgstr "Importar"
 #: src/gui/forms/basemainwindow.cpp:1566 src/gui/forms/basemainwindow.cpp:1575
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
-msgstr ""
+msgstr "Erro ao renomear:\n"
 
 #: src/gui/forms/basemainwindow.cpp:1127
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
-msgstr ""
+msgstr "Quere intentalo de novo tras pechar os cartafoles?"
 
 #: src/gui/forms/basemainwindow.cpp:1204
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: src/gui/forms/basemainwindow.cpp:1269
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
-msgstr ""
+msgstr " (filtráronse %1/%2)"
 
 #: src/gui/forms/basemainwindow.cpp:1383
 msgctxt "BaseMainWindowImpl|"
@@ -5176,18 +5187,18 @@ msgstr "Renomear o ficheiro"
 #: src/gui/forms/basemainwindow.cpp:1530
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
-msgstr ""
+msgstr "Escriba o novo nome de ficheiro:"
 
 #: src/gui/forms/basemainwindow.cpp:1567 src/gui/forms/basemainwindow.cpp:1576
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
-msgstr ""
+msgstr "Renomear %1 como %2 fallou.\n"
 
 #: src/gui/forms/basemainwindow.cpp:1568
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
-msgstr ""
+msgstr "Quere intentalo de novo tras pechar os cartafoles?"
 
 #: src/gui/forms/basemainwindow.cpp:1586
 #, qt-format
@@ -5204,7 +5215,7 @@ msgstr "Seguro que quere mover estes %1 elementos para o lixo?"
 #: src/gui/forms/basemainwindow.cpp:1616
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
-msgstr ""
+msgstr "Seguro que quere botar este elemento no lixo?"
 
 #: src/gui/forms/basemainwindow.cpp:1618
 msgctxt "BaseMainWindowImpl|"
@@ -5214,17 +5225,17 @@ msgstr "Botar no lixo"
 #: src/gui/forms/basemainwindow.cpp:1647
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
-msgstr ""
+msgstr "O cartafol debe estar baleiro.\n"
 
 #: src/gui/forms/basemainwindow.cpp:1648
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
-msgstr ""
+msgstr "Non foi posíbel botar os ficheiros no lixo"
 
 #: src/gui/forms/basemainwindow.cpp:1681
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
-msgstr ""
+msgstr "Expandir todo"
 
 #: src/gui/forms/basemainwindow.cpp:1793
 msgctxt "BaseMainWindowImpl|"
@@ -5244,27 +5255,27 @@ msgstr "Anchura de columna personalizadas"
 #: src/gui/forms/filelist.cpp:110
 msgctxt "FileList|"
 msgid "C&lear"
-msgstr ""
+msgstr "Ba&leirar"
 
 #: src/gui/forms/filelist.cpp:114
 msgctxt "FileList|"
 msgid "&Close"
-msgstr ""
+msgstr "Pe&char"
 
 #: src/gui/forms/filelist.cpp:358 src/gui/forms/filelist.cpp:362
 msgctxt "FileList|"
 msgid "&Expand all"
-msgstr ""
+msgstr "&Expandir todo"
 
 #: src/gui/forms/filelist.cpp:360 src/gui/forms/filelist.cpp:363
 msgctxt "FileList|"
 msgid "&Collapse all"
-msgstr ""
+msgstr "&Pregar todo"
 
 #: src/gui/forms/filelist.cpp:373 src/gui/forms/filelist.cpp:375
 msgctxt "FileList|"
 msgid "&Play"
-msgstr ""
+msgstr "Re&producir"
 
 #: src/gui/forms/filelist.cpp:379
 msgctxt "FileList|"
@@ -5274,22 +5285,22 @@ msgstr "E&ditar"
 #: src/gui/forms/filelist.cpp:386 src/gui/forms/filelist.cpp:390
 msgctxt "FileList|"
 msgid "&Open"
-msgstr ""
+msgstr "&Abrir…"
 
 #: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
 msgctxt "FileList|"
 msgid "Open Containing &Folder"
-msgstr ""
+msgstr "Abrir o carta&fol contedor"
 
 #: src/gui/forms/filelist.cpp:562
 msgctxt "FileList|"
 msgid "Execute "
-msgstr ""
+msgstr "Executar "
 
 #: src/gui/forms/filelist.cpp:571
 msgctxt "FileList|"
 msgid "Could not execute "
-msgstr ""
+msgstr "Non se puido executar "
 
 #: src/gui/forms/kid3form.cpp:281
 msgctxt "Kid3Form|"
@@ -5300,7 +5311,7 @@ msgstr "Kid3"
 #: src/gui/forms/kid3form.cpp:1247
 msgctxt "Kid3Form|"
 msgid "F&ile"
-msgstr ""
+msgstr "F&icheiro"
 
 #: src/gui/forms/kid3form.cpp:347
 msgctxt "Kid3Form|"
@@ -5315,7 +5326,7 @@ msgstr "Formato:"
 #: src/gui/forms/kid3form.cpp:387
 msgctxt "Kid3Form|"
 msgid "From:"
-msgstr ""
+msgstr "De:"
 
 #: src/gui/forms/kid3form.cpp:393 src/gui/forms/kid3form.cpp:419
 #: src/gui/forms/kid3form.cpp:501 src/gui/forms/kid3form.cpp:525
@@ -5328,60 +5339,60 @@ msgstr "Etiqueta %1"
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Filename from Tag %1"
-msgstr ""
+msgstr "Nome do ficheiro a partir da etiqueta %1"
 
 #: src/gui/forms/kid3form.cpp:412
 msgctxt "Kid3Form|"
 msgid "To:"
-msgstr ""
+msgstr "A:"
 
 #: src/gui/forms/kid3form.cpp:420
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
-msgstr ""
+msgstr "Etiqueta %1 a partir do nome do ficheiro"
 
 #: src/gui/forms/kid3form.cpp:441 src/gui/forms/kid3form.cpp:892
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
-msgstr ""
+msgstr "Etiqueta &%1"
 
 #: src/gui/forms/kid3form.cpp:470
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "From Tag %1"
-msgstr ""
+msgstr "Da etiqueta %1"
 
 #: src/gui/forms/kid3form.cpp:478 src/gui/forms/kid3form.cpp:534
 msgctxt "Kid3Form|"
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
 #: src/gui/forms/kid3form.cpp:486 src/gui/forms/kid3form.cpp:510
 msgctxt "Kid3Form|"
 msgid "Paste"
-msgstr ""
+msgstr "Pegar"
 
 #: src/gui/forms/kid3form.cpp:493
 msgctxt "Kid3Form|"
 msgid "From"
-msgstr ""
+msgstr "De"
 
 #: src/gui/forms/kid3form.cpp:495 src/gui/forms/kid3form.cpp:519
 msgctxt "Kid3Form|"
 msgid "Filename"
-msgstr ""
+msgstr "Nome de ficheiro"
 
 #: src/gui/forms/kid3form.cpp:517
 msgctxt "Kid3Form|"
 msgid "To"
-msgstr ""
+msgstr "A"
 
 #: src/gui/forms/kid3form.cpp:544
 msgctxt "Kid3Form|"
 msgid "Remove"
-msgstr ""
+msgstr "Retirar"
 
 #: src/gui/forms/kid3form.cpp:558
 msgctxt "Kid3Form|"
@@ -5391,12 +5402,12 @@ msgstr "Editar…"
 #: src/gui/forms/kid3form.cpp:564
 msgctxt "Kid3Form|"
 msgid "Add..."
-msgstr ""
+msgstr "Engadir…"
 
 #: src/gui/forms/kid3form.cpp:570
 msgctxt "Kid3Form|"
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: src/gui/forms/sectionactions.cpp:146
 msgctxt "SectionActions|"
@@ -5406,67 +5417,67 @@ msgstr "Anterior"
 #: src/gui/forms/sectionactions.cpp:148
 msgctxt "SectionActions|"
 msgid "Next"
-msgstr ""
+msgstr "Seguinte"
 
 #: src/gui/forms/sectionactions.cpp:150
 msgctxt "SectionActions|"
 msgid "Transfer"
-msgstr ""
+msgstr "Transferir"
 
 #: src/gui/forms/sectionactions.cpp:153
 msgctxt "SectionActions|"
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
 #: src/gui/forms/sectionactions.cpp:155
 msgctxt "SectionActions|"
 msgid "Paste"
-msgstr ""
+msgstr "Pegar"
 
 #: src/gui/forms/sectionactions.cpp:157
 msgctxt "SectionActions|"
 msgid "Remove"
-msgstr ""
+msgstr "Retirar"
 
 #: src/gui/forms/sectionactions.cpp:160
 msgctxt "SectionActions|"
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: src/gui/forms/sectionactions.cpp:162
 msgctxt "SectionActions|"
 msgid "Add"
-msgstr ""
+msgstr "Engadir"
 
 #: src/gui/forms/sectionactions.cpp:164
 msgctxt "SectionActions|"
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: src/gui/forms/sectionactions.cpp:167
 msgctxt "SectionActions|"
 msgid "Open Parent Folder"
-msgstr ""
+msgstr "Abrir o cartafol superior"
 
 #: src/gui/forms/sectionactions.cpp:170
 msgctxt "SectionActions|"
 msgid "Open Current Folder"
-msgstr ""
+msgstr "Abrir o cartafol actual"
 
 #: src/gui/widgets/abstractlistedit.cpp:50
 msgctxt "AbstractListEdit|"
 msgid "&Add..."
-msgstr ""
+msgstr "Eng&adir…"
 
 #: src/gui/widgets/abstractlistedit.cpp:51
 msgctxt "AbstractListEdit|"
 msgid "Move &Up"
-msgstr ""
+msgstr "S&ubir"
 
 #: src/gui/widgets/abstractlistedit.cpp:52
 msgctxt "AbstractListEdit|"
 msgid "Move &Down"
-msgstr ""
+msgstr "&Baixar"
 
 #: src/gui/widgets/abstractlistedit.cpp:53
 msgctxt "AbstractListEdit|"
@@ -5476,7 +5487,7 @@ msgstr "&Editar…"
 #: src/gui/widgets/abstractlistedit.cpp:54
 msgctxt "AbstractListEdit|"
 msgid "&Remove"
-msgstr ""
+msgstr "&Retirar"
 
 #: src/gui/widgets/chaptereditor.cpp:54
 msgctxt "ChapterEditor|"
@@ -5491,92 +5502,92 @@ msgstr "Hora de fin"
 #: src/gui/widgets/chaptereditor.cpp:56
 msgctxt "ChapterEditor|"
 msgid "Start offset"
-msgstr ""
+msgstr "Desprazamento do inicio"
 
 #: src/gui/widgets/chaptereditor.cpp:57
 msgctxt "ChapterEditor|"
 msgid "End offset"
-msgstr ""
+msgstr "Desprazamento do final"
 
 #: src/gui/widgets/configtable.cpp:42
 msgctxt "ConfigTable|"
 msgid "&Add"
-msgstr ""
+msgstr "Eng&adir"
 
 #: src/gui/widgets/configtable.cpp:141
 msgctxt "ConfigTable|"
 msgid "&Insert row"
-msgstr ""
+msgstr "&Inserir unha fila"
 
 #: src/gui/widgets/configtable.cpp:145
 msgctxt "ConfigTable|"
 msgid "&Delete row"
-msgstr ""
+msgstr "&Eliminar a fila"
 
 #: src/gui/widgets/configtable.cpp:147
 msgctxt "ConfigTable|"
 msgid "&Clear row"
-msgstr ""
+msgstr "&Baleirar a fila"
 
 #: src/gui/widgets/filenameformatbox.cpp:46
 msgctxt "FilenameFormatBox|"
 msgid "Use for playlist and folder names"
-msgstr ""
+msgstr "Usar para nomes de listas de reprodución e de cartafoles."
 
 #: src/gui/widgets/filenameformatbox.cpp:47
 msgctxt "FilenameFormatBox|"
 msgid "Maximum length:"
-msgstr ""
+msgstr "Lonxitude máxima:"
 
 #: src/gui/widgets/formatbox.cpp:48
 msgctxt "FormatBox|"
 msgid "Automatically apply format"
-msgstr ""
+msgstr "Aplicar o formato automaticamente."
 
 #: src/gui/widgets/formatbox.cpp:56
 msgctxt "FormatBox|"
 msgid "String replacement:"
-msgstr ""
+msgstr "Substitución de cadeas:"
 
 #: src/gui/widgets/formatbox.cpp:58
 msgctxt "FormatBox|"
 msgid "From"
-msgstr ""
+msgstr "De"
 
 #: src/gui/widgets/formatbox.cpp:58
 msgctxt "FormatBox|"
 msgid "To"
-msgstr ""
+msgstr "A"
 
 #: src/gui/widgets/formatbox.cpp:66
 msgctxt "FormatBox|"
 msgid "Case conversion:"
-msgstr ""
+msgstr "Conversión en maiúsculas ou minúsculas:"
 
 #: src/gui/widgets/formatbox.cpp:67
 msgctxt "FormatBox|"
 msgid "Locale:"
-msgstr ""
+msgstr "Configuración rexional:"
 
 #: src/gui/widgets/formatlistedit.cpp:83
 msgctxt "FormatListEdit|"
 msgid "&Add"
-msgstr ""
+msgstr "Eng&adir"
 
 #: src/gui/widgets/formatlistedit.cpp:85
 msgctxt "FormatListEdit|"
 msgid "&Remove"
-msgstr ""
+msgstr "&Retirar"
 
 #: src/gui/widgets/formatlistedit.cpp:245
 msgctxt "FormatListEdit|"
 msgid "New"
-msgstr ""
+msgstr "Nova"
 
 #: src/gui/widgets/frametable.cpp:68 src/gui/widgets/frametable.cpp:70
 msgctxt "FrameTable|"
 msgid "WWW Audio Source"
-msgstr ""
+msgstr "Orixe do son WWW"
 
 #: src/gui/widgets/frametable.cpp:160
 msgctxt "FrameTable|"
@@ -5586,17 +5597,17 @@ msgstr "Escoller &todos"
 #: src/gui/widgets/frametable.cpp:162
 msgctxt "FrameTable|"
 msgid "&Deselect all"
-msgstr ""
+msgstr "&Anular a selección"
 
 #: src/gui/widgets/imageviewer.cpp:49
 msgctxt "ImageViewer|"
 msgid "View Picture"
-msgstr ""
+msgstr "Ver a imaxe"
 
 #: src/gui/widgets/imageviewer.cpp:55
 msgctxt "ImageViewer|"
 msgid "&Close"
-msgstr ""
+msgstr "Pe&char"
 
 #: src/gui/widgets/picturelabel.cpp:92
 msgctxt "@default|"
@@ -5605,16 +5616,19 @@ msgid ""
 "artwork\n"
 "here"
 msgstr ""
+"Arrastre\n"
+"aquí a\n"
+"portada"
 
 #: src/gui/widgets/playtoolbar.cpp:103
 msgctxt "PlayToolBar|"
 msgid "Play"
-msgstr ""
+msgstr "Reproducir"
 
 #: src/gui/widgets/playtoolbar.cpp:108
 msgctxt "PlayToolBar|"
 msgid "Play/Pause"
-msgstr ""
+msgstr "Reproducir ou pausar"
 
 #: src/gui/widgets/playtoolbar.cpp:112
 msgctxt "PlayToolBar|"
@@ -5634,12 +5648,12 @@ msgstr "Pista seguinte"
 #: src/gui/widgets/playtoolbar.cpp:124
 msgctxt "PlayToolBar|"
 msgid "Close"
-msgstr ""
+msgstr "Pechar"
 
 #: src/gui/widgets/playtoolbar.cpp:141
 msgctxt "PlayToolBar|"
 msgid "Mute"
-msgstr ""
+msgstr "Silenciar"
 
 #: src/gui/widgets/playtoolbar.cpp:324
 #, qt-format
@@ -5670,12 +5684,12 @@ msgstr "Editar…"
 #: src/gui/widgets/subframeseditor.cpp:72
 msgctxt "SubframesEditor|"
 msgid "Add..."
-msgstr ""
+msgstr "Engadir…"
 
 #: src/gui/widgets/subframeseditor.cpp:77
 msgctxt "SubframesEditor|"
 msgid "Delete"
-msgstr ""
+msgstr "Eliminar"
 
 #: src/gui/widgets/subframeseditor.cpp:129
 msgctxt "SubframesEditor|"
@@ -5690,37 +5704,37 @@ msgstr "Seleccionar o identificador da sección"
 #: src/gui/widgets/tablemodeledit.cpp:35
 msgctxt "TableModelEdit|"
 msgid "&Add"
-msgstr ""
+msgstr "Eng&adir"
 
 #: src/gui/widgets/tableofcontentseditor.cpp:43
 msgctxt "TableOfContentsEditor|"
 msgid "Top level"
-msgstr ""
+msgstr "Raíz"
 
 #: src/gui/widgets/tableofcontentseditor.cpp:45
 msgctxt "TableOfContentsEditor|"
 msgid "Ordered"
-msgstr ""
+msgstr "Ordenada"
 
 #: src/gui/widgets/tagformatbox.cpp:43
 msgctxt "TagFormatBox|"
 msgid "Validation"
-msgstr ""
+msgstr "Validación"
 
 #: src/gui/widgets/timeeventeditor.cpp:119
 msgctxt "TimeEventEditor|"
 msgid "&Add"
-msgstr ""
+msgstr "Eng&adir"
 
 #: src/gui/widgets/timeeventeditor.cpp:121
 msgctxt "TimeEventEditor|"
 msgid "&Delete"
-msgstr ""
+msgstr "&Eliminar"
 
 #: src/gui/widgets/timeeventeditor.cpp:123
 msgctxt "TimeEventEditor|"
 msgid "From Clip&board"
-msgstr ""
+msgstr "Do &portapapeis"
 
 #: src/gui/widgets/timeeventeditor.cpp:125
 msgctxt "TimeEventEditor|"
@@ -5735,7 +5749,7 @@ msgstr "&Exportar…"
 #: src/gui/widgets/timeeventeditor.cpp:129
 msgctxt "TimeEventEditor|"
 msgid "Help"
-msgstr ""
+msgstr "Axuda"
 
 #: src/gui/widgets/timeeventeditor.cpp:187
 msgctxt "TimeEventEditor|"
@@ -5745,7 +5759,7 @@ msgstr "Eventos"
 #: src/gui/widgets/timeeventeditor.cpp:193
 msgctxt "TimeEventEditor|"
 msgid "Lyrics"
-msgstr ""
+msgstr "Letra"
 
 #: src/gui/widgets/timeeventeditor.cpp:429
 msgctxt "TimeEventEditor|"
@@ -5760,72 +5774,72 @@ msgstr "Milisegundos"
 #: src/gui/widgets/timeeventeditor.cpp:468
 msgctxt "TimeEventEditor|"
 msgid "&Insert row"
-msgstr ""
+msgstr "&Inserir unha fila"
 
 #: src/gui/widgets/timeeventeditor.cpp:471
 msgctxt "TimeEventEditor|"
 msgid "&Delete rows"
-msgstr ""
+msgstr "&Eliminar as filas"
 
 #: src/gui/widgets/timeeventeditor.cpp:473
 msgctxt "TimeEventEditor|"
 msgid "C&lear"
-msgstr ""
+msgstr "Ba&leirar"
 
 #: src/gui/widgets/timeeventeditor.cpp:475
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
-msgstr ""
+msgstr "En&adir un desprazamento…"
 
 #: src/gui/widgets/timeeventeditor.cpp:477
 msgctxt "TimeEventEditor|"
 msgid "&Seek to position"
-msgstr ""
+msgstr "&Saltar á posición"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:206
 msgctxt "@default|"
 msgid "MusicBrainz Fingerprint"
-msgstr ""
+msgstr "Pegada de MusicBrainz"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:282
 msgctxt "MusicBrainzClient|"
 msgid "Unrecognized"
-msgstr ""
+msgstr "Non recoñecida"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:293
 msgctxt "MusicBrainzClient|"
 msgid "Recognized"
-msgstr ""
+msgstr "Recoñecida"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:293
 msgctxt "MusicBrainzClient|"
 msgid "User Selection"
-msgstr ""
+msgstr "Selección da persoa usuaria"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:315
 msgctxt "MusicBrainzClient|"
 msgid "ID Lookup"
-msgstr ""
+msgstr "Busca por ID"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:323
 msgctxt "MusicBrainzClient|"
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:342
 msgctxt "MusicBrainzClient|"
 msgid "Fingerprint"
-msgstr ""
+msgstr "Pegada"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:351
 msgctxt "MusicBrainzClient|"
 msgid "Metadata Lookup"
-msgstr ""
+msgstr "Busca por metadatos"
 
 #: src/plugins/amazonimport/amazonimporter.cpp:72
 msgctxt "@default|"
 msgid "Amazon"
-msgstr ""
+msgstr "Amazon"
 
 #: src/plugins/discogsimport/discogsimporter.cpp:1470
 msgctxt "@default|"
@@ -5835,83 +5849,83 @@ msgstr "Discogs"
 #: src/plugins/freedbimport/freedbimporter.cpp:58
 msgctxt "@default|"
 msgid "gnudb.org"
-msgstr ""
+msgstr "gnudb.org"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:907
 #: src/plugins/taglibmetadata/taglibfile.cpp:2486
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
-msgstr ""
+msgstr "AENC — Cifrado de son"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:908
 #: src/plugins/taglibmetadata/taglibfile.cpp:2487
 msgctxt "@default|"
 msgid "APIC - Attached picture"
-msgstr ""
+msgstr "APIC — Imaxe anexa"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:910
 #: src/plugins/taglibmetadata/taglibfile.cpp:2492
 msgctxt "@default|"
 msgid "COMM - Comments"
-msgstr ""
+msgstr "COMM — Comentarios"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:911
 #: src/plugins/taglibmetadata/taglibfile.cpp:2493
 msgctxt "@default|"
 msgid "COMR - Commercial"
-msgstr ""
+msgstr "COMR — Comercial"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:912
 #: src/plugins/taglibmetadata/taglibfile.cpp:2497
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
-msgstr ""
+msgstr "ENCR — Rexistro do método de cifrado"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:914
 msgctxt "@default|"
 msgid "EQUA - Equalization"
-msgstr ""
+msgstr "EQUA — Nivelación"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:915
 #: src/plugins/taglibmetadata/taglibfile.cpp:2499
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
-msgstr ""
+msgstr "ETCO — Códigos de tempo de eventos"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:916
 #: src/plugins/taglibmetadata/taglibfile.cpp:2500
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
-msgstr ""
+msgstr "GEOB — Obxecto encapsulado xeral"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:917
 #: src/plugins/taglibmetadata/taglibfile.cpp:2501
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
-msgstr ""
+msgstr "GRID — Rexistro de identificación de grupo"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:918
 msgctxt "@default|"
 msgid "IPLS - Involved people list"
-msgstr ""
+msgstr "IPLS — Lista de persoas involucradas"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:919
 #: src/plugins/taglibmetadata/taglibfile.cpp:2505
 msgctxt "@default|"
 msgid "LINK - Linked information"
-msgstr ""
+msgstr "LINK — Información ligada"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:920
 #: src/plugins/taglibmetadata/taglibfile.cpp:2506
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
-msgstr ""
+msgstr "MCDI — Identificador de CD de música"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:921
 #: src/plugins/taglibmetadata/taglibfile.cpp:2507
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
-msgstr ""
+msgstr "MLLT — Táboa de busca de localizacións de MPEG"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:922
 #: src/plugins/taglibmetadata/taglibfile.cpp:2512
@@ -5929,13 +5943,13 @@ msgstr "PRIV — Sección privada"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2514
 msgctxt "@default|"
 msgid "PCNT - Play counter"
-msgstr ""
+msgstr "PCNT — Contador de reproducións"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:925
 #: src/plugins/taglibmetadata/taglibfile.cpp:2518
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
-msgstr ""
+msgstr "POPM — Medidor de popularidade"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:926
 #: src/plugins/taglibmetadata/taglibfile.cpp:2519
@@ -5947,385 +5961,385 @@ msgstr "POSS — Sección de sincronización de posición"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2520
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
-msgstr ""
+msgstr "RBUF — Tamaño de búfer recomendado"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:929
 msgctxt "@default|"
 msgid "RVAD - Relative volume adjustment"
-msgstr ""
+msgstr "RVAD — Axuste de volume relativo"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:930
 #: src/plugins/taglibmetadata/taglibfile.cpp:2522
 msgctxt "@default|"
 msgid "RVRB - Reverb"
-msgstr ""
+msgstr "RVRB — Reverberación"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:933
 #: src/plugins/taglibmetadata/taglibfile.cpp:2525
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
-msgstr ""
+msgstr "SYLT — Letra ou texto sincronizado"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:934
 #: src/plugins/taglibmetadata/taglibfile.cpp:2526
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
-msgstr ""
+msgstr "SYTC — Códigos de tempo sincronizados"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:935
 #: src/plugins/taglibmetadata/taglibfile.cpp:2527
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
-msgstr ""
+msgstr "TALB — Título do álbum, película ou programa"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:936
 #: src/plugins/taglibmetadata/taglibfile.cpp:2528
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
-msgstr ""
+msgstr "TBPM — Pulsos por minuto"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:937
 #: src/plugins/taglibmetadata/taglibfile.cpp:2533
 msgctxt "@default|"
 msgid "TCOM - Composer"
-msgstr ""
+msgstr "TCOM — Autoría da composición"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:938
 #: src/plugins/taglibmetadata/taglibfile.cpp:2534
 msgctxt "@default|"
 msgid "TCON - Content type"
-msgstr ""
+msgstr "TCON — Tipo de contido"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:939
 #: src/plugins/taglibmetadata/taglibfile.cpp:2535
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
-msgstr ""
+msgstr "TCOP — Mensaxe de dereitos de autoría"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:940
 msgctxt "@default|"
 msgid "TDAT - Date"
-msgstr ""
+msgstr "TDAT — Data"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:942
 #: src/plugins/taglibmetadata/taglibfile.cpp:2540
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
-msgstr ""
+msgstr "TDLY — Atraso da lista de reprodución"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:948
 #: src/plugins/taglibmetadata/taglibfile.cpp:2545
 msgctxt "@default|"
 msgid "TENC - Encoded by"
-msgstr ""
+msgstr "TENC — Autoría da codificación"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:949
 #: src/plugins/taglibmetadata/taglibfile.cpp:2546
 msgctxt "@default|"
 msgid "TEXT - Lyricist/Text writer"
-msgstr ""
+msgstr "TEXT — Autoría da letra ou do texto"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:950
 #: src/plugins/taglibmetadata/taglibfile.cpp:2547
 msgctxt "@default|"
 msgid "TFLT - File type"
-msgstr ""
+msgstr "TFLT — Tipo de ficheiro"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:951
 msgctxt "@default|"
 msgid "TIME - Time"
-msgstr ""
+msgstr "TIME — Tempo"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:952
 #: src/plugins/taglibmetadata/taglibfile.cpp:2552
 msgctxt "@default|"
 msgid "TIT1 - Content group description"
-msgstr ""
+msgstr "TIT1 — Descrición do grupo de contido"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:953
 #: src/plugins/taglibmetadata/taglibfile.cpp:2553
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
-msgstr ""
+msgstr "TIT2 — Título, nome da canción ou descrición do contido"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:954
 #: src/plugins/taglibmetadata/taglibfile.cpp:2554
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
-msgstr ""
+msgstr "TIT3 — Subtítulo ou continuación da descrición"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:955
 #: src/plugins/taglibmetadata/taglibfile.cpp:2555
 msgctxt "@default|"
 msgid "TKEY - Initial key"
-msgstr ""
+msgstr "TKEY — Clave inicial"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:956
 #: src/plugins/taglibmetadata/taglibfile.cpp:2559
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
-msgstr ""
+msgstr "TLAN — Idiomas"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:957
 #: src/plugins/taglibmetadata/taglibfile.cpp:2560
 msgctxt "@default|"
 msgid "TLEN - Length"
-msgstr ""
+msgstr "TLEN — Duración"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:959
 #: src/plugins/taglibmetadata/taglibfile.cpp:2562
 msgctxt "@default|"
 msgid "TMED - Media type"
-msgstr ""
+msgstr "TMED — Tipo de contido multimedia"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:961
 #: src/plugins/taglibmetadata/taglibfile.cpp:2564
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
-msgstr ""
+msgstr "TOAL — Título orixinal do álbum, película ou programa"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:962
 #: src/plugins/taglibmetadata/taglibfile.cpp:2565
 msgctxt "@default|"
 msgid "TOFN - Original filename"
-msgstr ""
+msgstr "TOFN — Nome de ficheiro orixinal"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:963
 #: src/plugins/taglibmetadata/taglibfile.cpp:2566
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr ""
+msgstr "TOLY — Autoría orixinal da letra ou texto"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:964
 #: src/plugins/taglibmetadata/taglibfile.cpp:2567
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
-msgstr ""
+msgstr "TOPE — Intérpretes orixinais"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:965
 msgctxt "@default|"
 msgid "TORY - Original release year"
-msgstr ""
+msgstr "TORY — Ano de publicación orixinal"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:966
 #: src/plugins/taglibmetadata/taglibfile.cpp:2568
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
-msgstr ""
+msgstr "TOWN — Pertenza do ficheiro ou da licenza"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:967
 #: src/plugins/taglibmetadata/taglibfile.cpp:2569
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr ""
+msgstr "TPE1 — Intérprete principal"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:968
 #: src/plugins/taglibmetadata/taglibfile.cpp:2570
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr ""
+msgstr "TPE2 — Banda, orquestra ou acompañamento"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:969
 #: src/plugins/taglibmetadata/taglibfile.cpp:2571
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
-msgstr ""
+msgstr "TPE3 — Dirección ou continuación de intérprete"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:970
 #: src/plugins/taglibmetadata/taglibfile.cpp:2572
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr ""
+msgstr "TPE4 — Autoría da interpretación, mestura ou modificación"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:971
 #: src/plugins/taglibmetadata/taglibfile.cpp:2573
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
-msgstr ""
+msgstr "TPOS — Parte dun conxunto"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:973
 #: src/plugins/taglibmetadata/taglibfile.cpp:2575
 msgctxt "@default|"
 msgid "TPUB - Publisher"
-msgstr ""
+msgstr "TPUB — Editorial"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:974
 #: src/plugins/taglibmetadata/taglibfile.cpp:2576
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
-msgstr ""
+msgstr "TRCK — Número de pista ou posición no conxunto"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:975
 msgctxt "@default|"
 msgid "TRDA - Recording dates"
-msgstr ""
+msgstr "TRDA — Datas da gravación"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:976
 #: src/plugins/taglibmetadata/taglibfile.cpp:2577
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
-msgstr ""
+msgstr "TRSN — Nome da emisora de radio por Internet"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:977
 #: src/plugins/taglibmetadata/taglibfile.cpp:2578
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
-msgstr ""
+msgstr "TRSO — Pertenza da emisora de radio por Internet"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:978
 msgctxt "@default|"
 msgid "TSIZ - Size"
-msgstr ""
+msgstr "TSIZ — Tamaño"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:982
 #: src/plugins/taglibmetadata/taglibfile.cpp:2584
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
-msgstr ""
+msgstr "TSRC — ISRC (código de gravación estándar internacional)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:983
 #: src/plugins/taglibmetadata/taglibfile.cpp:2585
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr ""
+msgstr "TSSE — Soporte lóxico, físico e configuración da codificación"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:985
 #: src/plugins/taglibmetadata/taglibfile.cpp:2587
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
-msgstr ""
+msgstr "TXXX — Información de texto definida pola persoa usuaria"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:986
 msgctxt "@default|"
 msgid "TYER - Year"
-msgstr ""
+msgstr "TYER — Ano"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:987
 #: src/plugins/taglibmetadata/taglibfile.cpp:2588
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
-msgstr ""
+msgstr "UFID — Identificador único de ficheiro"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:988
 #: src/plugins/taglibmetadata/taglibfile.cpp:2589
 msgctxt "@default|"
 msgid "USER - Terms of use"
-msgstr ""
+msgstr "USER — Condicións de uso"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:989
 #: src/plugins/taglibmetadata/taglibfile.cpp:2590
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr ""
+msgstr "USLT — Transcrición da letra ou texto non sincronizada"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:990
 #: src/plugins/taglibmetadata/taglibfile.cpp:2591
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
-msgstr ""
+msgstr "WCOM — Información comercial"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:991
 #: src/plugins/taglibmetadata/taglibfile.cpp:2592
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
-msgstr ""
+msgstr "WCOP — Información de dereitos de copia ou legal"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:992
 #: src/plugins/taglibmetadata/taglibfile.cpp:2596
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
-msgstr ""
+msgstr "WOAF — Páxina web oficial do ficheiro de son"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:993
 #: src/plugins/taglibmetadata/taglibfile.cpp:2597
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
-msgstr ""
+msgstr "WOAR — Páxina web oficial de intérprete"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:994
 #: src/plugins/taglibmetadata/taglibfile.cpp:2598
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
-msgstr ""
+msgstr "WOAS — Páxina web oficial da orixe do son"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:995
 #: src/plugins/taglibmetadata/taglibfile.cpp:2599
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
-msgstr ""
+msgstr "WORS — Páxina web oficial da emisora de radio por Internet"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:996
 #: src/plugins/taglibmetadata/taglibfile.cpp:2600
 msgctxt "@default|"
 msgid "WPAY - Payment"
-msgstr ""
+msgstr "WPAY — Pagamento"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:997
 #: src/plugins/taglibmetadata/taglibfile.cpp:2601
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
-msgstr ""
+msgstr "WPUB — Sitio web oficial da editorial"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:998
 #: src/plugins/taglibmetadata/taglibfile.cpp:2602
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
-msgstr ""
+msgstr "WXXX — Ligazón URL definida pola persoa usuaria"
 
 #: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
 msgctxt "@default|"
 msgid "MusicBrainz Release"
-msgstr ""
+msgstr "Publicación en MusicBrainz"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2488
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
-msgstr ""
+msgstr "ASPI — Índice de punto de salto de son"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2490
 msgctxt "@default|"
 msgid "CHAP - Chapter"
-msgstr ""
+msgstr "CHAP — Capítulo"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2495
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
-msgstr ""
+msgstr "CTOC — Índice"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2498
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
-msgstr ""
+msgstr "EQU2 — Nivelación (2)"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2503
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
-msgstr ""
+msgstr "GRP1 — Agrupamento"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2509
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
-msgstr ""
+msgstr "MVIN — Número do movemento"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2510
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
-msgstr ""
+msgstr "MVNM — Nome do movemento"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2516
 msgctxt "@default|"
 msgid "PCST - Podcast"
-msgstr ""
+msgstr "PCST — Podcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2521
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
-msgstr ""
+msgstr "RVA2 — Axuste de volume relativo (2)"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2523
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
-msgstr "SEEK — Sección de desprazamento"
+msgstr "SEEK — Sección de salto"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2524
 msgctxt "@default|"
@@ -6345,112 +6359,112 @@ msgstr "TCMP — Marca de colección de iTunes"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2536
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
-msgstr ""
+msgstr "TDEN — Hora da codificación"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2538
 msgctxt "@default|"
 msgid "TDES - Podcast description"
-msgstr ""
+msgstr "TDES — Descrición do podcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2541
 msgctxt "@default|"
 msgid "TDOR - Original release time"
-msgstr ""
+msgstr "TDOR — Hora de publicación orixinal"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2542
 msgctxt "@default|"
 msgid "TDRC - Recording time"
-msgstr ""
+msgstr "TDRC — Hora de gravación"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2543
 msgctxt "@default|"
 msgid "TDRL - Release time"
-msgstr ""
+msgstr "TDRL — Hora da publicación"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2544
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
-msgstr ""
+msgstr "TDTG — Hora da etiquetaxe"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2549
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
-msgstr ""
+msgstr "TGID — Identificador do podcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2551
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
-msgstr ""
+msgstr "TIPL — Lista de persoas involucradas"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2557
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
-msgstr ""
+msgstr "TKWD — Palabras clave do podcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2561
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
-msgstr ""
+msgstr "TMCL — Lista de recoñecementos musicais"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2563
 msgctxt "@default|"
 msgid "TMOO - Mood"
-msgstr ""
+msgstr "TMOO — Ánimo"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2574
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
-msgstr ""
+msgstr "TPRO — Nota producida"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2579
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
-msgstr ""
+msgstr "TSO2 — Criterio de ordenación de intérpretes do álbum"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2580
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
-msgstr ""
+msgstr "TSOA — Criterio de ordenación dos álbums"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2581
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
-msgstr ""
+msgstr "TSOC — Criterio de ordenación das autorías da composición"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2582
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
-msgstr ""
+msgstr "TSOP — Criterio de ordenación de intérpretes"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2583
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
-msgstr ""
+msgstr "TSOT — Criterio de ordenación dos títulos"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2586
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
-msgstr ""
+msgstr "TSST — Subtítulos definidos"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2594
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
-msgstr ""
+msgstr "WFED — Fonde do podcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:6818
 msgctxt "@default|"
 msgid "Rating Information"
-msgstr ""
+msgstr "Información de cualificación"
 
 #: src/qml/app/AboutDialog.qml:29
 msgctxt "AboutDialog|"
 msgid "About Kid3"
-msgstr ""
+msgstr "Sobre Kid3"
 
 #: src/qml/app/AboutDialog.qml:39
 msgctxt "AboutDialog|"
 msgid "Audio Tag Editor"
-msgstr ""
+msgstr "Editor de etiquetas de son"
 
 #: src/qml/app/AboutDialog.qml:44
 msgctxt "AboutDialog|"
@@ -6462,26 +6476,27 @@ msgstr "Licenza"
 msgctxt "AboutDialog|"
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
+"Este programa usa a versión %1 de <a href=\"http://www.qt.io/\">Qt</a>."
 
 #: src/qml/app/BatchImportPage.qml:32
 msgctxt "BatchImportPage|"
 msgid "Automatic Import"
-msgstr ""
+msgstr "Importación automática"
 
 #: src/qml/app/BatchImportPage.qml:40
 msgctxt "BatchImportPage|"
 msgid "Reading Folder"
-msgstr ""
+msgstr "Lendo o cartafol"
 
 #: src/qml/app/BatchImportPage.qml:43
 msgctxt "BatchImportPage|"
 msgid "Started"
-msgstr ""
+msgstr "Comezou"
 
 #: src/qml/app/BatchImportPage.qml:46
 msgctxt "BatchImportPage|"
 msgid "Source"
-msgstr ""
+msgstr "Orixe"
 
 #: src/qml/app/BatchImportPage.qml:49
 msgctxt "BatchImportPage|"
@@ -6496,7 +6511,7 @@ msgstr "Obtendo"
 #: src/qml/app/BatchImportPage.qml:56
 msgctxt "BatchImportPage|"
 msgid "Data received"
-msgstr ""
+msgstr "Recibíronse datos"
 
 #: src/qml/app/BatchImportPage.qml:59
 msgctxt "BatchImportPage|"
@@ -6506,22 +6521,22 @@ msgstr "Portada"
 #: src/qml/app/BatchImportPage.qml:62
 msgctxt "BatchImportPage|"
 msgid "Finished"
-msgstr ""
+msgstr "Rematou"
 
 #: src/qml/app/BatchImportPage.qml:65
 msgctxt "BatchImportPage|"
 msgid "Aborted"
-msgstr ""
+msgstr "Interrompeuse"
 
 #: src/qml/app/BatchImportPage.qml:68
 msgctxt "BatchImportPage|"
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: src/qml/app/BatchImportPage.qml:104
 msgctxt "BatchImportPage|"
 msgid "Start"
-msgstr ""
+msgstr "Iniciar"
 
 #: src/qml/app/BatchImportPage.qml:126
 msgctxt "BatchImportPage|"
@@ -6531,22 +6546,22 @@ msgstr "Destino:"
 #: src/qml/app/BatchImportPage.qml:136
 msgctxt "BatchImportPage|"
 msgid "Tag 1"
-msgstr ""
+msgstr "Etiqueta 1"
 
 #: src/qml/app/BatchImportPage.qml:137
 msgctxt "BatchImportPage|"
 msgid "Tag 2"
-msgstr ""
+msgstr "Etiqueta 2"
 
 #: src/qml/app/BatchImportPage.qml:138
 msgctxt "BatchImportPage|"
 msgid "Tag 3"
-msgstr ""
+msgstr "Etiqueta 3"
 
 #: src/qml/app/BatchImportPage.qml:139
 msgctxt "BatchImportPage|"
 msgid "Tag 1 and Tag 2"
-msgstr ""
+msgstr "Etiqueta 1 e etiqueta 2"
 
 #: src/qml/app/BatchImportPage.qml:140
 msgctxt "BatchImportPage|"
@@ -6561,12 +6576,12 @@ msgstr "Perfil:"
 #: src/qml/app/FileCollapsible.qml:32
 msgctxt "FileCollapsible|"
 msgid "File"
-msgstr ""
+msgstr "Ficheiro"
 
 #: src/qml/app/FileSelectDialog.qml:42
 msgctxt "FileSelectDialog|"
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 #: src/qml/app/FileSelectDialog.qml:98
 msgctxt "FileSelectDialog|"
@@ -6576,32 +6591,32 @@ msgstr "Cartafol"
 #: src/qml/app/FileSelectDialog.qml:192
 msgctxt "FileSelectDialog|"
 msgid "File"
-msgstr ""
+msgstr "Ficheiro"
 
 #: src/qml/app/FilterPage.qml:31
 msgctxt "FilterPage|"
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: src/qml/app/FilterPage.qml:39
 msgctxt "FilterPage|"
 msgid "Started"
-msgstr ""
+msgstr "Comezou"
 
 #: src/qml/app/FilterPage.qml:57
 msgctxt "FilterPage|"
 msgid "Finished"
-msgstr ""
+msgstr "Rematou"
 
 #: src/qml/app/FilterPage.qml:60
 msgctxt "FilterPage|"
 msgid "Aborted"
-msgstr ""
+msgstr "Interrompeuse"
 
 #: src/qml/app/FilterPage.qml:92
 msgctxt "FilterPage|"
 msgid "Start"
-msgstr ""
+msgstr "Iniciar"
 
 #: src/qml/app/FilterPage.qml:118
 msgctxt "FilterPage|"
@@ -6616,17 +6631,17 @@ msgstr "Expresión:"
 #: src/qml/app/FrameEditDialog.qml:117
 msgctxt "FrameEditDialog|"
 msgid "Warning"
-msgstr ""
+msgstr "Aviso"
 
 #: src/qml/app/FrameEditDialog.qml:118
 msgctxt "FrameEditDialog|"
 msgid "File already exists. Overwrite?"
-msgstr ""
+msgstr "O ficheiro xa existe. Quere substituílo?"
 
 #: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:199
 msgctxt "FrameEditDialog|"
 msgid "Export"
-msgstr ""
+msgstr "Exportar"
 
 #: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
 msgctxt "FrameEditDialog|"
@@ -6657,25 +6672,25 @@ msgstr "Perfil"
 #: src/qml/app/ImportProfilesEditPage.qml:138
 msgctxt "ImportProfilesEditPage|"
 msgid "Accuracy"
-msgstr ""
+msgstr "Precisión"
 
 #: src/qml/app/ImportProfilesEditPage.qml:71
 #: src/qml/app/ImportProfilesEditPage.qml:151
 msgctxt "ImportProfilesEditPage|"
 msgid "Standard Tags"
-msgstr ""
+msgstr "Etiquetas estándar"
 
 #: src/qml/app/ImportProfilesEditPage.qml:74
 #: src/qml/app/ImportProfilesEditPage.qml:156
 msgctxt "ImportProfilesEditPage|"
 msgid "Additional Tags"
-msgstr ""
+msgstr "Etiquetas adicionais"
 
 #: src/qml/app/ImportProfilesEditPage.qml:77
 #: src/qml/app/ImportProfilesEditPage.qml:161
 msgctxt "ImportProfilesEditPage|"
 msgid "Cover Art"
-msgstr ""
+msgstr "Portada"
 
 #: src/qml/app/ImportProfilesEditPage.qml:130
 msgctxt "ImportProfilesEditPage|"
@@ -6685,7 +6700,7 @@ msgstr "Servidor"
 #: src/qml/app/Main.qml:92
 msgctxt "Main|"
 msgid "Warning"
-msgstr ""
+msgstr "Aviso"
 
 #: src/qml/app/Main.qml:93
 msgctxt "Main|"
@@ -6693,33 +6708,35 @@ msgid ""
 "The current folder has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"Modificouse o cartafol actual.\n"
+"Quere gardalo?"
 
 #: src/qml/app/Main.qml:128 src/qml/app/Main.qml:145 src/qml/app/Main.qml:162
 msgctxt "Main|"
 msgid "File Error"
-msgstr ""
+msgstr "Erro de ficheiro"
 
 #: src/qml/app/Main.qml:129
 msgctxt "Main|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "Produciuse un erro ao escribir o ficheiro:\n"
 
 #: src/qml/app/Main.qml:146
 #, qt-format
 msgctxt "Main|"
 msgid "SD card is only writable in %1"
-msgstr ""
+msgstr "A tarxeta SD só permite escritura en %1."
 
 #: src/qml/app/Main.qml:163
 msgctxt "Main|"
 msgid "Error while writing file. Do you want to change the permissions?"
-msgstr ""
+msgstr "Erro ao escribir o ficheiro. Quere cambiar os permisos?"
 
 #: src/qml/app/Main.qml:260
 #, qt-format
 msgctxt "Main|"
 msgid "%1 is not writable"
-msgstr ""
+msgstr "%1 non permite escritura"
 
 #: src/qml/app/MainPage.qml:48
 msgctxt "MainPage|"
@@ -6730,17 +6747,17 @@ msgstr "(modificado)"
 #, qt-format
 msgctxt "MainPage|"
 msgid " [filtered %1/%2]"
-msgstr ""
+msgstr " (filtráronse %1/%2)"
 
 #: src/qml/app/MainPage.qml:95 src/qml/app/MainPage.qml:164
 msgctxt "MainPage|"
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 #: src/qml/app/MainPage.qml:155
 msgctxt "MainPage|"
 msgid "About"
-msgstr ""
+msgstr "Sobre"
 
 #: src/qml/app/MainPage.qml:171
 msgctxt "MainPage|"
@@ -6750,17 +6767,17 @@ msgstr "Gardar"
 #: src/qml/app/MainPage.qml:180
 msgctxt "MainPage|"
 msgid "Settings"
-msgstr ""
+msgstr "Configuración"
 
 #: src/qml/app/MainPage.qml:189
 msgctxt "MainPage|"
 msgid "Automatic Import"
-msgstr ""
+msgstr "Importación automática"
 
 #: src/qml/app/MainPage.qml:198
 msgctxt "MainPage|"
 msgid "Create Playlist"
-msgstr ""
+msgstr "Crear unha lista de reprodución"
 
 #: src/qml/app/MainPage.qml:202
 msgctxt "MainPage|"
@@ -6770,37 +6787,37 @@ msgstr "Renomear o cartafol"
 #: src/qml/app/MainPage.qml:211
 msgctxt "MainPage|"
 msgid "Number Tracks"
-msgstr ""
+msgstr "Numerar as pistas"
 
 #: src/qml/app/MainPage.qml:220
 msgctxt "MainPage|"
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 #: src/qml/app/MainPage.qml:229
 msgctxt "MainPage|"
 msgid "Apply Filename Format"
-msgstr ""
+msgstr "Aplicar o formato do nome de ficheiro"
 
 #: src/qml/app/MainPage.qml:233
 msgctxt "MainPage|"
 msgid "Apply Tag Format"
-msgstr ""
+msgstr "Aplicar o formato da etiqueta"
 
 #: src/qml/app/MainPage.qml:237
 msgctxt "MainPage|"
 msgid "Apply Text Encoding"
-msgstr ""
+msgstr "Aplicar a codificación do texto"
 
 #: src/qml/app/MainPage.qml:241
 msgctxt "MainPage|"
 msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr ""
+msgstr "Converter ID3v2.3 a ID3v2.4"
 
 #: src/qml/app/MainPage.qml:245
 msgctxt "MainPage|"
 msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr ""
+msgstr "Converter ID3v2.4 a ID3v2.3"
 
 #: src/qml/app/MainPage.qml:249
 msgctxt "MainPage|"
@@ -6810,12 +6827,12 @@ msgstr "Reverter"
 #: src/qml/app/MainPage.qml:253
 msgctxt "MainPage|"
 msgid "Quit"
-msgstr ""
+msgstr "Saír"
 
 #: src/qml/app/NumberTracksDialog.qml:48
 msgctxt "NumberTracksDialog|"
 msgid "Start number:"
-msgstr ""
+msgstr "Número inicial:"
 
 #: src/qml/app/NumberTracksDialog.qml:57
 msgctxt "NumberTracksDialog|"
@@ -6825,22 +6842,22 @@ msgstr "Destino:"
 #: src/qml/app/NumberTracksDialog.qml:63
 msgctxt "NumberTracksDialog|"
 msgid "Tag 1"
-msgstr ""
+msgstr "Etiqueta 1"
 
 #: src/qml/app/NumberTracksDialog.qml:64
 msgctxt "NumberTracksDialog|"
 msgid "Tag 2"
-msgstr ""
+msgstr "Etiqueta 2"
 
 #: src/qml/app/NumberTracksDialog.qml:65
 msgctxt "NumberTracksDialog|"
 msgid "Tag 3"
-msgstr ""
+msgstr "Etiqueta 3"
 
 #: src/qml/app/NumberTracksDialog.qml:66
 msgctxt "NumberTracksDialog|"
 msgid "Tag 1 and Tag 2"
-msgstr ""
+msgstr "Etiqueta 1 e etiqueta 2"
 
 #: src/qml/app/NumberTracksDialog.qml:67
 msgctxt "NumberTracksDialog|"
@@ -6850,12 +6867,12 @@ msgstr "Todas as etiquetas"
 #: src/qml/app/NumberTracksDialog.qml:83
 msgctxt "NumberTracksDialog|"
 msgid "Reset counter for each folder"
-msgstr ""
+msgstr "Restabelecer o contador en cada cartafol."
 
 #: src/qml/app/NumberTracksDialog.qml:96
 msgctxt "NumberTracksDialog|"
 msgid "Total number of tracks"
-msgstr ""
+msgstr "Número total de pistas"
 
 #: src/qml/app/PictureCollapsible.qml:27
 msgctxt "PictureCollapsible|"
@@ -6871,12 +6888,12 @@ msgstr "Renomear o cartafol"
 #: src/qml/app/RenameDirectoryPage.qml:77
 msgctxt "RenameDirectoryPage|"
 msgid "Start"
-msgstr ""
+msgstr "Iniciar"
 
 #: src/qml/app/RenameDirectoryPage.qml:81
 msgctxt "RenameDirectoryPage|"
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: src/qml/app/RenameDirectoryPage.qml:109
 msgctxt "RenameDirectoryPage|"
@@ -6886,32 +6903,32 @@ msgstr "Acción:"
 #: src/qml/app/RenameDirectoryPage.qml:114
 msgctxt "RenameDirectoryPage|"
 msgid "Create Folder"
-msgstr ""
+msgstr "Crear un cartafol"
 
 #: src/qml/app/RenameDirectoryPage.qml:124
 msgctxt "RenameDirectoryPage|"
 msgid "Source:"
-msgstr ""
+msgstr "Orixe:"
 
 #: src/qml/app/RenameDirectoryPage.qml:129
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 2 and Tag 1"
-msgstr ""
+msgstr "De etiqueta 2 e etiqueta 1"
 
 #: src/qml/app/RenameDirectoryPage.qml:130
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 1"
-msgstr ""
+msgstr "Da etiqueta 1"
 
 #: src/qml/app/RenameDirectoryPage.qml:131
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 2"
-msgstr ""
+msgstr "Da etiqueta 2"
 
 #: src/qml/app/RenameDirectoryPage.qml:132
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 3"
-msgstr ""
+msgstr "Da etiqueta 3"
 
 #: src/qml/app/RenameDirectoryPage.qml:133
 msgctxt "RenameDirectoryPage|"
@@ -6926,17 +6943,17 @@ msgstr "Formato:"
 #: src/qml/app/RenameDirectoryPage.qml:155
 msgctxt "RenameDirectoryPage|"
 msgid "Folder Name from Tag"
-msgstr ""
+msgstr "Nome do cartafol a partir dunha etiqueta"
 
 #: src/qml/app/RenameDirectoryPage.qml:188
 msgctxt "RenameDirectoryPage|"
 msgid "Preview"
-msgstr ""
+msgstr "Vista previa"
 
 #: src/qml/app/SettingsPage.qml:30
 msgctxt "SettingsPage|"
 msgid "Settings"
-msgstr ""
+msgstr "Configuración"
 
 #: src/qml/app/SettingsPage.qml:32 src/qml/app/SettingsPage.qml:44
 msgctxt "SettingsPage|"
@@ -6946,7 +6963,7 @@ msgstr "Etiquetas"
 #: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:204
 msgctxt "SettingsPage|"
 msgid "Files"
-msgstr ""
+msgstr "Ficheiros"
 
 #: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:343
 msgctxt "SettingsPage|"
@@ -6961,82 +6978,82 @@ msgstr "Aparencia"
 #: src/qml/app/SettingsPage.qml:48
 msgctxt "SettingsPage|"
 msgid "Mark truncated fields"
-msgstr ""
+msgstr "Marcar os campos recortados"
 
 #: src/qml/app/SettingsPage.qml:53
 msgctxt "SettingsPage|"
 msgid "ID3v1 text encoding"
-msgstr ""
+msgstr "Codificación de texto de ID3v1"
 
 #: src/qml/app/SettingsPage.qml:59
 msgctxt "SettingsPage|"
 msgid "ID3v2 text encoding"
-msgstr ""
+msgstr "Codificación de texto de ID3v2"
 
 #: src/qml/app/SettingsPage.qml:65
 msgctxt "SettingsPage|"
 msgid "Use track/total number of tracks format"
-msgstr ""
+msgstr "Usar o formato «pista/pistas totais»."
 
 #: src/qml/app/SettingsPage.qml:70
 msgctxt "SettingsPage|"
 msgid "Genre as text instead of numeric string"
-msgstr ""
+msgstr "Xénero como texto en vez de cadea numérica."
 
 #: src/qml/app/SettingsPage.qml:75
 msgctxt "SettingsPage|"
 msgid "WAV files with lowercase id3 chunk"
-msgstr ""
+msgstr "Ficheiros WAV cun fragmento id3 en minúsculas."
 
 #: src/qml/app/SettingsPage.qml:80
 msgctxt "SettingsPage|"
 msgid "Version used for new ID3v2 tags"
-msgstr ""
+msgstr "Versión que se usa para novas etiquetas ID3v2"
 
 #: src/qml/app/SettingsPage.qml:86
 msgctxt "SettingsPage|"
 msgid "Track number digits"
-msgstr ""
+msgstr "Díxitos dos números de pista"
 
 #: src/qml/app/SettingsPage.qml:91
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis comment field name"
-msgstr ""
+msgstr "Nome do campo de comentario de Ogg/Vorbis"
 
 #: src/qml/app/SettingsPage.qml:101
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis picture field name"
-msgstr ""
+msgstr "Nome do campo de imaxe de Ogg/Vorbis"
 
 #: src/qml/app/SettingsPage.qml:107
 msgctxt "SettingsPage|"
 msgid "RIFF track number field name"
-msgstr ""
+msgstr "Nome de campo de número de pista de RIFF"
 
 #: src/qml/app/SettingsPage.qml:117
 msgctxt "SettingsPage|"
 msgid "Mark if picture larger than maximum size"
-msgstr ""
+msgstr "Marcar se a imaxe supera o tamaño máximo."
 
 #: src/qml/app/SettingsPage.qml:122
 msgctxt "SettingsPage|"
 msgid "Picture maximum size (bytes)"
-msgstr ""
+msgstr "Tamaño máximo de imaxe (bytes)"
 
 #: src/qml/app/SettingsPage.qml:127
 msgctxt "SettingsPage|"
 msgid "Show only custom genres"
-msgstr ""
+msgstr "Amosar só xéneros personalizados."
 
 #: src/qml/app/SettingsPage.qml:131
 msgctxt "SettingsPage|"
 msgid "Custom Genres"
-msgstr ""
+msgstr "Xéneros personalizados"
 
 #: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:243
 msgctxt "SettingsPage|"
 msgid "Case conversion"
-msgstr ""
+msgstr "Conversión en maiúsculas ou minúsculas"
 
 #: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:249
 msgctxt "SettingsPage|"
@@ -7046,12 +7063,12 @@ msgstr "Configuración rexional"
 #: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:260
 msgctxt "SettingsPage|"
 msgid "String replacement"
-msgstr ""
+msgstr "Substitución de cadeas"
 
 #: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:264
 msgctxt "SettingsPage|"
 msgid "String Replacement"
-msgstr ""
+msgstr "Substitución de cadeas"
 
 #: src/qml/app/SettingsPage.qml:174
 msgctxt "SettingsPage|"
@@ -7071,82 +7088,82 @@ msgstr "Seccións de acceso rápido"
 #: src/qml/app/SettingsPage.qml:208
 msgctxt "SettingsPage|"
 msgid "Load last-opened files"
-msgstr ""
+msgstr "Cargar os últimos ficheiros abertos."
 
 #: src/qml/app/SettingsPage.qml:213
 msgctxt "SettingsPage|"
 msgid "Preserve file timestamp"
-msgstr ""
+msgstr "Preservar a marca temporal dos ficheiros."
 
 #: src/qml/app/SettingsPage.qml:218
 msgctxt "SettingsPage|"
 msgid "Mark changes"
-msgstr ""
+msgstr "Marcar os cambios."
 
 #: src/qml/app/SettingsPage.qml:223
 msgctxt "SettingsPage|"
 msgid "Automatically apply format"
-msgstr ""
+msgstr "Aplicar o formato automaticamente."
 
 #: src/qml/app/SettingsPage.qml:228
 msgctxt "SettingsPage|"
 msgid "Use for playlist and folder names"
-msgstr ""
+msgstr "Usar para nomes de listas de reprodución e de cartafoles."
 
 #: src/qml/app/SettingsPage.qml:233
 msgctxt "SettingsPage|"
 msgid "Use maximum length"
-msgstr ""
+msgstr "Usar a lonxitude máxima."
 
 #: src/qml/app/SettingsPage.qml:238
 msgctxt "SettingsPage|"
 msgid "Maximum length"
-msgstr ""
+msgstr "Lonxitude máxima"
 
 #: src/qml/app/SettingsPage.qml:275
 msgctxt "SettingsPage|"
 msgid "Filename for cover"
-msgstr ""
+msgstr "Nome de ficheiro da portada"
 
 #: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
-msgstr ""
+msgstr "Codificación de texto da lista de reprodución"
 
 #: src/qml/app/SettingsPage.qml:286
 msgctxt "SettingsPage|"
 msgid "To filename format"
-msgstr ""
+msgstr "Ao formato de nome de ficheiro"
 
 #: src/qml/app/SettingsPage.qml:296
 msgctxt "SettingsPage|"
 msgid "Filename from Tag"
-msgstr ""
+msgstr "Nome do ficheiro a partir da etiqueta"
 
 #: src/qml/app/SettingsPage.qml:311
 msgctxt "SettingsPage|"
 msgid "From filename format"
-msgstr ""
+msgstr "Do formato do nome de ficheiro"
 
 #: src/qml/app/SettingsPage.qml:321
 msgctxt "SettingsPage|"
 msgid "Tag from Filename"
-msgstr ""
+msgstr "Etiqueta a partir do nome do ficheiro"
 
 #: src/qml/app/SettingsPage.qml:405
 msgctxt "SettingsPage|"
 msgid "Language"
-msgstr ""
+msgstr "Idioma"
 
 #: src/qml/app/SettingsPage.qml:406
 msgctxt "SettingsPage|"
 msgid "System"
-msgstr ""
+msgstr "Sistema"
 
 #: src/qml/app/SettingsPage.qml:417
 msgctxt "SettingsPage|"
 msgid "Theme"
-msgstr ""
+msgstr "Tema"
 
 #: src/qml/app/SettingsPage.qml:435
 msgctxt "SettingsPage|"
@@ -7156,7 +7173,7 @@ msgstr "Seccións de acceso rápido"
 #: src/qml/app/StringListEditPage.qml:85
 msgctxt "StringListEditPage|"
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 #: src/qml/app/TagCollapsible.qml:40
 #, qt-format
@@ -7167,36 +7184,36 @@ msgstr "Etiqueta %1"
 #: src/qml/app/TagCollapsible.qml:83
 msgctxt "TagCollapsible|"
 msgid "To Filename"
-msgstr ""
+msgstr "Ao nome de ficheiro"
 
 #: src/qml/app/TagCollapsible.qml:87
 msgctxt "TagCollapsible|"
 msgid "From Filename"
-msgstr ""
+msgstr "Do nome de ficheiro"
 
 #: src/qml/app/TagCollapsible.qml:91
 #, qt-format
 msgctxt "TagCollapsible|"
 msgid "To Tag %1"
-msgstr ""
+msgstr "Á etiqueta %1"
 
 #: src/qml/app/TagCollapsible.qml:98
 #, qt-format
 msgctxt "TagCollapsible|"
 msgid "From Tag %1"
-msgstr ""
+msgstr "Da etiqueta %1"
 
 #: src/qml/app/TagCollapsible.qml:102
 msgctxt "TagCollapsible|"
 msgid "Copy"
-msgstr ""
+msgstr "Copiar"
 
 #: src/qml/app/TagCollapsible.qml:106
 msgctxt "TagCollapsible|"
 msgid "Paste"
-msgstr ""
+msgstr "Pegar"
 
 #: src/qml/app/TagCollapsible.qml:110
 msgctxt "TagCollapsible|"
 msgid "Remove"
-msgstr ""
+msgstr "Retirar"
