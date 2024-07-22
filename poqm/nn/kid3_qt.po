@@ -1,10 +1,9 @@
 # Translation of kid3_qt to Norwegian Nynorsk
 #
-# Karl Ove Hufthammer <karl@huftis.org>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2023-08-10 20:06+0200\n"
+"PO-Revision-Date: 2024-07-21 14:22+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
 "Language: nn\n"
@@ -12,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 24.05.2\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: qtrich\n"
@@ -956,7 +955,7 @@ msgstr "Seksjon"
 #: src/app/kde/kdemainwindow.cpp:473
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr ""
+msgstr "Spelar"
 
 #: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
@@ -1530,7 +1529,7 @@ msgstr "Om &Qt"
 #: src/app/qt/kid3mainwindow.cpp:627
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr ""
+msgstr "Spelar"
 
 #: src/app/qt/kid3mainwindow.cpp:651
 msgctxt "Kid3MainWindow|"
@@ -4247,12 +4246,12 @@ msgstr "&Vel fil ved avspeling"
 #: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "&Lydspeling:"
 
 #: src/gui/dialogs/configdialogpages.cpp:553
 msgctxt "ConfigDialogPages|"
 msgid "System"
-msgstr ""
+msgstr "System"
 
 #: src/gui/dialogs/configdialogpages.cpp:586
 msgctxt "ConfigDialogPages|"
