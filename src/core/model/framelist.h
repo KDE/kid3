@@ -82,6 +82,11 @@ public:
   TaggedFile* getTaggedFile() const { return m_taggedFile; }
 
   /**
+   * Get selection model of frames.
+   */
+  QItemSelectionModel* getFrameSelectionModel() { return m_selectionModel; }
+
+  /**
    * Delete selected frame.
    *
    * @return false if frame not found.
@@ -148,10 +153,11 @@ public:
    * Select a frame with a given name.
    *
    * @param name name of frame
+   * @param index index within multiple frames with given @a name
    *
    * @return true if a frame with that name could be selected.
    */
-  bool selectByName(const QString& name);
+  bool selectByName(const QString& name, int index = 0);
 
   /**
    * Select a frame by row number in the frame table.

@@ -206,9 +206,10 @@ public:
   /**
    * Get row with frame with a specific frame name.
    * @param name name of frame
+   * @param index index within multiple frames with given @a name
    * @return row number, -1 if not found.
    */
-  int getRowWithFrameName(const QString& name) const;
+  int getRowWithFrameName(const QString& name, int index = 0) const;
 
   /**
    * Get filter with enabled frames.

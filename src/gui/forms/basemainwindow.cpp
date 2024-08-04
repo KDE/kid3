@@ -1334,7 +1334,7 @@ void BaseMainWindowImpl::updateGuiControlsFromSelection()
   }
 
   if (!GuiConfig::instance().hidePicture()) {
-    m_form->setPictureData(selection->getPicture());
+    m_form->setPictureData(selection->getPictures());
   }
 
   bool selectionEmpty = selection->isEmpty();

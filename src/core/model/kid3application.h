@@ -1085,8 +1085,9 @@ public slots:
 
   /**
    * Edit a picture frame if one exists or add a new one.
+   * @param index index of picture
    */
-  void editOrAddPicture();
+  void editOrAddPicture(int index = 0);
 
   /**
    * Add a downloaded image.

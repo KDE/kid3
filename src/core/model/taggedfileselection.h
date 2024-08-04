@@ -31,6 +31,7 @@
 #include "kid3api.h"
 
 class FrameTableModel;
+class PictureFrame;
 class TaggedFile;
 class TaggedFileSelectionTagContext;
 
@@ -178,6 +179,12 @@ public:
    * @return true if single file selected and filename was changed.
    */
   bool isFilenameChanged() const;
+
+  /**
+   * Get picture frames.
+   * @return pictures, empty if not available.
+   */
+  QList<PictureFrame> getPictures() const;
 
   /**
    * Get data from a picture frame.

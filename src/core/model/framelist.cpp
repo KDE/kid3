@@ -106,12 +106,13 @@ QString FrameList::getSelectedName() const
  * Select a frame with a given name.
  *
  * @param name name of frame
+ * @param index index within multiple frames with given @a name
  *
  * @return true if a frame with that name could be selected.
  */
-bool FrameList::selectByName(const QString& name)
+bool FrameList::selectByName(const QString& name, int index)
 {
-  return selectByRow(m_frameTableModel->getRowWithFrameName(name));
+  return selectByRow(m_frameTableModel->getRowWithFrameName(name, index));
 }
 
 /**

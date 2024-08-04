@@ -155,7 +155,11 @@ private:
 bool PictureDblClickHandler::eventFilter(QObject* obj, QEvent* event)
 {
   if (event->type() == QEvent::MouseButtonDblClick) {
-    m_app->editOrAddPicture();
+    int index = 0;
+    if (auto pictureLabel = qobject_cast<PictureLabel*>(obj)) {
+      index = pictureLabel->getIndex();
+    }
+    m_app->editOrAddPicture(index);
     return true;
   }
   // standard event processing
@@ -267,6 +271,9 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     m_tagContext[tagNr] = new Kid3FormTagContext(this, tagNr);
     if (tagNr != Frame::Tag_Id3v1) {
       m_app->getFrameList(tagNr)->setFrameEditor(m_mainWin);
+      connect(m_app->getFrameList(tagNr)->getFrameSelectionModel(),
+              &QItemSelectionModel::currentRowChanged,
+              this, &Kid3Form::onFrameSelectionModelRowChanged);
     }
   }
 
@@ -1225,13 +1232,37 @@ void Kid3Form::setFromFilenameFormats()
 }
 
 /**
- * Set preview picture data.
- * @param data picture data, empty if no picture is available
+ * Update picture label if a picture frame is selected in a frame table.
+ * @param current current index
+ * @param previous previous index
  */
-void Kid3Form::setPictureData(const QByteArray& data)
+void Kid3Form::onFrameSelectionModelRowChanged(const QModelIndex& current,
+                                               const QModelIndex&)
+{
+  if (m_pictureLabel &&
+      current.data(FrameTableModel::FrameTypeRole)
+                                .toInt() == Frame::FT_Picture) {
+    int index = 0;
+    const int column = current.column();
+    int row = current.row() - 1;
+    while (row >= 0 &&
+           current.sibling(row, column).data(FrameTableModel::FrameTypeRole)
+                               .toInt() == Frame::FT_Picture) {
+      ++index;
+      --row;
+    }
+    m_pictureLabel->setIndex(index);
+  }
+}
+
+/**
+ * Set preview picture data.
+ * @param pictures picture frames, empty if no picture is available
+ */
+void Kid3Form::setPictureData(const QList<PictureFrame>& pictures)
 {
   if (m_pictureLabel) {
-    m_pictureLabel->setData(data);
+    m_pictureLabel->setData(pictures);
   }
 }
 

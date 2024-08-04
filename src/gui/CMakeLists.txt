@@ -13,6 +13,7 @@ qt_wrap_cpp(gui_GEN_MOC_SRCS
   widgets/chaptereditor.h
   widgets/tableofcontentseditor.h
   widgets/subframeseditor.h
+  widgets/picturelabel.h
   widgets/progresswidget.h
   widgets/frameitemdelegate.h
   widgets/tablemodeledit.h

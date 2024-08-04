@@ -30,11 +30,14 @@
 
 class QByteArray;
 class QLabel;
+class QToolButton;
+class PictureFrame;
 
 /**
  * Label for picture preview.
  */
 class PictureLabel : public QWidget {
+  Q_OBJECT
 public:
   /**
    * Constructor.
@@ -51,17 +54,48 @@ public:
   /**
    * Set picture data.
    *
-   * @param data picture data, empty if no picture is available
+   * @param pictures picture frames, empty if no picture is available
    */
-  void setData(const QByteArray& data);
+  void setData(const QList<PictureFrame>& pictures);
+
+  /**
+   * Get picture index.
+   *
+   * @return index of picture, -1 if not available.
+   */
+  int getIndex() const { return m_index; }
+
+  /**
+   * Set picture index.
+   *
+   * @param index index of picture to show
+   */
+  void setIndex(int index);
+
+private slots:
+  /**
+   * Select previous picture.
+   */
+  void previous();
+
+  /**
+   * Select next picture.
+   */
+  void next();
 
 private:
   /**
-   * Clear picture.
+   * Update UI controls.
    */
-  void clearPicture();
+  void updateControls();
 
+  QList<PictureFrame> m_pictures;
   QLabel* m_pictureLabel;
   QLabel* m_sizeLabel;
+  QLabel* m_indexLabel;
+  QWidget* m_indexWidget;
+  QToolButton* m_previousButton;
+  QToolButton* m_nextButton;
   uint m_pixmapHash;
+  int m_index;
 };

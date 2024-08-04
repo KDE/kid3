@@ -2368,10 +2368,12 @@ void Kid3Application::selectAndAddFrame(Frame::TagNumber tagNr)
 
 /**
  * Edit a picture frame if one exists or add a new one.
+ * @param index index of picture
  */
-void Kid3Application::editOrAddPicture()
+void Kid3Application::editOrAddPicture(int index)
 {
-  if (m_framelist[Frame::Tag_Picture]->selectByName(QLatin1String("Picture"))) {
+  if (m_framelist[Frame::Tag_Picture]->selectByName(QLatin1String("Picture"),
+                                                    index)) {
     editFrame(Frame::Tag_Picture);
   } else {
     PictureFrame frame;

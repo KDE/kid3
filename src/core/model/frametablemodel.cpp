@@ -529,14 +529,19 @@ int FrameTableModel::getRowWithFrameIndex(int index) const
 /**
  * Get row with frame with a specific frame name.
  * @param name name of frame
+ * @param index index within multiple frames with given @a name
  * @return row number, -1 if not found.
  */
-int FrameTableModel::getRowWithFrameName(const QString& name) const
+int FrameTableModel::getRowWithFrameName(const QString& name, int index) const
 {
   int row = 0;
   for (auto it = m_frameOfRow.constBegin(); it != m_frameOfRow.constEnd(); ++it) {
     if ((*it)->getName() == name) {
-      return row;
+      if (index > 0) {
+        --index;
+      } else {
+        return row;
+      }
     }
     ++row;
   }

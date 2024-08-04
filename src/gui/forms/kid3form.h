@@ -43,6 +43,7 @@ class QStackedWidget;
 class FormatConfig;
 class FrameTable;
 class FrameTableModel;
+class PictureFrame;
 class Kid3Application;
 class FileList;
 class ConfigurableTreeView;
@@ -195,9 +196,9 @@ public:
 
   /**
    * Set preview picture data.
-   * @param data picture data, empty if no picture is available
+   * @param pictures picture frames, empty if no picture is available
    */
-  void setPictureData(const QByteArray& data);
+  void setPictureData(const QList<PictureFrame>& pictures);
 
   /**
    * Set details info text.
@@ -431,6 +432,14 @@ private slots:
    * Set items of "Format <arrow down>" combo box from file configuration.
    */
   void setFromFilenameFormats();
+
+  /**
+   * Update picture label if a picture frame is selected in a frame table.
+   * @param current current index
+   * @param previous previous index
+   */
+  void onFrameSelectionModelRowChanged(const QModelIndex& current,
+                                       const QModelIndex& previous);
 
 private:
   /**

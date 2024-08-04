@@ -248,17 +248,39 @@ bool TaggedFileSelection::isFilenameChanged() const
 }
 
 /**
+ * Get picture frames.
+ * @return pictures, empty if not available.
+ */
+QList<PictureFrame> TaggedFileSelection::getPictures() const
+{
+  const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
+
+  auto [lower, upper] = frames.equal_range(
+      Frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), -1));
+  if (lower != frames.cend()) {
+    if (auto numPictures = std::distance(lower, upper); numPictures > 0) {
+      QList<PictureFrame> pictures;
+      pictures.reserve(numPictures);
+      for (auto it = lower; it != upper && !it->isInactive(); ++it) {
+        pictures.append(PictureFrame(*it));
+      }
+      return pictures;
+    }
+  }
+
+  return {};
+}
+
+/**
  * Get data from a picture frame.
  * @return picture data, empty if not available.
  */
 QByteArray TaggedFileSelection::getPicture() const
 {
   QByteArray data;
-  const FrameCollection& frames = m_framesModel[Frame::Tag_Picture]->frames();
-  if (auto it = frames.find(
-        Frame(Frame::FT_Picture, QLatin1String(""), QLatin1String(""), -1));
-      it != frames.cend() && !it->isInactive()) {
-    PictureFrame::getData(*it, data);
+  auto pictures = getPictures();
+  if (!pictures.isEmpty()) {
+    PictureFrame::getData(pictures.first(), data);
   }
   return data;
 }
