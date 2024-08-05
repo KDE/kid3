@@ -218,6 +218,10 @@
     <p xml:lang="x-test">xxAlbum data can be imported from gnudb.org, MusicBrainz, Discogs, Amazon; automatic batch import is available for multiple folders. It is also possible to export data and generate play lists.xx</p>
     <p xml:lang="zh-CN">可从 gnudb.org、MusicBrainz、Discogs 或 Amazon 上导入专辑数据，还支持自动多文件夹批量导入功能。您还可导出数据并生成播放列表。</p>
     <p xml:lang="zh-TW">可以從 gnudb.org、MusicBrainz、Discogs、Amazon 匯入專輯資料；可以為多個資料夾進行自動批次匯入。也提供匯出資料與產生播放清單的功能。</p>
+    <p>
+      Kid3 uses the KDE Frameworks. Users of other desktop environments may
+      prefer Kid3-qt instead, which is without KDE dependencies.
+    </p>
   </description>
   <screenshots>
     <screenshot type="default" width="1200" height="675">
