@@ -223,6 +223,7 @@
       prefer Kid3-qt instead, which is without KDE dependencies.
     </p>
     <p xml:lang="ca">El Kid3 utilitza els Frameworks de KDE. Els usuaris d'altres entorns d'escriptori poden preferir el Kid3-qt, que no té dependències de KDE.</p>
+    <p xml:lang="ca-valencia">Kid3 utilitza els Frameworks de KDE. Els usuaris d'altres entorns d'escriptori poden preferir Kid3-qt, el qual no té dependències de KDE.</p>
     <p xml:lang="es">Kid3 usa las infraestructuras de KDE. Los usuarios de otros entornos de escritorio pueden preferir Kid3-qt en su lugar, que no depende de KDE.</p>
     <p xml:lang="nl">Kid3 gebruikt het KDE Frameworks. Gebruikers van andere bureaubladomgevingen kunnen in plaats daarvan de voorkeur geven aan Kid3-qt, die onafhankelijk is van KDE.</p>
     <p xml:lang="sl">Kid3 uporablja KDE Frameworks. Uporabniki drugih namiznih okolij bi morda raje uporabljali Kid3-qt, ki je brez odvisnosti od KDE.</p>
