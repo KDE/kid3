@@ -20,6 +20,7 @@
   <name xml:lang="eu">Kid3</name>
   <name xml:lang="fi">Kid3</name>
   <name xml:lang="fr">Kid3</name>
+  <name xml:lang="gl">Kid3</name>
   <name xml:lang="id">Kid3</name>
   <name xml:lang="is">Kid3</name>
   <name xml:lang="it">Kid3</name>
@@ -54,6 +55,7 @@
   <summary xml:lang="eu">Editatu audio fitxategietako metadatuak</summary>
   <summary xml:lang="fi">Muokkaa äänitiedostojen metatietoja</summary>
   <summary xml:lang="fr">Éditer les métadonnées de fichiers audio</summary>
+  <summary xml:lang="gl">Editar metadatos de ficheiros de son.</summary>
   <summary xml:lang="id">Edit metadata file audio</summary>
   <summary xml:lang="is">Breyta lýsigögnum í hljóðskrám</summary>
   <summary xml:lang="it">Modifica i metadati dei file audio</summary>
@@ -93,6 +95,7 @@
     <p xml:lang="eu">Kid3-rekin, audio etiketa editorea izaki, MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF eta tracker fitxategien etiketak editatu ditzakezu.</p>
     <p xml:lang="fi">Kid3-äänitunnistemuokkaimella voi muokata tunnisteita MP3-, Ogg/Vorbis-, DSF-, FLAC-, Opus-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- ja Tracker-tiedostoissa.</p>
     <p xml:lang="fr">Avec Kid3, un éditeur d'étiquettes de fichiers audio, vous pouvez éditer les étiquettes dans les fichiers de type MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP3/AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF.</p>
+    <p xml:lang="gl">Con Kid3, un editor de etiquetas de son, pode editar etiquetas en ficheiros MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e ficheiros de seguimento.</p>
     <p xml:lang="id">Dengan Kid3, sebuah pengedit tag audio, kamu bisa mengedit tag-tag di dalam file-file MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF dan sebagai pelacak.</p>
     <p xml:lang="is">Með Kid3 geturðu merkt ýmis lýsigögn inn í hljóðskrár, meðal annars í MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF og tracker-rakningarskrár.</p>
     <p xml:lang="it">Con Kid3, un editor di tag audio, puoi modificare i tag nei file MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e nei tracker.</p>
@@ -129,6 +132,7 @@
     <p xml:lang="eu">ID3 etiketetako bilbe guztiak editatu daitezke, eta ID3v1.1, ID3v2.3 eta ID3v2.4 arteko bihurketa egin daiteke. Sinkronizatutako hitzak editatu, inportatu eta LRC Karaoke fitxategietara esportatu daitezke.</p>
     <p xml:lang="fi">Kaikkia MP3-tiedostojen ID3-tunnistekenttiä voi muokata, ja muunnos ID3v1.1:n, ID3v2.3:n ja ID3v2.4:n välillä on mahdollista. Synkronoituja sanoituksia voi muokata, tuoda ja viedä LRC Karaoke -tiedostoiksi.</p>
     <p xml:lang="fr">Tous les champs dans les étiquettes ID3 des fichiers MP3 peuvent être édités, et il est possible de convertir entre les formats ID3v1.1, ID3v2.3 et ID3v2.4. Les paroles synchronisées peuvent être éditées, importées et exportées au format LRC (pour karaoké).</p>
+    <p xml:lang="gl">Pode editar todos os marcos de etiquetas ID3 de ficheiros MP3, e pode converter entre ID3v1.1, ID3v2.3 e ID3v2.4. Pode editar letras sincronizadas, que importar ou exportar de ficheiros LRC de karaoke.</p>
     <p xml:lang="id">Semua bingkai dalam tag ID3 pada file MP3 bisa diedit, dan dimungkinkan untuk konversi antara ID3v1.1, ID3v2.3 dan ID3v2.4. Lirik yang disinkronkan bisa diedit, diimpor dan diekspor ke file Karaoke LRC.</p>
     <p xml:lang="is">Öllum römmum í ID3-merkjum MP3-skráa má breyta, auk þess að mögulegt er að umbreyta á milli ID3v1.1, ID3v2.3 og ID3v2.4 merkja. Hægt er að vinna með samstillta lagatexta; breyta, flytja inn og flytja út í LRC-karíókískrár.</p>
     <p xml:lang="it">Possono essere modificati tutti i frame dei tag ID3 dei file MP3, ed è possibile convertire i tag tra ID3v1.1, ID3v2.3 e ID3v2.4. I testi sincronizzati possono essere modificati, importati ed esportati in file LRC Karaoke.</p>
@@ -166,6 +170,7 @@
     <p xml:lang="eu">Fitxategi askotako etiketak elkarrekin ezar daitezke. Fitxategi-izenetatik edo beste etiketa eremuetako edukietatik etiketak sor daitezke, baita etiketetatik fitxategi-izenak sortu eta karpetak berrizendatu ere. Letra larri/xehe bihurketa automatikoak eta kate ordezkapenak etiketak koherente mantentzen laguntzen dute.</p>
     <p xml:lang="fi">Tunnisteet voi asettaa usealle tiedostolle yhtä aikaa. Tunnisteet voi kehittää tiedostonimistä tai muiden tunnistekenttien sisällöstä tai päinvastoin tuottaa tiedosto- ja kansionimet tunnisteista. Tunnisteiden yhtenäisenä pitämisen helpottamiseksi voi pien- ja suuraakkostusta muuttaa ja merkkijonoja korvata automaattisesti.</p>
     <p xml:lang="fr">Les étiquettes de plusieurs fichiers peuvent être mises ensemble. Il est aussi possible de générer les étiquettes à partir des noms des fichiers ou des contenus d'autres champs. Les noms des fichiers peuvent aussi être générés à partir des étiquettes et les dossiers peuvent être renommés à partir des étiquettes. La conversion de casse et le remplacement des chaînes automatiques permettent de conserver les étiquettes consistantes.</p>
+    <p xml:lang="gl">Pode definir as etiquetas de varios ficheiros xuntos. Pode xerar etiquetas a partir de nomes de ficheiro ou do contido doutros cambios de etiquetas e xerar nomes de ficheiro a partir de etiquetas, así como renomear cartafoles a partir de etiquetas. Pode cambiar as maiúsculas automaticamente e ten asistencia de substitución de cadeas para axudarlle a manter certa consistencia nas etiquetas.</p>
     <p xml:lang="id">Tag dari beberapa file bisa disatukan. Yang memungkinkan untuk membuat tag dari nama file atau konten kolom tag lainnya dan untuk menghasilkan nama file dari tag dan mengganti nama folder dari tag. Konversi otomatis dan penggantian string membantu menjaga konsistensi tag.</p>
     <p xml:lang="is">Hægt er að stilla lýsigagnamerki á mörgum skrám í einu. Útbúa má merki sjálfvirkt út frá skráaheitum eða innihaldi annarra merkja, eins er hægt að útbúa skráaheiti og endurnefna möppur út frá merkjum. Sjálfvirk umbreyting milli há-/lágstafa og útskipting í strengjum hjálpa síðan til við að halda samræmi á milli lýsigagnamerkja.</p>
     <p xml:lang="it">Possono essere impostati assieme i tag di più file. È possibile generare tag dai nomi file o dal contenuto di altri campi tag, generare i nomi file dai tag e rinominare cartelle dai tag. La conversione tra maiuscole e minuscole e la sostituzione di stringhe aiutano a mantenere i tag coerenti.</p>
@@ -201,6 +206,7 @@
     <p xml:lang="eu">Albumen datuak inportatu daitezke ondokoetatik, gnudb.org, MusicBrainz, Discogs, Amazon; sortakako inportatze automatikoa erabilgarri dago karpeta anizkoitzetarako. Gainera, datuak esportatu eta jotze-zerrendak sor daitezke.</p>
     <p xml:lang="fi">Albumin tiedot voi tuoda gnudb.orgista, MusicBrainzistä, Discogsista ja Amazonista. Useamman kansion automaattinen eräajotuonti on mahdollista. Tiedot voi myös viedä ja luoda soittolistan.</p>
     <p xml:lang="fr">Les données des albums peuvent être importées de gnudb.org, MusicBrainz, Discogs et Amazon. Une importation automatique sur plusieurs dossiers en même temps est disponible. Il est aussi possible d'exporter les données et de générer des listes de lecture.</p>
+    <p xml:lang="gl">Pode importar datos de álbums de gnudb.org, MusicBrainz, Discogs e Amazon. Pode importar varios cartafoles de golpe. Tamén pode exportar datos e xerar listas de reprodución.</p>
     <p xml:lang="id">Data album bisa diimpor dari gnudb.org, MusicBrainz, Discogs, Amazon; impor batch otomatis telah tersedia untuk multipel folder. Yang juga memungkinkan untuk mengekspor data dan menghasilkan daftar playlist.</p>
     <p xml:lang="is">Hægt er að flytja inn upplýsingar um tónlist úr gnudb.org, MusicBrainz, Discogs, Amazon; hægt er að nota magninnflutning fyrir margar möppur í einu. Einnig er hægt að flytja út gögn og útbúa spilunarlista.</p>
     <p xml:lang="it">È possibile importare i dati dell'album da gnudb.org, MusicBrainz, Discogs, Amazon; è disponibile l'importazione automatica in serie per più cartelle. È inoltre possibile esportare i dati e generare scalette.</p>
@@ -225,8 +231,11 @@
     <p xml:lang="ca">El Kid3 utilitza els Frameworks de KDE. Els usuaris d'altres entorns d'escriptori poden preferir el Kid3-qt, que no té dependències de KDE.</p>
     <p xml:lang="ca-valencia">Kid3 utilitza els Frameworks de KDE. Els usuaris d'altres entorns d'escriptori poden preferir Kid3-qt, el qual no té dependències de KDE.</p>
     <p xml:lang="es">Kid3 usa las infraestructuras de KDE. Los usuarios de otros entornos de escritorio pueden preferir Kid3-qt en su lugar, que no depende de KDE.</p>
+    <p xml:lang="gl">Kid3 usa as infraestruturas de KDE. As persoas doutros contornos de escritorio quizais prefiran Kid3-qt, que non ten dependencias de KDE.</p>
+    <p xml:lang="it">Kid3 utilizza KDE Frameworks. Gli utenti di altri ambienti desktop potrebbero preferire Kid3-qt, che è privo di dipendenze KDE.</p>
     <p xml:lang="nl">Kid3 gebruikt het KDE Frameworks. Gebruikers van andere bureaubladomgevingen kunnen in plaats daarvan de voorkeur geven aan Kid3-qt, die onafhankelijk is van KDE.</p>
     <p xml:lang="nn">Kide3 brukar KDE Frameworks. Brukar du andre skrivebords­miljø enn Plasma, vil du kanskje heller føretrekkja Kid3-qt, som ikkje har nokon KDE-avhengnadar.</p>
+    <p xml:lang="pl">Kid3 używa Szkieletów KDE. Użytkownicy innych środowisk pulpitu mogą woleć Kid3-qt, który nie wymaga zależności z KDE.</p>
     <p xml:lang="sl">Kid3 uporablja KDE Frameworks. Uporabniki drugih namiznih okolij bi morda raje uporabljali Kid3-qt, ki je brez odvisnosti od KDE.</p>
     <p xml:lang="sv">Kid3 använder KDE Ramverk. Användare av andra skrivbordsmiljöer kan föredra Kid3-qt istället, som är utan KDE-beroenden.</p>
     <p xml:lang="tr">Kid3, KDE Frameworks kullanır. Başka masaüstü ortamlarının kullanıcıları, KDE bağımlılıklarını içermeyen Kid3-qt sürümünü tercih etmek isteyebilirler.</p>
@@ -251,6 +260,7 @@
       <caption xml:lang="eu">Kid3, leiho nagusia</caption>
       <caption xml:lang="fi">Kid3:n pääikkuna</caption>
       <caption xml:lang="fr">Fenêtre principale de Kid3</caption>
+      <caption xml:lang="gl">Xanela principal de Kid3.</caption>
       <caption xml:lang="id">Jendela utama Kid3</caption>
       <caption xml:lang="is">Aðalgluggi Kid3</caption>
       <caption xml:lang="it">Finestra principale di Kid3</caption>
