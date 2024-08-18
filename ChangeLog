@@ -1,3 +1,16 @@
+Sat Sep 21 08:03:29 CEST 2024  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.9.6
+
+	* Improved:
+	  + macOS: Building, signing and notarizing packages.
+
+	* Fixed:
+	  + Embed lyrics action.
+	  + KDE 6: Install directory for kid3ui.rc.
+	  + Android: Saving picture tags.
+	  + Haiku: Installation paths.
+
 Sat Feb 24 18:15:31 CET 2024  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.9.5

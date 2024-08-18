@@ -291,6 +291,7 @@
   <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
   <translation type="gettext">kid3</translation>
   <releases>
+    <release version="3.9.6" date="2024-09-21"/>
     <release version="3.9.5" date="2024-02-24">
       <description>
         <p>New</p>
