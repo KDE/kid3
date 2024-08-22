@@ -94,7 +94,7 @@
     <p xml:lang="et">Helifailide siltide redaktor Kid3 võimaldab muuta MP3-, Ogg/Vorbise, DSF-, FLAC-, Opuse, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- ja tracker-failide silte.</p>
     <p xml:lang="eu">Kid3-rekin, audio etiketa editorea izaki, MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF eta tracker fitxategien etiketak editatu ditzakezu.</p>
     <p xml:lang="fi">Kid3-äänitunnistemuokkaimella voi muokata tunnisteita MP3-, Ogg/Vorbis-, DSF-, FLAC-, Opus-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF- ja Tracker-tiedostoissa.</p>
-    <p xml:lang="fr">Avec Kid3, un éditeur d'étiquettes de fichiers audio, vous pouvez éditer les étiquettes dans les fichiers de type MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP3/AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF.</p>
+    <p xml:lang="fr">Avec Kid3, un éditeur d'étiquettes de fichiers audio, vous pouvez éditer les étiquettes dans les fichiers de type MP3, Ogg / Vorbis, DSF, FLAC, Opus, MPC, APE, MP3 / AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF.</p>
     <p xml:lang="gl">Con Kid3, un editor de etiquetas de son, pode editar etiquetas en ficheiros MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e ficheiros de seguimento.</p>
     <p xml:lang="id">Dengan Kid3, sebuah pengedit tag audio, kamu bisa mengedit tag-tag di dalam file-file MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF dan sebagai pelacak.</p>
     <p xml:lang="is">Með Kid3 geturðu merkt ýmis lýsigögn inn í hljóðskrár, meðal annars í MP3, Ogg/Vorbis, DSF, FLAC, Opus, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF og tracker-rakningarskrár.</p>
@@ -131,7 +131,7 @@
     <p xml:lang="et">Kõiki MP3-faili ID3 siltide kaadreid saab muuta ning võimalik on teisendamine ID3v1.1, ID3v2.3 ja ID3v2.4 vahel. Sünkroonitud laulusõnu saab muuta, importida ja eksportida LRC Karaoke failina.</p>
     <p xml:lang="eu">ID3 etiketetako bilbe guztiak editatu daitezke, eta ID3v1.1, ID3v2.3 eta ID3v2.4 arteko bihurketa egin daiteke. Sinkronizatutako hitzak editatu, inportatu eta LRC Karaoke fitxategietara esportatu daitezke.</p>
     <p xml:lang="fi">Kaikkia MP3-tiedostojen ID3-tunnistekenttiä voi muokata, ja muunnos ID3v1.1:n, ID3v2.3:n ja ID3v2.4:n välillä on mahdollista. Synkronoituja sanoituksia voi muokata, tuoda ja viedä LRC Karaoke -tiedostoiksi.</p>
-    <p xml:lang="fr">Tous les champs dans les étiquettes ID3 des fichiers MP3 peuvent être édités, et il est possible de convertir entre les formats ID3v1.1, ID3v2.3 et ID3v2.4. Les paroles synchronisées peuvent être éditées, importées et exportées au format LRC (pour karaoké).</p>
+    <p xml:lang="fr">Tous les champs dans les étiquettes « ID3 » des fichiers « MP3 » peuvent être édités, et il est possible de convertir entre les formats « ID3v1.1 », « ID3v2.3 » et « ID3v2.4 ». Les paroles synchronisées peuvent être éditées, importées et exportées au format « LRC » (Pour le karaoké).</p>
     <p xml:lang="gl">Pode editar todos os marcos de etiquetas ID3 de ficheiros MP3, e pode converter entre ID3v1.1, ID3v2.3 e ID3v2.4. Pode editar letras sincronizadas, que importar ou exportar de ficheiros LRC de karaoke.</p>
     <p xml:lang="id">Semua bingkai dalam tag ID3 pada file MP3 bisa diedit, dan dimungkinkan untuk konversi antara ID3v1.1, ID3v2.3 dan ID3v2.4. Lirik yang disinkronkan bisa diedit, diimpor dan diekspor ke file Karaoke LRC.</p>
     <p xml:lang="is">Öllum römmum í ID3-merkjum MP3-skráa má breyta, auk þess að mögulegt er að umbreyta á milli ID3v1.1, ID3v2.3 og ID3v2.4 merkja. Hægt er að vinna með samstillta lagatexta; breyta, flytja inn og flytja út í LRC-karíókískrár.</p>
@@ -231,6 +231,7 @@
     <p xml:lang="ca">El Kid3 utilitza els Frameworks de KDE. Els usuaris d'altres entorns d'escriptori poden preferir el Kid3-qt, que no té dependències de KDE.</p>
     <p xml:lang="ca-valencia">Kid3 utilitza els Frameworks de KDE. Els usuaris d'altres entorns d'escriptori poden preferir Kid3-qt, el qual no té dependències de KDE.</p>
     <p xml:lang="es">Kid3 usa las infraestructuras de KDE. Los usuarios de otros entornos de escritorio pueden preferir Kid3-qt en su lugar, que no depende de KDE.</p>
+    <p xml:lang="fr">Kid3 utilise les environnements de développement de KDE. Les utilisateurs d'autres environnements de bureau peuvent préférer le module « kid3-qt » à la place, ce qui est sans dépendances avec KDE.</p>
     <p xml:lang="gl">Kid3 usa as infraestruturas de KDE. As persoas doutros contornos de escritorio quizais prefiran Kid3-qt, que non ten dependencias de KDE.</p>
     <p xml:lang="it">Kid3 utilizza KDE Frameworks. Gli utenti di altri ambienti desktop potrebbero preferire Kid3-qt, che è privo di dipendenze KDE.</p>
     <p xml:lang="ko">Kid3은 KDE 프레임워크를 사용합니다. 다른 데스크톱 환경을 사용한다면 KDE 의존성이 없는 Kid3-qt를 선호할 수도 있습니다.</p>
