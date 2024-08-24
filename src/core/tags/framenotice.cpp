@@ -401,8 +401,9 @@ bool FrameNotice::addId3StandardViolationNotice(FrameCollection& frames)
         continue;
       }
     }
-    if (value.startsWith(QLatin1Char(' ')) ||
-        value.endsWith(QLatin1Char(' '))) {
+    if ((value.startsWith(QLatin1Char(' ')) ||
+         value.endsWith(QLatin1Char(' '))) &&
+        !uniqueId.startsWith(QLatin1String("COMMengiTun"))) {
       frame.setMarked(ExcessSpace);
       marked = true;
       continue;
