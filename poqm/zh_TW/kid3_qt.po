@@ -2419,7 +2419,7 @@ msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "選擇區"
 
-#: src/core/model/kid3application.cpp:3442
+#: src/core/model/kid3application.cpp:3444
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "所有檔案"
@@ -5308,109 +5308,109 @@ msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "無法執行 "
 
-#: src/gui/forms/kid3form.cpp:281
+#: src/gui/forms/kid3form.cpp:288
 msgctxt "Kid3Form|"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: src/gui/forms/kid3form.cpp:336 src/gui/forms/kid3form.cpp:1246
-#: src/gui/forms/kid3form.cpp:1247
+#: src/gui/forms/kid3form.cpp:343 src/gui/forms/kid3form.cpp:1277
+#: src/gui/forms/kid3form.cpp:1278
 msgctxt "Kid3Form|"
 msgid "F&ile"
 msgstr "檔案(&I)"
 
-#: src/gui/forms/kid3form.cpp:347
+#: src/gui/forms/kid3form.cpp:354
 msgctxt "Kid3Form|"
 msgid "Name:"
 msgstr "名稱："
 
-#: src/gui/forms/kid3form.cpp:356 src/gui/forms/kid3form.cpp:406
+#: src/gui/forms/kid3form.cpp:363 src/gui/forms/kid3form.cpp:413
 msgctxt "Kid3Form|"
 msgid "Format:"
 msgstr "格式："
 
-#: src/gui/forms/kid3form.cpp:387
+#: src/gui/forms/kid3form.cpp:394
 msgctxt "Kid3Form|"
 msgid "From:"
 msgstr "從："
 
-#: src/gui/forms/kid3form.cpp:393 src/gui/forms/kid3form.cpp:419
-#: src/gui/forms/kid3form.cpp:501 src/gui/forms/kid3form.cpp:525
+#: src/gui/forms/kid3form.cpp:400 src/gui/forms/kid3form.cpp:426
+#: src/gui/forms/kid3form.cpp:508 src/gui/forms/kid3form.cpp:532
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1"
 msgstr "標籤 %1"
 
-#: src/gui/forms/kid3form.cpp:395
+#: src/gui/forms/kid3form.cpp:402
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Filename from Tag %1"
 msgstr "標籤 %1 到檔名"
 
-#: src/gui/forms/kid3form.cpp:412
+#: src/gui/forms/kid3form.cpp:419
 msgctxt "Kid3Form|"
 msgid "To:"
 msgstr "至："
 
-#: src/gui/forms/kid3form.cpp:420
+#: src/gui/forms/kid3form.cpp:427
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
 msgstr "標籤 %1從檔名"
 
-#: src/gui/forms/kid3form.cpp:441 src/gui/forms/kid3form.cpp:892
+#: src/gui/forms/kid3form.cpp:448 src/gui/forms/kid3form.cpp:899
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
 msgstr "標籤 &%1"
 
-#: src/gui/forms/kid3form.cpp:470
+#: src/gui/forms/kid3form.cpp:477
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "From Tag %1"
 msgstr "從標籤 %1"
 
-#: src/gui/forms/kid3form.cpp:478 src/gui/forms/kid3form.cpp:534
+#: src/gui/forms/kid3form.cpp:485 src/gui/forms/kid3form.cpp:541
 msgctxt "Kid3Form|"
 msgid "Copy"
 msgstr "複製"
 
-#: src/gui/forms/kid3form.cpp:486 src/gui/forms/kid3form.cpp:510
+#: src/gui/forms/kid3form.cpp:493 src/gui/forms/kid3form.cpp:517
 msgctxt "Kid3Form|"
 msgid "Paste"
 msgstr "貼上"
 
-#: src/gui/forms/kid3form.cpp:493
+#: src/gui/forms/kid3form.cpp:500
 msgctxt "Kid3Form|"
 msgid "From"
 msgstr "從"
 
-#: src/gui/forms/kid3form.cpp:495 src/gui/forms/kid3form.cpp:519
+#: src/gui/forms/kid3form.cpp:502 src/gui/forms/kid3form.cpp:526
 msgctxt "Kid3Form|"
 msgid "Filename"
 msgstr "檔名"
 
-#: src/gui/forms/kid3form.cpp:517
+#: src/gui/forms/kid3form.cpp:524
 msgctxt "Kid3Form|"
 msgid "To"
 msgstr "至"
 
-#: src/gui/forms/kid3form.cpp:544
+#: src/gui/forms/kid3form.cpp:551
 msgctxt "Kid3Form|"
 msgid "Remove"
 msgstr "移除"
 
-#: src/gui/forms/kid3form.cpp:558
+#: src/gui/forms/kid3form.cpp:565
 msgctxt "Kid3Form|"
 msgid "Edit..."
 msgstr "編輯…"
 
-#: src/gui/forms/kid3form.cpp:564
+#: src/gui/forms/kid3form.cpp:571
 msgctxt "Kid3Form|"
 msgid "Add..."
 msgstr "新增…"
 
-#: src/gui/forms/kid3form.cpp:570
+#: src/gui/forms/kid3form.cpp:577
 msgctxt "Kid3Form|"
 msgid "Delete"
 msgstr "刪除"
@@ -5615,7 +5615,23 @@ msgctxt "ImageViewer|"
 msgid "&Close"
 msgstr "關閉(&C)"
 
-#: src/gui/widgets/picturelabel.cpp:92
+#: src/gui/widgets/picturelabel.cpp:87
+#, fuzzy
+#| msgctxt "SectionActions|"
+#| msgid "Previous"
+msgctxt "PictureLabel|"
+msgid "Previous"
+msgstr "上一個"
+
+#: src/gui/widgets/picturelabel.cpp:101
+#, fuzzy
+#| msgctxt "SectionActions|"
+#| msgid "Next"
+msgctxt "PictureLabel|"
+msgid "Next"
+msgstr "下一個"
+
+#: src/gui/widgets/picturelabel.cpp:220
 msgctxt "@default|"
 msgid ""
 "Drag album\n"

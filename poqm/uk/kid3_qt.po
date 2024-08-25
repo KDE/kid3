@@ -2417,7 +2417,7 @@ msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Вибір"
 
-#: src/core/model/kid3application.cpp:3442
+#: src/core/model/kid3application.cpp:3444
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "усі файли"
@@ -5317,109 +5317,109 @@ msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "Не вдалося виконати "
 
-#: src/gui/forms/kid3form.cpp:281
+#: src/gui/forms/kid3form.cpp:288
 msgctxt "Kid3Form|"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: src/gui/forms/kid3form.cpp:336 src/gui/forms/kid3form.cpp:1246
-#: src/gui/forms/kid3form.cpp:1247
+#: src/gui/forms/kid3form.cpp:343 src/gui/forms/kid3form.cpp:1277
+#: src/gui/forms/kid3form.cpp:1278
 msgctxt "Kid3Form|"
 msgid "F&ile"
 msgstr "Ф&айл"
 
-#: src/gui/forms/kid3form.cpp:347
+#: src/gui/forms/kid3form.cpp:354
 msgctxt "Kid3Form|"
 msgid "Name:"
 msgstr "Назва:"
 
-#: src/gui/forms/kid3form.cpp:356 src/gui/forms/kid3form.cpp:406
+#: src/gui/forms/kid3form.cpp:363 src/gui/forms/kid3form.cpp:413
 msgctxt "Kid3Form|"
 msgid "Format:"
 msgstr "Формат:"
 
-#: src/gui/forms/kid3form.cpp:387
+#: src/gui/forms/kid3form.cpp:394
 msgctxt "Kid3Form|"
 msgid "From:"
 msgstr "З:"
 
-#: src/gui/forms/kid3form.cpp:393 src/gui/forms/kid3form.cpp:419
-#: src/gui/forms/kid3form.cpp:501 src/gui/forms/kid3form.cpp:525
+#: src/gui/forms/kid3form.cpp:400 src/gui/forms/kid3form.cpp:426
+#: src/gui/forms/kid3form.cpp:508 src/gui/forms/kid3form.cpp:532
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1"
 msgstr "Мітка %1"
 
-#: src/gui/forms/kid3form.cpp:395
+#: src/gui/forms/kid3form.cpp:402
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Filename from Tag %1"
 msgstr "Назва файла з мітки %1"
 
-#: src/gui/forms/kid3form.cpp:412
+#: src/gui/forms/kid3form.cpp:419
 msgctxt "Kid3Form|"
 msgid "To:"
 msgstr "До:"
 
-#: src/gui/forms/kid3form.cpp:420
+#: src/gui/forms/kid3form.cpp:427
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
 msgstr "Мітка %1 з назви файла"
 
-#: src/gui/forms/kid3form.cpp:441 src/gui/forms/kid3form.cpp:892
+#: src/gui/forms/kid3form.cpp:448 src/gui/forms/kid3form.cpp:899
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
 msgstr "Мі&тка %1"
 
-#: src/gui/forms/kid3form.cpp:470
+#: src/gui/forms/kid3form.cpp:477
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "From Tag %1"
 msgstr "З мітки %1"
 
-#: src/gui/forms/kid3form.cpp:478 src/gui/forms/kid3form.cpp:534
+#: src/gui/forms/kid3form.cpp:485 src/gui/forms/kid3form.cpp:541
 msgctxt "Kid3Form|"
 msgid "Copy"
 msgstr "Копіювати"
 
-#: src/gui/forms/kid3form.cpp:486 src/gui/forms/kid3form.cpp:510
+#: src/gui/forms/kid3form.cpp:493 src/gui/forms/kid3form.cpp:517
 msgctxt "Kid3Form|"
 msgid "Paste"
 msgstr "Вставити"
 
-#: src/gui/forms/kid3form.cpp:493
+#: src/gui/forms/kid3form.cpp:500
 msgctxt "Kid3Form|"
 msgid "From"
 msgstr "З"
 
-#: src/gui/forms/kid3form.cpp:495 src/gui/forms/kid3form.cpp:519
+#: src/gui/forms/kid3form.cpp:502 src/gui/forms/kid3form.cpp:526
 msgctxt "Kid3Form|"
 msgid "Filename"
 msgstr "Назва файла"
 
-#: src/gui/forms/kid3form.cpp:517
+#: src/gui/forms/kid3form.cpp:524
 msgctxt "Kid3Form|"
 msgid "To"
 msgstr "До"
 
-#: src/gui/forms/kid3form.cpp:544
+#: src/gui/forms/kid3form.cpp:551
 msgctxt "Kid3Form|"
 msgid "Remove"
 msgstr "Вилучити"
 
-#: src/gui/forms/kid3form.cpp:558
+#: src/gui/forms/kid3form.cpp:565
 msgctxt "Kid3Form|"
 msgid "Edit..."
 msgstr "Змінити…"
 
-#: src/gui/forms/kid3form.cpp:564
+#: src/gui/forms/kid3form.cpp:571
 msgctxt "Kid3Form|"
 msgid "Add..."
 msgstr "Додати…"
 
-#: src/gui/forms/kid3form.cpp:570
+#: src/gui/forms/kid3form.cpp:577
 msgctxt "Kid3Form|"
 msgid "Delete"
 msgstr "Вилучити"
@@ -5624,7 +5624,23 @@ msgctxt "ImageViewer|"
 msgid "&Close"
 msgstr "За&крити"
 
-#: src/gui/widgets/picturelabel.cpp:92
+#: src/gui/widgets/picturelabel.cpp:87
+#, fuzzy
+#| msgctxt "SectionActions|"
+#| msgid "Previous"
+msgctxt "PictureLabel|"
+msgid "Previous"
+msgstr "Назад"
+
+#: src/gui/widgets/picturelabel.cpp:101
+#, fuzzy
+#| msgctxt "SectionActions|"
+#| msgid "Next"
+msgctxt "PictureLabel|"
+msgid "Next"
+msgstr "Далі"
+
+#: src/gui/widgets/picturelabel.cpp:220
 msgctxt "@default|"
 msgid ""
 "Drag album\n"
