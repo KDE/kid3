@@ -3,13 +3,13 @@
 #
 # Sergio Cambra García <sergio.cambra@hispalinux.es>, 2004.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2023-12-01 16:43+0100\n"
+"PO-Revision-Date: 2024-08-25 12:23+0200\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Lokalize 23.08.3\n"
+"X-Generator: Lokalize 24.05.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Language: es\n"
 "X-Source-Language: en\n"
@@ -5621,17 +5621,11 @@ msgid "&Close"
 msgstr "&Cerrar"
 
 #: src/gui/widgets/picturelabel.cpp:87
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Previous"
 msgctxt "PictureLabel|"
 msgid "Previous"
 msgstr "Anterior"
 
 #: src/gui/widgets/picturelabel.cpp:101
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Next"
 msgctxt "PictureLabel|"
 msgid "Next"
 msgstr "Siguiente"
