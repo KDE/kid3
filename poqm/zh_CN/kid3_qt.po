@@ -5610,16 +5610,12 @@ msgstr "关闭(&C)"
 
 #: src/gui/widgets/picturelabel.cpp:87
 #, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Previous"
 msgctxt "PictureLabel|"
 msgid "Previous"
 msgstr "上一个"
 
 #: src/gui/widgets/picturelabel.cpp:101
 #, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Next"
 msgctxt "PictureLabel|"
 msgid "Next"
 msgstr "下一个"
