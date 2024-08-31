@@ -297,6 +297,15 @@ set -e
    ANDROID_SDK_ROOT=$HOME/Development/android-sdk \
    ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/23.1.7779620 \
    ../kid3/build.sh)
+(cd android_arm64_build && \
+   PATH=/opt/cmake/bin:$PATH \
+   COMPILER=cross-android \
+   QTPREFIX=$HOME/Development/Development/Qt6.5.3-android64/6.5.3/android_arm64_v8a \
+   QTBINARYDIR=$HOME/Development/Qt6.5.3-linux/6.5.3/gcc_64/bin \
+   JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 \
+   ANDROID_SDK_ROOT=$HOME/Development/android-sdk \
+   ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/23.1.7779620 \
+   ../kid3/build.sh)
 EOF
     chmod +x build-all.sh
   fi
@@ -517,11 +526,15 @@ if test "$compiler" = "cross-android"; then
   _android_toolchain_cmake=$_android_ndk_root/build/cmake/android.toolchain.cmake
   test -f $_android_toolchain_cmake ||
     _android_toolchain_cmake=$srcdir/android/qt-android-cmake/toolchain/android.toolchain.cmake
-  test -f $_android_qt_root/bin/qmake ||
-    _android_qt_root=/opt/qt5/5.9.7/android_armv7
   if test -z "${_android_qt_root%%*x86}"; then
     _android_abi=x86
     _android_prefix=i686-linux-android
+  elif test -z "${_android_qt_root%%*x86_64}"; then
+    _android_abi=x86_64
+    _android_prefix=x86_64-linux-android
+  elif test -z "${_android_qt_root%%*arm64_v8a}"; then
+    _android_abi=arm64-v8a
+    _android_prefix=aarch64-linux-android
   else
     _android_abi=armeabi-v7a
     _android_prefix=arm-linux-androideabi
@@ -1014,14 +1027,34 @@ download_and_extract_qt() {
     cd qt-${qt_version}
     if test $qt_version = "6.5.3"; then
       if test "$compiler" = "cross-android"; then
-        for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
-          fn=6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Clang-Android-Android_ANY-ARMv7.7z
-          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_armv7/qt.qt6.653.android_armv7/$fn
-        done
-        for m in qtmultimedia qtimageformats; do
-          fn=qt.qt6.653.addons.${m}.android_armv7/6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Clang-Android-Android_ANY-ARMv7.7z
-          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_armv7/$fn
-        done
+        if test "$_android_abi" = "x86_64"; then
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.5.3-0-202309260341${m}-Linux-RHEL_8_4-Clang-Android-Android_ANY-X86_64.7z
+            wget https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_x86_64/qt.qt6.653.android_x86_64/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.653.addons.${m}.android_x86_64/6.5.3-0-202309260341${m}-Linux-RHEL_8_4-Clang-Android-Android_ANY-X86_64.7z
+            wget https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_x86_64/$fn
+          done
+        elif test "$_android_abi" = "arm64-v8a"; then
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.5.3-0-202309260341${m}-MacOS-MacOS_12-Clang-Android-Android_ANY-ARM64.7z
+            wget https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_arm64_v8a/qt.qt6.653.android_arm64_v8a/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.653.addons.${m}.android_arm64_v8a/6.5.3-0-202309260341${m}-MacOS-MacOS_12-Clang-Android-Android_ANY-ARM64.7z
+            wget https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_arm64_v8a/$fn
+          done
+        else
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Clang-Android-Android_ANY-ARMv7.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_armv7/qt.qt6.653.android_armv7/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.653.addons.${m}.android_armv7/6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Clang-Android-Android_ANY-ARMv7.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_armv7/$fn
+          done
+        fi
       elif test $kernel = "Linux"; then
         for m in qttranslations qttools qtsvg qtdeclarative qtbase qtwayland; do
           fn=6.5.3-0-202309260341${m}-Linux-RHEL_8_4-GCC-Linux-RHEL_8_4-X86_64.7z
@@ -1244,6 +1277,10 @@ if test "$compiler" = "cross-android"; then
     if test "$qt_nr" -lt 60000; then
       if test "$_android_abi" = "x86"; then
         sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=x86-4.9/; s/^_ANDROID_ARCH=.*$/_ANDROID_ARCH=arch-x86/' Setenv-android.sh
+      elif test "$_android_abi" = "x86_64"; then
+        sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=x86_64-4.9/; s/^_ANDROID_ARCH=.*$/_ANDROID_ARCH=arch-x86_64/' Setenv-android.sh
+      elif test "$_android_abi" = "arm64-v8a"; then
+        sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=aarch64-linux-android-4.9/; s/^_ANDROID_ARCH=.*$/_ANDROID_ARCH=arch-arm64/' Setenv-android.sh
       else
         sed -i 's/^_ANDROID_EABI=.*$/_ANDROID_EABI=arm-linux-androideabi-4.9/; s/^_ANDROID_ARCH=.*$/_ANDROID_ARCH=arch-arm/' Setenv-android.sh
       fi
@@ -1261,6 +1298,10 @@ if test "$compiler" = "cross-android"; then
       if test -d $_android_ndk_root/toolchains/llvm; then
         if test "$_android_abi" = "x86"; then
           sed -i 's/^CC=.*$/CC= i686-linux-android16-clang/; s/ -mandroid//' Makefile
+        elif test "$_android_abi" = "x86_64"; then
+          sed -i 's/^CC=.*$/CC= x86_64-linux-android16-clang/; s/ -mandroid//' Makefile
+        elif test "$_android_abi" = "arm64-v8a"; then
+          sed -i 's/^CC=.*$/CC= aarch64-linux-android-clang/; s/ -mandroid//' Makefile
         else
           sed -i 's/^CC=.*$/CC= armv7a-linux-androideabi16-clang/; s/ -mandroid//' Makefile
         fi
@@ -1276,7 +1317,16 @@ if test "$compiler" = "cross-android"; then
     else
       PATH=$ANDROID_NDK_ROOT/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
       sed -i 's/shared_extension => ".so",/shared_extension => "_3.so",/' Configurations/15-android.conf
-      ANDROID_NDK_HOME=$ANDROID_NDK_ROOT ./Configure shared android-arm
+      if test "$_android_abi" = "x86"; then
+        _os_compiler=android-x86
+      elif test "$_android_abi" = "x86_64"; then
+        _os_compiler=android-x86_64
+      elif test "$_android_abi" = "arm64-v8a"; then
+        _os_compiler=android-arm64
+      else
+        _os_compiler=android-arm
+      fi
+      ANDROID_NDK_HOME=$ANDROID_NDK_ROOT ./Configure shared $_os_compiler
       sed -i "s,^DESTDIR=\$,DESTDIR=$PWD/inst," Makefile
       make -j ANDROID_NDK_HOME=$ANDROID_NDK_ROOT SHLIB_VERSION_NUMBER= SHLIB_EXT=_3.so build_libs install_dev
       _ssl_lib_suffix=_3.so
@@ -1322,6 +1372,13 @@ if test "$compiler" = "cross-android"; then
     cd ../..
   fi
   extract_binary_archive $BIN_ARCHIVE_DIR/taglib-${taglib_version}.tgz
+
+  # Set a QTPREFIX starting with "$(pwd)/qt-", e.g. $(pwd)/qt-6.5.3/6.5.3/android_arm64_v8a
+  # or $(pwd)/qt-6.5.3/6.5.3/android_armv7 or $(pwd)/qt-6.5.3/6.5.3/android_x86_64
+  # in order to download Qt binaries to the given $QTPREFIX if it does not already exist.
+  if test "${QTPREFIX%%/qt-*}" = "$(pwd)" -a ! -d "$QTPREFIX"; then
+    download_and_extract_qt
+  fi
 
 else #  cross-android
 
