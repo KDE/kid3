@@ -1949,7 +1949,7 @@ EOF
       for suffix in signed unsigned; do
         _apkpath=${prefix}-${suffix}.apk
         if test -f $_apkpath; then
-          cp -a $_apkpath kid3-$_version-android.apk
+          cp -a $_apkpath kid3-$_version-android-$_android_abi.apk
           break 2
         fi
       done
