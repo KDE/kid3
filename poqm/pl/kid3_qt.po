@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2024-05-30 11:39+0200\n"
+"PO-Revision-Date: 2024-08-31 07:01+0200\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: Polish <kde-i18n-doc@kde.org>\n"
 "Language: pl\n"
@@ -5624,17 +5624,11 @@ msgid "&Close"
 msgstr "Z&amknij"
 
 #: src/gui/widgets/picturelabel.cpp:87
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Previous"
 msgctxt "PictureLabel|"
 msgid "Previous"
 msgstr "Poprzedni"
 
 #: src/gui/widgets/picturelabel.cpp:101
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Next"
 msgctxt "PictureLabel|"
 msgid "Next"
 msgstr "Następny"
