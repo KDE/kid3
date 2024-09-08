@@ -752,7 +752,9 @@ void Kid3Form::dropEvent(QDropEvent* ev)
   } else if (ev->mimeData()->hasFormat(QLatin1String("text/uri-list"))) {
     QList<QUrl> urls = ev->mimeData()->urls();
     ev->acceptProposedAction();
-    m_app->dropUrls(urls, ev->source() != nullptr);
+    if (m_app->dropUrls(urls, ev->source() != nullptr) && m_pictureLabel) {
+      m_pictureLabel->setLastIndex();
+    }
   } else {
     ev->ignore();
   }

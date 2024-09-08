@@ -72,6 +72,11 @@ public:
    */
   void setIndex(int index);
 
+  /**
+   * Set picture index to last picture.
+   */
+  void setLastIndex();
+
 private slots:
   /**
    * Select previous picture.

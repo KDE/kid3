@@ -2387,11 +2387,13 @@ void Kid3Application::editOrAddPicture(int index)
  *
  * @param paths paths of directories or files in directory
  * @param isInternal true if this is an internal drop
+ * @return true if picture added.
  */
-void Kid3Application::dropLocalFiles(const QStringList& paths, bool isInternal)
+bool Kid3Application::dropLocalFiles(const QStringList& paths, bool isInternal)
 {
   QStringList filePaths;
   QStringList picturePaths;
+  bool pictureAdded = false;
   for (QString txt : paths) {
     if (int lfPos = txt.indexOf(QLatin1Char('\n'));
         lfPos > 0 && lfPos < txt.length() - 1) {
@@ -2425,10 +2427,12 @@ void Kid3Application::dropLocalFiles(const QStringList& paths, bool isInternal)
         PictureFrame::setDescription(frame, fileName);
         PictureFrame::setTextEncoding(frame, frameTextEncodingFromConfig());
         addFrame(Frame::Tag_Picture, &frame);
+        pictureAdded = true;
         emit selectedFilesUpdated();
       }
     }
   }
+  return pictureAdded;
 }
 
 /**
@@ -2446,8 +2450,9 @@ void Kid3Application::openDrop(const QStringList& paths)
  *
  * @param urlList picture, tagged file and folder URLs to handle (if local)
  * @param isInternal true if this is an internal drop
+ * @return true if picture added.
  */
-void Kid3Application::dropUrls(const QList<QUrl>& urlList, bool isInternal)
+bool Kid3Application::dropUrls(const QList<QUrl>& urlList, bool isInternal)
 {
   QList urls(urlList);
 #ifdef Q_OS_MAC
@@ -2460,15 +2465,16 @@ void Kid3Application::dropUrls(const QList<QUrl>& urlList, bool isInternal)
   }
 #endif
   if (urls.isEmpty())
-    return;
+    return false;
   if (urls.first().isLocalFile()) {
     QStringList localFiles;
     for (auto it = urls.constBegin(); it != urls.constEnd(); ++it) {
       localFiles.append(it->toLocalFile());
     }
-    dropLocalFiles(localFiles, isInternal);
+    return dropLocalFiles(localFiles, isInternal);
   } else {
     dropUrl(urls.first());
+    return false;
   }
 }
 

@@ -148,6 +148,14 @@ void PictureLabel::setIndex(int index)
 }
 
 /**
+ * Set picture index to last picture.
+ */
+void PictureLabel::setLastIndex()
+{
+  setIndex(m_pictures.size() - 1);
+}
+
+/**
  * Select previous picture.
  */
 void PictureLabel::previous()

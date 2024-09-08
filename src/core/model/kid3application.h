@@ -381,8 +381,9 @@ public:
    *
    * @param urlList picture, tagged file and folder URLs to handle (if local)
    * @param isInternal true if this is an internal drop
+   * @return true if picture added.
    */
-  void dropUrls(const QList<QUrl>& urlList, bool isInternal);
+  bool dropUrls(const QList<QUrl>& urlList, bool isInternal);
 
   /**
    * Open directory after resetting the file system model.
@@ -1565,8 +1566,9 @@ private:
    *
    * @param paths paths of directories or files in directory
    * @param isInternal true if this is an internal drop
+   * @return true if picture added.
    */
-  void dropLocalFiles(const QStringList& paths, bool isInternal);
+  bool dropLocalFiles(const QStringList& paths, bool isInternal);
 
   /**
    * Second stage for applyFilter().
