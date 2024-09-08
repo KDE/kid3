@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-05-24 19:12+0100\n"
+"PO-Revision-Date: 2024-09-07 12:28+0100\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English\n"
 "Language: en_GB\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.02.2\n"
+"X-Generator: Lokalize 24.05.2\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -5610,17 +5610,11 @@ msgid "&Close"
 msgstr "&Close"
 
 #: src/gui/widgets/picturelabel.cpp:87
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Previous"
 msgctxt "PictureLabel|"
 msgid "Previous"
 msgstr "Previous"
 
 #: src/gui/widgets/picturelabel.cpp:101
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Next"
 msgctxt "PictureLabel|"
 msgid "Next"
 msgstr "Next"
