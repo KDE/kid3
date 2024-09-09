@@ -2408,7 +2408,7 @@ msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "선택"
 
-#: src/core/model/kid3application.cpp:3444
+#: src/core/model/kid3application.cpp:3450
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "모든 파일"
@@ -5304,8 +5304,8 @@ msgctxt "Kid3Form|"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: src/gui/forms/kid3form.cpp:343 src/gui/forms/kid3form.cpp:1277
-#: src/gui/forms/kid3form.cpp:1278
+#: src/gui/forms/kid3form.cpp:343 src/gui/forms/kid3form.cpp:1279
+#: src/gui/forms/kid3form.cpp:1280
 msgctxt "Kid3Form|"
 msgid "F&ile"
 msgstr "파일(&I)"
@@ -5349,7 +5349,7 @@ msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
 msgstr "파일 이름에서 태그 %1(으)로"
 
-#: src/gui/forms/kid3form.cpp:448 src/gui/forms/kid3form.cpp:899
+#: src/gui/forms/kid3form.cpp:448 src/gui/forms/kid3form.cpp:901
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
@@ -5622,7 +5622,7 @@ msgctxt "PictureLabel|"
 msgid "Next"
 msgstr "다음"
 
-#: src/gui/widgets/picturelabel.cpp:220
+#: src/gui/widgets/picturelabel.cpp:228
 msgctxt "@default|"
 msgid ""
 "Drag album\n"

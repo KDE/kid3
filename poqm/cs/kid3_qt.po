@@ -2417,7 +2417,7 @@ msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Výběr"
 
-#: src/core/model/kid3application.cpp:3444
+#: src/core/model/kid3application.cpp:3450
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "Všechny soubory"
@@ -5319,8 +5319,8 @@ msgctxt "Kid3Form|"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: src/gui/forms/kid3form.cpp:343 src/gui/forms/kid3form.cpp:1277
-#: src/gui/forms/kid3form.cpp:1278
+#: src/gui/forms/kid3form.cpp:343 src/gui/forms/kid3form.cpp:1279
+#: src/gui/forms/kid3form.cpp:1280
 msgctxt "Kid3Form|"
 msgid "F&ile"
 msgstr "&Soubor"
@@ -5364,7 +5364,7 @@ msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
 msgstr "Značka %1 z názvu souboru"
 
-#: src/gui/forms/kid3form.cpp:448 src/gui/forms/kid3form.cpp:899
+#: src/gui/forms/kid3form.cpp:448 src/gui/forms/kid3form.cpp:901
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
@@ -5631,7 +5631,7 @@ msgctxt "PictureLabel|"
 msgid "Next"
 msgstr "Následující"
 
-#: src/gui/widgets/picturelabel.cpp:220
+#: src/gui/widgets/picturelabel.cpp:228
 msgctxt "@default|"
 msgid ""
 "Drag album\n"
