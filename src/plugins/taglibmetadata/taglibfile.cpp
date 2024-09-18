@@ -893,6 +893,217 @@ TagLib::ByteVector TextCodecStringHandler::render(const TagLib::String& s) const
 #endif
 }
 
+#if TAGLIB_VERSION >= 0x010a00
+void setChaptersFrameFields(Frame& frame,
+                            const QString& description = QString(),
+                            const QVariantList& data = QVariantList())
+{
+  frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
+                                            QLatin1String("Chapters")));
+  frame.setValue(QString());
+
+  Frame::Field field;
+  Frame::FieldList& fields = frame.fieldList();
+  fields.clear();
+
+  field.m_id = Frame::ID_TimestampFormat;
+  field.m_value = 2; // milliseconds
+  fields.append(field);
+
+  field.m_id = Frame::ID_ContentType;
+  field.m_value = 0; // other
+  fields.append(field);
+
+  field.m_id = Frame::ID_Description;
+  field.m_value = description;
+  fields.append(field);
+
+  field.m_id = Frame::ID_Data;
+  field.m_value = data;
+  fields.append(field);
+}
+
+bool ctocChapToChaptersFrame(const TagLib::ID3v2::Frame* ctocFrame,
+                             const TagLib::ID3v2::FrameList& chapFrames,
+                             Frame& frame)
+{
+  if (auto ctoc = dynamic_cast<const TagLib::ID3v2::TableOfContentsFrame*>(
+        ctocFrame); ctoc && ctoc->isTopLevel()) {
+    QMap<TagLib::ByteVector,
+         std::tuple<unsigned int, unsigned int, TagLib::String>> chapters;
+    for (const auto& id3v2Frame : chapFrames) {
+      if (auto chap = dynamic_cast<TagLib::ID3v2::ChapterFrame*>(id3v2Frame)) {
+        TagLib::ByteVector elementId = chap->elementID();
+        unsigned int startTime = chap->startTime();
+        unsigned int endTime = chap->endTime();
+        TagLib::String title;
+        const auto& titleFrames = chap->embeddedFrameList("TIT2");
+        if (!titleFrames.isEmpty()) {
+          title = titleFrames.front()->toString();
+        }
+        chapters.insert(elementId, {startTime, endTime, title});
+      }
+    }
+
+    QVariantList data;
+    quint32 time = 0;
+    const auto tocElements = ctoc->childElements();
+    for (const auto& tocElement : tocElements) {
+      auto it = chapters.constFind(tocElement);
+      if (it != chapters.constEnd()) {
+        const auto& [ startTime, endTime, title ] = *it;
+        data.append(startTime);
+        data.append(toQString(title));
+        time = endTime;
+      }
+    }
+    data.append(time);
+    data.append(QString());
+
+    TagLib::String tocTitle;
+    const auto& tocTitleFrames = ctoc->embeddedFrameList("TIT2");
+    if (!tocTitleFrames.isEmpty()) {
+      tocTitle = tocTitleFrames.front()->toString();
+    }
+
+    setChaptersFrameFields(frame, toQString(tocTitle), data);
+    return true;
+  }
+  return false;
+}
+
+void chaptersFrameToCtocChap(const Frame& frame, TagLib::ID3v2::Tag* id3v2Tag)
+{
+  QVariantList data = Frame::getField(frame, Frame::ID_Data).toList();
+  int dataLen = data.size();
+  if (dataLen >= 2) {
+    quint32 lastTime = data.at(dataLen - 2).toUInt();
+    QString lastTitle = data.at(dataLen - 1).toString();
+    if (!lastTitle.trimmed().isEmpty()) {
+      data.append(lastTime);
+      data.append(QString());
+      dataLen += 2;
+    }
+  }
+  if (dataLen > 2 && (dataLen & 1) == 0) {
+    int chapterCount = (dataLen - 2) / 2;
+
+    TagLib::ID3v2::TableOfContentsFrame* ctocFrame = nullptr;
+    const auto ctocFrames = id3v2Tag->frameList("CTOC");
+    for (auto id3v2Frame : ctocFrames) {
+      if (auto ctoc = dynamic_cast<TagLib::ID3v2::TableOfContentsFrame*>(
+            id3v2Frame); ctoc && ctoc->isTopLevel()) {
+        ctocFrame = ctoc;
+        break;
+      }
+    }
+    if (!ctocFrame) {
+      ctocFrame = new TagLib::ID3v2::TableOfContentsFrame("toc01");
+      ctocFrame->setIsTopLevel(true);
+      id3v2Tag->addFrame(ctocFrame);
+    }
+    TagLib::ByteVectorList elementIds;
+    for (int i = 1; i <= chapterCount; ++i) {
+      auto chapId = QString(QLatin1String("chp%1"))
+                    .arg(i, 2, 10, QLatin1Char('0'))
+                    .toLatin1();
+      elementIds.append(TagLib::ByteVector(chapId.data(), chapId.size()));
+    }
+    ctocFrame->setChildElements(elementIds);
+
+    auto description = toTString(Frame::getField(frame, Frame::ID_Description)
+                                 .toString());
+    if (auto ctocTitleFrames = ctocFrame->embeddedFrameList("TIT2");
+        !ctocTitleFrames.isEmpty()) {
+      ctocTitleFrames.front()->setText(description);
+    } else if (!description.isEmpty()) {
+      auto tit2Frame = new TagLib::ID3v2::TextIdentificationFrame(
+                         "TIT2", TagLib::String::UTF16);
+      tit2Frame->setText(description);
+      ctocFrame->addEmbeddedFrame(tit2Frame);
+    }
+
+    const auto ctocs = id3v2Tag->frameList("CTOC");
+    for (auto it = ctocs.begin(); it != ctocs.end(); ++it) {
+      if (*it != ctocFrame) {
+        id3v2Tag->removeFrame(*it, true);
+      }
+    }
+
+    int numChapFramesToAdd = chapterCount - id3v2Tag->frameList("CHAP").size();
+    while (numChapFramesToAdd-- > 0) {
+      id3v2Tag->addFrame(new TagLib::ID3v2::ChapterFrame(
+                           " ", 0, 0, 0xFFFFFFFF, 0xFFFFFFFF));
+    }
+    const auto chaps = id3v2Tag->frameList("CHAP");
+    for (auto it = std::next(chaps.begin(), chapterCount);
+         it != chaps.end();
+         ++it) {
+      id3v2Tag->removeFrame(*it, true);
+    }
+
+    QList<TagLib::ID3v2::ChapterFrame*> chapFrames;
+    chapFrames.reserve(chapterCount);
+    QList<TagLib::String> chapTitles;
+    chapTitles.reserve(chapterCount);
+    QList<TagLib::ByteVector> chapIds;
+    chapIds.reserve(chapterCount);
+    for (auto id3v2Frame : id3v2Tag->frameList("CHAP")) {
+      if (auto chap = dynamic_cast<TagLib::ID3v2::ChapterFrame*>(id3v2Frame)) {
+        TagLib::String chapTitle;
+        if (auto chapTitleFrames = chap->embeddedFrameList("TIT2");
+            !chapTitleFrames.isEmpty()) {
+          chapTitle = chapTitleFrames.front()->toString();
+        } else {
+          chap->addEmbeddedFrame(new TagLib::ID3v2::TextIdentificationFrame(
+                                   "TIT2", TagLib::String::UTF16));
+        }
+        chapFrames.append(chap);
+        chapTitles.append(chapTitle);
+        chapIds.append(chap->elementID());
+      }
+    }
+
+    TagLib::ID3v2::ChapterFrame* lastChapFrame = nullptr;
+    int i = 0;
+    QListIterator<QVariant> it(data);
+    while (it.hasNext()) {
+      unsigned int time = it.next().toUInt();
+      if (lastChapFrame) {
+        lastChapFrame->setEndTime(time);
+        lastChapFrame->setEndOffset(0xFFFFFFFF);
+      }
+      if (!it.hasNext() || chapFrames.isEmpty()) {
+        break;
+      }
+
+      if (i < chapterCount) {
+        TagLib::String chapterTitle = toTString(it.next().toString().trimmed());
+        int idx = chapTitles.indexOf(chapterTitle);
+        if (idx == -1) {
+          idx = chapIds.indexOf(elementIds[i]);
+          if (idx == -1) {
+            idx = 0;
+          }
+        }
+        chapTitles.removeAt(idx);
+        chapIds.removeAt(idx);
+        TagLib::ID3v2::ChapterFrame* chapFrame = chapFrames.takeAt(idx);
+        chapFrame->setElementID(elementIds[i]);
+        chapFrame->setStartTime(time);
+        chapFrame->setStartOffset(0xFFFFFFFF);
+        chapFrame->embeddedFrameList("TIT2").front()->setText(chapterTitle);
+        lastChapFrame = chapFrame;
+      } else {
+        lastChapFrame = nullptr;
+      }
+      ++i;
+    }
+  }
+#endif
+
+}
+
 }
 
 /** Default text encoding */
@@ -985,8 +1196,8 @@ void TagLibFile::clearTags(bool force)
 
   bool priorIsTagInformationRead = isTagInformationRead();
   closeFile(true);
-  m_pictures.clear();
-  m_pictures.setRead(false);
+  m_extraFrames.clear();
+  m_extraFrames.setRead(false);
   m_tagInformationRead = false;
   FOR_TAGLIB_TAGS(tagNr) {
     m_hasTag[tagNr] = false;
@@ -1021,8 +1232,8 @@ void TagLibFile::readTags(bool force)
     }
     m_fileRead = true;
 
-    m_pictures.clear();
-    m_pictures.setRead(false);
+    m_extraFrames.clear();
+    m_extraFrames.setRead(false);
   }
 
   if (TagLib::File* file;
@@ -1046,6 +1257,22 @@ void TagLibFile::readTags(bool force)
         setId3v2VersionFromTag(id3v2Tag);
         m_tag[Frame::Tag_2] = id3v2Tag;
         markTagUnchanged(Frame::Tag_2);
+#if TAGLIB_VERSION >= 0x010a00
+        if (!m_extraFrames.isRead()) {
+          const auto ctocFrames = id3v2Tag->frameList("CTOC");
+          int i = 0;
+          for (auto ctocFrame : ctocFrames) {
+            Frame frame;
+            if (ctocChapToChaptersFrame(
+                  ctocFrame, id3v2Tag->frameList("CHAP"), frame)) {
+              frame.setIndex(Frame::toNegativeIndex(i++));
+              m_extraFrames.append(frame);
+              break;
+            }
+          }
+          m_extraFrames.setRead(true);
+        }
+#endif
       }
       if (!m_tag[Frame::Tag_3]) {
         m_tag[Frame::Tag_3] = mpegFile->APETag();
@@ -1068,16 +1295,16 @@ void TagLibFile::readTags(bool force)
         m_tag[Frame::Tag_3] = flacFile->ID3v2Tag();
         markTagUnchanged(Frame::Tag_3);
       }
-      if (!m_pictures.isRead()) {
+      if (!m_extraFrames.isRead()) {
         const TagLib::List pics(flacFile->pictureList());
         int i = 0;
         for (auto it = pics.begin(); it != pics.end(); ++it) {
           PictureFrame frame;
           flacPictureToFrame(*it, frame);
           frame.setIndex(Frame::toNegativeIndex(i++));
-          m_pictures.append(frame);
+          m_extraFrames.append(frame);
         }
-        m_pictures.setRead(true);
+        m_extraFrames.setRead(true);
       }
 #if TAGLIB_VERSION >= 0x010b00
     } else if (TagLib::MPC::File* mpcFile;
@@ -1222,7 +1449,7 @@ void TagLibFile::readTags(bool force)
         m_tag[Frame::Tag_2] = m_fileRef.tag();
         markTagUnchanged(Frame::Tag_2);
       }
-      if (!m_pictures.isRead()) {
+      if (!m_extraFrames.isRead()) {
 #if TAGLIB_VERSION >= 0x010b00
         if (auto xiphComment =
             dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[Frame::Tag_2])) {
@@ -1232,9 +1459,9 @@ void TagLibFile::readTags(bool force)
             PictureFrame frame;
             flacPictureToFrame(*it, frame);
             frame.setIndex(Frame::toNegativeIndex(i++));
-            m_pictures.append(frame);
+            m_extraFrames.append(frame);
           }
-          m_pictures.setRead(true);
+          m_extraFrames.setRead(true);
         } else
 #endif
         if (auto mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[Frame::Tag_2])) {
@@ -1277,9 +1504,9 @@ void TagLibFile::readTags(bool force)
             frame.setIndex(Frame::toNegativeIndex(i++));
             frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture,
                                                       QLatin1String("covr")));
-            m_pictures.append(frame);
+            m_extraFrames.append(frame);
           }
-          m_pictures.setRead(true);
+          m_extraFrames.setRead(true);
         }
       }
     }
@@ -1548,7 +1775,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
           }
 #endif
           flacFile->removePictures();
-          const auto frames = m_pictures;
+          const auto frames = m_extraFrames;
           for (const Frame& frame : frames) {
             auto pic = new TagLib::FLAC::Picture;
             frameToFlacPicture(frame, pic);
@@ -1646,7 +1873,7 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
         else if (auto xiphComment =
                  dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[Frame::Tag_2])) {
           xiphComment->removeAllPictures();
-          const auto frames = m_pictures;
+          const auto frames = m_extraFrames;
           for (const Frame& frame : frames) {
             auto pic = new TagLib::FLAC::Picture;
             frameToFlacPicture(frame, pic);
@@ -1656,9 +1883,9 @@ bool TagLibFile::writeTags(bool force, bool* renamed, bool preserve,
 #endif
         else if (auto mp4Tag =
                  dynamic_cast<TagLib::MP4::Tag*>(m_tag[Frame::Tag_2])) {
-          if (!m_pictures.isEmpty()) {
+          if (!m_extraFrames.isEmpty()) {
             TagLib::MP4::CoverArtList coverArtList;
-            const auto frames = m_pictures;
+            const auto frames = m_extraFrames;
             for (const Frame& frame : frames) {
               QByteArray ba;
               TagLib::MP4::CoverArt::Format format = TagLib::MP4::CoverArt::JPEG;
@@ -5382,6 +5609,17 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
     if (int index = frame.getIndex(); index != -1 && m_tag[tagNr]) {
       if (TagLib::ID3v2::Tag* id3v2Tag;
           (id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr])) != nullptr) {
+#if TAGLIB_VERSION >= 0x010a00
+        if (frame.getType() == Frame::FT_Other &&
+            frame.getName() == QLatin1String("Chapters") &&
+            !m_extraFrames.isEmpty() &&
+            m_extraFrames.front().getName() == QLatin1String("Chapters")) {
+          chaptersFrameToCtocChap(frame, id3v2Tag);
+          m_extraFrames.front() = frame;
+          markTagChanged(tagNr, frame.getExtendedType());
+          return true;
+        } else
+#endif
         if (const TagLib::ID3v2::FrameList& frameList = id3v2Tag->frameList();
             index >= 0 && index < static_cast<int>(frameList.size())) {
           // This is a hack. The frameList should not be modified directly.
@@ -5389,6 +5627,22 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
           // the indices of all frames get invalid.
           setId3v2Frame(this, frameList[index], frame);
           markTagChanged(tagNr, frame.getExtendedType());
+#if TAGLIB_VERSION >= 0x010a00
+          // Update the pseudo Chapters frame if CHAP or CTOC frame is modified.
+          if (frame.getType() == Frame::FT_Other &&
+              (frame.getName().startsWith(QLatin1String("CHAP")) ||
+               frame.getName().startsWith(QLatin1String("CTOC"))) &&
+              !m_extraFrames.isEmpty() &&
+              m_extraFrames.front().getName() == QLatin1String("Chapters")) {
+            const auto ctocFrames = id3v2Tag->frameList("CTOC");
+            for (auto ctocFrame : ctocFrames) {
+              if (ctocChapToChaptersFrame(
+                    ctocFrame, id3v2Tag->frameList("CHAP"), m_extraFrames.front())) {
+                break;
+              }
+            }
+          }
+#endif
           return true;
         }
       } else if (TagLib::Ogg::XiphComment* oggTag;
@@ -5396,15 +5650,15 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
         QString frameValue(frame.getValue());
         if (Frame::ExtendedType extendedType = frame.getExtendedType();
             extendedType.getType() == Frame::FT_Picture) {
-          if (m_pictures.isRead()) {
+          if (m_extraFrames.isRead()) {
             if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-                idx >= 0 && idx < m_pictures.size()) {
+                idx >= 0 && idx < m_extraFrames.size()) {
               Frame newFrame(frame);
               PictureFrame::setDescription(newFrame, frameValue);
-              if (PictureFrame::areFieldsEqual(m_pictures[idx], newFrame)) {
-                m_pictures[idx].setValueChanged(false);
+              if (PictureFrame::areFieldsEqual(m_extraFrames[idx], newFrame)) {
+                m_extraFrames[idx].setValueChanged(false);
               } else {
-                m_pictures[idx] = newFrame;
+                m_extraFrames[idx] = newFrame;
                 markTagChanged(tagNr, extendedType);
               }
               return true;
@@ -5487,14 +5741,14 @@ bool TagLibFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
                  (mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
         if (Frame::ExtendedType extendedType = frame.getExtendedType();
             extendedType.getType() == Frame::FT_Picture) {
-          if (m_pictures.isRead()) {
+          if (m_extraFrames.isRead()) {
             if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-                idx >= 0 && idx < m_pictures.size()) {
+                idx >= 0 && idx < m_extraFrames.size()) {
               if (Frame newFrame(frame);
-                  PictureFrame::areFieldsEqual(m_pictures[idx], newFrame)) {
-                m_pictures[idx].setValueChanged(false);
+                  PictureFrame::areFieldsEqual(m_extraFrames[idx], newFrame)) {
+                m_extraFrames[idx].setValueChanged(false);
               } else {
-                m_pictures[idx] = newFrame;
+                m_extraFrames[idx] = newFrame;
                 markTagChanged(tagNr, extendedType);
               }
               return true;
@@ -5997,6 +6251,19 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
     if (makeTagSettable(tagNr)) {
       if (TagLib::ID3v2::Tag* id3v2Tag;
           (id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(m_tag[tagNr])) != nullptr) {
+#if TAGLIB_VERSION >= 0x010a00
+        if (frame.getType() == Frame::FT_Other &&
+            frame.getName() == QLatin1String("Chapters") &&
+            m_extraFrames.isRead()) {
+          if (frame.getFieldList().empty()) {
+            setChaptersFrameFields(frame);
+          }
+          frame.setIndex(Frame::toNegativeIndex(m_extraFrames.size()));
+          m_extraFrames.append(frame);
+          markTagChanged(tagNr, frame.getExtendedType());
+          return true;
+        } else
+#endif
         if (TagLib::ID3v2::Frame* id3Frame = createId3FrameFromFrame(this, frame)) {
           if (frame.fieldList().empty()) {
             // add field list to frame
@@ -6028,10 +6295,10 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
               frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
               PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
           }
-          if (m_pictures.isRead()) {
+          if (m_extraFrames.isRead()) {
             PictureFrame::setDescription(frame, value);
-            frame.setIndex(Frame::toNegativeIndex(m_pictures.size()));
-            m_pictures.append(frame);
+            frame.setIndex(Frame::toNegativeIndex(m_extraFrames.size()));
+            m_extraFrames.append(frame);
             markTagChanged(tagNr, frame.getExtendedType());
             return true;
           }
@@ -6115,9 +6382,9 @@ bool TagLibFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
           if (frame.getFieldList().empty()) {
             PictureFrame::setFields(frame);
           }
-          if (m_pictures.isRead()) {
-            frame.setIndex(Frame::toNegativeIndex(m_pictures.size()));
-            m_pictures.append(frame);
+          if (m_extraFrames.isRead()) {
+            frame.setIndex(Frame::toNegativeIndex(m_extraFrames.size()));
+            m_extraFrames.append(frame);
             markTagChanged(tagNr, frame.getExtendedType());
             return true;
           }
@@ -6250,12 +6517,12 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
                  (oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) != nullptr) {
         QString frameValue(frame.getValue());
         if (frame.getType() == Frame::FT_Picture) {
-          if (m_pictures.isRead()) {
+          if (m_extraFrames.isRead()) {
             if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-                idx >= 0 && idx < m_pictures.size()) {
-              m_pictures.removeAt(idx);
-              while (idx < m_pictures.size()) {
-                m_pictures[idx].setIndex(Frame::toNegativeIndex(idx));
+                idx >= 0 && idx < m_extraFrames.size()) {
+              m_extraFrames.removeAt(idx);
+              while (idx < m_extraFrames.size()) {
+                m_extraFrames[idx].setIndex(Frame::toNegativeIndex(idx));
                 ++idx;
               }
               markTagChanged(tagNr, frame.getExtendedType());
@@ -6283,12 +6550,12 @@ bool TagLibFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
       } else if (TagLib::MP4::Tag* mp4Tag;
                  (mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(m_tag[tagNr])) != nullptr) {
         if (frame.getType() == Frame::FT_Picture) {
-          if (m_pictures.isRead()) {
+          if (m_extraFrames.isRead()) {
             if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-                idx >= 0 && idx < m_pictures.size()) {
-              m_pictures.removeAt(idx);
-              while (idx < m_pictures.size()) {
-                m_pictures[idx].setIndex(Frame::toNegativeIndex(idx));
+                idx >= 0 && idx < m_extraFrames.size()) {
+              m_extraFrames.removeAt(idx);
+              while (idx < m_extraFrames.size()) {
+                m_extraFrames[idx].setIndex(Frame::toNegativeIndex(idx));
                 ++idx;
               }
               markTagChanged(tagNr, frame.getExtendedType());
@@ -6455,6 +6722,9 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
                it != frameList.end();) {
             id3v2Tag->removeFrame(*it++, true);
           }
+#if TAGLIB_VERSION >= 0x010a00
+          m_extraFrames.clear();
+#endif
           markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) !=
                    nullptr) {
@@ -6467,7 +6737,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
             oggTag->removeField((it++)->first);
 #endif
           }
-          m_pictures.clear();
+          m_extraFrames.clear();
           markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != nullptr) {
           const TagLib::APE::ItemListMap& itemListMap = apeTag->itemListMap();
@@ -6485,7 +6755,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
 #else
           mp4Tag->itemListMap().clear();
 #endif
-          m_pictures.clear();
+          m_extraFrames.clear();
           markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tag[tagNr])) != nullptr) {
           asfTag->setTitle("");
@@ -6537,7 +6807,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
             }
           }
           if (flt.isEnabled(Frame::FT_Picture)) {
-            m_pictures.clear();
+            m_extraFrames.clear();
           }
           markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((apeTag = dynamic_cast<TagLib::APE::Tag*>(m_tag[tagNr])) != nullptr) {
@@ -6584,7 +6854,7 @@ void TagLibFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
           }
 #endif
           if (flt.isEnabled(Frame::FT_Picture)) {
-            m_pictures.clear();
+            m_extraFrames.clear();
           }
           markTagChanged(tagNr, Frame::ExtendedType());
         } else if ((asfTag = dynamic_cast<TagLib::ASF::Tag*>(m_tag[tagNr])) != nullptr) {
@@ -6667,6 +6937,13 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
           }
           frames.insert(frame);
         }
+#if TAGLIB_VERSION >= 0x010a00
+        if (m_extraFrames.isRead()) {
+          for (auto it = m_extraFrames.constBegin(); it != m_extraFrames.constEnd(); ++it) {
+            frames.insert(*it);
+          }
+        }
+#endif
       } else if (TagLib::Ogg::XiphComment* oggTag;
                  (oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(m_tag[tagNr])) != nullptr) {
         const TagLib::Ogg::FieldListMap& fieldListMap = oggTag->fieldListMap();
@@ -6695,8 +6972,8 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
             }
           }
         }
-        if (m_pictures.isRead()) {
-          for (auto it = m_pictures.constBegin(); it != m_pictures.constEnd(); ++it) {
+        if (m_extraFrames.isRead()) {
+          for (auto it = m_extraFrames.constBegin(); it != m_extraFrames.constEnd(); ++it) {
             frames.insert(*it);
           }
         }
@@ -6765,7 +7042,7 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
               break;
             }
             case MVT_CoverArt:
-              // handled by m_pictures
+              // handled by m_extraFrames
               break;
             case MVT_Byte:
               value.setNum(it->second.toByte());
@@ -6786,8 +7063,8 @@ void TagLibFile::getAllFrames(Frame::TagNumber tagNr, FrameCollection& frames)
               Frame(type, value, toQString(name), i++));
           }
         }
-        if (m_pictures.isRead()) {
-          for (auto it = m_pictures.constBegin(); it != m_pictures.constEnd(); ++it) {
+        if (m_extraFrames.isRead()) {
+          for (auto it = m_extraFrames.constBegin(); it != m_extraFrames.constEnd(); ++it) {
             frames.insert(*it);
           }
         }
@@ -6951,6 +7228,9 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
         lst.append(QString::fromLatin1(str));
       }
     }
+#if TAGLIB_VERSION >= 0x010a00
+    lst.append(QLatin1String("Chapters"));
+#endif
   } else if (m_tagType[tagNr] == TT_Mp4) {
     Mp4ValueType valueType;
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
@@ -7033,7 +7313,7 @@ QStringList TagLibFile::getFrameIds(Frame::TagNumber tagNr) const
       "VERSION",
       "VOLUME"
     };
-    const bool picturesSupported = m_pictures.isRead() ||
+    const bool picturesSupported = m_extraFrames.isRead() ||
         m_tagType[tagNr] == TT_Vorbis || m_tagType[tagNr] == TT_Ape;
     for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
       if (k != Frame::FT_Picture || picturesSupported) {

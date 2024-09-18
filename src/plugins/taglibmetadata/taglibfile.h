@@ -423,9 +423,9 @@ private:
   QString m_fileExtension;
   DetailInfo m_detailInfo;
 
-  class Pictures : public QList<Frame> {
+  class ExtraFrames : public QList<Frame> {
   public:
-    Pictures() : m_read(false) {}
+    ExtraFrames() : m_read(false) {}
     bool isRead() const { return m_read; }
     void setRead(bool read) { m_read = read; }
 
@@ -433,7 +433,7 @@ private:
     bool m_read;
   };
 
-  Pictures m_pictures;
+  ExtraFrames m_extraFrames;
 
   /** default text encoding */
   static TagLib::String::Type s_defaultTextEncoding;
