@@ -5,9 +5,12 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
 
   find_package(TagLib REQUIRED)
   if(TagLib_DIR)
-    # The exported TagLib configuration requests a transitive ZLIB::ZLIB
-    # imported target.
-    find_package("ZLIB")
+    get_target_property(taglib_INTERFACE_LINK_LIBRARIES TagLib::TagLib INTERFACE_LINK_LIBRARIES)
+    if(taglib_INTERFACE_LINK_LIBRARIES STREQUAL "ZLIB::ZLIB")
+      # The exported TagLib configuration requests a transitive ZLIB::ZLIB
+      # imported target.
+      find_package(ZLIB)
+    endif()
     message(STATUS "Found TagLib ${TAGLIB_VERSION}: ${TagLib_DIR}")
   endif()
 
