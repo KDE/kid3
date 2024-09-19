@@ -182,7 +182,8 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
       m_cgiLabel->hide();
       m_cgiLineEdit->hide();
     }
-    if (qstrcmp(m_source->name(), "Discogs") == 0) {
+    if (qstrcmp(m_source->name(), "Discogs") == 0 ||
+        qstrcmp(m_source->name(), "gnudb.org") == 0) {
       m_tokenLabel->show();
       m_tokenLineEdit->show();
     } else {

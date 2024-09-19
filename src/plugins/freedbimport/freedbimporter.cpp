@@ -36,6 +36,22 @@ namespace {
 
 constexpr char gnudbServer[] = "www.gnudb.org:80";
 
+void setUserEmail(const ServerImporterConfig* cfg,
+                  QMap<QByteArray, QByteArray>& headers, QString& nameHost)
+{
+  if (cfg) {
+    if (QByteArray token = cfg->property("token").toByteArray();
+        token.contains('@')) {
+      headers["User-Email"] = token;
+      nameHost = QString::fromLatin1(token);
+      nameHost.replace('@', '+');
+    } else {
+      headers.remove("User-Email");
+      nameHost = QLatin1String("noname+localhost");
+    }
+  }
+}
+
 }
 
 /**
@@ -61,26 +77,14 @@ const char* FreedbImporter::name() const { return QT_TRANSLATE_NOOP("@default", 
 const char** FreedbImporter::serverList() const
 {
   static const char* servers[] = {
-    "www.gnudb.org:80",
     "gnudb.gnudb.org:80",
-    "freedb.org:80",
-    "freedb.freedb.org:80",
-    "at.freedb.org:80",
-    "au.freedb.org:80",
-    "ca.freedb.org:80",
-    "es.freedb.org:80",
-    "fi.freedb.org:80",
-    "lu.freedb.org:80",
-    "ru.freedb.org:80",
-    "uk.freedb.org:80",
-    "us.freedb.org:80",
     nullptr      // end of StrList
   };
   return servers;
 }
 
 /** default server, 0 to disable */
-const char* FreedbImporter::defaultServer() const { return "www.gnudb.org:80"; }
+const char* FreedbImporter::defaultServer() const { return "gnudb.gnudb.org:80"; }
 
 /** default CGI path, 0 to disable */
 const char* FreedbImporter::defaultCgiPath() const { return "/~cddb/cddb.cgi"; }
@@ -99,40 +103,28 @@ ServerImporterConfig* FreedbImporter::config() const { return &FreedbConfig::ins
 void FreedbImporter::parseFindResults(const QByteArray& searchStr)
 {
 /*
-<h2>Search Results, 1 albums found:</h2>
-<br><br>
-<a href="http://www.gnudb.org/cd/ro920b810c"><b>Catharsis / Imago</b></a><br>
-Tracks: 12, total time: 49:07, year: 2002, genre: Metal<br>
-<a href="http://www.gnudb.org/gnudb/rock/920b810c" target=_blank>Discid: rock / 920b810c</a><br>
+200 Found 1 matches, list follows (until terminating `.')\r\ndata 920b8189 Catharsis / Imago\r\n.\r\n
+  or
+202 No match found.\r\n
 */
-  bool isUtf8 = false;
-if (int charSetPos = searchStr.indexOf("charset="); charSetPos != -1) {
-    charSetPos += 8;
-    QByteArray charset(searchStr.mid(charSetPos, 5));
-    isUtf8 = charset == "utf-8" || charset == "UTF-8";
-  }
-  QString str = isUtf8 ? QString::fromUtf8(searchStr)
-                       : QString::fromLatin1(searchStr);
-  QRegularExpression titleRe(QLatin1String(R"(<a href="[^"]+/cd/[^"]+"><b>([^<]+)</b></a>)"));
-  QRegularExpression catIdRe(QLatin1String("Discid: ([a-z]+)[\\s/]+([0-9a-f]+)"));
+  QString str = QString::fromUtf8(searchStr);
+  QRegularExpression catIdTitleRe(QLatin1String(R"(^([a-z]+)\s+([0-9a-f]+)\s+(.*)$)"));
   QStringList lines = str.split(QRegularExpression(QLatin1String("[\\r\\n]+")));
-  QString title;
   bool inEntries = false;
   m_albumListModel->clear();
   for (auto it = lines.constBegin(); it != lines.constEnd(); ++it) {
     if (inEntries) {
-      auto match = titleRe.match(*it);
-      if (match.hasMatch()) {
-        title = match.captured(1);
+      if (*it == QLatin1String(".")) {
+        break;
       }
-      match = catIdRe.match(*it);
+      auto match = catIdTitleRe.match(*it);
       if (match.hasMatch()) {
         m_albumListModel->appendItem(
-          title,
+          match.captured(3),
           match.captured(1),
           match.captured(2));
       }
-    } else if (it->indexOf(QLatin1String(" albums found:")) != -1) {
+    } else if (it->startsWith(QLatin1String("200 Found"))) {
       inEntries = true;
     }
   }
@@ -233,6 +225,16 @@ void parseFreedbAlbumData(const QString& text, FrameCollection& frames)
   if (match.hasMatch()) {
     frames.setGenre(QString::fromLatin1(Genres::getName(match.captured(1).toInt())));
   }
+  fdre.setPattern(QLatin1String(R"(DYEAR=(\d+))"));
+  match = fdre.match(text);
+  if (match.hasMatch()) {
+    frames.setYear(match.captured(1).toInt());
+  }
+  fdre.setPattern(QLatin1String(R"(DGENRE=([^\r\n]+))"));
+  match = fdre.match(text);
+  if (match.hasMatch()) {
+    frames.setGenre(match.captured(1));
+  }
 }
 
 }
@@ -314,46 +316,34 @@ void FreedbImporter::parseAlbumResults(const QByteArray& albumStr)
 /**
  * Send a query command in to search on the server.
  *
+ * @param cfg      import source configuration
  * @param artist   artist to search
  * @param album    album to search
  */
 void FreedbImporter::sendFindQuery(
-  const ServerImporterConfig*,
+  const ServerImporterConfig* cfg,
   const QString& artist, const QString& album)
 {
   // If an URL is entered in the first search field, its result will be directly
   // available in the album results list.
-  if (artist.startsWith(QLatin1String("https://gnudb.org/"))) {
-    constexpr int catBegin = 18;
-    if (int catEnd = artist.indexOf(QLatin1Char('/'), catBegin);
-        catEnd > catBegin) {
-      static QStringList categories({
-        QLatin1String("blues"),
-        QLatin1String("classical"),
-        QLatin1String("country"),
-        QLatin1String("data"),
-        QLatin1String("folk"),
-        QLatin1String("jazz"),
-        QLatin1String("newage"),
-        QLatin1String("reggae"),
-        QLatin1String("rock"),
-        QLatin1String("soundtrack"),
-        QLatin1String("misc")
-      });
-      QString id = artist.mid(catEnd + 1);
-      for (const auto& category : categories) {
-        if (id.startsWith(category.mid(0, 2))) {
-          m_albumListModel->clear();
-          m_albumListModel->appendItem(artist, category, id.mid(2));
-          return;
-        }
-      }
-    }
+  QRegularExpression gnudbUrlRe(QLatin1String(R"(^https://gnudb.org/([a-z]+)/([0-9a-f]+)$)"));
+  auto match = gnudbUrlRe.match(artist);
+  if (match.hasMatch()) {
+    m_albumListModel->clear();
+    m_albumListModel->appendItem(artist, match.captured(1), match.captured(2));
+    return;
   }
-  // At the moment, only www.gnudb.org has a working search
-  // so we always use this server for find queries.
-  sendRequest(QString::fromLatin1(gnudbServer), QLatin1String("/search/") +
-              encodeUrlQuery(artist + QLatin1Char(' ') + album));
+
+  QMap<QByteArray, QByteArray> headers;
+  QString nameHost;
+  setUserEmail(cfg, headers, nameHost);
+  sendRequest(cfg->server(),
+              cfg->cgiPath() + QLatin1String("?cmd=search&artist=") +
+              encodeUrlQuery(artist) + QLatin1String("&album=") +
+              encodeUrlQuery(album) +
+              QLatin1String("&hello=") + nameHost +
+              QLatin1String("+Kid3+" VERSION "&proto=6"),
+              QLatin1String("http"), headers);
 }
 
 /**
@@ -367,7 +357,12 @@ void FreedbImporter::sendFindQuery(
 void FreedbImporter::sendTrackListQuery(
   const ServerImporterConfig* cfg, const QString& cat, const QString& id)
 {
+  QMap<QByteArray, QByteArray> headers;
+  QString nameHost;
+  setUserEmail(cfg, headers, nameHost);
   sendRequest(cfg->server(),
               cfg->cgiPath() + QLatin1String("?cmd=cddb+read+") + cat + QLatin1Char('+') + id +
-              QLatin1String("&hello=noname+localhost+Kid3+" VERSION "&proto=6"));
+              QLatin1String("&hello=") + nameHost +
+              QLatin1String("+Kid3+" VERSION "&proto=6"),
+              QLatin1String("http"), headers);
 }
