@@ -1100,9 +1100,8 @@ void chaptersFrameToCtocChap(const Frame& frame, TagLib::ID3v2::Tag* id3v2Tag)
       ++i;
     }
   }
-#endif
-
 }
+#endif
 
 }
 

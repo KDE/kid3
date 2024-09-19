@@ -34,8 +34,6 @@
 
 namespace {
 
-constexpr char gnudbServer[] = "www.gnudb.org:80";
-
 void setUserEmail(const ServerImporterConfig* cfg,
                   QMap<QByteArray, QByteArray>& headers, QString& nameHost)
 {
@@ -44,7 +42,7 @@ void setUserEmail(const ServerImporterConfig* cfg,
         token.contains('@')) {
       headers["User-Email"] = token;
       nameHost = QString::fromLatin1(token);
-      nameHost.replace('@', '+');
+      nameHost.replace(QLatin1Char('@'), QLatin1Char('+'));
     } else {
       headers.remove("User-Email");
       nameHost = QLatin1String("noname+localhost");

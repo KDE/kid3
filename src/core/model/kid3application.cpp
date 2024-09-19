@@ -1423,8 +1423,7 @@ bool Kid3Application::writePlaylist(const PlaylistConfig& cfg)
 {
   PlaylistCreator plCtr(getDirPath(), cfg);
   QItemSelectionModel* selectModel = getFileSelectionModel();
-  bool noSelection = !cfg.onlySelectedFiles() || !selectModel ||
-                     !selectModel->hasSelection();
+  bool noSelection = !cfg.onlySelectedFiles() || !selectModel->hasSelection();
   bool ok = true;
   QModelIndex rootIndex;
 

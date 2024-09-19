@@ -519,7 +519,6 @@ void Kid3Cli::writeFileInformation(int tagMask)
 void Kid3Cli::writeTagMask()
 {
   QVariantList tags;
-  QString tagStr;
   FOR_TAGS_IN_MASK(tagNr, m_tagMask) {
     tags.append(tagNr + 1);
   }
