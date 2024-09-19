@@ -2,12 +2,22 @@ Sat Sep 21 08:03:29 CEST 2024  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.9.6
 
+	* New:
+	  + Show preview for multiple embedded pictures.
+	  + Simplified editing of MP3 audiobooks in a "Chapters" frame edit dialog.
+	  + Arabic, Esperanto, Galician and Georgian translations.
+
 	* Improved:
 	  + macOS: Building, signing and notarizing packages.
 
 	* Fixed:
 	  + Embed lyrics action.
+	  + gnudb.org import, a registered e-mail address can be set in the
+	    "Token" UI control.
 	  + KDE 6: Install directory for kid3ui.rc.
+	  + Android: Building with arm64-v8a and x86_64 architectures.
+	  + Android: Use MANAGE_EXTERNAL_STORAGE permission to manage all files
+	    on a storage device.
 	  + Android: Saving picture tags.
 	  + Haiku: Installation paths.
 

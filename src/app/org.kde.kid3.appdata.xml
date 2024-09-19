@@ -297,7 +297,30 @@
   <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
   <translation type="gettext">kid3</translation>
   <releases>
-    <release version="3.9.6" date="2024-09-21"/>
+    <release version="3.9.6" date="2024-09-21">
+      <description>
+        <p>New</p>
+        <ul>
+          <li>Show preview for multiple embedded pictures.</li>
+          <li>Simplified editing of MP3 audiobooks in a "Chapters" frame edit dialog.</li>
+          <li>Arabic, Esperanto, Galician and Georgian translations.</li>
+        </ul>
+        <p>Improved</p>
+        <ul>
+          <li>macOS: Building, signing and notarizing packages.</li>
+        </ul>
+        <p>Fixed</p>
+        <ul>
+          <li>Embed lyrics action.</li>
+          <li>gnudb.org import, a registered e-mail address can be set in the "Token" UI control.</li>
+          <li>KDE 6: Install directory for kid3ui.rc.</li>
+          <li>Android: Building with arm64-v8a and x86_64 architectures.</li>
+          <li>Android: Use MANAGE_EXTERNAL_STORAGE permission to manage all files on a storage device.</li>
+          <li>Android: Saving picture tags.</li>
+          <li>Haiku: Installation paths.</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.9.5" date="2024-02-24">
       <description>
         <p>New</p>
