@@ -5854,7 +5854,7 @@ msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
 
-#: src/plugins/freedbimport/freedbimporter.cpp:58
+#: src/plugins/freedbimport/freedbimporter.cpp:74
 msgctxt "@default|"
 msgid "gnudb.org"
 msgstr "gnudb.org"
