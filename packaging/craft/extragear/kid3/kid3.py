@@ -9,7 +9,7 @@ class subinfo(info.infoclass):
     def setTargets(self):
         self.svnTargets["master"] = "https://invent.kde.org/multimedia/kid3.git"
 
-        for ver in ["3.9.3", "3.9.4"]:
+        for ver in ["3.9.3", "3.9.4", "3.9.5", "3.9.6"]:
             self.targets[ver] = f"https://download.kde.org/stable/kid3/{ver}/kid3-{ver}.tar.xz"
             self.targetInstSrc[ver] = "kid3-" + ver
             self.targetDigestUrls[ver] = f"https://download.kde.org/stable/kid3/{ver}/kid3-{ver}.tar.xz.sha256"
@@ -18,23 +18,31 @@ class subinfo(info.infoclass):
         self.webpage = "https://kid3.kde.org"
         self.displayName = "Kid3"
 
-        self.defaultTarget = "3.9.4"
+        self.defaultTarget = "3.9.6"
 
     def setDependencies(self):
         self.buildDependencies["kde/frameworks/extra-cmake-modules"] = None
         self.buildDependencies["data/docbook-xsl"] = None
+        self.buildDependencies["libs/libxslt"] = None
+        self.buildDependencies["libs/qt6/qttools"] = None
         self.runtimeDependencies["virtual/base"] = None
-        self.runtimeDependencies["libs/qt/qtbase"] = None
-        self.runtimeDependencies["libs/qt/qtmultimedia"] = None
+        self.runtimeDependencies["libs/qt6/qtbase"] = None
+        self.runtimeDependencies["libs/qt6/qtdeclarative"] = None
+        self.runtimeDependencies["libs/qt6/qtimageformats"] = None
+        self.runtimeDependencies["libs/qt6/qtmultimedia"] = None
+        self.runtimeDependencies["libs/qt6/qtsvg"] = None
+        self.runtimeDependencies["libs/qt6/qttranslations"] = None
+        self.runtimeDependencies["libs/qt6/qtwayland"] = None
         self.runtimeDependencies["libs/taglib"] = None
         self.runtimeDependencies["libs/chromaprint"] = None
         self.runtimeDependencies["libs/ffmpeg"] = None
 
 
 class Package(CMakePackageBase):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.subinfo.options.configure.args += [
+            "-DBUILD_WITH_QT6=ON",
             "-DWITH_ID3LIB=OFF",
             "-DWITH_VORBIS=OFF",
             "-DWITH_FLAC=OFF",

@@ -13,14 +13,14 @@ sbin/.*
 share/(?!(applications|icons|kid3|metainfo)).*
 
 # Mac: Avoid 'how to merge folder ... into file ...' packaging errors
-plugins/imageformats/libqjpeg.dylib
-plugins/mediaservice/libqavfmediaplayer.dylib
-plugins/styles/libqmacstyle.dylib
-plugins/tls/libqsecuretransportbackend.dylib
-plugins/tls/libqopensslbackend.dylib
-plugins/tls/libqcertonlybackend.dylib
-plugins/networkinformation/libqglib.dylib
+plugins/imageformats/.*\.dylib
+plugins/mediaservice/.*\.dylib
+plugins/styles/.*\.dylib
+plugins/tls/.*\.dylib
+plugins/networkinformation/.*\.dylib
 plugins/multimedia/.*\.dylib
+plugins/iconengines/.*\.dylib
+plugins/platforms/.*\.dylib
 lib/.*\.dylib
 lib/Qt.*framework.*
 
