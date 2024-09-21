@@ -300,7 +300,7 @@ set -e
 (cd android_arm64_build && \
    PATH=/opt/cmake/bin:$PATH \
    COMPILER=cross-android \
-   QTPREFIX=$HOME/Development/Development/Qt6.5.3-android64/6.5.3/android_arm64_v8a \
+   QTPREFIX=$HOME/Development/Qt6.5.3-android64/6.5.3/android_arm64_v8a \
    QTBINARYDIR=$HOME/Development/Qt6.5.3-linux/6.5.3/gcc_64/bin \
    JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64 \
    ANDROID_SDK_ROOT=$HOME/Development/android-sdk \

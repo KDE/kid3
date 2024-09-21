@@ -20,7 +20,6 @@ include:
   script:
     - mkdir -p build-${KID3_CI_PLATFORM}
     - rm -f build-${KID3_CI_PLATFORM}/kid3/${KID3_CI_SRC_PKG}
-    - if test -z "$CI_COMMIT_TAG"; then export KID3_USE_GIT_DATE_VERSION=1; fi
     - (cd build-${KID3_CI_PLATFORM} && ../kid3/build.sh)
     - mkdir .kde-ci-packages/
     - cp -vf build-${KID3_CI_PLATFORM}/kid3/${KID3_CI_SRC_PKG} .kde-ci-packages/${KID3_CI_DST_PKG}
