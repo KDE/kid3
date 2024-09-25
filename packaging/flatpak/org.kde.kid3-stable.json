@@ -107,7 +107,7 @@
                 {
                     "type": "archive",
                     "url": "https://download.kde.org/stable/kid3/3.9.6/kid3-3.9.6.tar.xz",
-                    "sha256": "a424fedde35c176e3b44334422aad43848418772da020751d00d0874e5ce8145",
+                    "sha256": "cf27ffcc4369c9940da7bfc12fd10dfbda526b8187e5b62662abe8069fc26c27",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 1509,
