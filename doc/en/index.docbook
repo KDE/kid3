@@ -1034,6 +1034,19 @@ and above the <guilabel>TaglibMetadata</guilabel> plugin in the
 <guilabel>Plugins</guilabel> tab of the settings if you have to edit MP4
 chapters.
 </para>
+<para>
+The chapter information in MP3 audiobooks is stored in multiple "Chapter"
+(CHAP) frames which are referenced by a "Table of Contents" (CTOC) frame,
+and these frames have embedded subframes. To edit this information in a single
+place, a pseudo "Chapters" frame can also be used for ID3v2 tags. Its contents
+are used to create the real chapter, table of contents and embedded frames:
+The <guilabel>Description</guilabel> is used as the table of contents title,
+the <guilabel>Text</guilabel> column contains the chapter titles, and the
+corresponding <guilabel>Time</guilabel> value will be the chapter start time
+and the end time of the preceeding chapter. The end time of last chapter is
+determined by the <guilabel>Time</guilabel> of the last row if its
+<guilabel>Text</guilabel> is empty.
+</para>
 </sect2>
 
 </sect1>
@@ -1142,6 +1155,10 @@ can be imported by terminating the import dialog with
 If you already have a search result open in the web browser, you can enter the
 URL into the first search field. The result will then appear in the album list
 and can be directly imported into &kid3;.
+</para>
+<para>
+An e-mail address registered at <ulink url="https://gnudb.org/info.php">
+gnudb.org</ulink> can be entered into the <guilabel>Token</guilabel> field.
 </para>
 <para id="import-discogs">
 A search on the Discogs server can be performed using
