@@ -249,8 +249,8 @@
     <p xml:lang="x-test">xxKid3 uses the KDE Frameworks. Users of other desktop environments may prefer Kid3-qt instead, which is without KDE dependencies.xx</p>
   </description>
   <screenshots>
-    <screenshot type="default" width="1200" height="675">
-      <image>https://kid3.kde.org/assets/img/screen169.png</image>
+    <screenshot type="default" width="1290" height="916">
+      <image>https://cdn.kde.org/screenshots/kid3/kid3.png</image>
       <caption>Kid3 main window</caption>
       <caption xml:lang="ar">النّافذة الرّئيسيّة لكِد3</caption>
       <caption xml:lang="ca">Finestra principal del Kid3</caption>
