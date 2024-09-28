@@ -2642,6 +2642,18 @@ end manpage include-->
 > under fliken <guilabel
 >Insticksprogram</guilabel
 > i inställningarna om du behöver redigera MP4-kapitel. </para>
+<para
+>Kapitelinformationen i MP3-ljudböcker lagras i flera "Chapter" (CHAP) ramar som refereras från en "Table of Contents" (CTOC) ram, och ramarna har inbäddade underramar. För att redigera informationen på ett enda ställe kan en "Chapter" pseudoram också användas för ID3v2-taggar. Innehållet används för att skapa det verkliga kapitlet, innehållsförteckningen och inbäddade ramar: <guilabel 
+>Beskrivning</guilabel 
+> används som innehållsförteckningens titel, kolumnen <guilabel 
+>Text</guilabel 
+> innehåller kapiteltitlarna, och motsvarande värde för <guilabel 
+>Tid</guilabel 
+> blir kapitlets starttid och sluttid för föregående kapitel. Sluttiden för det sista kapitlet bestäms av <guilabel 
+>Tid</guilabel 
+> för den sista raden om dess <guilabel 
+>Text</guilabel 
+> är tom. </para>
 </sect2>
 
 </sect1>
@@ -2804,6 +2816,12 @@ end manpage include-->
 >. </para>
 <para
 >Om du redan har ett sökresultat öppet i webbläsaren, kan du ange webbadressen i det första sökfältet. Resultatet dyker då upp i albumlistan och kan direkt importeras i &kid3;. </para>
+<para
+>En e-postadress registrerad på <ulink url="https://gnudb.org/info.php"
+>gnudb.org</ulink
+> kan anges i fältet <guilabel 
+>Symbol</guilabel 
+>. </para>
 <para id="import-discogs"
 >En sökning på Discogs server kan utföras genom att använda <guibutton
 >Discogs</guibutton

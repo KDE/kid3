@@ -2668,6 +2668,18 @@ end manpage include-->
 > a la pestanya <guilabel
 >Connectors</guilabel
 > de la configuració si heu d'editar capítols MP4. </para>
+<para
+>La informació del capítol en els audiollibres MP3 s'emmagatzema en marcs múltiples «Chapter» (CHAP) als quals es fa referència amb un marc «Taula de continguts» (CTOC), i aquests marcs tenen submarcs incrustats. Per a editar aquesta informació en un sol lloc, també es pot utilitzar un pseudo marc «Chapters» per a etiquetes ID3v2. El seu contingut s'utilitza per a crear el capítol real, la taula de continguts i els marcs incrustats: la <guilabel
+>Descripció</guilabel
+> s'utilitza com a títol de la taula de continguts, la columna <guilabel
+>Text</guilabel
+> conté els títols dels capítols, i el valor corresponent <guilabel
+>Temps</guilabel
+> serà l'hora d'inici del capítol i l'hora de final del capítol anterior. L'hora de finalització de l'últim capítol està determinada pel <guilabel
+>Temps</guilabel
+> de l'última fila si el seu <guilabel
+>Text</guilabel
+> està buit. </para>
 </sect2>
 
 </sect1>
@@ -2830,6 +2842,12 @@ end manpage include-->
 >. </para>
 <para
 >Si ja teniu obert un resultat de cerca al navegador web, podeu introduir l'URL al primer camp de cerca. El resultat apareixerà a la llista d'àlbums i es podrà importar directament al &kid3;. </para>
+<para
+>Es pot introduir una adreça de correu electrònic registrada a <ulink url="https://gnudb.org/info.php"
+>gnudb.org</ulink
+> en el camp <guilabel
+>Testimoni</guilabel
+>. </para>
 <para id="import-discogs"
 >Es pot fer una cerca al servidor Discogs utilitzant <guibutton
 >Discogs</guibutton
@@ -3992,7 +4010,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%w %{marked} Marcat, serà 1 si el fitxer està marcat (p. ex., per trencament o violació de l'estàndard), en cas contrari estarà buida</para
+>%w %{marked} Marcat, serà 1 si el fitxer està marcat (p. ex., per trencament o infracció de l'estàndard), en cas contrari estarà buida</para
 ></listitem>
 <listitem
 ><para
@@ -4404,7 +4422,7 @@ end manpage include-->
 <para
 >Quan <guilabel
 >Marca les infraccions de l'estàndard</guilabel
-> està marcada, els camps ID3 versió 2 que violen l'estàndard es marcaran en vermell. Els detalls sobre la violació es mostraran en un consell d'eina: </para>
+> està marcada, els camps ID3 versió 2 que violen l'estàndard es marcaran en vermell. Els detalls sobre la infracció es mostraran en un consell d'eina: </para>
 <itemizedlist>
 <listitem
 ><para
