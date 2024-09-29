@@ -126,6 +126,11 @@ private slots:
   void moveTableRow(int, int fromIndex, int toIndex);
 
   /**
+   * Delete the selected table rows.
+   */
+  void deleteSelectedTableRows();
+
+  /**
    * Import from server and preview in table.
    */
   void fromServer();

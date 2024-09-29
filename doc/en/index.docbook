@@ -1312,6 +1312,15 @@ manually, a track can be dragged with the <mousebutton>left</mousebutton> mouse 
 and then dropped at the new location.
 </para>
 <para>
+If there are more imported tracks than files, for example if the current folder
+contains only the second disc of a two disc album but the tracks of both discs
+are imported, it is possible to delete the tracks of the first disc by selecting
+them by clicking on the row label of the first track, then clicking on the row
+label of the last track of the first disc while holding down the
+<keycap>Shift</keycap> key, and finally removing the tracks by pressing the
+<keycap>Delete</keycap> key.
+</para>
+<para>
 When the import dialog is opened, it contains the actual contents of the
 tags. The tag type (Tag 1, Tag 2, Tag 1 and Tag 2) can be selected using the
 <guilabel>Destination</guilabel> combo box. The button on the right of this

@@ -259,6 +259,12 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
   vlayout->addLayout(hlayout);
+
+  auto deleteAction = new QAction(this);
+  deleteAction->setShortcut(QKeySequence::Delete);
+  connect(deleteAction, &QAction::triggered,
+          this, &ImportDialog::deleteSelectedTableRows);
+  addAction(deleteAction);
 }
 
 /**
@@ -582,6 +588,48 @@ void ImportDialog::moveTableRow(int, int fromIndex, int toIndex) {
     trackDataVector[toIndex].setImportDuration(fromData.getImportDuration());
   }
   if (!fromList.isEmpty()) {
+    m_trackDataModel->setTrackData(trackDataVector);
+    // redisplay the table
+    showPreview();
+  }
+}
+
+/**
+ * Delete the selected table rows.
+ */
+void ImportDialog::deleteSelectedTableRows()
+{
+  QSet<int> rows;
+  const QModelIndexList selectedRows =
+      m_trackDataTable->selectionModel()->selectedRows();
+  for (const QModelIndex& index : selectedRows) {
+    rows.insert(index.row());
+  }
+  if (rows.isEmpty()) {
+    if (auto index = m_trackDataTable->currentIndex(); index.isValid()) {
+      rows.insert(index.row());
+    }
+  }
+  if (!rows.isEmpty()) {
+    ImportTrackDataVector trackDataVector(m_trackDataModel->getTrackData());
+    int numTracks = trackDataVector.size();
+    int fromIndex = 0;
+    for (auto toIt = trackDataVector.begin(), fromIt = trackDataVector.begin();
+         toIt != trackDataVector.end();) {
+      if (fromIndex >= numTracks) {
+        trackDataVector.erase(toIt, trackDataVector.end());
+        break;
+      }
+      if (!rows.contains(fromIndex)) {
+        if (toIt != fromIt) {
+          toIt->setFrameCollection(fromIt->getFrameCollection());
+          toIt->setImportDuration(fromIt->getImportDuration());
+        }
+        ++toIt;
+      }
+      ++fromIt;
+      ++fromIndex;
+    }
     m_trackDataModel->setTrackData(trackDataVector);
     // redisplay the table
     showPreview();
