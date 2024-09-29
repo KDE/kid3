@@ -292,7 +292,8 @@ QStringList KdePlatformTools::getOpenFileNames(QWidget* parent,
   return QFileDialog::getOpenFileNames(
         parent, caption, dir, filter, selectedFilter,
         MainWindowConfig::instance().dontUseNativeDialogs()
-        ? QFileDialog::DontUseNativeDialog : QFileDialog::Options());
+        ? QFileDialog::HideNameFilterDetails | QFileDialog::DontUseNativeDialog
+        : QFileDialog::Options());
 }
 
 /**
