@@ -2993,6 +2993,12 @@ end manpage include-->
 >esquerre</mousebutton
 > del ratolí i mantenint premuda la tecla &Ctrl;, i després deixar-la anar a la nova ubicació. </para>
 <para
+>Si hi ha més pistes importades que fitxers, per exemple, si la carpeta actual conté només el segon disc d'un àlbum de dos discos però s'importen les pistes d'ambdós discos, és possible eliminar les pistes del primer disc seleccionant-les fent clic a l'etiqueta de fila de la primera pista, després fent clic a l'etiqueta de fila de l'última pista del primer disc mentre es manté premuda la tecla <keycap
+>Maj</keycap
+>, i finalment suprimint les pistes prement la tecla <keycap
+>Supr</keycap
+>. </para>
+<para
 >Quan s'obri el diàleg d'importació, aquest contindrà el contingut real de les etiquetes. El tipus d'etiqueta (Etiqueta 1, Etiqueta 2, Etiqueta 1 i Etiqueta 2) es podrà seleccionar utilitzant el quadre combinat <guilabel
 >Destinació:</guilabel
 >. El botó a la dreta d'aquest quadre combinat es pot utilitzar per a revertir la taula al contingut actual de les etiquetes. Es poden utilitzar les caselles de selecció a la primera columna de la taula per a seleccionar les peces que s'importaran. Això pot ser útil si una carpeta conté les peces d'ambdós &CD; d'un &CD; doble i només s'han d'importar les peces del segon &CD;. </para>

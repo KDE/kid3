@@ -2626,6 +2626,18 @@ end manpage include-->
 > in het tabblad <guilabel
 >Plug-ins</guilabel
 > van de instellingen staat als u MP4-hoofdstukken moet bewerken. </para>
+<para
+>De hoofdstukinformatie in MP3 audioboeken is opgeslagen in meerdere "Chapter" (CHAP) frames waarnaar gerefereerd wordt in een "Inhoudsopgave" (CTOC) frame en deze frames hebben ingebedde subframes. Om deze informatie te bewerken op een enkele plaats, kan een pseudo "Chapters" frame ook gebruikt worden voor ID3v2 tags. De inhoud ervan wordt gebruikt om het echte hoofdstuk, inhoudsopgave en ingebedde frames te aan te maken: De <guilabel
+>Beschrijving</guilabel
+> wordt gebruikt als de inhoud van de titel in de inhoudsopgave, de <guilabel
+>Tekst</guilabel
+>-kolom bevat de titels van de hoofdstukken en de bijbehorende <guilabel
+>Tijd</guilabel
+>-waarde zal de starttijd van het hoofdstuk zijn en de eindtijd van het voorgaande hoofdstuk. De eindtijd van het laatste hoofdstuk wordt bepaald door de <guilabel
+>Tijd</guilabel
+> van de laatste rij als zijn <guilabel
+>Tekst</guilabel
+> leeg is. </para>
 </sect2>
 
 </sect1>
@@ -2788,6 +2800,12 @@ end manpage include-->
 >. </para>
 <para
 >Als u al een zoekresultaat open hebt in de webbrowser, dan kunt u de URL in het eerste zoekveld invoeren. Het resultaat zal dan in de albumlijst verschijnen en kan direct geïmporteerd worden in &kid3;. </para>
+<para
+>Een e-mail-adres geregistreerd bij <ulink url="https://gnudb.org/info.php"
+> gnudb.org</ulink
+> kan ingevoerd worden in het veld <guilabel
+>Token</guilabel
+>. </para>
 <para id="import-discogs"
 >Zoek op de Discogs-server kan gedaan worden met <guibutton
 >Discogs</guibutton
@@ -2942,6 +2960,12 @@ end manpage include-->
 >, die de tracks opnieuw zullen ordenen volgens het overeenkomstige veld. Om de toekenningen handmatig te corrigeren, kan een track versleept worden met de <mousebutton
 >linker</mousebutton
 > muisknop en ingedrukt houden van de toets &Ctrl; en losgelaten op de nieuwe locatie. </para>
+<para
+>Als er meer geïmporteerde tracks zijn dan bestanden, bijvoorbeeld als de huidige map alleen de tweede disc van een album met twee discs bevat maar de tracks van beide discs zijn geïmporteerd, dan is het mogelijk de tracks van de eerste disc te verwijderen door ze te selecteren door te klikken op het rijlabel van de eerste track, daarna klikken op het rijlabel van de laatste track van de eerste disc terwijl de toets <keycap
+>Shift</keycap
+> blijft ingedrukt en tenslotte de tracks te verwijderen door op de toets <keycap
+>Delete</keycap
+> te drukken. </para>
 <para
 >Wanneer de importdialoog is geopend, bevat deze de actuele inhoud van de tags. Het type tag (Tag 1, Tag 2, Tag 1 en Tag 2) kan geselecteerd worden met de keuzelijst <guilabel
 >Bestemming</guilabel

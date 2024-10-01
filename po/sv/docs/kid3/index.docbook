@@ -2971,6 +2971,12 @@ end manpage include-->
 >vänster</mousebutton
 > musknapp och tangenten &Ctrl; nedtryckt, och därefter släppas på den nya platsen. </para>
 <para
+>Om det finns fler importerade spår än filer, till exempel om den aktuella katalogen bara innehåller den andra skivan i ett album med två skivor men spåren på båda skivorna är importerade, är det möjligt att ta bort spåren på den första skivan genom att välja dem genom att klicka på på radbeteckningen för det första spåret, klicka sedan på radbeteckningen för det sista spåret på den första skivan medan tangenten <keycap
+>Skift</keycap
+> hålls nere, och ta slutligen bort spåren genom att trycka på tangenten <keycap
+>Delete</keycap
+>. </para>
+<para
 >När importdialogrutan öppnas innehåller den taggarnas verkliga innehåll. Taggtypen (Tagg 1, Tagg 2, Tagg 1 och tagg 2) kan väljas med kombinationsrutan <guilabel
 >Mål</guilabel
 >. Knappen till höger om kombinationsrutan kan användas för att återställa tabellen till taggarnas nuvarande innehåll. Kryssrutorna i den första tabellkolumnen kan användas för att markera spåren som är importerade. Det kan vara användbart om en katalog innehåller spåren för båda cd-skivorna av en dubbel-cd, och bara spåren på den andra cd-skivan behöver importeras. </para>
