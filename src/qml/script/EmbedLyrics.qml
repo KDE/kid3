@@ -39,8 +39,10 @@ Kid3Script {
     var lyricFetchers = {
       "www.letras.com": {
         getUrl: function(artist, title) {
-          return "https://www.letras.com/" + encodeURIComponent(artist) +
-                   "/" + encodeURIComponent(title)
+          var illegalCharsRe = /(?:[^\x20-\x7E]|[*)(!'%])/g
+          return "https://www.letras.com/" +
+              encodeURIComponent(artist.replace(illegalCharsRe, '')) +
+              "/" + encodeURIComponent(title.replace(illegalCharsRe, ''))
         },
         parseResponse: function(resp) {
           var begin = resp.indexOf('<div class="lyric-original">')
