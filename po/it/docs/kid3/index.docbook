@@ -57,9 +57,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->24/2/2024</date>
+>21/9/2024</date>
 <releaseinfo
->3.9.5</releaseinfo>
+>3.9.6</releaseinfo>
 
 <abstract>
 <para
@@ -2668,6 +2668,18 @@ end manpage include-->
 > nella scheda <guilabel
 >Estensioni</guilabel 
 > delle impostazioni se devi modificare i capitoli MP4. </para>
+<para
+>Le informazioni sui capitoli negli audiolibri MP3 sono memorizzate in più frame «Capitolo» (CHAP) a cui fa riferimento un frame «Indice» (CTOC), e questi frame hanno sottoframe incorporati. Per modificare queste informazioni in un unico posto, è possibile utilizzare anche uno pseudo frame «Capitoli» per i tag ID3v2. Il suo contenuto viene utilizzato per creare il capitolo reale, l'indice e i frame incorporati: la <guilabel
+>Descrizione</guilabel
+> viene utilizzata come titolo dell'indice, la colonna <guilabel
+>Testo</guilabel
+> contiene i titoli dei capitoli e il valore <guilabel
+>Orario</guilabel
+> corrispondente sarà l'ora di inizio del capitolo e l'ora di fine del capitolo precedente. L'ora di fine dell'ultimo capitolo è determinata da <guilabel
+>Orario</guilabel
+> dell'ultima riga se il suo <guilabel
+>Testo</guilabel
+> è vuoto. </para>
 </sect2>
 
 </sect1>
@@ -2830,6 +2842,12 @@ end manpage include-->
 >. </para>
 <para
 >Se hai già un risultato di ricerca aperto nel browser web, puoi inserire l'URL nel primo campo di ricerca. Il risultato apparirà quindi nell'elenco degli album e può essere importato direttamente in &kid3;. </para>
+<para
+>Un indirizzo di posta elettronica registrato su <ulink url="https://gnudb.org/info.php"
+>gnudb.org</ulink
+> può essere inserito nel campo <guilabel
+>Token</guilabel
+>. </para>
 <para id="import-discogs"
 >Una ricerca sul server di Discogs può essere eseguita utilizzando <guibutton
 >Discogs</guibutton
@@ -2984,6 +3002,12 @@ end manpage include-->
 >, che riordinare le tracce in base al campo corrispondente. Per correggere manualmente le assegnazioni, è possibile trascinare una traccia con il pulsante <mousebutton
 >sinistro</mousebutton
 > e il tasto &Ctrl; premuto, quindi rilasciare nella nuova posizione. </para>
+<para
+>Se ci sono più tracce importate che file, ad esempio se la cartella attuale contiene solo il secondo disco di un album con due dischi, ma le tracce di entrambi i dischi sono importate, è possibile eliminare le tracce del primo disco selezionandole tramite un clic sull'etichetta di riga della prima traccia, quindi facendo clic sull'etichetta di riga dell'ultima traccia del primo disco tenendo premuto il tasto <keycap
+>Maiusc</keycap
+> e infine rimuovendo le tracce premendo il tasto <keycap
+>Canc</keycap
+>. </para>
 <para
 >Quando si apre la finestra di importazione, essa contiene il contenuto attuale dei tag. Il tipo di tag (Tag 1, Tag 2, Tag 1 e Tag 2) può essere selezionato utilizzando la casella combinata <guilabel
 >Destinazione</guilabel
