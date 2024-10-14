@@ -103,3 +103,56 @@ kid3_linux_amd64:
     - export DOCBOOK_XSL_DIR=$(pwd)/usr/share/xml/docbook/stylesheet/nwalsh/1.79.2
     - PATH=$PATH:$(pwd)/usr/bin
     - !reference [.kid3_build_job, script]
+
+kid3_windows_amd64:
+  stage: deploy
+  rules:
+    - when: manual
+      allow_failure: true
+  image: invent-registry.kde.org/sysadmin/ci-images/windows-msvc2022:latest
+  tags:
+    - Windows
+  variables:
+    GIT_STRATEGY: none
+    KID3_CI_PLATFORM: windows
+    KID3_CI_SRC_PKG: "*.zip"
+    KID3_CI_DST_PKG: kid3-windows-amd64.zip
+    QTPREFIX: $CI_PROJECT_DIR/build-${KID3_CI_PLATFORM}/qt-6.5.3/6.5.3/mingw_64
+    COMPILER: gcc
+  artifacts:
+    expose_as: "Kid3 Windows"
+  interruptible: true
+  before_script:
+    - if (Test-Path .kde-ci-packages) { Remove-Item -Recurse -Force .kde-ci-packages }
+    - if (Test-Path ci-utilities) { Remove-Item -Recurse -Force ci-utilities }
+    - if (Test-Path ci-notary-service) { Remove-Item -Recurse -Force ci-notary-service }
+    - if (Test-Path kid3) { Remove-Item -Recurse -Force kid3 }
+    - git clone https://invent.kde.org/sysadmin/ci-utilities.git --depth=1
+    - git clone https://invent.kde.org/sysadmin/ci-notary-service.git --depth=1
+    - python -u ci-utilities/gitlab-ci-clone.py kid3/
+  script:
+    - if (!(Test-Path build-$env:KID3_CI_PLATFORM)) { New-Item -ItemType Directory build-$env:KID3_CI_PLATFORM }
+    - if (Test-Path build-$env:KID3_CI_PLATFORM/kid3/$env:KID3_CI_SRC_PKG) { Remove-Item build-$env:KID3_CI_PLATFORM/kid3/$env:KID3_CI_SRC_PKG }
+    - Set-Location build-$env:KID3_CI_PLATFORM
+    - $env:CHERE_INVOKING='enabled_from_arguments'
+    - $env:MSYSTEM='MINGW64'
+    - C:/Msys2/usr/bin/bash -l -c 'pacman -S --noconfirm
+      git patch autoconf automake make docbook-xsl mingw-w64-x86_64-make
+      mingw-w64-x86_64-ninja mingw-w64-x86_64-nasm mingw-w64-x86_64-libtool
+      mingw-w64-x86_64-libxslt mingw-w64-x86_64-cmake p7zip;
+      ../kid3/build.sh getqt;
+      PATH=$(pwd)/qt-6.5.3/Tools/mingw1120_64/bin:$(pwd)/qt-6.5.3/Tools/mingw1120_64/opt/bin:$(pwd)/qt-6.5.3/6.5.3/mingw_64/bin:$PATH;
+      ../kid3/build.sh'
+    - Set-Location ..
+    - if (!(Test-Path .kde-ci-packages)) { New-Item -ItemType Directory .kde-ci-packages }
+    - Copy-Item -Force build-$env:KID3_CI_PLATFORM/kid3/$env:KID3_CI_SRC_PKG .kde-ci-packages/$env:KID3_CI_DST_PKG
+  after_script:
+    - if (Test-Path build-$env:KID3_CI_PLATFORM) { Remove-Item -Recurse -Force build-$env:KID3_CI_PLATFORM }
+    - if (Test-Path kid3) { Remove-Item -Recurse -Force kid3 }
+    - if (Test-Path ci-utilities) { Remove-Item -Recurse -Force ci-utilities }
+    - if (Test-Path ci-notary-service) { Remove-Item -Recurse -Force ci-notary-service }
+  artifacts:
+    expire_in: 3 days
+    when: always
+    paths:
+      - ".kde-ci-packages/"
