@@ -103,6 +103,7 @@ kid3_linux_amd64:
     - export DOCBOOK_XSL_DIR=$(pwd)/usr/share/xml/docbook/stylesheet/nwalsh/1.79.2
     - PATH=$PATH:$(pwd)/usr/bin
     - !reference [.kid3_build_job, script]
+    - python3 -u ci-notary-service/publishbuild.py --config ci-utilities/signing/publishbuild.ini --platform $KID3_CI_PLATFORM "$CI_PROJECT_DIR/.kde-ci-packages/"
 
 kid3_windows_amd64:
   stage: deploy
@@ -146,6 +147,7 @@ kid3_windows_amd64:
     - Set-Location ..
     - if (!(Test-Path .kde-ci-packages)) { New-Item -ItemType Directory .kde-ci-packages }
     - Copy-Item -Force build-$env:KID3_CI_PLATFORM/kid3/$env:KID3_CI_SRC_PKG .kde-ci-packages/$env:KID3_CI_DST_PKG
+    - python -u ci-notary-service/publishbuild.py --config ci-utilities/signing/publishbuild.ini --platform $env:KID3_CI_PLATFORM "$env:CI_PROJECT_DIR/.kde-ci-packages/"
   after_script:
     - if (Test-Path build-$env:KID3_CI_PLATFORM) { Remove-Item -Recurse -Force build-$env:KID3_CI_PLATFORM }
     - if (Test-Path kid3) { Remove-Item -Recurse -Force kid3 }
