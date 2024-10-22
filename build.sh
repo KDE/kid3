@@ -120,30 +120,50 @@ verify_in_srcdir() {
 }
 
 download_and_extract_qt() {
-  if ! test -d qt-${qt_version}; then
-    mkdir qt-${qt_version}
+  local _qtarch=$1
+  if test -z "$_qtarch"; then
+    if test "$compiler" = "cross-android"; then
+      if test "$_android_abi" = "x86_64"; then
+        _qtarch=android_x86_64
+      elif test "$_android_abi" = "arm64-v8a"; then
+        _qtarch=android_arm64_v8a
+      else
+        _qtarch=android_armv7
+      fi
+    elif test $kernel = "Linux"; then
+      _qtarch=gcc_64
+    elif test $kernel = "Darwin"; then
+      _qtarch=macos
+    elif test $kernel = "MINGW"; then
+      _qtarch=mingw_64
+    fi
+  fi
+  if test -n "$_qtarch" && ! test -d qt-${qt_version}/${qt_version}/${_qtarch}; then
+    mkdir -p qt-${qt_version}
     cd qt-${qt_version}
     if test $qt_version = "6.5.3"; then
-      if test "$compiler" = "cross-android"; then
-        if test "$_android_abi" = "x86_64"; then
+      case "$_qtarch" in
+        android_x86_64)
           for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
             fn=6.5.3-0-202309260341${m}-Linux-RHEL_8_4-Clang-Android-Android_ANY-X86_64.7z
-            wget https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_x86_64/qt.qt6.653.android_x86_64/$fn
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_x86_64/qt.qt6.653.android_x86_64/$fn
           done
           for m in qtmultimedia qtimageformats; do
             fn=qt.qt6.653.addons.${m}.android_x86_64/6.5.3-0-202309260341${m}-Linux-RHEL_8_4-Clang-Android-Android_ANY-X86_64.7z
-            wget https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_x86_64/$fn
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_x86_64/$fn
           done
-        elif test "$_android_abi" = "arm64-v8a"; then
+          ;;
+        android_arm64_v8a)
           for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
             fn=6.5.3-0-202309260341${m}-MacOS-MacOS_12-Clang-Android-Android_ANY-ARM64.7z
-            wget https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_arm64_v8a/qt.qt6.653.android_arm64_v8a/$fn
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_arm64_v8a/qt.qt6.653.android_arm64_v8a/$fn
           done
           for m in qtmultimedia qtimageformats; do
             fn=qt.qt6.653.addons.${m}.android_arm64_v8a/6.5.3-0-202309260341${m}-MacOS-MacOS_12-Clang-Android-Android_ANY-ARM64.7z
-            wget https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_arm64_v8a/$fn
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_arm64_v8a/$fn
           done
-        else
+          ;;
+        android_armv7)
           for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
             fn=6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Clang-Android-Android_ANY-ARMv7.7z
             $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_armv7/qt.qt6.653.android_armv7/$fn
@@ -152,44 +172,47 @@ download_and_extract_qt() {
             fn=qt.qt6.653.addons.${m}.android_armv7/6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Clang-Android-Android_ANY-ARMv7.7z
             $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/android/qt6_653_armv7/$fn
           done
-        fi
-      elif test $kernel = "Linux"; then
-        for m in qttranslations qttools qtsvg qtdeclarative qtbase qtwayland; do
-          fn=6.5.3-0-202309260341${m}-Linux-RHEL_8_4-GCC-Linux-RHEL_8_4-X86_64.7z
-          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_653/qt.qt6.653.gcc_64/$fn
-        done
-        $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_653/qt.qt6.653.gcc_64/6.5.3-0-202309260341icu-linux-Rhel7.2-x64.7z
-        for m in qtmultimedia qtimageformats; do
-          fn=qt.qt6.653.addons.${m}.gcc_64/6.5.3-0-202309260341${m}-Linux-RHEL_8_4-GCC-Linux-RHEL_8_4-X86_64.7z
-          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_653/$fn
-        done
-      elif test $kernel = "Darwin"; then
-        for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
-          fn=6.5.3-0-202309260341${m}-MacOS-MacOS_12-Clang-MacOS-MacOS_12-X86_64-ARM64.7z
-          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_653/qt.qt6.653.clang_64/$fn
-        done
-        for m in qtmultimedia qtimageformats; do
-          fn=qt.qt6.653.addons.${m}.clang_64/6.5.3-0-202309260341${m}-MacOS-MacOS_12-Clang-MacOS-MacOS_12-X86_64-ARM64.7z
-          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_653/$fn
-        done
-      elif test $kernel = "MINGW"; then
-        for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
-          fn=6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Mingw-Windows-Windows_10_22H2-X86_64.7z
-          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_653/qt.qt6.653.win64_mingw/$fn
-        done
-        for m in opengl32sw-64-mesa_11_2_2-signed_sha256 d3dcompiler_47-x64 MinGW-w64-x86_64-11.2.0-release-posix-seh-rt_v9-rev1-runtime; do
-          fn=6.5.3-0-202309260341${m}.7z
-          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_653/qt.qt6.653.win64_mingw/$fn
-        done
-        for m in qtmultimedia qtimageformats; do
-          fn=qt.qt6.653.addons.${m}.win64_mingw/6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Mingw-Windows-Windows_10_22H2-X86_64.7z
-          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_653/$fn
-        done
-        for m in mingw-w64-x86_64-11.2.0-release-posix-seh-rt_v9-rev3; do
-          fn=9.0.0-1-202203221220${m}.7z
-          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/tools_mingw90/qt.tools.win64_mingw900/$fn
-        done
-      fi
+          ;;
+        gcc_64)
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase qtwayland; do
+            fn=6.5.3-0-202309260341${m}-Linux-RHEL_8_4-GCC-Linux-RHEL_8_4-X86_64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_653/qt.qt6.653.gcc_64/$fn
+          done
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_653/qt.qt6.653.gcc_64/6.5.3-0-202309260341icu-linux-Rhel7.2-x64.7z
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.653.addons.${m}.gcc_64/6.5.3-0-202309260341${m}-Linux-RHEL_8_4-GCC-Linux-RHEL_8_4-X86_64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_653/$fn
+          done
+          ;;
+        macos)
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.5.3-0-202309260341${m}-MacOS-MacOS_12-Clang-MacOS-MacOS_12-X86_64-ARM64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_653/qt.qt6.653.clang_64/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.653.addons.${m}.clang_64/6.5.3-0-202309260341${m}-MacOS-MacOS_12-Clang-MacOS-MacOS_12-X86_64-ARM64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_653/$fn
+          done
+          ;;
+        mingw_64)
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Mingw-Windows-Windows_10_22H2-X86_64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_653/qt.qt6.653.win64_mingw/$fn
+          done
+          for m in opengl32sw-64-mesa_11_2_2-signed_sha256 d3dcompiler_47-x64 MinGW-w64-x86_64-11.2.0-release-posix-seh-rt_v9-rev1-runtime; do
+            fn=6.5.3-0-202309260341${m}.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_653/qt.qt6.653.win64_mingw/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.653.addons.${m}.win64_mingw/6.5.3-0-202309260341${m}-Windows-Windows_10_22H2-Mingw-Windows-Windows_10_22H2-X86_64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_653/$fn
+          done
+          for m in mingw-w64-x86_64-11.2.0-release-posix-seh-rt_v9-rev3; do
+            fn=9.0.0-1-202203221220${m}.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/tools_mingw90/qt.tools.win64_mingw900/$fn
+          done
+          ;;
+      esac
       for fn in *.7z; do 7za x $fn; done
       rm -f *.7z
     fi
@@ -1392,13 +1415,6 @@ if test "$compiler" = "cross-android"; then
   fi
   extract_binary_archive $BIN_ARCHIVE_DIR/taglib-${taglib_version}.tgz
 
-  # Set a QTPREFIX starting with "$(pwd)/qt-", e.g. $(pwd)/qt-6.5.3/6.5.3/android_arm64_v8a
-  # or $(pwd)/qt-6.5.3/6.5.3/android_armv7 or $(pwd)/qt-6.5.3/6.5.3/android_x86_64
-  # in order to download Qt binaries to the given $QTPREFIX if it does not already exist.
-  if test "${QTPREFIX%%/qt-*}" = "$(pwd)" -a ! -d "$QTPREFIX"; then
-    download_and_extract_qt
-  fi
-
 else #  cross-android
 
   if ( test "$compiler" = "gcc-self-contained" || test "$compiler" = "gcc-debug" ) \
@@ -1751,13 +1767,27 @@ else #  cross-android
   fi
   extract_binary_archive $BIN_ARCHIVE_DIR/mp4v2-${mp4v2_version}.tgz
 
-  # Set a QTPREFIX starting with "$(pwd)/qt-", e.g. $(pwd)/qt-6.5.3/6.5.3/gcc_64
-  # for Linux or $(pwd)/qt-6.5.3/6.5.3/macos for macOS in order to download Qt
-  # binaries to the given $QTPREFIX if it does not already exist.
-  if test "${QTPREFIX%%/qt-*}" = "$(pwd)" -a ! -d "$QTPREFIX"; then
-    download_and_extract_qt
-  fi
 fi # cross-android, else
+
+# Set a QTPREFIX starting with "$(pwd)/qt-", e.g. $(pwd)/qt-6.5.3/6.5.3/gcc_64
+# for Linux or $(pwd)/qt-6.5.3/6.5.3/macos for macOS or
+# $(pwd)/qt-6.5.3/6.5.3/android_arm64_v8a or
+# $(pwd)/qt-6.5.3/6.5.3/android_armv7 or $(pwd)/qt-6.5.3/6.5.3/android_x86_64
+# in order to download Qt binaries to the given $QTPREFIX if it does not already exist.
+if test "${QTPREFIX%%/qt-*}" = "$(pwd)"; then
+  download_and_extract_qt
+fi
+
+# Set QTBINARYDIR starting with "$(pwd)/qt-", e.g. $(pwd)/qt-6.5.3/6.5.3/gcc_64/bin
+# to dowload Qt binaries for Linux.
+if test "${QTBINARYDIR%%/qt-*}" = "$(pwd)"; then
+  _qt_arch=${QTBINARYDIR%%/bin}
+  _qt_arch=${_qt_arch##*/}
+  if test -n "$_qt_arch"; then
+    download_and_extract_qt $_qt_arch
+  fi
+fi
+
 fi # libs
 
 if [[ $target = *"package"* ]]; then
