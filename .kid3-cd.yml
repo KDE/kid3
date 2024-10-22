@@ -64,6 +64,50 @@ kid3_macos_amd64:
   artifacts:
     expose_as: "Kid3 macOS Intel"
 
+.kid3_android_base:
+  extends: .kid3_build_job
+  image: invent-registry.kde.org/sysadmin/ci-images/android-qt67-ci:latest
+  tags:
+    - Linux
+  variables:
+    KDECI_CACHE_PATH: /mnt/artifacts/android-qt6.7/
+    KDECI_GITLAB_SERVER: https://invent.kde.org/
+    KDECI_PACKAGE_PROJECT: teams/ci-artifacts/android-qt6.7
+    KDECI_SIGNAPK_CONFIG: $CI_PROJECT_DIR/ci-utilities/signing/signapk.ini
+    KDECI_PUBLISHONFDROID_CONFIG: $CI_PROJECT_DIR/ci-utilities/signing/publishonfdroid.ini
+    KID3_CI_PLATFORM: android_$ARCH
+    KID3_CI_SRC_PKG: "*.apk"
+    KID3_CI_DST_PKG: kid3-android-$ARCH.apk
+    QTPREFIX: $CI_PROJECT_DIR/build-${KID3_CI_PLATFORM}/qt-6.5.3/6.5.3/${KID3_CI_PLATFORM}
+    QTBINARYDIR: $CI_PROJECT_DIR/build-${KID3_CI_PLATFORM}/qt-6.5.3/6.5.3/gcc_64/bin
+    COMPILER: cross-android
+  script:
+    - mkdir -p pkg &&
+      (cd pkg && apt-get download docbook-xsl) &&
+      find pkg -name '*.deb' -exec sh -c 'ar x {} --output=pkg; tar xf pkg/data.tar.*; rm pkg/*.tar.* pkg/debian-binary' \;
+    - export DOCBOOK_XSL_DIR=$(pwd)/usr/share/xml/docbook/stylesheet/docbook-xsl
+    - !reference [.kid3_build_job, script]
+    - python3 ci-notary-service/signapk.py -v --config $KDECI_SIGNAPK_CONFIG $CI_PROJECT_DIR/kde-ci-packages/*.apk
+    - python3 ci-notary-service/publishonfdroid.py -v --config $KDECI_PUBLISHONFDROID_CONFIG --fastlane $CI_PROJECT_DIR/kde-ci-packages/fastlane-*.zip $CI_PROJECT_DIR/kde-ci-packages/*.apk
+
+kid3_android_arm32:
+  extends: .kid3_android_base
+  variables:
+    ARCH: armv7
+  artifacts:
+    expose_as: "Kid3 Android armeabi-v7a"
+
+kid3_android_arm64:
+  extends: .kid3_android_base
+  variables:
+    ARCH: arm64_v8a
+  script:
+    # Increment version code for ARM64 version.
+    - sed -i -E 's/(set\(QT_ANDROID_APP_VERSION_CODE) ([0-9]+)\)/echo "\1 $((\2+1)))"/ge' kid3/CMakeLists.txt
+    - !reference [.kid3_android_base, script]
+  artifacts:
+    expose_as: "Kid3 Android arm64-v8a"
+
 kid3_linux_amd64:
   extends: .kid3_build_job
   image: invent-registry.kde.org/sysadmin/ci-images/sles15-craft:latest
