@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3\n"
-"PO-Revision-Date: 2024-08-25 16:55+0200\n"
+"PO-Revision-Date: 2024-10-21 20:05+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -2964,7 +2964,7 @@ msgstr "Comptador de la reproducció"
 #: src/core/tags/frame.cpp:206 src/core/tags/frame.cpp:303
 msgctxt "@default|"
 msgid "Podcast"
-msgstr "Podcast"
+msgstr "Pòdcast"
 
 #: src/core/tags/frame.cpp:207
 msgctxt "@default|"
@@ -3014,12 +3014,12 @@ msgstr "Codis del ritme sincronitzat"
 #: src/core/tags/frame.cpp:218
 msgctxt "@default|"
 msgid "Podcast Category"
-msgstr "Categoria podcast"
+msgstr "Categoria pòdcast"
 
 #: src/core/tags/frame.cpp:221
 msgctxt "@default|"
 msgid "Podcast Description"
-msgstr "Descripció del podcast"
+msgstr "Descripció del pòdcast"
 
 #: src/core/tags/frame.cpp:222
 msgctxt "@default|"
@@ -3054,7 +3054,7 @@ msgstr "Tipus de fitxer"
 #: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Podcast Identifier"
-msgstr "Identificador del podcast"
+msgstr "Identificador del pòdcast"
 
 #: src/core/tags/frame.cpp:229
 msgctxt "@default|"
@@ -3064,7 +3064,7 @@ msgstr "Temps"
 #: src/core/tags/frame.cpp:230
 msgctxt "@default|"
 msgid "Podcast Keywords"
-msgstr "Paraules clau del podcast"
+msgstr "Paraules clau del pòdcast"
 
 #: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:287
 msgctxt "@default|"
@@ -3129,7 +3129,7 @@ msgstr "URL dels drets d'autor"
 #: src/core/tags/frame.cpp:244
 msgctxt "@default|"
 msgid "Podcast Feed"
-msgstr "Canal de podcast"
+msgstr "Canal de pòdcast"
 
 #: src/core/tags/frame.cpp:245
 msgctxt "@default|"
@@ -3385,12 +3385,12 @@ msgstr "Mostra l'obra i el moviment"
 #: src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Podcast URL"
-msgstr "URL del podcast"
+msgstr "URL del pòdcast"
 
 #: src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Podcast GUID"
-msgstr "GUID del podcast"
+msgstr "GUID del pòdcast"
 
 #: src/core/tags/frame.cpp:324
 msgctxt "@default|"
@@ -6356,7 +6356,7 @@ msgstr "MVNM - Nom del moviment"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2742
 msgctxt "@default|"
 msgid "PCST - Podcast"
-msgstr "PCST - Podcast"
+msgstr "PCST - Pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2747
 msgctxt "@default|"
@@ -6376,7 +6376,7 @@ msgstr "SIGN - Marc de signatura"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2756
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
-msgstr "TCAT - Categoria podcast"
+msgstr "TCAT - Categoria pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2758
 msgctxt "@default|"
@@ -6391,7 +6391,7 @@ msgstr "TDEN - Temps de la codificació"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2764
 msgctxt "@default|"
 msgid "TDES - Podcast description"
-msgstr "TDES - Descripció del podcast"
+msgstr "TDES - Descripció del pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2767
 msgctxt "@default|"
@@ -6416,7 +6416,7 @@ msgstr "TDTG - Temps de l'etiquetatge"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2775
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
-msgstr "TGID - Identificador del podcast"
+msgstr "TGID - Identificador del pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2777
 msgctxt "@default|"
@@ -6426,7 +6426,7 @@ msgstr "TIPL - Llista de les persones implicades"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2783
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
-msgstr "TKWD - Paraules clau del podcast"
+msgstr "TKWD - Paraules clau del pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2787
 msgctxt "@default|"
@@ -6476,7 +6476,7 @@ msgstr "TSST - Estableix el subtítol"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2820
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
-msgstr "WFED - Canal de podcast"
+msgstr "WFED - Canal de pòdcast"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:7094
 msgctxt "@default|"
