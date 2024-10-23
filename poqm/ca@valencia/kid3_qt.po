@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3\n"
-"PO-Revision-Date: 2024-08-25 16:55+0200\n"
+"PO-Revision-Date: 2024-10-21 20:05+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.0\n"
+"X-Generator: Lokalize 24.08.2\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
