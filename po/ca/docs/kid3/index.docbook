@@ -2476,7 +2476,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->Les assignacions no es trien de manera arbitrària, sinó que estan orientades a l'ús dels marcs en altres aplicacions i dispositius. Per tant, el marc ID3 versió 2 «TPE2 - Banda/orquestra/acompanyament» no suggerirà el seu ús com Artista de l'àlbum, però això s'utilitza de forma habitual. D'altra banda, el significat real de l'ID3 versió 2, és la raó per la qual quan s'importa es fa servir aquest marc per a l'orquestra (p. ex., des de Discogs), encara que això pot semblar una mica estrany per a altres formats d'etiqueta. </para
+>Les assignacions no es trien de manera arbitrària, sinó que estan orientades a l'ús dels marcs en altres aplicacions i dispositius. Per tant, el marc ID3 versió 2 «TPE2 - Banda/orquestra/acompanyament» no suggerirà el seu ús com a Artista de l'àlbum, però això s'utilitza de forma habitual. D'altra banda, el significat real de l'ID3 versió 2, és la raó per la qual quan s'importa es fa servir aquest marc per a l'orquestra (p. ex., des de Discogs), encara que això pot semblar una mica estrany per a altres formats d'etiqueta. </para
 ></listitem>
 <listitem
 ><para
@@ -2539,7 +2539,7 @@ end manpage include-->
 >Edita</guibutton
 >. El reproductor s'obrirà automàticament amb el fitxer actual perquè el fitxer es pugui reproduir i fer pausa per tal de sincronitzar la lletra. </para>
 <para
->La configuració que hi ha a la part superior de l'editor SYLT normalment no s'han de canviar. Si la lletra conté caràcters que no estan presents en el joc de caràcters Llatin 1, és recomanable canviar la codificació del text a UTF16 (o UTF8 per a l'ID3 versió 2.4.0). Per a la lletra en anglès i una màxima compatibilitat, s'haurà d'utilitzar la ISO-8859-1. </para>
+>La configuració que hi ha a la part superior de l'editor SYLT normalment no s'han de canviar. Si la lletra conté caràcters que no estan presents en el joc de caràcters Llatin 1, és recomanable canviar la codificació del text a UTF16 (o UTF8 per a l'ID3 versió 2.4.0). Per a la lletra en anglès i una màxima compatibilitat, s'haurà d'utilitzar l'ISO-8859-1. </para>
 <para
 >La secció <guilabel
 >Lletra</guilabel
