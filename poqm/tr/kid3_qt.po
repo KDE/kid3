@@ -660,13 +660,13 @@ msgstr "Dosyadan veya panodan içe aktar"
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1..."
-msgstr "Şuradan içe aktar: %1…"
+msgstr "Şuradan İçe Aktar: %1…"
 
 #: src/app/kde/kdemainwindow.cpp:233 src/app/kde/kdemainwindow.cpp:248
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1"
-msgstr "Şuradan içe aktar: %1"
+msgstr "Şuradan İçe Aktar: %1"
 
 #: src/app/kde/kdemainwindow.cpp:255
 msgctxt "KdeMainWindow|"
@@ -721,22 +721,22 @@ msgstr "M3U Çalma Listesi Dosyası Oluştur"
 #: src/app/kde/kdemainwindow.cpp:279
 msgctxt "KdeMainWindow|"
 msgid "Apply &Filename Format"
-msgstr "&Dosya Adı Biçimini Uygula"
+msgstr "&Dosya Adı Biçimi Uygula"
 
 #: src/app/kde/kdemainwindow.cpp:280
 msgctxt "KdeMainWindow|"
 msgid "Apply Filename Format"
-msgstr "Dosya Adı Yapısını Uygula"
+msgstr "Dosya Adı Biçimi Uygula"
 
 #: src/app/kde/kdemainwindow.cpp:283
 msgctxt "KdeMainWindow|"
 msgid "Apply &Tag Format"
-msgstr "Kü&nye Biçimini Uygula"
+msgstr "Kü&nye Biçimi Uygula"
 
 #: src/app/kde/kdemainwindow.cpp:284
 msgctxt "KdeMainWindow|"
 msgid "Apply Tag Format"
-msgstr "Künye Biçimini Uygula"
+msgstr "Künye Biçimi Uygula"
 
 #: src/app/kde/kdemainwindow.cpp:287
 msgctxt "KdeMainWindow|"
@@ -761,7 +761,7 @@ msgstr "Klasörü Yeniden Adlandır"
 #: src/app/kde/kdemainwindow.cpp:295
 msgctxt "KdeMainWindow|"
 msgid "&Number Tracks..."
-msgstr "&Parça Numarları…"
+msgstr "&Parça Numaraları…"
 
 #: src/app/kde/kdemainwindow.cpp:296
 msgctxt "KdeMainWindow|"
@@ -776,27 +776,27 @@ msgstr "&Süz…"
 #: src/app/kde/kdemainwindow.cpp:300
 msgctxt "KdeMainWindow|"
 msgid "Filter"
-msgstr "Süzgeç"
+msgstr "Süz"
 
 #: src/app/kde/kdemainwindow.cpp:305
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.&4"
-msgstr "ID3v2.3 dönüştürmek için ID3v2.&4"
+msgstr "ID3v2.3’ü ID3v2.&4’e Dönüştür"
 
 #: src/app/kde/kdemainwindow.cpp:306
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.4"
-msgstr "ID3v2.3 dönüştürmek için ID3v2.4"
+msgstr "ID3v2.3’ü ID3v2.&4’e Dönüştür"
 
 #: src/app/kde/kdemainwindow.cpp:310
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.&3"
-msgstr "ID3v2.4 dönüştürmek için ID3v2.&3"
+msgstr "ID3v2.4’ü ID3v2.&3’e Dönüştür"
 
 #: src/app/kde/kdemainwindow.cpp:311
 msgctxt "KdeMainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.3"
-msgstr "ID3v2.4 dönüştürmek için ID3v2.3"
+msgstr "ID3v2.4’ü ID3v2.&3’e Dönüştür"
 
 #: src/app/kde/kdemainwindow.cpp:318
 msgctxt "KdeMainWindow|"
@@ -1706,7 +1706,7 @@ msgstr "Desteklenen Bütün Dosyalar"
 #: src/core/config/formatconfig.cpp:501
 msgctxt "@default|"
 msgid "No changes"
-msgstr "Değişiklik Yok"
+msgstr "Değişiklik yok"
 
 #: src/core/config/formatconfig.cpp:502
 msgctxt "@default|"
@@ -2737,17 +2737,17 @@ msgstr "Disk Numarası"
 #: src/core/tags/frame.cpp:136 src/core/tags/frame.cpp:256
 msgctxt "@default|"
 msgid "Encoded-by"
-msgstr "Kodlandı"
+msgstr "Kodlayan"
 
 #: src/core/tags/frame.cpp:137 src/core/tags/frame.cpp:255
 msgctxt "@default|"
 msgid "Encoder Settings"
-msgstr "Kodlayıcı ayarları"
+msgstr "Kodlayıcı Ayarları"
 
 #: src/core/tags/frame.cpp:138 src/core/tags/frame.cpp:220
 msgctxt "@default|"
 msgid "Encoding Time"
-msgstr "Sıkıştırma süresi"
+msgstr "Kodlama Zamanı"
 
 #: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:198
 #: src/core/tags/frame.cpp:251
@@ -2758,7 +2758,7 @@ msgstr "Gruplama"
 #: src/core/tags/frame.cpp:140
 msgctxt "@default|"
 msgid "Initial Key"
-msgstr "İlk anahtar"
+msgstr "İlk Anahtar"
 
 #: src/core/tags/frame.cpp:141
 msgctxt "@default|"
@@ -2768,7 +2768,7 @@ msgstr "ISRC"
 #: src/core/tags/frame.cpp:143
 msgctxt "@default|"
 msgid "Lyricist"
-msgstr "Söz Yazar"
+msgstr "Söz Yazarı"
 
 #: src/core/tags/frame.cpp:145 src/core/tags/pictureframe.cpp:47
 msgctxt "@default|"
@@ -2778,7 +2778,7 @@ msgstr "Ortam"
 #: src/core/tags/frame.cpp:146 src/core/tags/frame.cpp:286
 msgctxt "@default|"
 msgid "Mood"
-msgstr "Duruş"
+msgstr "Ruh Hali"
 
 #: src/core/tags/frame.cpp:147
 msgctxt "@default|"
@@ -2818,32 +2818,32 @@ msgstr "Yayımlanan Ülke"
 #: src/core/tags/frame.cpp:155 src/core/tags/frame.cpp:274
 msgctxt "@default|"
 msgid "Remixer"
-msgstr "Remiks yapan"
+msgstr "Remiksleyen"
 
 #: src/core/tags/frame.cpp:156
 msgctxt "@default|"
 msgid "Sort Album"
-msgstr "Albüm sıralaması"
+msgstr "Albüme Göre Sırala"
 
 #: src/core/tags/frame.cpp:157 src/core/tags/frame.cpp:283
 msgctxt "@default|"
 msgid "Sort Album Artist"
-msgstr "Albüm Sanatçısı Sıralama Düzeni"
+msgstr "Albüm Sanatçısına Göre Sırala"
 
 #: src/core/tags/frame.cpp:158
 msgctxt "@default|"
 msgid "Sort Artist"
-msgstr "Söyleyen sıralaması"
+msgstr "Sanatçıya Göre Sırala"
 
 #: src/core/tags/frame.cpp:159
 msgctxt "@default|"
 msgid "Sort Composer"
-msgstr "Besteci sıralaması"
+msgstr "Besteciye Göre Sırala"
 
 #: src/core/tags/frame.cpp:160
 msgctxt "@default|"
 msgid "Sort Name"
-msgstr "Başlık sıralaması"
+msgstr "Ada Göre Sırala"
 
 #: src/core/tags/frame.cpp:161
 msgctxt "@default|"
@@ -2858,32 +2858,32 @@ msgstr "Web Sitesi"
 #: src/core/tags/frame.cpp:163
 msgctxt "@default|"
 msgid "WWW Audio File"
-msgstr "Ses dosyası WWW"
+msgstr "WWW Ses Dosyası"
 
 #: src/core/tags/frame.cpp:164
 msgctxt "@default|"
 msgid "WWW Audio Source"
-msgstr "Ses dosyasının WWW"
+msgstr "WWW Ses Kaynağı"
 
 #: src/core/tags/frame.cpp:165
 msgctxt "@default|"
 msgid "Release Date"
-msgstr "Sürüm Tarihi"
+msgstr "Yayım Tarihi"
 
 #: src/core/tags/frame.cpp:167
 msgctxt "@default|"
 msgid "Work"
-msgstr "Eser adı"
+msgstr "Çalışma"
 
 #: src/core/tags/frame.cpp:187
 msgctxt "@default|"
 msgid "Audio Encryption"
-msgstr "Ses şifreleme"
+msgstr "Ses Şifrelemesi"
 
 #: src/core/tags/frame.cpp:188
 msgctxt "@default|"
 msgid "Audio Seek Point"
-msgstr "Ses tarama nokta"
+msgstr "Ses Tarama Noktası"
 
 #: src/core/tags/frame.cpp:189
 msgctxt "@default|"
@@ -2903,7 +2903,7 @@ msgstr "İçindekiler"
 #: src/core/tags/frame.cpp:192
 msgctxt "@default|"
 msgid "Encryption Method"
-msgstr "Şifreleme yöntemi"
+msgstr "Şifreleme Yöntemi"
 
 #: src/core/tags/frame.cpp:193 src/core/tags/frame.cpp:194
 msgctxt "@default|"
@@ -2913,52 +2913,52 @@ msgstr "Ekolayzır"
 #: src/core/tags/frame.cpp:195
 msgctxt "@default|"
 msgid "Event Timing Codes"
-msgstr "Olay zamanlama kodekleri"
+msgstr "Olay Zamanlama Kodları"
 
 #: src/core/tags/frame.cpp:196
 msgctxt "@default|"
 msgid "General Object"
-msgstr "Genel nesnesi"
+msgstr "Genel Nesne"
 
 #: src/core/tags/frame.cpp:197
 msgctxt "@default|"
 msgid "Group Identification"
-msgstr "Grup tanımlama"
+msgstr "Grup Tanımlaması"
 
 #: src/core/tags/frame.cpp:199
 msgctxt "@default|"
 msgid "Linked Information"
-msgstr "Bağlanmış bilgi"
+msgstr "Bağlantılı Bilgi"
 
 #: src/core/tags/frame.cpp:200
 msgctxt "@default|"
 msgid "Music CD Identifier"
-msgstr "Ses CD’si tanımlayıcı"
+msgstr "Ses CD’si Tanımlayıcısı"
 
 #: src/core/tags/frame.cpp:201
 msgctxt "@default|"
 msgid "MPEG Lookup Table"
-msgstr "MPEG şema tablosu"
+msgstr "MPEG Tarama Tablosu"
 
 #: src/core/tags/frame.cpp:202 src/core/tags/frame.cpp:318
 msgctxt "@default|"
 msgid "Movement Number"
-msgstr "Bölüm numarası"
+msgstr "Hareket Numarası"
 
 #: src/core/tags/frame.cpp:203 src/core/tags/frame.cpp:317
 msgctxt "@default|"
 msgid "Movement Name"
-msgstr "Bölüm adı"
+msgstr "Hareket Adı"
 
 #: src/core/tags/frame.cpp:204
 msgctxt "@default|"
 msgid "Ownership"
-msgstr "Sahip"
+msgstr "Sahiplik"
 
 #: src/core/tags/frame.cpp:205
 msgctxt "@default|"
 msgid "Play Counter"
-msgstr "Çalma sayacı"
+msgstr "Çalma Sayacı"
 
 #: src/core/tags/frame.cpp:206 src/core/tags/frame.cpp:303
 msgctxt "@default|"
@@ -2968,12 +2968,12 @@ msgstr "Pod Yayını"
 #: src/core/tags/frame.cpp:207
 msgctxt "@default|"
 msgid "Popularimeter"
-msgstr "Popülerlik ölçümü"
+msgstr "Popülerlikölçer"
 
 #: src/core/tags/frame.cpp:208
 msgctxt "@default|"
 msgid "Position Synchronisation"
-msgstr "Pozisyon senkronizasyon"
+msgstr "Konum Eşzamanlaması"
 
 #: src/core/tags/frame.cpp:209
 msgctxt "@default|"
@@ -2983,7 +2983,7 @@ msgstr "Özel"
 #: src/core/tags/frame.cpp:210
 msgctxt "@default|"
 msgid "Recommended Buffer Size"
-msgstr "Önerilen tampon bellek boyutu"
+msgstr "Önerilen Arabellek Boyutu"
 
 #: src/core/tags/frame.cpp:213
 msgctxt "@default|"
@@ -2993,7 +2993,7 @@ msgstr "Yankı"
 #: src/core/tags/frame.cpp:214
 msgctxt "@default|"
 msgid "Seek"
-msgstr "Çerçevesi"
+msgstr "Tarama"
 
 #: src/core/tags/frame.cpp:215
 msgctxt "@default|"
@@ -3003,12 +3003,12 @@ msgstr "İmza"
 #: src/core/tags/frame.cpp:216
 msgctxt "@default|"
 msgid "Synchronized Lyrics"
-msgstr "Senkronize edilmiş şarkı sözü"
+msgstr "Eşzamanlı Şarkı Sözleri"
 
 #: src/core/tags/frame.cpp:217
 msgctxt "@default|"
 msgid "Synchronized Tempo Codes"
-msgstr "Senkronize edilmiş tempo açıcıları"
+msgstr "Eşzamanlı Tempo Kodları"
 
 #: src/core/tags/frame.cpp:218
 msgctxt "@default|"
@@ -3023,32 +3023,32 @@ msgstr "Pod Yayını Açıklaması"
 #: src/core/tags/frame.cpp:222
 msgctxt "@default|"
 msgid "Playlist Delay"
-msgstr "Şarkı listesi gecikmesi"
+msgstr "Çalma Listesi Gecikmesi"
 
 #: src/core/tags/frame.cpp:223
 msgctxt "@default|"
 msgid "Original Release Time"
-msgstr "Özgün Çıkış Zamanı"
+msgstr "Özgün Yayım Zamanı"
 
 #: src/core/tags/frame.cpp:224
 msgctxt "@default|"
 msgid "Recording Time"
-msgstr "Kayıt süresi"
+msgstr "Kayıt Süresi"
 
 #: src/core/tags/frame.cpp:225
 msgctxt "@default|"
 msgid "Release Time"
-msgstr "Piyasaya çıkış zamanı"
+msgstr "Yayım Zamanı"
 
 #: src/core/tags/frame.cpp:226
 msgctxt "@default|"
 msgid "Tagging Time"
-msgstr "Künyeleme zamanı"
+msgstr "Künyeleme Zamanı"
 
 #: src/core/tags/frame.cpp:227
 msgctxt "@default|"
 msgid "File Type"
-msgstr "Dosya türü"
+msgstr "Dosya Türü"
 
 #: src/core/tags/frame.cpp:228
 msgctxt "@default|"
@@ -3073,27 +3073,27 @@ msgstr "Özgün Dosya Adı"
 #: src/core/tags/frame.cpp:233
 msgctxt "@default|"
 msgid "File Owner"
-msgstr "Dosyanın sahibi"
+msgstr "Dosyanın Sahibi"
 
 #: src/core/tags/frame.cpp:234
 msgctxt "@default|"
 msgid "Produced Notice"
-msgstr "Üretilmiş uyarı"
+msgstr "Üretilen Uyarı"
 
 #: src/core/tags/frame.cpp:235 src/core/tags/frame.cpp:273
 msgctxt "@default|"
 msgid "Recording Date"
-msgstr "Kayıt tarihleri"
+msgstr "Kayıt Tarihi"
 
 #: src/core/tags/frame.cpp:236
 msgctxt "@default|"
 msgid "Radio Station Name"
-msgstr "Radyo istasyonu adı"
+msgstr "Radyo İstasyonu Adı"
 
 #: src/core/tags/frame.cpp:237
 msgctxt "@default|"
 msgid "Radio Station Owner"
-msgstr "Radyo istasyonu sahibi"
+msgstr "Radyo İstasyonu Sahibi"
 
 #: src/core/tags/frame.cpp:238
 msgctxt "@default|"
@@ -3103,27 +3103,27 @@ msgstr "Boyut"
 #: src/core/tags/frame.cpp:239
 msgctxt "@default|"
 msgid "User-defined Text"
-msgstr "Kullanıcı tanımlı metin bilgisi"
+msgstr "Kullanıcı Tanımlı Metin"
 
 #: src/core/tags/frame.cpp:240
 msgctxt "@default|"
 msgid "Unique File Identifier"
-msgstr "Benzersiz dosya tanımlayıcısı"
+msgstr "Benzersiz Dosya Tanımlayıcısı"
 
 #: src/core/tags/frame.cpp:241
 msgctxt "@default|"
 msgid "Terms of Use"
-msgstr "Kullanım şartları"
+msgstr "Kullanım Şartları"
 
 #: src/core/tags/frame.cpp:242 src/core/tags/frame.cpp:289
 msgctxt "@default|"
 msgid "Commercial URL"
-msgstr "Ticari bilgi"
+msgstr "Ticari URL"
 
 #: src/core/tags/frame.cpp:243
 msgctxt "@default|"
 msgid "Copyright URL"
-msgstr "Telif URL"
+msgstr "Telif URL’si"
 
 #: src/core/tags/frame.cpp:244
 msgctxt "@default|"
@@ -3143,13 +3143,13 @@ msgstr "Ödeme"
 #: src/core/tags/frame.cpp:247
 msgctxt "@default|"
 msgid "Official Publisher"
-msgstr "Resmi yayımcı"
+msgstr "Resmi Yayımcı"
 
 #: src/core/tags/frame.cpp:248 src/core/tags/frame.cpp:282
 #: src/core/tags/frame.cpp:291
 msgctxt "@default|"
 msgid "User-defined URL"
-msgstr "Kullanıcı tanımlı URL bağlantısı"
+msgstr "Kullanıcı Tanımlı URL"
 
 #: src/core/tags/frame.cpp:250
 msgctxt "@default|"
@@ -3194,17 +3194,17 @@ msgstr "VBR"
 #: src/core/tags/frame.cpp:262 src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Gapless Playback"
-msgstr "Aralıksız çalma"
+msgstr "Aralıksız Çalma"
 
 #: src/core/tags/frame.cpp:263
 msgctxt "@default|"
 msgid "Label"
-msgstr "Künye"
+msgstr "Etiket"
 
 #: src/core/tags/frame.cpp:264
 msgctxt "@default|"
 msgid "Label Number"
-msgstr "Künye Numarası"
+msgstr "Etiket Numarası"
 
 #: src/core/tags/frame.cpp:265
 msgctxt "@default|"
@@ -3214,7 +3214,7 @@ msgstr "Lisans"
 #: src/core/tags/frame.cpp:266
 msgctxt "@default|"
 msgid "Location"
-msgstr "Yer"
+msgstr "Konum"
 
 #: src/core/tags/frame.cpp:267
 msgctxt "@default|"
@@ -3229,7 +3229,7 @@ msgstr "Kurum"
 #: src/core/tags/frame.cpp:270
 msgctxt "@default|"
 msgid "Part Number"
-msgstr "Bölüm Numarası"
+msgstr "Kısım Numarası"
 
 #: src/core/tags/frame.cpp:271
 msgctxt "@default|"
@@ -3254,7 +3254,7 @@ msgstr "Sürüm"
 #: src/core/tags/frame.cpp:281
 msgctxt "@default|"
 msgid "Volume"
-msgstr "Ses"
+msgstr "Ses Düzeyi"
 
 #: src/core/tags/frame.cpp:285
 msgctxt "@default|"
@@ -3284,7 +3284,7 @@ msgstr "Satın Alım Hesabı"
 #: src/core/tags/frame.cpp:294
 msgctxt "@default|"
 msgid "Artist ID"
-msgstr "Sanatçı Kimlik"
+msgstr "Sanatçı Kimliği"
 
 #: src/core/tags/frame.cpp:295
 msgctxt "@default|"
@@ -3294,7 +3294,7 @@ msgstr "Kategori"
 #: src/core/tags/frame.cpp:296
 msgctxt "@default|"
 msgid "Catalog ID"
-msgstr "Katalog Kimlik"
+msgstr "Katalog Kimliği"
 
 #: src/core/tags/frame.cpp:299
 msgctxt "@default|"
@@ -3309,17 +3309,17 @@ msgstr "YB Video"
 #: src/core/tags/frame.cpp:301
 msgctxt "@default|"
 msgid "Keyword"
-msgstr "Anahtar sözcük"
+msgstr "Anahtar Sözcük"
 
 #: src/core/tags/frame.cpp:302
 msgctxt "@default|"
 msgid "Long Description"
-msgstr "Uzun açıklama"
+msgstr "Uzun Açıklama"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Album ID"
-msgstr "Albüm Kimlik"
+msgstr "Albüm Kimliği"
 
 #: src/core/tags/frame.cpp:306
 msgctxt "@default|"
@@ -3334,7 +3334,7 @@ msgstr "Derecelendirme/Öneri"
 #: src/core/tags/frame.cpp:308
 msgctxt "@default|"
 msgid "Country Code"
-msgstr "Ülke kodu"
+msgstr "Ülke Kodu"
 
 #: src/core/tags/frame.cpp:309
 msgctxt "@default|"
@@ -3344,22 +3344,22 @@ msgstr "Programı Sırala"
 #: src/core/tags/frame.cpp:310
 msgctxt "@default|"
 msgid "Media Type"
-msgstr "Ortam türü"
+msgstr "Ortam Türü"
 
 #: src/core/tags/frame.cpp:311
 msgctxt "@default|"
 msgid "TV Episode"
-msgstr "Bölüm"
+msgstr "Dizi Bölümü"
 
 #: src/core/tags/frame.cpp:312
 msgctxt "@default|"
 msgid "TV Episode Number"
-msgstr "Bölüm Numara"
+msgstr "Dizi Bölümü Numarası"
 
 #: src/core/tags/frame.cpp:313
 msgctxt "@default|"
 msgid "TV Network Name"
-msgstr "Ağ"
+msgstr "TV Kanalı Adı"
 
 #: src/core/tags/frame.cpp:314
 msgctxt "@default|"
@@ -3374,12 +3374,12 @@ msgstr "Sezon"
 #: src/core/tags/frame.cpp:319
 msgctxt "@default|"
 msgid "Movement Count"
-msgstr "Bölüm sayısı"
+msgstr "Hareket Sayısı"
 
 #: src/core/tags/frame.cpp:320
 msgctxt "@default|"
 msgid "Show Work & Movement"
-msgstr "Eser ve bölüm bilgisini kullan"
+msgstr "Çalışmayı ve Hareketi Göster"
 
 #: src/core/tags/frame.cpp:322
 msgctxt "@default|"
@@ -3394,7 +3394,7 @@ msgstr "Pod Yayını GUID’si"
 #: src/core/tags/frame.cpp:324
 msgctxt "@default|"
 msgid "Composer ID"
-msgstr "Besteci Kimlik"
+msgstr "Besteci Kimliği"
 
 #: src/core/tags/frame.cpp:325
 msgctxt "@default|"
@@ -3429,22 +3429,22 @@ msgstr "Boyutlar"
 #: src/core/tags/frame.cpp:331
 msgctxt "@default|"
 msgid "Dots Per Inch"
-msgstr "Inç başına nokta"
+msgstr "Inç Başına Nokta"
 
 #: src/core/tags/frame.cpp:332
 msgctxt "@default|"
 msgid "Keywords"
-msgstr "Anahtar sözcükler"
+msgstr "Anahtar Sözcükler"
 
 #: src/core/tags/frame.cpp:333
 msgctxt "@default|"
 msgid "Lightness"
-msgstr "Işık etkisi"
+msgstr "Aydınlık"
 
 #: src/core/tags/frame.cpp:334
 msgctxt "@default|"
 msgid "Number of Colors"
-msgstr "Renk sayısı"
+msgstr "Renk Sayısı"
 
 #: src/core/tags/frame.cpp:335
 msgctxt "@default|"
@@ -3470,22 +3470,22 @@ msgstr "Tag %1"
 #: src/core/tags/frame.cpp:1209
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
-msgstr "Tag 1 ve Tag 2"
+msgstr "Künye 1 ve Künye 2"
 
 #: src/core/tags/frame.cpp:1213
 msgctxt "@default|"
 msgid "All Tags"
-msgstr "Tüm künyeler"
+msgstr "Tüm Künyeler"
 
 #: src/core/tags/frame.cpp:2023
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
-msgstr "Boş değilse t1’i öne, t2’yi arkaya ekle"
+msgstr "Boş değilse k1’i öne, k2’yi arkaya ekle"
 
 #: src/core/tags/framenotice.cpp:184
 msgctxt "@default|"
 msgid "Truncated"
-msgstr "Kirpildi"
+msgstr "Kirpilmış"
 
 #: src/core/tags/framenotice.cpp:185
 msgctxt "@default|"
@@ -3925,7 +3925,7 @@ msgstr "Başlamak için Göz At’a tıklayın"
 #: src/gui/dialogs/browsecoverartdialog.cpp:183
 msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
-msgstr "Sonrasında tarayıcıdan resimleri Kid3’e sürükleyin"
+msgstr "Sonrasında tarayıcıdan resimleri Kid3’e sürükleyin."
 
 #: src/gui/dialogs/configdialogpages.cpp:176
 msgctxt "ConfigDialogPages|"
@@ -3941,7 +3941,7 @@ msgstr "Kısaltılmış alanları i&mle"
 #: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
-msgstr "M&etin kodlama:"
+msgstr "M&etin kodlaması:"
 
 #: src/gui/dialogs/configdialogpages.cpp:195
 msgctxt "ConfigDialogPages|"
@@ -4031,7 +4031,7 @@ msgstr "Özel &Çerçeveler"
 #: src/gui/dialogs/configdialogpages.cpp:325
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
-msgstr "Yeniden sıralamak için Taşıyın ve Bırakın"
+msgstr "Ögeleri yeniden sıralamak için sürükleyin ve bırakın"
 
 #: src/gui/dialogs/configdialogpages.cpp:328
 msgctxt "ConfigDialogPages|"
@@ -4096,7 +4096,7 @@ msgstr "Kaydet"
 #: src/gui/dialogs/configdialogpages.cpp:395
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
-msgstr "&Dosya timestamp değerini sakla"
+msgstr "&Dosyanın zaman damgasını koru"
 
 #: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
@@ -4111,7 +4111,7 @@ msgstr "Albüm kapağı &için dosya adı:"
 #: src/gui/dialogs/configdialogpages.cpp:408
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
-msgstr "M&etin kodlama (Dışa Aktar, Çalma Listesi):"
+msgstr "M&etin kodlaması (dışa aktar, ç. listesi):"
 
 #: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
@@ -4146,12 +4146,12 @@ msgstr "Biçim"
 #: src/gui/dialogs/configdialogpages.cpp:448
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
-msgstr "Künyeden dosya adı"
+msgstr "Künyeden Dosya Adı"
 
 #: src/gui/dialogs/configdialogpages.cpp:453
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
-msgstr "Dosya adından künye"
+msgstr "Dosya Adından Künye"
 
 #: src/gui/dialogs/configdialogpages.cpp:459
 #: src/gui/dialogs/configdialogpages.cpp:519
@@ -4177,12 +4177,12 @@ msgstr "Dosya Adından Künye"
 #: src/gui/dialogs/configdialogpages.cpp:533
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
-msgstr "Göz At"
+msgstr "Tarayıcı"
 
 #: src/gui/dialogs/configdialogpages.cpp:534
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
-msgstr "İnternet &Tarayıcısı:"
+msgstr "İnternet &tarayıcısı:"
 
 #: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
@@ -4217,7 +4217,7 @@ msgstr "Vekil Sunucu"
 #: src/gui/dialogs/configdialogpages.cpp:587
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
-msgstr "&Vekil Sunucu:"
+msgstr "&Vekil sunucu:"
 
 #: src/gui/dialogs/configdialogpages.cpp:590
 msgctxt "ConfigDialogPages|"
@@ -5254,7 +5254,7 @@ msgstr "İ&ptal"
 #: src/gui/forms/configurabletreeview.cpp:51
 msgctxt "ConfigurableTreeView|"
 msgid "Automatic Column Widths"
-msgstr "Otomatik Sütun Genişlikleri"
+msgstr "Kendiliğinden Sütun Genişlikleri"
 
 #: src/gui/forms/configurabletreeview.cpp:58
 msgctxt "ConfigurableTreeView|"
@@ -5551,7 +5551,7 @@ msgstr "En büyük uzunluk:"
 #: src/gui/widgets/formatbox.cpp:48
 msgctxt "FormatBox|"
 msgid "Automatically apply format"
-msgstr "Otomatik biçimini uygula"
+msgstr "Kendiliğinden biçimi uygula"
 
 #: src/gui/widgets/formatbox.cpp:56
 msgctxt "FormatBox|"
@@ -6500,7 +6500,7 @@ msgstr ""
 #: src/qml/app/BatchImportPage.qml:32
 msgctxt "BatchImportPage|"
 msgid "Automatic Import"
-msgstr "Otomatik al"
+msgstr "Kendiliğinden İçe Aktar"
 
 #: src/qml/app/BatchImportPage.qml:40
 msgctxt "BatchImportPage|"
@@ -6766,7 +6766,7 @@ msgstr " [değişti]"
 #, qt-format
 msgctxt "MainPage|"
 msgid " [filtered %1/%2]"
-msgstr " [süzgeci %1/%2]"
+msgstr " [%1/%2 süzüldü]"
 
 #: src/qml/app/MainPage.qml:95 src/qml/app/MainPage.qml:164
 msgctxt "MainPage|"
@@ -7032,12 +7032,12 @@ msgstr "Yeni künyeler için kullanılan sürüm"
 #: src/qml/app/SettingsPage.qml:86
 msgctxt "SettingsPage|"
 msgid "Track number digits"
-msgstr "Hane sayısı"
+msgstr "Parça numarası basamağı"
 
 #: src/qml/app/SettingsPage.qml:91
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis comment field name"
-msgstr "Ogg/Vorbis yorum alan adı"
+msgstr "Ogg/Vorbis yorum alanı adı"
 
 #: src/qml/app/SettingsPage.qml:101
 msgctxt "SettingsPage|"
