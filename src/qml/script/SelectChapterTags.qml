@@ -23,11 +23,57 @@
  */
 
 import Kid3 1.1
-import "imports/ChapterTags.js" as ChapterTags
 
 Kid3Script {
   onRun: {
-    ChapterTags.setSelected_allChapterTags(true);
+    // In the case that a frame occurs multiple times, we have to select/
+    // deselect every instance of it individually.
+    function setSelectedForAllFramesWithKey(key, selected) {
+      for (let i = 0; app.getFrame(tagv2, `${key}[${i}]`); i++) {
+        app.setFrame(tagv2, `${key}[${i}].selected`, selected);
+      }
+    }
+
+    function setSelected_id3ChapterTags(selected) {
+      app.setFrame(tagv2, 'Chapters.selected', selected);
+      setSelectedForAllFramesWithKey('CTOC', selected);
+      setSelectedForAllFramesWithKey('CHAP', selected);
+    }
+
+    function setSelected_mp4ChapterTags(selected) {
+      // Only relevant with the MP4v2 plugin enabled, at the time of writing.
+      app.setFrame(tagv2, 'Chapters.selected', selected);
+    }
+
+    function setSelected_vorbisCommentChapterTags(selected) {
+      // VorbisComment doesn't actually use Chapters as of the time of writing,
+      // but this future-proofs this script for the potential change.
+      app.setFrame(tagv2, 'Chapters.selected', selected);
+
+      for (const key of Object.keys(app.getAllFrames(tagv2))) {
+        if (/^CHAPTER\d{3}(NAME|URL)?$/i.test(key)) {
+          setSelectedForAllFramesWithKey(key, selected);
+        }
+      }
+    }
+
+    function setSelected_allChapterTags(selected) {
+      let tagFormat = app.selectionInfo.tag(Frame.Tag_2).tagFormat;
+
+      switch (true) {
+        case tagFormat.startsWith('ID3v2.'):
+          setSelected_id3ChapterTags(selected);
+          break;
+        case tagFormat === 'MP4':
+          setSelected_mp4ChapterTags(selected);
+          break;
+        case tagFormat === 'Vorbis':
+          setSelected_vorbisCommentChapterTags(selected);
+          break;
+      }
+    }
+
+    setSelected_allChapterTags(!getArguments().includes('--deselect'));
     Qt.quit();
   }
 }
