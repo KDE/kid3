@@ -177,7 +177,8 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
                  AbstractCliIO* io, const QStringList& args, QObject* parent) :
   AbstractCli(io, parent),
   m_app(app), m_args(args),
-  m_tagMask(Frame::TagV2V1), m_timeoutMs(0), m_fileNameChanged(false)
+  m_tagMask(Frame::TagV2V1), m_timeoutMs(0), m_fileNameChanged(false),
+  m_isInteractive(false)
 {
   m_formatters << new JsonCliFormatter(io)
                << new TextCliFormatter(io);
@@ -346,7 +347,8 @@ void Kid3Cli::writeHelp(const QString& cmdName, bool usageMessage)
  */
 void Kid3Cli::execute()
 {
-  if (!parseOptions()) {
+  m_isInteractive = !parseOptions();
+  if (m_isInteractive) {
     // Interactive mode
     AbstractCli::execute();
   }

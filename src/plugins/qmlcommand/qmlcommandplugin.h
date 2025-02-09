@@ -81,10 +81,12 @@ public:
    * @param arguments arguments to pass to script
    * @param showOutput true to enable output in output viewer, using signal
    *                   commandOutput().
+   * @param vars variables to make available in command
    * @return true if command is started.
    */
   bool startUserCommand(
-      const QString& key, const QStringList& arguments, bool showOutput) override;
+      const QString& key, const QStringList& arguments, bool showOutput,
+      const QVariantMap& vars = QVariantMap()) override;
 
   /**
    * Return object which emits commandOutput() signal.

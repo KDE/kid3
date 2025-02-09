@@ -189,6 +189,12 @@ public:
   void setTimeout(int timeout) { m_timeoutMs = timeout; }
 
   /**
+   * Check if command line is interactive.
+   * @return true if CLI is running in interactive mode.
+   */
+  bool isInteractive() const { return m_isInteractive; }
+
+  /**
    * Expand wildcards in path list.
    * @param paths paths to expand
    * @return expanded paths.
@@ -260,4 +266,5 @@ private:
   /** Overwrites command timeout, -1 to switch off, 0 for defaults, else ms. */
   int m_timeoutMs;
   bool m_fileNameChanged;
+  bool m_isInteractive;
 };

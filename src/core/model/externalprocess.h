@@ -28,6 +28,7 @@
 
 #include <QObject>
 #include <QStringList>
+#include <QVariantMap>
 #include "kid3api.h"
 
 class QProcess;
@@ -98,10 +99,12 @@ public:
    * @param name       display name
    * @param args       command and arguments
    * @param showOutput true to show output of process
+   * @param vars       variables to make available in command
    * @return false if process could not be executed.
    */
   bool launchCommand(const QString& name, const QStringList& args,
-                     bool showOutput = false);
+                     bool showOutput = false,
+                     const QVariantMap& vars = QVariantMap());
 
 signals:
   /**

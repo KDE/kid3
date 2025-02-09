@@ -96,11 +96,13 @@ void QmlCommandPlugin::cleanup()
  * @param key user command name, "qml" or "qmlview"
  * @param arguments arguments to pass to script
  * @param showOutput true to enable output in output viewer, using signal
- *                   commandOutput().
+ *                   commandOutput()
+ * @param vars variables to make available in command
  * @return true if command is started.
  */
 bool QmlCommandPlugin::startUserCommand(
-    const QString& key, const QStringList& arguments, bool showOutput)
+    const QString& key, const QStringList& arguments, bool showOutput,
+    const QVariantMap& vars)
 {
   if (!arguments.isEmpty()) {
     if (key == QLatin1String("qmlview")) {
@@ -118,6 +120,8 @@ bool QmlCommandPlugin::startUserCommand(
       }
       m_qmlView->engine()->rootContext()->setContextProperty(
             QLatin1String("args"), arguments);
+      m_qmlEngine->rootContext()->setContextProperty(
+            QLatin1String("vars"), vars);
       onEngineReady();
       m_qmlView->setSource(QUrl::fromLocalFile(arguments.first()));
       if (m_qmlView->status() == QQuickView::Ready) {
@@ -144,6 +148,8 @@ bool QmlCommandPlugin::startUserCommand(
       }
       m_qmlEngine->rootContext()->setContextProperty(QLatin1String("args"),
                                                      arguments);
+      m_qmlEngine->rootContext()->setContextProperty(QLatin1String("vars"),
+                                                     vars);
       if (QQmlComponent component(m_qmlEngine, arguments.first());
         component.status() == QQmlComponent::Ready) {
         onEngineReady();

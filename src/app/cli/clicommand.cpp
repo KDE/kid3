@@ -1437,7 +1437,8 @@ void ExecuteCommand::startCommand()
       connectResultSignal();
     }
     m_process->setOutputViewer(this);
-    if (!m_process->launchCommand(command, args().mid(1), true)) {
+    QVariantMap vars{{QLatin1String("standalone"), !cli()->isInteractive()}};
+    if (!m_process->launchCommand(command, args().mid(1), true, vars)) {
       setError(tr("Could not execute ") + args().mid(1).join(QLatin1String(" ")));
       terminate();
     }

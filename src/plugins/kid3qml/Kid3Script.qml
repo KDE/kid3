@@ -179,7 +179,8 @@ Timer {
    * Check if script is running stand-alone, i.e. not in the Kid3 application.
    */
   function isStandalone() {
-    return typeof args === "undefined"
+    return typeof vars === "object"
+        ? !!vars.standalone : typeof vars === "undefined"
   }
 
   /**

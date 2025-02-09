@@ -28,6 +28,7 @@
 
 #include <QtPlugin>
 #include <QStringList>
+#include <QVariantMap>
 #include "kid3api.h"
 
 class Kid3Application;
@@ -67,6 +68,7 @@ public:
    * @param key user command name
    * @param arguments arguments to pass to command
    * @param showOutput true to enable output in output viewer
+   * @param vars variables to make available in command
    * @return true if command is started.
    *
    * @remarks If @a showOutput is true, command output is emitted using a signal
@@ -75,7 +77,8 @@ public:
    * @see qobject()
    */
   virtual bool startUserCommand(
-      const QString& key, const QStringList& arguments, bool showOutput) = 0;
+      const QString& key, const QStringList& arguments, bool showOutput,
+      const QVariantMap& vars = QVariantMap()) = 0;
 
   /**
    * Return object which emits commandOutput() and finished() signals.

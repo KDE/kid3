@@ -76,10 +76,11 @@ ExternalProcess::~ExternalProcess()
  * @param name       display name
  * @param args       command and arguments
  * @param showOutput true to show output of process
+ * @param vars       variables to make available in command
  * @return false if process could not be executed.
  */
 bool ExternalProcess::launchCommand(const QString& name, const QStringList& args,
-                                    bool showOutput)
+                                    bool showOutput, const QVariantMap& vars)
 {
   if (args.isEmpty())
     return true;
@@ -115,7 +116,7 @@ bool ExternalProcess::launchCommand(const QString& name, const QStringList& args
         connect(userCommandProcessor->qobject(), SIGNAL(finished(int)),
                 this, SIGNAL(finished(int)), Qt::UniqueConnection);
         if (userCommandProcessor->startUserCommand(program, arguments,
-                                                   showOutput)) {
+                                                   showOutput, vars)) {
           return true;
         }
       }
