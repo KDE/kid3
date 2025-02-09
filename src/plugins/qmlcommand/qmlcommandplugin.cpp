@@ -76,16 +76,16 @@ void QmlCommandPlugin::cleanup()
   if (m_qmlView) {
     m_qmlView->close();
   }
-  if (!m_qmlEngine) {
-    // If both m_qmlEngine and m_qmlView have been constructed, deleting both
-    // will result in a crash upon termination (Bug 457655). This happens when
-    // using both a @qml user action (e.g. TitleCase.qml) and a @qmlview
-    // user action (QmlConsole.qml). Do not delete m_qmlView in such a case.
-    delete m_qmlView;
-  }
+  delete m_qmlView;
   m_qmlView = nullptr;
-  delete m_qmlEngine;
-  m_qmlEngine = nullptr;
+  // If m_qmlEngine is deleted, kid3-cli segfaults the second time "execute @qml"
+  // is used in interactive mode. The UI application will crash if both
+  // m_qmlEngine and m_qmlView have been constructed, deleting both
+  // will result in a crash upon termination (Bug 457655). This happens when
+  // using both a @qml user action (e.g. TitleCase.qml) and a @qmlview
+  // user action (QmlConsole.qml). This also happens if m_app is set as a parent
+  // of m_qmlEngine and it is deleted when m_app is deleted. Therefore,
+  // m_qmlEngine is not deleted.
   if (s_messageHandlerInstance == this) {
     s_messageHandlerInstance = nullptr;
   }
