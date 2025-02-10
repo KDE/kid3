@@ -357,7 +357,7 @@ msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
 msgstr ""
 
-#: src/app/cli/clicommand.cpp:1441
+#: src/app/cli/clicommand.cpp:1442
 #, fuzzy
 #| msgctxt "FileList|"
 #| msgid "Could not execute "
@@ -376,68 +376,68 @@ msgctxt "JsonCliFormatter|"
 msgid "Usage:"
 msgstr "Anvendelse:"
 
-#: src/app/cli/kid3cli.cpp:299
+#: src/app/cli/kid3cli.cpp:300
 msgctxt "Kid3Cli|"
 msgid "Parameter"
 msgstr "Parameter"
 
-#: src/app/cli/kid3cli.cpp:300
+#: src/app/cli/kid3cli.cpp:301
 msgctxt "Kid3Cli|"
 msgid "File path"
 msgstr "Sti til fil"
 
-#: src/app/cli/kid3cli.cpp:301
+#: src/app/cli/kid3cli.cpp:302
 msgctxt "Kid3Cli|"
 msgid "URL"
 msgstr "URL"
 
-#: src/app/cli/kid3cli.cpp:302
+#: src/app/cli/kid3cli.cpp:303
 msgctxt "Kid3Cli|"
 msgid "Tag numbers"
 msgstr "Mærkenumre"
 
-#: src/app/cli/kid3cli.cpp:304
+#: src/app/cli/kid3cli.cpp:305
 msgctxt "Kid3Cli|"
 msgid "Frame name"
 msgstr "Feltnavn"
 
-#: src/app/cli/kid3cli.cpp:307
+#: src/app/cli/kid3cli.cpp:308
 msgctxt "Kid3Cli|"
 msgid "Frame value"
 msgstr "Feltværdi"
 
-#: src/app/cli/kid3cli.cpp:308
+#: src/app/cli/kid3cli.cpp:309
 msgctxt "Kid3Cli|"
 msgid "Format"
 msgstr "Format"
 
-#: src/app/cli/kid3cli.cpp:309
+#: src/app/cli/kid3cli.cpp:310
 msgctxt "Kid3Cli|"
 msgid "Command specific"
 msgstr "Kommandospecifikt"
 
-#: src/app/cli/kid3cli.cpp:310
+#: src/app/cli/kid3cli.cpp:311
 msgctxt "Kid3Cli|"
 msgid "Available Commands"
 msgstr "Mulige kommandoer"
 
-#: src/app/cli/kid3cli.cpp:753
+#: src/app/cli/kid3cli.cpp:755
 msgctxt "Kid3Cli|"
 msgid "Usage:"
 msgstr "Anvendelse:"
 
-#: src/app/cli/kid3cli.cpp:771
+#: src/app/cli/kid3cli.cpp:773
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "%1 does not exist"
 msgstr "%1 findes ikke"
 
-#: src/app/cli/kid3cli.cpp:801
+#: src/app/cli/kid3cli.cpp:803
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
 msgstr "Fejl ved skrivning af fil:\n"
 
-#: src/app/cli/kid3cli.cpp:820
+#: src/app/cli/kid3cli.cpp:822
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."

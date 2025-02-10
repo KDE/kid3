@@ -356,7 +356,7 @@ msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
 msgstr "Plik wykonywalny [argumenty]"
 
-#: src/app/cli/clicommand.cpp:1441
+#: src/app/cli/clicommand.cpp:1442
 msgctxt "ExecuteCommand|"
 msgid "Could not execute "
 msgstr "Nie można wykonać "
@@ -372,68 +372,68 @@ msgctxt "JsonCliFormatter|"
 msgid "Usage:"
 msgstr "Użycie:"
 
-#: src/app/cli/kid3cli.cpp:299
+#: src/app/cli/kid3cli.cpp:300
 msgctxt "Kid3Cli|"
 msgid "Parameter"
 msgstr "Parametr"
 
-#: src/app/cli/kid3cli.cpp:300
+#: src/app/cli/kid3cli.cpp:301
 msgctxt "Kid3Cli|"
 msgid "File path"
 msgstr "Ścieżka pliku"
 
-#: src/app/cli/kid3cli.cpp:301
+#: src/app/cli/kid3cli.cpp:302
 msgctxt "Kid3Cli|"
 msgid "URL"
 msgstr "Adres URL"
 
-#: src/app/cli/kid3cli.cpp:302
+#: src/app/cli/kid3cli.cpp:303
 msgctxt "Kid3Cli|"
 msgid "Tag numbers"
 msgstr "Numery znaczników"
 
-#: src/app/cli/kid3cli.cpp:304
+#: src/app/cli/kid3cli.cpp:305
 msgctxt "Kid3Cli|"
 msgid "Frame name"
 msgstr "Nazwa ramki"
 
-#: src/app/cli/kid3cli.cpp:307
+#: src/app/cli/kid3cli.cpp:308
 msgctxt "Kid3Cli|"
 msgid "Frame value"
 msgstr "Wartość ramki"
 
-#: src/app/cli/kid3cli.cpp:308
+#: src/app/cli/kid3cli.cpp:309
 msgctxt "Kid3Cli|"
 msgid "Format"
 msgstr "Zapis"
 
-#: src/app/cli/kid3cli.cpp:309
+#: src/app/cli/kid3cli.cpp:310
 msgctxt "Kid3Cli|"
 msgid "Command specific"
 msgstr "Polecenie"
 
-#: src/app/cli/kid3cli.cpp:310
+#: src/app/cli/kid3cli.cpp:311
 msgctxt "Kid3Cli|"
 msgid "Available Commands"
 msgstr "Dostępne polecenia"
 
-#: src/app/cli/kid3cli.cpp:753
+#: src/app/cli/kid3cli.cpp:755
 msgctxt "Kid3Cli|"
 msgid "Usage:"
 msgstr "Użycie:"
 
-#: src/app/cli/kid3cli.cpp:771
+#: src/app/cli/kid3cli.cpp:773
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "%1 does not exist"
 msgstr "%1 nie istnieje"
 
-#: src/app/cli/kid3cli.cpp:801
+#: src/app/cli/kid3cli.cpp:803
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
 msgstr "Błąd podczas zapisu pliku:\n"
 
-#: src/app/cli/kid3cli.cpp:820
+#: src/app/cli/kid3cli.cpp:822
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."

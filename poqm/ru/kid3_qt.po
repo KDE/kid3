@@ -357,7 +357,7 @@ msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
 msgstr "Исполняемый файл [аргументы]"
 
-#: src/app/cli/clicommand.cpp:1441
+#: src/app/cli/clicommand.cpp:1442
 msgctxt "ExecuteCommand|"
 msgid "Could not execute "
 msgstr "Не удалось выполнить "
@@ -373,68 +373,68 @@ msgctxt "JsonCliFormatter|"
 msgid "Usage:"
 msgstr "Использование:"
 
-#: src/app/cli/kid3cli.cpp:299
+#: src/app/cli/kid3cli.cpp:300
 msgctxt "Kid3Cli|"
 msgid "Parameter"
 msgstr "Параметр"
 
-#: src/app/cli/kid3cli.cpp:300
+#: src/app/cli/kid3cli.cpp:301
 msgctxt "Kid3Cli|"
 msgid "File path"
 msgstr "Путь к файлу"
 
-#: src/app/cli/kid3cli.cpp:301
+#: src/app/cli/kid3cli.cpp:302
 msgctxt "Kid3Cli|"
 msgid "URL"
 msgstr "URL-адрес"
 
-#: src/app/cli/kid3cli.cpp:302
+#: src/app/cli/kid3cli.cpp:303
 msgctxt "Kid3Cli|"
 msgid "Tag numbers"
 msgstr "Номера тегов"
 
-#: src/app/cli/kid3cli.cpp:304
+#: src/app/cli/kid3cli.cpp:305
 msgctxt "Kid3Cli|"
 msgid "Frame name"
 msgstr "Имя фрейма"
 
-#: src/app/cli/kid3cli.cpp:307
+#: src/app/cli/kid3cli.cpp:308
 msgctxt "Kid3Cli|"
 msgid "Frame value"
 msgstr "Значение фрейма"
 
-#: src/app/cli/kid3cli.cpp:308
+#: src/app/cli/kid3cli.cpp:309
 msgctxt "Kid3Cli|"
 msgid "Format"
 msgstr "Формат"
 
-#: src/app/cli/kid3cli.cpp:309
+#: src/app/cli/kid3cli.cpp:310
 msgctxt "Kid3Cli|"
 msgid "Command specific"
 msgstr "Зависит от команды"
 
-#: src/app/cli/kid3cli.cpp:310
+#: src/app/cli/kid3cli.cpp:311
 msgctxt "Kid3Cli|"
 msgid "Available Commands"
 msgstr "Доступные команды"
 
-#: src/app/cli/kid3cli.cpp:753
+#: src/app/cli/kid3cli.cpp:755
 msgctxt "Kid3Cli|"
 msgid "Usage:"
 msgstr "Использование:"
 
-#: src/app/cli/kid3cli.cpp:771
+#: src/app/cli/kid3cli.cpp:773
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "%1 does not exist"
 msgstr "%1 — не существует"
 
-#: src/app/cli/kid3cli.cpp:801
+#: src/app/cli/kid3cli.cpp:803
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
 msgstr "Ошибка при записи файла:\n"
 
-#: src/app/cli/kid3cli.cpp:820
+#: src/app/cli/kid3cli.cpp:822
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
