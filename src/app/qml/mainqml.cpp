@@ -29,7 +29,7 @@
 #include <QTranslator>
 #include <QDir>
 #include <QSettings>
-#ifndef QT_NO_DEBUG && !defined QT_QML_DEBUG
+#if !defined QT_NO_DEBUG && !defined QT_QML_DEBUG
 #define QT_QML_DEBUG
 #endif
 #include <QQmlApplicationEngine>
@@ -170,7 +170,7 @@ int main(int argc, char* argv[])
 #endif
 
   QStringList qmlDirs;
-#ifndef QT_NO_DEBUG && defined CFG_QMLSRCDIR
+#if !defined QT_NO_DEBUG && defined CFG_QMLSRCDIR
   qmlDirs.append(QLatin1String(CFG_QMLSRCDIR));
 #endif
 #ifdef CFG_QMLDIR
