@@ -900,7 +900,7 @@ void setChaptersFrameFields(Frame& frame,
 {
   frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
                                             QLatin1String("Chapters")));
-  frame.setValue(QString());
+  frame.setValue(QString(QLatin1String("")));
 
   Frame::Field field;
   Frame::FieldList& fields = frame.fieldList();
