@@ -355,7 +355,7 @@ msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
 msgstr "programfil [argument]"
 
-#: src/app/cli/clicommand.cpp:1441
+#: src/app/cli/clicommand.cpp:1442
 msgctxt "ExecuteCommand|"
 msgid "Could not execute "
 msgstr "Klarte ikkje køyra"
@@ -371,69 +371,69 @@ msgctxt "JsonCliFormatter|"
 msgid "Usage:"
 msgstr "Bruk:"
 
-#: src/app/cli/kid3cli.cpp:299
+#: src/app/cli/kid3cli.cpp:300
 msgctxt "Kid3Cli|"
 msgid "Parameter"
 msgstr "Parameter"
 
 # Står på høgre side av likskapsteikn, og skal såleis ha liten forbokstav. Det same gjeld dei neste tekstane (ned til «kommandospesifikk»).
-#: src/app/cli/kid3cli.cpp:300
+#: src/app/cli/kid3cli.cpp:301
 msgctxt "Kid3Cli|"
 msgid "File path"
 msgstr "filadresse"
 
-#: src/app/cli/kid3cli.cpp:301
+#: src/app/cli/kid3cli.cpp:302
 msgctxt "Kid3Cli|"
 msgid "URL"
 msgstr "nettadresse"
 
-#: src/app/cli/kid3cli.cpp:302
+#: src/app/cli/kid3cli.cpp:303
 msgctxt "Kid3Cli|"
 msgid "Tag numbers"
 msgstr "merkelapp-nummer"
 
-#: src/app/cli/kid3cli.cpp:304
+#: src/app/cli/kid3cli.cpp:305
 msgctxt "Kid3Cli|"
 msgid "Frame name"
 msgstr "rammenamn"
 
-#: src/app/cli/kid3cli.cpp:307
+#: src/app/cli/kid3cli.cpp:308
 msgctxt "Kid3Cli|"
 msgid "Frame value"
 msgstr "rammeverdi"
 
-#: src/app/cli/kid3cli.cpp:308
+#: src/app/cli/kid3cli.cpp:309
 msgctxt "Kid3Cli|"
 msgid "Format"
 msgstr "format"
 
-#: src/app/cli/kid3cli.cpp:309
+#: src/app/cli/kid3cli.cpp:310
 msgctxt "Kid3Cli|"
 msgid "Command specific"
 msgstr "kommandospesifikk"
 
-#: src/app/cli/kid3cli.cpp:310
+#: src/app/cli/kid3cli.cpp:311
 msgctxt "Kid3Cli|"
 msgid "Available Commands"
 msgstr "Tilgjengelege kommandoar"
 
-#: src/app/cli/kid3cli.cpp:753
+#: src/app/cli/kid3cli.cpp:755
 msgctxt "Kid3Cli|"
 msgid "Usage:"
 msgstr "Bruk:"
 
-#: src/app/cli/kid3cli.cpp:771
+#: src/app/cli/kid3cli.cpp:773
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "%1 does not exist"
 msgstr "%1 finst ikkje"
 
-#: src/app/cli/kid3cli.cpp:801
+#: src/app/cli/kid3cli.cpp:803
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
 msgstr "Feil ved skriving til fil:\n"
 
-#: src/app/cli/kid3cli.cpp:820
+#: src/app/cli/kid3cli.cpp:822
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
