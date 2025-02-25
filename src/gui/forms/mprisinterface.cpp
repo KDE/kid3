@@ -114,7 +114,7 @@ MprisPlayerInterface::MprisPlayerInterface(AudioPlayer* player)
 MprisPlayerInterface::~MprisPlayerInterface()
 {
   if (m_tempCoverArtFile) {
-    m_tempCoverArtFile->deleteLater();
+    delete m_tempCoverArtFile;
   }
 }
 
