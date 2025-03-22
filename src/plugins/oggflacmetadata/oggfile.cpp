@@ -39,6 +39,7 @@
 #include "tagconfig.h"
 #include "taggedfilesystemmodel.h"
 
+#ifdef HAVE_VORBIS
 namespace {
 
 /*
@@ -136,6 +137,7 @@ long oggtell(void* stream)
 }
 
 }
+#endif // HAVE_VORBIS
 
 /**
  * Constructor.
@@ -345,6 +347,7 @@ void OggFile::clearTags(bool force)
   notifyModelDataChanged(priorIsTagInformationRead);
 }
 #else // HAVE_VORBIS
+int OggFile::taggedFileFeatures() const { return 0; }
 void OggFile::readTags(bool) {}
 bool OggFile::writeTags(bool, bool*, bool) { return false; }
 void OggFile::clearTags(bool) {}

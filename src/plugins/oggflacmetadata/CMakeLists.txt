@@ -14,9 +14,9 @@ if(WITH_VORBIS OR WITH_FLAC)
 
   string(TOLOWER ${plugin_NAME} plugin_TARGET)
 
-  add_library(${plugin_TARGET} oggflacmetadataplugin.cpp)
+  add_library(${plugin_TARGET} oggflacmetadataplugin.cpp oggfile.cpp)
   if(HAVE_VORBIS)
-    target_sources(${plugin_TARGET} PRIVATE oggfile.cpp vcedit.c)
+    target_sources(${plugin_TARGET} PRIVATE vcedit.c)
   endif()
   if(HAVE_FLAC)
     target_sources(${plugin_TARGET} PRIVATE flacfile.cpp)
