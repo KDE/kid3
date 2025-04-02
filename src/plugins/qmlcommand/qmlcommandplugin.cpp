@@ -120,7 +120,7 @@ bool QmlCommandPlugin::startUserCommand(
       }
       m_qmlView->engine()->rootContext()->setContextProperty(
             QLatin1String("args"), arguments);
-      m_qmlEngine->rootContext()->setContextProperty(
+      m_qmlView->engine()->rootContext()->setContextProperty(
             QLatin1String("vars"), vars);
       onEngineReady();
       m_qmlView->setSource(QUrl::fromLocalFile(arguments.first()));
