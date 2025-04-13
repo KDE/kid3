@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "dependencies": [
+    "chromaprint",
+    "ffmpeg",
+    "libflac",
+    "libogg",
+    "libvorbis",
+    "openssl",
+    "qtbase",
+    "qtdeclarative",
+    "qtimageformats",
+    "qtmultimedia",
+    "qtquickcontrols2",
+    "qtsvg",
+    "qttools",
+    "qttranslations",
+    "taglib",
+    "zlib"
+  ],
+  "builtin-baseline": "df8bfe519564ae001903e5cdd32af0999531ef71"
+}

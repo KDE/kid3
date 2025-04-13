@@ -65,3 +65,5 @@ rpmbuild -ba kid3.spec
 ** Windows, macOS and Android
 
 See instructions at the top of build.sh.
+
+See win32/build-vcpkg-msvc.ps1 to build with vcpkg and MSVC on Windows.
