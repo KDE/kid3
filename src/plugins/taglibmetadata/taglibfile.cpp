@@ -5459,6 +5459,29 @@ TagLib::ByteVector getInfoNameFromType(Frame::Type type)
 }
 
 /**
+ * Get name of INFO tag from type.
+ *
+ * @param extendedType type
+ *
+ * @return name, NULL if not supported.
+ */
+TagLib::ByteVector getInfoNameFromType(const Frame::ExtendedType& extendedType)
+{
+  Frame::Type type = extendedType.getType();
+  if (type == Frame::FT_Track) {
+    // Do not change the track type to the configured track number field name
+    // if it is already a valid track INFO type.
+    const QString internalName = extendedType.getInternalName();
+    const QStringList riffTrackNames = TagConfig::getRiffTrackNames();
+    if (riffTrackNames.contains(internalName)) {
+      auto infoName = internalName.toLatin1();
+      return TagLib::ByteVector(infoName.constData(), infoName.size());
+    }
+  }
+  return getInfoNameFromType(type);
+}
+
+/**
  * Get the frame type for an INFO name.
  *
  * @param id INFO tag name
@@ -5501,7 +5524,7 @@ Frame::Type getTypeFromInfoName(const TagLib::ByteVector& id)
  */
 TagLib::ByteVector getInfoName(const Frame& frame)
 {
-  if (TagLib::ByteVector str = getInfoNameFromType(frame.getType());
+  if (TagLib::ByteVector str = getInfoNameFromType(frame.getExtendedType());
       !str.isEmpty()) {
     return str;
   }
