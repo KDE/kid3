@@ -6472,7 +6472,7 @@ msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr ""
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:7094
+#: src/plugins/taglibmetadata/taglibfile.cpp:7117
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr ""
