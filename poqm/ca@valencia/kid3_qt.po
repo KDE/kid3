@@ -3923,7 +3923,7 @@ msgstr "C&ancel·la"
 #: src/gui/dialogs/browsecoverartdialog.cpp:177
 msgctxt "BrowseCoverArtDialog|"
 msgid "Click Browse to start"
-msgstr "Feu clic en Explora per a començar"
+msgstr "Cliqueu damunt «Explora» per a començar"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:183
 msgctxt "BrowseCoverArtDialog|"
@@ -5556,7 +5556,7 @@ msgstr "Emprar-ho per als noms de llistes de reproducció i de carpetes"
 #: src/gui/widgets/filenameformatbox.cpp:47
 msgctxt "FilenameFormatBox|"
 msgid "Maximum length:"
-msgstr "Duració màxima:"
+msgstr "Llargària màxima:"
 
 #: src/gui/widgets/formatbox.cpp:48
 msgctxt "FormatBox|"
