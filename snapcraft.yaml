@@ -1,157 +1,104 @@
-# trigger rebuild2
+# SPDX-FileCopyrightText: 2024, 2025 Scarlett Moore <sgmoore@kde.org>
+#
+# SPDX-License-Identifier: CC0-1.0
 ---
 name: kid3
 confinement: strict
 grade: stable
-base: core22
+base: core24
 adopt-info: kid3
 apps:
-    kid3:
-        # extensions:
-        # - kde-neon
-        common-id: org.kde.kid3.desktop
-        desktop: usr/share/applications/org.kde.kid3.desktop
-        command: usr/bin/kid3
-        plugs:
+  kid3:
+    extensions:
+      - kde-neon-6
+    common-id: org.kde.kid3.desktop
+    desktop: usr/share/applications/org.kde.kid3.desktop
+    command: usr/bin/kid3
+    plugs:
         - home
-        - desktop
-        - desktop-legacy
-        - opengl
-        - wayland
-        - x11
         - audio-playback
-        - unity7
-        - network
-        - network-bind
-        command-chain:
-        - snap/command-chain/desktop-launch
-assumes:
-- snapd2.58.3
-compression: lzo
+        - mpris
+    environment:
+      CFG_QMLDIR: "$SNAP/usr/share/kid3/qml"
+      LD_LIBRARY_PATH: $SNAP/ffmpeg-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/kid3:${LD_LIBRARY_PATH}
+      PATH: $SNAP/ffmpeg-platform/usr/bin:${PATH}
 plugs:
-    desktop:
-        mount-host-font-cache: false
-    icon-themes:
-        interface: content
-        target: $SNAP/data-dir/icons
-        default-provider: gtk-common-themes
-    sound-themes:
-        interface: content
-        target: $SNAP/data-dir/sounds
-        default-provider: gtk-common-themes
-    kf5-5-110-qt-5-15-11-core22:
-        content: kf5-5-110-qt-5-15-11-core22-all
-        interface: content
-        default-provider: kf5-5-110-qt-5-15-11-core22
-        target: $SNAP/kf5
-environment:
-    SNAP_DESKTOP_RUNTIME: $SNAP/kf5
-    GST_PLUGIN_PATH: "$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0"
-    GST_PLUGIN_SYSTEM_PATH: "$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer-1.0"
-    GST_PLUGIN_SCANNER: "$SNAP/kf5/usr/lib/$CRAFT_ARCH_TRIPLET/gstreamer1.0/gstreamer-1.0/gst-plugin-scanner"
-    LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/kid3"
-    CFG_QMLDIR: "$SNAP/usr/share/kid3/qml"
-hooks:
-    configure:
-        plugs:
-        - desktop
-        command-chain:
-        - snap/command-chain/hooks-configure-desktop
+  ffmpeg-2404:
+    interface: content
+    target: ffmpeg-platform # the folder where this content snap will be mounted
+    default-provider: ffmpeg-2404
 layout:
-    /usr/share/X11:
-        symlink: $SNAP/kf5/usr/share/X11
     "/usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib":
         bind: "$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/alsa-lib"
     "/usr/share/alsa":
         bind: "$SNAP/usr/share/alsa"
 slots:
-    session-dbus-interface:
-        interface: dbus
-        name: org.mpris.MediaPlayer2.kid3
-        bus: session
-package-repositories:
--   type: apt
-    components:
-    - main
-    suites:
-    - jammy
-    key-id: 444DABCF3667D0283F894EDDE6D4736255751E5D
-    url: http://archive.neon.kde.org/user
-    key-server: keyserver.ubuntu.com
+  mpris:
+    interface: dbus
+    name: org.mpris.MediaPlayer2.kid3
+    bus: session
 parts:
-    kde-neon:
-        source: /snap/snapcraft/current/share/snapcraft/extensions/desktop/kde-neon
-        source-type: local
-        plugin: make
-        make-parameters:
-        - PLATFORM_PLUG=kf5-5-110-qt-5-15-11-core22
-        build-snaps:
-        - kf5-5-110-qt-5-15-11-core22-sdk
-        build-environment:
-        - &id001
-            PATH: /snap/kf5-5-110-qt-5-15-11-core22-sdk/current/usr/bin${PATH:+:$PATH}
-        - &id002
-            XDG_DATA_DIRS: $CRAFT_STAGE/usr/share:/snap/kf5-5-110-qt-5-15-11-core22-sdk/current/usr/share:/usr/share${XDG_DATA_DIRS:+:$XDG_DATA_DIRS}
-        - &id003
-            XDG_CONFIG_HOME: $CRAFT_STAGE/etc/xdg:/snap/kf5-5-110-qt-5-15-11-core22-sdk/current/etc/xdg:/etc/xdg${XDG_CONFIG_HOME:+:$XDG_CONFIG_HOME}
-        - &id004
-            CRAFT_CMAKE_ARGS: -DCMAKE_FIND_ROOT_PATH=/snap/kf5-5-110-qt-5-15-11-core22-sdk/current${CRAFT_CMAKE_ARGS:+:$CRAFT_CMAKE_ARGS}
-    kid3:
-        after:
-        - kde-neon
-        parse-info:
-        - usr/share/metainfo/org.kde.kid3.appdata.xml
-        plugin: cmake
-        build-packages:
-        - libid3-3.8.3-dev
-        - libflac++-dev
-        - libvorbis-dev
-        - libtag1-dev
-        - libchromaprint-dev
-        - libreadline-dev
-        - xsltproc
-        - python3
-        - libkf5doctools-dev
-        build-snaps:
-        - ffmpeg-2204-sdk
-        stage-packages:
-        - libxinerama1
-        - libid3-3.8.3v5
-        - libflac++6v5
-        stage-snaps:
-        - ffmpeg-2204
-        source: .
-        source-type: local
-        cmake-parameters:
-        - "-DCMAKE_INSTALL_PREFIX=/usr"
-        - "-DCMAKE_BUILD_TYPE=Release"
-        - "-DENABLE_TESTING=OFF"
-        - "-DBUILD_TESTING=OFF"
-        - "-DKDE_SKIP_TEST_SETTINGS=ON"
-        - "-DCFG_QMLDIR=/usr/share/kid3/qml"
-        - "-DCMAKE_FIND_ROOT_PATH=/usr\\;$CRAFT_STAGE\\;/snap/kf5-5-110-qt-5-15-11-core22-sdk/current\\;/snap/ffmpeg-2204-sdk/current"
-        - "-DKDE_INSTALL_PLUGINDIR=/usr/lib/$CRAFT_ARCH_TRIPLET/qt5/plugins/"
-        prime:
-        - "-usr/lib/*/cmake/*"
-        - "-usr/include/*"
-        - "-usr/share/ECM/*"
-        - "-usr/share/doc/*"
-        - "-usr/share/man/*"
-        - "-usr/share/icons/breeze-dark*"
-        - "-usr/bin/X11"
-        - "-usr/lib/gcc/$CRAFT_ARCH_TRIPLET/6.0.0"
-        - "-usr/lib/aspell/*"
-        - "-usr/share/lintian"
-        build-environment: &id005
-        - *id001
-        - *id002
-        - *id003
-        - *id004
-    cleanup:
-        after:
-        - kde-neon
-        - kid3
-        plugin: nil
-        override-prime:  |
-            set -eux
-            # # Unused libraries found by linter
+  kid3:
+    parse-info:
+      - usr/share/metainfo/org.kde.kid3.appdata.xml
+    plugin: cmake
+    build-packages:
+      - libid3-3.8.3-dev
+      - libflac++-dev
+      - libvorbis-dev
+      - libtag1-dev
+      - libchromaprint-dev
+      - libreadline-dev
+      - xsltproc
+      - python3
+      - libgstreamer1.0-dev
+      - libxkbcommon-dev
+    build-snaps:
+      - ffmpeg-2404-sdk
+    stage-packages:
+      - libxinerama1
+      - libid3-3.8.3v5
+      - libflac++10
+      - libxkbcommon0
+    source: .
+    source-type: local
+    cmake-parameters:
+      - -DCMAKE_INSTALL_PREFIX=/usr
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DQT_MAJOR_VERSION=6
+      - -DBUILD_WITH_QT6=ON
+      - -DBUILD_TESTING=OFF
+    build-environment:
+      - PYTHONPATH: ${CRAFT_STAGE}/lib/python3.12/site-packages:${CRAFT_STAGE}/usr/lib/python3/dist-packages
+    prime:
+      - "-usr/lib/*/cmake/*"
+      - "-usr/include/*"
+      - "-usr/share/ECM/*"
+      - "-usr/share/doc/*"
+      - "-usr/share/man/*"
+      - "-usr/bin/X11"
+      - "-usr/lib/gcc/$CRAFT_ARCH_TRIPLET/6.0.0"
+      - "-usr/lib/aspell/*"
+      - "-usr/share/lintian"
+  gpu-2404:
+    after: [kid3]
+    source: https://github.com/canonical/gpu-snap.git
+    plugin: dump
+    override-prime: |
+      craftctl default
+      ${CRAFT_PART_SRC}/bin/gpu-2404-cleanup mesa-2404
+    prime:
+      - bin/gpu-2404-wrapper
+  cleanup:
+    after:
+      - kid3
+    plugin: nil
+    build-snaps:
+      - core24
+      - kf6-core24
+      - ffmpeg-2404
+    override-prime: |
+      set -eux
+      for snap in "core24" "kf6-core24" "ffmpeg-2404"; do
+        cd "/snap/$snap/current" && find . -type f,l -exec rm -rf "${CRAFT_PRIME}/{}" \;
+      done
