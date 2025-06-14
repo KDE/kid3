@@ -53,6 +53,7 @@ parts:
       - python3
       - libgstreamer1.0-dev
       - libxkbcommon-dev
+      - libpulse0
     build-snaps:
       - ffmpeg-2404-sdk
     stage-packages:
@@ -60,6 +61,7 @@ parts:
       - libid3-3.8.3v5
       - libflac++10
       - libxkbcommon0
+      - libpulse0
     source: .
     source-type: local
     cmake-parameters:
