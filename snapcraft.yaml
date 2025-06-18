@@ -14,10 +14,11 @@ apps:
     common-id: org.kde.kid3.desktop
     desktop: usr/share/applications/org.kde.kid3.desktop
     command: usr/bin/kid3
+    slots:
+      - mpris
     plugs:
-        - home
-        - audio-playback
-        - mpris
+      - home
+      - audio-playback
     environment:
       CFG_QMLDIR: "$SNAP/usr/share/kid3/qml"
       LD_LIBRARY_PATH: $SNAP/ffmpeg-platform/usr/lib/$CRAFT_ARCH_TRIPLET_BUILD_FOR:$SNAP/usr/lib/kid3:${LD_LIBRARY_PATH}
