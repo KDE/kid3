@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2014 Urs Fleisch <ufleisch_at_users.sourceforge.net> -->
 <component type="desktop">
-  <id>org.kde.kid3</id>
+  <id>org.kde.kid3.desktop</id>
   <replaces>
-    <id>org.kde.kid3.desktop</id>
+    <id>org.kde.kid3</id>
   </replaces>
   <launchable type="desktop-id">org.kde.kid3.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
