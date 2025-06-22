@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright 2014 Urs Fleisch <ufleisch_at_users.sourceforge.net> -->
-<component type="desktop">
+<!--
+  SPDX-License-Identifier: CC0-1.0
+  SPDX-FileCopyrightText: 2014 Urs Fleisch <ufleisch_at_users.sourceforge.net>
+ -->
+<component type="desktop-application">
   <id>org.kde.kid3</id>
-  <replaces>
-    <id>org.kde.kid3.desktop</id>
-  </replaces>
   <launchable type="desktop-id">org.kde.kid3.desktop</launchable>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-2.0+</project_license>
@@ -293,11 +293,21 @@
   <url type="homepage">https://kid3.kde.org/</url>
   <url type="bugtracker">https://bugs.kde.org/enter_bug.cgi?format=guided&amp;product=kid3</url>
   <url type="help">https://docs.kde.org/index.php?application=kid3</url>
+  <project_group>KDE</project_group>
+  <provides>
+    <binary>kid3</binary>
+  </provides>
+  <categories>
+    <category>KDE</category>
+    <category>AudioVideo</category>
+    <category>Audio</category>
+    <category>AudioVideoEditing</category>
+  </categories>
   <developer id="org.kde.invent.ufleisch">
-    <name>Urs Fleisch</name>
+    <name translate="no">Urs Fleisch</name>
   </developer>
-  <update_contact>ufleisch_at_users.sourceforge.net</update_contact>
-  <translation type="gettext">kid3</translation>
+  <update_contact>ufleisch@users.sourceforge.net</update_contact>
+  <translation type="qt">kid3/translations/kid3</translation>
   <releases>
     <release version="3.9.6" date="2024-09-21">
       <description>
