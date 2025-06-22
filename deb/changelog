@@ -1,26 +1,46 @@
-kid3 (3.9.6-0) unstable; urgency=low
+kid3 (3.9.6-2) unstable; urgency=medium
+
+  * Switch to Qt6 and KF6.
+    Closes: #1091378
+  * Adjust lintian overrides.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 27 Dec 2024 17:14:25 +0100
+
+kid3 (3.9.6-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Bump Standards-Version to 4.7.0.
+  * Build depend on new pkgconf package.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 01 Oct 2024 13:49:33 +0200
+
+kid3 (3.9.5-1) unstable; urgency=medium
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 21 Sep 2024 08:03:29 +0200
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 04 Mar 2024 11:50:54 +0100
 
-kid3 (3.9.5-0) unstable; urgency=low
+kid3 (3.9.4-2) unstable; urgency=medium
 
-  * New upstream release.
+  * Remove leftover pycache folder in dh_clean.
+    Closes: #1047566
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 24 Feb 2024 18:15:31 +0100
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 22 Aug 2023 16:28:25 +0200
 
-kid3 (3.9.4-0) unstable; urgency=low
-
-  * New upstream release.
-
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sun, 09 Jul 2023 10:32:10 +0200
-
-kid3 (3.9.3-0) unstable; urgency=low
+kid3 (3.9.4-1) unstable; urgency=medium
 
   * New upstream release.
+    - Drop merged patch 01-python3.11.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 12 Jan 2023 12:15:43 +0100
+ -- Patrick Matthäi <pmatthaei@debian.org>  Mon, 10 Jul 2023 18:56:27 +0200
+
+kid3 (3.9.3-1) unstable; urgency=high
+
+  * New upstream release.
+  * Bump Standards-Version to 4.6.2.
+  * Add patch 01-python3.11 to fix a FTBFS with Python 3.11.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 13 Jan 2023 09:30:07 +0100
 
 kid3 (3.9.2-1) unstable; urgency=medium
 

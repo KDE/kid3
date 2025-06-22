@@ -2,29 +2,30 @@ Source: kid3
 Section: kde
 Priority: optional
 Maintainer: Patrick Matthäi <pmatthaei@debian.org>
-Build-Depends: debhelper (>= 9),
- extra-cmake-modules,
- kio-dev | libkf5kio-dev,
- kdoctools-dev | libkf5doctools-dev,
- qtmultimedia5-dev,
- qtdeclarative5-dev,
- qttools5-dev,
- qttools5-dev-tools,
- qtdeclarative5-dev-tools,
- qml-module-qtquick2,
+Build-Depends: debhelper (>= 10),
  cmake,
- libid3-3.8.3-dev,
- libflac++-dev,
- libvorbis-dev,
- libtag1-dev,
- libchromaprint-dev,
- libavformat-dev,
- libavcodec-dev,
  docbook-xsl,
- pkg-config,
+ extra-cmake-modules,
+ libavcodec-dev,
+ libavformat-dev,
+ libchromaprint-dev,
+ libflac++-dev,
+ libid3-3.8.3-dev,
+ libkf6doctools-dev | libkf5doctools-dev | kdoctools-dev,
+ libkf6kio-dev | libkf5kio-dev | kio-dev,
+ libkf6xmlgui-dev | libkf5xmlgui-dev,
  libreadline-dev,
- xsltproc,
- python3
+ libtag1-dev,
+ libvorbis-dev,
+ pkg-config,
+ python3,
+ qml6-module-qtquick | qml-module-qtquick2,
+ qt6-multimedia-dev | qtmultimedia5-dev,
+ qt6-declarative-dev-tools | qtdeclarative5-dev-tools,
+ qt6-declarative-dev | qtdeclarative5-dev,
+ qt6-tools-dev-tools | qttools5-dev-tools,
+ qt6-tools-dev | qttools5-dev,
+ xsltproc
 Standards-Version: 4.2.1
 Rules-Requires-Root: no
 Homepage: https://kid3.kde.org/
@@ -71,8 +72,7 @@ Package: kid3-qt
 Architecture: any
 Depends: ${shlibs:Depends},
  ${misc:Depends},
- kid3-core (= ${binary:Version}),
- libqt5multimedia5-plugins
+ kid3-core (= ${binary:Version})
 Description: Audio tag editor
  With Kid3, an audio tag editor you can:
   * Edit ID3v1.1 tags in your MP3 files

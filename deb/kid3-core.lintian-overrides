@@ -1,1 +1,2 @@
-kid3-core: file-references-package-build-path usr/lib/kid3/plugins/imports/Kid3/plugins.qmltypes
+kid3-core: groff-message 313: warning: macro 'AQ' not defined [usr/share/man/ca/man1/kid3.1.gz:1]
+kid3-core: file-references-package-build-path [usr/lib/kid3/plugins/imports/Kid3/plugins.qmltypes]

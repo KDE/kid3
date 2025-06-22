@@ -20,5 +20,9 @@ override_dh_auto_configure:
 override_dh_makeshlibs:
 	dh_makeshlibs --noscripts
 
+override_dh_clean:
+	rm -rf $(CURDIR)/src/test/__pycache__/
+	dh_clean
+
 override_dh_compress:
 	dh_compress --exclude=.docbook
