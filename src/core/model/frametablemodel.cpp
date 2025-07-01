@@ -62,7 +62,8 @@ QHash<int,QByteArray> getRoleHash()
 FrameTableModel::FrameTableModel(
     bool id3v1, CoreTaggedFileIconProvider* colorProvider, QObject* parent)
   : QAbstractTableModel(parent), m_markedRows(0), m_changedFrames(0),
-    m_colorProvider(colorProvider), m_id3v1(id3v1), m_emptyHeaders(false)
+    m_colorProvider(colorProvider), m_id3v1(id3v1), m_emptyHeaders(false),
+    m_temporarilyInvalid(false)
 {
   setObjectName(QLatin1String("FrameTableModel"));
 }
@@ -620,6 +621,18 @@ void FrameTableModel::transferFrames(FrameCollection& src)
   int oldNumFrames = static_cast<int>(m_frames.size());
   int newNumFrames = static_cast<int>(src.size());
   int numRowsChanged = qMin(oldNumFrames, newNumFrames);
+  // Mark model as temporarily invalid to avoid the following issue:
+  // A file has one more frame than another, e.g. a comment frame. The file
+  // with more frames is selected, and the frame below genre (e.g. disc number)
+  // has focus. Now the file with fewer frames is selected. Its disc number
+  // row in the frame table has the same row number as the genre in the
+  // previously selected file. A genre combo box is now generated in its
+  // disc number row and populated with the previous genre value. When it
+  // loses focus, its value is overwritten with this wrong genre value.
+  // This happens because the call of beginRemoveRows() below will trigger
+  // FrameItemDelegate::createEditor(). Now we mark the model as temporarily
+  // invalid and will not create an editor for the invalid frame type.
+  m_temporarilyInvalid = true;
   if (newNumFrames < oldNumFrames)
     beginRemoveRows(QModelIndex(), newNumFrames, oldNumFrames - 1);
   else if (newNumFrames > oldNumFrames)
@@ -629,6 +642,7 @@ void FrameTableModel::transferFrames(FrameCollection& src)
   src.swap(m_frames);
   updateFrameRowMapping();
   resizeFrameSelected();
+  m_temporarilyInvalid = false;
 
   if (newNumFrames < oldNumFrames)
     endRemoveRows();

@@ -419,7 +419,8 @@ QWidget* FrameItemDelegate::createEditor(
   int col = index.column();
   const auto ftModel =
     qobject_cast<const FrameTableModel*>(index.model());
-  if (row >= 0 && (col == FrameTableModel::CI_Value || !ftModel)) {
+  if (row >= 0 && (col == FrameTableModel::CI_Value || !ftModel) &&
+      !(ftModel && ftModel->isTemporarilyInvalid())) {
     auto type = static_cast<Frame::Type>(
       index.data(FrameTableModel::FrameTypeRole).toInt());
     bool id3v1 = ftModel && ftModel->isId3v1();

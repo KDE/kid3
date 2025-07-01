@@ -283,6 +283,12 @@ public:
   void setHeadersEmpty(bool empty) { m_emptyHeaders = empty; }
   bool headersEmpty() const { return m_emptyHeaders; }
 
+  /**
+   * Check if the current state is invalid, e.g. during transfer of new frames.
+   * @return true if the model data are currently invalid.
+   */
+  bool isTemporarilyInvalid() const { return m_temporarilyInvalid; }
+
 public slots:
   /**
    * Select all frames in the table.
@@ -342,4 +348,5 @@ private:
   CoreTaggedFileIconProvider* m_colorProvider;
   bool m_id3v1;
   bool m_emptyHeaders;
+  bool m_temporarilyInvalid;
 };
