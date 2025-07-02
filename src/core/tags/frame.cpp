@@ -1322,8 +1322,7 @@ void FrameCollection::filterDifferent(
              !(PictureFrame::getData(*it, frameData) &&
                PictureFrame::getData(*othersIt, othersData) &&
                frameData == othersData))) {
-          if (differentValues && it->getType() != Frame::FT_Picture &&
-              it->getType() != Frame::FT_Genre) {
+          if (differentValues && it->getType() != Frame::FT_Picture) {
             auto& valueSet = (*differentValues)[it->getExtendedType()];
             if (it->getValue() != Frame::differentRepresentation()) {
               valueSet.insert(it->getValue());
