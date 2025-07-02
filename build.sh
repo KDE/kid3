@@ -89,20 +89,22 @@ zlib_patchlevel=1
 libogg_version=1.3.4
 libogg_patchlevel=0.1
 libvorbis_version=1.3.7
-libvorbis_patchlevel=2
+libvorbis_patchlevel=3
 ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
-ffmpeg_version=5.1.6
-ffmpeg_patchlevel=0+deb12u1
-libflac_version=1.4.3+ds
-libflac_patchlevel=2.1
+ffmpeg5_version=5.1.6
+ffmpeg5_patchlevel=0+deb12u1
+ffmpeg_version=7.1.1
+ffmpeg_patchlevel=1
+libflac_version=1.5.0+ds
+libflac_patchlevel=2
 id3lib_version=3.8.3
 id3lib_patchlevel=18
-taglib_version=2.0.2
+taglib_version=2.1.1
 chromaprint_version=1.5.1
-chromaprint_patchlevel=6
+chromaprint_patchlevel=7
 mp4v2_version=2.1.3
-utfcpp_version=4.0.5
+utfcpp_version=4.0.6
 
 verify_not_in_srcdir() {
   if test -f CMakeLists.txt; then
@@ -583,7 +585,7 @@ else
 fi
 
 if test "$compiler" = "cross-android" -o "$compiler" = "gcc-self-contained" && test "$qt_nr" -ge 60000; then
-  openssl_version=3.0.9
+  openssl_version=3.0.17
 elif test "$qt_nr" -ge 51204; then
   # Since Qt 5.12.4, OpenSSL 1.1.1 is supported
   openssl_version=1.1.1g
@@ -627,6 +629,10 @@ elif test "$compiler" = "cross-macos"; then
   _crossprefix=${cross_host}-
   # e.g. $osxprefix/SDK/MacOSX10.13.sdk
   osxsdk=($osxprefix/SDK/*.sdk)
+  # install_name_tool: fatal error: the __LINKEDIT segment does not cover the end of the file
+  # when fixing up libacoustidimport.dylib with FFmpeg 7.1.1
+  ffmpeg_version=$ffmpeg5_version
+  ffmpeg_patchlevel=$ffmpeg5_patchlevel
 fi
 if test "$compiler" = "cross-android"; then
   _java_root=${JAVA_HOME:-/usr/lib/jvm/java-8-openjdk-amd64}
@@ -1647,6 +1653,10 @@ else #  cross-android
     if test $kernel = "Darwin" && test $(uname -m) = "arm64"; then
       AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --arch=$ARCH"
     fi
+    if test -z "${ffmpeg_version##5.*}"; then
+      # No longer supported with FFmpeg 7
+      AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --enable-rdft"
+    fi
     AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS $AV_BUILD_OPTION"
     ./configure \
       --disable-shared \
@@ -1660,7 +1670,6 @@ else #  cross-android
       --disable-demuxers \
       --disable-sse \
       --disable-doc \
-      --enable-rdft \
       --enable-demuxer=aac \
       --enable-demuxer=ac3 \
       --enable-demuxer=ape \
