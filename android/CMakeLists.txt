@@ -169,26 +169,19 @@ else(QT_VERSION_MAJOR LESS 6)
   add_dependencies(kid3apk android-package musicbrainzimport discogsimport
                    freedbimport amazonimport taglibmetadata kid3qml)
 
-  cmake_policy(SET CMP0026 OLD) # allow use of the LOCATION target property
-  set(EXTRA_LIBS)
-  foreach(LIB kid3apk kid3-qml kid3-core kid3-gui musicbrainzimport discogsimport
-      freedbimport amazonimport taglibmetadata kid3qml
-      ${ANDROID_EXTRA_LIBS_DIR}/libssl_3.so
-      ${ANDROID_EXTRA_LIBS_DIR}/libcrypto_3.so)
-    if(TARGET ${LIB})
-      if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-        get_property(LIB_PATH TARGET ${LIB} PROPERTY DEBUG_LOCATION)
-      else()
-        get_property(LIB_PATH TARGET ${LIB} PROPERTY LOCATION)
-      endif()
-      set(LIB ${LIB_PATH})
-    endif()
-    if(EXTRA_LIBS)
-      set(EXTRA_LIBS "${EXTRA_LIBS},${LIB}")
-    else()
-      set(EXTRA_LIBS "${LIB}")
-    endif()
-  endforeach()
+  set(EXTRA_LIBS
+    ${CMAKE_CURRENT_BINARY_DIR}/libkid3apk_${ANDROID_ABI}.so
+    ${CMAKE_BINARY_DIR}/src/app/qml/libkid3-qml.so
+    ${CMAKE_BINARY_DIR}/src/core/libkid3-core.so
+    ${CMAKE_BINARY_DIR}/src/gui/libkid3-gui.so
+    ${CMAKE_BINARY_DIR}/src/plugins/libmusicbrainzimport.so
+    ${CMAKE_BINARY_DIR}/src/plugins/libdiscogsimport.so
+    ${CMAKE_BINARY_DIR}/src/plugins/libfreedbimport.so
+    ${CMAKE_BINARY_DIR}/src/plugins/libamazonimport.so
+    ${CMAKE_BINARY_DIR}/src/plugins/libtaglibmetadata.so
+    ${CMAKE_BINARY_DIR}/src/plugins/kid3qml/libkid3qml.so
+    ${ANDROID_EXTRA_LIBS_DIR}/libssl_3.so
+    ${ANDROID_EXTRA_LIBS_DIR}/libcrypto_3.so)
 
   set_target_properties(kid3apk PROPERTIES
     QT_ANDROID_DEPLOYMENT_DEPENDENCIES "${_deploymentDepends}"

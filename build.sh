@@ -1503,7 +1503,7 @@ else #  cross-android
     echo "### Building libogg"
 
     cd libogg-${libogg_version}/
-    test -f build.ninja || eval cmake -DBUILD_SHARED_LIBS=OFF $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    test -f build.ninja || eval cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_SHARED_LIBS=OFF $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
     DESTDIR=`pwd`/inst ninja install
     fixcmakeinst
     cd inst
@@ -1518,7 +1518,7 @@ else #  cross-android
     echo "### Building libvorbis"
 
     cd libvorbis-${libvorbis_version}/
-    test -f build.ninja || eval cmake -DBUILD_SHARED_LIBS=OFF -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    test -f build.ninja || eval cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_SHARED_LIBS=OFF -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
     DESTDIR=`pwd`/inst ninja install
     fixcmakeinst
     cd inst
@@ -1752,7 +1752,7 @@ else #  cross-android
 
     # The zlib library path was added for MinGW-builds GCC 4.7.2.
     cd chromaprint-${chromaprint_version}/
-    test -f build.ninja || eval cmake -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF $CHROMAPRINT_ZLIB_OPTION -DFFMPEG_ROOT=$thisdir/buildroot/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    test -f build.ninja || eval cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTS=OFF $CHROMAPRINT_ZLIB_OPTION -DFFMPEG_ROOT=$thisdir/buildroot/usr/local $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
     DESTDIR=`pwd`/inst ninja install
     fixcmakeinst
     cd inst
@@ -1767,7 +1767,7 @@ else #  cross-android
     echo "### Building mp4v2"
 
     cd mp4v2-${mp4v2_version}/
-    test -f build.ninja || eval cmake -DBUILD_SHARED=OFF -DBUILD_UTILS=OFF -DBUILD_SHARED_LIBS=OFF $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
+    test -f build.ninja || eval cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_SHARED=OFF -DBUILD_UTILS=OFF -DBUILD_SHARED_LIBS=OFF $CMAKE_BUILD_OPTION $CMAKE_OPTIONS
     DESTDIR=`pwd`/inst ninja install
     fixcmakeinst
     cd inst
