@@ -309,6 +309,22 @@
   <update_contact>ufleisch@users.sourceforge.net</update_contact>
   <translation type="qt">kid3/translations/kid3</translation>
   <releases>
+    <release version="3.9.7" date="2025-07-24">
+      <description>
+        <p>Fixed</p>
+        <ul>
+          <li>KDE: Avoid excessive width of file dialog.</li>
+          <li>Make Chapters frames accessible via kid3-cli.</li>
+          <li>Superfluous imported tracks can be deleted before import.</li>
+          <li>Fix creation of wrong editor in frame table after selection change.</li>
+          <li>Completions with different values when selecting multiple files now also support genre.</li>
+          <li>Do not leave temporary cover art files on the system.</li>
+          <li>EmbedLyrics.qml: Remove illegal characters for query parameters.</li>
+          <li>Scripting: Fix crash if execute @qml is used from kid3-cli, fix isStandalone() when running non-interactively with kid3-cli, add new script SelectChapterTags.qml.</li>
+          <li>Build system: Don't hardcode WITH_DATAROOTDIR_DEFAULT path, support CMake option BUILD_WITH_QT5 to force using Qt5, support Qt 6/KDE 6 on Debian, add various new CI/CD targets, improve Snap support.</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.9.6" date="2024-09-21">
       <description>
         <p>New</p>

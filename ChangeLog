@@ -1,3 +1,24 @@
+Thu Jul 24 13:36:49 CEST 2025  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.9.7
+
+	* Fixed:
+	  + KDE: Avoid excessive width of file dialog.
+	  + Make Chapters frames accessible via kid3-cli.
+	  + Superfluous imported tracks can be deleted before import.
+	  + Fix creation of wrong editor in frame table after selection change.
+	  + Completions with different values when selecting multiple files now
+	    also support genre.
+	  + Do not leave temporary cover art files on the system.
+	  + EmbedLyrics.qml: Remove illegal characters for query parameters.
+	  + Scripting: Fix crash if execute @qml is used from kid3-cli,
+	    fix isStandalone() when running non-interactively with kid3-cli,
+	    add new script SelectChapterTags.qml.
+	  + Build system: Don't hardcode WITH_DATAROOTDIR_DEFAULT path,
+	    support CMake option BUILD_WITH_QT5 to force using Qt5,
+	    support Qt 6/KDE 6 on Debian, add various new CI/CD targets,
+	    improve Snap support.
+
 Sat Sep 21 08:03:29 CEST 2024  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.9.6

@@ -1,3 +1,9 @@
+kid3 (3.9.7-0) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 24 Jul 2025 13:36:49 +0200
+
 kid3 (3.9.6-2) unstable; urgency=medium
 
   * Switch to Qt6 and KF6.
