@@ -66,7 +66,7 @@ kid3_macos_amd64:
 
 .kid3_android_base:
   extends: .kid3_build_job
-  image: invent-registry.kde.org/sysadmin/ci-images/android-qt67-ci:latest
+  image: invent-registry.kde.org/sysadmin/ci-images/android-qt69-ci:latest
   tags:
     - Linux
   variables:
