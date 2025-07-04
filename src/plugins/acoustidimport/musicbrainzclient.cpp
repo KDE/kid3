@@ -116,7 +116,13 @@ void parseMusicBrainzMetadata(const QByteArray& bytes,
   int end = bytes.indexOf("</metadata>");
   QByteArray xmlStr = start >= 0 && end > start ?
     bytes.mid(start, end + 11 - start) : bytes;
-  if (QDomDocument doc; doc.setContent(xmlStr, false)) {
+  if (QDomDocument doc;
+#if QT_VERSION >= 0x060500
+      doc.setContent(xmlStr)
+#else
+      doc.setContent(xmlStr, false)
+#endif
+     ) {
     if (QDomElement recording =
           doc.namedItem(QLatin1String("metadata"))
              .namedItem(QLatin1String("recording")).toElement();

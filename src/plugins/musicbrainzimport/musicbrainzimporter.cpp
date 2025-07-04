@@ -107,7 +107,13 @@ void MusicBrainzImporter::parseFindResults(const QByteArray& searchStr)
   if (start >= 0 && end > start) {
     xmlStr = xmlStr.mid(start, end + 11 - start);
   }
-  if (QDomDocument doc; doc.setContent(xmlStr, false)) {
+  if (QDomDocument doc;
+#if QT_VERSION >= 0x060500
+      doc.setContent(xmlStr)
+#else
+      doc.setContent(xmlStr, false)
+#endif
+     ) {
     m_albumListModel->clear();
     QDomElement releaseList =
       doc.namedItem(QLatin1String("metadata")).toElement()
@@ -332,7 +338,13 @@ void MusicBrainzImporter::parseAlbumResults(const QByteArray& albumStr)
   int end = albumStr.indexOf("</metadata>");
   QByteArray xmlStr = start >= 0 && end > start ?
     albumStr.mid(start, end + 11 - start) : albumStr;
-  if (QDomDocument doc; doc.setContent(xmlStr, false)) {
+  if (QDomDocument doc;
+#if QT_VERSION >= 0x060500
+      doc.setContent(xmlStr)
+#else
+      doc.setContent(xmlStr, false)
+#endif
+     ) {
     QDomElement release =
       doc.namedItem(QLatin1String("metadata")).toElement()
          .namedItem(QLatin1String("release")).toElement();
