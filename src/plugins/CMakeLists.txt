@@ -1,4 +1,7 @@
 project(kid3_plugins)
+if(POLICY CMP0177)
+  cmake_policy(SET CMP0177 NEW)
+endif()
 set(CMAKE_CXX_STANDARD 17)
 
 # Install a library _target as a plugin with _name.

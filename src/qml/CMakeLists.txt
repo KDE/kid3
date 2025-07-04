@@ -1,3 +1,7 @@
+if(POLICY CMP0177)
+  cmake_policy(SET CMP0177 NEW)
+endif()
+
 # Make sure to keep this in sync with qmlapp.qrc
 set(QMLAPP_QML_SOURCES
   app/AboutDialog.qml

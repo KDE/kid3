@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.16)
 cmake_policy(SET CMP0026 OLD) # allow use of the LOCATION target property
 
 # store the current source directory for future use

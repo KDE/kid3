@@ -1,3 +1,7 @@
+if(POLICY CMP0177)
+  cmake_policy(SET CMP0177 NEW)
+endif()
+
 add_executable(kid3
   mainkde.cpp
   kdeplatformtools.cpp

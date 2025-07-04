@@ -1,3 +1,7 @@
+if(POLICY CMP0177)
+  cmake_policy(SET CMP0177 NEW)
+endif()
+
 set(_languages ca de it nl pt ru sv uk)
 
 # Use -DDOWNLOAD_POS=ON to download the translations directly from SVN.
