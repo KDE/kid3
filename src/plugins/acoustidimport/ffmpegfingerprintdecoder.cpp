@@ -125,8 +125,10 @@ public:
 #else
       ::av_frame_free(&m_frame);
 #endif
+#if LIBAVCODEC_VERSION_INT < AV_VERSION_INT(57, 19, 0)
     if (m_opened)
       ::avcodec_close(m_ptr);
+#endif
 #if LIBAVFORMAT_VERSION_INT >= AV_VERSION_INT(57, 33, 100)
     if (m_ptr)
       ::avcodec_free_context(&m_ptr);
