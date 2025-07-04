@@ -1797,43 +1797,43 @@ msgid "Request sent..."
 msgstr "S'ha enviat la sol·licitud…"
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:1984
+#: src/core/tags/frame.cpp:1983
 msgctxt "@default|"
 msgid "Title"
 msgstr "Títol"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:1988
+#: src/core/tags/frame.cpp:1987
 msgctxt "@default|"
 msgid "Album"
 msgstr "Àlbum"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:1992
+#: src/core/tags/frame.cpp:1991
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Artista"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1996
+#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1995
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Comentari"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:2000
+#: src/core/tags/frame.cpp:1999
 msgctxt "@default|"
 msgid "Year"
 msgstr "Any"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2005
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2004
 msgctxt "@default|"
 msgid "Track"
 msgstr "Peça"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2018
+#: src/core/tags/frame.cpp:2017
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Gènere"
@@ -2388,22 +2388,22 @@ msgctxt "FrameFieldObject|"
 msgid "Text"
 msgstr "Text"
 
-#: src/core/model/frametablemodel.cpp:143
+#: src/core/model/frametablemodel.cpp:144
 msgctxt "FrameTableModel|"
 msgid "Volume"
 msgstr "Volum"
 
-#: src/core/model/frametablemodel.cpp:167
+#: src/core/model/frametablemodel.cpp:168
 msgctxt "FrameTableModel|"
 msgid "File ID"
 msgstr "ID del fitxer"
 
-#: src/core/model/frametablemodel.cpp:308
+#: src/core/model/frametablemodel.cpp:309
 msgctxt "FrameTableModel|"
 msgid "Name"
 msgstr "Nom"
 
-#: src/core/model/frametablemodel.cpp:308
+#: src/core/model/frametablemodel.cpp:309
 msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Dades"
@@ -3479,7 +3479,7 @@ msgctxt "@default|"
 msgid "All Tags"
 msgstr "Totes les etiquetes"
 
-#: src/core/tags/frame.cpp:2023
+#: src/core/tags/frame.cpp:2022
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "Anteposa t1/annexa t2 si no està buida"
