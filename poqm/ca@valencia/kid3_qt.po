@@ -5825,42 +5825,42 @@ msgctxt "TimeEventEditor|"
 msgid "&Seek to position"
 msgstr "Ve&s a la posició"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:206
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:212
 msgctxt "@default|"
 msgid "MusicBrainz Fingerprint"
 msgstr "Empremta digital de MusicBrainz"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:282
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:288
 msgctxt "MusicBrainzClient|"
 msgid "Unrecognized"
 msgstr "No reconegut"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:293
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:299
 msgctxt "MusicBrainzClient|"
 msgid "Recognized"
 msgstr "Reconegut"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:293
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:299
 msgctxt "MusicBrainzClient|"
 msgid "User Selection"
 msgstr "Seleccioneu l'usuari"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:315
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:321
 msgctxt "MusicBrainzClient|"
 msgid "ID Lookup"
 msgstr "Busca per l'ID"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:323
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:329
 msgctxt "MusicBrainzClient|"
 msgid "Error"
 msgstr "S'ha produït un error"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:342
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:348
 msgctxt "MusicBrainzClient|"
 msgid "Fingerprint"
 msgstr "Empremta digital"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:351
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:357
 msgctxt "MusicBrainzClient|"
 msgid "Metadata Lookup"
 msgstr "Busca per les metadades"

@@ -5818,42 +5818,42 @@ msgctxt "TimeEventEditor|"
 msgid "&Seek to position"
 msgstr "Hyppää &kohtaan"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:206
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:212
 msgctxt "@default|"
 msgid "MusicBrainz Fingerprint"
 msgstr "MusicBrainzin sormenjälki"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:282
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:288
 msgctxt "MusicBrainzClient|"
 msgid "Unrecognized"
 msgstr "Ei tunnistettu"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:293
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:299
 msgctxt "MusicBrainzClient|"
 msgid "Recognized"
 msgstr "Tunnistettu"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:293
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:299
 msgctxt "MusicBrainzClient|"
 msgid "User Selection"
 msgstr "Käyttäjän valinta"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:315
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:321
 msgctxt "MusicBrainzClient|"
 msgid "ID Lookup"
 msgstr "Tunnistehaku"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:323
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:329
 msgctxt "MusicBrainzClient|"
 msgid "Error"
 msgstr "Virhe"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:342
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:348
 msgctxt "MusicBrainzClient|"
 msgid "Fingerprint"
 msgstr "Sormenjälki"
 
-#: src/plugins/acoustidimport/musicbrainzclient.cpp:351
+#: src/plugins/acoustidimport/musicbrainzclient.cpp:357
 msgctxt "MusicBrainzClient|"
 msgid "Metadata Lookup"
 msgstr "Metatietohaku"
