@@ -34,7 +34,7 @@ layout:
     "/usr/share/alsa":
         bind: "$SNAP/usr/share/alsa"
 slots:
-  mpris:
+  mpris-kid3:
     interface: dbus
     name: org.mpris.MediaPlayer2.kid3
     bus: session
