@@ -1,5 +1,6 @@
 import info
-from Package.CMakePackageBase import *
+from Package.CMakePackageBase import CMakePackageBase
+from Utils import CraftHash
 
 
 class subinfo(info.infoclass):
@@ -22,4 +23,3 @@ class subinfo(info.infoclass):
 class Package(CMakePackageBase):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.subinfo.options.dynamic.buildStatic = False

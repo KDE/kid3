@@ -9,7 +9,7 @@ class subinfo(info.infoclass):
     def setTargets(self):
         self.svnTargets["master"] = "https://invent.kde.org/multimedia/kid3.git"
 
-        for ver in ["3.9.3", "3.9.4", "3.9.5", "3.9.6"]:
+        for ver in ["3.9.3", "3.9.4", "3.9.5", "3.9.6", "3.9.7"]:
             self.targets[ver] = f"https://download.kde.org/stable/kid3/{ver}/kid3-{ver}.tar.xz"
             self.targetInstSrc[ver] = "kid3-" + ver
             self.targetDigestUrls[ver] = f"https://download.kde.org/stable/kid3/{ver}/kid3-{ver}.tar.xz.sha256"
@@ -18,7 +18,7 @@ class subinfo(info.infoclass):
         self.webpage = "https://kid3.kde.org"
         self.displayName = "Kid3"
 
-        self.defaultTarget = "3.9.6"
+        self.defaultTarget = "3.9.7"
 
     def setDependencies(self):
         self.buildDependencies["kde/frameworks/extra-cmake-modules"] = None

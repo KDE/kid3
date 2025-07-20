@@ -276,7 +276,7 @@ kid3 (${NEWVER}-0) unstable; urgency=low\n\n  * New upstream release.\n\n\
   if test "$4" = "--finalize"; then
     sed -i "s/^\(Version: \+\).*$/\1${NEWVER}/" kid3.spec
     OLDCODE=$(sed -n "s/ \+set(QT_ANDROID_APP_VERSION_CODE \([0-9]\+\))/\1/p" CMakeLists.txt)
-    NEWCODE=$[ $OLDCODE + 1 ]
+    NEWCODE=$[ $OLDCODE + 2 ]
     sed -i "s/\( \+set(QT_ANDROID_APP_VERSION_CODE \)\([0-9]\+\))/\1$NEWCODE)/" CMakeLists.txt
   fi
   sed -i "s/^Copyright 2003-[0-9]\+ Urs Fleisch <ufleisch@users.sourceforge.net>$/Copyright 2003-${DATE_Y} Urs Fleisch <ufleisch@users.sourceforge.net>/" deb/copyright
