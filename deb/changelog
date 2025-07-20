@@ -4,6 +4,14 @@ kid3 (3.9.7-0) unstable; urgency=low
 
  -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 24 Jul 2025 13:36:49 +0200
 
+kid3 (3.9.6-3) unstable; urgency=medium
+
+  * Add upstream patch 01-missing-appstream-metadata to fix missing appstream
+    data.
+    Closes: #1106290
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Fri, 11 Jul 2025 10:17:12 +0200
+
 kid3 (3.9.6-2) unstable; urgency=medium
 
   * Switch to Qt6 and KF6.
