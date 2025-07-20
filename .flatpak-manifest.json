@@ -2,13 +2,12 @@
     "app-id": "org.kde.kid3",
     "branch": "master",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.15-23.08",
+    "runtime-version": "6.9",
     "sdk": "org.kde.Sdk",
     "command": "kid3",
     "rename-icon": "kid3",
     "tags": ["nightly"],
     "desktop-file-name-suffix": " (Nightly)",
-
     "finish-args": [
         "--socket=wayland",
         "--socket=fallback-x11",
@@ -21,7 +20,6 @@
         "--env=TMPDIR=/var/tmp",
         "--own-name=org.mpris.MediaPlayer2.kid3"
     ],
-
     "cleanup": [
         "/man",
         "/share/man",
@@ -31,7 +29,6 @@
         "/share/**/*-qt.*",
         "/share/icons/**/**/**/*-qt.*"
     ],
-
     "modules": [
         {
             "name": "chromaprint",
@@ -49,27 +46,6 @@
                         "project-id": 286,
                         "stable-only": true,
                         "url-template": "https://github.com/acoustid/chromaprint/archive/v$version.tar.gz"
-                    }
-                }
-            ]
-        },
-        {
-            "name": "taglib",
-            "buildsystem": "cmake-ninja",
-            "config-opts": [
-                "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
-                "-DBUILD_SHARED_LIBS=ON"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://taglib.github.io/releases/taglib-1.13.1.tar.gz",
-                    "sha256": "c8da2b10f1bfec2cd7dbfcd33f4a2338db0765d851a50583d410bacf055cfd0b",
-                    "x-checker-data": {
-                        "type": "anitya",
-                        "project-id": 1982,
-                        "stable-only": true,
-                        "url-template": "https://taglib.github.io/releases/taglib-$version.tar.gz"
                     }
                 }
             ]
@@ -119,11 +95,16 @@
         {
             "name": "kid3",
             "buildsystem": "cmake-ninja",
+            "make-install-args": [
+                "check"
+            ],
             "config-opts": [
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DWITH_APPS=KDE;Qt;CLI",
                 "-DWITH_MP4V2=ON",
-                "-DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/xml/xsl-stylesheets"
+                "-DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/xml/xsl-stylesheets",
+                "-DKDE_SKIP_TEST_SETTINGS=ON",
+                "-DBUILD_WITH_QT6=ON"
             ],
             "sources": [
                 {
