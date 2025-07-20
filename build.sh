@@ -385,7 +385,8 @@ set -e
 (cd macos_qt5_build && \
    rm -f kid3/*-Darwin.dmg && \
    COMPILER=cross-macos \
-   QTPREFIX=$HOME/Development/Qt5.15.2-mac/5.15.2/clang_64 \
+   QTPREFIX=$HOME/Development/Qt5.9.7-mac/5.9.7/clang_64 \
+   QTBINARYDIR=$HOME/Development/Qt5.9.7-linux/5.9.7/gcc_64/bin \
    OSXPREFIX=/opt/osxcross/target \
    ../kid3/build.sh && \
    origdmg=(kid3/*-Darwin.dmg) && \
