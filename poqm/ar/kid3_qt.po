@@ -1,8 +1,8 @@
-# SPDX-FileCopyrightText: 2022, 2023, 2024 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-06-13 10:00+0400\n"
+"PO-Revision-Date: 2025-08-03 15:14+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -1698,7 +1698,7 @@ msgstr "كلّ الملفّات المدعومة"
 #: src/core/config/formatconfig.cpp:501
 msgctxt "@default|"
 msgid "No changes"
-msgstr "بدون تعديلات"
+msgstr "دون تعديلات"
 
 #: src/core/config/formatconfig.cpp:502
 msgctxt "@default|"
@@ -2895,7 +2895,7 @@ msgstr "جدول المحتويات"
 #: src/core/tags/frame.cpp:192
 msgctxt "@default|"
 msgid "Encryption Method"
-msgstr "طريقة التشفير"
+msgstr "طريقة التعمية"
 
 #: src/core/tags/frame.cpp:193 src/core/tags/frame.cpp:194
 msgctxt "@default|"
@@ -5535,7 +5535,7 @@ msgstr "ا&حذف الصف"
 #: src/gui/widgets/configtable.cpp:147
 msgctxt "ConfigTable|"
 msgid "&Clear row"
-msgstr "ام&سح السطر"
+msgstr "ا&محُ السطر"
 
 #: src/gui/widgets/filenameformatbox.cpp:46
 msgctxt "FilenameFormatBox|"
