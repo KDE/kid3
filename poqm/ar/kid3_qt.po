@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2025-08-03 15:14+0400\n"
+"PO-Revision-Date: 2025-08-04 14:40+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -166,7 +166,7 @@ msgstr "خطأ"
 #: src/app/cli/clicommand.cpp:721
 msgctxt "BatchImportCommand|"
 msgid "Automatic import"
-msgstr "استيراد آلي"
+msgstr "استيراد آليّ"
 
 #: src/app/cli/clicommand.cpp:722
 msgctxt "BatchImportCommand|"
@@ -673,12 +673,12 @@ msgstr "استورد من الوسوم"
 #: src/app/kde/kdemainwindow.cpp:260
 msgctxt "KdeMainWindow|"
 msgid "Automatic I&mport..."
-msgstr "ا&ستيراد آلي..."
+msgstr "ا&ستيراد آليّ..."
 
 #: src/app/kde/kdemainwindow.cpp:261
 msgctxt "KdeMainWindow|"
 msgid "Automatic import"
-msgstr "استيراد آلي"
+msgstr "استيراد آليّ"
 
 #: src/app/kde/kdemainwindow.cpp:265
 msgctxt "KdeMainWindow|"
@@ -1205,12 +1205,12 @@ msgstr "استورد من الوسوم..."
 #: src/app/qt/kid3mainwindow.cpp:260
 msgctxt "Kid3MainWindow|"
 msgid "Automatic import"
-msgstr "استيراد آلي"
+msgstr "استيراد آليّ"
 
 #: src/app/qt/kid3mainwindow.cpp:261
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
-msgstr "ا&ستيراد آلي..."
+msgstr "ا&ستيراد آليّ..."
 
 #: src/app/qt/kid3mainwindow.cpp:269
 msgctxt "Kid3MainWindow|"
@@ -1643,7 +1643,7 @@ msgstr "ا&محُ القائمة"
 #: src/app/qt/shortcutsdelegate.cpp:189
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Clear"
-msgstr "امسح"
+msgstr "امحُ"
 
 #: src/app/qt/shortcutsdelegate.cpp:194
 msgctxt "ShortcutsDelegateEditor|"
@@ -3714,7 +3714,7 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:162
 msgctxt "BatchImportDialog|"
 msgid "Automatic Import"
-msgstr "استيراد آلي"
+msgstr "استيراد آليّ"
 
 #: src/gui/dialogs/batchimportdialog.cpp:178
 msgctxt "BatchImportDialog|"
@@ -5263,7 +5263,7 @@ msgstr "عرض الأعمدة مخصّص"
 #: src/gui/forms/filelist.cpp:110
 msgctxt "FileList|"
 msgid "C&lear"
-msgstr "ام&سح"
+msgstr "ام&حُ"
 
 #: src/gui/forms/filelist.cpp:114
 msgctxt "FileList|"
@@ -5550,7 +5550,7 @@ msgstr "أقصى طول:"
 #: src/gui/widgets/formatbox.cpp:48
 msgctxt "FormatBox|"
 msgid "Automatically apply format"
-msgstr "طبّق التنسيق آليا"
+msgstr "طبّق التنسيق آليّا"
 
 #: src/gui/widgets/formatbox.cpp:56
 msgctxt "FormatBox|"
@@ -5805,7 +5805,7 @@ msgstr "ا&حذف صفوف"
 #: src/gui/widgets/timeeventeditor.cpp:473
 msgctxt "TimeEventEditor|"
 msgid "C&lear"
-msgstr "ام&سح"
+msgstr "ام&حُ"
 
 #: src/gui/widgets/timeeventeditor.cpp:475
 msgctxt "TimeEventEditor|"
@@ -6501,7 +6501,7 @@ msgstr ""
 #: src/qml/app/BatchImportPage.qml:32
 msgctxt "BatchImportPage|"
 msgid "Automatic Import"
-msgstr "استيراد آلي"
+msgstr "استيراد آليّ"
 
 #: src/qml/app/BatchImportPage.qml:40
 msgctxt "BatchImportPage|"
@@ -6790,7 +6790,7 @@ msgstr "إعدادات"
 #: src/qml/app/MainPage.qml:189
 msgctxt "MainPage|"
 msgid "Automatic Import"
-msgstr "استيراد آلي"
+msgstr "استيراد آليّ"
 
 #: src/qml/app/MainPage.qml:198
 msgctxt "MainPage|"
@@ -7121,7 +7121,7 @@ msgstr ""
 #: src/qml/app/SettingsPage.qml:223
 msgctxt "SettingsPage|"
 msgid "Automatically apply format"
-msgstr "طبّق التنسيق آليا"
+msgstr "طبّق التنسيق آليّا"
 
 #: src/qml/app/SettingsPage.qml:228
 msgctxt "SettingsPage|"
