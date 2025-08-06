@@ -160,7 +160,7 @@
       generate file names from tags and rename folders from tags. Automatic
       case conversion and string replacement help to keep tags consistent.
     </p>
-    <p xml:lang="ar">يمكن ضبط وسوم الملفات المتعددة معًا. ومن الممكن إنشاء وسوم من أسماء الملفات أو محتويات حقول الوسوم الأخرى وإنشاء أسماء الملفات من الوسوم وإعادة تسمية المجلدات من الوسوم. ويمكن تحويل الحالة الأحرف واستبدال النصوص بشكل آليا حتى تكون متسقة.</p>
+    <p xml:lang="ar">يمكن ضبط وسوم الملفات المتعددة معًا. ومن الممكن إنشاء وسوم من أسماء الملفات أو محتويات حقول الوسوم الأخرى وإنشاء أسماء الملفات من الوسوم وإعادة تسمية المجلدات من الوسوم. ويمكن تحويل الحالة الأحرف واستبدال النصوص بشكل آليّا حتى تكون متسقة.</p>
     <p xml:lang="ca">Es poden establir juntes les etiquetes de múltiples fitxers. És possible generar etiquetes a partir de noms de fitxer o el contingut d'altres camps d'etiqueta i generar noms de fitxer a partir d'etiquetes i canviar el nom de les carpetes a partir de les etiquetes. La conversió automàtica de majúscules i minúscules, i la substitució de cadenes ajuden a mantenir les etiquetes coherents.</p>
     <p xml:lang="ca-valencia">Es poden establir juntes les etiquetes de múltiples fitxers. És possible generar etiquetes a partir de noms de fitxer o el contingut d'altres camps d'etiqueta i generar noms de fitxer a partir d'etiquetes i canviar el nom de les carpetes a partir de les etiquetes. La conversió automàtica de majúscules i minúscules, i la substitució de cadenes ajuden a mantindre les etiquetes coherents.</p>
     <p xml:lang="da">Mærker fra flere filer kan sættes sammen. Det er muligt at generere mærker ud fra filnavne eller indholdet af andre mærkefelter samt at generere filnavne fra mærker og omdøbe mapper ud fra mærker. Automatisk konvertering af versaler og erstatning af strenge hjælper med at holde mærkerne konsistente.</p>
@@ -197,7 +197,7 @@
       Discogs, Amazon; automatic batch import is available for multiple
       folders. It is also possible to export data and generate play lists.
     </p>
-    <p xml:lang="ar">يمكن استيراد بيانات الألبوم من gnudb.org و MusicBrainz و Discogs و Amazon ؛ تتوفر استيراد بالدُفعات التلقائية لمجلدات متعددة. من الممكن أيضًا تصدير البيانات وإنشاء قوائم التشغيل.</p>
+    <p xml:lang="ar">يمكن استيراد بيانات الألبوم من gnudb.org و MusicBrainz و Discogs و Amazon ؛ تتوفر استيراد بالدُفعات الآليّة لمجلدات متعددة. من الممكن أيضًا تصدير البيانات وإنشاء قوائم التشغيل.</p>
     <p xml:lang="ca">Les dades de l'àlbum es poden importar des de gnudb.org, MusicBrainz, Discogs, Amazon. Hi ha disponible la importació automàtica per lots per a múltiples carpetes. També és possible exportar dades i generar llistes de reproducció.</p>
     <p xml:lang="ca-valencia">Les dades de l'àlbum es poden importar des de gnudb.org, MusicBrainz, Discogs, Amazon. Hi ha disponible la importació automàtica per lots per a múltiples carpetes. També és possible exportar dades i generar llistes de reproducció.</p>
     <p xml:lang="de">Albumdaten können von gnudb.org, MusicBrainz, Discogs, Amazon importiert werden. Ein automatischer Stapelverarbeitungsmodus ist für mehrere Ordner verfügbar. Daten können exportiert und Wiedergabelisten können erstellt werden.</p>
