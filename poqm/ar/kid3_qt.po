@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2025-08-04 14:40+0400\n"
+"PO-Revision-Date: 2025-08-09 21:20+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -4205,12 +4205,12 @@ msgstr "النظام"
 #: src/gui/dialogs/configdialogpages.cpp:586
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
-msgstr "الوسيط"
+msgstr "الوكيل"
 
 #: src/gui/dialogs/configdialogpages.cpp:587
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
-msgstr "ال&وسيط:"
+msgstr "ال&وكيل:"
 
 #: src/gui/dialogs/configdialogpages.cpp:590
 msgctxt "ConfigDialogPages|"
@@ -4220,12 +4220,12 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
-msgstr ""
+msgstr "اسم &مستخدم الوكيل:"
 
 #: src/gui/dialogs/configdialogpages.cpp:596
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
-msgstr "كملة &سر الوسيط:"
+msgstr "كملة &سر الوكيل:"
 
 #: src/gui/dialogs/configdialogpages.cpp:630
 msgctxt "ConfigDialogPages|"
@@ -5238,7 +5238,7 @@ msgstr "المجلد يجب أن يكون فارغاً.\n"
 #: src/gui/forms/basemainwindow.cpp:1648
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
-msgstr "لم يتم التمكن من نقل هذه الملفات إلى سلة المحذوفات"
+msgstr "لم يتمكن من نقل هذه الملفات إلى سلة المحذوفات"
 
 #: src/gui/forms/basemainwindow.cpp:1681
 msgctxt "BaseMainWindowImpl|"
