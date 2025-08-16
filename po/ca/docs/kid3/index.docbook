@@ -6114,7 +6114,7 @@ Finished</computeroutput>
 >kid3-cli</command
 > amb <parameter
 >-c</parameter
-> hauran d'estar entre cometes si no consisteixen només d'una sola paraula. Si aquesta ordre en si té un argument que conté espais, aquest argument també ha d'anar entre cometes. En els intèrprets d'ordres d'&UNIX; es poden utilitzar cometes simples o dobles, però a l'indicatiu d'ordres de Windows, és important que les cometes externes es realitzin amb cometes dobles i dintre d'aquestes cometes, s'utilitzaran cometes simples. Si el text dins de les cometes simples conté una cometa simple, s'haurà d'escapar utilitzant un caràcter de barra inversa, com es mostra en el següent exemple:</para>
+> hauran d'estar entre cometes si no consisteixen només d'una sola paraula. Si aquesta ordre en si té un argument que conté espais, aquest argument també ha d'anar entre cometes. En els intèrprets d'ordres d'&UNIX; es poden utilitzar cometes simples o dobles, però a l'indicador d'ordres de Windows, és important que les cometes externes es realitzin amb cometes dobles i dintre d'aquestes cometes, s'utilitzaran cometes simples. Si el text dins de les cometes simples conté una cometa simple, s'haurà d'escapar utilitzant un caràcter de barra inversa, com es mostra en el següent exemple:</para>
 <screen width="65"
 ><userinput
 >kid3-cli -c "set title 'I\'ll be there for you'" /camí/a/carpeta</userinput
