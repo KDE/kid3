@@ -24,7 +24,3 @@ include:
   rules:
   - when: manual
     allow_failure: true
-.snap_base:
-  rules:
-  - when: manual
-    allow_failure: true
