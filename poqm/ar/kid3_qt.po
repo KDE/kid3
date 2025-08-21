@@ -1668,7 +1668,7 @@ msgstr "الاختصار"
 #: src/core/config/batchimportsourcesmodel.cpp:166
 msgctxt "BatchImportSourcesModel|"
 msgid "Server"
-msgstr "الخادوم"
+msgstr "الخادم"
 
 #: src/core/config/batchimportsourcesmodel.cpp:168
 msgctxt "BatchImportSourcesModel|"
@@ -3824,7 +3824,7 @@ msgstr ""
 #: src/gui/dialogs/batchimportsourcedialog.cpp:50
 msgctxt "BatchImportSourceDialog|"
 msgid "&Server:"
-msgstr "ال&خادوم:"
+msgstr "ال&خادم:"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:58
 msgctxt "BatchImportSourceDialog|"
@@ -4836,7 +4836,7 @@ msgstr "ا&عثر"
 #: src/gui/dialogs/serverimportdialog.cpp:75
 msgctxt "ServerImportDialog|"
 msgid "&Server:"
-msgstr "ال&خادوم:"
+msgstr "ال&خادم:"
 
 #: src/gui/dialogs/serverimportdialog.cpp:78
 msgctxt "ServerImportDialog|"
@@ -4886,7 +4886,7 @@ msgstr "جاهز."
 #: src/gui/dialogs/servertrackimportdialog.cpp:83
 msgctxt "ServerTrackImportDialog|"
 msgid "&Server:"
-msgstr "ال&خادوم:"
+msgstr "ال&خادم:"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:106
 msgctxt "ServerTrackImportDialog|"
@@ -6715,7 +6715,7 @@ msgstr "صورة الغلاف"
 #: src/qml/app/ImportProfilesEditPage.qml:130
 msgctxt "ImportProfilesEditPage|"
 msgid "Server"
-msgstr "الخادوم"
+msgstr "الخادم"
 
 #: src/qml/app/Main.qml:92
 msgctxt "Main|"
