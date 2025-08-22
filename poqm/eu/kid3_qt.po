@@ -1,14 +1,14 @@
 # Translation for kid3_qt.po to Euskara/Basque (eu).
-# Copyright (C) 2020-2021, this file is copyright:
+# Copyright (C) 2020-2025 this file is copyright:
 # This file is distributed under the same license as the original file.
-# KDE euskaratzeko proiektuko arduraduna <xalba@ni.eus>.
+# SPDX-FileCopyrightText: 2025 KDE euskaratzeko proiektuaren arduraduna <xalba@ni.eus>
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2020, 2021.
+# Iñigo Salvador Azurmendi <xalba@ni.eus>, 2020, 2021, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2021-05-07 22:34+0200\n"
+"PO-Revision-Date: 2025-08-21 23:14+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 21.04.0\n"
+"X-Generator: Lokalize 25.08.0\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -329,13 +329,13 @@ msgstr "Konfiguratu Kid3"
 #: src/app/cli/clicommand.cpp:1284
 msgctxt "ConfigCommand|"
 msgid "Group.Option Value"
-msgstr ""
+msgstr "Taldea.Aukera Balioa"
 
 #: src/app/cli/clicommand.cpp:1304 src/app/cli/clicommand.cpp:1310
 #, qt-format
 msgctxt "ConfigCommand|"
 msgid "%1 does not exist"
-msgstr "%1 ez dago"
+msgstr "%1 ez existitzen"
 
 #: src/app/cli/clicommand.cpp:1337 src/app/cli/clicommand.cpp:1357
 #, qt-format
@@ -344,21 +344,19 @@ msgid "Invalid value %1"
 msgstr "%1 balio baliogabea"
 
 #: src/app/cli/clicommand.cpp:1411
-#, fuzzy
 msgctxt "ExecuteCommand|"
 msgid "Execute command"
-msgstr "Exekutatu"
+msgstr "Exekutatu komandoa"
 
 #: src/app/cli/clicommand.cpp:1412
 msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
-msgstr ""
+msgstr "Exekutagarria [argumentuak]"
 
 #: src/app/cli/clicommand.cpp:1442
-#, fuzzy
 msgctxt "ExecuteCommand|"
 msgid "Could not execute "
-msgstr "ezin izan da %1 exekutatu"
+msgstr "Ezin izan du exekutatu "
 
 #: src/app/cli/jsoncliformatter.cpp:188 src/app/cli/jsoncliformatter.cpp:191
 #, qt-format
@@ -503,7 +501,7 @@ msgstr "Eskuratzen"
 #: src/app/cli/textcliformatter.cpp:315
 msgctxt "TextCliFormatter|"
 msgid "Data received"
-msgstr "Jasotako datuak"
+msgstr "Datuak jaso dira"
 
 #: src/app/cli/textcliformatter.cpp:317
 msgctxt "TextCliFormatter|"
@@ -951,12 +949,9 @@ msgid "Section"
 msgstr "Atala"
 
 #: src/app/kde/kdemainwindow.cpp:473
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Play"
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr "Jo"
+msgstr "Jotzailea"
 
 #: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
@@ -966,12 +961,12 @@ msgstr "Konfiguratu - Kid3"
 #: src/app/kde/kdeplatformtools.cpp:197 src/app/kde/kdeplatformtools.cpp:241
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "&Bai"
 
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "E&z"
 
 #: src/app/kde/mainkde.cpp:123
 msgctxt "@default|"
@@ -1529,12 +1524,9 @@ msgid "About &Qt"
 msgstr "&Qt-ri buruz"
 
 #: src/app/qt/kid3mainwindow.cpp:627
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Play"
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr "Jo"
+msgstr "Jotzailea"
 
 #: src/app/qt/kid3mainwindow.cpp:651
 msgctxt "Kid3MainWindow|"
@@ -2070,17 +2062,17 @@ msgstr ""
 #: src/core/model/eventtimingcode.cpp:38
 msgctxt "@default|"
 msgid "end of initial silence"
-msgstr ""
+msgstr "hasierako isilunearen bukaera"
 
 #: src/core/model/eventtimingcode.cpp:39
 msgctxt "@default|"
 msgid "intro start"
-msgstr ""
+msgstr "sarreraren hasiera"
 
 #: src/core/model/eventtimingcode.cpp:40
 msgctxt "@default|"
 msgid "main part start"
-msgstr ""
+msgstr "atal nagusiaren hasiera"
 
 #: src/core/model/eventtimingcode.cpp:41
 msgctxt "@default|"
@@ -2416,7 +2408,7 @@ msgstr "Datuak"
 #: src/core/model/kid3application.cpp:1032
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
-msgstr "... karpeta gordetzen"
+msgstr "...karpeta gordetzen"
 
 #: src/core/model/kid3application.cpp:1237
 msgctxt "Kid3Application|"
@@ -2899,7 +2891,7 @@ msgstr "Kapitulua"
 #: src/core/tags/frame.cpp:190
 msgctxt "@default|"
 msgid "Commercial"
-msgstr ""
+msgstr "Komertziala"
 
 #: src/core/tags/frame.cpp:191
 msgctxt "@default|"
@@ -2934,7 +2926,7 @@ msgstr "Talde identifikazioa"
 #: src/core/tags/frame.cpp:199
 msgctxt "@default|"
 msgid "Linked Information"
-msgstr ""
+msgstr "Estekatutako informazioa"
 
 #: src/core/tags/frame.cpp:200
 msgctxt "@default|"
@@ -2944,7 +2936,7 @@ msgstr "Musika CDaren identifikatzailea"
 #: src/core/tags/frame.cpp:201
 msgctxt "@default|"
 msgid "MPEG Lookup Table"
-msgstr ""
+msgstr "MPEG bilaketa-taula"
 
 #: src/core/tags/frame.cpp:202 src/core/tags/frame.cpp:318
 msgctxt "@default|"
@@ -3168,7 +3160,7 @@ msgstr "Kontaktua"
 #: src/core/tags/frame.cpp:253 src/core/tags/frame.cpp:275
 msgctxt "@default|"
 msgid "Total Discs"
-msgstr ""
+msgstr "Diskoak guztira"
 
 #: src/core/tags/frame.cpp:254
 msgctxt "@default|"
@@ -3254,7 +3246,7 @@ msgstr "Produktu-zenbakia"
 #: src/core/tags/frame.cpp:276 src/core/tags/frame.cpp:277
 msgctxt "@default|"
 msgid "Total Tracks"
-msgstr ""
+msgstr "Pistak guztira"
 
 #: src/core/tags/frame.cpp:280
 msgctxt "@default|"
@@ -3394,30 +3386,27 @@ msgstr ""
 #: src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Podcast URL"
-msgstr ""
+msgstr "Podcastaren URL"
 
 #: src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Podcast GUID"
-msgstr ""
+msgstr "Podcastaren GUID"
 
 #: src/core/tags/frame.cpp:324
 msgctxt "@default|"
 msgid "Composer ID"
-msgstr ""
+msgstr "Konposatzaile ID"
 
 #: src/core/tags/frame.cpp:325
 msgctxt "@default|"
 msgid "XID"
-msgstr ""
+msgstr "XID"
 
 #: src/core/tags/frame.cpp:326
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapters"
-msgstr "Kapitulua"
+msgstr "Kapituluak"
 
 #: src/core/tags/frame.cpp:327
 msgctxt "@default|"
@@ -3466,10 +3455,9 @@ msgid "Subject"
 msgstr "Gaia"
 
 #: src/core/tags/frame.cpp:336
-#, fuzzy
 msgctxt "@default|"
 msgid "Sharpness"
-msgstr "Enfokatze-maila"
+msgstr "Araztasuna"
 
 #: src/core/tags/frame.cpp:337
 #, fuzzy
@@ -3511,12 +3499,12 @@ msgstr "Neurria handiegia da"
 #: src/core/tags/framenotice.cpp:186
 msgctxt "@default|"
 msgid "Must be unique"
-msgstr ""
+msgstr "Bakarra izan behar du"
 
 #: src/core/tags/framenotice.cpp:187
 msgctxt "@default|"
 msgid "New line is forbidden"
-msgstr ""
+msgstr "Lerro berria debekatuta dago"
 
 #: src/core/tags/framenotice.cpp:188
 msgctxt "@default|"
@@ -3526,12 +3514,12 @@ msgstr ""
 #: src/core/tags/framenotice.cpp:189
 msgctxt "@default|"
 msgid "Owner must be non-empty"
-msgstr ""
+msgstr "Jabea ez da hutsik egon behar"
 
 #: src/core/tags/framenotice.cpp:190
 msgctxt "@default|"
 msgid "Must be numeric"
-msgstr ""
+msgstr "Zenbakizkoa izan behar du"
 
 #: src/core/tags/framenotice.cpp:191
 msgctxt "@default|"
@@ -3541,7 +3529,7 @@ msgstr ""
 #: src/core/tags/framenotice.cpp:192
 msgctxt "@default|"
 msgid "Format is DDMM"
-msgstr ""
+msgstr "Formatua DDMM da"
 
 #: src/core/tags/framenotice.cpp:193
 msgctxt "@default|"
@@ -3556,12 +3544,12 @@ msgstr "Formatu YYYY da"
 #: src/core/tags/framenotice.cpp:195
 msgctxt "@default|"
 msgid "Must begin with a year and a space character"
-msgstr ""
+msgstr "Urte batekin eta zuriune karaktere batekin hasi behar du"
 
 #: src/core/tags/framenotice.cpp:196
 msgctxt "@default|"
 msgid "Must be ISO 8601 date/time"
-msgstr ""
+msgstr "ISO 8601 data/ordua izan behar du"
 
 #: src/core/tags/framenotice.cpp:197
 msgctxt "@default|"
@@ -3578,7 +3566,7 @@ msgstr ""
 #: src/core/tags/framenotice.cpp:200
 msgctxt "@default|"
 msgid "Must be ISRC code, 12 characters"
-msgstr ""
+msgstr "ISRC kodea izan behar du, 12 karaktere"
 
 #: src/core/tags/framenotice.cpp:201
 msgctxt "@default|"
@@ -3588,27 +3576,27 @@ msgstr ""
 #: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
 msgid "Has excess white space"
-msgstr ""
+msgstr "Zuriune gehiegi ditu"
 
 #: src/core/tags/pictureframe.cpp:42
 msgctxt "@default|"
 msgid "32x32 pixels PNG file icon"
-msgstr ""
+msgstr "32x32 pixeleko PNG fitxategi ikonoa"
 
 #: src/core/tags/pictureframe.cpp:43
 msgctxt "@default|"
 msgid "Other file icon"
-msgstr ""
+msgstr "Beste fitxategi ikono bat"
 
 #: src/core/tags/pictureframe.cpp:44
 msgctxt "@default|"
 msgid "Cover (front)"
-msgstr ""
+msgstr "Azala (aurrekoa)"
 
 #: src/core/tags/pictureframe.cpp:45
 msgctxt "@default|"
 msgid "Cover (back)"
-msgstr ""
+msgstr "Azala (atzekoa)"
 
 #: src/core/tags/pictureframe.cpp:46
 msgctxt "@default|"
@@ -3628,7 +3616,7 @@ msgstr ""
 #: src/core/tags/pictureframe.cpp:51
 msgctxt "@default|"
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "Banda/Orkestra"
 
 #: src/core/tags/pictureframe.cpp:53
 msgctxt "@default|"
@@ -3638,12 +3626,12 @@ msgstr ""
 #: src/core/tags/pictureframe.cpp:54
 msgctxt "@default|"
 msgid "Recording Location"
-msgstr ""
+msgstr "Grabaketaren kokapena"
 
 #: src/core/tags/pictureframe.cpp:55
 msgctxt "@default|"
 msgid "During recording"
-msgstr ""
+msgstr "Grabatu bitartean"
 
 #: src/core/tags/pictureframe.cpp:56
 msgctxt "@default|"
@@ -3653,47 +3641,44 @@ msgstr ""
 #: src/core/tags/pictureframe.cpp:57
 msgctxt "@default|"
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "Pelikula/bideo pantaila-argazkia"
 
 #: src/core/tags/pictureframe.cpp:58
 msgctxt "@default|"
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "Arrain distiratsu koloredun bat"
 
 #: src/core/tags/pictureframe.cpp:59
 msgctxt "@default|"
 msgid "Illustration"
-msgstr ""
+msgstr "Ilustrazioa"
 
 #: src/core/tags/pictureframe.cpp:60
 msgctxt "@default|"
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "Bandaren/artistaren logotipoa"
 
 #: src/core/tags/pictureframe.cpp:61
 msgctxt "@default|"
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "Argitaratzailearen/Estudioaren logotipoa"
 
 #: src/core/tags/trackdata.cpp:204
 msgctxt "@default|"
 msgid "Absolute path to file"
-msgstr ""
+msgstr "Fitxategirako bide-izen absolutua"
 
 #: src/core/tags/trackdata.cpp:210
-#, fuzzy
 msgctxt "@default|"
 msgid "Modification date"
 msgstr "Aldatze data"
 
 #: src/core/tags/trackdata.cpp:216
-#, fuzzy
 msgctxt "@default|"
 msgid "Creation date"
-msgstr "Date de création"
+msgstr "Sorrera data"
 
 #: src/core/tags/trackdata.cpp:226
-#, fuzzy
 msgctxt "@default|"
 msgid "Directory name"
 msgstr "Direktorioaren izena"
@@ -3701,42 +3686,37 @@ msgstr "Direktorioaren izena"
 #: src/core/tags/trackdata.cpp:241
 msgctxt "@default|"
 msgid "Number of tracks"
-msgstr ""
+msgstr "Pista kopurua"
 
 #: src/core/tags/trackdata.cpp:246
-#, fuzzy
 msgctxt "@default|"
 msgid "Extension"
 msgstr "Luzapena"
 
 #: src/core/tags/trackdata.cpp:259
-#, fuzzy
 msgctxt "@default|"
 msgid "Bitrate"
 msgstr "Bit-emaria"
 
 #: src/core/tags/trackdata.cpp:269
-#, fuzzy
 msgctxt "@default|"
 msgid "Samplerate"
 msgstr "Lagin-emaria"
 
 #: src/core/tags/trackdata.cpp:276
-#, fuzzy
 msgctxt "@default|"
 msgid "Channels"
 msgstr "Kanalak"
 
 #: src/core/tags/trackdata.cpp:281
-#, fuzzy
 msgctxt "@default|"
 msgid "Codec"
-msgstr "Codec"
+msgstr "Kodek"
 
 #: src/core/tags/trackdata.cpp:286
 msgctxt "@default|"
 msgid "Marked"
-msgstr ""
+msgstr "Markatuta"
 
 #: src/core/tags/trackdata.cpp:292
 msgctxt "@default|"
@@ -3744,87 +3724,71 @@ msgid "Escape for HTML"
 msgstr ""
 
 #: src/gui/dialogs/batchimportdialog.cpp:162
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Automatic Import"
 msgstr "Inportatze automatikoa"
 
 #: src/gui/dialogs/batchimportdialog.cpp:178
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "D&estination:"
-msgstr "Helburua"
+msgstr "H&elburua:"
 
 #: src/gui/dialogs/batchimportdialog.cpp:193
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "&Profile:"
-msgstr "Profila"
+msgstr "&Profila:"
 
 #: src/gui/dialogs/batchimportdialog.cpp:204
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Add"
 msgstr "Gehitu"
 
 #: src/gui/dialogs/batchimportdialog.cpp:208
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Remove"
 msgstr "Kendu"
 
 #: src/gui/dialogs/batchimportdialog.cpp:229
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
 #: src/gui/dialogs/batchimportdialog.cpp:235
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
 #: src/gui/dialogs/batchimportdialog.cpp:244
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "&Close"
-msgstr "&Itxi"
+msgstr "It&xi"
 
 #: src/gui/dialogs/batchimportdialog.cpp:284
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "New"
 msgstr "Berria"
 
 #: src/gui/dialogs/batchimportdialog.cpp:476
-#, fuzzy
-#| msgctxt "TextCliFormatter|"
-#| msgid "Reading Directory"
 msgctxt "BatchImportDialog|"
 msgid "Reading Folder"
-msgstr "Direktorioa irakurtzen"
+msgstr "Karpeta irakurtzen"
 
 #: src/gui/dialogs/batchimportdialog.cpp:480
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Started"
 msgstr "Hasita"
 
 #: src/gui/dialogs/batchimportdialog.cpp:483
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Source"
 msgstr "Sorburua"
 
 #: src/gui/dialogs/batchimportdialog.cpp:486
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Querying"
 msgstr "Itauntzen"
 
 #: src/gui/dialogs/batchimportdialog.cpp:490
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Fetching"
 msgstr "Eskuratzen"
@@ -3832,7 +3796,7 @@ msgstr "Eskuratzen"
 #: src/gui/dialogs/batchimportdialog.cpp:493
 msgctxt "BatchImportDialog|"
 msgid "Data received"
-msgstr ""
+msgstr "Datuak jaso dira"
 
 #: src/gui/dialogs/batchimportdialog.cpp:496
 #, fuzzy
@@ -6884,146 +6848,121 @@ msgid "Data received"
 msgstr ""
 
 #: src/qml/app/BatchImportPage.qml:59
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Cover"
 msgstr "Azala"
 
 #: src/qml/app/BatchImportPage.qml:62
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Finished"
-msgstr "Amaituta"
+msgstr "Bukatuta"
 
 #: src/qml/app/BatchImportPage.qml:65
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Aborted"
-msgstr "Abortatuta"
+msgstr "Bertan behera utzi da"
 
 #: src/qml/app/BatchImportPage.qml:68
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Error"
 msgstr "Errorea"
 
 #: src/qml/app/BatchImportPage.qml:104
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Start"
 msgstr "Hasi"
 
 #: src/qml/app/BatchImportPage.qml:126
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Destination:"
-msgstr "Jomuga:"
+msgstr "Helmuga:"
 
 #: src/qml/app/BatchImportPage.qml:136
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Tag 1"
-msgstr "%1 etiketa"
+msgstr "1 etiketa"
 
 #: src/qml/app/BatchImportPage.qml:137
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Tag 2"
-msgstr "%1 etiketa"
+msgstr "2 etiketa"
 
 #: src/qml/app/BatchImportPage.qml:138
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Tag 3"
-msgstr "%1 etiketa"
+msgstr "3 etiketa"
 
 #: src/qml/app/BatchImportPage.qml:139
 msgctxt "BatchImportPage|"
 msgid "Tag 1 and Tag 2"
-msgstr ""
+msgstr "1 etiketa eta 2 etiketa"
 
 #: src/qml/app/BatchImportPage.qml:140
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "All Tags"
 msgctxt "BatchImportPage|"
 msgid "All Tags"
 msgstr "Etiketa guztiak"
 
 #: src/qml/app/BatchImportPage.qml:153
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Profile:"
 msgstr "Profila:"
 
 #: src/qml/app/FileCollapsible.qml:32
-#, fuzzy
 msgctxt "FileCollapsible|"
 msgid "File"
 msgstr "Fitxategia"
 
 #: src/qml/app/FileSelectDialog.qml:42
-#, fuzzy
 msgctxt "FileSelectDialog|"
 msgid "Open"
 msgstr "Ireki"
 
 #: src/qml/app/FileSelectDialog.qml:98
-#, fuzzy
 msgctxt "FileSelectDialog|"
 msgid "Folder"
 msgstr "Karpeta"
 
 #: src/qml/app/FileSelectDialog.qml:192
-#, fuzzy
 msgctxt "FileSelectDialog|"
 msgid "File"
 msgstr "Fitxategia"
 
 #: src/qml/app/FilterPage.qml:31
-#, fuzzy
 msgctxt "FilterPage|"
 msgid "Filter"
 msgstr "Iragazkia"
 
 #: src/qml/app/FilterPage.qml:39
-#, fuzzy
 msgctxt "FilterPage|"
 msgid "Started"
 msgstr "Hasita"
 
 #: src/qml/app/FilterPage.qml:57
-#, fuzzy
 msgctxt "FilterPage|"
 msgid "Finished"
-msgstr "Amaituta"
+msgstr "Bukatuta"
 
 #: src/qml/app/FilterPage.qml:60
-#, fuzzy
 msgctxt "FilterPage|"
 msgid "Aborted"
-msgstr "Abortatuta"
+msgstr "Bertan behera utzi da"
 
 #: src/qml/app/FilterPage.qml:92
-#, fuzzy
 msgctxt "FilterPage|"
 msgid "Start"
 msgstr "Hasi"
 
 #: src/qml/app/FilterPage.qml:118
-#, fuzzy
 msgctxt "FilterPage|"
 msgid "Filter:"
 msgstr "Iragazkia:"
 
 #: src/qml/app/FilterPage.qml:131
-#, fuzzy
 msgctxt "FilterPage|"
 msgid "Expression:"
 msgstr "Adierazpena:"
 
 #: src/qml/app/FrameEditDialog.qml:117
-#, fuzzy
 msgctxt "FrameEditDialog|"
 msgid "Warning"
 msgstr "Abisua"
@@ -7031,16 +6970,14 @@ msgstr "Abisua"
 #: src/qml/app/FrameEditDialog.qml:118
 msgctxt "FrameEditDialog|"
 msgid "File already exists. Overwrite?"
-msgstr ""
+msgstr "Fitxategia lehendik ere badago. Gainidatzi?"
 
 #: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:199
-#, fuzzy
 msgctxt "FrameEditDialog|"
 msgid "Export"
 msgstr "Esportatu"
 
 #: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
-#, fuzzy
 msgctxt "FrameEditDialog|"
 msgid "Import"
 msgstr "Inportatu"
@@ -7048,28 +6985,25 @@ msgstr "Inportatu"
 #: src/qml/app/FrameSelectDialog.qml:38
 msgctxt "FrameSelectDialog|"
 msgid "Add Frame"
-msgstr ""
+msgstr "Gehitu markoa"
 
 #: src/qml/app/FrameSelectDialog.qml:47
 msgctxt "FrameSelectDialog|"
 msgid "Select the frame ID"
-msgstr ""
+msgstr "Hautatu mako ID"
 
 #: src/qml/app/ImportProfilesEditPage.qml:34
-#, fuzzy
 msgctxt "ImportProfilesEditPage|"
 msgid "Profiles"
 msgstr "Profilak"
 
 #: src/qml/app/ImportProfilesEditPage.qml:42
-#, fuzzy
 msgctxt "ImportProfilesEditPage|"
 msgid "Profile"
 msgstr "Profila"
 
 #: src/qml/app/ImportProfilesEditPage.qml:68
 #: src/qml/app/ImportProfilesEditPage.qml:138
-#, fuzzy
 msgctxt "ImportProfilesEditPage|"
 msgid "Accuracy"
 msgstr "Zehaztasuna"
@@ -7078,52 +7012,48 @@ msgstr "Zehaztasuna"
 #: src/qml/app/ImportProfilesEditPage.qml:151
 msgctxt "ImportProfilesEditPage|"
 msgid "Standard Tags"
-msgstr ""
+msgstr "Etiketa estandarrak"
 
 #: src/qml/app/ImportProfilesEditPage.qml:74
 #: src/qml/app/ImportProfilesEditPage.qml:156
 msgctxt "ImportProfilesEditPage|"
 msgid "Additional Tags"
-msgstr ""
+msgstr "Etiketa gehigarriak"
 
 #: src/qml/app/ImportProfilesEditPage.qml:77
 #: src/qml/app/ImportProfilesEditPage.qml:161
 msgctxt "ImportProfilesEditPage|"
 msgid "Cover Art"
-msgstr ""
+msgstr "Azaletako artelana"
 
 #: src/qml/app/ImportProfilesEditPage.qml:130
-#, fuzzy
 msgctxt "ImportProfilesEditPage|"
 msgid "Server"
-msgstr "Zerbitzaria:"
+msgstr "Zerbitzaria"
 
 #: src/qml/app/Main.qml:92
-#, fuzzy
 msgctxt "Main|"
 msgid "Warning"
 msgstr "Abisua"
 
 #: src/qml/app/Main.qml:93
-#, fuzzy
-#| msgctxt "QuitCommand|"
-#| msgid "The current directory has been modified."
 msgctxt "Main|"
 msgid ""
 "The current folder has been modified.\n"
 "Do you want to save it?"
-msgstr "Uneko direktorioa aldatu egin da."
+msgstr ""
+"Uneko karpeta aldatu egin da.\n"
+"Gorde nahi duzu?"
 
 #: src/qml/app/Main.qml:128 src/qml/app/Main.qml:145 src/qml/app/Main.qml:162
 msgctxt "Main|"
 msgid "File Error"
-msgstr ""
+msgstr "Fitxategi errorea"
 
 #: src/qml/app/Main.qml:129
-#, fuzzy
 msgctxt "Main|"
 msgid "Error while writing file:\n"
-msgstr "Errorea fitxategia idazterakoan:\n"
+msgstr "Errorea fitxategia idaztean:\n"
 
 #: src/qml/app/Main.qml:146
 #, qt-format
@@ -7143,60 +7073,50 @@ msgid "%1 is not writable"
 msgstr ""
 
 #: src/qml/app/MainPage.qml:48
-#, fuzzy
 msgctxt "MainPage|"
 msgid " [modified]"
-msgstr "Aldatua"
+msgstr " [aldatuta]"
 
 #: src/qml/app/MainPage.qml:49
-#, fuzzy, qt-format
+#, qt-format
 msgctxt "MainPage|"
 msgid " [filtered %1/%2]"
-msgstr "(%1 iragazita)"
+msgstr " [%1/%2 iragazita]"
 
 #: src/qml/app/MainPage.qml:95 src/qml/app/MainPage.qml:164
-#, fuzzy
 msgctxt "MainPage|"
 msgid "Open"
 msgstr "Ireki"
 
 #: src/qml/app/MainPage.qml:155
-#, fuzzy
 msgctxt "MainPage|"
 msgid "About"
 msgstr "Honi buruz"
 
 #: src/qml/app/MainPage.qml:171
-#, fuzzy
 msgctxt "MainPage|"
 msgid "Save"
 msgstr "Gorde"
 
 #: src/qml/app/MainPage.qml:180
-#, fuzzy
 msgctxt "MainPage|"
 msgid "Settings"
 msgstr "Ezarpenak"
 
 #: src/qml/app/MainPage.qml:189
-#, fuzzy
 msgctxt "MainPage|"
 msgid "Automatic Import"
 msgstr "Inportatze automatikoa"
 
 #: src/qml/app/MainPage.qml:198
-#, fuzzy
 msgctxt "MainPage|"
 msgid "Create Playlist"
 msgstr "Sortu jotze-zerrenda"
 
 #: src/qml/app/MainPage.qml:202
-#, fuzzy
-#| msgctxt "RenameDirectoryCommand|"
-#| msgid "Rename directory"
 msgctxt "MainPage|"
 msgid "Rename Folder"
-msgstr "Berrizendatu direktorioa"
+msgstr "Berrizendatu karpeta"
 
 #: src/qml/app/MainPage.qml:211
 msgctxt "MainPage|"
@@ -7560,7 +7480,7 @@ msgstr "Ezarri formatu automatikoki"
 #: src/qml/app/SettingsPage.qml:228
 msgctxt "SettingsPage|"
 msgid "Use for playlist and folder names"
-msgstr ""
+msgstr "Erabili jotze-zerrenda eta karpeta izenetarako"
 
 #: src/qml/app/SettingsPage.qml:233
 msgctxt "SettingsPage|"
@@ -7575,17 +7495,17 @@ msgstr "Gehienezko luzera"
 #: src/qml/app/SettingsPage.qml:275
 msgctxt "SettingsPage|"
 msgid "Filename for cover"
-msgstr ""
+msgstr "Azalaren fitxategi-izena"
 
 #: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
-msgstr ""
+msgstr "Jotze-zerrendaren testuaren kodeketa"
 
 #: src/qml/app/SettingsPage.qml:286
 msgctxt "SettingsPage|"
 msgid "To filename format"
-msgstr ""
+msgstr "Fitxategi-izen formatura"
 
 #: src/qml/app/SettingsPage.qml:296
 msgctxt "SettingsPage|"
@@ -7595,7 +7515,7 @@ msgstr "Fitxategi-izena etiketatik"
 #: src/qml/app/SettingsPage.qml:311
 msgctxt "SettingsPage|"
 msgid "From filename format"
-msgstr ""
+msgstr "Fitxategi-izen formatutik"
 
 #: src/qml/app/SettingsPage.qml:321
 msgctxt "SettingsPage|"
