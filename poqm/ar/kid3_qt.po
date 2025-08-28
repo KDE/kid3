@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2025-08-09 21:20+0400\n"
+"PO-Revision-Date: 2025-08-27 18:16+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -47,12 +47,12 @@ msgstr "أنهِ التطبيق"
 #: src/app/cli/clicommand.cpp:450
 msgctxt "QuitCommand|"
 msgid "The current folder has been modified."
-msgstr ""
+msgstr "عُدّل المجلد الحالي."
 
 #: src/app/cli/clicommand.cpp:452
 msgctxt "QuitCommand|"
 msgid "Type 'exit force' to quit."
-msgstr ""
+msgstr "اكتب 'exit force' للخروج."
 
 #: src/app/cli/clicommand.cpp:468
 msgctxt "CdCommand|"
@@ -83,7 +83,7 @@ msgstr "يحفظ الملفات المُغيرة"
 #: src/app/cli/clicommand.cpp:541
 msgctxt "SaveCommand|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "حدث خطأ أثناء كتابة الملف:\n"
 
 #: src/app/cli/clicommand.cpp:550
 msgctxt "SelectCommand|"
@@ -104,18 +104,18 @@ msgstr "اختر وسماً"
 #: src/app/cli/clicommand.cpp:599
 msgctxt "GetCommand|"
 msgid "Get tag frame"
-msgstr ""
+msgstr "احصل على إطار الوسم"
 
 #: src/app/cli/clicommand.cpp:627
 msgctxt "SetCommand|"
 msgid "Set tag frame"
-msgstr ""
+msgstr "اضبط إطار الوسم"
 
 #: src/app/cli/clicommand.cpp:644
 #, qt-format
 msgctxt "SetCommand|"
 msgid "Could not set \"%1\" for %2"
-msgstr ""
+msgstr "تعذّر ضبط \"%1\" لـ %2"
 
 #: src/app/cli/clicommand.cpp:654
 msgctxt "RevertCommand|"
@@ -299,7 +299,7 @@ msgstr " الوسم من اسم الملف"
 #: src/app/cli/clicommand.cpp:1227
 msgctxt "TagToOtherTagCommand|"
 msgid "Tag to other tag"
-msgstr ""
+msgstr "وسم إلى وسم آخر"
 
 #: src/app/cli/clicommand.cpp:1244
 msgctxt "CopyCommand|"
@@ -324,7 +324,7 @@ msgstr "اضبط - كِد3"
 #: src/app/cli/clicommand.cpp:1284
 msgctxt "ConfigCommand|"
 msgid "Group.Option Value"
-msgstr ""
+msgstr "Group.Option القيمة"
 
 #: src/app/cli/clicommand.cpp:1304 src/app/cli/clicommand.cpp:1310
 #, qt-format
@@ -346,7 +346,7 @@ msgstr "تنفيذ الأمر"
 #: src/app/cli/clicommand.cpp:1412
 msgctxt "ExecuteCommand|"
 msgid "Executable [arguments]"
-msgstr ""
+msgstr "ملف قابل للتنفيذ [وسائط]"
 
 #: src/app/cli/clicommand.cpp:1442
 msgctxt "ExecuteCommand|"
@@ -402,7 +402,7 @@ msgstr "التنسيق"
 #: src/app/cli/kid3cli.cpp:310
 msgctxt "Kid3Cli|"
 msgid "Command specific"
-msgstr ""
+msgstr "مُحدّد للأمر"
 
 #: src/app/cli/kid3cli.cpp:311
 msgctxt "Kid3Cli|"
@@ -423,19 +423,19 @@ msgstr "%1 غير موجود"
 #: src/app/cli/kid3cli.cpp:803
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "حدث خطأ أثناء كتابة الملف:\n"
 
 #: src/app/cli/kid3cli.cpp:822
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
-msgstr ""
+msgstr "أمر غير معروف '%1'، استخدم -h للمساعدة."
 
 #: src/app/cli/textcliformatter.cpp:181 src/app/cli/textcliformatter.cpp:184
 #, qt-format
 msgctxt "TextCliFormatter|"
 msgid "Unknown command '%1'. Type 'help' for help."
-msgstr ""
+msgstr "أمر غير معروف '%1'. اكتب 'help' للمساعدة."
 
 #: src/app/cli/textcliformatter.cpp:204
 msgctxt "TextCliFormatter|"
@@ -556,12 +556,12 @@ msgstr "افتح ملفّات"
 #: src/app/kde/kdemainwindow.cpp:94
 msgctxt "KdeMainWindow|"
 msgid "Opens a recently used folder"
-msgstr ""
+msgstr "افتح مجلدًا مستخدمًا مؤخرًا"
 
 #: src/app/kde/kdemainwindow.cpp:103
 msgctxt "KdeMainWindow|"
 msgid "Reverts the changes of all or the selected files"
-msgstr ""
+msgstr "استعد التغييرات لكل الملفات أو المحددة منها"
 
 #: src/app/kde/kdemainwindow.cpp:113
 msgctxt "KdeMainWindow|"
@@ -1903,13 +1903,13 @@ msgstr "المتصفّح"
 #: src/core/model/commandformatreplacer.cpp:174
 msgctxt "@default|"
 msgid "QML base folder"
-msgstr ""
+msgstr "المجلد الأساسي لـ QML"
 
 #: src/core/model/commandformatreplacer.cpp:181
 #: src/gui/dialogs/browsecoverartdialog.cpp:61
 msgctxt "@default|"
 msgid "Encode as URL"
-msgstr ""
+msgstr "شَفّر كرابط URL"
 
 #: src/core/model/commandformatreplacer.cpp:187
 msgctxt "@default|"
@@ -1950,78 +1950,78 @@ msgstr "الأمر"
 #, qt-format
 msgctxt "@default|"
 msgid "Create folder %1 failed\n"
-msgstr ""
+msgstr "فشل إنشاء المجلد %1\n"
 
 #: src/core/model/dirrenamer.cpp:279
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "Create folder %1 failed\n"
-msgstr ""
+msgstr "فشل إنشاء المجلد %1\n"
 
 #: src/core/model/dirrenamer.cpp:285
 #, qt-format
 msgctxt "@default|"
 msgid "File %1 already exists\n"
-msgstr ""
+msgstr "الملف %1 موجود مسبقًا\n"
 
 #: src/core/model/dirrenamer.cpp:287
 #, qt-format
 msgctxt "@default|"
 msgid "%1 is not a folder\n"
-msgstr ""
+msgstr "%1 ليس مجلدًا\n"
 
 #: src/core/model/dirrenamer.cpp:289
 #, qt-format
 msgctxt "@default|"
 msgid "Rename %1 to %2 failed\n"
-msgstr ""
+msgstr "فشل إعادة تسمية %1 إلى %2\n"
 
 #: src/core/model/dirrenamer.cpp:308
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "File %1 already exists\n"
-msgstr ""
+msgstr "الملف %1 موجود مسبقًا\n"
 
 #: src/core/model/dirrenamer.cpp:314
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 is not a folder\n"
-msgstr ""
+msgstr "%1 ليس مجلدًا\n"
 
 #: src/core/model/dirrenamer.cpp:334 src/core/model/dirrenamer.cpp:382
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "Rename %1 to %2 failed\n"
-msgstr ""
+msgstr "فشل إعادة تسمية %1 إلى %2\n"
 
 #: src/core/model/dirrenamer.cpp:340
 #, qt-format
 msgctxt "@default|"
 msgid "%1 already exists\n"
-msgstr ""
+msgstr "%1 موجود مسبقًا\n"
 
 #: src/core/model/dirrenamer.cpp:342
 #, qt-format
 msgctxt "@default|"
 msgid "%1 is not a file\n"
-msgstr ""
+msgstr "%1 ليس ملفًا\n"
 
 #: src/core/model/dirrenamer.cpp:363
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 already exists\n"
-msgstr ""
+msgstr "%1 موجود مسبقًا\n"
 
 #: src/core/model/dirrenamer.cpp:369
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "%1 is not a file\n"
-msgstr ""
+msgstr "%1 ليس ملفًا\n"
 
 #: src/core/model/dirrenamer.cpp:620
 msgctxt "DirRenamer|"
 msgid "New folder name is too different\n"
-msgstr ""
+msgstr "اسم المجلد الجديد مختلف جدًا\n"
 
 #: src/core/model/dirrenamer.cpp:686
 msgctxt "@default|"
@@ -2051,107 +2051,107 @@ msgstr "جاهز."
 #: src/core/model/eventtimingcode.cpp:37
 msgctxt "@default|"
 msgid "padding (has no meaning)"
-msgstr ""
+msgstr "حشو (لا معنى له)"
 
 #: src/core/model/eventtimingcode.cpp:38
 msgctxt "@default|"
 msgid "end of initial silence"
-msgstr ""
+msgstr "نهاية الصمت الأولي"
 
 #: src/core/model/eventtimingcode.cpp:39
 msgctxt "@default|"
 msgid "intro start"
-msgstr ""
+msgstr "بداية المقدمة"
 
 #: src/core/model/eventtimingcode.cpp:40
 msgctxt "@default|"
 msgid "main part start"
-msgstr ""
+msgstr "بداية الجزء الرئيس"
 
 #: src/core/model/eventtimingcode.cpp:41
 msgctxt "@default|"
 msgid "outro start"
-msgstr ""
+msgstr "بداية الخاتمة"
 
 #: src/core/model/eventtimingcode.cpp:42
 msgctxt "@default|"
 msgid "outro end"
-msgstr ""
+msgstr "نهاية الخاتمة"
 
 #: src/core/model/eventtimingcode.cpp:43
 msgctxt "@default|"
 msgid "verse start"
-msgstr ""
+msgstr "بداية المقطع"
 
 #: src/core/model/eventtimingcode.cpp:44
 msgctxt "@default|"
 msgid "refrain start"
-msgstr ""
+msgstr "بداية القرار"
 
 #: src/core/model/eventtimingcode.cpp:45
 msgctxt "@default|"
 msgid "interlude start"
-msgstr ""
+msgstr "بداية المعزوفة"
 
 #: src/core/model/eventtimingcode.cpp:46
 msgctxt "@default|"
 msgid "theme start"
-msgstr ""
+msgstr "بداية الموضوع"
 
 #: src/core/model/eventtimingcode.cpp:47
 msgctxt "@default|"
 msgid "variation start"
-msgstr ""
+msgstr "بداية الاختلاف"
 
 #: src/core/model/eventtimingcode.cpp:48
 msgctxt "@default|"
 msgid "key change"
-msgstr ""
+msgstr "تغيير المفتاح"
 
 #: src/core/model/eventtimingcode.cpp:49
 msgctxt "@default|"
 msgid "time change"
-msgstr ""
+msgstr "تغيير الزمن"
 
 #: src/core/model/eventtimingcode.cpp:50
 msgctxt "@default|"
 msgid "momentary unwanted noise (Snap, Crackle & Pop)"
-msgstr ""
+msgstr "ضجيج غير مرغوب لحظي (طقطقة، فرقعة، وتشقق)"
 
 #: src/core/model/eventtimingcode.cpp:51
 msgctxt "@default|"
 msgid "sustained noise"
-msgstr ""
+msgstr "ضجيج مستمر"
 
 #: src/core/model/eventtimingcode.cpp:52
 msgctxt "@default|"
 msgid "sustained noise end"
-msgstr ""
+msgstr "نهاية الضجيج المستمر"
 
 #: src/core/model/eventtimingcode.cpp:53
 msgctxt "@default|"
 msgid "intro end"
-msgstr ""
+msgstr "نهاية المقدمة"
 
 #: src/core/model/eventtimingcode.cpp:54
 msgctxt "@default|"
 msgid "main part end"
-msgstr ""
+msgstr "نهاية الجزء الرئيسي"
 
 #: src/core/model/eventtimingcode.cpp:55
 msgctxt "@default|"
 msgid "verse end"
-msgstr ""
+msgstr "نهاية المقطع"
 
 #: src/core/model/eventtimingcode.cpp:56
 msgctxt "@default|"
 msgid "refrain end"
-msgstr ""
+msgstr "نهاية القرار"
 
 #: src/core/model/eventtimingcode.cpp:57
 msgctxt "@default|"
 msgid "theme end"
-msgstr ""
+msgstr "نهاية الموضوع"
 
 #: src/core/model/eventtimingcode.cpp:58
 msgctxt "@default|"
@@ -2161,103 +2161,103 @@ msgstr "لفظ ناب"
 #: src/core/model/eventtimingcode.cpp:59
 msgctxt "@default|"
 msgid "profanity end"
-msgstr ""
+msgstr "نهاية الكلام البذيء"
 
 #: src/core/model/eventtimingcode.cpp:60
 msgctxt "@default|"
 msgid "not predefined synch 0"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا 0"
 
 #: src/core/model/eventtimingcode.cpp:61
 msgctxt "@default|"
 msgid "not predefined synch 1"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا 1"
 
 #: src/core/model/eventtimingcode.cpp:62
 msgctxt "@default|"
 msgid "not predefined synch 2"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا 2"
 
 #: src/core/model/eventtimingcode.cpp:63
 msgctxt "@default|"
 msgid "not predefined synch 3"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا 3"
 
 #: src/core/model/eventtimingcode.cpp:64
 msgctxt "@default|"
 msgid "not predefined synch 4"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا 4"
 
 #: src/core/model/eventtimingcode.cpp:65
 msgctxt "@default|"
 msgid "not predefined synch 5"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا 5"
 
 #: src/core/model/eventtimingcode.cpp:66
 msgctxt "@default|"
 msgid "not predefined synch 6"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا 6"
 
 #: src/core/model/eventtimingcode.cpp:67
 msgctxt "@default|"
 msgid "not predefined synch 7"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا 7"
 
 #: src/core/model/eventtimingcode.cpp:68
 msgctxt "@default|"
 msgid "not predefined synch 8"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا 8"
 
 #: src/core/model/eventtimingcode.cpp:69
 msgctxt "@default|"
 msgid "not predefined synch 9"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا 9"
 
 #: src/core/model/eventtimingcode.cpp:70
 msgctxt "@default|"
 msgid "not predefined synch A"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا A"
 
 #: src/core/model/eventtimingcode.cpp:71
 msgctxt "@default|"
 msgid "not predefined synch B"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا B"
 
 #: src/core/model/eventtimingcode.cpp:72
 msgctxt "@default|"
 msgid "not predefined synch C"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا C"
 
 #: src/core/model/eventtimingcode.cpp:73
 msgctxt "@default|"
 msgid "not predefined synch D"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا D"
 
 #: src/core/model/eventtimingcode.cpp:74
 msgctxt "@default|"
 msgid "not predefined synch E"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا E"
 
 #: src/core/model/eventtimingcode.cpp:75
 msgctxt "@default|"
 msgid "not predefined synch F"
-msgstr ""
+msgstr "مزامنة غير محددة مسبقًا F"
 
 #: src/core/model/eventtimingcode.cpp:76
 msgctxt "@default|"
 msgid "audio end (start of silence)"
-msgstr ""
+msgstr "نهاية الصوت (بداية الصمت)"
 
 #: src/core/model/eventtimingcode.cpp:77
 msgctxt "@default|"
 msgid "audio file ends"
-msgstr ""
+msgstr "ينتهي ملف الصوت"
 
 #: src/core/model/eventtimingcode.cpp:111
 #, qt-format
 msgctxt "@default|"
 msgid "reserved for future use %1"
-msgstr ""
+msgstr "محجوز للاستخدام المستقبلي %1"
 
 #: src/core/model/filefilter.cpp:95 src/core/tags/trackdata.cpp:251
 msgctxt "@default|"
@@ -2272,32 +2272,32 @@ msgstr "الوسم 2"
 #: src/core/model/filefilter.cpp:108
 msgctxt "@default|"
 msgid "True if strings are equal"
-msgstr ""
+msgstr "صحيح إذا كانت السلاسل متساوية"
 
 #: src/core/model/filefilter.cpp:114
 msgctxt "@default|"
 msgid "True if string contains substring"
-msgstr ""
+msgstr "صحيح إذا كانت السلسلة تحتوي على سلسلة فرعية"
 
 #: src/core/model/filefilter.cpp:121
 msgctxt "@default|"
 msgid "True if string matches regexp"
-msgstr ""
+msgstr "صحيح إذا تطابقت السلسلة مع regexp"
 
 #: src/core/model/filefilter.cpp:127
 msgctxt "@default|"
 msgid "Logical AND"
-msgstr ""
+msgstr "AND المنطقي"
 
 #: src/core/model/filefilter.cpp:132
 msgctxt "@default|"
 msgid "Logical OR"
-msgstr ""
+msgstr "OR المنطقي"
 
 #: src/core/model/filefilter.cpp:138
 msgctxt "@default|"
 msgid "Logical negation"
-msgstr ""
+msgstr "النفي المنطقي"
 
 #: src/core/model/fileproxymodel.cpp:828
 msgctxt "FileProxyModel|"
@@ -2575,27 +2575,27 @@ msgstr "عدد البت"
 #: src/core/tags/frame.cpp:63
 msgctxt "@default|"
 msgid "Volume Change Right"
-msgstr ""
+msgstr "تغيير مستوى الصوت الأيمن"
 
 #: src/core/tags/frame.cpp:64
 msgctxt "@default|"
 msgid "Volume Change Left"
-msgstr ""
+msgstr "تغيير مستوى الصوت الأيسر"
 
 #: src/core/tags/frame.cpp:65
 msgctxt "@default|"
 msgid "Peak Volume Right"
-msgstr ""
+msgstr "الذروة الصوتية اليمنى"
 
 #: src/core/tags/frame.cpp:66
 msgctxt "@default|"
 msgid "Peak Volume Left"
-msgstr ""
+msgstr "الذروة الصوتية اليسرى"
 
 #: src/core/tags/frame.cpp:67
 msgctxt "@default|"
 msgid "Timestamp Format"
-msgstr ""
+msgstr "تنسيق الطابع الزمني"
 
 #: src/core/tags/frame.cpp:68
 msgctxt "@default|"
@@ -2632,12 +2632,12 @@ msgstr "أخرى"
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"
 msgid "MPEG frames as unit"
-msgstr ""
+msgstr "استخدم إطارات MPEG كوحدة"
 
 #: src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "Milliseconds as unit"
-msgstr ""
+msgstr "استخدم المللي ثانية كوحدة"
 
 #: src/core/tags/frame.cpp:93 src/core/tags/frame.cpp:144
 #: src/gui/widgets/timeeventeditor.cpp:349
@@ -2648,12 +2648,12 @@ msgstr "الكلمات"
 #: src/core/tags/frame.cpp:94
 msgctxt "@default|"
 msgid "Text transcription"
-msgstr ""
+msgstr "نسخ النص"
 
 #: src/core/tags/frame.cpp:95
 msgctxt "@default|"
 msgid "Movement/part name"
-msgstr ""
+msgstr "اسم الحركة/الجزء"
 
 #: src/core/tags/frame.cpp:96
 msgctxt "@default|"
@@ -2668,7 +2668,7 @@ msgstr "الوتر الدائرة"
 #: src/core/tags/frame.cpp:98
 msgctxt "@default|"
 msgid "Trivia/pop up"
-msgstr ""
+msgstr "معلومات سريعة/منبثقة"
 
 #: src/core/tags/frame.cpp:123
 msgctxt "@default|"
@@ -2729,17 +2729,17 @@ msgstr "رقم القرص"
 #: src/core/tags/frame.cpp:136 src/core/tags/frame.cpp:256
 msgctxt "@default|"
 msgid "Encoded-by"
-msgstr ""
+msgstr "مرمزة بواسطة"
 
 #: src/core/tags/frame.cpp:137 src/core/tags/frame.cpp:255
 msgctxt "@default|"
 msgid "Encoder Settings"
-msgstr ""
+msgstr "إعدادات المرمز"
 
 #: src/core/tags/frame.cpp:138 src/core/tags/frame.cpp:220
 msgctxt "@default|"
 msgid "Encoding Time"
-msgstr ""
+msgstr "وقت الترميز"
 
 #: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:198
 #: src/core/tags/frame.cpp:251
@@ -2755,7 +2755,7 @@ msgstr "المفتاح الأولي"
 #: src/core/tags/frame.cpp:141
 msgctxt "@default|"
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: src/core/tags/frame.cpp:143
 msgctxt "@default|"
@@ -2805,37 +2805,37 @@ msgstr "الناشر"
 #: src/core/tags/frame.cpp:154
 msgctxt "@default|"
 msgid "Release Country"
-msgstr ""
+msgstr "دولة الإصدار"
 
 #: src/core/tags/frame.cpp:155 src/core/tags/frame.cpp:274
 msgctxt "@default|"
 msgid "Remixer"
-msgstr ""
+msgstr "المُعِد"
 
 #: src/core/tags/frame.cpp:156
 msgctxt "@default|"
 msgid "Sort Album"
-msgstr ""
+msgstr "فرز الألبوم"
 
 #: src/core/tags/frame.cpp:157 src/core/tags/frame.cpp:283
 msgctxt "@default|"
 msgid "Sort Album Artist"
-msgstr ""
+msgstr "فرز فنان الألبوم"
 
 #: src/core/tags/frame.cpp:158
 msgctxt "@default|"
 msgid "Sort Artist"
-msgstr ""
+msgstr "فرز الفنان"
 
 #: src/core/tags/frame.cpp:159
 msgctxt "@default|"
 msgid "Sort Composer"
-msgstr ""
+msgstr "فرز الملحن"
 
 #: src/core/tags/frame.cpp:160
 msgctxt "@default|"
 msgid "Sort Name"
-msgstr ""
+msgstr "فرز الاسم"
 
 #: src/core/tags/frame.cpp:161
 msgctxt "@default|"
@@ -2850,12 +2850,12 @@ msgstr "موقع الوبّ"
 #: src/core/tags/frame.cpp:163
 msgctxt "@default|"
 msgid "WWW Audio File"
-msgstr ""
+msgstr "ملف صوتي على الويب"
 
 #: src/core/tags/frame.cpp:164
 msgctxt "@default|"
 msgid "WWW Audio Source"
-msgstr ""
+msgstr "مصدر صوتي على الويب"
 
 #: src/core/tags/frame.cpp:165
 msgctxt "@default|"
@@ -2870,12 +2870,12 @@ msgstr "العمل"
 #: src/core/tags/frame.cpp:187
 msgctxt "@default|"
 msgid "Audio Encryption"
-msgstr ""
+msgstr "تعمية الصوت"
 
 #: src/core/tags/frame.cpp:188
 msgctxt "@default|"
 msgid "Audio Seek Point"
-msgstr ""
+msgstr "نقطة البحث الصوتي"
 
 #: src/core/tags/frame.cpp:189
 msgctxt "@default|"
@@ -2885,7 +2885,7 @@ msgstr "الفصل"
 #: src/core/tags/frame.cpp:190
 msgctxt "@default|"
 msgid "Commercial"
-msgstr ""
+msgstr "إعلاني"
 
 #: src/core/tags/frame.cpp:191
 msgctxt "@default|"
@@ -2905,42 +2905,42 @@ msgstr "تسوية"
 #: src/core/tags/frame.cpp:195
 msgctxt "@default|"
 msgid "Event Timing Codes"
-msgstr ""
+msgstr "رموز توقيت الأحداث"
 
 #: src/core/tags/frame.cpp:196
 msgctxt "@default|"
 msgid "General Object"
-msgstr ""
+msgstr "كائن عام"
 
 #: src/core/tags/frame.cpp:197
 msgctxt "@default|"
 msgid "Group Identification"
-msgstr ""
+msgstr "تعريف المجموعة"
 
 #: src/core/tags/frame.cpp:199
 msgctxt "@default|"
 msgid "Linked Information"
-msgstr ""
+msgstr "معلومات مرتبطة"
 
 #: src/core/tags/frame.cpp:200
 msgctxt "@default|"
 msgid "Music CD Identifier"
-msgstr ""
+msgstr "معرف قرص الموسيقى"
 
 #: src/core/tags/frame.cpp:201
 msgctxt "@default|"
 msgid "MPEG Lookup Table"
-msgstr ""
+msgstr "جدول بحث MPEG"
 
 #: src/core/tags/frame.cpp:202 src/core/tags/frame.cpp:318
 msgctxt "@default|"
 msgid "Movement Number"
-msgstr ""
+msgstr "رقم الحركة"
 
 #: src/core/tags/frame.cpp:203 src/core/tags/frame.cpp:317
 msgctxt "@default|"
 msgid "Movement Name"
-msgstr ""
+msgstr "اسم الحركة"
 
 #: src/core/tags/frame.cpp:204
 msgctxt "@default|"
@@ -2950,7 +2950,7 @@ msgstr "الملكيّة"
 #: src/core/tags/frame.cpp:205
 msgctxt "@default|"
 msgid "Play Counter"
-msgstr ""
+msgstr "عداد التشغيل"
 
 #: src/core/tags/frame.cpp:206 src/core/tags/frame.cpp:303
 msgctxt "@default|"
@@ -2960,12 +2960,12 @@ msgstr "النشرة"
 #: src/core/tags/frame.cpp:207
 msgctxt "@default|"
 msgid "Popularimeter"
-msgstr ""
+msgstr "مقياس الشعبية"
 
 #: src/core/tags/frame.cpp:208
 msgctxt "@default|"
 msgid "Position Synchronisation"
-msgstr ""
+msgstr "مزامنة الموضع"
 
 #: src/core/tags/frame.cpp:209
 msgctxt "@default|"
@@ -2975,7 +2975,7 @@ msgstr "خاص"
 #: src/core/tags/frame.cpp:210
 msgctxt "@default|"
 msgid "Recommended Buffer Size"
-msgstr ""
+msgstr "حجم المخزن المؤقت الموصى به"
 
 #: src/core/tags/frame.cpp:213
 msgctxt "@default|"
@@ -2995,37 +2995,37 @@ msgstr "التّوقيع"
 #: src/core/tags/frame.cpp:216
 msgctxt "@default|"
 msgid "Synchronized Lyrics"
-msgstr ""
+msgstr "كلمات متزامنة"
 
 #: src/core/tags/frame.cpp:217
 msgctxt "@default|"
 msgid "Synchronized Tempo Codes"
-msgstr ""
+msgstr "رموز الإيقاع المتزامنة"
 
 #: src/core/tags/frame.cpp:218
 msgctxt "@default|"
 msgid "Podcast Category"
-msgstr ""
+msgstr "فئة البودكاست"
 
 #: src/core/tags/frame.cpp:221
 msgctxt "@default|"
 msgid "Podcast Description"
-msgstr ""
+msgstr "وصف البودكاست"
 
 #: src/core/tags/frame.cpp:222
 msgctxt "@default|"
 msgid "Playlist Delay"
-msgstr ""
+msgstr "تأخير قائمة التشغيل"
 
 #: src/core/tags/frame.cpp:223
 msgctxt "@default|"
 msgid "Original Release Time"
-msgstr ""
+msgstr "وقت الإصدار الأصلي"
 
 #: src/core/tags/frame.cpp:224
 msgctxt "@default|"
 msgid "Recording Time"
-msgstr ""
+msgstr "وقت التسجيل"
 
 #: src/core/tags/frame.cpp:225
 msgctxt "@default|"
@@ -3035,7 +3035,7 @@ msgstr "وقت الإطلاق"
 #: src/core/tags/frame.cpp:226
 msgctxt "@default|"
 msgid "Tagging Time"
-msgstr ""
+msgstr "وقت وضع العلامات"
 
 #: src/core/tags/frame.cpp:227
 msgctxt "@default|"
@@ -3045,7 +3045,7 @@ msgstr "نوع الملف"
 #: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Podcast Identifier"
-msgstr ""
+msgstr "معرف البودكast"
 
 #: src/core/tags/frame.cpp:229
 msgctxt "@default|"
@@ -3055,7 +3055,7 @@ msgstr "الوقت"
 #: src/core/tags/frame.cpp:230
 msgctxt "@default|"
 msgid "Podcast Keywords"
-msgstr ""
+msgstr "كلمات مفتاحية للبودكاست"
 
 #: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:287
 msgctxt "@default|"
@@ -3065,27 +3065,27 @@ msgstr "اسم الملف الأصلي"
 #: src/core/tags/frame.cpp:233
 msgctxt "@default|"
 msgid "File Owner"
-msgstr ""
+msgstr "مالك الملف"
 
 #: src/core/tags/frame.cpp:234
 msgctxt "@default|"
 msgid "Produced Notice"
-msgstr ""
+msgstr "إشعار الإنتاج"
 
 #: src/core/tags/frame.cpp:235 src/core/tags/frame.cpp:273
 msgctxt "@default|"
 msgid "Recording Date"
-msgstr ""
+msgstr "تاريخ التسجيل"
 
 #: src/core/tags/frame.cpp:236
 msgctxt "@default|"
 msgid "Radio Station Name"
-msgstr ""
+msgstr "اسم المحطة الإذاعية"
 
 #: src/core/tags/frame.cpp:237
 msgctxt "@default|"
 msgid "Radio Station Owner"
-msgstr ""
+msgstr "مالك المحطة الإذاعية"
 
 #: src/core/tags/frame.cpp:238
 msgctxt "@default|"
@@ -3095,37 +3095,37 @@ msgstr "الحجم"
 #: src/core/tags/frame.cpp:239
 msgctxt "@default|"
 msgid "User-defined Text"
-msgstr ""
+msgstr "نص مُعرَّف من قبل المستخدم"
 
 #: src/core/tags/frame.cpp:240
 msgctxt "@default|"
 msgid "Unique File Identifier"
-msgstr ""
+msgstr "معرف الملف الفريد"
 
 #: src/core/tags/frame.cpp:241
 msgctxt "@default|"
 msgid "Terms of Use"
-msgstr ""
+msgstr "شروط الاستخدام"
 
 #: src/core/tags/frame.cpp:242 src/core/tags/frame.cpp:289
 msgctxt "@default|"
 msgid "Commercial URL"
-msgstr ""
+msgstr "رابط تجاري"
 
 #: src/core/tags/frame.cpp:243
 msgctxt "@default|"
 msgid "Copyright URL"
-msgstr ""
+msgstr "رابط حقوق النشر"
 
 #: src/core/tags/frame.cpp:244
 msgctxt "@default|"
 msgid "Podcast Feed"
-msgstr ""
+msgstr "تغذية البودكاست"
 
 #: src/core/tags/frame.cpp:245
 msgctxt "@default|"
 msgid "Official Radio Station"
-msgstr ""
+msgstr "محطة إذاعية رسمية"
 
 #: src/core/tags/frame.cpp:246
 msgctxt "@default|"
@@ -3135,13 +3135,13 @@ msgstr "الدفعة"
 #: src/core/tags/frame.cpp:247
 msgctxt "@default|"
 msgid "Official Publisher"
-msgstr ""
+msgstr "ناشر رسمي"
 
 #: src/core/tags/frame.cpp:248 src/core/tags/frame.cpp:282
 #: src/core/tags/frame.cpp:291
 msgctxt "@default|"
 msgid "User-defined URL"
-msgstr ""
+msgstr "رابط مُعرَّف من قبل المستخدم"
 
 #: src/core/tags/frame.cpp:250
 msgctxt "@default|"
@@ -3151,7 +3151,7 @@ msgstr "المتراسل"
 #: src/core/tags/frame.cpp:253 src/core/tags/frame.cpp:275
 msgctxt "@default|"
 msgid "Total Discs"
-msgstr ""
+msgstr "إجمالي الأقراص"
 
 #: src/core/tags/frame.cpp:254
 msgctxt "@default|"
@@ -3176,17 +3176,17 @@ msgstr "الطاقم"
 #: src/core/tags/frame.cpp:260
 msgctxt "@default|"
 msgid "Guest Artist"
-msgstr ""
+msgstr "فنان ضيف"
 
 #: src/core/tags/frame.cpp:261 src/core/tags/trackdata.cpp:264
 msgctxt "@default|"
 msgid "VBR"
-msgstr ""
+msgstr "معدل البت المتغير"
 
 #: src/core/tags/frame.cpp:262 src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Gapless Playback"
-msgstr ""
+msgstr "تشغيل بدون فواصل"
 
 #: src/core/tags/frame.cpp:263
 msgctxt "@default|"
@@ -3196,7 +3196,7 @@ msgstr "اللصيقة"
 #: src/core/tags/frame.cpp:264
 msgctxt "@default|"
 msgid "Label Number"
-msgstr ""
+msgstr "رقم العلامة"
 
 #: src/core/tags/frame.cpp:265
 msgctxt "@default|"
@@ -3231,12 +3231,12 @@ msgstr "المنتج"
 #: src/core/tags/frame.cpp:272
 msgctxt "@default|"
 msgid "Product Number"
-msgstr ""
+msgstr "رقم المنتج"
 
 #: src/core/tags/frame.cpp:276 src/core/tags/frame.cpp:277
 msgctxt "@default|"
 msgid "Total Tracks"
-msgstr ""
+msgstr "إجمالي المسارات"
 
 #: src/core/tags/frame.cpp:280
 msgctxt "@default|"
@@ -3251,17 +3251,17 @@ msgstr "المستوى"
 #: src/core/tags/frame.cpp:285
 msgctxt "@default|"
 msgid "MCDI"
-msgstr ""
+msgstr "MCDI"
 
 #: src/core/tags/frame.cpp:288
 msgctxt "@default|"
 msgid "Original Lyricist"
-msgstr ""
+msgstr "كاتب الكلمات الأصلي"
 
 #: src/core/tags/frame.cpp:290
 msgctxt "@default|"
 msgid "User Rating"
-msgstr ""
+msgstr "تقييم المستخدم"
 
 #: src/core/tags/frame.cpp:292
 msgctxt "@default|"
@@ -3271,12 +3271,12 @@ msgstr "نوع الحساب"
 #: src/core/tags/frame.cpp:293
 msgctxt "@default|"
 msgid "Purchase Account"
-msgstr ""
+msgstr "حساب الشراء"
 
 #: src/core/tags/frame.cpp:294
 msgctxt "@default|"
 msgid "Artist ID"
-msgstr ""
+msgstr "معرف الفنان"
 
 #: src/core/tags/frame.cpp:295
 msgctxt "@default|"
@@ -3286,17 +3286,17 @@ msgstr "الفئة"
 #: src/core/tags/frame.cpp:296
 msgctxt "@default|"
 msgid "Catalog ID"
-msgstr ""
+msgstr "معرف الكتالوج"
 
 #: src/core/tags/frame.cpp:299
 msgctxt "@default|"
 msgid "Genre ID"
-msgstr ""
+msgstr "معرف النوع"
 
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "HD Video"
-msgstr ""
+msgstr "فيديو عالي الدقة"
 
 #: src/core/tags/frame.cpp:301
 msgctxt "@default|"
@@ -3311,17 +3311,17 @@ msgstr "وصف طويل"
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Album ID"
-msgstr ""
+msgstr "معرف الألبوم"
 
 #: src/core/tags/frame.cpp:306
 msgctxt "@default|"
 msgid "Purchase Date"
-msgstr ""
+msgstr "تاريخ الشراء"
 
 #: src/core/tags/frame.cpp:307
 msgctxt "@default|"
 msgid "Rating/Advisory"
-msgstr ""
+msgstr "تقييم/استشارة"
 
 #: src/core/tags/frame.cpp:308
 msgctxt "@default|"
@@ -3331,7 +3331,7 @@ msgstr "رمز البلد"
 #: src/core/tags/frame.cpp:309
 msgctxt "@default|"
 msgid "Sort Show"
-msgstr ""
+msgstr "فرز العرض"
 
 #: src/core/tags/frame.cpp:310
 msgctxt "@default|"
@@ -3341,57 +3341,57 @@ msgstr "نوع الوسائط"
 #: src/core/tags/frame.cpp:311
 msgctxt "@default|"
 msgid "TV Episode"
-msgstr ""
+msgstr "حلقة تلفزيونية"
 
 #: src/core/tags/frame.cpp:312
 msgctxt "@default|"
 msgid "TV Episode Number"
-msgstr ""
+msgstr "رقم حلقة التلفزيون"
 
 #: src/core/tags/frame.cpp:313
 msgctxt "@default|"
 msgid "TV Network Name"
-msgstr ""
+msgstr "اسم شبكة التلفزيون"
 
 #: src/core/tags/frame.cpp:314
 msgctxt "@default|"
 msgid "TV Show Name"
-msgstr ""
+msgstr "اسم البرنامج التلفزيوني"
 
 #: src/core/tags/frame.cpp:315
 msgctxt "@default|"
 msgid "TV Season"
-msgstr ""
+msgstr "الموسم التلفزيوني"
 
 #: src/core/tags/frame.cpp:319
 msgctxt "@default|"
 msgid "Movement Count"
-msgstr ""
+msgstr "عدد الحركات"
 
 #: src/core/tags/frame.cpp:320
 msgctxt "@default|"
 msgid "Show Work & Movement"
-msgstr ""
+msgstr "اعرض العمل والحركة"
 
 #: src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Podcast URL"
-msgstr ""
+msgstr "رابط البودكاست"
 
 #: src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Podcast GUID"
-msgstr ""
+msgstr "المعرف الفريد للبودكاست"
 
 #: src/core/tags/frame.cpp:324
 msgctxt "@default|"
 msgid "Composer ID"
-msgstr ""
+msgstr "معرف الملحن"
 
 #: src/core/tags/frame.cpp:325
 msgctxt "@default|"
 msgid "XID"
-msgstr ""
+msgstr "المعرف الممتد"
 
 #: src/core/tags/frame.cpp:326
 msgctxt "@default|"
@@ -3401,17 +3401,17 @@ msgstr "الفصول"
 #: src/core/tags/frame.cpp:327
 msgctxt "@default|"
 msgid "Archival Location"
-msgstr ""
+msgstr "موقع الأرشيف"
 
 #: src/core/tags/frame.cpp:328
 msgctxt "@default|"
 msgid "Commissioned"
-msgstr ""
+msgstr "مُوكَل به"
 
 #: src/core/tags/frame.cpp:329
 msgctxt "@default|"
 msgid "Cropped"
-msgstr ""
+msgstr "مقصوص"
 
 #: src/core/tags/frame.cpp:330
 msgctxt "@default|"
@@ -3451,7 +3451,7 @@ msgstr "الوضوح"
 #: src/core/tags/frame.cpp:337
 msgctxt "@default|"
 msgid "Source Form"
-msgstr ""
+msgstr "نموذج المصدر"
 
 #: src/core/tags/frame.cpp:1204
 #, qt-format
@@ -3472,72 +3472,72 @@ msgstr "كل الوسوم"
 #: src/core/tags/frame.cpp:2022
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
-msgstr ""
+msgstr "أضِف t1 في البداية/t2 في النهاية إذا لم تكن فارغة"
 
 #: src/core/tags/framenotice.cpp:184
 msgctxt "@default|"
 msgid "Truncated"
-msgstr ""
+msgstr "مقطوع"
 
 #: src/core/tags/framenotice.cpp:185
 msgctxt "@default|"
 msgid "Size is too large"
-msgstr ""
+msgstr "الحجم كبير جدًا"
 
 #: src/core/tags/framenotice.cpp:186
 msgctxt "@default|"
 msgid "Must be unique"
-msgstr ""
+msgstr "يجب أن يكون فريدًا"
 
 #: src/core/tags/framenotice.cpp:187
 msgctxt "@default|"
 msgid "New line is forbidden"
-msgstr ""
+msgstr "يمنع استخدام سطر جديد"
 
 #: src/core/tags/framenotice.cpp:188
 msgctxt "@default|"
 msgid "Carriage return is forbidden"
-msgstr ""
+msgstr "يمنع استخدام إرجاع النقل"
 
 #: src/core/tags/framenotice.cpp:189
 msgctxt "@default|"
 msgid "Owner must be non-empty"
-msgstr ""
+msgstr "يجب ألا يكون حقل المالك فارغًا"
 
 #: src/core/tags/framenotice.cpp:190
 msgctxt "@default|"
 msgid "Must be numeric"
-msgstr ""
+msgstr "يجب أن يكون رقميًا"
 
 #: src/core/tags/framenotice.cpp:191
 msgctxt "@default|"
 msgid "Must be numeric or number/total"
-msgstr ""
+msgstr "يجب أن يكون رقميًا أو رقم/إجمالي"
 
 #: src/core/tags/framenotice.cpp:192
 msgctxt "@default|"
 msgid "Format is DDMM"
-msgstr ""
+msgstr "التنسيق هو يوم-شهر (DDMM)"
 
 #: src/core/tags/framenotice.cpp:193
 msgctxt "@default|"
 msgid "Format is HHMM"
-msgstr ""
+msgstr "التنسيق هو ساعة-دقيقة (HHMM)"
 
 #: src/core/tags/framenotice.cpp:194
 msgctxt "@default|"
 msgid "Format is YYYY"
-msgstr ""
+msgstr "التنسيق هو سنة (YYYY)"
 
 #: src/core/tags/framenotice.cpp:195
 msgctxt "@default|"
 msgid "Must begin with a year and a space character"
-msgstr ""
+msgstr "يجب أن يبدأ بسنة متبوعة بمسافة"
 
 #: src/core/tags/framenotice.cpp:196
 msgctxt "@default|"
 msgid "Must be ISO 8601 date/time"
-msgstr ""
+msgstr "يجب أن يكون تاريخ/وقت وفق معيار ISO 8601"
 
 #: src/core/tags/framenotice.cpp:197
 msgctxt "@default|"
@@ -3545,96 +3545,98 @@ msgid ""
 "Must be musical key, 3 characters, A-G, b, #, m, o\n"
 "or Camelot wheel value 1A-12A, 1B-12B"
 msgstr ""
+"يجب أن يكون مفتاحًا موسيقيًا، 3 أحرف، A-G، b، #، m، o\n"
+"أو قيمة عجلة Camelot 1A-12A، 1B-12B"
 
 #: src/core/tags/framenotice.cpp:199
 msgctxt "@default|"
 msgid "Must have ISO 639-2 language code, 3 lowercase characters"
-msgstr ""
+msgstr "يجب أن يحتوي على رمز لغة ISO 639-2، 3 أحرف صغيرة"
 
 #: src/core/tags/framenotice.cpp:200
 msgctxt "@default|"
 msgid "Must be ISRC code, 12 characters"
-msgstr ""
+msgstr "يجب أن يكون رمز ISRC، 12 حرفًا"
 
 #: src/core/tags/framenotice.cpp:201
 msgctxt "@default|"
 msgid "Must be list of strings separated by '|'"
-msgstr ""
+msgstr "يجب أن تكون قائمة سلاسل مفصولة بـ '|'"
 
 #: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
 msgid "Has excess white space"
-msgstr ""
+msgstr "يحتوي على مسافات بيضاء زائدة"
 
 #: src/core/tags/pictureframe.cpp:42
 msgctxt "@default|"
 msgid "32x32 pixels PNG file icon"
-msgstr ""
+msgstr "أيقونة ملف PNG بمقاس 32x32 بكسل"
 
 #: src/core/tags/pictureframe.cpp:43
 msgctxt "@default|"
 msgid "Other file icon"
-msgstr ""
+msgstr "أيقونة ملف أخرى"
 
 #: src/core/tags/pictureframe.cpp:44
 msgctxt "@default|"
 msgid "Cover (front)"
-msgstr ""
+msgstr "الغلاف (أمامي)"
 
 #: src/core/tags/pictureframe.cpp:45
 msgctxt "@default|"
 msgid "Cover (back)"
-msgstr ""
+msgstr "الغلاف (خلفي)"
 
 #: src/core/tags/pictureframe.cpp:46
 msgctxt "@default|"
 msgid "Leaflet page"
-msgstr ""
+msgstr "صفحة المنشور"
 
 #: src/core/tags/pictureframe.cpp:48
 msgctxt "@default|"
 msgid "Lead artist/lead performer/soloist"
-msgstr ""
+msgstr "الفنان الرئيسي/المؤدي الرئيسي/العازف المنفرد"
 
 #: src/core/tags/pictureframe.cpp:49
 msgctxt "@default|"
 msgid "Artist/performer"
-msgstr ""
+msgstr "الفنان/المؤدي"
 
 #: src/core/tags/pictureframe.cpp:51
 msgctxt "@default|"
 msgid "Band/Orchestra"
-msgstr ""
+msgstr "الفرقة/الأوركسترا"
 
 #: src/core/tags/pictureframe.cpp:53
 msgctxt "@default|"
 msgid "Lyricist/text writer"
-msgstr ""
+msgstr "كاتب الكلمات/النص"
 
 #: src/core/tags/pictureframe.cpp:54
 msgctxt "@default|"
 msgid "Recording Location"
-msgstr ""
+msgstr "موقع التسجيل"
 
 #: src/core/tags/pictureframe.cpp:55
 msgctxt "@default|"
 msgid "During recording"
-msgstr ""
+msgstr "أثناء التسجيل"
 
 #: src/core/tags/pictureframe.cpp:56
 msgctxt "@default|"
 msgid "During performance"
-msgstr ""
+msgstr "أثناء الأداء"
 
 #: src/core/tags/pictureframe.cpp:57
 msgctxt "@default|"
 msgid "Movie/video screen capture"
-msgstr ""
+msgstr "لقطة شاشة من فيلم/فيديو"
 
 #: src/core/tags/pictureframe.cpp:58
 msgctxt "@default|"
 msgid "A bright coloured fish"
-msgstr ""
+msgstr "سمكة ملونة زاهية"
 
 #: src/core/tags/pictureframe.cpp:59
 msgctxt "@default|"
@@ -3644,12 +3646,12 @@ msgstr "رسم توضيحي"
 #: src/core/tags/pictureframe.cpp:60
 msgctxt "@default|"
 msgid "Band/artist logotype"
-msgstr ""
+msgstr "شعار الفرقة/الفنان"
 
 #: src/core/tags/pictureframe.cpp:61
 msgctxt "@default|"
 msgid "Publisher/Studio logotype"
-msgstr ""
+msgstr "شعار الناشر/الاستوديو"
 
 #: src/core/tags/trackdata.cpp:204
 msgctxt "@default|"
@@ -3674,7 +3676,7 @@ msgstr "اسم الدّليل"
 #: src/core/tags/trackdata.cpp:241
 msgctxt "@default|"
 msgid "Number of tracks"
-msgstr ""
+msgstr "عدد المقطوعات"
 
 #: src/core/tags/trackdata.cpp:246
 msgctxt "@default|"
@@ -3689,7 +3691,7 @@ msgstr "معدل البت"
 #: src/core/tags/trackdata.cpp:269
 msgctxt "@default|"
 msgid "Samplerate"
-msgstr ""
+msgstr "معدل العينة"
 
 #: src/core/tags/trackdata.cpp:276
 msgctxt "@default|"
@@ -3704,12 +3706,12 @@ msgstr "مرماز"
 #: src/core/tags/trackdata.cpp:286
 msgctxt "@default|"
 msgid "Marked"
-msgstr ""
+msgstr "معلّم"
 
 #: src/core/tags/trackdata.cpp:292
 msgctxt "@default|"
 msgid "Escape for HTML"
-msgstr ""
+msgstr "تهريب لأجل HTML"
 
 #: src/gui/dialogs/batchimportdialog.cpp:162
 msgctxt "BatchImportDialog|"
@@ -3819,7 +3821,7 @@ msgstr "ابدأ"
 #: src/gui/dialogs/batchimportsourcedialog.cpp:44
 msgctxt "BatchImportSourceDialog|"
 msgid "Import Source"
-msgstr ""
+msgstr "استورد المصدر"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:50
 msgctxt "BatchImportSourceDialog|"
@@ -3855,7 +3857,7 @@ msgstr "تصفح صورة الغلاف"
 #: src/gui/dialogs/browsecoverartdialog.cpp:92
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Artist/Album"
-msgstr ""
+msgstr "ال&فنان/الألبوم"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:105
 msgctxt "BrowseCoverArtDialog|"
@@ -3875,7 +3877,7 @@ msgstr "المسار:"
 #: src/gui/dialogs/browsecoverartdialog.cpp:118
 msgctxt "BrowseCoverArtDialog|"
 msgid "&URL extraction"
-msgstr ""
+msgstr "اس&تخراج الرابط"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
@@ -3885,7 +3887,7 @@ msgstr "طابق"
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
 msgid "Picture URL"
-msgstr ""
+msgstr "رابط الصورة"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:130
 msgctxt "BrowseCoverArtDialog|"
@@ -3910,17 +3912,17 @@ msgstr "أل&غِ"
 #: src/gui/dialogs/browsecoverartdialog.cpp:177
 msgctxt "BrowseCoverArtDialog|"
 msgid "Click Browse to start"
-msgstr ""
+msgstr "انقر على تصفح للبدء"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:183
 msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
-msgstr ""
+msgstr "ثم اسحب الصورة من المتصفح إلى Kid3."
 
 #: src/gui/dialogs/configdialogpages.cpp:176
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
-msgstr ""
+msgstr "ID3v1"
 
 #: src/gui/dialogs/configdialogpages.cpp:179
 msgctxt "ConfigDialogPages|"
@@ -3936,47 +3938,47 @@ msgstr "&ترميز النص:"
 #: src/gui/dialogs/configdialogpages.cpp:195
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
-msgstr ""
+msgstr "ID3v2"
 
 #: src/gui/dialogs/configdialogpages.cpp:198
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
-msgstr ""
+msgstr "ا&ستخدم تنسيق رقم المقطوعة/الإجمالي"
 
 #: src/gui/dialogs/configdialogpages.cpp:201
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
-msgstr ""
+msgstr "أ&رقام رقم المقطوعة:"
 
 #: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
-msgstr ""
+msgstr "ا&ستخدم النوع كنص بدلاً من سلسلة رقمية"
 
 #: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
-msgstr ""
+msgstr "ملفات &WAV ذات جزء id3 بأحرف صغيرة"
 
 #: src/gui/dialogs/configdialogpages.cpp:209
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
-msgstr ""
+msgstr "ع&لّم المخالفات القياسية"
 
 #: src/gui/dialogs/configdialogpages.cpp:228
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
-msgstr ""
+msgstr "ال&إصدار المستخدم للوسوم الجديدة:"
 
 #: src/gui/dialogs/configdialogpages.cpp:232
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
-msgstr ""
+msgstr "ID3v2.3.0"
 
 #: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
-msgstr ""
+msgstr "ID3v2.4.0"
 
 #: src/gui/dialogs/configdialogpages.cpp:248
 msgctxt "ConfigDialogPages|"
@@ -3986,12 +3988,12 @@ msgstr "Ogg/Vorbis"
 #: src/gui/dialogs/configdialogpages.cpp:249
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
-msgstr ""
+msgstr "اسم حقل ال&تعليق:"
 
 #: src/gui/dialogs/configdialogpages.cpp:252
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
-msgstr ""
+msgstr "اسم حقل ال&صورة:"
 
 #: src/gui/dialogs/configdialogpages.cpp:274
 msgctxt "ConfigDialogPages|"
@@ -4001,17 +4003,17 @@ msgstr "صورة"
 #: src/gui/dialogs/configdialogpages.cpp:277
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
-msgstr ""
+msgstr "علّم إذا كان أ&كبر من (بايت):"
 
 #: src/gui/dialogs/configdialogpages.cpp:290
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
-msgstr ""
+msgstr "أ&ظهر الأنواع المخصصة فقط"
 
 #: src/gui/dialogs/configdialogpages.cpp:298
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
-msgstr ""
+msgstr "الأ&نواع المخصصة"
 
 #: src/gui/dialogs/configdialogpages.cpp:310
 msgctxt "ConfigDialogPages|"
@@ -4021,27 +4023,27 @@ msgstr "أطر |&مخصوصة"
 #: src/gui/dialogs/configdialogpages.cpp:325
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
-msgstr ""
+msgstr "استخدم السحب والإفلات لإعادة ترتيب العناصر"
 
 #: src/gui/dialogs/configdialogpages.cpp:328
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
-msgstr ""
+msgstr "أ&طر الوصول السريع"
 
 #: src/gui/dialogs/configdialogpages.cpp:335
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
-msgstr ""
+msgstr "معلومات RIFF"
 
 #: src/gui/dialogs/configdialogpages.cpp:336
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
-msgstr ""
+msgstr "اسم حقل ر&قم المقطوعة:"
 
 #: src/gui/dialogs/configdialogpages.cpp:353
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
-msgstr ""
+msgstr "ت&نسيق الوسم"
 
 #: src/gui/dialogs/configdialogpages.cpp:355
 msgctxt "ConfigDialogPages|"
@@ -4076,7 +4078,7 @@ msgstr "بدء التشغيل"
 #: src/gui/dialogs/configdialogpages.cpp:388
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
-msgstr ""
+msgstr "ا&حمِل آخر الملفات المفتوحة"
 
 #: src/gui/dialogs/configdialogpages.cpp:394
 msgctxt "ConfigDialogPages|"
@@ -4086,12 +4088,12 @@ msgstr "احفظ"
 #: src/gui/dialogs/configdialogpages.cpp:395
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
-msgstr ""
+msgstr "ا&حتفظ بطابع وقت الملف"
 
 #: src/gui/dialogs/configdialogpages.cpp:397
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
-msgstr ""
+msgstr "&علّم التغييرات"
 
 #: src/gui/dialogs/configdialogpages.cpp:407
 msgctxt "ConfigDialogPages|"
@@ -4101,7 +4103,7 @@ msgstr "اسم &ملف الغلاف:"
 #: src/gui/dialogs/configdialogpages.cpp:408
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
-msgstr ""
+msgstr "&ترميز النص (التصدير، قائمة التشغيل):"
 
 #: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
@@ -4116,12 +4118,12 @@ msgstr "المر&شّح:"
 #: src/gui/dialogs/configdialogpages.cpp:424
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
-msgstr ""
+msgstr "أ&درج المجلدات:"
 
 #: src/gui/dialogs/configdialogpages.cpp:428
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
-msgstr ""
+msgstr "&استثنِ المجلدات:"
 
 #: src/gui/dialogs/configdialogpages.cpp:432
 msgctxt "ConfigDialogPages|"
@@ -4152,7 +4154,7 @@ msgstr "قائمة التشغيل"
 #: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
-msgstr ""
+msgstr "&تنسيق اسم الملف"
 
 #: src/gui/dialogs/configdialogpages.cpp:487
 msgctxt "ConfigDialogPages|"
@@ -4177,25 +4179,22 @@ msgstr "&متصفح الويب:"
 #: src/gui/dialogs/configdialogpages.cpp:543
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
-msgstr ""
+msgstr "أوامر &قائمة السياق"
 
 #: src/gui/dialogs/configdialogpages.cpp:546
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
-msgstr ""
+msgstr "&شغّل بالنقر المزدوج"
 
 #: src/gui/dialogs/configdialogpages.cpp:548
-#, fuzzy
-#| msgctxt "SelectCommand|"
-#| msgid "Select file"
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "اختر ملفًّا"
+msgstr "&حدد ملفًّا لتشغيله"
 
 #: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "&مخرج الصوت:"
 
 #: src/gui/dialogs/configdialogpages.cpp:553
 msgctxt "ConfigDialogPages|"
@@ -4215,7 +4214,7 @@ msgstr "ال&وكيل:"
 #: src/gui/dialogs/configdialogpages.cpp:590
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
-msgstr ""
+msgstr "ا&ستخدم المصادقة مع الوكيل"
 
 #: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
@@ -4230,7 +4229,7 @@ msgstr "كملة &سر الوكيل:"
 #: src/gui/dialogs/configdialogpages.cpp:630
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
-msgstr ""
+msgstr "إ&ضافات البيانات الوصفية والأولوية"
 
 #: src/gui/dialogs/configdialogpages.cpp:642
 msgctxt "ConfigDialogPages|"
@@ -4240,7 +4239,7 @@ msgstr "المل&حقات المتوفرة"
 #: src/gui/dialogs/configdialogpages.cpp:653
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
-msgstr ""
+msgstr "لا تُفعّل التغييرات إلا بعد إعادة التشغيل!"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:740
 msgctxt "@default|"
@@ -4357,7 +4356,7 @@ msgstr "خطأ ملف"
 #: src/gui/dialogs/exportdialog.cpp:156
 msgctxt "ExportDialog|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "حدث خطأ أثناء كتابة الملف:\n"
 
 #: src/gui/dialogs/filterdialog.cpp:49
 msgctxt "FilterDialog|"
@@ -4543,12 +4542,12 @@ msgstr "تراجع"
 #: src/gui/dialogs/importdialog.cpp:199
 msgctxt "ImportDialog|"
 msgid "Check maximum allowable time &difference (sec):"
-msgstr ""
+msgstr "تحقق من أقصى &فرق زمني مسموح به (ثانية):"
 
 #: src/gui/dialogs/importdialog.cpp:207
 msgctxt "ImportDialog|"
 msgid "Match with:"
-msgstr ""
+msgstr "طابق مع:"
 
 #: src/gui/dialogs/importdialog.cpp:209
 msgctxt "ImportDialog|"
@@ -4604,7 +4603,7 @@ msgstr "المق&صد:"
 #: src/gui/dialogs/numbertracksdialog.cpp:83
 msgctxt "NumberTracksDialog|"
 msgid "&Reset counter for each folder"
-msgstr ""
+msgstr "&صفّر العداد لكل مجلد"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:89
 msgctxt "NumberTracksDialog|"
@@ -4639,12 +4638,12 @@ msgstr "أنشئ قائمة تشغيل"
 #: src/gui/dialogs/playlistdialog.cpp:144
 msgctxt "PlaylistDialog|"
 msgid "Playlist File Name"
-msgstr ""
+msgstr "اسم ملف قائمة التشغيل"
 
 #: src/gui/dialogs/playlistdialog.cpp:145
 msgctxt "PlaylistDialog|"
 msgid "Same as &folder name"
-msgstr ""
+msgstr "&نفس اسم المجلد"
 
 #: src/gui/dialogs/playlistdialog.cpp:147
 msgctxt "PlaylistDialog|"
@@ -4654,7 +4653,7 @@ msgstr "ال&تنسيق:"
 #: src/gui/dialogs/playlistdialog.cpp:152
 msgctxt "PlaylistDialog|"
 msgid "Create ne&w empty playlist:"
-msgstr ""
+msgstr "أنشئ &قائمة تشغيل فارغة جديدة:"
 
 #: src/gui/dialogs/playlistdialog.cpp:153
 msgctxt "PlaylistDialog|"
@@ -4674,17 +4673,17 @@ msgstr "المجلد الحالي"
 #: src/gui/dialogs/playlistdialog.cpp:163
 msgctxt "PlaylistDialog|"
 msgid "Every folder"
-msgstr ""
+msgstr "كل مجلد"
 
 #: src/gui/dialogs/playlistdialog.cpp:164
 msgctxt "PlaylistDialog|"
 msgid "Top-level folder"
-msgstr ""
+msgstr "المجلد الرئيس"
 
 #: src/gui/dialogs/playlistdialog.cpp:166
 msgctxt "PlaylistDialog|"
 msgid "Playlist Content"
-msgstr ""
+msgstr "محتويات قائمة التشغيل"
 
 #: src/gui/dialogs/playlistdialog.cpp:167
 msgctxt "PlaylistDialog|"
@@ -4694,37 +4693,37 @@ msgstr "النّس&ق:"
 #: src/gui/dialogs/playlistdialog.cpp:171
 msgctxt "PlaylistDialog|"
 msgid "Incl&ude only the selected files"
-msgstr ""
+msgstr "أ&درج فقط الملفات المحددة"
 
 #: src/gui/dialogs/playlistdialog.cpp:172
 msgctxt "PlaylistDialog|"
 msgid "Sort by file &name"
-msgstr ""
+msgstr "&رتب حسب اسم الملف"
 
 #: src/gui/dialogs/playlistdialog.cpp:174
 msgctxt "PlaylistDialog|"
 msgid "Sort by &tag field"
-msgstr ""
+msgstr "رتب حسب &حقل الوسم"
 
 #: src/gui/dialogs/playlistdialog.cpp:191
 msgctxt "PlaylistDialog|"
 msgid "Use &relative path for files in playlist"
-msgstr ""
+msgstr "استخدم المسار ال&نسبي للملفات في قائمة التشغيل"
 
 #: src/gui/dialogs/playlistdialog.cpp:193
 msgctxt "PlaylistDialog|"
 msgid "Use full p&ath for files in playlist"
-msgstr ""
+msgstr "استخدم المسار ال&كامل للملفات في قائمة التشغيل"
 
 #: src/gui/dialogs/playlistdialog.cpp:194
 msgctxt "PlaylistDialog|"
 msgid "Write only &list of files"
-msgstr ""
+msgstr "ا&كتب فقط قائمة الملفات"
 
 #: src/gui/dialogs/playlistdialog.cpp:196
 msgctxt "PlaylistDialog|"
 msgid "Write &info using"
-msgstr ""
+msgstr "اكتب ال&معلومات باستخدام"
 
 #: src/gui/dialogs/playlistdialog.cpp:207
 msgctxt "PlaylistDialog|"
@@ -4767,6 +4766,8 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"لقد عُدّلت قائمة التشغيل.\n"
+"أتريد حفظها؟"
 
 #: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:100
 msgctxt "RenDirDialog|"
@@ -5050,12 +5051,12 @@ msgstr "أجهض"
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
-msgstr ""
+msgstr "%1 غير قابل للكتابة"
 
 #: src/gui/forms/basemainwindow.cpp:403
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "حدث خطأ أثناء كتابة الملف:\n"
 
 #: src/gui/forms/basemainwindow.cpp:405 src/gui/forms/basemainwindow.cpp:411
 #: src/gui/forms/basemainwindow.cpp:1128 src/gui/forms/basemainwindow.cpp:1133
@@ -5068,7 +5069,7 @@ msgstr "خطأ ملف"
 #: src/gui/forms/basemainwindow.cpp:408
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
-msgstr ""
+msgstr "حدث خطأ أثناء كتابة الملف. أتريد تغيير الأذونات؟"
 
 #: src/gui/forms/basemainwindow.cpp:461
 msgctxt "BaseMainWindowImpl|"
@@ -5076,6 +5077,8 @@ msgid ""
 "The current folder has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"لقد عُدّل المجلد الحالي.\n"
+"أتريد حفظه؟"
 
 #: src/gui/forms/basemainwindow.cpp:463 src/gui/forms/basemainwindow.cpp:502
 msgctxt "BaseMainWindowImpl|"
@@ -5088,6 +5091,8 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"لقد عُدّلت قائمة التشغيل.\n"
+"أتريد حفظها؟"
 
 #: src/gui/forms/basemainwindow.cpp:610
 msgctxt "BaseMainWindowImpl|"
@@ -5099,36 +5104,36 @@ msgstr "يخرج…"
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
 msgid_plural "%n folders"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "لا توجد مجلدات"
+msgstr[1] "مجلد واحد"
+msgstr[2] "مجلدان"
+msgstr[3] "%n مجلدات"
+msgstr[4] "%n مجلدًا"
+msgstr[5] "%n مجلد"
 
 #: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
 msgid_plural "%n files"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "لا توجد ملفات"
+msgstr[1] "ملف واحد"
+msgstr[2] "ملفان"
+msgstr[3] "%n ملفات"
+msgstr[4] "%n ملفًا"
+msgstr[5] "%n ملف"
 
 #: src/gui/forms/basemainwindow.cpp:707
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
 msgid_plural "%n selected"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
-msgstr[4] ""
-msgstr[5] ""
+msgstr[0] "لم يُحدد شيء"
+msgstr[1] "محدد واحد"
+msgstr[2] "محددان"
+msgstr[3] "%n محددة"
+msgstr[4] "%n محدود"
+msgstr[5] "%n محدد"
 
 #: src/gui/forms/basemainwindow.cpp:710
 msgctxt "BaseMainWindowImpl|"
@@ -5138,7 +5143,7 @@ msgstr "جاهز."
 #: src/gui/forms/basemainwindow.cpp:772
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
-msgstr ""
+msgstr "يُنشئ قائمة التشغيل..."
 
 #: src/gui/forms/basemainwindow.cpp:820
 msgctxt "BaseMainWindowImpl|"
@@ -5159,12 +5164,12 @@ msgstr "استورد"
 #: src/gui/forms/basemainwindow.cpp:1566 src/gui/forms/basemainwindow.cpp:1575
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
-msgstr ""
+msgstr "حدث خطأ أثناء إعادة التسمية:\n"
 
 #: src/gui/forms/basemainwindow.cpp:1127
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
-msgstr ""
+msgstr "أتريد إعادة المحاولة بعد إغلاق الدلائل؟"
 
 #: src/gui/forms/basemainwindow.cpp:1204
 msgctxt "BaseMainWindowImpl|"
@@ -5195,18 +5200,18 @@ msgstr "إعادة تسمية الملف"
 #: src/gui/forms/basemainwindow.cpp:1530
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
-msgstr ""
+msgstr "أدخل اسم ملف جديد:"
 
 #: src/gui/forms/basemainwindow.cpp:1567 src/gui/forms/basemainwindow.cpp:1576
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
-msgstr ""
+msgstr "فشل إعادة تسمية %1 إلى %2\n"
 
 #: src/gui/forms/basemainwindow.cpp:1568
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
-msgstr ""
+msgstr "أتريد إعادة المحاولة بعد إغلاق المجلدات؟"
 
 #: src/gui/forms/basemainwindow.cpp:1586
 #, qt-format
@@ -5540,7 +5545,7 @@ msgstr "ا&محُ السطر"
 #: src/gui/widgets/filenameformatbox.cpp:46
 msgctxt "FilenameFormatBox|"
 msgid "Use for playlist and folder names"
-msgstr ""
+msgstr "استخدم لأسماء قوائم التشغيل والمجلدات"
 
 #: src/gui/widgets/filenameformatbox.cpp:47
 msgctxt "FilenameFormatBox|"
@@ -5595,7 +5600,7 @@ msgstr "جديد"
 #: src/gui/widgets/frametable.cpp:68 src/gui/widgets/frametable.cpp:70
 msgctxt "FrameTable|"
 msgid "WWW Audio Source"
-msgstr ""
+msgstr "مصدر صوتي على الويب"
 
 #: src/gui/widgets/frametable.cpp:160
 msgctxt "FrameTable|"
@@ -5618,17 +5623,11 @@ msgid "&Close"
 msgstr "أ&غلق"
 
 #: src/gui/widgets/picturelabel.cpp:87
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Previous"
 msgctxt "PictureLabel|"
 msgid "Previous"
 msgstr "السابق"
 
 #: src/gui/widgets/picturelabel.cpp:101
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Next"
 msgctxt "PictureLabel|"
 msgid "Next"
 msgstr "التالي"
@@ -5640,6 +5639,9 @@ msgid ""
 "artwork\n"
 "here"
 msgstr ""
+"اسحب غلاف\n"
+"الألبوم\n"
+"هنا"
 
 #: src/gui/widgets/playtoolbar.cpp:103
 msgctxt "PlayToolBar|"
@@ -5840,7 +5842,7 @@ msgstr "اختر مستخدمًا"
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:321
 msgctxt "MusicBrainzClient|"
 msgid "ID Lookup"
-msgstr ""
+msgstr "البحث عن المعرف"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:329
 msgctxt "MusicBrainzClient|"
@@ -5855,7 +5857,7 @@ msgstr "البصمة"
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:357
 msgctxt "MusicBrainzClient|"
 msgid "Metadata Lookup"
-msgstr ""
+msgstr "البحث في البيانات الوصفية"
 
 #: src/plugins/amazonimport/amazonimporter.cpp:72
 msgctxt "@default|"
@@ -5876,148 +5878,148 @@ msgstr "gnudb.org"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2712
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
-msgstr ""
+msgstr "AENC - تشفير الصوت"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:908
 #: src/plugins/taglibmetadata/taglibfile.cpp:2713
 msgctxt "@default|"
 msgid "APIC - Attached picture"
-msgstr ""
+msgstr "APIC - الصورة المرفقة"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:910
 #: src/plugins/taglibmetadata/taglibfile.cpp:2718
 msgctxt "@default|"
 msgid "COMM - Comments"
-msgstr ""
+msgstr "COMM - التعليقات"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:911
 #: src/plugins/taglibmetadata/taglibfile.cpp:2719
 msgctxt "@default|"
 msgid "COMR - Commercial"
-msgstr ""
+msgstr "COMR - تجاري"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:912
 #: src/plugins/taglibmetadata/taglibfile.cpp:2723
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
-msgstr ""
+msgstr "ENCR - تسجيل طريقة التشفير"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:914
 msgctxt "@default|"
 msgid "EQUA - Equalization"
-msgstr ""
+msgstr "EQUA - المعادلة"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:915
 #: src/plugins/taglibmetadata/taglibfile.cpp:2725
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
-msgstr ""
+msgstr "ETCO - رموز توقيت الأحداث"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:916
 #: src/plugins/taglibmetadata/taglibfile.cpp:2726
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
-msgstr ""
+msgstr "GEOB - كائن مغلف عام"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:917
 #: src/plugins/taglibmetadata/taglibfile.cpp:2727
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
-msgstr ""
+msgstr "GRID - تسجيل تعريف المجموعة"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:918
 msgctxt "@default|"
 msgid "IPLS - Involved people list"
-msgstr ""
+msgstr "IPLS - قائمة الأشخاص المشاركين"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:919
 #: src/plugins/taglibmetadata/taglibfile.cpp:2731
 msgctxt "@default|"
 msgid "LINK - Linked information"
-msgstr ""
+msgstr "LINK - معلومات مرتبطة"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:920
 #: src/plugins/taglibmetadata/taglibfile.cpp:2732
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
-msgstr ""
+msgstr "MCDI - معرف قرص الموسيقى المضغوط"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:921
 #: src/plugins/taglibmetadata/taglibfile.cpp:2733
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
-msgstr ""
+msgstr "MLLT - جدول البحث عن موقع MPEG"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:922
 #: src/plugins/taglibmetadata/taglibfile.cpp:2738
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
-msgstr ""
+msgstr "OWNE - إطار الملكية"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:923
 #: src/plugins/taglibmetadata/taglibfile.cpp:2739
 msgctxt "@default|"
 msgid "PRIV - Private frame"
-msgstr ""
+msgstr "PRIV - إطار خاص"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:924
 #: src/plugins/taglibmetadata/taglibfile.cpp:2740
 msgctxt "@default|"
 msgid "PCNT - Play counter"
-msgstr ""
+msgstr "PCNT - عداد التشغيل"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:925
 #: src/plugins/taglibmetadata/taglibfile.cpp:2744
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
-msgstr ""
+msgstr "POPM - مقياس الشعبية"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:926
 #: src/plugins/taglibmetadata/taglibfile.cpp:2745
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
-msgstr ""
+msgstr "POSS - إطار مزامنة الموضع"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:927
 #: src/plugins/taglibmetadata/taglibfile.cpp:2746
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
-msgstr ""
+msgstr "RBUF - حجم المخزن المؤقت الموصى به"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:929
 msgctxt "@default|"
 msgid "RVAD - Relative volume adjustment"
-msgstr ""
+msgstr "RVAD - ضبط مستوى الصوت النسبي"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:930
 #: src/plugins/taglibmetadata/taglibfile.cpp:2748
 msgctxt "@default|"
 msgid "RVRB - Reverb"
-msgstr ""
+msgstr "RVRB - الصدى"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:933
 #: src/plugins/taglibmetadata/taglibfile.cpp:2751
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
-msgstr ""
+msgstr "SYLT - كلمات/نص متزامن"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:934
 #: src/plugins/taglibmetadata/taglibfile.cpp:2752
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
-msgstr ""
+msgstr "SYTC - رموز الإيقاع المتزامنة"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:935
 #: src/plugins/taglibmetadata/taglibfile.cpp:2753
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
-msgstr ""
+msgstr "TALB - عنوان الألبوم/الفيلم/العرض"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:936
 #: src/plugins/taglibmetadata/taglibfile.cpp:2754
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
-msgstr ""
+msgstr "TBPM - دقة في الدقيقة (ضربات في الدقيقة)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:937
 #: src/plugins/taglibmetadata/taglibfile.cpp:2759
@@ -6046,7 +6048,7 @@ msgstr "TDAT - التاريخ"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2766
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
-msgstr ""
+msgstr "TDLY - تأخير قائمة التشغيل"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:948
 #: src/plugins/taglibmetadata/taglibfile.cpp:2771
@@ -6081,13 +6083,13 @@ msgstr "TIT1 - وصف محتوى المجموعة"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2779
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
-msgstr ""
+msgstr "TIT2 - العنوان/اسم الأغنية/وصف المحتوى"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:954
 #: src/plugins/taglibmetadata/taglibfile.cpp:2780
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
-msgstr ""
+msgstr "TIT3 - العنوان الفرعي/تحسين الوصف"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:955
 #: src/plugins/taglibmetadata/taglibfile.cpp:2781
@@ -6117,7 +6119,7 @@ msgstr "TMED - نوع الوسيط"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2790
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
-msgstr ""
+msgstr "TOAL - عنوان الألبوم/الفيلم/العرض الأصلي"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:962
 #: src/plugins/taglibmetadata/taglibfile.cpp:2791
@@ -6129,83 +6131,83 @@ msgstr "TOFN - اسم الملف الأصلي"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2792
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr ""
+msgstr "TOLY - مؤلفو الكلمات/النص الأصليون"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:964
 #: src/plugins/taglibmetadata/taglibfile.cpp:2793
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
-msgstr ""
+msgstr "TOPE - الفنانون/المؤدون الأصليون"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:965
 msgctxt "@default|"
 msgid "TORY - Original release year"
-msgstr ""
+msgstr "TORY - سنة الإصدار الأصلية"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:966
 #: src/plugins/taglibmetadata/taglibfile.cpp:2794
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
-msgstr ""
+msgstr "TOWN - مالك الملف/المرخص له"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:967
 #: src/plugins/taglibmetadata/taglibfile.cpp:2795
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr ""
+msgstr "TPE1 - المؤدون الرئيسيون/العازفون المنفردون"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:968
 #: src/plugins/taglibmetadata/taglibfile.cpp:2796
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr ""
+msgstr "TPE2 - الفرقة/الأوركسترا/المرافقة"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:969
 #: src/plugins/taglibmetadata/taglibfile.cpp:2797
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
-msgstr ""
+msgstr "TPE3 - قائد الأوركسترا/تحسين المؤدي"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:970
 #: src/plugins/taglibmetadata/taglibfile.cpp:2798
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr ""
+msgstr "TPE4 - مُفسّر، أو معاد خلطه، أو مُعدّل بواسطة"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:971
 #: src/plugins/taglibmetadata/taglibfile.cpp:2799
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
-msgstr ""
+msgstr "TPOS - جزء من مجموعة"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:973
 #: src/plugins/taglibmetadata/taglibfile.cpp:2801
 msgctxt "@default|"
 msgid "TPUB - Publisher"
-msgstr ""
+msgstr "TPUB - الناشر"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:974
 #: src/plugins/taglibmetadata/taglibfile.cpp:2802
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
-msgstr ""
+msgstr "TRCK - رقم المسار/الموضع في المجموعة"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:975
 msgctxt "@default|"
 msgid "TRDA - Recording dates"
-msgstr ""
+msgstr "TRDA - تواريخ التسجيل"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:976
 #: src/plugins/taglibmetadata/taglibfile.cpp:2803
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
-msgstr ""
+msgstr "TRSN - اسم محطة الراديو عبر الإنترنت"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:977
 #: src/plugins/taglibmetadata/taglibfile.cpp:2804
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
-msgstr ""
+msgstr "TRSO - مالك محطة الراديو عبر الإنترنت"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:978
 msgctxt "@default|"
@@ -6216,19 +6218,19 @@ msgstr "TSIZ - الحجم"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2810
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
-msgstr ""
+msgstr "TSRC - ISRC (كود التسجيل القياسي الدولي)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:983
 #: src/plugins/taglibmetadata/taglibfile.cpp:2811
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr ""
+msgstr "TSSE - البرامج/الأجهزة والإعدادات المستخدمة في التشفير"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:985
 #: src/plugins/taglibmetadata/taglibfile.cpp:2813
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
-msgstr ""
+msgstr "TXXX - معلومات نصية محددة من قبل المستخدم"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:986
 msgctxt "@default|"
@@ -6239,55 +6241,55 @@ msgstr "TYER - السنة"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2814
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
-msgstr ""
+msgstr "UFID - معرف الملف الفريد"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:988
 #: src/plugins/taglibmetadata/taglibfile.cpp:2815
 msgctxt "@default|"
 msgid "USER - Terms of use"
-msgstr ""
+msgstr "USER - شروط الاستخدام"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:989
 #: src/plugins/taglibmetadata/taglibfile.cpp:2816
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr ""
+msgstr "USLT - نقل كلمات/نص غير متزامن"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:990
 #: src/plugins/taglibmetadata/taglibfile.cpp:2817
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
-msgstr ""
+msgstr "WCOM - معلومات تجارية"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:991
 #: src/plugins/taglibmetadata/taglibfile.cpp:2818
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
-msgstr ""
+msgstr "WCOP - معلومات حقوق النشر/القانونية"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:992
 #: src/plugins/taglibmetadata/taglibfile.cpp:2822
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
-msgstr ""
+msgstr "WOAF - صفحة ملف الصوت الرسمية"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:993
 #: src/plugins/taglibmetadata/taglibfile.cpp:2823
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
-msgstr ""
+msgstr "WOAR - صفحة الفنان/المؤدي الرسمية"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:994
 #: src/plugins/taglibmetadata/taglibfile.cpp:2824
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
-msgstr ""
+msgstr "WOAS - صفحة مصدر الصوت الرسمية"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:995
 #: src/plugins/taglibmetadata/taglibfile.cpp:2825
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
-msgstr ""
+msgstr "WORS - الصفحة الرئيسية لمحطة الراديو عبر الإنترنت الرسمية"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:996
 #: src/plugins/taglibmetadata/taglibfile.cpp:2826
@@ -6299,23 +6301,23 @@ msgstr "WPAY - الدفعة"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2827
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
-msgstr ""
+msgstr "WPUB - صفحة الناشر الرسمية"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:998
 #: src/plugins/taglibmetadata/taglibfile.cpp:2828
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
-msgstr ""
+msgstr "WXXX - رابط URL محدد من قبل المستخدم"
 
 #: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
 msgctxt "@default|"
 msgid "MusicBrainz Release"
-msgstr ""
+msgstr "إصدار MusicBrainz"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2714
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
-msgstr ""
+msgstr "ASPI - فهرس نقاط البحث في الصوت"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2716
 msgctxt "@default|"
@@ -6325,157 +6327,157 @@ msgstr "CHAP - الفصل"
 #: src/plugins/taglibmetadata/taglibfile.cpp:2721
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
-msgstr ""
+msgstr "CTOC - جدول المحتويات"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2724
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
-msgstr ""
+msgstr "EQU2 - المعادلة (2)"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2729
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
-msgstr ""
+msgstr "GRP1 - التجميع"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2735
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
-msgstr ""
+msgstr "MVIN - رقم الحركة"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2736
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
-msgstr ""
+msgstr "MVNM - اسم الحركة"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2742
 msgctxt "@default|"
 msgid "PCST - Podcast"
-msgstr ""
+msgstr "PCST - البودكاست"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2747
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
-msgstr ""
+msgstr "RVA2 - ضبط مستوى الصوت النسبي (2)"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2749
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
-msgstr ""
+msgstr "SEEK - إطار البحث"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2750
 msgctxt "@default|"
 msgid "SIGN - Signature frame"
-msgstr ""
+msgstr "SIGN - إطار التوقيع"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2756
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
-msgstr ""
+msgstr "TCAT - فئة البودكاست"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2758
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
-msgstr ""
+msgstr "TCMP - علامة تجميع iTunes"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2762
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
-msgstr ""
+msgstr "TDEN - وقت التشفير"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2764
 msgctxt "@default|"
 msgid "TDES - Podcast description"
-msgstr ""
+msgstr "TDES - وصف البودكاست"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2767
 msgctxt "@default|"
 msgid "TDOR - Original release time"
-msgstr ""
+msgstr "TDOR - وقت الإصدار الأصلي"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2768
 msgctxt "@default|"
 msgid "TDRC - Recording time"
-msgstr ""
+msgstr "TDRC - وقت التسجيل"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2769
 msgctxt "@default|"
 msgid "TDRL - Release time"
-msgstr ""
+msgstr "TDRL - وقت الإصدار"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2770
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
-msgstr ""
+msgstr "TDTG - وقت وضع الوسم"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2775
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
-msgstr ""
+msgstr "TGID - معرف البودكاست"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2777
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
-msgstr ""
+msgstr "TIPL - قائمة الأشخاص المشاركين"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2783
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
-msgstr ""
+msgstr "TKWD - كلمات مفتاحية للبودكاست"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2787
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
-msgstr ""
+msgstr "TMCL - قائمة اعتمادات الموسيقيين"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2789
 msgctxt "@default|"
 msgid "TMOO - Mood"
-msgstr ""
+msgstr "TMOO - المزاج"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2800
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
-msgstr ""
+msgstr "TPRO - إشعار الإنتاج"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2805
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
-msgstr ""
+msgstr "TSO2 - ترتيب فرتيب فنان الألبوم"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2806
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
-msgstr ""
+msgstr "TSOA - ترتيب فرتيب الألبوم"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2807
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
-msgstr ""
+msgstr "TSOC - ترتيب فرتيب الملحن"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2808
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
-msgstr ""
+msgstr "TSOP - ترتيب فرتيب المؤدي"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2809
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
-msgstr ""
+msgstr "TSOT - ترتيب فرتيب العنوان"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2812
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
-msgstr ""
+msgstr "TSST - ضبط العنوان الفرعي"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:2820
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
-msgstr ""
+msgstr "WFED - تغذية البودكاست"
 
 #: src/plugins/taglibmetadata/taglibfile.cpp:7117
 msgctxt "@default|"
 msgid "Rating Information"
-msgstr ""
+msgstr "معلومات التقييم"
 
 #: src/qml/app/AboutDialog.qml:29
 msgctxt "AboutDialog|"
@@ -6496,7 +6498,7 @@ msgstr "الرخصة"
 #, qt-format
 msgctxt "AboutDialog|"
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
-msgstr ""
+msgstr "يستخدم هذا البرنامج <a href=\"http://www.qt.io/\">Qt</a> الإصدار %1."
 
 #: src/qml/app/BatchImportPage.qml:32
 msgctxt "BatchImportPage|"
@@ -6656,7 +6658,7 @@ msgstr "تحذير"
 #: src/qml/app/FrameEditDialog.qml:118
 msgctxt "FrameEditDialog|"
 msgid "File already exists. Overwrite?"
-msgstr ""
+msgstr "الملف موجود مسبقًا. أتريد الاستبدال؟"
 
 #: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:199
 msgctxt "FrameEditDialog|"
@@ -6728,6 +6730,8 @@ msgid ""
 "The current folder has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"لقد عُدّل المجلد الحالي.\n"
+"أتريد حفظه؟"
 
 #: src/qml/app/Main.qml:128 src/qml/app/Main.qml:145 src/qml/app/Main.qml:162
 msgctxt "Main|"
@@ -6737,24 +6741,24 @@ msgstr "خطأ ملف"
 #: src/qml/app/Main.qml:129
 msgctxt "Main|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "حدث خطأ أثناء كتابة الملف:\n"
 
 #: src/qml/app/Main.qml:146
 #, qt-format
 msgctxt "Main|"
 msgid "SD card is only writable in %1"
-msgstr ""
+msgstr "تكون بطاقة SD قابلة للكتابة فقط في %1"
 
 #: src/qml/app/Main.qml:163
 msgctxt "Main|"
 msgid "Error while writing file. Do you want to change the permissions?"
-msgstr ""
+msgstr "حدث خطأ أثناء كتابة الملف. أتريد تغيير الأذونات؟"
 
 #: src/qml/app/Main.qml:260
 #, qt-format
 msgctxt "Main|"
 msgid "%1 is not writable"
-msgstr ""
+msgstr "%1 غير قابل للكتابة"
 
 #: src/qml/app/MainPage.qml:48
 msgctxt "MainPage|"
@@ -6885,7 +6889,7 @@ msgstr "كل الوسوم"
 #: src/qml/app/NumberTracksDialog.qml:83
 msgctxt "NumberTracksDialog|"
 msgid "Reset counter for each folder"
-msgstr ""
+msgstr "صفّر العداد لكل مجلد"
 
 #: src/qml/app/NumberTracksDialog.qml:96
 msgctxt "NumberTracksDialog|"
@@ -7001,72 +7005,72 @@ msgstr "علّم الحقول المقطوعة"
 #: src/qml/app/SettingsPage.qml:53
 msgctxt "SettingsPage|"
 msgid "ID3v1 text encoding"
-msgstr ""
+msgstr "ترميز نص ID3v1"
 
 #: src/qml/app/SettingsPage.qml:59
 msgctxt "SettingsPage|"
 msgid "ID3v2 text encoding"
-msgstr ""
+msgstr "ترميز نص ID3v2"
 
 #: src/qml/app/SettingsPage.qml:65
 msgctxt "SettingsPage|"
 msgid "Use track/total number of tracks format"
-msgstr ""
+msgstr "استخدم تنسيق رقم المسار/العدد الإجمالي للمسارات"
 
 #: src/qml/app/SettingsPage.qml:70
 msgctxt "SettingsPage|"
 msgid "Genre as text instead of numeric string"
-msgstr ""
+msgstr "استخدم النوع كنص بدلاً من سلسلة رقمية"
 
 #: src/qml/app/SettingsPage.qml:75
 msgctxt "SettingsPage|"
 msgid "WAV files with lowercase id3 chunk"
-msgstr ""
+msgstr "ملفات WAV ذات جزء id3 بأحرف صغيرة"
 
 #: src/qml/app/SettingsPage.qml:80
 msgctxt "SettingsPage|"
 msgid "Version used for new ID3v2 tags"
-msgstr ""
+msgstr "الإصدار المستخدم لوسوم ID3v2 الجديدة"
 
 #: src/qml/app/SettingsPage.qml:86
 msgctxt "SettingsPage|"
 msgid "Track number digits"
-msgstr ""
+msgstr "أرقام رقم المسار"
 
 #: src/qml/app/SettingsPage.qml:91
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis comment field name"
-msgstr ""
+msgstr "اسم حقل تعليق Ogg/Vorbis"
 
 #: src/qml/app/SettingsPage.qml:101
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis picture field name"
-msgstr ""
+msgstr "اسم حقل صورة Ogg/Vorbis"
 
 #: src/qml/app/SettingsPage.qml:107
 msgctxt "SettingsPage|"
 msgid "RIFF track number field name"
-msgstr ""
+msgstr "اسم حقل رقم مسار RIFF"
 
 #: src/qml/app/SettingsPage.qml:117
 msgctxt "SettingsPage|"
 msgid "Mark if picture larger than maximum size"
-msgstr ""
+msgstr "علّم إذا كانت الصورة أكبر من الحجم الأقصى"
 
 #: src/qml/app/SettingsPage.qml:122
 msgctxt "SettingsPage|"
 msgid "Picture maximum size (bytes)"
-msgstr ""
+msgstr "الحجم الأقصى للصورة (بايت)"
 
 #: src/qml/app/SettingsPage.qml:127
 msgctxt "SettingsPage|"
 msgid "Show only custom genres"
-msgstr ""
+msgstr "اعرض فقط الأنواع المخصصة"
 
 #: src/qml/app/SettingsPage.qml:131
 msgctxt "SettingsPage|"
 msgid "Custom Genres"
-msgstr ""
+msgstr "أنواع مخصصة"
 
 #: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:243
 msgctxt "SettingsPage|"
@@ -7101,22 +7105,22 @@ msgstr "أطر مخصوصة"
 #: src/qml/app/SettingsPage.qml:189
 msgctxt "SettingsPage|"
 msgid "Quick access frames"
-msgstr ""
+msgstr "أطر الوصول السريع"
 
 #: src/qml/app/SettingsPage.qml:208
 msgctxt "SettingsPage|"
 msgid "Load last-opened files"
-msgstr ""
+msgstr "حمّل آخر الملفات المفتوحة"
 
 #: src/qml/app/SettingsPage.qml:213
 msgctxt "SettingsPage|"
 msgid "Preserve file timestamp"
-msgstr ""
+msgstr "احتفظ بطابع وقت الملف"
 
 #: src/qml/app/SettingsPage.qml:218
 msgctxt "SettingsPage|"
 msgid "Mark changes"
-msgstr ""
+msgstr "علّم التغييرات"
 
 #: src/qml/app/SettingsPage.qml:223
 msgctxt "SettingsPage|"
@@ -7126,7 +7130,7 @@ msgstr "طبّق التنسيق آليّا"
 #: src/qml/app/SettingsPage.qml:228
 msgctxt "SettingsPage|"
 msgid "Use for playlist and folder names"
-msgstr ""
+msgstr "استخدم لأسماء قوائم التشغيل والمجلدات"
 
 #: src/qml/app/SettingsPage.qml:233
 msgctxt "SettingsPage|"
@@ -7146,12 +7150,12 @@ msgstr "اسم ملف الغلاف"
 #: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
-msgstr ""
+msgstr "ترميز نص قائمة التشغيل"
 
 #: src/qml/app/SettingsPage.qml:286
 msgctxt "SettingsPage|"
 msgid "To filename format"
-msgstr ""
+msgstr "إلى تنسيق اسم الملف"
 
 #: src/qml/app/SettingsPage.qml:296
 msgctxt "SettingsPage|"
@@ -7161,7 +7165,7 @@ msgstr "اسم الملفّ من الوسم "
 #: src/qml/app/SettingsPage.qml:311
 msgctxt "SettingsPage|"
 msgid "From filename format"
-msgstr ""
+msgstr "من تنسيق اسم الملف"
 
 #: src/qml/app/SettingsPage.qml:321
 msgctxt "SettingsPage|"
@@ -7186,7 +7190,7 @@ msgstr "السمة"
 #: src/qml/app/SettingsPage.qml:435
 msgctxt "SettingsPage|"
 msgid "Quick Access Frames"
-msgstr ""
+msgstr "أطر الوصول السريع"
 
 #: src/qml/app/StringListEditPage.qml:85
 msgctxt "StringListEditPage|"
