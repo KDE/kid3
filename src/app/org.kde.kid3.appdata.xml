@@ -231,6 +231,7 @@
       Kid3 uses the KDE Frameworks. Users of other desktop environments may
       prefer Kid3-qt instead, which is without KDE dependencies.
     </p>
+    <p xml:lang="ar">يستخدم كيد3 أطر عمل كيدي. قد يفضل مستخدمو بيئات سطح المكتب الأخرى استخدام كيد3-كيو تي بدلاً من ذلك، والذي لا يعتمد على كيدي.</p>
     <p xml:lang="ca">El Kid3 utilitza els Frameworks de KDE. Els usuaris d'altres entorns d'escriptori poden preferir el Kid3-qt, que no té dependències de KDE.</p>
     <p xml:lang="ca-valencia">Kid3 utilitza els Frameworks de KDE. Els usuaris d'altres entorns d'escriptori poden preferir Kid3-qt, el qual no té dependències de KDE.</p>
     <p xml:lang="en-GB">Kid3 uses the KDE Frameworks. Users of other desktop environments may prefer Kid3-qt instead, which is without KDE dependencies.</p>
@@ -256,7 +257,7 @@
     <screenshot type="default" width="1290" height="916">
       <image>https://cdn.kde.org/screenshots/kid3/kid3.png</image>
       <caption>Kid3 main window</caption>
-      <caption xml:lang="ar">النّافذة الرّئيسيّة لكِد3</caption>
+      <caption xml:lang="ar">النّافذة الرّئيسة لكِد3</caption>
       <caption xml:lang="ca">Finestra principal del Kid3</caption>
       <caption xml:lang="ca-valencia">Finestra principal de Kid3</caption>
       <caption xml:lang="cs">Hlavní okno Kid3</caption>
