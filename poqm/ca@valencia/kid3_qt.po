@@ -93,7 +93,7 @@ msgstr "S'ha produït un error en escriure el fitxer:\n"
 #: src/app/cli/clicommand.cpp:550
 msgctxt "SelectCommand|"
 msgid "Select file"
-msgstr "Selecciona el fitxer"
+msgstr "Tria el fitxer"
 
 #: src/app/cli/clicommand.cpp:572
 #, qt-format
@@ -104,7 +104,7 @@ msgstr "%1 no trobades"
 #: src/app/cli/clicommand.cpp:582
 msgctxt "TagCommand|"
 msgid "Select tag"
-msgstr "Selecciona una etiqueta"
+msgstr "Tria una etiqueta"
 
 #: src/app/cli/clicommand.cpp:599
 msgctxt "GetCommand|"
@@ -581,7 +581,7 @@ msgstr "Ix de l'aplicació"
 #: src/app/kde/kdemainwindow.cpp:129
 msgctxt "KdeMainWindow|"
 msgid "Select all files"
-msgstr "Selecciona tots els fitxers"
+msgstr "Tria tots els fitxers"
 
 #: src/app/kde/kdemainwindow.cpp:138
 msgctxt "KdeMainWindow|"
@@ -829,12 +829,12 @@ msgstr "Oculta automàticament les etiquetes"
 #: src/app/kde/kdemainwindow.cpp:335
 msgctxt "KdeMainWindow|"
 msgid "Select All in &Folder"
-msgstr "Selecciona-ho tot en la &carpeta"
+msgstr "Tria-ho tot en la &carpeta"
 
 #: src/app/kde/kdemainwindow.cpp:336
 msgctxt "KdeMainWindow|"
 msgid "Select all files in the current folder"
-msgstr "Selecciona tots els fitxers en la carpeta actual"
+msgstr "Tria tots els fitxers en la carpeta actual"
 
 #: src/app/kde/kdemainwindow.cpp:339
 msgctxt "KdeMainWindow|"
@@ -849,7 +849,7 @@ msgstr "Fitxer a&nterior"
 #: src/app/kde/kdemainwindow.cpp:344
 msgctxt "KdeMainWindow|"
 msgid "Select previous file"
-msgstr "Selecciona el fitxer anterior"
+msgstr "Tria el fitxer anterior"
 
 #: src/app/kde/kdemainwindow.cpp:350
 msgctxt "KdeMainWindow|"
@@ -859,7 +859,7 @@ msgstr "Fitxer s&egüent"
 #: src/app/kde/kdemainwindow.cpp:351
 msgctxt "KdeMainWindow|"
 msgid "Select next file"
-msgstr "Selecciona el fitxer següent"
+msgstr "Tria el fitxer següent"
 
 #: src/app/kde/kdemainwindow.cpp:363
 #, qt-format
@@ -1267,7 +1267,7 @@ msgstr "&Edita"
 #: src/app/qt/kid3mainwindow.cpp:319
 msgctxt "Kid3MainWindow|"
 msgid "Select all files"
-msgstr "Selecciona tots els fitxers"
+msgstr "Tria tots els fitxers"
 
 #: src/app/qt/kid3mainwindow.cpp:320
 msgctxt "Kid3MainWindow|"
@@ -1287,12 +1287,12 @@ msgstr "Desse&lecciona"
 #: src/app/qt/kid3mainwindow.cpp:346
 msgctxt "Kid3MainWindow|"
 msgid "Select all files in the current folder"
-msgstr "Selecciona tots els fitxers en la carpeta actual"
+msgstr "Tria tots els fitxers en la carpeta actual"
 
 #: src/app/qt/kid3mainwindow.cpp:347
 msgctxt "Kid3MainWindow|"
 msgid "Select All in &Folder"
-msgstr "Selecciona-ho tot en la &carpeta"
+msgstr "Tria-ho tot en la &carpeta"
 
 #: src/app/qt/kid3mainwindow.cpp:355
 msgctxt "Kid3MainWindow|"
@@ -1302,7 +1302,7 @@ msgstr "I&nvertix la selecció"
 #: src/app/qt/kid3mainwindow.cpp:363
 msgctxt "Kid3MainWindow|"
 msgid "Select previous file"
-msgstr "Selecciona el fitxer anterior"
+msgstr "Tria el fitxer anterior"
 
 #: src/app/qt/kid3mainwindow.cpp:364
 msgctxt "Kid3MainWindow|"
@@ -1312,7 +1312,7 @@ msgstr "Fitxer a&nterior"
 #: src/app/qt/kid3mainwindow.cpp:376
 msgctxt "Kid3MainWindow|"
 msgid "Select next file"
-msgstr "Selecciona el fitxer següent"
+msgstr "Tria el fitxer següent"
 
 #: src/app/qt/kid3mainwindow.cpp:377
 msgctxt "Kid3MainWindow|"
@@ -2416,7 +2416,7 @@ msgstr "S'està guardant la carpeta…"
 #: src/core/model/kid3application.cpp:1237
 msgctxt "Kid3Application|"
 msgid "Selection"
-msgstr "Selecciona"
+msgstr "Tria"
 
 #: src/core/model/kid3application.cpp:3449
 msgctxt "Kid3Application|"
@@ -4204,7 +4204,7 @@ msgstr "Re&produïx en fer doble clic"
 #: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "&Selecciona el fitxer en reproducció"
+msgstr "&Tria el fitxer en reproducció"
 
 #: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
@@ -5196,7 +5196,7 @@ msgstr "Afig un marc"
 #: src/gui/forms/basemainwindow.cpp:1384
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
-msgstr "Seleccioneu l'ID del marc"
+msgstr "Trieu l'ID del marc"
 
 #: src/gui/forms/basemainwindow.cpp:1529
 msgctxt "BaseMainWindowImpl|"
@@ -5611,7 +5611,7 @@ msgstr "Font d'àudio WWW"
 #: src/gui/widgets/frametable.cpp:160
 msgctxt "FrameTable|"
 msgid "&Select all"
-msgstr "&Selecciona-ho tot"
+msgstr "&Tria-ho tot"
 
 #: src/gui/widgets/frametable.cpp:162
 msgctxt "FrameTable|"
@@ -5728,7 +5728,7 @@ msgstr "Afig un marc"
 #: src/gui/widgets/subframeseditor.cpp:130
 msgctxt "SubframesEditor|"
 msgid "Select the frame ID"
-msgstr "Seleccioneu l'ID del marc"
+msgstr "Trieu l'ID del marc"
 
 #: src/gui/widgets/tablemodeledit.cpp:35
 msgctxt "TableModelEdit|"
@@ -5843,7 +5843,7 @@ msgstr "Reconegut"
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:299
 msgctxt "MusicBrainzClient|"
 msgid "User Selection"
-msgstr "Seleccioneu l'usuari"
+msgstr "Trieu l'usuari"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:321
 msgctxt "MusicBrainzClient|"
@@ -6685,7 +6685,7 @@ msgstr "Afig un marc"
 #: src/qml/app/FrameSelectDialog.qml:47
 msgctxt "FrameSelectDialog|"
 msgid "Select the frame ID"
-msgstr "Seleccioneu l'ID del marc"
+msgstr "Trieu l'ID del marc"
 
 #: src/qml/app/ImportProfilesEditPage.qml:34
 msgctxt "ImportProfilesEditPage|"
