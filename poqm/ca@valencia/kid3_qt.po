@@ -5611,7 +5611,7 @@ msgstr "Font d'àudio WWW"
 #: src/gui/widgets/frametable.cpp:160
 msgctxt "FrameTable|"
 msgid "&Select all"
-msgstr "&Tria-ho tot"
+msgstr "&Selecciona-ho tot"
 
 #: src/gui/widgets/frametable.cpp:162
 msgctxt "FrameTable|"
