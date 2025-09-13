@@ -7451,7 +7451,7 @@ void TagLibInitializer::init()
 }
 
 TagLibInitializer::~TagLibInitializer() {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 TagLibInitializer tagLibInitializer;

@@ -97,7 +97,7 @@ TextImportDialog::TextImportDialog(IPlatformTools* platformTools,
  */
 TextImportDialog::~TextImportDialog()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

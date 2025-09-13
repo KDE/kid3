@@ -125,7 +125,7 @@ FlacFile::FlacFile(const QPersistentModelIndex& idx) : OggFile(idx)
  */
 FlacFile::~FlacFile()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

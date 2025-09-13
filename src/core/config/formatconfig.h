@@ -56,7 +56,7 @@ class KID3_CORE_EXPORT FormatConfig : public GeneralConfig {
   /** true to enable length restriction */
   Q_PROPERTY(bool enableMaximumLength READ enableMaximumLength
              WRITE setEnableMaximumLength NOTIFY enableMaximumLengthChanged)
-  /** true to enable formating in line edits */
+  /** true to enable formatting in line edits */
   Q_PROPERTY(bool formatWhileEditing READ formatWhileEditing
              WRITE setFormatWhileEditing NOTIFY formatWhileEditingChanged)
   /** true if string replacement enabled */

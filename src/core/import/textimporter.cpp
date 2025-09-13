@@ -45,7 +45,7 @@ TextImporter::TextImporter(TrackDataModel* trackDataModel)
  */
 TextImporter::~TextImporter()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

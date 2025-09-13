@@ -100,7 +100,7 @@ Mp3File::Mp3File(const QPersistentModelIndex& idx)
  */
 Mp3File::~Mp3File()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

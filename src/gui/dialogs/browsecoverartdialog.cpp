@@ -159,7 +159,7 @@ BrowseCoverArtDialog::BrowseCoverArtDialog(Kid3Application* app,
  */
 BrowseCoverArtDialog::~BrowseCoverArtDialog()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

@@ -1468,7 +1468,7 @@ void BaseMainWindowImpl::editFrameOfTaggedFile(const Frame* frame,
 }
 
 /**
- * Called when the edit fram dialog is finished.
+ * Called when the edit frame dialog is finished.
  * @param result dialog result
  */
 void BaseMainWindowImpl::onEditFrameDialogFinished(int result)
@@ -1770,7 +1770,7 @@ void BaseMainWindowImpl::stopProgressMonitoring()
  * Check progress of a possibly long operation.
  *
  * Progress monitoring is started with startProgressMonitoring(). This method
- * will check if the opeation is running long enough to show a progress widget
+ * will check if the operation is running long enough to show a progress widget
  * and update the progress information. It will call stopProgressMonitoring()
  * when the operation is aborted.
  *
@@ -1829,7 +1829,7 @@ BaseMainWindow::BaseMainWindow(QMainWindow* mainWin,
  */
 BaseMainWindow::~BaseMainWindow()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

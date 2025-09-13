@@ -193,7 +193,7 @@ else(QT_VERSION_MAJOR LESS 6)
     QT_ANDROID_VERSION_CODE "${QT_ANDROID_APP_VERSION_CODE}"
   )
 
-  # To sign the package when building the apk target, the enviroment variables
+  # To sign the package when building the apk target, the environment variables
   # QT_ANDROID_KEYSTORE_PATH and QT_ANDROID_KEYSTORE_ALIAS must be set.
   # If QT_ANDROID_KEYSTORE_STORE_PASS is not set, the user has to enter the
   # password.

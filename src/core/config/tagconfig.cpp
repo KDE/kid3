@@ -254,7 +254,7 @@ TagConfig::TagConfig()
  */
 TagConfig::~TagConfig()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

@@ -238,7 +238,7 @@ Kid3Cli::Kid3Cli(Kid3Application* app,
  */
 Kid3Cli::~Kid3Cli()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

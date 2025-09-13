@@ -583,7 +583,7 @@ private:
    * Check progress of a possibly long operation.
    *
    * Progress monitoring is started with startProgressMonitoring(). This method
-   * will check if the opeation is running long enough to show a progress widget
+   * will check if the operation is running long enough to show a progress widget
    * and update the progress information. It will call stopProgressMonitoring()
    * when the operation is aborted.
    *

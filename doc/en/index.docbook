@@ -1043,7 +1043,7 @@ are used to create the real chapter, table of contents and embedded frames:
 The <guilabel>Description</guilabel> is used as the table of contents title,
 the <guilabel>Text</guilabel> column contains the chapter titles, and the
 corresponding <guilabel>Time</guilabel> value will be the chapter start time
-and the end time of the preceeding chapter. The end time of last chapter is
+and the end time of the preceding chapter. The end time of last chapter is
 determined by the <guilabel>Time</guilabel> of the last row if its
 <guilabel>Text</guilabel> is empty.
 </para>

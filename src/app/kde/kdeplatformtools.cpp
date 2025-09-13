@@ -49,7 +49,7 @@ KdePlatformTools::KdePlatformTools()
  */
 KdePlatformTools::~KdePlatformTools()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

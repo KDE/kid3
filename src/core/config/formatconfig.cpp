@@ -56,7 +56,7 @@ FormatConfig::FormatConfig(const QString& grp)
  */
 FormatConfig::~FormatConfig()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

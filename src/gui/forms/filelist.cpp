@@ -243,7 +243,7 @@ FileList::FileList(QWidget* parent, BaseMainWindowImpl* mainWin)
  */
 FileList::~FileList()
 {
-  // Must not be inline because of forwared declared QScopedPointer.
+  // Must not be inline because of forward declared QScopedPointer.
 }
 
 /**

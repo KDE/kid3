@@ -52,7 +52,7 @@ public:
   /** Get filter configuration. */
   Q_INVOKABLE static QObject* filterConfig();
 
-  /** Get file name formate configuration. */
+  /** Get file name format configuration. */
   Q_INVOKABLE static QObject* filenameFormatConfig();
 
   /** Get tag format configuration. */

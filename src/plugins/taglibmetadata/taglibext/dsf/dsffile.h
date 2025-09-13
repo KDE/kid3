@@ -134,7 +134,7 @@ class DSFFile : public TagLib::File
    * This is the same as calling save(AllTags);
    *
    * If you would like more granular control over the content of the tags,
-   * with the concession of generality, use paramaterized save call below.
+   * with the concession of generality, use parameterized save call below.
    *
    * \see save(int tags)
    */
@@ -151,7 +151,7 @@ class DSFFile : public TagLib::File
    * This is the same as calling save(AllTags);
    *
    * If you would like more granular control over the content of the tags,
-   * with the concession of generality, use paramaterized save call below.
+   * with the concession of generality, use parameterized save call below.
    *
    * ID3v2Version can be either 4 or 3.
    */

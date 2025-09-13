@@ -217,7 +217,7 @@ public slots:
 signals:
   /**
    * Indicates that the track position has changed in a way that is
-   * inconsistant with the current playing state.
+   * inconsistent with the current playing state.
    * @param positionUs new position in microseconds
    */
   void Seeked(qlonglong positionUs);

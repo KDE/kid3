@@ -1789,7 +1789,7 @@ if test "${QTPREFIX%%/qt-*}" = "$(pwd)"; then
 fi
 
 # Set QTBINARYDIR starting with "$(pwd)/qt-", e.g. $(pwd)/qt-6.5.3/6.5.3/gcc_64/bin
-# to dowload Qt binaries for Linux.
+# to download Qt binaries for Linux.
 if test "${QTBINARYDIR%%/qt-*}" = "$(pwd)"; then
   _qt_arch=${QTBINARYDIR%%/bin}
   _qt_arch=${_qt_arch##*/}
