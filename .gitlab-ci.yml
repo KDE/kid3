@@ -13,6 +13,7 @@ include:
       - /gitlab-templates/craft-macos-x86-64-qt6.yml
       - /gitlab-templates/craft-windows-x86-64-qt6.yml
       - /gitlab-templates/flatpak.yml
+      - /gitlab-templates/snap-snapcraft-lxd.yml
   - local: '/.kid3-cd.yml'
 
 .craft_macos_base:
@@ -20,10 +21,6 @@ include:
   - when: manual
     allow_failure: true
 .craft_windows_base:
-  rules:
-  - when: manual
-    allow_failure: true
-.snap_base:
   rules:
   - when: manual
     allow_failure: true
