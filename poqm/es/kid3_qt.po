@@ -1,15 +1,16 @@
-# Kid3 Spanish Translation.
-# This file is put in the public domain.
+# Spanish translations for kid3_qt.po package.
+# Copyright (C) 2004-2025 This file is copyright:
+# This file is distributed under the same license as the kid3 package.
 #
-# Sergio Cambra García <sergio.cambra@hispalinux.es>, 2004.
-# Urs Fleisch <ufleisch@users.sourceforge.net>, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2004 Sergio Cambra García <sergio.cambra@hispalinux.es>
+# SPDX-FileCopyrightText: 2005, 2006, 2007, 2008, 2009, 2010, 2011 Urs Fleisch <ufleisch@users.sourceforge.net>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2025 Eloy Cuadra <ecuadra@eloihr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2024-08-25 12:23+0200\n"
+"PO-Revision-Date: 2025-09-20 22:07+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 25.08.1\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Language: es\n"
 "X-Source-Language: en\n"
@@ -624,7 +625,7 @@ msgstr "Diálogo de preferencias"
 #: src/app/kde/kdemainwindow.cpp:191
 msgctxt "KdeMainWindow|"
 msgid "O&pen Folder..."
-msgstr "A&brir carpeta..."
+msgstr "A&brir carpeta…"
 
 #: src/app/kde/kdemainwindow.cpp:192
 msgctxt "KdeMainWindow|"
@@ -649,7 +650,7 @@ msgstr "Descargar"
 #: src/app/kde/kdemainwindow.cpp:216
 msgctxt "KdeMainWindow|"
 msgid "&Import..."
-msgstr "&Importar..."
+msgstr "&Importar…"
 
 #: src/app/kde/kdemainwindow.cpp:217
 msgctxt "KdeMainWindow|"
@@ -660,7 +661,7 @@ msgstr "Importar de archivo o portapapeles"
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1..."
-msgstr "Importar de %1..."
+msgstr "Importar de %1…"
 
 #: src/app/kde/kdemainwindow.cpp:233 src/app/kde/kdemainwindow.cpp:248
 #, qt-format
@@ -671,7 +672,7 @@ msgstr "Importar de %1"
 #: src/app/kde/kdemainwindow.cpp:255
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags..."
-msgstr "Importar de etiquetas..."
+msgstr "Importar de etiquetas…"
 
 #: src/app/kde/kdemainwindow.cpp:256
 msgctxt "KdeMainWindow|"
@@ -681,7 +682,7 @@ msgstr "Importar de etiquetas"
 #: src/app/kde/kdemainwindow.cpp:260
 msgctxt "KdeMainWindow|"
 msgid "Automatic I&mport..."
-msgstr "I&mportar automáticamente..."
+msgstr "I&mportar automáticamente…"
 
 #: src/app/kde/kdemainwindow.cpp:261
 msgctxt "KdeMainWindow|"
@@ -691,7 +692,7 @@ msgstr "Importar automáticamente"
 #: src/app/kde/kdemainwindow.cpp:265
 msgctxt "KdeMainWindow|"
 msgid "&Browse Cover Art..."
-msgstr "&Explorar las carátulas..."
+msgstr "&Explorar las carátulas…"
 
 #: src/app/kde/kdemainwindow.cpp:266
 msgctxt "KdeMainWindow|"
@@ -701,7 +702,7 @@ msgstr "Explorar las carátulas de los álbumes"
 #: src/app/kde/kdemainwindow.cpp:270
 msgctxt "KdeMainWindow|"
 msgid "&Export..."
-msgstr "&Exportar..."
+msgstr "&Exportar…"
 
 #: src/app/kde/kdemainwindow.cpp:271
 msgctxt "KdeMainWindow|"
@@ -711,7 +712,7 @@ msgstr "Exportar en archivo o al portapapeles"
 #: src/app/kde/kdemainwindow.cpp:275
 msgctxt "KdeMainWindow|"
 msgid "&Create Playlist..."
-msgstr "&Crear lista de reproducción..."
+msgstr "&Crear lista de reproducción…"
 
 #: src/app/kde/kdemainwindow.cpp:276
 msgctxt "KdeMainWindow|"
@@ -751,7 +752,7 @@ msgstr "Aplicar codificación del texto"
 #: src/app/kde/kdemainwindow.cpp:291
 msgctxt "KdeMainWindow|"
 msgid "&Rename Folder..."
-msgstr "&Cambiar nombre de carpeta..."
+msgstr "&Cambiar nombre de carpeta…"
 
 #: src/app/kde/kdemainwindow.cpp:292
 msgctxt "KdeMainWindow|"
@@ -761,7 +762,7 @@ msgstr "Cambiar nombre de carpeta"
 #: src/app/kde/kdemainwindow.cpp:295
 msgctxt "KdeMainWindow|"
 msgid "&Number Tracks..."
-msgstr "&Asignar números de pista por orden..."
+msgstr "&Asignar números de pista por orden…"
 
 #: src/app/kde/kdemainwindow.cpp:296
 msgctxt "KdeMainWindow|"
@@ -771,7 +772,7 @@ msgstr "Numerar pistas"
 #: src/app/kde/kdemainwindow.cpp:299
 msgctxt "KdeMainWindow|"
 msgid "F&ilter..."
-msgstr "F&iltro..."
+msgstr "F&iltro…"
 
 #: src/app/kde/kdemainwindow.cpp:300
 msgctxt "KdeMainWindow|"
@@ -1060,7 +1061,7 @@ msgstr "Usar tipografía persona&lizada"
 #: src/app/qt/configdialog.cpp:124
 msgctxt "ConfigDialog|"
 msgid "A&pplication Font..."
-msgstr "Ti&pografía personalizada..."
+msgstr "Ti&pografía personalizada…"
 
 #: src/app/qt/configdialog.cpp:126
 msgctxt "ConfigDialog|"
@@ -1121,7 +1122,7 @@ msgstr "Abrir archivos"
 #: src/app/qt/kid3mainwindow.cpp:114
 msgctxt "Kid3MainWindow|"
 msgid "&Open..."
-msgstr "&Abrir..."
+msgstr "&Abrir…"
 
 #: src/app/qt/kid3mainwindow.cpp:128
 msgctxt "Kid3MainWindow|"
@@ -1141,7 +1142,7 @@ msgstr "Abre una carpeta"
 #: src/app/qt/kid3mainwindow.cpp:137
 msgctxt "Kid3MainWindow|"
 msgid "O&pen Folder..."
-msgstr "A&brir carpeta..."
+msgstr "A&brir carpeta…"
 
 #: src/app/qt/kid3mainwindow.cpp:148
 msgctxt "Kid3MainWindow|"
@@ -1186,7 +1187,7 @@ msgstr "Importar de archivo o del portapapeles"
 #: src/app/qt/kid3mainwindow.cpp:200
 msgctxt "Kid3MainWindow|"
 msgid "&Import..."
-msgstr "&Importar..."
+msgstr "&Importar…"
 
 #: src/app/qt/kid3mainwindow.cpp:220 src/app/qt/kid3mainwindow.cpp:240
 #, qt-format
@@ -1198,7 +1199,7 @@ msgstr "Importar de %1"
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1..."
-msgstr "Importar de %1..."
+msgstr "Importar de %1…"
 
 #: src/app/qt/kid3mainwindow.cpp:251
 msgctxt "Kid3MainWindow|"
@@ -1208,7 +1209,7 @@ msgstr "Importar de etiquetas"
 #: src/app/qt/kid3mainwindow.cpp:252
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags..."
-msgstr "Importar de etiquetas..."
+msgstr "Importar de etiquetas…"
 
 #: src/app/qt/kid3mainwindow.cpp:260
 msgctxt "Kid3MainWindow|"
@@ -1218,7 +1219,7 @@ msgstr "Importar automáticamente"
 #: src/app/qt/kid3mainwindow.cpp:261
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
-msgstr "I&mportar automáticamente..."
+msgstr "I&mportar automáticamente…"
 
 #: src/app/qt/kid3mainwindow.cpp:269
 msgctxt "Kid3MainWindow|"
@@ -1228,7 +1229,7 @@ msgstr "Explorar las carátulas de los álbumes"
 #: src/app/qt/kid3mainwindow.cpp:270
 msgctxt "Kid3MainWindow|"
 msgid "&Browse Cover Art..."
-msgstr "&Explorar las carátulas..."
+msgstr "&Explorar las carátulas…"
 
 #: src/app/qt/kid3mainwindow.cpp:279
 msgctxt "Kid3MainWindow|"
@@ -1238,7 +1239,7 @@ msgstr "Exportar a archivo o al portapapeles"
 #: src/app/qt/kid3mainwindow.cpp:280
 msgctxt "Kid3MainWindow|"
 msgid "&Export..."
-msgstr "&Exportar..."
+msgstr "&Exportar…"
 
 #: src/app/qt/kid3mainwindow.cpp:290
 msgctxt "Kid3MainWindow|"
@@ -1248,7 +1249,7 @@ msgstr "Crear lista m3u"
 #: src/app/qt/kid3mainwindow.cpp:291
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
-msgstr "&Crear lista de reproducción..."
+msgstr "&Crear lista de reproducción…"
 
 #: src/app/qt/kid3mainwindow.cpp:304
 msgctxt "Kid3MainWindow|"
@@ -1328,7 +1329,7 @@ msgstr "Buscar"
 #: src/app/qt/kid3mainwindow.cpp:391
 msgctxt "Kid3MainWindow|"
 msgid "&Find..."
-msgstr "&Buscar..."
+msgstr "&Buscar…"
 
 #: src/app/qt/kid3mainwindow.cpp:404
 msgctxt "Kid3MainWindow|"
@@ -1338,7 +1339,7 @@ msgstr "Buscar y sustituir"
 #: src/app/qt/kid3mainwindow.cpp:405
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
-msgstr "&Sustituir..."
+msgstr "&Sustituir…"
 
 #: src/app/qt/kid3mainwindow.cpp:417
 msgctxt "Kid3MainWindow|"
@@ -1383,7 +1384,7 @@ msgstr "Cambiar nombre de carpeta"
 #: src/app/qt/kid3mainwindow.cpp:450
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
-msgstr "&Cambiar nombre de carpeta..."
+msgstr "&Cambiar nombre de carpeta…"
 
 #: src/app/qt/kid3mainwindow.cpp:458
 msgctxt "Kid3MainWindow|"
@@ -1393,7 +1394,7 @@ msgstr "Numerar pistas"
 #: src/app/qt/kid3mainwindow.cpp:459
 msgctxt "Kid3MainWindow|"
 msgid "&Number Tracks..."
-msgstr "&Asignar números de pista por orden..."
+msgstr "&Asignar números de pista por orden…"
 
 #: src/app/qt/kid3mainwindow.cpp:467
 msgctxt "Kid3MainWindow|"
@@ -1403,7 +1404,7 @@ msgstr "Filtro"
 #: src/app/qt/kid3mainwindow.cpp:468
 msgctxt "Kid3MainWindow|"
 msgid "F&ilter..."
-msgstr "F&iltro..."
+msgstr "F&iltro…"
 
 #: src/app/qt/kid3mainwindow.cpp:479
 msgctxt "Kid3MainWindow|"
@@ -1488,7 +1489,7 @@ msgstr "Configurar Kid3"
 #: src/app/qt/kid3mainwindow.cpp:559
 msgctxt "Kid3MainWindow|"
 msgid "&Configure Kid3..."
-msgstr "&Configurar Kid3..."
+msgstr "&Configurar Kid3…"
 
 #: src/app/qt/kid3mainwindow.cpp:573
 msgctxt "Kid3MainWindow|"
@@ -1793,7 +1794,7 @@ msgstr "Datos recibidos: %1"
 #: src/core/import/httpclient.cpp:228
 msgctxt "HttpClient|"
 msgid "Request sent..."
-msgstr "Petición enviada..."
+msgstr "Petición enviada…"
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
 #: src/core/tags/frame.cpp:1983
@@ -2410,7 +2411,7 @@ msgstr "Datos"
 #: src/core/model/kid3application.cpp:1032
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
-msgstr "Guardando carpeta..."
+msgstr "Guardando carpeta…"
 
 #: src/core/model/kid3application.cpp:1237
 msgctxt "Kid3Application|"
@@ -4274,17 +4275,17 @@ msgstr "&Al portapapeles"
 #: src/gui/dialogs/editframefieldsdialog.cpp:1136
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
-msgstr "&Importar..."
+msgstr "&Importar…"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1137
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
-msgstr "&Exportar..."
+msgstr "&Exportar…"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1138
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
-msgstr "&Ver..."
+msgstr "&Ver…"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1310
 msgctxt "EditFrameFieldsDialog|"
@@ -4324,7 +4325,7 @@ msgstr "Pie de pági&na:"
 #: src/gui/dialogs/exportdialog.cpp:91
 msgctxt "ExportDialog|"
 msgid "To F&ile..."
-msgstr "A arch&ivo..."
+msgstr "A arch&ivo…"
 
 #: src/gui/dialogs/exportdialog.cpp:96
 msgctxt "ExportDialog|"
@@ -4526,17 +4527,17 @@ msgstr "Carátula:"
 #: src/gui/dialogs/importdialog.cpp:148
 msgctxt "ImportDialog|"
 msgid "From F&ile/Clipboard..."
-msgstr "De arch&ivo/portapapeles..."
+msgstr "De arch&ivo/portapapeles…"
 
 #: src/gui/dialogs/importdialog.cpp:151
 msgctxt "ImportDialog|"
 msgid "From T&ags..."
-msgstr "De las etiquet&as..."
+msgstr "De las etiquet&as…"
 
 #: src/gui/dialogs/importdialog.cpp:154
 msgctxt "ImportDialog|"
 msgid "&From Server..."
-msgstr "&Del servidor..."
+msgstr "&Del servidor…"
 
 #: src/gui/dialogs/importdialog.cpp:176
 msgctxt "ImportDialog|"
@@ -4816,7 +4817,7 @@ msgstr "&Origen:"
 #: src/gui/dialogs/rendirdialog.cpp:122
 msgctxt "RenDirDialog|"
 msgid "&Edit..."
-msgstr "&Editar..."
+msgstr "&Editar…"
 
 #: src/gui/dialogs/rendirdialog.cpp:126
 msgctxt "RenDirDialog|"
@@ -5029,7 +5030,7 @@ msgstr "&Guardar preferencias"
 #: src/gui/dialogs/textimportdialog.cpp:80
 msgctxt "TextImportDialog|"
 msgid "From F&ile..."
-msgstr "De arch&ivo..."
+msgstr "De arch&ivo…"
 
 #: src/gui/dialogs/textimportdialog.cpp:84
 msgctxt "TextImportDialog|"
@@ -5049,7 +5050,7 @@ msgstr "Descargar"
 #: src/gui/forms/basemainwindow.cpp:233
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
-msgstr "Abriendo carpeta..."
+msgstr "Abriendo carpeta…"
 
 #: src/gui/forms/basemainwindow.cpp:324
 msgctxt "BaseMainWindowImpl|"
@@ -5107,7 +5108,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:610
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
-msgstr "Saliendo..."
+msgstr "Saliendo…"
 
 #: src/gui/forms/basemainwindow.cpp:697
 #, qt-format
@@ -5141,7 +5142,7 @@ msgstr "Preparado."
 #: src/gui/forms/basemainwindow.cpp:772
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
-msgstr "Creando lista de reproducción..."
+msgstr "Creando lista de reproducción…"
 
 #: src/gui/forms/basemainwindow.cpp:820
 msgctxt "BaseMainWindowImpl|"
@@ -5408,12 +5409,12 @@ msgstr "Eliminar"
 #: src/gui/forms/kid3form.cpp:565
 msgctxt "Kid3Form|"
 msgid "Edit..."
-msgstr "Editar..."
+msgstr "Editar…"
 
 #: src/gui/forms/kid3form.cpp:571
 msgctxt "Kid3Form|"
 msgid "Add..."
-msgstr "Añadir..."
+msgstr "Añadir…"
 
 #: src/gui/forms/kid3form.cpp:577
 msgctxt "Kid3Form|"
@@ -5478,7 +5479,7 @@ msgstr "Abrir la carpeta actual"
 #: src/gui/widgets/abstractlistedit.cpp:50
 msgctxt "AbstractListEdit|"
 msgid "&Add..."
-msgstr "&Añadir..."
+msgstr "&Añadir…"
 
 #: src/gui/widgets/abstractlistedit.cpp:51
 msgctxt "AbstractListEdit|"
@@ -5493,7 +5494,7 @@ msgstr "&Bajar"
 #: src/gui/widgets/abstractlistedit.cpp:53
 msgctxt "AbstractListEdit|"
 msgid "&Edit..."
-msgstr "&Editar..."
+msgstr "&Editar…"
 
 #: src/gui/widgets/abstractlistedit.cpp:54
 msgctxt "AbstractListEdit|"
@@ -5680,7 +5681,7 @@ msgstr "Silenciar"
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
-msgstr "Volumen: %1%"
+msgstr "Volumen: %1 %"
 
 #: src/gui/widgets/progresswidget.cpp:56
 msgctxt "ProgressWidget|"
@@ -5700,12 +5701,12 @@ msgstr "Editar elemento"
 #: src/gui/widgets/subframeseditor.cpp:67
 msgctxt "SubframesEditor|"
 msgid "Edit..."
-msgstr "Editar..."
+msgstr "Editar…"
 
 #: src/gui/widgets/subframeseditor.cpp:72
 msgctxt "SubframesEditor|"
 msgid "Add..."
-msgstr "Añadir..."
+msgstr "Añadir…"
 
 #: src/gui/widgets/subframeseditor.cpp:77
 msgctxt "SubframesEditor|"
@@ -5760,12 +5761,12 @@ msgstr "Del &portapapeles"
 #: src/gui/widgets/timeeventeditor.cpp:125
 msgctxt "TimeEventEditor|"
 msgid "&Import..."
-msgstr "&Importar..."
+msgstr "&Importar…"
 
 #: src/gui/widgets/timeeventeditor.cpp:127
 msgctxt "TimeEventEditor|"
 msgid "&Export..."
-msgstr "&Exportar..."
+msgstr "&Exportar…"
 
 #: src/gui/widgets/timeeventeditor.cpp:129
 msgctxt "TimeEventEditor|"
@@ -5810,7 +5811,7 @@ msgstr "&Borrar"
 #: src/gui/widgets/timeeventeditor.cpp:475
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
-msgstr "&Añadir desplazamiento..."
+msgstr "&Añadir desplazamiento…"
 
 #: src/gui/widgets/timeeventeditor.cpp:477
 msgctxt "TimeEventEditor|"
@@ -7238,11 +7239,3 @@ msgstr "Pegar"
 msgctxt "TagCollapsible|"
 msgid "Remove"
 msgstr "Eliminar"
-
-#~ msgctxt "ConfigDialogPages|"
-#~ msgid "Custom &Genres"
-#~ msgstr "&Géneros personalizados"
-
-#~ msgctxt "@default|"
-#~ msgid "TrackType.org"
-#~ msgstr "TrackType.org"
