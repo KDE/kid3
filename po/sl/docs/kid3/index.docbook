@@ -49,7 +49,7 @@
 
 <copyright>
 <year
->2024</year>
+>2025</year>
 <holder
 >Urs Fleisch</holder>
 </copyright>
@@ -57,9 +57,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->21.09.2024</date>
+>24.07.2025</date>
 <releaseinfo
->3.9.6</releaseinfo>
+>3.9.7</releaseinfo>
 
 <abstract>
 <para
@@ -194,7 +194,7 @@ end manpage include-->
 ><option
 >Qt-options</option
 ></arg
-> <arg rep="repeat "
+> <arg rep="repeat"
 ><replaceable
 >DATOTEKA</replaceable
 ></arg
@@ -2674,6 +2674,18 @@ end manpage include-->
 > v <guilabel
 >Vtičnikih</guilabel 
 > zavihek nastavitev, če morate urejati poglavja MP4. </para>
+<para
+>Informacije o poglavjih v zvočnih knjigah MP3 so shranjene v več okvirjih "Poglavje" (CHAP), na katere se sklicuje okvir "Kazalo vsebine" (CTOC), ti okvirji pa imajo vdelane podokvirje. Za urejanje teh informacij na enem mestu se lahko za oznake ID3v2 uporabi tudi psevdo okvir "Poglavja". Njegova vsebina se uporablja za ustvarjanje dejanskega poglavja, kazala vsebine in vdelanih okvirjev: stolpec <guilabel
+>Opis</guilabel
+> se uporablja kot naslov kazala vsebine, stolpec <guilabel
+>Besedilo</guilabel
+> vsebuje naslove poglavij, ustrezna vrednost <guilabel
+>Čas</guilabel
+> pa bo začetni in končni čas poglavja prejšnjega poglavja. Končni čas zadnjega poglavja je določen z <guilabel
+>Časom</guilabel
+> zadnje vrstice, če je njeno <guilabel
+>Besedilo</guilabel
+> prazno. </para>
 </sect2>
 
 </sect1>
@@ -2836,6 +2848,12 @@ end manpage include-->
 >. </para>
 <para
 >Če imate v spletnem brskalniku že odprt rezultat iskanja, lahko URL vnesete v prvo iskalno polje. Rezultat se bo nato pojavil na seznamu albumov in ga je mogoče neposredno uvoziti v &kid3;. </para>
+<para
+>E-poštni naslov, registriran na <ulink url="https://gnudb.org/info.php"
+> gnudb.org</ulink
+>, lahko vnesete v polje <guilabel
+>Žeton</guilabel
+>. </para>
 <para id="import-discogs"
 >Iskanje na strežniku Discogs lahko izvedete z <guibutton
 >Discogs</guibutton
@@ -2990,6 +3008,12 @@ end manpage include-->
 >, ki bo preuredite skladbe v skladu z ustreznim poljem. Če želite ročno popraviti dodelitve, lahko skladbo povlečete z <mousebutton
 >levo</mousebutton
 > tipko miške in &Ctrl; tipko držite pritisnjeno in nato spustite na novo mesto. </para>
+<para
+>Če je več uvoženih skladb kot datotek, kot v primeru, da trenutna mapa vsebuje samo drugo ploščo albuma z dvema ploščama, uvožene pa so skladbe obeh plošč, je možno izbrisati skladbe prve plošče tako, da jih izberete s klikom na na oznako vrstice prve skladbe, nato kliknite na oznako vrstice zadnje skladbe prvega diska, medtem ko držite tipko <keycap
+>Shift</keycap
+> in na koncu odstranite skladbe s pritiskom tipke <keycap
+>Delete</keycap
+>. </para>
 <para
 >Ko se odpre pogovorno okno za uvoz, vsebuje dejansko vsebino oznak. Vrsto oznake (Oznaka 1, Oznaka 2, Oznaka 1 in Oznaka 2) lahko izberete s kombiniranim poljem <guilabel
 >Cilj</guilabel
@@ -8320,7 +8344,7 @@ function renameDirectory(format) {
 >. Njihove lastnosti so lahko navedene v QML konzoli. <screen width="80">
 script.properties(configs.networkConfig())
 </screen
-> Lastnosti lahko nastavite:​ <screen width="80"
+> Lastnosti lahko nastavite: <screen width="80"
 >configs.networkConfig().useProxy = false
 </screen>
 </para>
