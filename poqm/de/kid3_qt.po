@@ -1,11 +1,10 @@
 # Kid3 German Translation.
 # This file is put in the public domain.
-#
 # SPDX-FileCopyrightText: 2024 Johannes Obermayr <johannesobermayr@gmx.de>
-# Urs Fleisch <ufleisch@users.sourceforge.net>, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011.
-# Frank Steinmetzger <Warp_7@gmx.de>, 2011, 2022.
-# Burkhard Lück <lueck@hube-lueck.de>, 2020, 2021.
-# Frederik Schwarzer <schwarzer@kde.org>, 2022, 2023.
+# SPDX-FileCopyrightText: 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Urs Fleisch <ufleisch@users.sourceforge.net>
+# SPDX-FileCopyrightText: 2011, 2022 Frank Steinmetzger <Warp_7@gmx.de>
+# SPDX-FileCopyrightText: 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3_qt\n"
