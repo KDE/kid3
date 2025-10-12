@@ -2669,7 +2669,7 @@ end manpage include-->
 >Estensioni</guilabel 
 > delle impostazioni se devi modificare i capitoli MP4. </para>
 <para
->Le informazioni sui capitoli negli audiolibri MP3 sono memorizzate in più frame «Capitolo» (CHAP) a cui fa riferimento un frame «Indice» (CTOC), e questi frame hanno sottoframe incorporati. Per modificare queste informazioni in un unico posto, è possibile utilizzare anche uno pseudo frame «Capitoli» per i tag ID3v2. Il suo contenuto viene utilizzato per creare il capitolo reale, l'indice e i frame incorporati: la <guilabel
+>Le informazioni sui capitoli negli audiolibri MP3 sono memorizzate in più frame «Capitolo» (CHAP) a cui fa riferimento un frame «Indice» (CTOC), e questi frame hanno sottoframe incorporati. Per modificare queste informazioni in un unico posto, è possibile utilizzare anche uno pseudo frame «Capitoli» per i tag ID3v2. Il suo contenuto viene utilizzato per creare il capitolo, l'indice e i frame incorporati effettivi: la <guilabel
 >Descrizione</guilabel
 > viene utilizzata come titolo dell'indice, la colonna <guilabel
 >Testo</guilabel
