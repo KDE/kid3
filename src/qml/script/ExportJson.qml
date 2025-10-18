@@ -76,7 +76,7 @@ Kid3Script {
       var frameModel = app.tag(tagNr).frameModel
       var numRows = frameModel.rowCount()
       for (var row = 0; row < numRows; ++row) {
-        var name = script.getRoleData(frameModel, row, "name")
+        var name = script.getRoleData(frameModel, row, "frameName")
         if (script.getRoleData(frameModel, row, "checkState") === Qt.Checked) {
           checked.push(name)
         }

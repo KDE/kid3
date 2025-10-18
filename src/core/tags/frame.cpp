@@ -898,6 +898,28 @@ QString Frame::getDisplayName(const QString& name)
 }
 
 /**
+ * Get a simplified name for a frame name.
+ * @param name frame name as returned by getName()
+ * @return untranslated name, user defined description or frame ID.
+ */
+QString Frame::getSimpleFrameName(const QString& name)
+{
+  if (name.isEmpty())
+    return name;
+
+  QString nameStr(name);
+  if (int nlPos = nameStr.indexOf(QLatin1Char('\n')); nlPos > 0) {
+    // probably "TXXX - User defined text information\nDescription" or
+    // "WXXX - User defined URL link\nDescription"
+    nameStr = nameStr.mid(nlPos + 1);
+  } else if (nameStr.mid(4, 3) == QLatin1String(" - ")) {
+    // probably "ID3-ID - Description"
+    nameStr = nameStr.left(4);
+  }
+  return nameStr;
+}
+
+/**
  * Get a map with display names as keys and frame names as values.
  * @param names frame names as returned by getName()
  * @return mapping of display names to frame names.

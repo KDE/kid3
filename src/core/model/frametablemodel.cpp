@@ -48,6 +48,7 @@ QHash<int,QByteArray> getRoleHash()
   roles[FrameTableModel::CompletionsRole] = "completions";
   roles[FrameTableModel::NoticeRole] = "notice";
   roles[FrameTableModel::NoticeWarningRole] = "noticeWarning";
+  roles[FrameTableModel::FrameNameRole] = "frameName";
   return roles;
 }
 
@@ -246,6 +247,8 @@ QVariant FrameTableModel::data(const QModelIndex& index, int role) const
     return isTruncated ? (it->isMarked() ? it->getNotice().getWarning()
                                          : FrameNotice::Truncated)
                        : FrameNotice::None;
+  } else if (role == FrameNameRole) {
+    return Frame::getSimpleFrameName(it->getName());
   }
   return QVariant();
 }

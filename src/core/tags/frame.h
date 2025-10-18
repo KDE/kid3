@@ -867,6 +867,13 @@ public:
   static QString getDisplayName(const QString& name);
 
   /**
+   * Get a simplified name for a frame name.
+   * @param name frame name as returned by getName()
+   * @return untranslated name, user defined description or frame ID.
+   */
+  static QString getSimpleFrameName(const QString& name);
+
+  /**
    * Get a map with display names as keys and frame names as values.
    * @param names frame names as returned by getName()
    * @return mapping of display names to frame names.
