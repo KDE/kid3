@@ -37,6 +37,7 @@
 #include <QAction>
 #include "config.h"
 #include "loadtranslation.h"
+#include "mainwindowconfig.h"
 
 /**
  * Constructor.
@@ -59,8 +60,14 @@ BrowserDialog::BrowserDialog(QWidget* parent, const QString& caption)
 
   QLocale locale;
   QStringList docPaths;
+  QStringList uiLangs;
+  const QString configuredLanguage = MainWindowConfig::instance().language();
+  if (!configuredLanguage.isEmpty()) {
+    uiLangs.append(configuredLanguage);
+  }
 #ifndef Q_OS_WIN32
-  const auto uiLangs = locale.uiLanguages();
+  uiLangs.append(locale.uiLanguages());
+#endif
   for (const QString& uiLang : uiLangs) {
     QString lang(uiLang.left(2));
     docPaths += QDir::currentPath() + QLatin1String("/kid3_") + lang +
@@ -69,7 +76,6 @@ BrowserDialog::BrowserDialog(QWidget* parent, const QString& caption)
       docPaths += docDir + QLatin1String("/kid3_") + lang + QLatin1String(".html"); // clazy:exclude=reserve-candidates
     }
   }
-#endif
   QString lang(locale.name().left(2));
   if (!docDir.isNull()) {
     docPaths += docDir + QLatin1String("/kid3_") + lang + QLatin1String(".html");
