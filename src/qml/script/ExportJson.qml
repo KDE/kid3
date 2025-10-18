@@ -29,6 +29,42 @@ Kid3Script {
     var selectedFramesV1 = null
     var selectedFramesV2 = null
     var selectedFramesV3 = null
+    var selectedFolders = null
+
+    /**
+     * Get list of selected folders.
+     * @return paths of selected folders, null if no folders are selected.
+     */
+    function getSelectedFolders() {
+      var result = []
+      var paths = app.getSelectedFilePaths(false)
+      for (var i = 0, len = paths.length; i < len; i++) {
+        var path = paths[i]
+        if (script.classifyFile(path) === "/") {
+          result.push(path)
+        }
+      }
+      return result.length ? result : null
+    }
+
+    /**
+     * Check if a given file path has to be skipped because it is not in one
+     * of the selected folders.
+     * @return false if no folders have been selected or the file path starts
+     *         with one of the selected folder paths, else true.
+     */
+    function hasToSkipPath(path) {
+      if (!selectedFolders || !selectedFolders.length || !path) {
+        return false
+      }
+      for (var i = 0, len = selectedFolders.length; i < len; i++) {
+        var selectedFolder = selectedFolders[i]
+        if (path.startsWith(selectedFolder)) {
+          return false
+        }
+      }
+      return true
+    }
 
     /**
      * Get list of frame names which are selected in frame table.
@@ -69,41 +105,43 @@ Kid3Script {
     function doWork() {
       var tags
       var prop
-      if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
-        tags = app.getAllFrames(tagv2)
-        removeUnselectedFrames(tags, selectedFramesV2)
-      }
-      if (app.selectionInfo.tag(Frame.Tag_1).tagFormat) {
-        var tagsV1 = app.getAllFrames(tagv1)
-        removeUnselectedFrames(tagsV1, selectedFramesV1)
-        if (typeof tags === "undefined") {
-          tags = {}
+      if (!hasToSkipPath(app.selectionInfo.filePath)) {
+        if (app.selectionInfo.tag(Frame.Tag_2).tagFormat) {
+          tags = app.getAllFrames(tagv2)
+          removeUnselectedFrames(tags, selectedFramesV2)
         }
-        for (prop in tagsV1) {
-          tags["v1" + prop] = tagsV1[prop]
+        if (app.selectionInfo.tag(Frame.Tag_1).tagFormat) {
+          var tagsV1 = app.getAllFrames(tagv1)
+          removeUnselectedFrames(tagsV1, selectedFramesV1)
+          if (typeof tags === "undefined") {
+            tags = {}
+          }
+          for (prop in tagsV1) {
+            tags["v1" + prop] = tagsV1[prop]
+          }
         }
-      }
-      if (app.selectionInfo.tag(Frame.Tag_3).tagFormat) {
-        var tagsV3 = app.getAllFrames(Frame.TagV3)
-        removeUnselectedFrames(tagsV3, selectedFramesV3)
-        if (typeof tags === "undefined") {
-          tags = {}
+        if (app.selectionInfo.tag(Frame.Tag_3).tagFormat) {
+          var tagsV3 = app.getAllFrames(Frame.TagV3)
+          removeUnselectedFrames(tagsV3, selectedFramesV3)
+          if (typeof tags === "undefined") {
+            tags = {}
+          }
+          for (prop in tagsV3) {
+            tags["v3" + prop] = tagsV3[prop]
+          }
         }
-        for (prop in tagsV3) {
-          tags["v3" + prop] = tagsV3[prop]
+        if (tags) {
+          // Feel free to add additional elements, but you may have to exclude
+          // them in ImportJson.qml too.
+          // tags["Duration"] = app.selectionInfo.formatString(Frame.Tag_2, "%{duration}")
+          // tags["Bitrate"] = app.selectionInfo.formatString(Frame.Tag_2, "%{bitrate}")
+          // tags["Mode"] = app.selectionInfo.formatString(Frame.Tag_2, "%{mode}")
+          // tags["Codec"] = app.selectionInfo.formatString(Frame.Tag_2, "%{codec}")
+          // tags["Directory"] = app.selectionInfo.formatString(Frame.Tag_2, "%{dirname}")
+          // tags["File"] = app.selectionInfo.formatString(Frame.Tag_2, "%{file}")
+          obj.data.push(tags)
+          tags["File Path"] = app.selectionInfo.filePath
         }
-      }
-      if (tags) {
-        // Feel free to add additional elements, but you may have to exclude
-        // them in ImportJson.qml too.
-        // tags["Duration"] = app.selectionInfo.formatString(Frame.Tag_2, "%{duration}")
-        // tags["Bitrate"] = app.selectionInfo.formatString(Frame.Tag_2, "%{bitrate}")
-        // tags["Mode"] = app.selectionInfo.formatString(Frame.Tag_2, "%{mode}")
-        // tags["Codec"] = app.selectionInfo.formatString(Frame.Tag_2, "%{codec}")
-        // tags["Directory"] = app.selectionInfo.formatString(Frame.Tag_2, "%{dirname}")
-        // tags["File"] = app.selectionInfo.formatString(Frame.Tag_2, "%{file}")
-        obj.data.push(tags)
-        tags["File Path"] = app.selectionInfo.filePath
       }
 
       if (!app.nextFile()) {
@@ -134,6 +172,36 @@ Kid3Script {
       selectedFramesV1 = getSelectedFrames(Frame.Tag_1)
       selectedFramesV2 = getSelectedFrames(Frame.Tag_2)
       selectedFramesV3 = getSelectedFrames(Frame.Tag_3)
+      selectedFolders = getSelectedFolders()
+      if (selectedFramesV1 || selectedFramesV2 || selectedFramesV3) {
+        if (selectedFramesV1 && selectedFramesV1.length === 0 &&
+            selectedFramesV2 && selectedFramesV2.length === 0) {
+          // All frame selection checkboxes unchecked, probably just because
+          // multiple files are selected => export all frames.
+          selectedFramesV1 = null
+          selectedFramesV2 = null
+        } else {
+          console.log("Exporting only frames:\n" +
+                      ("  Tag 1: " + (selectedFramesV1
+                                      ? (selectedFramesV1.length > 0
+                                         ? selectedFramesV1.join(", ")
+                                         : "none")
+                                      : "all")) + "\n" +
+                      ("  Tag 2: " + (selectedFramesV2
+                                      ? (selectedFramesV2.length > 0
+                                         ? selectedFramesV2.join(", ")
+                                         : "none")
+                                      : "all")) + "\n" +
+                      ("  Tag 3: " + (selectedFramesV3
+                                      ? (selectedFramesV3.length > 0
+                                         ? selectedFramesV3.join(", ")
+                                         : "none")
+                                      : "all")))
+        }
+      }
+      if (selectedFolders) {
+        console.log("Exporting only folders: " + selectedFolders.join(", "))
+      }
 
       app.expandFileListFinished.disconnect(startWork)
       console.log("Reading tags")
