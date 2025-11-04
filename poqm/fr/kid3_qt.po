@@ -1076,7 +1076,7 @@ msgstr "Inconnu"
 #: src/app/qt/configdialog.cpp:151
 msgctxt "ConfigDialog|"
 msgid "Use native system file &dialogs"
-msgstr "Utiliser les boîtes de &dialogue natives de fichiers système"
+msgstr "Utiliser les boites de &dialogue natives de fichiers système"
 
 #: src/app/qt/configdialog.cpp:155
 msgctxt "ConfigDialog|"
@@ -2281,17 +2281,17 @@ msgstr "Étiquette 2"
 #: src/core/model/filefilter.cpp:108
 msgctxt "@default|"
 msgid "True if strings are equal"
-msgstr "Les chaînes sont identiques"
+msgstr "Les chaines sont identiques"
 
 #: src/core/model/filefilter.cpp:114
 msgctxt "@default|"
 msgid "True if string contains substring"
-msgstr "Vrai si la chaîne contient la sous-chaîne"
+msgstr "Vrai si la chaine contient la sous-chaine"
 
 #: src/core/model/filefilter.cpp:121
 msgctxt "@default|"
 msgid "True if string matches regexp"
-msgstr "Vrai si la chaîne correspond à l'expression rationnelle"
+msgstr "Vrai si la chaine correspond à l'expression rationnelle"
 
 #: src/core/model/filefilter.cpp:127
 msgctxt "@default|"
@@ -3570,7 +3570,7 @@ msgstr "Doit être un code ISRC, 12 caractères"
 #: src/core/tags/framenotice.cpp:201
 msgctxt "@default|"
 msgid "Must be list of strings separated by '|'"
-msgstr "Doit être une liste de chaînes séparées par « | »"
+msgstr "Doit être une liste de chaines séparées par « | »"
 
 #: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
@@ -5561,7 +5561,7 @@ msgstr "Appliquer le format automatiquement"
 #: src/gui/widgets/formatbox.cpp:56
 msgctxt "FormatBox|"
 msgid "String replacement:"
-msgstr "Remplacement de chaînes :"
+msgstr "Remplacement de chaines :"
 
 #: src/gui/widgets/formatbox.cpp:58
 msgctxt "FormatBox|"
@@ -7088,12 +7088,12 @@ msgstr "Localisation"
 #: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:260
 msgctxt "SettingsPage|"
 msgid "String replacement"
-msgstr "Remplacement de chaînes"
+msgstr "Remplacement de chaines"
 
 #: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:264
 msgctxt "SettingsPage|"
 msgid "String Replacement"
-msgstr "Remplacement de chaînes"
+msgstr "Remplacement de chaines"
 
 #: src/qml/app/SettingsPage.qml:174
 msgctxt "SettingsPage|"
