@@ -983,32 +983,32 @@ msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "音訊標籤編輯器"
 
-#: src/app/qt/browserdialog.cpp:91
+#: src/app/qt/browserdialog.cpp:97
 msgctxt "BrowserDialog|"
 msgid "&Back"
 msgstr "返回(&B)"
 
-#: src/app/qt/browserdialog.cpp:98
+#: src/app/qt/browserdialog.cpp:104
 msgctxt "BrowserDialog|"
 msgid "&Forward"
 msgstr "前進(&F)"
 
-#: src/app/qt/browserdialog.cpp:105
+#: src/app/qt/browserdialog.cpp:111
 msgctxt "BrowserDialog|"
 msgid "&Find:"
 msgstr "尋找(&F)："
 
-#: src/app/qt/browserdialog.cpp:121
+#: src/app/qt/browserdialog.cpp:127
 msgctxt "BrowserDialog|"
 msgid "Find Previous"
 msgstr "尋找上一個"
 
-#: src/app/qt/browserdialog.cpp:131
+#: src/app/qt/browserdialog.cpp:137
 msgctxt "BrowserDialog|"
 msgid "Find Next"
 msgstr "尋找下一個"
 
-#: src/app/qt/browserdialog.cpp:139
+#: src/app/qt/browserdialog.cpp:145
 msgctxt "BrowserDialog|"
 msgid "&Close"
 msgstr "關閉(&C)"
@@ -1798,43 +1798,43 @@ msgid "Request sent..."
 msgstr "送出連線要求…"
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:1983
+#: src/core/tags/frame.cpp:2005
 msgctxt "@default|"
 msgid "Title"
 msgstr "歌(曲)名"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:1987
+#: src/core/tags/frame.cpp:2009
 msgctxt "@default|"
 msgid "Album"
 msgstr "專輯名稱"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:1991
+#: src/core/tags/frame.cpp:2013
 msgctxt "@default|"
 msgid "Artist"
 msgstr "演唱(奏)者"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1995
+#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:2017
 msgctxt "@default|"
 msgid "Comment"
 msgstr "內容註釋"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:1999
+#: src/core/tags/frame.cpp:2021
 msgctxt "@default|"
 msgid "Year"
 msgstr "年"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2004
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2026
 msgctxt "@default|"
 msgid "Track"
 msgstr "音軌"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2017
+#: src/core/tags/frame.cpp:2039
 msgctxt "@default|"
 msgid "Genre"
 msgstr "曲風"
@@ -2389,22 +2389,22 @@ msgctxt "FrameFieldObject|"
 msgid "Text"
 msgstr "文字"
 
-#: src/core/model/frametablemodel.cpp:144
+#: src/core/model/frametablemodel.cpp:145
 msgctxt "FrameTableModel|"
 msgid "Volume"
 msgstr "音量"
 
-#: src/core/model/frametablemodel.cpp:168
+#: src/core/model/frametablemodel.cpp:169
 msgctxt "FrameTableModel|"
 msgid "File ID"
 msgstr "檔案 ID"
 
-#: src/core/model/frametablemodel.cpp:309
+#: src/core/model/frametablemodel.cpp:312
 msgctxt "FrameTableModel|"
 msgid "Name"
 msgstr "名稱"
 
-#: src/core/model/frametablemodel.cpp:309
+#: src/core/model/frametablemodel.cpp:312
 msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "資料"
@@ -3463,23 +3463,23 @@ msgctxt "@default|"
 msgid "Source Form"
 msgstr ""
 
-#: src/core/tags/frame.cpp:1204
+#: src/core/tags/frame.cpp:1226
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "%1 標籤"
 
-#: src/core/tags/frame.cpp:1209
+#: src/core/tags/frame.cpp:1231
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "標籤 1 與 標籤 2"
 
-#: src/core/tags/frame.cpp:1213
+#: src/core/tags/frame.cpp:1235
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "所有標籤"
 
-#: src/core/tags/frame.cpp:2022
+#: src/core/tags/frame.cpp:2044
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "若不是空白，則在前方加上 t1（或是在後方加上 t2）"

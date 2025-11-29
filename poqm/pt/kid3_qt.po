@@ -988,32 +988,32 @@ msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "Editor de Marcas de Áudio"
 
-#: src/app/qt/browserdialog.cpp:91
+#: src/app/qt/browserdialog.cpp:97
 msgctxt "BrowserDialog|"
 msgid "&Back"
 msgstr "&Recuar"
 
-#: src/app/qt/browserdialog.cpp:98
+#: src/app/qt/browserdialog.cpp:104
 msgctxt "BrowserDialog|"
 msgid "&Forward"
 msgstr "&Avançar"
 
-#: src/app/qt/browserdialog.cpp:105
+#: src/app/qt/browserdialog.cpp:111
 msgctxt "BrowserDialog|"
 msgid "&Find:"
 msgstr "&Procurar:"
 
-#: src/app/qt/browserdialog.cpp:121
+#: src/app/qt/browserdialog.cpp:127
 msgctxt "BrowserDialog|"
 msgid "Find Previous"
 msgstr "Procurar o Anterior"
 
-#: src/app/qt/browserdialog.cpp:131
+#: src/app/qt/browserdialog.cpp:137
 msgctxt "BrowserDialog|"
 msgid "Find Next"
 msgstr "Procurar o Seguinte"
 
-#: src/app/qt/browserdialog.cpp:139
+#: src/app/qt/browserdialog.cpp:145
 msgctxt "BrowserDialog|"
 msgid "&Close"
 msgstr "Fe&char"
@@ -1806,43 +1806,43 @@ msgid "Request sent..."
 msgstr "Pedido enviado..."
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:1983
+#: src/core/tags/frame.cpp:2005
 msgctxt "@default|"
 msgid "Title"
 msgstr "Título"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:1987
+#: src/core/tags/frame.cpp:2009
 msgctxt "@default|"
 msgid "Album"
 msgstr "Álbum"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:1991
+#: src/core/tags/frame.cpp:2013
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Artista"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1995
+#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:2017
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Comentário"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:1999
+#: src/core/tags/frame.cpp:2021
 msgctxt "@default|"
 msgid "Year"
 msgstr "Ano"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2004
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2026
 msgctxt "@default|"
 msgid "Track"
 msgstr "Faixa"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2017
+#: src/core/tags/frame.cpp:2039
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Género"
@@ -2397,22 +2397,22 @@ msgctxt "FrameFieldObject|"
 msgid "Text"
 msgstr "Texto"
 
-#: src/core/model/frametablemodel.cpp:144
+#: src/core/model/frametablemodel.cpp:145
 msgctxt "FrameTableModel|"
 msgid "Volume"
 msgstr "Volume"
 
-#: src/core/model/frametablemodel.cpp:168
+#: src/core/model/frametablemodel.cpp:169
 msgctxt "FrameTableModel|"
 msgid "File ID"
 msgstr "ID do Ficheiro"
 
-#: src/core/model/frametablemodel.cpp:309
+#: src/core/model/frametablemodel.cpp:312
 msgctxt "FrameTableModel|"
 msgid "Name"
 msgstr "Nome"
 
-#: src/core/model/frametablemodel.cpp:309
+#: src/core/model/frametablemodel.cpp:312
 msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Dados"
@@ -3471,23 +3471,23 @@ msgctxt "@default|"
 msgid "Source Form"
 msgstr "Formato da Fonte"
 
-#: src/core/tags/frame.cpp:1204
+#: src/core/tags/frame.cpp:1226
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "Marca %1"
 
-#: src/core/tags/frame.cpp:1209
+#: src/core/tags/frame.cpp:1231
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "Marca 1 e Marca 2"
 
-#: src/core/tags/frame.cpp:1213
+#: src/core/tags/frame.cpp:1235
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "Todas as Marcas"
 
-#: src/core/tags/frame.cpp:2022
+#: src/core/tags/frame.cpp:2044
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "Anteceder o t1/adicionar o t2 se não vazio"
