@@ -661,6 +661,10 @@ protected:
    */
   void updateMarkedState(Frame::TagNumber tagNr, FrameCollection& frames);
 
+  bool hasTruncationFlag() const { return m_truncation != 0; }
+  void setTruncationFlag(quint64 flag) { m_truncation |= flag; }
+  void clearTruncationFlag(quint64 flag) { m_truncation &= ~flag; }
+
 private:
   TaggedFile(const TaggedFile&);
   TaggedFile& operator=(const TaggedFile&);

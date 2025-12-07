@@ -39,16 +39,14 @@
 
 class QTextCodec;
 class FileIOStream;
-
-  namespace TagLib {
-    namespace MP4 {
-      class Tag;
-    }
-  }
-
+class TagLibFormatSupport;
 class TagLibFile;
 
-namespace TagLibFileInternal {
+namespace TagLib::MP4 {
+  class Tag;
+}
+
+namespace TagLibMpegSupportInternal {
 
 void fixUpTagLibFrameValue(const TagLibFile* self,
                            Frame::Type frameType, QString& value);
@@ -58,6 +56,9 @@ void fixUpTagLibFrameValue(const TagLibFile* self,
 /** List box item containing tagged file. */
 class TagLibFile : public TaggedFile {
 public:
+  /** Number of supported tags in a file. */
+  static constexpr int NUM_TAGS = 3;
+
   /**
    * Constructor.
    *
@@ -299,7 +300,19 @@ public:
   static void notifyConfigurationChange();
 
 private:
-  friend void TagLibFileInternal::fixUpTagLibFrameValue(
+  friend class TagLibFormatSupport;
+  friend class TagLibMpegSupport;
+  friend class TagLibMp4Support;
+  friend class TagLibVorbisSupport;
+  friend class TagLibRiffSupport;
+  friend class TagLibApeSupport;
+  friend class TagLibTrueAudioSupport;
+  friend class TagLibAsfSupport;
+  friend class TagLibModSupport;
+  friend class TagLibDsfSupport;
+  friend class TagLibMatroskaSupport;
+  friend class TagLibGenericSupport;
+  friend void TagLibMpegSupportInternal::fixUpTagLibFrameValue(
       const TagLibFile* self, Frame::Type frameType, QString& value);
 
   TagLibFile(const TagLibFile&);
@@ -340,13 +353,6 @@ private:
   void readAudioProperties();
 
   /**
-   * Get tracker name of a module file.
-   *
-   * @return tracker name, null if not found.
-   */
-  QString getTrackerName() const;
-
-  /**
    * Set m_id3v2Version to 3 or 4 from tag if it exists, else to 0.
    * @param id3v2Tag ID3v2 tag
    */
@@ -368,13 +374,6 @@ private:
    * @return Vorbis key.
    */
   QString getVorbisName(const Frame& frame) const;
-
-  /**
-   * Set a frame in an MP4 tag.
-   * @param frame frame to set
-   * @param mp4Tag MP4 tag
-   */
-  void setMp4Frame(const Frame& frame, TagLib::MP4::Tag* mp4Tag);
 
   /**
    * Get the format of a tag.
@@ -401,8 +400,6 @@ private:
    * @param textEnc default text encoding
    */
   static void setDefaultTextEncoding(TagConfig::TextEncoding textEnc);
-
-  static const int NUM_TAGS = 3;
 
   bool m_tagInformationRead;
   bool m_hasTag[NUM_TAGS];
@@ -437,4 +434,7 @@ private:
 
   /** default text encoding */
   static TagLib::String::Type s_defaultTextEncoding;
+
+  /** format support */
+  static QList<TagLibFormatSupport*> s_formats;
 };

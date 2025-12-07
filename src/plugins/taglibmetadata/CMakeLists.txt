@@ -1,7 +1,9 @@
 if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
   set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules)
-  # For TagLib 2.0 prefer its exported configuration
-  set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
+  if(NOT DEFINED ENV{DO_NOT_PREFER_TAGLIB_CMAKE})
+    # For TagLib 2.0 prefer its exported configuration
+    set(CMAKE_FIND_PACKAGE_PREFER_CONFIG TRUE)
+  endif()
 
   find_package(TagLib REQUIRED)
   if(TagLib_DIR)
@@ -21,6 +23,20 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
   add_library(${plugin_TARGET}
     taglibmetadataplugin.cpp
     taglibfile.cpp
+    taglibutils.cpp
+    textcodecstringhandler.cpp
+    taglibfileiostream.cpp
+    taglibformatsupport.cpp
+    taglibmpegsupport.cpp
+    taglibmp4support.cpp
+    taglibvorbissupport.cpp
+    taglibriffsupport.cpp
+    taglibapesupport.cpp
+    taglibtrueaudiosupport.cpp
+    taglibasfsupport.cpp
+    taglibmodsupport.cpp
+    taglibdsfsupport.cpp
+    taglibgenericsupport.cpp
   )
   if(TAGLIB_VERSION VERSION_LESS 2.0.0)
     target_sources(${plugin_TARGET} PRIVATE
