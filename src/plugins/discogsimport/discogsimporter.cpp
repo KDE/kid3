@@ -771,43 +771,34 @@ DiscogsImporter::HtmlImpl::~HtmlImpl()
 
 void DiscogsImporter::HtmlImpl::parseFindResults(const QByteArray& searchStr)
 {
-  // releases have the format:
-  // <a href="/artist/256076-Amon-Amarth">Amon Amarth</a>         </span> -
-  // <a class="search_result_title " href="/Amon-Amarth-The-Avenger/release/761529-Amon-Amarth-The-Avenger" data-followable="true">The Avenger</a>
   QString str = QString::fromUtf8(searchStr);
   QRegularExpression idTitleRe(QLatin1String(
-      "href=\"/artist/[^>]+?>([^<]+?)</a>[^-]*?-"
-      "\\s*?<a class=\"search_result_title[ \"]+?href=\"/([^/]*?/?release)/"
-      "([0-9]+-[^\"]+?)\"[^>]*?>([^<]+?)</a>(.*?card_actions)"),
+      "<div.+?href=\"/artist/[^>]+?>([^<]+?)</a><span.+?</span>"
+      "<a.+?href=\"/release/([0-9]+-[^\"]+?)\"[^>]*?>([^<]+?)</a>"
+      "</div.+?(<a[^>]*href=\"/label/.+?)</div>"),
        QRegularExpression::DotMatchesEverythingOption);
-
-  QRegularExpression yearRe(QLatin1String("<span class=\"card_release_year\">([^<]+)</span>"));
-  QRegularExpression formatRe(QLatin1String("<span class=\"card_release_format\">([^<]+)</span>"));
+  QRegularExpression htmlTagsRe(QLatin1String("(?:<[^>]+>\\s*)+"));
 
   albumListModel()->clear();
   auto it = idTitleRe.globalMatch(str);
   while (it.hasNext()) {
     auto idTitleMatch = it.next();
     QString artist = fixUpArtist(idTitleMatch.captured(1).trimmed());
-    if (QString title = removeHtml(idTitleMatch.captured(4).trimmed());
+    if (QString title = removeHtml(idTitleMatch.captured(3).trimmed());
         !title.isEmpty()) {
       QString result(artist + QLatin1String(" - ") + title);
 
-      QString metadata = idTitleMatch.captured(5);
-      if (auto yearMatch = yearRe.match(metadata); yearMatch.hasMatch()) {
-        result.append(QLatin1String(" (") + yearMatch.captured(1).trimmed() +
-          QLatin1Char(')'));
-      }
-
-      if (auto formatMatch = formatRe.match(metadata); formatMatch.hasMatch()) {
-          result.append(QLatin1String(" [") + formatMatch.captured(1).trimmed() +
-            QLatin1Char(']'));
+      QString metadata = replaceHtmlEntities(
+        idTitleMatch.captured(4)
+        .replace(htmlTagsRe, QLatin1String(" "))).trimmed();
+      if (!metadata.isEmpty()) {
+        result.append(QLatin1String(" (") + metadata +QLatin1Char(')'));
       }
 
       albumListModel()->appendItem(
         result,
-        idTitleMatch.captured(2),
-        idTitleMatch.captured(3));
+        QLatin1String("release"),
+        idTitleMatch.captured(2));
     }
   }
 }
@@ -1312,7 +1303,7 @@ void DiscogsImporter::HtmlImpl::sendFindQuery(
   m_importer->sendRequest(QString::fromLatin1(m_discogsServer),
               QString(QLatin1String("/search/?q=")) +
               encodeUrlQuery(artist + QLatin1Char(' ') + album) +
-              QLatin1String("&type=release&layout=sm"), QLatin1String("https"),
+              QLatin1String("&type=release&layout=med"), QLatin1String("https"),
               m_discogsHeaders);
 }
 
