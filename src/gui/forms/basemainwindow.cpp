@@ -1251,8 +1251,12 @@ void BaseMainWindowImpl::showPlayToolBar()
    */
 QList<QAction*> BaseMainWindowImpl::mediaActions() const
 {
+#ifdef HAVE_QTMULTIMEDIA
   return m_playToolBar ? m_playToolBar->mediaActions()
                        : QList<QAction*>();
+#else
+  return {};
+#endif
 }
 
 /**
