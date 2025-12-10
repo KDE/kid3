@@ -129,6 +129,7 @@
             "name": "mp4v2",
             "buildsystem": "cmake-ninja",
             "config-opts": [
+                "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
                 "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
                 "-DBUILD_UTILS=OFF"
             ],
