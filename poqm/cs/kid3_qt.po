@@ -5068,8 +5068,8 @@ msgstr "Při zápisu do souboru nastala chyba:\n"
 
 #: src/gui/forms/basemainwindow.cpp:405 src/gui/forms/basemainwindow.cpp:411
 #: src/gui/forms/basemainwindow.cpp:1128 src/gui/forms/basemainwindow.cpp:1133
-#: src/gui/forms/basemainwindow.cpp:1565 src/gui/forms/basemainwindow.cpp:1574
-#: src/gui/forms/basemainwindow.cpp:1649
+#: src/gui/forms/basemainwindow.cpp:1569 src/gui/forms/basemainwindow.cpp:1578
+#: src/gui/forms/basemainwindow.cpp:1653
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "Chyba v souboru"
@@ -5160,7 +5160,7 @@ msgid "Import"
 msgstr "Importovat"
 
 #: src/gui/forms/basemainwindow.cpp:1126 src/gui/forms/basemainwindow.cpp:1132
-#: src/gui/forms/basemainwindow.cpp:1566 src/gui/forms/basemainwindow.cpp:1575
+#: src/gui/forms/basemainwindow.cpp:1570 src/gui/forms/basemainwindow.cpp:1579
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "Chyba při přejmenovávání:\n"
@@ -5175,81 +5175,81 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "Filtr"
 
-#: src/gui/forms/basemainwindow.cpp:1269
+#: src/gui/forms/basemainwindow.cpp:1273
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " [filtrováno %1/%2]"
 
-#: src/gui/forms/basemainwindow.cpp:1383
+#: src/gui/forms/basemainwindow.cpp:1387
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "Přidat rámec"
 
-#: src/gui/forms/basemainwindow.cpp:1384
+#: src/gui/forms/basemainwindow.cpp:1388
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "Vybrat ID rámečku prvku"
 
-#: src/gui/forms/basemainwindow.cpp:1529
+#: src/gui/forms/basemainwindow.cpp:1533
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "Přejmenovat soubor"
 
-#: src/gui/forms/basemainwindow.cpp:1530
+#: src/gui/forms/basemainwindow.cpp:1534
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "Zadejte nový název souboru:"
 
-#: src/gui/forms/basemainwindow.cpp:1567 src/gui/forms/basemainwindow.cpp:1576
+#: src/gui/forms/basemainwindow.cpp:1571 src/gui/forms/basemainwindow.cpp:1580
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "Nepodařilo se přejmenovat %1 na %2\n"
 
-#: src/gui/forms/basemainwindow.cpp:1568
+#: src/gui/forms/basemainwindow.cpp:1572
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "Zkusit znovu po zavření složek?"
 
-#: src/gui/forms/basemainwindow.cpp:1586
+#: src/gui/forms/basemainwindow.cpp:1590
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Opravdu si přejete tyto %1 položky vyhodit do koše?"
 
-#: src/gui/forms/basemainwindow.cpp:1614
+#: src/gui/forms/basemainwindow.cpp:1618
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Opravdu si přejete tyto %1 položky vyhodit do koše?"
 
-#: src/gui/forms/basemainwindow.cpp:1616
+#: src/gui/forms/basemainwindow.cpp:1620
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "Opravdu si přejete tuto položku vyhodit do koše?"
 
-#: src/gui/forms/basemainwindow.cpp:1618
+#: src/gui/forms/basemainwindow.cpp:1622
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "Přesunout do koše"
 
-#: src/gui/forms/basemainwindow.cpp:1647
+#: src/gui/forms/basemainwindow.cpp:1651
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "Adresář musí být prázdný.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1648
+#: src/gui/forms/basemainwindow.cpp:1652
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "Nelze přesunout tyto soubory do koše"
 
-#: src/gui/forms/basemainwindow.cpp:1681
+#: src/gui/forms/basemainwindow.cpp:1685
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "Rozvinout vše"
 
-#: src/gui/forms/basemainwindow.cpp:1793
+#: src/gui/forms/basemainwindow.cpp:1797
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "Př&erušit"
@@ -5863,7 +5863,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1470
+#: src/plugins/discogsimport/discogsimporter.cpp:1461
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"

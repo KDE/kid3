@@ -5059,8 +5059,8 @@ msgstr "파일에 쓰는 중 오류 발생:\n"
 
 #: src/gui/forms/basemainwindow.cpp:405 src/gui/forms/basemainwindow.cpp:411
 #: src/gui/forms/basemainwindow.cpp:1128 src/gui/forms/basemainwindow.cpp:1133
-#: src/gui/forms/basemainwindow.cpp:1565 src/gui/forms/basemainwindow.cpp:1574
-#: src/gui/forms/basemainwindow.cpp:1649
+#: src/gui/forms/basemainwindow.cpp:1569 src/gui/forms/basemainwindow.cpp:1578
+#: src/gui/forms/basemainwindow.cpp:1653
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "파일 오류"
@@ -5145,7 +5145,7 @@ msgid "Import"
 msgstr "가져오기"
 
 #: src/gui/forms/basemainwindow.cpp:1126 src/gui/forms/basemainwindow.cpp:1132
-#: src/gui/forms/basemainwindow.cpp:1566 src/gui/forms/basemainwindow.cpp:1575
+#: src/gui/forms/basemainwindow.cpp:1570 src/gui/forms/basemainwindow.cpp:1579
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "이름 변경 중 오류 발생:\n"
@@ -5160,81 +5160,81 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "필터"
 
-#: src/gui/forms/basemainwindow.cpp:1269
+#: src/gui/forms/basemainwindow.cpp:1273
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " [%1/%2 필터됨]"
 
-#: src/gui/forms/basemainwindow.cpp:1383
+#: src/gui/forms/basemainwindow.cpp:1387
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "프레임 추가"
 
-#: src/gui/forms/basemainwindow.cpp:1384
+#: src/gui/forms/basemainwindow.cpp:1388
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "프레임 ID 선택"
 
-#: src/gui/forms/basemainwindow.cpp:1529
+#: src/gui/forms/basemainwindow.cpp:1533
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "파일 이름 바꾸기"
 
-#: src/gui/forms/basemainwindow.cpp:1530
+#: src/gui/forms/basemainwindow.cpp:1534
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "새 파일 이름 입력:"
 
-#: src/gui/forms/basemainwindow.cpp:1567 src/gui/forms/basemainwindow.cpp:1576
+#: src/gui/forms/basemainwindow.cpp:1571 src/gui/forms/basemainwindow.cpp:1580
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "%1의 이름을 %2(으)로 바꿀 수 없음\n"
 
-#: src/gui/forms/basemainwindow.cpp:1568
+#: src/gui/forms/basemainwindow.cpp:1572
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "폴더를 닫은 다음 다시 시도하시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:1586
+#: src/gui/forms/basemainwindow.cpp:1590
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "이 항목 %1개를 휴지통에 버리시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:1614
+#: src/gui/forms/basemainwindow.cpp:1618
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "이 항목 %1개를 휴지통에 버리시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:1616
+#: src/gui/forms/basemainwindow.cpp:1620
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "이 항목을 휴지통으로 이동하시겠습니까?"
 
-#: src/gui/forms/basemainwindow.cpp:1618
+#: src/gui/forms/basemainwindow.cpp:1622
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "휴지통으로 이동"
 
-#: src/gui/forms/basemainwindow.cpp:1647
+#: src/gui/forms/basemainwindow.cpp:1651
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "폴더가 비어 있어야 합니다.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1648
+#: src/gui/forms/basemainwindow.cpp:1652
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "다음 파일을 휴지통으로 옮길 수 없습니다"
 
-#: src/gui/forms/basemainwindow.cpp:1681
+#: src/gui/forms/basemainwindow.cpp:1685
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "모두 펴기"
 
-#: src/gui/forms/basemainwindow.cpp:1793
+#: src/gui/forms/basemainwindow.cpp:1797
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "중단(&B)"
@@ -5848,7 +5848,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1470
+#: src/plugins/discogsimport/discogsimporter.cpp:1461
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
