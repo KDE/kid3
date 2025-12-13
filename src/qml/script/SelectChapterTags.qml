@@ -25,6 +25,11 @@
 import Kid3 1.1
 
 Kid3Script {
+  // Never run this script in stand-alone mode.
+  function isStandalone() {
+    return false;
+  }
+
   onRun: {
     // In the case that a frame occurs multiple times, we have to select/
     // deselect every instance of it individually.

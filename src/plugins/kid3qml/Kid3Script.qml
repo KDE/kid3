@@ -177,8 +177,16 @@ Timer {
 
   /**
    * Check if script is running stand-alone, i.e. not in the Kid3 application.
+   * This check can be overridden by passing a parameter --standalone=true or
+   * --standalone=false or by overriding this function in a derived Kid3Script.
    */
   function isStandalone() {
+    var standaloneArgs = getArguments()
+      .filter(function(arg) { return arg.startsWith("--standalone=") })
+      .map(function(arg) { return arg.substr(13) })
+    if (standaloneArgs && standaloneArgs.length) {
+      return standaloneArgs[0] === "true"
+    }
     return typeof vars === "object"
         ? !!vars.standalone : typeof vars === "undefined"
   }
@@ -196,7 +204,9 @@ Timer {
     } else {
       // Started as a QML script outside Kid3, start in current directory.
       app.selectedFilesUpdated.connect(app.tagsToFrameModels)
-      app.selectedFilesChanged.connect(app.tagsToFrameModels)
+      app.selectedFilesChanged.connect(function(selected, deselected) {
+        app.tagsToFrameModels()
+      })
       app.readConfig()
       openDirectory(".")
     }
