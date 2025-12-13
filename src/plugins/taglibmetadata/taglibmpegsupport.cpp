@@ -647,7 +647,14 @@ QString getFieldsFromTextFrame(
     fields.push_back(field);
 
     TagLib::StringList slText = tFrame->fieldList();
-    text = slText.size() > 1 ? toQString(slText[1]) : QLatin1String("");
+    if (slText.size() > 2) {
+      slText.erase(slText.begin());
+      text = joinToQString(slText);
+    } else if (slText.size() == 2) {
+      text = toQString(slText[1]);
+    } else {
+      text = QLatin1String("");
+    }
   } else {
     // if there are multiple items, put them into one string
     // separated by a special separator.
@@ -1712,8 +1719,8 @@ void setValue(TagLib::ID3v2::GeneralEncapsulatedObjectFrame* f,
   f->setDescription(text);
 }
 
-void setStringOrList(TagLib::ID3v2::TextIdentificationFrame* f,
-                     const TagLib::String& text)
+template <class T>
+void setStringOrList(T* f, const TagLib::String& text)
 {
   if (text.find(Frame::stringListSeparator().toLatin1()) == -1) {
     f->setText(text);
@@ -1724,6 +1731,12 @@ void setStringOrList(TagLib::ID3v2::TextIdentificationFrame* f,
 
 template <>
 void setValue(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& text)
+{
+  setStringOrList(f, text);
+}
+
+template <>
+void setValue(TagLib::ID3v2::UserTextIdentificationFrame* f, const TagLib::String& text)
 {
   setStringOrList(f, text);
 }
@@ -1769,6 +1782,12 @@ void setText(T* f, const TagLib::String& text)
 
 template <>
 void setText(TagLib::ID3v2::TextIdentificationFrame* f, const TagLib::String& text)
+{
+  setStringOrList(f, text);
+}
+
+template <>
+void setText(TagLib::ID3v2::UserTextIdentificationFrame* f, const TagLib::String& text)
 {
   setStringOrList(f, text);
 }
