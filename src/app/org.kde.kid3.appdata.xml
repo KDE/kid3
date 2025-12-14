@@ -408,7 +408,4 @@
     <release version="3.8.1" date="2019-12-23"/>
   </releases>
   <content_rating type="oars-1.1"/>
-  <custom>
-    <value key="KDE::supporters">bugQ, Jeroen Eeuwes, Joe Brockmeier @jzb@hachyderm.io, ChemistryGull, @makotoMP3</value>
-  </custom>
 </component>
