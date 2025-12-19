@@ -982,32 +982,32 @@ msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "Redigering av lydmetadata"
 
-#: src/app/qt/browserdialog.cpp:91
+#: src/app/qt/browserdialog.cpp:97
 msgctxt "BrowserDialog|"
 msgid "&Back"
 msgstr "&Tilbake"
 
-#: src/app/qt/browserdialog.cpp:98
+#: src/app/qt/browserdialog.cpp:104
 msgctxt "BrowserDialog|"
 msgid "&Forward"
 msgstr "&Fram"
 
-#: src/app/qt/browserdialog.cpp:105
+#: src/app/qt/browserdialog.cpp:111
 msgctxt "BrowserDialog|"
 msgid "&Find:"
 msgstr "&Finn:"
 
-#: src/app/qt/browserdialog.cpp:121
+#: src/app/qt/browserdialog.cpp:127
 msgctxt "BrowserDialog|"
 msgid "Find Previous"
 msgstr "Finn førre"
 
-#: src/app/qt/browserdialog.cpp:131
+#: src/app/qt/browserdialog.cpp:137
 msgctxt "BrowserDialog|"
 msgid "Find Next"
 msgstr "Finn neste"
 
-#: src/app/qt/browserdialog.cpp:139
+#: src/app/qt/browserdialog.cpp:145
 msgctxt "BrowserDialog|"
 msgid "&Close"
 msgstr "&Lukk"
@@ -1798,43 +1798,43 @@ msgid "Request sent..."
 msgstr "Førespurnad send …"
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:1983
+#: src/core/tags/frame.cpp:2005
 msgctxt "@default|"
 msgid "Title"
 msgstr "Tittel"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:1987
+#: src/core/tags/frame.cpp:2009
 msgctxt "@default|"
 msgid "Album"
 msgstr "Album"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:1991
+#: src/core/tags/frame.cpp:2013
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Artist"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:1995
+#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:2017
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Kommentar"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:1999
+#: src/core/tags/frame.cpp:2021
 msgctxt "@default|"
 msgid "Year"
 msgstr "År"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2004
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2026
 msgctxt "@default|"
 msgid "Track"
 msgstr "Spor"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2017
+#: src/core/tags/frame.cpp:2039
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Sjanger"
@@ -2408,22 +2408,22 @@ msgid "Text"
 msgstr "Tekst"
 
 # RVA2-verdien (relative volume adjustment, jf. https://id3.org/id3v2.4.0-frames).
-#: src/core/model/frametablemodel.cpp:144
+#: src/core/model/frametablemodel.cpp:145
 msgctxt "FrameTableModel|"
 msgid "Volume"
 msgstr "Lydstyrke"
 
-#: src/core/model/frametablemodel.cpp:168
+#: src/core/model/frametablemodel.cpp:169
 msgctxt "FrameTableModel|"
 msgid "File ID"
 msgstr "Fil-ID"
 
-#: src/core/model/frametablemodel.cpp:309
+#: src/core/model/frametablemodel.cpp:312
 msgctxt "FrameTableModel|"
 msgid "Name"
 msgstr "Namn"
 
-#: src/core/model/frametablemodel.cpp:309
+#: src/core/model/frametablemodel.cpp:312
 msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Data"
@@ -3503,23 +3503,23 @@ msgctxt "@default|"
 msgid "Source Form"
 msgstr "Kjeldeformat"
 
-#: src/core/tags/frame.cpp:1204
+#: src/core/tags/frame.cpp:1226
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "Merkelapp %1"
 
-#: src/core/tags/frame.cpp:1209
+#: src/core/tags/frame.cpp:1231
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "Merkelapp 1 og 2"
 
-#: src/core/tags/frame.cpp:1213
+#: src/core/tags/frame.cpp:1235
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "Alle merkelappar"
 
-#: src/core/tags/frame.cpp:2022
+#: src/core/tags/frame.cpp:2044
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "Legg til M1 før / M2 etter viss ikkje tom"
@@ -5112,8 +5112,8 @@ msgstr "Feil ved skriving til fil:\n"
 
 #: src/gui/forms/basemainwindow.cpp:405 src/gui/forms/basemainwindow.cpp:411
 #: src/gui/forms/basemainwindow.cpp:1128 src/gui/forms/basemainwindow.cpp:1133
-#: src/gui/forms/basemainwindow.cpp:1565 src/gui/forms/basemainwindow.cpp:1574
-#: src/gui/forms/basemainwindow.cpp:1649
+#: src/gui/forms/basemainwindow.cpp:1569 src/gui/forms/basemainwindow.cpp:1578
+#: src/gui/forms/basemainwindow.cpp:1653
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "Filfeil"
@@ -5201,7 +5201,7 @@ msgid "Import"
 msgstr "Importer"
 
 #: src/gui/forms/basemainwindow.cpp:1126 src/gui/forms/basemainwindow.cpp:1132
-#: src/gui/forms/basemainwindow.cpp:1566 src/gui/forms/basemainwindow.cpp:1575
+#: src/gui/forms/basemainwindow.cpp:1570 src/gui/forms/basemainwindow.cpp:1579
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "Feil ved endring av filnamn:\n"
@@ -5216,81 +5216,81 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "Filtrer"
 
-#: src/gui/forms/basemainwindow.cpp:1269
+#: src/gui/forms/basemainwindow.cpp:1273
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " [filtrert %1/%2]"
 
-#: src/gui/forms/basemainwindow.cpp:1383
+#: src/gui/forms/basemainwindow.cpp:1387
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "Legg til ramme"
 
-#: src/gui/forms/basemainwindow.cpp:1384
+#: src/gui/forms/basemainwindow.cpp:1388
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "Vel ramme-ID"
 
-#: src/gui/forms/basemainwindow.cpp:1529
+#: src/gui/forms/basemainwindow.cpp:1533
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "Endra namn på fil"
 
-#: src/gui/forms/basemainwindow.cpp:1530
+#: src/gui/forms/basemainwindow.cpp:1534
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "Skriv inn nytt filnamn:"
 
-#: src/gui/forms/basemainwindow.cpp:1567 src/gui/forms/basemainwindow.cpp:1576
+#: src/gui/forms/basemainwindow.cpp:1571 src/gui/forms/basemainwindow.cpp:1580
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "Klarte ikkje endra namn frå %1 til %2\n"
 
-#: src/gui/forms/basemainwindow.cpp:1568
+#: src/gui/forms/basemainwindow.cpp:1572
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "Vil du prøva på nytt etter mappelukking?"
 
-#: src/gui/forms/basemainwindow.cpp:1586
+#: src/gui/forms/basemainwindow.cpp:1590
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Er du sikker på at du vil flytta desse %1 elementa til papirkorga?"
 
-#: src/gui/forms/basemainwindow.cpp:1614
+#: src/gui/forms/basemainwindow.cpp:1618
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Er du sikker på at du vil flytta desse %1 elementa til papirkorga?"
 
-#: src/gui/forms/basemainwindow.cpp:1616
+#: src/gui/forms/basemainwindow.cpp:1620
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "Er du sikker på at du vil flytta dette elementet til papirkorga?"
 
-#: src/gui/forms/basemainwindow.cpp:1618
+#: src/gui/forms/basemainwindow.cpp:1622
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "Flytt til papirkorga"
 
-#: src/gui/forms/basemainwindow.cpp:1647
+#: src/gui/forms/basemainwindow.cpp:1651
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "Mappa må vera tom.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1648
+#: src/gui/forms/basemainwindow.cpp:1652
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "Klarte ikkje flytta desse filene til papirkorga"
 
-#: src/gui/forms/basemainwindow.cpp:1681
+#: src/gui/forms/basemainwindow.cpp:1685
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "Fald ut alle"
 
-#: src/gui/forms/basemainwindow.cpp:1793
+#: src/gui/forms/basemainwindow.cpp:1797
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "Av&bryt"
@@ -5903,7 +5903,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1470
+#: src/plugins/discogsimport/discogsimporter.cpp:1461
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
