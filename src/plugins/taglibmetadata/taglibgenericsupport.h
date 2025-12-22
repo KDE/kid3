@@ -37,6 +37,18 @@ public:
     int id3v2Version, bool& fileChanged) const override;
   bool readAudioProperties(TagLibFile& f,
     TagLib::AudioProperties* audioProperties) const override;
+  QString getTagFormat(const TagLib::Tag* tag,
+    TaggedFile::TagType& type) const override;
+  bool setFrame(TagLibFile& f, Frame::TagNumber tagNr,
+    const Frame& frame) const override;
+  bool addFrame(TagLibFile& f, Frame::TagNumber tagNr,
+    Frame& frame) const override;
+  bool deleteFrame(TagLibFile& f, Frame::TagNumber tagNr,
+    const Frame& frame) const override;
+  bool deleteFrames(TagLibFile& f, Frame::TagNumber tagNr,
+    const FrameFilter& flt) const override;
+  bool getAllFrames(TagLibFile& f, Frame::TagNumber tagNr,
+    FrameCollection& frames) const override;
   QStringList getFrameIds(const TagLibFile& f,
     Frame::TagNumber tagNr) const override;
 };

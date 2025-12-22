@@ -26,12 +26,15 @@
 
 #include "taglibmetadataplugin.h"
 #include "taglibfile.h"
+#include "taglibutils.h"
 
 namespace {
 
 const QLatin1String TAGGEDFILE_KEY("TaglibMetadata");
 
 }
+
+QSet<QString> TaglibMetadataPlugin::s_supportedFileExtensions;
 
 /*!
  * Constructor.
@@ -85,6 +88,16 @@ int TaglibMetadataPlugin::taggedFileFeatures(const QString& key) const
 void TaglibMetadataPlugin::initialize(const QString& key)
 {
   if (key == TAGGEDFILE_KEY) {
+    const TagLib::StringList extensions = TagLib::FileRef::defaultFileExtensions();
+    for (const auto& extension : extensions) {
+      s_supportedFileExtensions.insert(
+        TagLibUtils::toQString(extension).prepend(QLatin1Char('.')));
+    }
+    // Add missing file extensions. The last four are only missing in TagLib 1.
+    s_supportedFileExtensions.unite(QSet<QString>({
+      QLatin1String(".mp4v"), QLatin1String(".wmv"), QLatin1String(".mp2"),
+      QLatin1String(".aac"), QLatin1String(".dsf"), QLatin1String(".dff")
+    }));
     TagLibFile::staticInit();
   }
 }
@@ -108,29 +121,13 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
 {
   Q_UNUSED(features)
   if (key == TAGGEDFILE_KEY) {
-    QString ext = fileName.right(4).toLower();
-    QString ext2 = ext.right(3);
-    if (   ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2")
-        || ext == QLatin1String(".aac")
-        || ext == QLatin1String(".mpc") || ext == QLatin1String(".oga")
-        || ext == QLatin1String(".ogg") || ext == QLatin1String("flac")
-        || ext == QLatin1String(".spx") || ext == QLatin1String(".tta")
-        || ext == QLatin1String(".m4a") || ext == QLatin1String(".m4b")
-        || ext == QLatin1String(".m4p") || ext == QLatin1String(".m4r")
-        || ext == QLatin1String(".mp4") || ext == QLatin1String(".m4v")
-        || ext == QLatin1String("mp4v")
-        || ext == QLatin1String(".wma") || ext == QLatin1String(".asf")
-        || ext == QLatin1String(".wmv")
-        || ext == QLatin1String(".aif") || ext == QLatin1String("aiff")
-        || ext == QLatin1String(".wav") || ext == QLatin1String(".ape")
-        || ext == QLatin1String(".mod") || ext == QLatin1String(".s3m")
-        || ext2 == QLatin1String(".it")
-        || ext2 == QLatin1String(".xm")
-        || ext == QLatin1String("opus")
-        || ext == QLatin1String(".dsf")
-        || ext == QLatin1String(".dff")
-        || ext2 == QLatin1String(".wv"))
-      return new TagLibFile(idx);
+    if (auto dotPos = fileName.lastIndexOf(QLatin1Char('.'));
+        dotPos != -1) {
+      QString ext = fileName.mid(dotPos);
+      if (s_supportedFileExtensions.contains(ext)) {
+        return new TagLibFile(idx);
+      }
+    }
   }
   return nullptr;
 }
@@ -143,28 +140,17 @@ TaggedFile* TaglibMetadataPlugin::createTaggedFile(
  * @return list of file extensions.
  */
 QStringList
-TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
+  TaglibMetadataPlugin::supportedFileExtensions(const QString& key) const
 {
   if (key == TAGGEDFILE_KEY) {
-    return {
-      QLatin1String(".flac"), QLatin1String(".mp3"), QLatin1String(".mpc"),
-      QLatin1String(".oga"), QLatin1String(".ogg"), QLatin1String(".spx"),
-      QLatin1String(".tta"), QLatin1String(".aac"), QLatin1String(".mp2"),
-      QLatin1String(".m4a"), QLatin1String(".m4b"), QLatin1String(".m4p"),
-      QLatin1String(".m4r"), QLatin1String(".mp4"), QLatin1String(".m4v"),
-      QLatin1String(".mp4v"),
-      QLatin1String(".wma"), QLatin1String(".asf"), QLatin1String(".wmv"),
-      QLatin1String(".aif"), QLatin1String(".aiff"), QLatin1String(".wav"),
-      QLatin1String(".ape"),
-      QLatin1String(".mod"), QLatin1String(".s3m"), QLatin1String(".it"),
-      QLatin1String(".xm"),
-      QLatin1String(".opus"),
-      QLatin1String(".dsf"),
-      QLatin1String(".dff"),
-      QLatin1String(".wv")
-    };
+#if QT_VERSION >= 0x050e00
+    return {s_supportedFileExtensions.constBegin(),
+            s_supportedFileExtensions.constEnd()};
+#else
+    return s_supportedFileExtensions.toList();
+#endif
   }
-  return QStringList();
+  return {};
 }
 
 /**

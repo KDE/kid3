@@ -173,6 +173,13 @@ void TagLibFile::readTags(bool force)
     delete m_stream;
     m_stream = new FileIOStream(fileName);
     m_fileRef = TagLib::FileRef(FileIOStream::create(m_stream));
+    if (m_fileRef.isNull()) {
+#ifdef Q_OS_WIN32
+      m_fileRef = TagLib::FileRef(fileName.toStdWString().c_str());
+#else
+      m_fileRef = TagLib::FileRef(QFile::encodeName(fileName).constData());
+#endif
+    }
     FOR_TAGLIB_TAGS(tagNr) {
       m_tag[tagNr] = nullptr;
     }

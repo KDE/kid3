@@ -108,4 +108,7 @@ public:
    * @param key tagged file key
    */
   void notifyConfigurationChange(const QString& key) override;
+
+private:
+  static QSet<QString> s_supportedFileExtensions;
 };
