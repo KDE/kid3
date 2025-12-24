@@ -49,6 +49,9 @@
 #include "taglibasfsupport.h"
 #include "taglibmodsupport.h"
 #include "taglibdsfsupport.h"
+#if TAGLIB_VERSION >= 0x020200
+#include "taglibmatroskasupport.h"
+#endif
 #include "taglibgenericsupport.h"
 
 using namespace TagLibUtils;
@@ -993,6 +996,9 @@ void TagLibFile::staticInit()
     new TagLibAsfSupport,
     new TagLibModSupport,
     new TagLibDsfSupport,
+#if TAGLIB_VERSION >= 0x020200
+    new TagLibMatroskaSupport,
+#endif
     // It is essential that TagLibGenericSupport is last to provide defaults for
     // writeFile() and getFrameIds().
     new TagLibGenericSupport

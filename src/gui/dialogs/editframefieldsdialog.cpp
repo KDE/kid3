@@ -37,6 +37,7 @@
 #include <QFile>
 #include <QDir>
 #include <QBuffer>
+#include <QCheckBox>
 #include <QVBoxLayout>
 #include <QMimeData>
 #include <QMimeDatabase>
@@ -644,6 +645,66 @@ QWidget* IntComboBoxControl::createWidget(QWidget* parent)
                       static_cast<Frame::FieldId>(m_field.m_id)));
   m_ptInp->setCurrentItem(m_field.m_value.toInt());
   return m_ptInp;
+}
+
+
+/** Control to edit boolean fields */
+class BoolFieldControl : public Mp3FieldControl {
+public:
+  /**
+   * Constructor.
+   * @param field field to edit
+   */
+  explicit BoolFieldControl(Frame::Field& field)
+    : Mp3FieldControl(field), m_boolInp(nullptr) {}
+
+  /**
+   * Destructor.
+   */
+  ~BoolFieldControl() override = default;
+
+  /**
+   * Update field from data in field control.
+   */
+  void updateTag() override;
+
+  /**
+   * Create widget to edit field data.
+   *
+   * @param parent parent widget
+   *
+   * @return widget to edit field data.
+   */
+  QWidget* createWidget(QWidget* parent) override;
+
+protected:
+  QCheckBox* m_boolInp;
+
+private:
+  Q_DISABLE_COPY(BoolFieldControl)
+};
+
+/**
+ * Update field with data from dialog.
+ */
+void BoolFieldControl::updateTag()
+{
+  m_field.m_value = m_boolInp->isChecked();
+}
+
+/**
+ * Create widget for dialog.
+ *
+ * @param parent parent widget
+ * @return widget to edit field.
+ */
+QWidget* BoolFieldControl::createWidget(QWidget* parent)
+{
+  m_boolInp = new QCheckBox(parent);
+  m_boolInp->setText(Frame::Field::getFieldIdName(
+                       static_cast<Frame::FieldId>(m_field.m_id)));
+  m_boolInp->setChecked(m_field.m_value.toBool());
+  return m_boolInp;
 }
 
 
@@ -1402,11 +1463,27 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
                 fld, Frame::Field::getContentTypeNames());
           m_fieldcontrols.append(cbox);
         }
+        else if (fld.m_id == Frame::ID_TargetType) {
+          auto cbox = new IntComboBoxControl(
+                fld, Frame::Field::getTargetTypeNames());
+          m_fieldcontrols.append(cbox);
+        }
         else {
           auto intctl = new IntFieldControl(fld);
           m_fieldcontrols.append(intctl);
         }
         break;
+
+#if QT_VERSION >= 0x060000
+      case QMetaType::Bool:
+#else
+      case QVariant::Bool:
+#endif
+      {
+        auto boolctl = new BoolFieldControl(fld);
+        m_fieldcontrols.append(boolctl);
+        break;
+      }
 
 #if QT_VERSION >= 0x060000
       case QMetaType::QString:

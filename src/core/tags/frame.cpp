@@ -70,6 +70,9 @@ const char* const fieldIdNames[] = {
   QT_TRANSLATE_NOOP("@default", "Price"),
   QT_TRANSLATE_NOOP("@default", "Date"),
   QT_TRANSLATE_NOOP("@default", "Seller"),
+
+  QT_TRANSLATE_NOOP("@default", "Target Type"),
+  QT_TRANSLATE_NOOP("@default", "Default"),
   nullptr
 };
 
@@ -96,6 +99,18 @@ const char* const contentTypeNames[] = {
   QT_TRANSLATE_NOOP("@default", "Events"),
   QT_TRANSLATE_NOOP("@default", "Chord"),
   QT_TRANSLATE_NOOP("@default", "Trivia/pop up"),
+  nullptr
+};
+
+const char* const targetTypeNames[] = {
+  QT_TRANSLATE_NOOP("@default", "None"),
+  QT_TRANSLATE_NOOP("@default", "Shot"),
+  QT_TRANSLATE_NOOP("@default", "Subtrack"),
+  QT_TRANSLATE_NOOP("@default", "Track"),
+  QT_TRANSLATE_NOOP("@default", "Part"),
+  QT_TRANSLATE_NOOP("@default", "Album"),
+  QT_TRANSLATE_NOOP("@default", "Edition"),
+  QT_TRANSLATE_NOOP("@default", "Collection"),
   nullptr
 };
 
@@ -280,6 +295,11 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
     { "VERSION", QT_TRANSLATE_NOOP("@default", "Version") },
     { "VOLUME", QT_TRANSLATE_NOOP("@default", "Volume") },
     { "WWW", QT_TRANSLATE_NOOP("@default", "User-defined URL") },
+    { "DIRECTOR", QT_TRANSLATE_NOOP("@default", "Director") },
+    { "DURATION", QT_TRANSLATE_NOOP("@default", "Duration") },
+    { "SUMMARY", QT_TRANSLATE_NOOP("@default", "Summary") },
+    { "SYNOPSIS", QT_TRANSLATE_NOOP("@default", "Synopsis") },
+    { "TOTAL_PARTS", QT_TRANSLATE_NOOP("@default", "Total Parts") },
     { "WM/AlbumArtistSortOrder", QT_TRANSLATE_NOOP("@default", "Sort Album Artist") },
     { "WM/Comments", QT_TRANSLATE_NOOP("@default", "Comment") },
     { "WM/MCDI", QT_TRANSLATE_NOOP("@default", "MCDI") },
@@ -1080,7 +1100,7 @@ QStringList Frame::getNamesForCustomFrames()
  */
 QString Frame::Field::getFieldIdName(FieldId type)
 {
-  Q_STATIC_ASSERT(std::size(fieldIdNames) == ID_Seller + 2);
+  Q_STATIC_ASSERT(std::size(fieldIdNames) == ID_Default + 2);
   if (static_cast<int>(type) >= 0 &&
       static_cast<int>(type) < static_cast<int>(std::size(fieldIdNames) - 1)) {
     return QCoreApplication::translate("@default", fieldIdNames[type]);
@@ -1198,6 +1218,30 @@ QString Frame::Field::getContentTypeName(int type)
 const char* const* Frame::Field::getContentTypeNames()
 {
   return contentTypeNames;
+}
+
+/**
+ * Get a translated string for a target type.
+ *
+ * @param type target type / 10
+ *
+ * @return target type, null string if unknown.
+ */
+QString Frame::Field::getTargetTypeName(int type)
+{
+  if (type >= 0 &&
+      static_cast<unsigned int>(type) < std::size(targetTypeNames) - 1) {
+    return QCoreApplication::translate("@default", targetTypeNames[type]);
+  }
+  return QString();
+}
+
+/**
+ * List of target type strings, NULL terminated.
+ */
+const char* const* Frame::Field::getTargetTypeNames()
+{
+  return targetTypeNames;
 }
 
 /**

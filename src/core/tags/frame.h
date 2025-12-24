@@ -167,6 +167,10 @@ public:
     ID_Date,
     ID_Seller,
 
+    // Additional fields for Matroska
+    ID_TargetType,
+    ID_Default,
+
     // Additional field for METADATA_BLOCK_PICTURE
     ID_ImageProperties,
 
@@ -401,6 +405,20 @@ public:
      * List of content type strings, NULL terminated.
      */
     static const char* const* getContentTypeNames();
+
+    /**
+     * Get a translated string for a target type.
+     *
+     * @param type target type / 10
+     *
+     * @return target type, null string if unknown.
+     */
+    static QString getTargetTypeName(int type);
+
+    /**
+     * List of target type strings, NULL terminated.
+     */
+    static const char* const* getTargetTypeNames();
 
     /**
      * Compare two field lists in a tolerant way.

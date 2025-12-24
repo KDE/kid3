@@ -365,7 +365,7 @@ void PictureFrame::getFields(const Frame& frame,
         }
         break;
       default:
-        qDebug("Unknown picture field ID");
+        ;
     }
   }
 }

@@ -38,6 +38,11 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
     taglibdsfsupport.cpp
     taglibgenericsupport.cpp
   )
+  if(NOT ${TAGLIB_VERSION} VERSION_LESS 2.2.0)
+    target_sources(${plugin_TARGET} PRIVATE
+      taglibmatroskasupport.cpp
+    )
+  endif()
   if(TAGLIB_VERSION VERSION_LESS 2.0.0)
     target_sources(${plugin_TARGET} PRIVATE
       taglibext/aac/aacfiletyperesolver.cpp
