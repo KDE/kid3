@@ -92,19 +92,19 @@ libvorbis_version=1.3.7
 libvorbis_patchlevel=3
 ffmpeg3_version=3.2.14
 ffmpeg3_patchlevel=1~deb9u1
-ffmpeg5_version=5.1.6
+ffmpeg5_version=5.1.7
 ffmpeg5_patchlevel=0+deb12u1
-ffmpeg_version=7.1.1
+ffmpeg_version=7.1.3
 ffmpeg_patchlevel=1
 libflac_version=1.5.0+ds
-libflac_patchlevel=2
+libflac_patchlevel=5
 id3lib_version=3.8.3
-id3lib_patchlevel=18
+id3lib_patchlevel=19
 taglib_version=2.1.1
-chromaprint_version=1.5.1
-chromaprint_patchlevel=7
+chromaprint_version=1.6.0
+chromaprint_patchlevel=2
 mp4v2_version=2.1.3
-utfcpp_version=4.0.6
+utfcpp_version=4.0.9
 
 verify_not_in_srcdir() {
   if test -f CMakeLists.txt; then
