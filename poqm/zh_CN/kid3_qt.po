@@ -4195,12 +4195,12 @@ msgstr "播放时选择文件(&S)"
 #: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "声音输出："
 
 #: src/gui/dialogs/configdialogpages.cpp:553
 msgctxt "ConfigDialogPages|"
 msgid "System"
-msgstr ""
+msgstr "系统"
 
 #: src/gui/dialogs/configdialogpages.cpp:586
 msgctxt "ConfigDialogPages|"
@@ -5611,12 +5611,12 @@ msgstr "关闭(&C)"
 #: src/gui/widgets/picturelabel.cpp:87
 msgctxt "PictureLabel|"
 msgid "Previous"
-msgstr ""
+msgstr "上一个"
 
 #: src/gui/widgets/picturelabel.cpp:101
 msgctxt "PictureLabel|"
 msgid "Next"
-msgstr ""
+msgstr "下一个"
 
 #: src/gui/widgets/picturelabel.cpp:228
 msgctxt "@default|"
