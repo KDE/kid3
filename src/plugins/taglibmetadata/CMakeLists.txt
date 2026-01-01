@@ -13,6 +13,13 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
       # imported target.
       find_package(ZLIB)
     endif()
+    get_target_property(taglib_INTERFACE_INCLUDE_DIRECTORIES TagLib::TagLib INTERFACE_INCLUDE_DIRECTORIES)
+    include(CheckIncludeFileCXX)
+    set(_CMAKE_REQUIRED_INCLUDES_TMP ${CMAKE_REQUIRED_INCLUDES})
+    set(CMAKE_REQUIRED_INCLUDES ${CMAKE_REQUIRED_INCLUDES} ${taglib_INTERFACE_INCLUDE_DIRECTORIES})
+    check_include_file_cxx("matroskafile.h" HAVE_TAGLIB_MATROSKA_SUPPORT)
+    set(CMAKE_REQUIRED_INCLUDES ${_CMAKE_REQUIRED_INCLUDES_TMP})
+    configure_file(taglibconfig.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/taglibconfig.h)
     message(STATUS "Found TagLib ${TAGLIB_VERSION}: ${TagLib_DIR}")
   endif()
 
@@ -38,7 +45,7 @@ if(WITH_TAGLIB OR TAGLIB_LIBRARIES)
     taglibdsfsupport.cpp
     taglibgenericsupport.cpp
   )
-  if(NOT ${TAGLIB_VERSION} VERSION_LESS 2.2.0)
+  if(HAVE_TAGLIB_MATROSKA_SUPPORT)
     target_sources(${plugin_TARGET} PRIVATE
       taglibmatroskasupport.cpp
     )

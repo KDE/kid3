@@ -27,6 +27,7 @@
 #pragma once
 
 #include <QtGlobal>
+#include "taglibconfig.h"
 #include "taggedfile.h"
 #include "tagconfig.h"
 #include <taglib.h>
