@@ -245,6 +245,7 @@
     <p xml:lang="sv">Kid3 använder KDE Ramverk. Användare av andra skrivbordsmiljöer kan föredra Kid3-qt istället, som är utan KDE-beroenden.</p>
     <p xml:lang="tr">Kid3, KDE Frameworks kullanır. Başka masaüstü ortamlarının kullanıcıları, KDE bağımlılıklarını içermeyen Kid3-qt sürümünü tercih etmek isteyebilirler.</p>
     <p xml:lang="uk">Kid3 використовує KDE Frameworks. Користувачі інших стільничних середовищ можуть надати перевагу Kid3-qt, версії, де не використано залежності KDE.</p>
+    <p xml:lang="zh-CN">Kid3 使用了 KDE 框架。其他桌面环境的用户可能倾向使用 Kid3-qt，此软件包不需要 KDE 依赖。</p>
   </description>
   <screenshots>
     <screenshot type="default" width="1290" height="916">
