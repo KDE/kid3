@@ -43,7 +43,7 @@ include:
     KID3_CI_SRC_PKG: "*.dmg"
     KID3_CI_DST_PKG: kid3-macos-$ARCH.dmg
     KID3_HOMEBREW_PKGS: "cmake ninja autoconf automake libtool xz nasm docbook-xsl p7zip"
-    QTPREFIX: $CI_PROJECT_DIR/build-${KID3_CI_PLATFORM}/qt-6.5.3/6.5.3/macos
+    QTPREFIX: $CI_PROJECT_DIR/build-${KID3_CI_PLATFORM}/qt-6.10.2/6.10.2/macos
   script:
     - !reference [.kid3_build_job, script]
     - python3 ci-notary-service/signmacapp.py -v --config $KDECI_SIGNMACAPP_CONFIG $CI_PROJECT_DIR/.kde-ci-packages/${KID3_CI_DST_PKG}

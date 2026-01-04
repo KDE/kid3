@@ -218,6 +218,22 @@ download_and_extract_qt() {
       esac
       for fn in *.7z; do 7za x $fn; done
       rm -f *.7z
+    elif test $qt_version = "6.10.2"; then
+      case "$_qtarch" in
+        macos)
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.10.2-0-202601050617${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_6102/qt6_6102/qt.qt6.6102.clang_64/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.6102.addons.${m}.clang_64/6.10.2-0-202601050617${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_6102/qt6_6102/$fn
+          done
+          ;;
+      esac
+      mkdir -p 6.10.2/macos
+      (cd 6.10.2/macos && for fn in ../../*.7z; do 7za x $fn; done)
+      rm -f *.7z
     fi
     cd -
   fi
@@ -774,7 +790,10 @@ if test $kernel = "Darwin"; then
     ARCH=$MACHINE_ARCH
     ARCH_FLAG="-Xarch_x86_64"
   fi
-  if [[ $(sw_vers -productVersion) = 10.1* || $(sw_vers -productVersion) =~ ^1[1-9]\..*$ ]]; then
+  # sw_vers for macOS 10 reports the official version number, e.g. 10.9, 10.10,
+  # 10.11, then it jumped to 11.x and now with macOS Tahoe it is already at 26.2.
+  _sw_vers=$(sw_vers -productVersion)
+  if [[ $_sw_vers = 10.1* || ${_sw_vers%%.*} -ge 11 ]]; then
     CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_C_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min}\" -DCMAKE_CXX_FLAGS=\"-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min} -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_MODULE_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\" -DCMAKE_SHARED_LINKER_FLAGS=\"$ARCH_FLAG -stdlib=libc++\""
     export CFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min}"
     export CXXFLAGS="-O2 $ARCH_FLAG -mmacosx-version-min=${_macosx_version_min} -stdlib=libc++"
