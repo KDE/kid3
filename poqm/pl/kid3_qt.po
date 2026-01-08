@@ -1737,17 +1737,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "Nazwa"
 
-#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:77
+#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:80
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:78
+#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:81
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:80
+#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:83
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -1794,49 +1794,50 @@ msgctxt "HttpClient|"
 msgid "Request sent..."
 msgstr "Wysłano zapytanie..."
 
-#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:2005
+#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:133
+#: src/core/tags/frame.cpp:2049
 msgctxt "@default|"
 msgid "Title"
 msgstr "Tytuł"
 
-#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:2009
+#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:111
+#: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:2053
 msgctxt "@default|"
 msgid "Album"
 msgstr "Album"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
-#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:2013
+#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:134
+#: src/core/tags/frame.cpp:2057
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Wykonawca"
 
-#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:2017
+#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:136
+#: src/core/tags/frame.cpp:304 src/core/tags/frame.cpp:2061
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Uwagi"
 
-#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:2021
+#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:336
+#: src/core/tags/frame.cpp:2065
 msgctxt "@default|"
 msgid "Year"
 msgstr "Rok"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2026
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:109
+#: src/core/tags/frame.cpp:2070
 msgctxt "@default|"
 msgid "Track"
 msgstr "Utwór"
 
-#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2039
+#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:139
+#: src/core/tags/frame.cpp:2083
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Rodzaj"
 
-#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:231
+#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:246
 #: src/core/tags/trackdata.cpp:231
 msgctxt "@default|"
 msgid "Length"
@@ -1870,7 +1871,7 @@ msgid "Shortcut"
 msgstr "Skrót"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:105
-#: src/core/tags/frame.cpp:278 src/core/tags/frame.cpp:279
+#: src/core/tags/frame.cpp:293 src/core/tags/frame.cpp:294
 msgctxt "@default|"
 msgid "Unknown"
 msgstr "Nieznany"
@@ -2517,13 +2518,13 @@ msgctxt "@default|"
 msgid "Data"
 msgstr "Dane"
 
-#: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:150
-#: src/core/tags/frame.cpp:252 src/core/tags/frame.cpp:298
+#: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:165
+#: src/core/tags/frame.cpp:267 src/core/tags/frame.cpp:318
 msgctxt "@default|"
 msgid "Description"
 msgstr "Opis"
 
-#: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:321
+#: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:341
 msgctxt "@default|"
 msgid "Owner"
 msgstr "Właściciel"
@@ -2533,12 +2534,12 @@ msgctxt "@default|"
 msgid "Email"
 msgstr "E-mail"
 
-#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:166
+#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:181
 msgctxt "@default|"
 msgid "Rating"
 msgstr "Ocena"
 
-#: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:142
+#: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:157
 msgctxt "@default|"
 msgid "Language"
 msgstr "Język"
@@ -2568,8 +2569,8 @@ msgctxt "@default|"
 msgid "Identifier"
 msgstr "Identyfikator"
 
-#: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:211
-#: src/core/tags/frame.cpp:212
+#: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:226
+#: src/core/tags/frame.cpp:227
 msgctxt "@default|"
 msgid "Volume Adjustment"
 msgstr "Zmiana głośności"
@@ -2614,8 +2615,8 @@ msgctxt "@default|"
 msgid "Price"
 msgstr "Cena"
 
-#: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:122
-#: src/core/tags/frame.cpp:219
+#: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:137
+#: src/core/tags/frame.cpp:234
 msgctxt "@default|"
 msgid "Date"
 msgstr "Data"
@@ -2625,858 +2626,950 @@ msgctxt "@default|"
 msgid "Seller"
 msgstr "Sprzedawca"
 
-#: src/core/tags/frame.cpp:79
+#: src/core/tags/frame.cpp:74
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Content Type"
+msgctxt "@default|"
+msgid "Target Type"
+msgstr "Rodzaj zawartości"
+
+#: src/core/tags/frame.cpp:75
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "Restore Defaults"
+msgctxt "@default|"
+msgid "Default"
+msgstr "Przywróć domyślne"
+
+#: src/core/tags/frame.cpp:82
 msgctxt "@default|"
 msgid "UTF16BE"
 msgstr "UTF16BE"
 
-#: src/core/tags/frame.cpp:85 src/core/tags/frame.cpp:92
+#: src/core/tags/frame.cpp:88 src/core/tags/frame.cpp:95
 #: src/core/tags/pictureframe.cpp:41
 msgctxt "@default|"
 msgid "Other"
 msgstr "Inny"
 
-#: src/core/tags/frame.cpp:86
+#: src/core/tags/frame.cpp:89
 msgctxt "@default|"
 msgid "MPEG frames as unit"
 msgstr "Pola MPEG jako jednostka"
 
-#: src/core/tags/frame.cpp:87
+#: src/core/tags/frame.cpp:90
 msgctxt "@default|"
 msgid "Milliseconds as unit"
 msgstr "Milisekundy jako jednostka"
 
-#: src/core/tags/frame.cpp:93 src/core/tags/frame.cpp:144
+#: src/core/tags/frame.cpp:96 src/core/tags/frame.cpp:159
 #: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Słowa"
 
-#: src/core/tags/frame.cpp:94
+#: src/core/tags/frame.cpp:97
 msgctxt "@default|"
 msgid "Text transcription"
 msgstr "Transkrypcja tekstu"
 
-#: src/core/tags/frame.cpp:95
+#: src/core/tags/frame.cpp:98
 msgctxt "@default|"
 msgid "Movement/part name"
 msgstr "Nazwa części/odcinka"
 
-#: src/core/tags/frame.cpp:96
+#: src/core/tags/frame.cpp:99
 msgctxt "@default|"
 msgid "Events"
 msgstr "Wydarzenia"
 
-#: src/core/tags/frame.cpp:97
+#: src/core/tags/frame.cpp:100
 msgctxt "@default|"
 msgid "Chord"
 msgstr "Akord"
 
-#: src/core/tags/frame.cpp:98
+#: src/core/tags/frame.cpp:101
 msgctxt "@default|"
 msgid "Trivia/pop up"
 msgstr "Trivia/podnoszą"
 
-#: src/core/tags/frame.cpp:123
+#: src/core/tags/frame.cpp:106
+#, fuzzy
+#| msgctxt "FormatConfig|"
+#| msgid "None"
+msgctxt "@default|"
+msgid "None"
+msgstr "Żaden"
+
+#: src/core/tags/frame.cpp:107
+msgctxt "@default|"
+msgid "Shot"
+msgstr ""
+
+#: src/core/tags/frame.cpp:108
+#, fuzzy
+#| msgctxt "NumberTracksCommand|"
+#| msgid "Number tracks"
+msgctxt "@default|"
+msgid "Subtrack"
+msgstr "Ponumeruj utwory"
+
+#: src/core/tags/frame.cpp:110
+msgctxt "@default|"
+msgid "Part"
+msgstr ""
+
+#: src/core/tags/frame.cpp:112
+#, fuzzy
+#| msgctxt "KdeMainWindow|"
+#| msgid "Edit"
+msgctxt "@default|"
+msgid "Edition"
+msgstr "Edycja"
+
+#: src/core/tags/frame.cpp:113
+#, fuzzy
+#| msgctxt "Kid3Application|"
+#| msgid "Selection"
+msgctxt "@default|"
+msgid "Collection"
+msgstr "Zaznaczenie"
+
+#: src/core/tags/frame.cpp:138
 msgctxt "@default|"
 msgid "Track Number"
 msgstr "Numer utworu"
 
-#: src/core/tags/frame.cpp:126 src/core/tags/frame.cpp:249
+#: src/core/tags/frame.cpp:141 src/core/tags/frame.cpp:264
 msgctxt "@default|"
 msgid "Album Artist"
 msgstr "Wykonawca albumu"
 
-#: src/core/tags/frame.cpp:127
+#: src/core/tags/frame.cpp:142
 msgctxt "@default|"
 msgid "Arranger"
 msgstr "Aranżer"
 
-#: src/core/tags/frame.cpp:128
+#: src/core/tags/frame.cpp:143
 msgctxt "@default|"
 msgid "Author"
 msgstr "Autor"
 
-#: src/core/tags/frame.cpp:129
+#: src/core/tags/frame.cpp:144
 msgctxt "@default|"
 msgid "BPM"
 msgstr "Uderzenia na minutę"
 
-#: src/core/tags/frame.cpp:130
+#: src/core/tags/frame.cpp:145
 msgctxt "@default|"
 msgid "Catalog Number"
 msgstr "Numer katalogowy"
 
-#: src/core/tags/frame.cpp:131
+#: src/core/tags/frame.cpp:146
 msgctxt "@default|"
 msgid "Compilation"
 msgstr "Składanka"
 
-#: src/core/tags/frame.cpp:132 src/core/tags/pictureframe.cpp:52
+#: src/core/tags/frame.cpp:147 src/core/tags/pictureframe.cpp:52
 msgctxt "@default|"
 msgid "Composer"
 msgstr "Kompozytor"
 
-#: src/core/tags/frame.cpp:133 src/core/tags/frame.cpp:297
+#: src/core/tags/frame.cpp:148 src/core/tags/frame.cpp:317
 #: src/core/tags/pictureframe.cpp:50
 msgctxt "@default|"
 msgid "Conductor"
 msgstr "Dyrygent"
 
-#: src/core/tags/frame.cpp:134
+#: src/core/tags/frame.cpp:149
 msgctxt "@default|"
 msgid "Copyright"
 msgstr "Prawa autorskie"
 
-#: src/core/tags/frame.cpp:135
+#: src/core/tags/frame.cpp:150
 msgctxt "@default|"
 msgid "Disc Number"
 msgstr "Numer płyty"
 
-#: src/core/tags/frame.cpp:136 src/core/tags/frame.cpp:256
+#: src/core/tags/frame.cpp:151 src/core/tags/frame.cpp:271
 msgctxt "@default|"
 msgid "Encoded-by"
 msgstr "Koder"
 
-#: src/core/tags/frame.cpp:137 src/core/tags/frame.cpp:255
+#: src/core/tags/frame.cpp:152 src/core/tags/frame.cpp:270
 msgctxt "@default|"
 msgid "Encoder Settings"
 msgstr "Ustawienia kodera"
 
-#: src/core/tags/frame.cpp:138 src/core/tags/frame.cpp:220
+#: src/core/tags/frame.cpp:153 src/core/tags/frame.cpp:235
 msgctxt "@default|"
 msgid "Encoding Time"
 msgstr "Czas zakodowania"
 
-#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:198
-#: src/core/tags/frame.cpp:251
+#: src/core/tags/frame.cpp:154 src/core/tags/frame.cpp:213
+#: src/core/tags/frame.cpp:266
 msgctxt "@default|"
 msgid "Grouping"
 msgstr "Grupowanie"
 
-#: src/core/tags/frame.cpp:140
+#: src/core/tags/frame.cpp:155
 msgctxt "@default|"
 msgid "Initial Key"
 msgstr "Początkowy klucz"
 
-#: src/core/tags/frame.cpp:141
+#: src/core/tags/frame.cpp:156
 msgctxt "@default|"
 msgid "ISRC"
 msgstr "ISRC"
 
-#: src/core/tags/frame.cpp:143
+#: src/core/tags/frame.cpp:158
 msgctxt "@default|"
 msgid "Lyricist"
 msgstr "Tekściarz"
 
-#: src/core/tags/frame.cpp:145 src/core/tags/pictureframe.cpp:47
+#: src/core/tags/frame.cpp:160 src/core/tags/pictureframe.cpp:47
 msgctxt "@default|"
 msgid "Media"
 msgstr "Nośnik"
 
-#: src/core/tags/frame.cpp:146 src/core/tags/frame.cpp:286
+#: src/core/tags/frame.cpp:161 src/core/tags/frame.cpp:306
 msgctxt "@default|"
 msgid "Mood"
 msgstr "Nastrój"
 
-#: src/core/tags/frame.cpp:147
+#: src/core/tags/frame.cpp:162
 msgctxt "@default|"
 msgid "Original Album"
 msgstr "Pierwotny album"
 
-#: src/core/tags/frame.cpp:148 src/core/tags/frame.cpp:268
+#: src/core/tags/frame.cpp:163 src/core/tags/frame.cpp:283
 msgctxt "@default|"
 msgid "Original Artist"
 msgstr "Pierwotny wykonawca"
 
-#: src/core/tags/frame.cpp:149
+#: src/core/tags/frame.cpp:164
 msgctxt "@default|"
 msgid "Original Date"
 msgstr "Pierwotna data"
 
-#: src/core/tags/frame.cpp:151
+#: src/core/tags/frame.cpp:166
 msgctxt "@default|"
 msgid "Performer"
 msgstr "Wykonawca"
 
-#: src/core/tags/frame.cpp:152
+#: src/core/tags/frame.cpp:167
 msgctxt "@default|"
 msgid "Picture"
 msgstr "Okładka"
 
-#: src/core/tags/frame.cpp:153
+#: src/core/tags/frame.cpp:168
 msgctxt "@default|"
 msgid "Publisher"
 msgstr "Wydawca"
 
-#: src/core/tags/frame.cpp:154
+#: src/core/tags/frame.cpp:169
 msgctxt "@default|"
 msgid "Release Country"
 msgstr "Kraj wydania albumu"
 
-#: src/core/tags/frame.cpp:155 src/core/tags/frame.cpp:274
+#: src/core/tags/frame.cpp:170 src/core/tags/frame.cpp:289
 msgctxt "@default|"
 msgid "Remixer"
 msgstr "Remixer"
 
-#: src/core/tags/frame.cpp:156
+#: src/core/tags/frame.cpp:171
 msgctxt "@default|"
 msgid "Sort Album"
 msgstr "Uszereguj wg albumu"
 
-#: src/core/tags/frame.cpp:157 src/core/tags/frame.cpp:283
+#: src/core/tags/frame.cpp:172 src/core/tags/frame.cpp:303
 msgctxt "@default|"
 msgid "Sort Album Artist"
 msgstr "Uszereguj wg wykonawcy albumu"
 
-#: src/core/tags/frame.cpp:158
+#: src/core/tags/frame.cpp:173
 msgctxt "@default|"
 msgid "Sort Artist"
 msgstr "Uszereguj wg wykonawcy"
 
-#: src/core/tags/frame.cpp:159
+#: src/core/tags/frame.cpp:174
 msgctxt "@default|"
 msgid "Sort Composer"
 msgstr "Uszereguj wg kompozytora"
 
-#: src/core/tags/frame.cpp:160
+#: src/core/tags/frame.cpp:175
 msgctxt "@default|"
 msgid "Sort Name"
 msgstr "Uszereguj wg tytułu"
 
-#: src/core/tags/frame.cpp:161
+#: src/core/tags/frame.cpp:176
 msgctxt "@default|"
 msgid "Subtitle"
 msgstr "Napisy"
 
-#: src/core/tags/frame.cpp:162
+#: src/core/tags/frame.cpp:177
 msgctxt "@default|"
 msgid "Website"
 msgstr "Strona sieciowa"
 
-#: src/core/tags/frame.cpp:163
+#: src/core/tags/frame.cpp:178
 msgctxt "@default|"
 msgid "WWW Audio File"
 msgstr "WWW pliku dźwiękowy"
 
-#: src/core/tags/frame.cpp:164
+#: src/core/tags/frame.cpp:179
 msgctxt "@default|"
 msgid "WWW Audio Source"
 msgstr "WWW źródło dźwięku"
 
-#: src/core/tags/frame.cpp:165
+#: src/core/tags/frame.cpp:180
 msgctxt "@default|"
 msgid "Release Date"
 msgstr "Data wydania"
 
-#: src/core/tags/frame.cpp:167
+#: src/core/tags/frame.cpp:182
 msgctxt "@default|"
 msgid "Work"
 msgstr "Dzieło"
 
-#: src/core/tags/frame.cpp:187
+#: src/core/tags/frame.cpp:202
 msgctxt "@default|"
 msgid "Audio Encryption"
 msgstr "Szyfrowanie dźwięku"
 
-#: src/core/tags/frame.cpp:188
+#: src/core/tags/frame.cpp:203
 msgctxt "@default|"
 msgid "Audio Seek Point"
 msgstr "Punktu wyszukiwania dźwięku"
 
-#: src/core/tags/frame.cpp:189
+#: src/core/tags/frame.cpp:204
 msgctxt "@default|"
 msgid "Chapter"
 msgstr "Rozdział"
 
-#: src/core/tags/frame.cpp:190
+#: src/core/tags/frame.cpp:205
 msgctxt "@default|"
 msgid "Commercial"
 msgstr "Handlowe"
 
-#: src/core/tags/frame.cpp:191
+#: src/core/tags/frame.cpp:206
 msgctxt "@default|"
 msgid "Table of Contents"
 msgstr "Spis treści"
 
-#: src/core/tags/frame.cpp:192
+#: src/core/tags/frame.cpp:207
 msgctxt "@default|"
 msgid "Encryption Method"
 msgstr "Sposób szyfrowania"
 
-#: src/core/tags/frame.cpp:193 src/core/tags/frame.cpp:194
+#: src/core/tags/frame.cpp:208 src/core/tags/frame.cpp:209
 msgctxt "@default|"
 msgid "Equalization"
 msgstr "Korekcja"
 
-#: src/core/tags/frame.cpp:195
+#: src/core/tags/frame.cpp:210
 msgctxt "@default|"
 msgid "Event Timing Codes"
 msgstr "Kody czasów wydarzeń"
 
-#: src/core/tags/frame.cpp:196
+#: src/core/tags/frame.cpp:211
 msgctxt "@default|"
 msgid "General Object"
 msgstr "Ogólny obiekt"
 
-#: src/core/tags/frame.cpp:197
+#: src/core/tags/frame.cpp:212
 msgctxt "@default|"
 msgid "Group Identification"
 msgstr "Identyfikacja grupy"
 
-#: src/core/tags/frame.cpp:199
+#: src/core/tags/frame.cpp:214
 msgctxt "@default|"
 msgid "Linked Information"
 msgstr "Połączona informacja"
 
-#: src/core/tags/frame.cpp:200
+#: src/core/tags/frame.cpp:215
 msgctxt "@default|"
 msgid "Music CD Identifier"
 msgstr "Identyfikator muzycznego CD"
 
-#: src/core/tags/frame.cpp:201
+#: src/core/tags/frame.cpp:216
 msgctxt "@default|"
 msgid "MPEG Lookup Table"
 msgstr "Tabela wyszukiwania położenia MPEG"
 
-#: src/core/tags/frame.cpp:202 src/core/tags/frame.cpp:318
+#: src/core/tags/frame.cpp:217 src/core/tags/frame.cpp:338
 msgctxt "@default|"
 msgid "Movement Number"
 msgstr "Nazwa części"
 
-#: src/core/tags/frame.cpp:203 src/core/tags/frame.cpp:317
+#: src/core/tags/frame.cpp:218 src/core/tags/frame.cpp:337
 msgctxt "@default|"
 msgid "Movement Name"
 msgstr "Nazwa części"
 
-#: src/core/tags/frame.cpp:204
+#: src/core/tags/frame.cpp:219
 msgctxt "@default|"
 msgid "Ownership"
 msgstr "Właściciel"
 
-#: src/core/tags/frame.cpp:205
+#: src/core/tags/frame.cpp:220
 msgctxt "@default|"
 msgid "Play Counter"
 msgstr "Licznik odtworzeń"
 
-#: src/core/tags/frame.cpp:206 src/core/tags/frame.cpp:303
+#: src/core/tags/frame.cpp:221 src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Podcast"
 msgstr "Podcast"
 
-#: src/core/tags/frame.cpp:207
+#: src/core/tags/frame.cpp:222
 msgctxt "@default|"
 msgid "Popularimeter"
 msgstr "Miernik popularności"
 
-#: src/core/tags/frame.cpp:208
+#: src/core/tags/frame.cpp:223
 msgctxt "@default|"
 msgid "Position Synchronisation"
 msgstr "Synchronizacji położenia"
 
-#: src/core/tags/frame.cpp:209
+#: src/core/tags/frame.cpp:224
 msgctxt "@default|"
 msgid "Private"
 msgstr "Prywatne"
 
-#: src/core/tags/frame.cpp:210
+#: src/core/tags/frame.cpp:225
 msgctxt "@default|"
 msgid "Recommended Buffer Size"
 msgstr "Polecany rozmiar bufora"
 
-#: src/core/tags/frame.cpp:213
+#: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Reverb"
 msgstr "Pogłos"
 
-#: src/core/tags/frame.cpp:214
+#: src/core/tags/frame.cpp:229
 msgctxt "@default|"
 msgid "Seek"
 msgstr "Przewijanie"
 
-#: src/core/tags/frame.cpp:215
+#: src/core/tags/frame.cpp:230
 msgctxt "@default|"
 msgid "Signature"
 msgstr "Podpis"
 
-#: src/core/tags/frame.cpp:216
+#: src/core/tags/frame.cpp:231
 msgctxt "@default|"
 msgid "Synchronized Lyrics"
 msgstr "Zsynchronizowane słowa"
 
-#: src/core/tags/frame.cpp:217
+#: src/core/tags/frame.cpp:232
 msgctxt "@default|"
 msgid "Synchronized Tempo Codes"
 msgstr "Kody zsynchronizowanych temp"
 
-#: src/core/tags/frame.cpp:218
+#: src/core/tags/frame.cpp:233
 msgctxt "@default|"
 msgid "Podcast Category"
 msgstr "Kategoria Podcast"
 
-#: src/core/tags/frame.cpp:221
+#: src/core/tags/frame.cpp:236
 msgctxt "@default|"
 msgid "Podcast Description"
 msgstr "Opis Podcast"
 
-#: src/core/tags/frame.cpp:222
+#: src/core/tags/frame.cpp:237
 msgctxt "@default|"
 msgid "Playlist Delay"
 msgstr "Opóźnienie listy odtwarzania"
 
-#: src/core/tags/frame.cpp:223
+#: src/core/tags/frame.cpp:238
 msgctxt "@default|"
 msgid "Original Release Time"
 msgstr "Pierwotny czas wypuszczenia"
 
-#: src/core/tags/frame.cpp:224
+#: src/core/tags/frame.cpp:239
 msgctxt "@default|"
 msgid "Recording Time"
 msgstr "Czas/data nagrania"
 
-#: src/core/tags/frame.cpp:225
+#: src/core/tags/frame.cpp:240
 msgctxt "@default|"
 msgid "Release Time"
 msgstr "Czas wypuszczenia"
 
-#: src/core/tags/frame.cpp:226
+#: src/core/tags/frame.cpp:241
 msgctxt "@default|"
 msgid "Tagging Time"
 msgstr "Czas zapisania znaczników"
 
-#: src/core/tags/frame.cpp:227
+#: src/core/tags/frame.cpp:242
 msgctxt "@default|"
 msgid "File Type"
 msgstr "Rodzaj pliku"
 
-#: src/core/tags/frame.cpp:228
+#: src/core/tags/frame.cpp:243
 msgctxt "@default|"
 msgid "Podcast Identifier"
 msgstr "Identyfikator Podcast"
 
-#: src/core/tags/frame.cpp:229
+#: src/core/tags/frame.cpp:244
 msgctxt "@default|"
 msgid "Time"
 msgstr "Czas"
 
-#: src/core/tags/frame.cpp:230
+#: src/core/tags/frame.cpp:245
 msgctxt "@default|"
 msgid "Podcast Keywords"
 msgstr "Słowa kluczowe Podcast"
 
-#: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:287
+#: src/core/tags/frame.cpp:247 src/core/tags/frame.cpp:307
 msgctxt "@default|"
 msgid "Original Filename"
 msgstr "Pierwotna nazwa pliku"
 
-#: src/core/tags/frame.cpp:233
+#: src/core/tags/frame.cpp:248
 msgctxt "@default|"
 msgid "File Owner"
 msgstr "Właściciel pliku"
 
-#: src/core/tags/frame.cpp:234
+#: src/core/tags/frame.cpp:249
 msgctxt "@default|"
 msgid "Produced Notice"
 msgstr "Uwaga od produkcji"
 
-#: src/core/tags/frame.cpp:235 src/core/tags/frame.cpp:273
+#: src/core/tags/frame.cpp:250 src/core/tags/frame.cpp:288
 msgctxt "@default|"
 msgid "Recording Date"
 msgstr "Daty nagrania"
 
-#: src/core/tags/frame.cpp:236
+#: src/core/tags/frame.cpp:251
 msgctxt "@default|"
 msgid "Radio Station Name"
 msgstr "Nazwa stacji radiowej"
 
-#: src/core/tags/frame.cpp:237
+#: src/core/tags/frame.cpp:252
 msgctxt "@default|"
 msgid "Radio Station Owner"
 msgstr "Właściciel stacji radiowej"
 
-#: src/core/tags/frame.cpp:238
+#: src/core/tags/frame.cpp:253
 msgctxt "@default|"
 msgid "Size"
 msgstr "Rozmiar"
 
-#: src/core/tags/frame.cpp:239
+#: src/core/tags/frame.cpp:254
 msgctxt "@default|"
 msgid "User-defined Text"
 msgstr "Tekst zdefiniowany przez użytkownika"
 
-#: src/core/tags/frame.cpp:240
+#: src/core/tags/frame.cpp:255
 msgctxt "@default|"
 msgid "Unique File Identifier"
 msgstr "Unikalny identyfikator pliku"
 
-#: src/core/tags/frame.cpp:241
+#: src/core/tags/frame.cpp:256
 msgctxt "@default|"
 msgid "Terms of Use"
 msgstr "Warunki użytkowania"
 
-#: src/core/tags/frame.cpp:242 src/core/tags/frame.cpp:289
+#: src/core/tags/frame.cpp:257 src/core/tags/frame.cpp:309
 msgctxt "@default|"
 msgid "Commercial URL"
 msgstr "Handlowy adres URL"
 
-#: src/core/tags/frame.cpp:243
+#: src/core/tags/frame.cpp:258
 msgctxt "@default|"
 msgid "Copyright URL"
 msgstr "Adres URL prawa autorskie"
 
-#: src/core/tags/frame.cpp:244
+#: src/core/tags/frame.cpp:259
 msgctxt "@default|"
 msgid "Podcast Feed"
 msgstr "Źródło Podcast"
 
-#: src/core/tags/frame.cpp:245
+#: src/core/tags/frame.cpp:260
 msgctxt "@default|"
 msgid "Official Radio Station"
 msgstr "Oficjalna radiostacja"
 
-#: src/core/tags/frame.cpp:246
+#: src/core/tags/frame.cpp:261
 msgctxt "@default|"
 msgid "Payment"
 msgstr "Płatność"
 
-#: src/core/tags/frame.cpp:247
+#: src/core/tags/frame.cpp:262
 msgctxt "@default|"
 msgid "Official Publisher"
 msgstr "Strona internetowa wydawcy"
 
-#: src/core/tags/frame.cpp:248 src/core/tags/frame.cpp:282
-#: src/core/tags/frame.cpp:291
+#: src/core/tags/frame.cpp:263 src/core/tags/frame.cpp:297
+#: src/core/tags/frame.cpp:311
 msgctxt "@default|"
 msgid "User-defined URL"
 msgstr "URL zdefiniowany przez użytkownika"
 
-#: src/core/tags/frame.cpp:250
+#: src/core/tags/frame.cpp:265
 msgctxt "@default|"
 msgid "Contact"
 msgstr "Kontakt"
 
-#: src/core/tags/frame.cpp:253 src/core/tags/frame.cpp:275
+#: src/core/tags/frame.cpp:268 src/core/tags/frame.cpp:290
 msgctxt "@default|"
 msgid "Total Discs"
 msgstr "Łącznie płyt"
 
-#: src/core/tags/frame.cpp:254
+#: src/core/tags/frame.cpp:269
 msgctxt "@default|"
 msgid "Encoder"
 msgstr "Koder"
 
-#: src/core/tags/frame.cpp:257
+#: src/core/tags/frame.cpp:272
 msgctxt "@default|"
 msgid "Encoding"
 msgstr "Kodowanie"
 
-#: src/core/tags/frame.cpp:258
+#: src/core/tags/frame.cpp:273
 msgctxt "@default|"
 msgid "Engineer"
 msgstr "Inżynier"
 
-#: src/core/tags/frame.cpp:259
+#: src/core/tags/frame.cpp:274
 msgctxt "@default|"
 msgid "Ensemble"
 msgstr "Zespół"
 
-#: src/core/tags/frame.cpp:260
+#: src/core/tags/frame.cpp:275
 msgctxt "@default|"
 msgid "Guest Artist"
 msgstr "Występ gościnny"
 
-#: src/core/tags/frame.cpp:261 src/core/tags/trackdata.cpp:264
+#: src/core/tags/frame.cpp:276 src/core/tags/trackdata.cpp:264
 msgctxt "@default|"
 msgid "VBR"
 msgstr "VBR"
 
-#: src/core/tags/frame.cpp:262 src/core/tags/frame.cpp:304
+#: src/core/tags/frame.cpp:277 src/core/tags/frame.cpp:324
 msgctxt "@default|"
 msgid "Gapless Playback"
 msgstr "Odtwarzanie bez przerw"
 
-#: src/core/tags/frame.cpp:263
+#: src/core/tags/frame.cpp:278
 msgctxt "@default|"
 msgid "Label"
 msgstr "Wytwórnia"
 
-#: src/core/tags/frame.cpp:264
+#: src/core/tags/frame.cpp:279
 msgctxt "@default|"
 msgid "Label Number"
 msgstr "Numer wytwórni"
 
-#: src/core/tags/frame.cpp:265
+#: src/core/tags/frame.cpp:280
 msgctxt "@default|"
 msgid "License"
 msgstr "Licencja"
 
-#: src/core/tags/frame.cpp:266
+#: src/core/tags/frame.cpp:281
 msgctxt "@default|"
 msgid "Location"
 msgstr "Położenie"
 
-#: src/core/tags/frame.cpp:267
+#: src/core/tags/frame.cpp:282
 msgctxt "@default|"
 msgid "Opus"
 msgstr "Opus"
 
-#: src/core/tags/frame.cpp:269
+#: src/core/tags/frame.cpp:284
 msgctxt "@default|"
 msgid "Organization"
 msgstr "Organizacja"
 
-#: src/core/tags/frame.cpp:270
+#: src/core/tags/frame.cpp:285
 msgctxt "@default|"
 msgid "Part Number"
 msgstr "Numer części"
 
-#: src/core/tags/frame.cpp:271
+#: src/core/tags/frame.cpp:286
 msgctxt "@default|"
 msgid "Producer"
 msgstr "Producent"
 
-#: src/core/tags/frame.cpp:272
+#: src/core/tags/frame.cpp:287
 msgctxt "@default|"
 msgid "Product Number"
 msgstr "Numer produktu"
 
-#: src/core/tags/frame.cpp:276 src/core/tags/frame.cpp:277
+#: src/core/tags/frame.cpp:291 src/core/tags/frame.cpp:292
 msgctxt "@default|"
 msgid "Total Tracks"
 msgstr "Łącznie utworów"
 
-#: src/core/tags/frame.cpp:280
+#: src/core/tags/frame.cpp:295
 msgctxt "@default|"
 msgid "Version"
 msgstr "Wersja"
 
-#: src/core/tags/frame.cpp:281
+#: src/core/tags/frame.cpp:296
 msgctxt "@default|"
 msgid "Volume"
 msgstr "Głośność"
 
-#: src/core/tags/frame.cpp:285
+#: src/core/tags/frame.cpp:298
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Directory name"
+msgctxt "@default|"
+msgid "Director"
+msgstr "Nazwa katalogu"
+
+#: src/core/tags/frame.cpp:299
+#, fuzzy
+#| msgctxt "TrackDataModel|"
+#| msgid "Duration"
+msgctxt "@default|"
+msgid "Duration"
+msgstr "Czas trwania"
+
+#: src/core/tags/frame.cpp:300
+msgctxt "@default|"
+msgid "Summary"
+msgstr ""
+
+#: src/core/tags/frame.cpp:301
+msgctxt "@default|"
+msgid "Synopsis"
+msgstr ""
+
+#: src/core/tags/frame.cpp:302
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Total Tracks"
+msgctxt "@default|"
+msgid "Total Parts"
+msgstr "Łącznie utworów"
+
+#: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "MCDI"
 msgstr "MCDI"
 
-#: src/core/tags/frame.cpp:288
+#: src/core/tags/frame.cpp:308
 msgctxt "@default|"
 msgid "Original Lyricist"
 msgstr "Pierwotny tekściarz"
 
-#: src/core/tags/frame.cpp:290
+#: src/core/tags/frame.cpp:310
 msgctxt "@default|"
 msgid "User Rating"
 msgstr "Ocena oglądających"
 
-#: src/core/tags/frame.cpp:292
+#: src/core/tags/frame.cpp:312
 msgctxt "@default|"
 msgid "Account Type"
 msgstr "Rodzaj konta"
 
-#: src/core/tags/frame.cpp:293
+#: src/core/tags/frame.cpp:313
 msgctxt "@default|"
 msgid "Purchase Account"
 msgstr "Konto zakupowe"
 
-#: src/core/tags/frame.cpp:294
+#: src/core/tags/frame.cpp:314
 msgctxt "@default|"
 msgid "Artist ID"
 msgstr "ID wykonawcy"
 
-#: src/core/tags/frame.cpp:295
+#: src/core/tags/frame.cpp:315
 msgctxt "@default|"
 msgid "Category"
 msgstr "Kategoria"
 
-#: src/core/tags/frame.cpp:296
+#: src/core/tags/frame.cpp:316
 msgctxt "@default|"
 msgid "Catalog ID"
 msgstr "ID katalogu"
 
-#: src/core/tags/frame.cpp:299
+#: src/core/tags/frame.cpp:319
 msgctxt "@default|"
 msgid "Genre ID"
 msgstr "ID rodzaju"
 
-#: src/core/tags/frame.cpp:300
+#: src/core/tags/frame.cpp:320
 msgctxt "@default|"
 msgid "HD Video"
 msgstr "Jakość HD"
 
-#: src/core/tags/frame.cpp:301
+#: src/core/tags/frame.cpp:321
 msgctxt "@default|"
 msgid "Keyword"
 msgstr "Słowo kluczowe"
 
-#: src/core/tags/frame.cpp:302
+#: src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Long Description"
 msgstr "Długi opis"
 
-#: src/core/tags/frame.cpp:305
+#: src/core/tags/frame.cpp:325
 msgctxt "@default|"
 msgid "Album ID"
 msgstr "ID albumu"
 
-#: src/core/tags/frame.cpp:306
+#: src/core/tags/frame.cpp:326
 msgctxt "@default|"
 msgid "Purchase Date"
 msgstr "Data zakupu"
 
-#: src/core/tags/frame.cpp:307
+#: src/core/tags/frame.cpp:327
 msgctxt "@default|"
 msgid "Rating/Advisory"
 msgstr "Treści do wieku"
 
-#: src/core/tags/frame.cpp:308
+#: src/core/tags/frame.cpp:328
 msgctxt "@default|"
 msgid "Country Code"
 msgstr "Kod kraju"
 
-#: src/core/tags/frame.cpp:309
+#: src/core/tags/frame.cpp:329
 msgctxt "@default|"
 msgid "Sort Show"
 msgstr "Uszereguj wg programu telewizyjnego"
 
-#: src/core/tags/frame.cpp:310
+#: src/core/tags/frame.cpp:330
 msgctxt "@default|"
 msgid "Media Type"
 msgstr "Rodzaj nośnika"
 
-#: src/core/tags/frame.cpp:311
+#: src/core/tags/frame.cpp:331
 msgctxt "@default|"
 msgid "TV Episode"
 msgstr "Odcinek TV"
 
-#: src/core/tags/frame.cpp:312
+#: src/core/tags/frame.cpp:332
 msgctxt "@default|"
 msgid "TV Episode Number"
 msgstr "Numer odcinka TV"
 
-#: src/core/tags/frame.cpp:313
+#: src/core/tags/frame.cpp:333
 msgctxt "@default|"
 msgid "TV Network Name"
 msgstr "Nazwa stacji TV"
 
-#: src/core/tags/frame.cpp:314
+#: src/core/tags/frame.cpp:334
 msgctxt "@default|"
 msgid "TV Show Name"
 msgstr "Nazwa programu TV"
 
-#: src/core/tags/frame.cpp:315
+#: src/core/tags/frame.cpp:335
 msgctxt "@default|"
 msgid "TV Season"
 msgstr "Sezon TV"
 
-#: src/core/tags/frame.cpp:319
+#: src/core/tags/frame.cpp:339
 msgctxt "@default|"
 msgid "Movement Count"
 msgstr "Liczba części"
 
-#: src/core/tags/frame.cpp:320
+#: src/core/tags/frame.cpp:340
 msgctxt "@default|"
 msgid "Show Work & Movement"
 msgstr "Używaj dzieła oraz jego części"
 
-#: src/core/tags/frame.cpp:322
+#: src/core/tags/frame.cpp:342
 msgctxt "@default|"
 msgid "Podcast URL"
 msgstr "Adres URL słuchowiska"
 
-#: src/core/tags/frame.cpp:323
+#: src/core/tags/frame.cpp:343
 msgctxt "@default|"
 msgid "Podcast GUID"
 msgstr "GUID słuchowiska"
 
-#: src/core/tags/frame.cpp:324
+#: src/core/tags/frame.cpp:344
 msgctxt "@default|"
 msgid "Composer ID"
 msgstr "ID kompozytora"
 
-#: src/core/tags/frame.cpp:325
+#: src/core/tags/frame.cpp:345
 msgctxt "@default|"
 msgid "XID"
 msgstr "XID"
 
-#: src/core/tags/frame.cpp:326
+#: src/core/tags/frame.cpp:346
 msgctxt "@default|"
 msgid "Chapters"
 msgstr "Rozdziały"
 
-#: src/core/tags/frame.cpp:327
+#: src/core/tags/frame.cpp:347
 msgctxt "@default|"
 msgid "Archival Location"
 msgstr "Położenie archiwum"
 
-#: src/core/tags/frame.cpp:328
+#: src/core/tags/frame.cpp:348
 msgctxt "@default|"
 msgid "Commissioned"
 msgstr "Zlecone"
 
-#: src/core/tags/frame.cpp:329
+#: src/core/tags/frame.cpp:349
 msgctxt "@default|"
 msgid "Cropped"
 msgstr "Przycięte"
 
-#: src/core/tags/frame.cpp:330
+#: src/core/tags/frame.cpp:350
 msgctxt "@default|"
 msgid "Dimensions"
 msgstr "Wymiary"
 
-#: src/core/tags/frame.cpp:331
+#: src/core/tags/frame.cpp:351
 msgctxt "@default|"
 msgid "Dots Per Inch"
 msgstr "Punkty na cal"
 
-#: src/core/tags/frame.cpp:332
+#: src/core/tags/frame.cpp:352
 msgctxt "@default|"
 msgid "Keywords"
 msgstr "Słowa kluczowe"
 
-#: src/core/tags/frame.cpp:333
+#: src/core/tags/frame.cpp:353
 msgctxt "@default|"
 msgid "Lightness"
 msgstr "Jasność"
 
-#: src/core/tags/frame.cpp:334
+#: src/core/tags/frame.cpp:354
 msgctxt "@default|"
 msgid "Number of Colors"
 msgstr "Liczba kolorów"
 
-#: src/core/tags/frame.cpp:335
+#: src/core/tags/frame.cpp:355
 msgctxt "@default|"
 msgid "Subject"
 msgstr "Temat"
 
-#: src/core/tags/frame.cpp:336
+#: src/core/tags/frame.cpp:356
 msgctxt "@default|"
 msgid "Sharpness"
 msgstr "Ostrość"
 
-#: src/core/tags/frame.cpp:337
+#: src/core/tags/frame.cpp:357
 msgctxt "@default|"
 msgid "Source Form"
 msgstr "Postać źródła"
 
-#: src/core/tags/frame.cpp:1226
+#: src/core/tags/frame.cpp:1270
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "Znacznik %1"
 
-#: src/core/tags/frame.cpp:1231
+#: src/core/tags/frame.cpp:1275
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "Znacznik 1 i znacznik 2"
 
-#: src/core/tags/frame.cpp:1235
+#: src/core/tags/frame.cpp:1279
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "Wszystkie znaczniki"
 
-#: src/core/tags/frame.cpp:2044
+#: src/core/tags/frame.cpp:2088
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "Poprzedź t1/dopisz t2, jeśli nie jest pusty"
@@ -4248,48 +4341,48 @@ msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "Zmiany będą widoczne dopiero po ponownym uruchomieniu!"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:740
+#: src/gui/dialogs/editframefieldsdialog.cpp:801
 msgctxt "@default|"
 msgid "Images"
 msgstr "Obrazy"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:741
+#: src/gui/dialogs/editframefieldsdialog.cpp:802
 #: src/gui/widgets/timeeventeditor.cpp:350
 msgctxt "@default|"
 msgid "All Files"
 msgstr "Wszystkie pliki"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1134
+#: src/gui/dialogs/editframefieldsdialog.cpp:1195
 msgctxt "BinaryOpenSave|"
 msgid "From Clip&board"
 msgstr "Ze &schowka"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1135
+#: src/gui/dialogs/editframefieldsdialog.cpp:1196
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
 msgstr "&Do schowka"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1136
+#: src/gui/dialogs/editframefieldsdialog.cpp:1197
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
 msgstr "Za&importuj..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1137
+#: src/gui/dialogs/editframefieldsdialog.cpp:1198
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
 msgstr "Wy&eksportuj..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1138
+#: src/gui/dialogs/editframefieldsdialog.cpp:1199
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
 msgstr "&Widok..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1310
+#: src/gui/dialogs/editframefieldsdialog.cpp:1371
 msgctxt "EditFrameFieldsDialog|"
 msgid "&OK"
 msgstr "&OK"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1311
+#: src/gui/dialogs/editframefieldsdialog.cpp:1372
 msgctxt "EditFrameFieldsDialog|"
 msgid "&Cancel"
 msgstr "&Anuluj"
@@ -5875,31 +5968,31 @@ msgid "gnudb.org"
 msgstr "gnudb.org"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:907
-#: src/plugins/taglibmetadata/taglibfile.cpp:2712
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:456
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
 msgstr "AENC - Szyfrowanie dźwięku"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:908
-#: src/plugins/taglibmetadata/taglibfile.cpp:2713
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:457
 msgctxt "@default|"
 msgid "APIC - Attached picture"
 msgstr "APIC - Załączone okładki"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:910
-#: src/plugins/taglibmetadata/taglibfile.cpp:2718
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:462
 msgctxt "@default|"
 msgid "COMM - Comments"
 msgstr "COMM - Uwagi"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:911
-#: src/plugins/taglibmetadata/taglibfile.cpp:2719
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:463
 msgctxt "@default|"
 msgid "COMR - Commercial"
 msgstr "COMR - Handlowe"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:912
-#: src/plugins/taglibmetadata/taglibfile.cpp:2723
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:467
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - Rejestracja sposobu szyfrowania"
@@ -5910,19 +6003,19 @@ msgid "EQUA - Equalization"
 msgstr "EQUA - Korektor graficzny"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:915
-#: src/plugins/taglibmetadata/taglibfile.cpp:2725
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:469
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
 msgstr "ETCO - Kody czasów wydarzeń"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:916
-#: src/plugins/taglibmetadata/taglibfile.cpp:2726
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:470
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB - Ogólnie zapakowany obiekt"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:917
-#: src/plugins/taglibmetadata/taglibfile.cpp:2727
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:471
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
 msgstr "GRID - Rejestracja identyfikacji grupy"
@@ -5933,55 +6026,55 @@ msgid "IPLS - Involved people list"
 msgstr "IPLS - Lista ludzi zaangażowanych"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:919
-#: src/plugins/taglibmetadata/taglibfile.cpp:2731
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:475
 msgctxt "@default|"
 msgid "LINK - Linked information"
 msgstr "LINK - Połączona informacja"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:920
-#: src/plugins/taglibmetadata/taglibfile.cpp:2732
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:476
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - Identyfikator muzycznego CD"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:921
-#: src/plugins/taglibmetadata/taglibfile.cpp:2733
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:477
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT - Tabela wyszukiwania położenia MPEG"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:922
-#: src/plugins/taglibmetadata/taglibfile.cpp:2738
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:482
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
 msgstr "OWNE - Ramka właściciela"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:923
-#: src/plugins/taglibmetadata/taglibfile.cpp:2739
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:483
 msgctxt "@default|"
 msgid "PRIV - Private frame"
 msgstr "PRIV - Pole prywatne"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:924
-#: src/plugins/taglibmetadata/taglibfile.cpp:2740
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:484
 msgctxt "@default|"
 msgid "PCNT - Play counter"
 msgstr "PCNT - Licznik odtworzeń"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:925
-#: src/plugins/taglibmetadata/taglibfile.cpp:2744
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:488
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
 msgstr "POPM - Miernik popularności"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:926
-#: src/plugins/taglibmetadata/taglibfile.cpp:2745
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:489
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - Ramka synchronizacji położenia"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:927
-#: src/plugins/taglibmetadata/taglibfile.cpp:2746
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:490
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - Polecany rozmiar bufora"
@@ -5992,49 +6085,49 @@ msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD - Dostosowanie względnej głośności"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:930
-#: src/plugins/taglibmetadata/taglibfile.cpp:2748
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:492
 msgctxt "@default|"
 msgid "RVRB - Reverb"
 msgstr "RVRB - Pogłos"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:933
-#: src/plugins/taglibmetadata/taglibfile.cpp:2751
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:495
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
 msgstr "SYLT - Zsynchronizowane słowa/tekst"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:934
-#: src/plugins/taglibmetadata/taglibfile.cpp:2752
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:496
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC - Kody zsynchronizowanych temp"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:935
-#: src/plugins/taglibmetadata/taglibfile.cpp:2753
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:497
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB - Tytuł albumu/filmu/pokazu"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:936
-#: src/plugins/taglibmetadata/taglibfile.cpp:2754
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:498
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM - BPM (uderzeń na minutę)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:937
-#: src/plugins/taglibmetadata/taglibfile.cpp:2759
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:503
 msgctxt "@default|"
 msgid "TCOM - Composer"
 msgstr "TCOM - Kompozytor"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:938
-#: src/plugins/taglibmetadata/taglibfile.cpp:2760
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:504
 msgctxt "@default|"
 msgid "TCON - Content type"
 msgstr "TCON - Rodzaj zawartości"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:939
-#: src/plugins/taglibmetadata/taglibfile.cpp:2761
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:505
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
 msgstr "TCOP - Informacja o prawach autorskich"
@@ -6045,25 +6138,25 @@ msgid "TDAT - Date"
 msgstr "TDAT - Data"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:942
-#: src/plugins/taglibmetadata/taglibfile.cpp:2766
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:510
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - Opóźnienie listy odtwarzania"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:948
-#: src/plugins/taglibmetadata/taglibfile.cpp:2771
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:515
 msgctxt "@default|"
 msgid "TENC - Encoded by"
 msgstr "TENC - Zakodowane przez"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:949
-#: src/plugins/taglibmetadata/taglibfile.cpp:2772
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:516
 msgctxt "@default|"
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - Tekściarz/autor tekstu"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:950
-#: src/plugins/taglibmetadata/taglibfile.cpp:2773
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:517
 msgctxt "@default|"
 msgid "TFLT - File type"
 msgstr "TFLT - Rodzaj pliku"
@@ -6074,67 +6167,67 @@ msgid "TIME - Time"
 msgstr "TIME - Czas"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:952
-#: src/plugins/taglibmetadata/taglibfile.cpp:2778
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:522
 msgctxt "@default|"
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - Opis zespołu zawartości"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:953
-#: src/plugins/taglibmetadata/taglibfile.cpp:2779
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:523
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - Tytuł/Tytuł utworu/Opis zawartości"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:954
-#: src/plugins/taglibmetadata/taglibfile.cpp:2780
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:524
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr "TIT3 - Popraw napisów/opisu"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:955
-#: src/plugins/taglibmetadata/taglibfile.cpp:2781
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:525
 msgctxt "@default|"
 msgid "TKEY - Initial key"
 msgstr "TKEY - Początkowy klucz"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:956
-#: src/plugins/taglibmetadata/taglibfile.cpp:2785
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:529
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
 msgstr "TLAN - Język(i)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:957
-#: src/plugins/taglibmetadata/taglibfile.cpp:2786
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:530
 msgctxt "@default|"
 msgid "TLEN - Length"
 msgstr "TLEN - Długość"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:959
-#: src/plugins/taglibmetadata/taglibfile.cpp:2788
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:532
 msgctxt "@default|"
 msgid "TMED - Media type"
 msgstr "TMED - Rodzaj nośnika"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:961
-#: src/plugins/taglibmetadata/taglibfile.cpp:2790
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:534
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL - Tytuł pierwotnego albumu/filmu/przedstawienia"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:962
-#: src/plugins/taglibmetadata/taglibfile.cpp:2791
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:535
 msgctxt "@default|"
 msgid "TOFN - Original filename"
 msgstr "TOFN - Pierwotna nazwa pliku"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:963
-#: src/plugins/taglibmetadata/taglibfile.cpp:2792
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:536
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY - Pierwotny tekściarz(e)/autor(rzy) tekstu"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:964
-#: src/plugins/taglibmetadata/taglibfile.cpp:2793
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:537
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE - Pierwotny artysta/wykonawca"
@@ -6145,49 +6238,49 @@ msgid "TORY - Original release year"
 msgstr "TORY - Pierwotny rok wypuszczenia"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:966
-#: src/plugins/taglibmetadata/taglibfile.cpp:2794
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:538
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN - Właściciel pliku/licencji"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:967
-#: src/plugins/taglibmetadata/taglibfile.cpp:2795
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:539
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 - Główny wykonawca/Solista"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:968
-#: src/plugins/taglibmetadata/taglibfile.cpp:2796
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:540
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - Zespół/orkiestra/akompaniament"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:969
-#: src/plugins/taglibmetadata/taglibfile.cpp:2797
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:541
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
 msgstr "TPE3 - Poprawa dyrygenta/wykonawcy"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:970
-#: src/plugins/taglibmetadata/taglibfile.cpp:2798
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:542
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr "TPE4 - Interpretacja, remix lub jakakolwiek zmiana przez"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:971
-#: src/plugins/taglibmetadata/taglibfile.cpp:2799
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:543
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
 msgstr "TPOS - Część zestawu"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:973
-#: src/plugins/taglibmetadata/taglibfile.cpp:2801
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:545
 msgctxt "@default|"
 msgid "TPUB - Publisher"
 msgstr "TPUB - Wydawca"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:974
-#: src/plugins/taglibmetadata/taglibfile.cpp:2802
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:546
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - Numer utworu/Numer w zestawie"
@@ -6198,13 +6291,13 @@ msgid "TRDA - Recording dates"
 msgstr "TRDA - Daty nagrania"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:976
-#: src/plugins/taglibmetadata/taglibfile.cpp:2803
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:547
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN - Nazwa internetowej stacji radiowej"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:977
-#: src/plugins/taglibmetadata/taglibfile.cpp:2804
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:548
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO - Właściciel internetowej stacji radiowej"
@@ -6215,19 +6308,19 @@ msgid "TSIZ - Size"
 msgstr "TSIZ - Rozmiar"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:982
-#: src/plugins/taglibmetadata/taglibfile.cpp:2810
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:554
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - ISRC (międzynarodowy standard kodu nagrywania)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:983
-#: src/plugins/taglibmetadata/taglibfile.cpp:2811
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:555
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - Oprogramowanie/sprzęt i ustawienia użyte do zakodowania"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:985
-#: src/plugins/taglibmetadata/taglibfile.cpp:2813
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:557
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
 msgstr "TXXX - Informacja tekstowa zdefiniowana przez użytkownika"
@@ -6238,73 +6331,73 @@ msgid "TYER - Year"
 msgstr "TYER - Rok"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:987
-#: src/plugins/taglibmetadata/taglibfile.cpp:2814
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:558
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
 msgstr "UFID - Unikalny identyfikator pliku"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:988
-#: src/plugins/taglibmetadata/taglibfile.cpp:2815
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:559
 msgctxt "@default|"
 msgid "USER - Terms of use"
 msgstr "USER - Warunki użytkowania"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:989
-#: src/plugins/taglibmetadata/taglibfile.cpp:2816
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:560
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr "USLT - Niezsynchronizowane transkrypcje słów/tekstu"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:990
-#: src/plugins/taglibmetadata/taglibfile.cpp:2817
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:561
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
 msgstr "WCOM - Dane handlowe"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:991
-#: src/plugins/taglibmetadata/taglibfile.cpp:2818
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:562
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - Informacja o legalności i prawach autorskich"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:992
-#: src/plugins/taglibmetadata/taglibfile.cpp:2822
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:566
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF - Oficjalna strona internetowa pliku dźwiękowego"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:993
-#: src/plugins/taglibmetadata/taglibfile.cpp:2823
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:567
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR - Oficjalna strona internetowa artysty/wykonawcy"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:994
-#: src/plugins/taglibmetadata/taglibfile.cpp:2824
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:568
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
 msgstr "WOAS - Oficjalna strona internetowa źródła dźwięku"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:995
-#: src/plugins/taglibmetadata/taglibfile.cpp:2825
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:569
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
 msgstr "WORS - Oficjalna strona internetowa radia internetowego"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:996
-#: src/plugins/taglibmetadata/taglibfile.cpp:2826
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:570
 msgctxt "@default|"
 msgid "WPAY - Payment"
 msgstr "WPAY - Płatność"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:997
-#: src/plugins/taglibmetadata/taglibfile.cpp:2827
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:571
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
 msgstr "WPUB - Oficjalna strona internetowa wydawcy"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:998
-#: src/plugins/taglibmetadata/taglibfile.cpp:2828
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:572
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - Odnośnik URL zdefiniowany przez użytkownika"
@@ -6314,170 +6407,170 @@ msgctxt "@default|"
 msgid "MusicBrainz Release"
 msgstr "MusicBrainz Release"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2714
+#: src/plugins/taglibmetadata/taglibasfsupport.cpp:560
+msgctxt "@default|"
+msgid "Rating Information"
+msgstr "Dane nt oceny"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:458
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - Indeks punktu szukania dźwięku"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2716
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:460
 msgctxt "@default|"
 msgid "CHAP - Chapter"
 msgstr "CHAP - Rozdział"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2721
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:465
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
 msgstr "CTOC - Spis treści"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2724
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:468
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Korektor graficzny (2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2729
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:473
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
 msgstr "GRP1 - Grupowanie"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2735
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:479
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
 msgstr "MVIN - Nazwa części"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2736
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:480
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
 msgstr "MVNM - Nazwa części"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2742
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:486
 msgctxt "@default|"
 msgid "PCST - Podcast"
 msgstr "PCST - Podcast"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2747
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:491
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - Dostosowanie względnej głośności (2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2749
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:493
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
 msgstr "SEEK - Pole wyszukiwania"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2750
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:494
 msgctxt "@default|"
 msgid "SIGN - Signature frame"
 msgstr "SIGN - Pole podpisu"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2756
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:500
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
 msgstr "TCAT - Kategoria Podcast"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2758
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:502
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - Składanka iTunes"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2762
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:506
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - Czas zakodowania"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2764
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:508
 msgctxt "@default|"
 msgid "TDES - Podcast description"
 msgstr "TDES - Opis Podcast"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2767
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:511
 msgctxt "@default|"
 msgid "TDOR - Original release time"
 msgstr "TDOR - Pierwotny czas wypuszczenia"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2768
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:512
 msgctxt "@default|"
 msgid "TDRC - Recording time"
 msgstr "TDRC - Czas/data nagrania"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2769
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:513
 msgctxt "@default|"
 msgid "TDRL - Release time"
 msgstr "TDRL - Czas wypuszczenia"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2770
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:514
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Czas zapisania znaczników"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2775
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:519
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
 msgstr "TGID - Identyfikator Podcast"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2777
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:521
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
 msgstr "TIPL - Lista ludzi zaangażowanych"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2783
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:527
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
 msgstr "TKWD - Słowa kluczowe Podcast"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2787
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:531
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - Lista zasług muzyków"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2789
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:533
 msgctxt "@default|"
 msgid "TMOO - Mood"
 msgstr "TMOO - Nastrój"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2800
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:544
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
 msgstr "TPRO - Uwaga od produkcji"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2805
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:549
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 - Kolejność szeregowania wg wykonawcy albumu"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2806
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:550
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
 msgstr "TSOA - Kolejność szeregowania wg albumu"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2807
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:551
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
 msgstr "TSOC - Kolejność szeregowania wg kompozytora"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2808
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:552
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
 msgstr "TSOP - Kolejność szeregowania wg wykonawcy"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2809
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:553
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
 msgstr "TSOT - Kolejność szeregowania wg tytułu"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2812
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:556
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
 msgstr "TSST - Ustaw napisy"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2820
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:564
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Źródło Podcast"
-
-#: src/plugins/taglibmetadata/taglibfile.cpp:7117
-msgctxt "@default|"
-msgid "Rating Information"
-msgstr "Dane nt oceny"
 
 #: src/qml/app/AboutDialog.qml:29
 msgctxt "AboutDialog|"

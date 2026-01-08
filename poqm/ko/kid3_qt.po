@@ -1729,17 +1729,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "이름"
 
-#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:77
+#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:80
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:78
+#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:81
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:80
+#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:83
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -1786,49 +1786,50 @@ msgctxt "HttpClient|"
 msgid "Request sent..."
 msgstr "요청 보냄..."
 
-#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:118
-#: src/core/tags/frame.cpp:2005
+#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:133
+#: src/core/tags/frame.cpp:2049
 msgctxt "@default|"
 msgid "Title"
 msgstr "제목"
 
-#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:120
-#: src/core/tags/frame.cpp:2009
+#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:111
+#: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:2053
 msgctxt "@default|"
 msgid "Album"
 msgstr "앨범"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
-#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:119
-#: src/core/tags/frame.cpp:2013
+#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:134
+#: src/core/tags/frame.cpp:2057
 msgctxt "@default|"
 msgid "Artist"
 msgstr "아티스트"
 
-#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:121
-#: src/core/tags/frame.cpp:284 src/core/tags/frame.cpp:2017
+#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:136
+#: src/core/tags/frame.cpp:304 src/core/tags/frame.cpp:2061
 msgctxt "@default|"
 msgid "Comment"
 msgstr "설명"
 
-#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:316
-#: src/core/tags/frame.cpp:2021
+#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:336
+#: src/core/tags/frame.cpp:2065
 msgctxt "@default|"
 msgid "Year"
 msgstr "연도"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:2026
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:109
+#: src/core/tags/frame.cpp:2070
 msgctxt "@default|"
 msgid "Track"
 msgstr "트랙"
 
-#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:124
-#: src/core/tags/frame.cpp:2039
+#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:139
+#: src/core/tags/frame.cpp:2083
 msgctxt "@default|"
 msgid "Genre"
 msgstr "장르"
 
-#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:231
+#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:246
 #: src/core/tags/trackdata.cpp:231
 msgctxt "@default|"
 msgid "Length"
@@ -1862,7 +1863,7 @@ msgid "Shortcut"
 msgstr "단축키"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:105
-#: src/core/tags/frame.cpp:278 src/core/tags/frame.cpp:279
+#: src/core/tags/frame.cpp:293 src/core/tags/frame.cpp:294
 msgctxt "@default|"
 msgid "Unknown"
 msgstr "알 수 없음"
@@ -2509,13 +2510,13 @@ msgctxt "@default|"
 msgid "Data"
 msgstr "데이터"
 
-#: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:150
-#: src/core/tags/frame.cpp:252 src/core/tags/frame.cpp:298
+#: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:165
+#: src/core/tags/frame.cpp:267 src/core/tags/frame.cpp:318
 msgctxt "@default|"
 msgid "Description"
 msgstr "설명"
 
-#: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:321
+#: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:341
 msgctxt "@default|"
 msgid "Owner"
 msgstr "소유자"
@@ -2525,12 +2526,12 @@ msgctxt "@default|"
 msgid "Email"
 msgstr "이메일"
 
-#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:166
+#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:181
 msgctxt "@default|"
 msgid "Rating"
 msgstr "별점"
 
-#: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:142
+#: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:157
 msgctxt "@default|"
 msgid "Language"
 msgstr "언어"
@@ -2560,8 +2561,8 @@ msgctxt "@default|"
 msgid "Identifier"
 msgstr "식별자"
 
-#: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:211
-#: src/core/tags/frame.cpp:212
+#: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:226
+#: src/core/tags/frame.cpp:227
 msgctxt "@default|"
 msgid "Volume Adjustment"
 msgstr "음량 조절"
@@ -2606,8 +2607,8 @@ msgctxt "@default|"
 msgid "Price"
 msgstr "가격"
 
-#: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:122
-#: src/core/tags/frame.cpp:219
+#: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:137
+#: src/core/tags/frame.cpp:234
 msgctxt "@default|"
 msgid "Date"
 msgstr "날짜"
@@ -2617,858 +2618,950 @@ msgctxt "@default|"
 msgid "Seller"
 msgstr "판매자"
 
-#: src/core/tags/frame.cpp:79
+#: src/core/tags/frame.cpp:74
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Content Type"
+msgctxt "@default|"
+msgid "Target Type"
+msgstr "콘텐츠 형식"
+
+#: src/core/tags/frame.cpp:75
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "Restore Defaults"
+msgctxt "@default|"
+msgid "Default"
+msgstr "기본값 복원"
+
+#: src/core/tags/frame.cpp:82
 msgctxt "@default|"
 msgid "UTF16BE"
 msgstr "UTF16BE"
 
-#: src/core/tags/frame.cpp:85 src/core/tags/frame.cpp:92
+#: src/core/tags/frame.cpp:88 src/core/tags/frame.cpp:95
 #: src/core/tags/pictureframe.cpp:41
 msgctxt "@default|"
 msgid "Other"
 msgstr "기타"
 
-#: src/core/tags/frame.cpp:86
+#: src/core/tags/frame.cpp:89
 msgctxt "@default|"
 msgid "MPEG frames as unit"
 msgstr "MPEG 프레임을 단위로 사용"
 
-#: src/core/tags/frame.cpp:87
+#: src/core/tags/frame.cpp:90
 msgctxt "@default|"
 msgid "Milliseconds as unit"
 msgstr "밀리초를 단위로 사용"
 
-#: src/core/tags/frame.cpp:93 src/core/tags/frame.cpp:144
+#: src/core/tags/frame.cpp:96 src/core/tags/frame.cpp:159
 #: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "가사"
 
-#: src/core/tags/frame.cpp:94
+#: src/core/tags/frame.cpp:97
 msgctxt "@default|"
 msgid "Text transcription"
 msgstr "텍스트 전사"
 
-#: src/core/tags/frame.cpp:95
+#: src/core/tags/frame.cpp:98
 msgctxt "@default|"
 msgid "Movement/part name"
 msgstr "악장/부분 이름"
 
-#: src/core/tags/frame.cpp:96
+#: src/core/tags/frame.cpp:99
 msgctxt "@default|"
 msgid "Events"
 msgstr "이벤트"
 
-#: src/core/tags/frame.cpp:97
+#: src/core/tags/frame.cpp:100
 msgctxt "@default|"
 msgid "Chord"
 msgstr "현"
 
-#: src/core/tags/frame.cpp:98
+#: src/core/tags/frame.cpp:101
 msgctxt "@default|"
 msgid "Trivia/pop up"
 msgstr "트리비아/팝업"
 
-#: src/core/tags/frame.cpp:123
+#: src/core/tags/frame.cpp:106
+#, fuzzy
+#| msgctxt "FormatConfig|"
+#| msgid "None"
+msgctxt "@default|"
+msgid "None"
+msgstr "없음"
+
+#: src/core/tags/frame.cpp:107
+msgctxt "@default|"
+msgid "Shot"
+msgstr ""
+
+#: src/core/tags/frame.cpp:108
+#, fuzzy
+#| msgctxt "NumberTracksCommand|"
+#| msgid "Number tracks"
+msgctxt "@default|"
+msgid "Subtrack"
+msgstr "트랙 번호 매기기"
+
+#: src/core/tags/frame.cpp:110
+msgctxt "@default|"
+msgid "Part"
+msgstr ""
+
+#: src/core/tags/frame.cpp:112
+#, fuzzy
+#| msgctxt "KdeMainWindow|"
+#| msgid "Edit"
+msgctxt "@default|"
+msgid "Edition"
+msgstr "편집"
+
+#: src/core/tags/frame.cpp:113
+#, fuzzy
+#| msgctxt "Kid3Application|"
+#| msgid "Selection"
+msgctxt "@default|"
+msgid "Collection"
+msgstr "선택"
+
+#: src/core/tags/frame.cpp:138
 msgctxt "@default|"
 msgid "Track Number"
 msgstr "트랙 번호"
 
-#: src/core/tags/frame.cpp:126 src/core/tags/frame.cpp:249
+#: src/core/tags/frame.cpp:141 src/core/tags/frame.cpp:264
 msgctxt "@default|"
 msgid "Album Artist"
 msgstr "앨범 아티스트"
 
-#: src/core/tags/frame.cpp:127
+#: src/core/tags/frame.cpp:142
 msgctxt "@default|"
 msgid "Arranger"
 msgstr "기획자"
 
-#: src/core/tags/frame.cpp:128
+#: src/core/tags/frame.cpp:143
 msgctxt "@default|"
 msgid "Author"
 msgstr "작성자"
 
-#: src/core/tags/frame.cpp:129
+#: src/core/tags/frame.cpp:144
 msgctxt "@default|"
 msgid "BPM"
 msgstr "BPM"
 
-#: src/core/tags/frame.cpp:130
+#: src/core/tags/frame.cpp:145
 msgctxt "@default|"
 msgid "Catalog Number"
 msgstr "카탈로그 번호"
 
-#: src/core/tags/frame.cpp:131
+#: src/core/tags/frame.cpp:146
 msgctxt "@default|"
 msgid "Compilation"
 msgstr "모음집"
 
-#: src/core/tags/frame.cpp:132 src/core/tags/pictureframe.cpp:52
+#: src/core/tags/frame.cpp:147 src/core/tags/pictureframe.cpp:52
 msgctxt "@default|"
 msgid "Composer"
 msgstr "작곡가"
 
-#: src/core/tags/frame.cpp:133 src/core/tags/frame.cpp:297
+#: src/core/tags/frame.cpp:148 src/core/tags/frame.cpp:317
 #: src/core/tags/pictureframe.cpp:50
 msgctxt "@default|"
 msgid "Conductor"
 msgstr "지휘자"
 
-#: src/core/tags/frame.cpp:134
+#: src/core/tags/frame.cpp:149
 msgctxt "@default|"
 msgid "Copyright"
 msgstr "저작권"
 
-#: src/core/tags/frame.cpp:135
+#: src/core/tags/frame.cpp:150
 msgctxt "@default|"
 msgid "Disc Number"
 msgstr "디스크 번호"
 
-#: src/core/tags/frame.cpp:136 src/core/tags/frame.cpp:256
+#: src/core/tags/frame.cpp:151 src/core/tags/frame.cpp:271
 msgctxt "@default|"
 msgid "Encoded-by"
 msgstr "인코딩 도구"
 
-#: src/core/tags/frame.cpp:137 src/core/tags/frame.cpp:255
+#: src/core/tags/frame.cpp:152 src/core/tags/frame.cpp:270
 msgctxt "@default|"
 msgid "Encoder Settings"
 msgstr "인코더 설정"
 
-#: src/core/tags/frame.cpp:138 src/core/tags/frame.cpp:220
+#: src/core/tags/frame.cpp:153 src/core/tags/frame.cpp:235
 msgctxt "@default|"
 msgid "Encoding Time"
 msgstr "인코딩 시간"
 
-#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:198
-#: src/core/tags/frame.cpp:251
+#: src/core/tags/frame.cpp:154 src/core/tags/frame.cpp:213
+#: src/core/tags/frame.cpp:266
 msgctxt "@default|"
 msgid "Grouping"
 msgstr "그룹"
 
-#: src/core/tags/frame.cpp:140
+#: src/core/tags/frame.cpp:155
 msgctxt "@default|"
 msgid "Initial Key"
 msgstr "첫 음계"
 
-#: src/core/tags/frame.cpp:141
+#: src/core/tags/frame.cpp:156
 msgctxt "@default|"
 msgid "ISRC"
 msgstr "ISRC"
 
-#: src/core/tags/frame.cpp:143
+#: src/core/tags/frame.cpp:158
 msgctxt "@default|"
 msgid "Lyricist"
 msgstr "작사자"
 
-#: src/core/tags/frame.cpp:145 src/core/tags/pictureframe.cpp:47
+#: src/core/tags/frame.cpp:160 src/core/tags/pictureframe.cpp:47
 msgctxt "@default|"
 msgid "Media"
 msgstr "미디어"
 
-#: src/core/tags/frame.cpp:146 src/core/tags/frame.cpp:286
+#: src/core/tags/frame.cpp:161 src/core/tags/frame.cpp:306
 msgctxt "@default|"
 msgid "Mood"
 msgstr "분위기"
 
-#: src/core/tags/frame.cpp:147
+#: src/core/tags/frame.cpp:162
 msgctxt "@default|"
 msgid "Original Album"
 msgstr "원래 앨범"
 
-#: src/core/tags/frame.cpp:148 src/core/tags/frame.cpp:268
+#: src/core/tags/frame.cpp:163 src/core/tags/frame.cpp:283
 msgctxt "@default|"
 msgid "Original Artist"
 msgstr "원래 아티스트"
 
-#: src/core/tags/frame.cpp:149
+#: src/core/tags/frame.cpp:164
 msgctxt "@default|"
 msgid "Original Date"
 msgstr "원본 날짜"
 
-#: src/core/tags/frame.cpp:151
+#: src/core/tags/frame.cpp:166
 msgctxt "@default|"
 msgid "Performer"
 msgstr "연주가"
 
-#: src/core/tags/frame.cpp:152
+#: src/core/tags/frame.cpp:167
 msgctxt "@default|"
 msgid "Picture"
 msgstr "그림"
 
-#: src/core/tags/frame.cpp:153
+#: src/core/tags/frame.cpp:168
 msgctxt "@default|"
 msgid "Publisher"
 msgstr "출판사"
 
-#: src/core/tags/frame.cpp:154
+#: src/core/tags/frame.cpp:169
 msgctxt "@default|"
 msgid "Release Country"
 msgstr "출시 국가"
 
-#: src/core/tags/frame.cpp:155 src/core/tags/frame.cpp:274
+#: src/core/tags/frame.cpp:170 src/core/tags/frame.cpp:289
 msgctxt "@default|"
 msgid "Remixer"
 msgstr "리믹스"
 
-#: src/core/tags/frame.cpp:156
+#: src/core/tags/frame.cpp:171
 msgctxt "@default|"
 msgid "Sort Album"
 msgstr "앨범 정렬"
 
-#: src/core/tags/frame.cpp:157 src/core/tags/frame.cpp:283
+#: src/core/tags/frame.cpp:172 src/core/tags/frame.cpp:303
 msgctxt "@default|"
 msgid "Sort Album Artist"
 msgstr "앨범 아티스트 정렬"
 
-#: src/core/tags/frame.cpp:158
+#: src/core/tags/frame.cpp:173
 msgctxt "@default|"
 msgid "Sort Artist"
 msgstr "아티스트 정렬"
 
-#: src/core/tags/frame.cpp:159
+#: src/core/tags/frame.cpp:174
 msgctxt "@default|"
 msgid "Sort Composer"
 msgstr "작곡가 정렬"
 
-#: src/core/tags/frame.cpp:160
+#: src/core/tags/frame.cpp:175
 msgctxt "@default|"
 msgid "Sort Name"
 msgstr "이름 정렬"
 
-#: src/core/tags/frame.cpp:161
+#: src/core/tags/frame.cpp:176
 msgctxt "@default|"
 msgid "Subtitle"
 msgstr "부제"
 
-#: src/core/tags/frame.cpp:162
+#: src/core/tags/frame.cpp:177
 msgctxt "@default|"
 msgid "Website"
 msgstr "웹사이트"
 
-#: src/core/tags/frame.cpp:163
+#: src/core/tags/frame.cpp:178
 msgctxt "@default|"
 msgid "WWW Audio File"
 msgstr "WWW 오디오 파일"
 
-#: src/core/tags/frame.cpp:164
+#: src/core/tags/frame.cpp:179
 msgctxt "@default|"
 msgid "WWW Audio Source"
 msgstr "WWW 오디오 원본"
 
-#: src/core/tags/frame.cpp:165
+#: src/core/tags/frame.cpp:180
 msgctxt "@default|"
 msgid "Release Date"
 msgstr "발매 날짜"
 
-#: src/core/tags/frame.cpp:167
+#: src/core/tags/frame.cpp:182
 msgctxt "@default|"
 msgid "Work"
 msgstr "작품"
 
-#: src/core/tags/frame.cpp:187
+#: src/core/tags/frame.cpp:202
 msgctxt "@default|"
 msgid "Audio Encryption"
 msgstr "오디오 암호화"
 
-#: src/core/tags/frame.cpp:188
+#: src/core/tags/frame.cpp:203
 msgctxt "@default|"
 msgid "Audio Seek Point"
 msgstr "오디오 이동 지점"
 
-#: src/core/tags/frame.cpp:189
+#: src/core/tags/frame.cpp:204
 msgctxt "@default|"
 msgid "Chapter"
 msgstr "장"
 
-#: src/core/tags/frame.cpp:190
+#: src/core/tags/frame.cpp:205
 msgctxt "@default|"
 msgid "Commercial"
 msgstr "상업적"
 
-#: src/core/tags/frame.cpp:191
+#: src/core/tags/frame.cpp:206
 msgctxt "@default|"
 msgid "Table of Contents"
 msgstr "목차"
 
-#: src/core/tags/frame.cpp:192
+#: src/core/tags/frame.cpp:207
 msgctxt "@default|"
 msgid "Encryption Method"
 msgstr "암호화 방법"
 
-#: src/core/tags/frame.cpp:193 src/core/tags/frame.cpp:194
+#: src/core/tags/frame.cpp:208 src/core/tags/frame.cpp:209
 msgctxt "@default|"
 msgid "Equalization"
 msgstr "평준화"
 
-#: src/core/tags/frame.cpp:195
+#: src/core/tags/frame.cpp:210
 msgctxt "@default|"
 msgid "Event Timing Codes"
 msgstr "이벤트 타이밍 코드"
 
-#: src/core/tags/frame.cpp:196
+#: src/core/tags/frame.cpp:211
 msgctxt "@default|"
 msgid "General Object"
 msgstr "일반 객체"
 
-#: src/core/tags/frame.cpp:197
+#: src/core/tags/frame.cpp:212
 msgctxt "@default|"
 msgid "Group Identification"
 msgstr "그룹 식별자"
 
-#: src/core/tags/frame.cpp:199
+#: src/core/tags/frame.cpp:214
 msgctxt "@default|"
 msgid "Linked Information"
 msgstr "연결된 식별자"
 
-#: src/core/tags/frame.cpp:200
+#: src/core/tags/frame.cpp:215
 msgctxt "@default|"
 msgid "Music CD Identifier"
 msgstr "음악 CD 식별자"
 
-#: src/core/tags/frame.cpp:201
+#: src/core/tags/frame.cpp:216
 msgctxt "@default|"
 msgid "MPEG Lookup Table"
 msgstr "MPEG 찾아보기 테이블"
 
-#: src/core/tags/frame.cpp:202 src/core/tags/frame.cpp:318
+#: src/core/tags/frame.cpp:217 src/core/tags/frame.cpp:338
 msgctxt "@default|"
 msgid "Movement Number"
 msgstr "악장 번호"
 
-#: src/core/tags/frame.cpp:203 src/core/tags/frame.cpp:317
+#: src/core/tags/frame.cpp:218 src/core/tags/frame.cpp:337
 msgctxt "@default|"
 msgid "Movement Name"
 msgstr "악장 이름"
 
-#: src/core/tags/frame.cpp:204
+#: src/core/tags/frame.cpp:219
 msgctxt "@default|"
 msgid "Ownership"
 msgstr "소유자"
 
-#: src/core/tags/frame.cpp:205
+#: src/core/tags/frame.cpp:220
 msgctxt "@default|"
 msgid "Play Counter"
 msgstr "재생 횟수"
 
-#: src/core/tags/frame.cpp:206 src/core/tags/frame.cpp:303
+#: src/core/tags/frame.cpp:221 src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Podcast"
 msgstr "팟캐스트"
 
-#: src/core/tags/frame.cpp:207
+#: src/core/tags/frame.cpp:222
 msgctxt "@default|"
 msgid "Popularimeter"
 msgstr "인기도 미터"
 
-#: src/core/tags/frame.cpp:208
+#: src/core/tags/frame.cpp:223
 msgctxt "@default|"
 msgid "Position Synchronisation"
 msgstr "위치 동기화"
 
-#: src/core/tags/frame.cpp:209
+#: src/core/tags/frame.cpp:224
 msgctxt "@default|"
 msgid "Private"
 msgstr "개인"
 
-#: src/core/tags/frame.cpp:210
+#: src/core/tags/frame.cpp:225
 msgctxt "@default|"
 msgid "Recommended Buffer Size"
 msgstr "권장 버퍼 크기"
 
-#: src/core/tags/frame.cpp:213
+#: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Reverb"
 msgstr "리버브"
 
-#: src/core/tags/frame.cpp:214
+#: src/core/tags/frame.cpp:229
 msgctxt "@default|"
 msgid "Seek"
 msgstr "탐색"
 
-#: src/core/tags/frame.cpp:215
+#: src/core/tags/frame.cpp:230
 msgctxt "@default|"
 msgid "Signature"
 msgstr "서명"
 
-#: src/core/tags/frame.cpp:216
+#: src/core/tags/frame.cpp:231
 msgctxt "@default|"
 msgid "Synchronized Lyrics"
 msgstr "동기화된 가사"
 
-#: src/core/tags/frame.cpp:217
+#: src/core/tags/frame.cpp:232
 msgctxt "@default|"
 msgid "Synchronized Tempo Codes"
 msgstr "동기화된 템포 코드"
 
-#: src/core/tags/frame.cpp:218
+#: src/core/tags/frame.cpp:233
 msgctxt "@default|"
 msgid "Podcast Category"
 msgstr "팟캐스트 분류"
 
-#: src/core/tags/frame.cpp:221
+#: src/core/tags/frame.cpp:236
 msgctxt "@default|"
 msgid "Podcast Description"
 msgstr "팟캐스트 설명"
 
-#: src/core/tags/frame.cpp:222
+#: src/core/tags/frame.cpp:237
 msgctxt "@default|"
 msgid "Playlist Delay"
 msgstr "재생 목록 지연"
 
-#: src/core/tags/frame.cpp:223
+#: src/core/tags/frame.cpp:238
 msgctxt "@default|"
 msgid "Original Release Time"
 msgstr "원래 출시한 시간"
 
-#: src/core/tags/frame.cpp:224
+#: src/core/tags/frame.cpp:239
 msgctxt "@default|"
 msgid "Recording Time"
 msgstr "녹음한 시간"
 
-#: src/core/tags/frame.cpp:225
+#: src/core/tags/frame.cpp:240
 msgctxt "@default|"
 msgid "Release Time"
 msgstr "출시한 시간"
 
-#: src/core/tags/frame.cpp:226
+#: src/core/tags/frame.cpp:241
 msgctxt "@default|"
 msgid "Tagging Time"
 msgstr "태그한 시간"
 
-#: src/core/tags/frame.cpp:227
+#: src/core/tags/frame.cpp:242
 msgctxt "@default|"
 msgid "File Type"
 msgstr "파일 형식"
 
-#: src/core/tags/frame.cpp:228
+#: src/core/tags/frame.cpp:243
 msgctxt "@default|"
 msgid "Podcast Identifier"
 msgstr "팟캐스트 식별자"
 
-#: src/core/tags/frame.cpp:229
+#: src/core/tags/frame.cpp:244
 msgctxt "@default|"
 msgid "Time"
 msgstr "시간"
 
-#: src/core/tags/frame.cpp:230
+#: src/core/tags/frame.cpp:245
 msgctxt "@default|"
 msgid "Podcast Keywords"
 msgstr "팟캐스트 키워드"
 
-#: src/core/tags/frame.cpp:232 src/core/tags/frame.cpp:287
+#: src/core/tags/frame.cpp:247 src/core/tags/frame.cpp:307
 msgctxt "@default|"
 msgid "Original Filename"
 msgstr "원본 파일 이름"
 
-#: src/core/tags/frame.cpp:233
+#: src/core/tags/frame.cpp:248
 msgctxt "@default|"
 msgid "File Owner"
 msgstr "파일 소유자"
 
-#: src/core/tags/frame.cpp:234
+#: src/core/tags/frame.cpp:249
 msgctxt "@default|"
 msgid "Produced Notice"
 msgstr "생성된 공지"
 
-#: src/core/tags/frame.cpp:235 src/core/tags/frame.cpp:273
+#: src/core/tags/frame.cpp:250 src/core/tags/frame.cpp:288
 msgctxt "@default|"
 msgid "Recording Date"
 msgstr "녹음한 날짜"
 
-#: src/core/tags/frame.cpp:236
+#: src/core/tags/frame.cpp:251
 msgctxt "@default|"
 msgid "Radio Station Name"
 msgstr "라디오 방송국 이름"
 
-#: src/core/tags/frame.cpp:237
+#: src/core/tags/frame.cpp:252
 msgctxt "@default|"
 msgid "Radio Station Owner"
 msgstr "라디오 방송국 소유자"
 
-#: src/core/tags/frame.cpp:238
+#: src/core/tags/frame.cpp:253
 msgctxt "@default|"
 msgid "Size"
 msgstr "크기"
 
-#: src/core/tags/frame.cpp:239
+#: src/core/tags/frame.cpp:254
 msgctxt "@default|"
 msgid "User-defined Text"
 msgstr "사용자 정의 텍스트"
 
-#: src/core/tags/frame.cpp:240
+#: src/core/tags/frame.cpp:255
 msgctxt "@default|"
 msgid "Unique File Identifier"
 msgstr "고유 파일 식별자"
 
-#: src/core/tags/frame.cpp:241
+#: src/core/tags/frame.cpp:256
 msgctxt "@default|"
 msgid "Terms of Use"
 msgstr "이용 약관"
 
-#: src/core/tags/frame.cpp:242 src/core/tags/frame.cpp:289
+#: src/core/tags/frame.cpp:257 src/core/tags/frame.cpp:309
 msgctxt "@default|"
 msgid "Commercial URL"
 msgstr "광고 URL"
 
-#: src/core/tags/frame.cpp:243
+#: src/core/tags/frame.cpp:258
 msgctxt "@default|"
 msgid "Copyright URL"
 msgstr "저작권 URL"
 
-#: src/core/tags/frame.cpp:244
+#: src/core/tags/frame.cpp:259
 msgctxt "@default|"
 msgid "Podcast Feed"
 msgstr "팟캐스트 피드"
 
-#: src/core/tags/frame.cpp:245
+#: src/core/tags/frame.cpp:260
 msgctxt "@default|"
 msgid "Official Radio Station"
 msgstr "공식 라디오 방송국"
 
-#: src/core/tags/frame.cpp:246
+#: src/core/tags/frame.cpp:261
 msgctxt "@default|"
 msgid "Payment"
 msgstr "지불"
 
-#: src/core/tags/frame.cpp:247
+#: src/core/tags/frame.cpp:262
 msgctxt "@default|"
 msgid "Official Publisher"
 msgstr "공식 출판사"
 
-#: src/core/tags/frame.cpp:248 src/core/tags/frame.cpp:282
-#: src/core/tags/frame.cpp:291
+#: src/core/tags/frame.cpp:263 src/core/tags/frame.cpp:297
+#: src/core/tags/frame.cpp:311
 msgctxt "@default|"
 msgid "User-defined URL"
 msgstr "사용자 정의 URL"
 
-#: src/core/tags/frame.cpp:250
+#: src/core/tags/frame.cpp:265
 msgctxt "@default|"
 msgid "Contact"
 msgstr "연락처"
 
-#: src/core/tags/frame.cpp:253 src/core/tags/frame.cpp:275
+#: src/core/tags/frame.cpp:268 src/core/tags/frame.cpp:290
 msgctxt "@default|"
 msgid "Total Discs"
 msgstr "총 디스크 수"
 
-#: src/core/tags/frame.cpp:254
+#: src/core/tags/frame.cpp:269
 msgctxt "@default|"
 msgid "Encoder"
 msgstr "인코더"
 
-#: src/core/tags/frame.cpp:257
+#: src/core/tags/frame.cpp:272
 msgctxt "@default|"
 msgid "Encoding"
 msgstr "인코딩"
 
-#: src/core/tags/frame.cpp:258
+#: src/core/tags/frame.cpp:273
 msgctxt "@default|"
 msgid "Engineer"
 msgstr "엔지니어"
 
-#: src/core/tags/frame.cpp:259
+#: src/core/tags/frame.cpp:274
 msgctxt "@default|"
 msgid "Ensemble"
 msgstr "앙상블"
 
-#: src/core/tags/frame.cpp:260
+#: src/core/tags/frame.cpp:275
 msgctxt "@default|"
 msgid "Guest Artist"
 msgstr "게스트 아티스트"
 
-#: src/core/tags/frame.cpp:261 src/core/tags/trackdata.cpp:264
+#: src/core/tags/frame.cpp:276 src/core/tags/trackdata.cpp:264
 msgctxt "@default|"
 msgid "VBR"
 msgstr "가변 비트 전송률"
 
-#: src/core/tags/frame.cpp:262 src/core/tags/frame.cpp:304
+#: src/core/tags/frame.cpp:277 src/core/tags/frame.cpp:324
 msgctxt "@default|"
 msgid "Gapless Playback"
 msgstr "갭리스 재생"
 
-#: src/core/tags/frame.cpp:263
+#: src/core/tags/frame.cpp:278
 msgctxt "@default|"
 msgid "Label"
 msgstr "레이블"
 
-#: src/core/tags/frame.cpp:264
+#: src/core/tags/frame.cpp:279
 msgctxt "@default|"
 msgid "Label Number"
 msgstr "레이블 번호"
 
-#: src/core/tags/frame.cpp:265
+#: src/core/tags/frame.cpp:280
 msgctxt "@default|"
 msgid "License"
 msgstr "라이선스"
 
-#: src/core/tags/frame.cpp:266
+#: src/core/tags/frame.cpp:281
 msgctxt "@default|"
 msgid "Location"
 msgstr "위치"
 
-#: src/core/tags/frame.cpp:267
+#: src/core/tags/frame.cpp:282
 msgctxt "@default|"
 msgid "Opus"
 msgstr "작품"
 
-#: src/core/tags/frame.cpp:269
+#: src/core/tags/frame.cpp:284
 msgctxt "@default|"
 msgid "Organization"
 msgstr "조직"
 
-#: src/core/tags/frame.cpp:270
+#: src/core/tags/frame.cpp:285
 msgctxt "@default|"
 msgid "Part Number"
 msgstr "파트 번호"
 
-#: src/core/tags/frame.cpp:271
+#: src/core/tags/frame.cpp:286
 msgctxt "@default|"
 msgid "Producer"
 msgstr "프로듀서"
 
-#: src/core/tags/frame.cpp:272
+#: src/core/tags/frame.cpp:287
 msgctxt "@default|"
 msgid "Product Number"
 msgstr "제품 번호"
 
-#: src/core/tags/frame.cpp:276 src/core/tags/frame.cpp:277
+#: src/core/tags/frame.cpp:291 src/core/tags/frame.cpp:292
 msgctxt "@default|"
 msgid "Total Tracks"
 msgstr "총 트랙 수"
 
-#: src/core/tags/frame.cpp:280
+#: src/core/tags/frame.cpp:295
 msgctxt "@default|"
 msgid "Version"
 msgstr "버전"
 
-#: src/core/tags/frame.cpp:281
+#: src/core/tags/frame.cpp:296
 msgctxt "@default|"
 msgid "Volume"
 msgstr "음량"
 
-#: src/core/tags/frame.cpp:285
+#: src/core/tags/frame.cpp:298
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Directory name"
+msgctxt "@default|"
+msgid "Director"
+msgstr "디렉터리 이름"
+
+#: src/core/tags/frame.cpp:299
+#, fuzzy
+#| msgctxt "TrackDataModel|"
+#| msgid "Duration"
+msgctxt "@default|"
+msgid "Duration"
+msgstr "시간"
+
+#: src/core/tags/frame.cpp:300
+msgctxt "@default|"
+msgid "Summary"
+msgstr ""
+
+#: src/core/tags/frame.cpp:301
+msgctxt "@default|"
+msgid "Synopsis"
+msgstr ""
+
+#: src/core/tags/frame.cpp:302
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Total Tracks"
+msgctxt "@default|"
+msgid "Total Parts"
+msgstr "총 트랙 수"
+
+#: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "MCDI"
 msgstr "MCDI"
 
-#: src/core/tags/frame.cpp:288
+#: src/core/tags/frame.cpp:308
 msgctxt "@default|"
 msgid "Original Lyricist"
 msgstr "원래 작사가"
 
-#: src/core/tags/frame.cpp:290
+#: src/core/tags/frame.cpp:310
 msgctxt "@default|"
 msgid "User Rating"
 msgstr "사용자 별점"
 
-#: src/core/tags/frame.cpp:292
+#: src/core/tags/frame.cpp:312
 msgctxt "@default|"
 msgid "Account Type"
 msgstr "계정 종류"
 
-#: src/core/tags/frame.cpp:293
+#: src/core/tags/frame.cpp:313
 msgctxt "@default|"
 msgid "Purchase Account"
 msgstr "구매 계정"
 
-#: src/core/tags/frame.cpp:294
+#: src/core/tags/frame.cpp:314
 msgctxt "@default|"
 msgid "Artist ID"
 msgstr "아티스트 ID"
 
-#: src/core/tags/frame.cpp:295
+#: src/core/tags/frame.cpp:315
 msgctxt "@default|"
 msgid "Category"
 msgstr "분류"
 
-#: src/core/tags/frame.cpp:296
+#: src/core/tags/frame.cpp:316
 msgctxt "@default|"
 msgid "Catalog ID"
 msgstr "카탈로그 ID"
 
-#: src/core/tags/frame.cpp:299
+#: src/core/tags/frame.cpp:319
 msgctxt "@default|"
 msgid "Genre ID"
 msgstr "장르 ID"
 
-#: src/core/tags/frame.cpp:300
+#: src/core/tags/frame.cpp:320
 msgctxt "@default|"
 msgid "HD Video"
 msgstr "HD 비디오"
 
-#: src/core/tags/frame.cpp:301
+#: src/core/tags/frame.cpp:321
 msgctxt "@default|"
 msgid "Keyword"
 msgstr "키워드"
 
-#: src/core/tags/frame.cpp:302
+#: src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Long Description"
 msgstr "긴 설명"
 
-#: src/core/tags/frame.cpp:305
+#: src/core/tags/frame.cpp:325
 msgctxt "@default|"
 msgid "Album ID"
 msgstr "앨범 ID"
 
-#: src/core/tags/frame.cpp:306
+#: src/core/tags/frame.cpp:326
 msgctxt "@default|"
 msgid "Purchase Date"
 msgstr "구매한 날짜"
 
-#: src/core/tags/frame.cpp:307
+#: src/core/tags/frame.cpp:327
 msgctxt "@default|"
 msgid "Rating/Advisory"
 msgstr "등급/권고"
 
-#: src/core/tags/frame.cpp:308
+#: src/core/tags/frame.cpp:328
 msgctxt "@default|"
 msgid "Country Code"
 msgstr "국가 코드"
 
-#: src/core/tags/frame.cpp:309
+#: src/core/tags/frame.cpp:329
 msgctxt "@default|"
 msgid "Sort Show"
 msgstr "정렬 표시"
 
-#: src/core/tags/frame.cpp:310
+#: src/core/tags/frame.cpp:330
 msgctxt "@default|"
 msgid "Media Type"
 msgstr "미디어 형식"
 
-#: src/core/tags/frame.cpp:311
+#: src/core/tags/frame.cpp:331
 msgctxt "@default|"
 msgid "TV Episode"
 msgstr "TV 에피소드"
 
-#: src/core/tags/frame.cpp:312
+#: src/core/tags/frame.cpp:332
 msgctxt "@default|"
 msgid "TV Episode Number"
 msgstr "TV 에피소드 번호"
 
-#: src/core/tags/frame.cpp:313
+#: src/core/tags/frame.cpp:333
 msgctxt "@default|"
 msgid "TV Network Name"
 msgstr "TV 방송국 이름"
 
-#: src/core/tags/frame.cpp:314
+#: src/core/tags/frame.cpp:334
 msgctxt "@default|"
 msgid "TV Show Name"
 msgstr "TV 프로그램 이름"
 
-#: src/core/tags/frame.cpp:315
+#: src/core/tags/frame.cpp:335
 msgctxt "@default|"
 msgid "TV Season"
 msgstr "TV 시즌"
 
-#: src/core/tags/frame.cpp:319
+#: src/core/tags/frame.cpp:339
 msgctxt "@default|"
 msgid "Movement Count"
 msgstr "악장 수"
 
-#: src/core/tags/frame.cpp:320
+#: src/core/tags/frame.cpp:340
 msgctxt "@default|"
 msgid "Show Work & Movement"
 msgstr "작품과 악장 표시"
 
-#: src/core/tags/frame.cpp:322
+#: src/core/tags/frame.cpp:342
 msgctxt "@default|"
 msgid "Podcast URL"
 msgstr "팟캐스트 URL"
 
-#: src/core/tags/frame.cpp:323
+#: src/core/tags/frame.cpp:343
 msgctxt "@default|"
 msgid "Podcast GUID"
 msgstr "팟캐스트 GUID"
 
-#: src/core/tags/frame.cpp:324
+#: src/core/tags/frame.cpp:344
 msgctxt "@default|"
 msgid "Composer ID"
 msgstr "작곡가 ID"
 
-#: src/core/tags/frame.cpp:325
+#: src/core/tags/frame.cpp:345
 msgctxt "@default|"
 msgid "XID"
 msgstr "XID"
 
-#: src/core/tags/frame.cpp:326
+#: src/core/tags/frame.cpp:346
 msgctxt "@default|"
 msgid "Chapters"
 msgstr "챕터"
 
-#: src/core/tags/frame.cpp:327
+#: src/core/tags/frame.cpp:347
 msgctxt "@default|"
 msgid "Archival Location"
 msgstr "보관 위치"
 
-#: src/core/tags/frame.cpp:328
+#: src/core/tags/frame.cpp:348
 msgctxt "@default|"
 msgid "Commissioned"
 msgstr "실행한 날짜"
 
-#: src/core/tags/frame.cpp:329
+#: src/core/tags/frame.cpp:349
 msgctxt "@default|"
 msgid "Cropped"
 msgstr "잘림"
 
-#: src/core/tags/frame.cpp:330
+#: src/core/tags/frame.cpp:350
 msgctxt "@default|"
 msgid "Dimensions"
 msgstr "크기"
 
-#: src/core/tags/frame.cpp:331
+#: src/core/tags/frame.cpp:351
 msgctxt "@default|"
 msgid "Dots Per Inch"
 msgstr "인치당 점 수 (DPI)"
 
-#: src/core/tags/frame.cpp:332
+#: src/core/tags/frame.cpp:352
 msgctxt "@default|"
 msgid "Keywords"
 msgstr "키워드"
 
-#: src/core/tags/frame.cpp:333
+#: src/core/tags/frame.cpp:353
 msgctxt "@default|"
 msgid "Lightness"
 msgstr "밝기"
 
-#: src/core/tags/frame.cpp:334
+#: src/core/tags/frame.cpp:354
 msgctxt "@default|"
 msgid "Number of Colors"
 msgstr "색상 수"
 
-#: src/core/tags/frame.cpp:335
+#: src/core/tags/frame.cpp:355
 msgctxt "@default|"
 msgid "Subject"
 msgstr "제목"
 
-#: src/core/tags/frame.cpp:336
+#: src/core/tags/frame.cpp:356
 msgctxt "@default|"
 msgid "Sharpness"
 msgstr "선명도"
 
-#: src/core/tags/frame.cpp:337
+#: src/core/tags/frame.cpp:357
 msgctxt "@default|"
 msgid "Source Form"
 msgstr "원본 형태"
 
-#: src/core/tags/frame.cpp:1226
+#: src/core/tags/frame.cpp:1270
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "태그 %1"
 
-#: src/core/tags/frame.cpp:1231
+#: src/core/tags/frame.cpp:1275
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "태그 1과 태그 2"
 
-#: src/core/tags/frame.cpp:1235
+#: src/core/tags/frame.cpp:1279
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "모든 태그"
 
-#: src/core/tags/frame.cpp:2044
+#: src/core/tags/frame.cpp:2088
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "비어 있지 않은 경우 T1을 앞에/T2를 뒤에 붙임"
@@ -4240,48 +4333,48 @@ msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "변경 사항은 다시 시작한 후 적용됩니다!"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:740
+#: src/gui/dialogs/editframefieldsdialog.cpp:801
 msgctxt "@default|"
 msgid "Images"
 msgstr "그림"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:741
+#: src/gui/dialogs/editframefieldsdialog.cpp:802
 #: src/gui/widgets/timeeventeditor.cpp:350
 msgctxt "@default|"
 msgid "All Files"
 msgstr "모든 파일"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1134
+#: src/gui/dialogs/editframefieldsdialog.cpp:1195
 msgctxt "BinaryOpenSave|"
 msgid "From Clip&board"
 msgstr "클립보드에서(&B)"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1135
+#: src/gui/dialogs/editframefieldsdialog.cpp:1196
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
 msgstr "클립보드로(&T)"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1136
+#: src/gui/dialogs/editframefieldsdialog.cpp:1197
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
 msgstr "가져오기(&I)..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1137
+#: src/gui/dialogs/editframefieldsdialog.cpp:1198
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
 msgstr "내보내기(&E)..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1138
+#: src/gui/dialogs/editframefieldsdialog.cpp:1199
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
 msgstr "보기(&V)..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1310
+#: src/gui/dialogs/editframefieldsdialog.cpp:1371
 msgctxt "EditFrameFieldsDialog|"
 msgid "&OK"
 msgstr "확인(&O)"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1311
+#: src/gui/dialogs/editframefieldsdialog.cpp:1372
 msgctxt "EditFrameFieldsDialog|"
 msgid "&Cancel"
 msgstr "취소(&C)"
@@ -5859,31 +5952,31 @@ msgid "gnudb.org"
 msgstr "gnudb.org"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:907
-#: src/plugins/taglibmetadata/taglibfile.cpp:2712
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:456
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
 msgstr "AENC - 오디오 암호화"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:908
-#: src/plugins/taglibmetadata/taglibfile.cpp:2713
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:457
 msgctxt "@default|"
 msgid "APIC - Attached picture"
 msgstr "APIC - 첨부된 그림"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:910
-#: src/plugins/taglibmetadata/taglibfile.cpp:2718
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:462
 msgctxt "@default|"
 msgid "COMM - Comments"
 msgstr "COMM - 설명"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:911
-#: src/plugins/taglibmetadata/taglibfile.cpp:2719
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:463
 msgctxt "@default|"
 msgid "COMR - Commercial"
 msgstr "COMR - 광고"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:912
-#: src/plugins/taglibmetadata/taglibfile.cpp:2723
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:467
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
 msgstr "ENCR - 암호화 방법 등록"
@@ -5894,19 +5987,19 @@ msgid "EQUA - Equalization"
 msgstr "EQUA - 평준화"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:915
-#: src/plugins/taglibmetadata/taglibfile.cpp:2725
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:469
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
 msgstr "ETCO - 이벤트 타이밍 코드"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:916
-#: src/plugins/taglibmetadata/taglibfile.cpp:2726
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:470
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
 msgstr "GEOB - 일반 캡슐화된 객체"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:917
-#: src/plugins/taglibmetadata/taglibfile.cpp:2727
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:471
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
 msgstr "GRID - 그룹 식별자 등록"
@@ -5917,55 +6010,55 @@ msgid "IPLS - Involved people list"
 msgstr "IPLS - 참여한 사람 목록"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:919
-#: src/plugins/taglibmetadata/taglibfile.cpp:2731
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:475
 msgctxt "@default|"
 msgid "LINK - Linked information"
 msgstr "LINK - 연결된 정보"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:920
-#: src/plugins/taglibmetadata/taglibfile.cpp:2732
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:476
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
 msgstr "MCDI - 음악 CD 식별자"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:921
-#: src/plugins/taglibmetadata/taglibfile.cpp:2733
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:477
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
 msgstr "MLLT - MPEG 위치 찾아보기 테이블"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:922
-#: src/plugins/taglibmetadata/taglibfile.cpp:2738
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:482
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
 msgstr "OWNE - 소유자 프레임"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:923
-#: src/plugins/taglibmetadata/taglibfile.cpp:2739
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:483
 msgctxt "@default|"
 msgid "PRIV - Private frame"
 msgstr "PRIV - 사용자 정의 프레임"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:924
-#: src/plugins/taglibmetadata/taglibfile.cpp:2740
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:484
 msgctxt "@default|"
 msgid "PCNT - Play counter"
 msgstr "PCNT - 재생 횟수"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:925
-#: src/plugins/taglibmetadata/taglibfile.cpp:2744
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:488
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
 msgstr "POPM - 인기도 미터"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:926
-#: src/plugins/taglibmetadata/taglibfile.cpp:2745
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:489
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
 msgstr "POSS - 위치 동기화 프레임"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:927
-#: src/plugins/taglibmetadata/taglibfile.cpp:2746
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:490
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
 msgstr "RBUF - 추천하는 버퍼 크기"
@@ -5976,49 +6069,49 @@ msgid "RVAD - Relative volume adjustment"
 msgstr "RVAD - 상대적 음량 조절"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:930
-#: src/plugins/taglibmetadata/taglibfile.cpp:2748
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:492
 msgctxt "@default|"
 msgid "RVRB - Reverb"
 msgstr "RVRB - 리버브"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:933
-#: src/plugins/taglibmetadata/taglibfile.cpp:2751
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:495
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
 msgstr "SYLT - 동기화된 가사/텍스트"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:934
-#: src/plugins/taglibmetadata/taglibfile.cpp:2752
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:496
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
 msgstr "SYTC - 동기화된 템포 코드"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:935
-#: src/plugins/taglibmetadata/taglibfile.cpp:2753
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:497
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
 msgstr "TALB - 앨범/영화/쇼 제목"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:936
-#: src/plugins/taglibmetadata/taglibfile.cpp:2754
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:498
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
 msgstr "TBPM - BPM(분당 비트 수)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:937
-#: src/plugins/taglibmetadata/taglibfile.cpp:2759
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:503
 msgctxt "@default|"
 msgid "TCOM - Composer"
 msgstr "TCOM - 작곡가"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:938
-#: src/plugins/taglibmetadata/taglibfile.cpp:2760
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:504
 msgctxt "@default|"
 msgid "TCON - Content type"
 msgstr "TCON - 콘텐츠 형식"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:939
-#: src/plugins/taglibmetadata/taglibfile.cpp:2761
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:505
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
 msgstr "TCOP - 저작권 메시지"
@@ -6029,25 +6122,25 @@ msgid "TDAT - Date"
 msgstr "TDAT - 날짜"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:942
-#: src/plugins/taglibmetadata/taglibfile.cpp:2766
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:510
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
 msgstr "TDLY - 재생 목록 지연"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:948
-#: src/plugins/taglibmetadata/taglibfile.cpp:2771
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:515
 msgctxt "@default|"
 msgid "TENC - Encoded by"
 msgstr "TENC - 인코딩 도구"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:949
-#: src/plugins/taglibmetadata/taglibfile.cpp:2772
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:516
 msgctxt "@default|"
 msgid "TEXT - Lyricist/Text writer"
 msgstr "TEXT - 작사자/텍스트 작성자"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:950
-#: src/plugins/taglibmetadata/taglibfile.cpp:2773
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:517
 msgctxt "@default|"
 msgid "TFLT - File type"
 msgstr "TFLT - 파일 형식"
@@ -6058,67 +6151,67 @@ msgid "TIME - Time"
 msgstr "TIME - 시간"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:952
-#: src/plugins/taglibmetadata/taglibfile.cpp:2778
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:522
 msgctxt "@default|"
 msgid "TIT1 - Content group description"
 msgstr "TIT1 - 콘텐츠 그룹 설명"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:953
-#: src/plugins/taglibmetadata/taglibfile.cpp:2779
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:523
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
 msgstr "TIT2 - 제목/노래 이름/내용 설명"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:954
-#: src/plugins/taglibmetadata/taglibfile.cpp:2780
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:524
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
 msgstr "TIT3 - 부제목/내용 보충"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:955
-#: src/plugins/taglibmetadata/taglibfile.cpp:2781
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:525
 msgctxt "@default|"
 msgid "TKEY - Initial key"
 msgstr "TKEY - 초기 키"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:956
-#: src/plugins/taglibmetadata/taglibfile.cpp:2785
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:529
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
 msgstr "TLAN - 언어"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:957
-#: src/plugins/taglibmetadata/taglibfile.cpp:2786
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:530
 msgctxt "@default|"
 msgid "TLEN - Length"
 msgstr "TLEN - 길이"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:959
-#: src/plugins/taglibmetadata/taglibfile.cpp:2788
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:532
 msgctxt "@default|"
 msgid "TMED - Media type"
 msgstr "TMED - 미디어 형식"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:961
-#: src/plugins/taglibmetadata/taglibfile.cpp:2790
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:534
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
 msgstr "TOAL - 원래 앨범/영화/쇼 제목"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:962
-#: src/plugins/taglibmetadata/taglibfile.cpp:2791
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:535
 msgctxt "@default|"
 msgid "TOFN - Original filename"
 msgstr "TOFN - 원래 파일 이름"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:963
-#: src/plugins/taglibmetadata/taglibfile.cpp:2792
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:536
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
 msgstr "TOLY - 원래 작사자/텍스트 작성자"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:964
-#: src/plugins/taglibmetadata/taglibfile.cpp:2793
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:537
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
 msgstr "TOPE - 원래 아티스트/연주가"
@@ -6129,49 +6222,49 @@ msgid "TORY - Original release year"
 msgstr "TORY - 원래 출시한 연도"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:966
-#: src/plugins/taglibmetadata/taglibfile.cpp:2794
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:538
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
 msgstr "TOWN - 파일 소유자/라이선스"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:967
-#: src/plugins/taglibmetadata/taglibfile.cpp:2795
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:539
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
 msgstr "TPE1 - 리드 음악가/솔로"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:968
-#: src/plugins/taglibmetadata/taglibfile.cpp:2796
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:540
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
 msgstr "TPE2 - 밴드/오케스트라/추가 인원"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:969
-#: src/plugins/taglibmetadata/taglibfile.cpp:2797
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:541
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
 msgstr "TPE3 - 지휘자/연주가 보충"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:970
-#: src/plugins/taglibmetadata/taglibfile.cpp:2798
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:542
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
 msgstr "TPE4 - 해석, 리믹스, 수정한 사람"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:971
-#: src/plugins/taglibmetadata/taglibfile.cpp:2799
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:543
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
 msgstr "TPOS - 집합의 일부"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:973
-#: src/plugins/taglibmetadata/taglibfile.cpp:2801
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:545
 msgctxt "@default|"
 msgid "TPUB - Publisher"
 msgstr "TPUB - 출판사"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:974
-#: src/plugins/taglibmetadata/taglibfile.cpp:2802
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:546
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
 msgstr "TRCK - 트랙 번호/집합 내 위치"
@@ -6182,13 +6275,13 @@ msgid "TRDA - Recording dates"
 msgstr "TRDA - 녹음한 날짜"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:976
-#: src/plugins/taglibmetadata/taglibfile.cpp:2803
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:547
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
 msgstr "TRSN - 인터넷 방송국 이름"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:977
-#: src/plugins/taglibmetadata/taglibfile.cpp:2804
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:548
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
 msgstr "TRSO - 인터넷 방송국 소유자"
@@ -6199,19 +6292,19 @@ msgid "TSIZ - Size"
 msgstr "TSIZ - 크기"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:982
-#: src/plugins/taglibmetadata/taglibfile.cpp:2810
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:554
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
 msgstr "TSRC - 국제 표준 녹음 코드(ISRC)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:983
-#: src/plugins/taglibmetadata/taglibfile.cpp:2811
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:555
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr "TSSE - 인코딩에 사용한 소프트웨어/하드웨어 설정"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:985
-#: src/plugins/taglibmetadata/taglibfile.cpp:2813
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:557
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
 msgstr "TXXX - 사용자 정의 텍스트 정보"
@@ -6222,73 +6315,73 @@ msgid "TYER - Year"
 msgstr "TYER - 연도"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:987
-#: src/plugins/taglibmetadata/taglibfile.cpp:2814
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:558
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
 msgstr "UFID - 고유 파일 식별자"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:988
-#: src/plugins/taglibmetadata/taglibfile.cpp:2815
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:559
 msgctxt "@default|"
 msgid "USER - Terms of use"
 msgstr "USER - 이용 약관"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:989
-#: src/plugins/taglibmetadata/taglibfile.cpp:2816
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:560
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
 msgstr "USLT - 동기화되지 않은 가사/텍스트"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:990
-#: src/plugins/taglibmetadata/taglibfile.cpp:2817
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:561
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
 msgstr "WCOM - 상업적 정보"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:991
-#: src/plugins/taglibmetadata/taglibfile.cpp:2818
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:562
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
 msgstr "WCOP - 저작권/법적 정보"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:992
-#: src/plugins/taglibmetadata/taglibfile.cpp:2822
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:566
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
 msgstr "WOAF - 공식 오디오 파일 웹 페이지"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:993
-#: src/plugins/taglibmetadata/taglibfile.cpp:2823
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:567
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
 msgstr "WOAR - 공식 아티스트/연주가 웹 페이지"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:994
-#: src/plugins/taglibmetadata/taglibfile.cpp:2824
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:568
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
 msgstr "WOAS - 공식 오디오 원본 웹 페이지"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:995
-#: src/plugins/taglibmetadata/taglibfile.cpp:2825
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:569
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
 msgstr "WORS - 공식 인터넷 라디오 방송국 홈페이지"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:996
-#: src/plugins/taglibmetadata/taglibfile.cpp:2826
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:570
 msgctxt "@default|"
 msgid "WPAY - Payment"
 msgstr "WPAY - 지불 정보"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:997
-#: src/plugins/taglibmetadata/taglibfile.cpp:2827
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:571
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
 msgstr "WPUB - 공식 출판사 웹 페이지"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:998
-#: src/plugins/taglibmetadata/taglibfile.cpp:2828
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:572
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
 msgstr "WXXX - 사용자 정의 URL 링크"
@@ -6298,170 +6391,170 @@ msgctxt "@default|"
 msgid "MusicBrainz Release"
 msgstr "MusicBrainz 릴리스"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2714
+#: src/plugins/taglibmetadata/taglibasfsupport.cpp:560
+msgctxt "@default|"
+msgid "Rating Information"
+msgstr "등급 정보"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:458
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
 msgstr "ASPI - 오디오 이동 지점 인덱스"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2716
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:460
 msgctxt "@default|"
 msgid "CHAP - Chapter"
 msgstr "CHAP - 챕터"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2721
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:465
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
 msgstr "CTOC - 목차"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2724
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:468
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - 평준화(2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2729
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:473
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
 msgstr "GRP1 - 그룹화"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2735
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:479
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
 msgstr "MVIN - 악장 번호"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2736
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:480
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
 msgstr "MVNM - 악장 이름"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2742
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:486
 msgctxt "@default|"
 msgid "PCST - Podcast"
 msgstr "PCST - 팟캐스트"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2747
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:491
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - 상대적 음량 조절(2)"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2749
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:493
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
 msgstr "SEEK - 검색 프레임"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2750
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:494
 msgctxt "@default|"
 msgid "SIGN - Signature frame"
 msgstr "SIGN - 서명 프레임"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2756
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:500
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
 msgstr "TCAT - 팟캐스트 분류"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2758
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:502
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - iTunes 모음집 플래그"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2762
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:506
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
 msgstr "TDEN - 인코딩한 시간"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2764
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:508
 msgctxt "@default|"
 msgid "TDES - Podcast description"
 msgstr "TDES - 팟캐스트 설명"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2767
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:511
 msgctxt "@default|"
 msgid "TDOR - Original release time"
 msgstr "TDOR - 원래 출시한 시간"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2768
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:512
 msgctxt "@default|"
 msgid "TDRC - Recording time"
 msgstr "TDRC - 녹음한 시간"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2769
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:513
 msgctxt "@default|"
 msgid "TDRL - Release time"
 msgstr "TDRL - 출시한 시간"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2770
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:514
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
 msgstr "TDTG - 태그한 시간"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2775
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:519
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
 msgstr "TGID - 팟캐스트 식별자"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2777
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:521
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
 msgstr "TIPL - 참여한 사람 목록"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2783
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:527
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
 msgstr "TKWD - 팟캐스트 키워드"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2787
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:531
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - 음악가 크레딧 목록"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2789
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:533
 msgctxt "@default|"
 msgid "TMOO - Mood"
 msgstr "TMOD - 분위기"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2800
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:544
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
 msgstr "TPRO - 생성된 공지"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2805
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:549
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
 msgstr "TSO2 - 앨범 아티스트 정렬 순서"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2806
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:550
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
 msgstr "TSOA - 앨범 정렬 순서"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2807
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:551
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
 msgstr "TSOC - 작곡가 정렬 순서"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2808
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:552
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
 msgstr "TSOP - 연주가 정렬 순서"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2809
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:553
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
 msgstr "TSOT - 제목 정렬 순서"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2812
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:556
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
 msgstr "TSST - 집합 자막"
 
-#: src/plugins/taglibmetadata/taglibfile.cpp:2820
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:564
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - 팟캐스트 피드"
-
-#: src/plugins/taglibmetadata/taglibfile.cpp:7117
-msgctxt "@default|"
-msgid "Rating Information"
-msgstr "등급 정보"
 
 #: src/qml/app/AboutDialog.qml:29
 msgctxt "AboutDialog|"
