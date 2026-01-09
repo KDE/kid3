@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2024-08-25 09:07+0300\n"
+"PO-Revision-Date: 2026-01-08 07:23+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2628,20 +2628,14 @@ msgid "Seller"
 msgstr "Продавець"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "Тип даних"
+msgstr "Тип призначення"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "Відновити типові параметри"
+msgstr "Типове"
 
 #: src/core/tags/frame.cpp:82
 msgctxt "@default|"
@@ -2696,9 +2690,6 @@ msgid "Trivia/pop up"
 msgstr "Дрібниці/Непередбачуване"
 
 #: src/core/tags/frame.cpp:106
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
 msgstr "Немає"
@@ -2706,36 +2697,27 @@ msgstr "Немає"
 #: src/core/tags/frame.cpp:107
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "Знімок"
 
 #: src/core/tags/frame.cpp:108
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "Пронумерувати доріжки"
+msgstr "Піддоріжка"
 
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "Частина"
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "Змінити"
+msgstr "Версія"
 
 #: src/core/tags/frame.cpp:113
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "Вибір"
+msgstr "Збірка"
 
 #: src/core/tags/frame.cpp:138
 msgctxt "@default|"
@@ -3316,17 +3298,11 @@ msgid "Volume"
 msgstr "Гучність"
 
 #: src/core/tags/frame.cpp:298
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "Назва каталогу"
+msgstr "Режисер"
 
 #: src/core/tags/frame.cpp:299
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
 msgstr "Тривалість"
@@ -3334,20 +3310,17 @@ msgstr "Тривалість"
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "Резюме"
 
 #: src/core/tags/frame.cpp:301
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "Короткий опис"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "Загалом доріжок"
+msgstr "Загалом частин"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"

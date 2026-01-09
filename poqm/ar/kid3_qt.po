@@ -1,8 +1,8 @@
-# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
+# SPDX-FileCopyrightText: 2022, 2023, 2024, 2025, 2026 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2025-08-27 18:16+0400\n"
+"PO-Revision-Date: 2026-01-08 11:48+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -2620,20 +2620,14 @@ msgid "Seller"
 msgstr "البائع"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "نوع المحتوى"
+msgstr "نوع الهدف"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "استعد المبدئيات"
+msgstr "المبدئيّ"
 
 #: src/core/tags/frame.cpp:82
 msgctxt "@default|"
@@ -2688,46 +2682,34 @@ msgid "Trivia/pop up"
 msgstr "معلومات سريعة/منبثقة"
 
 #: src/core/tags/frame.cpp:106
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
-msgstr "بلا"
+msgstr "لا شيء"
 
 #: src/core/tags/frame.cpp:107
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "اللقطة"
 
 #: src/core/tags/frame.cpp:108
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "عدد المقطوعات"
+msgstr "مسار فرعي"
 
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "الجزء"
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "حرّر"
+msgstr "الإصدارة"
 
 #: src/core/tags/frame.cpp:113
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "التحديد"
+msgstr "التّجميعة"
 
 #: src/core/tags/frame.cpp:138
 msgctxt "@default|"
@@ -3308,17 +3290,11 @@ msgid "Volume"
 msgstr "المستوى"
 
 #: src/core/tags/frame.cpp:298
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "اسم الدّليل"
+msgstr "المخرج"
 
 #: src/core/tags/frame.cpp:299
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
 msgstr "المدّة"
@@ -3326,20 +3302,17 @@ msgstr "المدّة"
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "المخلص"
 
 #: src/core/tags/frame.cpp:301
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "الموجز"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "إجمالي المسارات"
+msgstr "إجمالي الأجزاء"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"

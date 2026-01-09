@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kid3 Trunk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-03-28 00:39+0000\n"
-"PO-Revision-Date: 2024-08-25 07:48+0200\n"
+"PO-Revision-Date: 2026-01-08 07:44+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100>=3 && n"
 "%100<=4 ? 2 : 3);\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Poedit 3.4.4\n"
+"X-Generator: Poedit 3.8\n"
 "X-Language: sl_SI\n"
 "X-Source-Language: C\n"
 "X-Poedit-SourceCharset: ISO-8859-1\n"
@@ -2630,20 +2630,14 @@ msgid "Seller"
 msgstr "Prodajalec"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
 msgstr "Vrsta vsebine"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "Obnovi privzete vrednosti"
+msgstr "Privzeto"
 
 #: src/core/tags/frame.cpp:82
 msgctxt "@default|"
@@ -2698,9 +2692,6 @@ msgid "Trivia/pop up"
 msgstr "Trivia/pojavno"
 
 #: src/core/tags/frame.cpp:106
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
 msgstr "Brez"
@@ -2708,36 +2699,27 @@ msgstr "Brez"
 #: src/core/tags/frame.cpp:107
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "Posneto"
 
 #: src/core/tags/frame.cpp:108
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "Številči posnetke"
+msgstr "Podposnetek"
 
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "Del"
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "Uredi"
+msgstr "Izdaja"
 
 #: src/core/tags/frame.cpp:113
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "Izbor"
+msgstr "Zbirka"
 
 #: src/core/tags/frame.cpp:138
 msgctxt "@default|"
@@ -3318,17 +3300,11 @@ msgid "Volume"
 msgstr "Glasnost"
 
 #: src/core/tags/frame.cpp:298
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "Ime mape"
+msgstr "Režiser"
 
 #: src/core/tags/frame.cpp:299
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
 msgstr "Trajanje"
@@ -3336,20 +3312,17 @@ msgstr "Trajanje"
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "Povzetek"
 
 #: src/core/tags/frame.cpp:301
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "Sinopsis"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "Skupaj posnetkov"
+msgstr "Skupaj delov"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"

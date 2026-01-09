@@ -2621,20 +2621,14 @@ msgid "Seller"
 msgstr "发售方"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "内容类型"
+msgstr ""
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "恢复默认值"
+msgstr ""
 
 #: src/core/tags/frame.cpp:82
 msgctxt "@default|"
@@ -2689,12 +2683,9 @@ msgid "Trivia/pop up"
 msgstr "花絮/流行"
 
 #: src/core/tags/frame.cpp:106
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
-msgstr "无"
+msgstr ""
 
 #: src/core/tags/frame.cpp:107
 msgctxt "@default|"
@@ -2702,12 +2693,9 @@ msgid "Shot"
 msgstr ""
 
 #: src/core/tags/frame.cpp:108
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "给音轨编号"
+msgstr ""
 
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
@@ -2715,20 +2703,14 @@ msgid "Part"
 msgstr ""
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "编辑"
+msgstr ""
 
 #: src/core/tags/frame.cpp:113
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "选择"
+msgstr ""
 
 #: src/core/tags/frame.cpp:138
 msgctxt "@default|"
@@ -3309,20 +3291,14 @@ msgid "Volume"
 msgstr "音量"
 
 #: src/core/tags/frame.cpp:298
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "目录名"
+msgstr ""
 
 #: src/core/tags/frame.cpp:299
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
-msgstr "持续时间"
+msgstr ""
 
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
@@ -3335,12 +3311,9 @@ msgid "Synopsis"
 msgstr ""
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "音轨编号"
+msgstr ""
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"

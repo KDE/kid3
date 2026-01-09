@@ -1131,16 +1131,18 @@ end manpage include-->
 >Універсальний</entry
 >           <entry
 >ID3v2.3</entry
-> <entry
+>                    <entry
 >ID3v2.4</entry
-> <entry
+>                    <entry
 >MP4</entry
->            <entry
+>                               <entry
 >ASF</entry
->                        <entry
+>                                           <entry
 >Vorbis</entry
->                 <entry
+>                                    <entry
 >RIFF</entry
+>                                               <entry
+>Matroska</entry
 ></row>
      </thead>
      <tbody>
@@ -1171,6 +1173,10 @@ end manpage include-->
 ><literal
 >INAM</literal
 ></entry
+>                            <entry
+><literal
+>TITLE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1198,6 +1204,10 @@ end manpage include-->
 >                 <entry
 ><literal
 >IART</literal
+></entry
+>                            <entry
+><literal
+>ARTIST</literal
 ></entry
 ></row>
        <row
@@ -1227,6 +1237,10 @@ end manpage include-->
 ><literal
 >IPRD</literal
 ></entry
+>                            <entry
+><literal
+>TITLE/50</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1255,6 +1269,10 @@ end manpage include-->
 ><literal
 >ICMT</literal
 ></entry
+>                            <entry
+><literal
+>COMMENT</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1282,6 +1300,10 @@ end manpage include-->
 >                   <entry
 ><literal
 >ICRD</literal
+></entry
+>                            <entry
+><literal
+>DATE_RECORDED</literal
 ></entry
 ></row>
        <row
@@ -1313,6 +1335,10 @@ end manpage include-->
 > або <literal
 >ITRK</literal
 ></entry
+> <entry
+><literal
+>PART_NUMBER</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1341,6 +1367,10 @@ end manpage include-->
 ><literal
 >IGNR</literal
 ></entry
+>                            <entry
+><literal
+>GENRE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1366,6 +1396,10 @@ end manpage include-->
 >ALBUMARTIST</literal
 ></entry
 >            <entry
+></entry
+>                                                   <entry
+><literal
+>ARTIST/50</literal
 ></entry
 ></row>
        <row
@@ -1395,6 +1429,10 @@ end manpage include-->
 ><literal
 >IENG</literal
 ></entry
+>                            <entry
+><literal
+>ARRANGER</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1418,6 +1456,10 @@ end manpage include-->
 >AUTHOR</literal
 ></entry
 >                 <entry
+></entry
+>                                                   <entry
+><literal
+>WRITTEN_BY</literal
 ></entry
 ></row>
        <row
@@ -1447,6 +1489,10 @@ end manpage include-->
 ><literal
 >IBPM</literal
 ></entry
+>                            <entry
+><literal
+>BPM</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1468,6 +1514,10 @@ end manpage include-->
 >CATALOGNUMBER</literal
 ></entry
 >          <entry
+></entry
+>                                                   <entry
+><literal
+>CATALOG_NUMBER</literal
 ></entry
 ></row>
        <row
@@ -1492,6 +1542,10 @@ end manpage include-->
 >COMPILATION</literal
 ></entry
 >            <entry
+></entry
+>                                                   <entry
+><literal
+>COMPILATION</literal
 ></entry
 ></row>
        <row
@@ -1521,6 +1575,10 @@ end manpage include-->
 ><literal
 >IMUS</literal
 ></entry
+>                            <entry
+><literal
+>COMPOSER</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1546,6 +1604,10 @@ end manpage include-->
 >CONDUCTOR</literal
 ></entry
 >              <entry
+></entry
+>                                                   <entry
+><literal
+>CONDUCTOR</literal
 ></entry
 ></row>
        <row
@@ -1575,6 +1637,10 @@ end manpage include-->
 ><literal
 >ICOP</literal
 ></entry
+>                            <entry
+><literal
+>COPYRIGHT</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1601,6 +1667,10 @@ end manpage include-->
 ></entry
 >            <entry
 ></entry
+>                                                   <entry
+><literal
+>DESCRIPTION</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1626,6 +1696,10 @@ end manpage include-->
 >DISCNUMBER</literal
 ></entry
 >             <entry
+></entry
+>                                                   <entry
+><literal
+>PART_NUMBER/50</literal
 ></entry
 ></row>
        <row
@@ -1655,6 +1729,10 @@ end manpage include-->
 ><literal
 >ITCH</literal
 ></entry
+>                            <entry
+><literal
+>ENCODER</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1683,6 +1761,10 @@ end manpage include-->
 ><literal
 >ISFT</literal
 ></entry
+>                            <entry
+><literal
+>ENCODER_SETTINGS</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1706,6 +1788,10 @@ end manpage include-->
 >           <entry
 ><literal
 >IDIT</literal
+></entry
+>                            <entry
+><literal
+>DATE_ENCODED</literal
 ></entry
 ></row>
        <row
@@ -1731,6 +1817,10 @@ end manpage include-->
 ></entry
 >               <entry
 ></entry
+>                                                   <entry
+><literal
+>GROUPING</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1754,6 +1844,10 @@ end manpage include-->
 >INITIALKEY</literal
 ></entry
 >             <entry
+></entry
+>                                                   <entry
+><literal
+>INITIAL_KEY</literal
 ></entry
 ></row>
        <row
@@ -1780,6 +1874,10 @@ end manpage include-->
 >ISRC</literal
 ></entry
 >                   <entry
+><literal
+>ISRC</literal
+></entry
+>                            <entry
 ><literal
 >ISRC</literal
 ></entry
@@ -1811,6 +1909,10 @@ end manpage include-->
 ><literal
 >ILNG</literal
 ></entry
+>                            <entry
+><literal
+>LANGUAGE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1839,6 +1941,10 @@ end manpage include-->
 ><literal
 >IWRI</literal
 ></entry
+>                            <entry
+><literal
+>LYRICIST</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1864,6 +1970,10 @@ end manpage include-->
 >LYRICS</literal
 ></entry
 >                 <entry
+></entry
+>                                                   <entry
+><literal
+>LYRICS</literal
 ></entry
 ></row>
        <row
@@ -1891,6 +2001,10 @@ end manpage include-->
 ><literal
 >IMED</literal
 ></entry
+>                            <entry
+><literal
+>ORIGINAL_MEDIA_TYPE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1912,6 +2026,10 @@ end manpage include-->
 >MOOD</literal
 ></entry
 >                   <entry
+></entry
+>                                                   <entry
+><literal
+>MOOD</literal
 ></entry
 ></row>
        <row
@@ -1939,6 +2057,10 @@ end manpage include-->
 ></entry
 >          <entry
 ></entry
+>                                                   <entry
+><literal
+>ORIGINALALBUM</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1964,6 +2086,10 @@ end manpage include-->
 >ORIGINALARTIST</literal
 ></entry
 >         <entry
+></entry
+>                                                   <entry
+><literal
+>ORIGINALARTIST</literal
 ></entry
 ></row>
        <row
@@ -1991,6 +2117,10 @@ end manpage include-->
 ></entry
 >           <entry
 ></entry
+>                                                   <entry
+><literal
+>ORIGINALDATE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2016,6 +2146,10 @@ end manpage include-->
 >              <entry
 ><literal
 >ISTR</literal
+></entry
+>                            <entry
+><literal
+>PERFORMER</literal
 ></entry
 ></row>
        <row
@@ -2043,6 +2177,8 @@ end manpage include-->
 ></entry
 > <entry
 ></entry
+>                                                   <entry
+>Долучення</entry
 ></row>
        <row
 ><entry
@@ -2070,6 +2206,10 @@ end manpage include-->
 >              <entry
 ><literal
 >IPUB</literal
+></entry
+>                            <entry
+><literal
+>LABEL_CODE</literal
 ></entry
 ></row>
        <row
@@ -2099,6 +2239,10 @@ end manpage include-->
 ><literal
 >IRTD</literal
 ></entry
+>                            <entry
+><literal
+>RATING</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2123,6 +2267,10 @@ end manpage include-->
 ><literal
 >ICNT</literal
 ></entry
+>                            <entry
+><literal
+>RELEASECOUNTRY</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2144,6 +2292,10 @@ end manpage include-->
 >RELEASEDATE</literal
 ></entry
 >            <entry
+></entry
+>                                                   <entry
+><literal
+>DATE_RELEASED/50</literal
 ></entry
 ></row>
        <row
@@ -2173,6 +2325,10 @@ end manpage include-->
 ><literal
 >IEDT</literal
 ></entry
+>                            <entry
+><literal
+>REMIXED_BY</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2199,6 +2355,10 @@ end manpage include-->
 ></entry
 >              <entry
 ></entry
+>                                                   <entry
+><literal
+>TITLESORT/50</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2222,6 +2382,10 @@ end manpage include-->
 >ALBUMARTISTSORT</literal
 ></entry
 >        <entry
+></entry
+>                                                   <entry
+><literal
+>ARTISTSORT/50</literal
 ></entry
 ></row>
        <row
@@ -2249,6 +2413,10 @@ end manpage include-->
 ></entry
 >             <entry
 ></entry
+>                                                   <entry
+><literal
+>ARTISTSORT</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2272,6 +2440,10 @@ end manpage include-->
 >COMPOSERSORT</literal
 ></entry
 >           <entry
+></entry
+>                                                   <entry
+><literal
+>COMPOSERSORT</literal
 ></entry
 ></row>
        <row
@@ -2299,6 +2471,10 @@ end manpage include-->
 ></entry
 >              <entry
 ></entry
+>                                                   <entry
+><literal
+>TITLESORT</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2324,6 +2500,10 @@ end manpage include-->
 >               <entry
 ><literal
 >PRT1</literal
+></entry
+>                            <entry
+><literal
+>SUBTITLE</literal
 ></entry
 ></row>
        <row
@@ -2353,6 +2533,10 @@ end manpage include-->
 ><literal
 >IBSU</literal
 ></entry
+>                            <entry
+><literal
+>WEBSITE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2379,6 +2563,10 @@ end manpage include-->
 ></entry
 >                   <entry
 ></entry
+>                                                   <entry
+><literal
+>WORK</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2402,6 +2590,10 @@ end manpage include-->
 >WWWAUDIOFILE</literal
 ></entry
 >           <entry
+></entry
+>                                                   <entry
+><literal
+>WWWAUDIOFILE</literal
 ></entry
 ></row>
        <row
@@ -2427,6 +2619,10 @@ end manpage include-->
 ></entry
 >         <entry
 ></entry
+>                                                   <entry
+><literal
+>WWWAUDIOSOURCE</literal
+></entry
 ></row>
      </tbody>
    </tgroup>
@@ -2449,6 +2645,10 @@ end manpage include-->
 <listitem
 ><para
 >У кадрах аранжувальника і виконавця використовують специфічний формат для вмісту: «внесок 1|митець 1|внесок 2|митець 2|...». Приклад: «Диригент хору|Ернст Данширн|Вокал, сопрано|Анна Нетребко». Кадри IPLS (ID3v2.3) або TIPL/TMCL (ID3v2.4) створюватимуться зі списком рядків у вказаному форматі (роздільником рядків буде символ «|»). Значення у цьому форматі також встановлюються при імпортування даних із серверів, які надають такі відомості. </para
+></listitem>
+<listitem
+><para
+>Для Matroska вказано цільовий рівень, наприклад, /50 для альбому, якщо це не типове значення /30 для доріжки. Якщо ви хочете створити просту мітку Matroska з двійковим вмістом, додайте «-binary» під час додавання кадру. Зверніть увагу, що такі мітки використовують не часто, обкладинку буде збережено як долучений файл. </para
 ></listitem>
 <listitem
 ><para
