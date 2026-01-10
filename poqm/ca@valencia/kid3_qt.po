@@ -1,14 +1,14 @@
 # Translation of kid3_qt.po to Catalan (Valencian)
-# Copyright (C) 2020-2024 This_file_is_part_of_KDE
+# Copyright (C) 2020-2026 This_file_is_part_of_KDE
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
 # SPDX-FileCopyrightText: 2020, 2021 Antoni Bella Pérez <antonibella5@yahoo.com>
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3\n"
-"PO-Revision-Date: 2024-10-21 20:05+0200\n"
+"PO-Revision-Date: 2026-01-08 08:33+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.2\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -88,7 +88,7 @@ msgstr "Guarda els fitxers canviats"
 #: src/app/cli/clicommand.cpp:541
 msgctxt "SaveCommand|"
 msgid "Error while writing file:\n"
-msgstr "S'ha produït un error en escriure el fitxer:\n"
+msgstr "S'ha produït un error mentre s'escrivia el fitxer:\n"
 
 #: src/app/cli/clicommand.cpp:550
 msgctxt "SelectCommand|"
@@ -428,7 +428,7 @@ msgstr "%1 no existix"
 #: src/app/cli/kid3cli.cpp:803
 msgctxt "Kid3Cli|"
 msgid "Error while writing file:\n"
-msgstr "S'ha produït un error en escriure el fitxer:\n"
+msgstr "S'ha produït un error mentre s'escrivia el fitxer:\n"
 
 #: src/app/cli/kid3cli.cpp:822
 #, qt-format
@@ -1960,13 +1960,13 @@ msgstr "Ordre"
 #, qt-format
 msgctxt "@default|"
 msgid "Create folder %1 failed\n"
-msgstr "No s'ha pogut crear la carpeta %1\n"
+msgstr "Ha fallat mentre es creava la carpeta %1\n"
 
 #: src/core/model/dirrenamer.cpp:279
 #, qt-format
 msgctxt "DirRenamer|"
 msgid "Create folder %1 failed\n"
-msgstr "No s'ha pogut crear la carpeta %1\n"
+msgstr "Ha fallat mentre es creava la carpeta %1\n"
 
 #: src/core/model/dirrenamer.cpp:285
 #, qt-format
@@ -2629,20 +2629,14 @@ msgid "Seller"
 msgstr "Segell"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "Tipus de contingut"
+msgstr "Tipus de destinació"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "Restaura als valors predeterminats"
+msgstr "Predeterminat"
 
 # skip-rule: da-be
 #: src/core/tags/frame.cpp:82
@@ -2698,9 +2692,6 @@ msgid "Trivia/pop up"
 msgstr "Trivial/imprevisible"
 
 #: src/core/tags/frame.cpp:106
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
 msgstr "Cap"
@@ -2708,36 +2699,27 @@ msgstr "Cap"
 #: src/core/tags/frame.cpp:107
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "Tret"
 
 #: src/core/tags/frame.cpp:108
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "Nombre de peces"
+msgstr "Subpeça"
 
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "Part"
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "Edita"
+msgstr "Edició"
 
 #: src/core/tags/frame.cpp:113
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "Tria"
+msgstr "Col·lecció"
 
 #: src/core/tags/frame.cpp:138
 msgctxt "@default|"
@@ -3318,17 +3300,11 @@ msgid "Volume"
 msgstr "Volum"
 
 #: src/core/tags/frame.cpp:298
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "Nom de la carpeta"
+msgstr "Director"
 
 #: src/core/tags/frame.cpp:299
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
 msgstr "Duració"
@@ -3336,20 +3312,17 @@ msgstr "Duració"
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "Resum"
 
 #: src/core/tags/frame.cpp:301
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "Sinopsi"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "Total de peces"
+msgstr "Total de parts"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
@@ -4317,22 +4290,22 @@ msgstr "Intermediari"
 #: src/gui/dialogs/configdialogpages.cpp:587
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
-msgstr "&Servidor intermediari:"
+msgstr "&Amfitrió intermediari:"
 
 #: src/gui/dialogs/configdialogpages.cpp:590
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
-msgstr "Utilit&za autenticació amb el servidor intermediari"
+msgstr "Utilit&za autenticació amb l'amfitrió intermediari"
 
 #: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
-msgstr "&Nom d'usuari al servidor intermediari:"
+msgstr "&Nom d'usuari a l'amfitrió intermediari:"
 
 #: src/gui/dialogs/configdialogpages.cpp:596
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
-msgstr "Contrasen&ya al servidor intermediari:"
+msgstr "Contrasen&ya a l'amfitrió intermediari:"
 
 #: src/gui/dialogs/configdialogpages.cpp:630
 msgctxt "ConfigDialogPages|"
@@ -4464,7 +4437,7 @@ msgstr "S'ha produït un error en el fitxer"
 #: src/gui/dialogs/exportdialog.cpp:156
 msgctxt "ExportDialog|"
 msgid "Error while writing file:\n"
-msgstr "S'ha produït un error en escriure el fitxer:\n"
+msgstr "S'ha produït un error mentre s'escrivia el fitxer:\n"
 
 #: src/gui/dialogs/filterdialog.cpp:49
 msgctxt "FilterDialog|"
@@ -5166,7 +5139,7 @@ msgstr "%1 no és d'escriptura"
 #: src/gui/forms/basemainwindow.cpp:403
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
-msgstr "S'ha produït un error en escriure el fitxer:\n"
+msgstr "S'ha produït un error mentre s'escrivia el fitxer:\n"
 
 #: src/gui/forms/basemainwindow.cpp:405 src/gui/forms/basemainwindow.cpp:411
 #: src/gui/forms/basemainwindow.cpp:1128 src/gui/forms/basemainwindow.cpp:1133
@@ -5180,7 +5153,8 @@ msgstr "S'ha produït un error en el fitxer"
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr ""
-"S'ha produït un error en escriure el fitxer. Voleu canviar els permisos?"
+"S'ha produït un error mentre s'escrivia el fitxer. Voleu canviar els "
+"permisos?"
 
 #: src/gui/forms/basemainwindow.cpp:461
 msgctxt "BaseMainWindowImpl|"
@@ -5263,7 +5237,7 @@ msgstr "Importa"
 #: src/gui/forms/basemainwindow.cpp:1570 src/gui/forms/basemainwindow.cpp:1579
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
-msgstr "S'ha produït un error en canviar de nom:\n"
+msgstr "S'ha produït un error mentre es canviava de nom:\n"
 
 #: src/gui/forms/basemainwindow.cpp:1127
 msgctxt "BaseMainWindowImpl|"
@@ -5649,7 +5623,7 @@ msgstr "Emprar-ho per als noms de llistes de reproducció i de carpetes"
 #: src/gui/widgets/filenameformatbox.cpp:47
 msgctxt "FilenameFormatBox|"
 msgid "Maximum length:"
-msgstr "Llargària màxima:"
+msgstr "Durada màxima:"
 
 #: src/gui/widgets/formatbox.cpp:48
 msgctxt "FormatBox|"
@@ -6841,7 +6815,7 @@ msgstr "S'ha produït un error en el fitxer"
 #: src/qml/app/Main.qml:129
 msgctxt "Main|"
 msgid "Error while writing file:\n"
-msgstr "S'ha produït un error en escriure el fitxer:\n"
+msgstr "S'ha produït un error mentre s'escrivia el fitxer:\n"
 
 #: src/qml/app/Main.qml:146
 #, qt-format
@@ -6853,7 +6827,8 @@ msgstr "La targeta SD només es pot escriure a %1"
 msgctxt "Main|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr ""
-"S'ha produït un error en escriure el fitxer. Voleu canviar els permisos?"
+"S'ha produït un error mentre s'escrivia el fitxer. Voleu canviar els "
+"permisos?"
 
 #: src/qml/app/Main.qml:260
 #, qt-format
