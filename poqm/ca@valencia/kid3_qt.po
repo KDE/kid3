@@ -4290,22 +4290,22 @@ msgstr "Intermediari"
 #: src/gui/dialogs/configdialogpages.cpp:587
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
-msgstr "&Amfitrió intermediari:"
+msgstr "&Servidor intermediari:"
 
 #: src/gui/dialogs/configdialogpages.cpp:590
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
-msgstr "Utilit&za autenticació amb l'amfitrió intermediari"
+msgstr "Utilit&za autenticació amb el servidor intermediari"
 
 #: src/gui/dialogs/configdialogpages.cpp:592
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
-msgstr "&Nom d'usuari a l'amfitrió intermediari:"
+msgstr "&Nom d'usuari al servidor intermediari:"
 
 #: src/gui/dialogs/configdialogpages.cpp:596
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
-msgstr "Contrasen&ya a l'amfitrió intermediari:"
+msgstr "Contrasen&ya al servidor intermediari:"
 
 #: src/gui/dialogs/configdialogpages.cpp:630
 msgctxt "ConfigDialogPages|"
