@@ -1,7 +1,7 @@
 # Kid3 Italian Translation.
 # This file is put in the public domain.
 #
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Vincenzo Reale <smart2128vr@gmail.com>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2026 Vincenzo Reale <smart2128vr@gmail.com>
 # Valter Mura <valtermura@yahoo.it>, 2007, 2020.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2008, 2009, 2010, 2011.
 msgid ""
@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2024-08-26 00:13+0200\n"
+"PO-Revision-Date: 2026-01-08 09:41+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 25.12.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Language: it\n"
 "X-Source-Language: en\n"
@@ -2628,20 +2628,14 @@ msgid "Seller"
 msgstr "Venditore"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "Tipo di contenuto"
+msgstr "Tipo di destinazione"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "Ripristina valori predefiniti"
+msgstr "Predefinito"
 
 #: src/core/tags/frame.cpp:82
 msgctxt "@default|"
@@ -2696,9 +2690,6 @@ msgid "Trivia/pop up"
 msgstr "Trivia/pop up"
 
 #: src/core/tags/frame.cpp:106
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
 msgstr "Nessuno"
@@ -2706,36 +2697,27 @@ msgstr "Nessuno"
 #: src/core/tags/frame.cpp:107
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "Ripresa"
 
 #: src/core/tags/frame.cpp:108
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "Numera le tracce"
+msgstr "Sotto-traccia"
 
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "Parte"
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "Modifica"
+msgstr "Edizione"
 
 #: src/core/tags/frame.cpp:113
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "Selezione"
+msgstr "Collezione"
 
 #: src/core/tags/frame.cpp:138
 msgctxt "@default|"
@@ -3316,17 +3298,11 @@ msgid "Volume"
 msgstr "Volume"
 
 #: src/core/tags/frame.cpp:298
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "Nome della cartella"
+msgstr "Regista"
 
 #: src/core/tags/frame.cpp:299
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
 msgstr "Durata"
@@ -3334,20 +3310,17 @@ msgstr "Durata"
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "Riepilogo"
 
 #: src/core/tags/frame.cpp:301
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "Sinossi"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "Tracce totali"
+msgstr "Parti totali"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
