@@ -102,26 +102,48 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   setObjectName(QLatin1String("Kid3Player"));
   setWindowTitle(tr("Play"));
 
+#if QT_VERSION >= 0x060700
+  m_playIcon = QIcon::fromTheme(QIcon::ThemeIcon::MediaPlaybackStart,
+      style()->standardIcon(QStyle::SP_MediaPlay));
+  m_pauseIcon = QIcon::fromTheme(QIcon::ThemeIcon::MediaPlaybackPause,
+      style()->standardIcon(QStyle::SP_MediaPause));
+  const auto stopIcon = QIcon::fromTheme(QIcon::ThemeIcon::MediaPlaybackStop,
+      style()->standardIcon(QStyle::SP_MediaStop));
+  const auto skipBackwardIcon = QIcon::fromTheme(QIcon::ThemeIcon::MediaSkipBackward,
+      style()->standardIcon(QStyle::SP_MediaSkipBackward));
+  const auto skipForwardIcon = QIcon::fromTheme(QIcon::ThemeIcon::MediaSkipForward,
+      style()->standardIcon(QStyle::SP_MediaSkipForward));
+  const auto closeIcon = QIcon::fromTheme(QIcon::ThemeIcon::WindowClose,
+      style()->standardIcon(QStyle::SP_TitleBarCloseButton));
+  const auto volumeIcon = QIcon::fromTheme(QIcon::ThemeIcon::AudioVolumeMedium,
+      style()->standardIcon(QStyle::SP_MediaVolume));
+#else
   m_playIcon = style()->standardIcon(QStyle::SP_MediaPlay);
   m_pauseIcon = style()->standardIcon(QStyle::SP_MediaPause);
+  const auto stopIcon = style()->standardIcon(QStyle::SP_MediaStop);
+  const auto skipBackwardIcon = style()->standardIcon(QStyle::SP_MediaSkipBackward);
+  const auto skipForwardIcon = style()->standardIcon(QStyle::SP_MediaSkipForward);
+  const auto closeIcon = style()->standardIcon(QStyle::SP_TitleBarCloseButton);
+  const auto volumeIcon = style()->standardIcon(QStyle::SP_MediaVolume);
+#endif
 
   m_playOrPauseAction = new QAction(m_playIcon, tr("Play/Pause"), this);
   m_playOrPauseAction->setObjectName(QLatin1String("audio_play"));
   m_playOrPauseAction->setShortcut(Qt::Key_MediaPlay);
   m_stopAction = new QAction(
-    style()->standardIcon(QStyle::SP_MediaStop), tr("Stop playback"), this);
+    stopIcon, tr("Stop playback"), this);
   m_stopAction->setObjectName(QLatin1String("audio_stop"));
   m_stopAction->setShortcut(Qt::Key_MediaStop);
   m_previousAction = new QAction(
-    style()->standardIcon(QStyle::SP_MediaSkipBackward), tr("Previous Track"), this);
+    skipBackwardIcon, tr("Previous Track"), this);
   m_previousAction->setObjectName(QLatin1String("audio_previous"));
   m_previousAction->setShortcut(Qt::Key_MediaPrevious);
   m_nextAction = new QAction(
-    style()->standardIcon(QStyle::SP_MediaSkipForward), tr("Next Track"), this);
+    skipForwardIcon, tr("Next Track"), this);
   m_nextAction->setObjectName(QLatin1String("audio_next"));
   m_nextAction->setShortcut(Qt::Key_MediaNext);
   auto closeAction = new QAction(
-    style()->standardIcon(QStyle::SP_TitleBarCloseButton), tr("Close"), this);
+    closeIcon, tr("Close"), this);
 
   auto splitter = new QSplitter(this);
   m_titleLabel = new QLabel(splitter);
@@ -138,7 +160,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   connect(m_seekSlider, &QAbstractSlider::actionTriggered,
           this, &PlayToolBar::seekAction);
   m_muteAction = new QAction(
-        style()->standardIcon(QStyle::SP_MediaVolume), tr("Mute"), this);
+        volumeIcon, tr("Mute"), this);
   m_volumeSlider = new QSlider(Qt::Horizontal, this);
   m_volumeSlider->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   m_volumeSlider->setRange(0, 100);
@@ -361,8 +383,16 @@ void PlayToolBar::toggleMute()
   bool muted = !m_player->mediaPlayer()->isMuted();
   m_player->mediaPlayer()->setMuted(muted);
 #endif
+#if QT_VERSION >= 0x060700
+  m_muteAction->setIcon(muted
+      ? QIcon::fromTheme(QIcon::ThemeIcon::AudioVolumeMuted,
+                 style()->standardIcon(QStyle::SP_MediaVolumeMuted))
+      : QIcon::fromTheme(QIcon::ThemeIcon::AudioVolumeMedium,
+                 style()->standardIcon(QStyle::SP_MediaVolume)));
+#else
   m_muteAction->setIcon(style()->standardIcon(muted
       ? QStyle::SP_MediaVolumeMuted : QStyle::SP_MediaVolume));
+#endif
 }
 
 /**

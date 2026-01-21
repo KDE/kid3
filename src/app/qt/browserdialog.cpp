@@ -122,8 +122,13 @@ BrowserDialog::BrowserDialog(QWidget* parent, const QString& caption)
           m_findLineEdit, static_cast<void (QWidget::*)()>(&QWidget::setFocus));
   m_findLineEdit->addAction(findAction);
   auto findPreviousAction = new QAction(this);
+#if QT_VERSION >= 0x060700
+  findPreviousAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::GoPrevious,
+        QIcon(style()->standardIcon(QStyle::SP_ArrowBack))));
+#else
   findPreviousAction->setIcon(
         QIcon(style()->standardIcon(QStyle::SP_ArrowBack)));
+#endif
   findPreviousAction->setText(tr("Find Previous"));
   findPreviousAction->setShortcut(QKeySequence::FindPrevious);
   connect(findPreviousAction, &QAction::triggered,
@@ -132,8 +137,13 @@ BrowserDialog::BrowserDialog(QWidget* parent, const QString& caption)
   findPreviousButton->setDefaultAction(findPreviousAction);
   hlayout->addWidget(findPreviousButton);
   auto findNextAction = new QAction(this);
+#if QT_VERSION >= 0x060700
+  findNextAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::GoNext,
+        QIcon(style()->standardIcon(QStyle::SP_ArrowForward))));
+#else
   findNextAction->setIcon(
         QIcon(style()->standardIcon(QStyle::SP_ArrowForward)));
+#endif
   findNextAction->setText(tr("Find Next"));
   findNextAction->setShortcut(QKeySequence::FindNext);
   connect(findNextAction, &QAction::triggered,

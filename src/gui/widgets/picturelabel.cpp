@@ -82,8 +82,13 @@ PictureLabel::PictureLabel(QWidget* parent)
   auto hlayout = new QHBoxLayout(m_indexWidget);
   hlayout->setContentsMargins(0, 0, 0, 0);
   auto previousAction = new QAction(this);
+#if QT_VERSION >= 0x060700
+  previousAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::GoPrevious,
+      QIcon(style()->standardIcon(QStyle::SP_ArrowBack))));
+#else
   previousAction->setIcon(
       QIcon(style()->standardIcon(QStyle::SP_ArrowBack)));
+#endif
   previousAction->setText(tr("Previous"));
   connect(previousAction, &QAction::triggered,
           this, &PictureLabel::previous);
@@ -96,8 +101,13 @@ PictureLabel::PictureLabel(QWidget* parent)
   m_indexLabel->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
   hlayout->addWidget(m_indexLabel);
   auto nextAction = new QAction(this);
+#if QT_VERSION >= 0x060700
+  nextAction->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::GoNext,
+      QIcon(style()->standardIcon(QStyle::SP_ArrowForward))));
+#else
   nextAction->setIcon(
       QIcon(style()->standardIcon(QStyle::SP_ArrowForward)));
+#endif
   nextAction->setText(tr("Next"));
   connect(nextAction, &QAction::triggered,
           this, &PictureLabel::next);

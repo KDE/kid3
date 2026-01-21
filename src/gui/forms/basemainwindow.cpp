@@ -319,8 +319,13 @@ void BaseMainWindowImpl::showOperationProgress(const QString& name,
     }
     if (!m_progressAbortButton) {
       m_progressAbortButton = new QToolButton;
+#if QT_VERSION >= 0x060700
+      m_progressAbortButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::ProcessStop,
+            QIcon(m_w->style()->standardIcon(QStyle::SP_BrowserStop))));
+#else
       m_progressAbortButton->setIcon(
             QIcon(m_w->style()->standardIcon(QStyle::SP_BrowserStop)));
+#endif
       m_progressAbortButton->setToolTip(tr("Abort"));
       m_progressAbortButton->setCheckable(true);
     }

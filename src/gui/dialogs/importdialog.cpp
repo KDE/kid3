@@ -185,8 +185,13 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   destLabel->setBuddy(m_destComboBox);
   butlayout->addWidget(m_destComboBox);
   auto revertButton = new QToolButton;
+#if QT_VERSION >= 0x060700
+  revertButton->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::DocumentRevert,
+        m_platformTools->iconFromTheme(QLatin1String("document-revert"))));
+#else
   revertButton->setIcon(
         m_platformTools->iconFromTheme(QLatin1String("document-revert")));
+#endif
   revertButton->setToolTip(tr("Revert"));
   revertButton->setShortcut(QKeySequence::Undo);
   connect(revertButton, &QAbstractButton::clicked,
