@@ -997,17 +997,17 @@ msgctxt "BrowserDialog|"
 msgid "&Find:"
 msgstr "&Finn:"
 
-#: src/app/qt/browserdialog.cpp:127
+#: src/app/qt/browserdialog.cpp:132
 msgctxt "BrowserDialog|"
 msgid "Find Previous"
 msgstr "Finn førre"
 
-#: src/app/qt/browserdialog.cpp:137
+#: src/app/qt/browserdialog.cpp:147
 msgctxt "BrowserDialog|"
 msgid "Find Next"
 msgstr "Finn neste"
 
-#: src/app/qt/browserdialog.cpp:145
+#: src/app/qt/browserdialog.cpp:155
 msgctxt "BrowserDialog|"
 msgid "&Close"
 msgstr "&Lukk"
@@ -1124,518 +1124,518 @@ msgctxt "Kid3MainWindow|"
 msgid "&Open..."
 msgstr "&Opna …"
 
-#: src/app/qt/kid3mainwindow.cpp:128
+#: src/app/qt/kid3mainwindow.cpp:134
 msgctxt "Kid3MainWindow|"
 msgid "Opens a recently used folder"
 msgstr "Opnar ei nyleg brukt mappe"
 
-#: src/app/qt/kid3mainwindow.cpp:129
+#: src/app/qt/kid3mainwindow.cpp:135
 msgctxt "Kid3MainWindow|"
 msgid "Open &Recent"
 msgstr "N&yleg opna"
 
-#: src/app/qt/kid3mainwindow.cpp:136
+#: src/app/qt/kid3mainwindow.cpp:148
 msgctxt "Kid3MainWindow|"
 msgid "Opens a folder"
 msgstr "Opnar ei mappe"
 
-#: src/app/qt/kid3mainwindow.cpp:137
+#: src/app/qt/kid3mainwindow.cpp:149
 msgctxt "Kid3MainWindow|"
 msgid "O&pen Folder..."
 msgstr "O&pna mappe …"
 
-#: src/app/qt/kid3mainwindow.cpp:148
+#: src/app/qt/kid3mainwindow.cpp:166
 msgctxt "Kid3MainWindow|"
 msgid "Reload folder"
 msgstr "Last inn mappa på nytt"
 
-#: src/app/qt/kid3mainwindow.cpp:149
+#: src/app/qt/kid3mainwindow.cpp:167
 msgctxt "Kid3MainWindow|"
 msgid "Re&load"
 msgstr "&Last på nytt"
 
-#: src/app/qt/kid3mainwindow.cpp:160
+#: src/app/qt/kid3mainwindow.cpp:184
 msgctxt "Kid3MainWindow|"
 msgid "Unload"
 msgstr "Frigjer"
 
-#: src/app/qt/kid3mainwindow.cpp:170
+#: src/app/qt/kid3mainwindow.cpp:194
 msgctxt "Kid3MainWindow|"
 msgid "Saves the changed files"
 msgstr "Lagra endra filer"
 
-#: src/app/qt/kid3mainwindow.cpp:171
+#: src/app/qt/kid3mainwindow.cpp:195
 msgctxt "Kid3MainWindow|"
 msgid "&Save"
 msgstr "&Lagra"
 
-#: src/app/qt/kid3mainwindow.cpp:184
+#: src/app/qt/kid3mainwindow.cpp:214
 msgctxt "Kid3MainWindow|"
 msgid "Reverts the changes of all or the selected files"
 msgstr "Tilbakestiller endringane i alle/merkte filer"
 
-#: src/app/qt/kid3mainwindow.cpp:185
+#: src/app/qt/kid3mainwindow.cpp:215
 msgctxt "Kid3MainWindow|"
 msgid "Re&vert"
 msgstr "&Tilbakestill"
 
-#: src/app/qt/kid3mainwindow.cpp:199
+#: src/app/qt/kid3mainwindow.cpp:235
 msgctxt "Kid3MainWindow|"
 msgid "Import from file or clipboard"
 msgstr "Importer frå fil eller utklippstavle"
 
-#: src/app/qt/kid3mainwindow.cpp:200
+#: src/app/qt/kid3mainwindow.cpp:236
 msgctxt "Kid3MainWindow|"
 msgid "&Import..."
 msgstr "&Importer …"
 
-#: src/app/qt/kid3mainwindow.cpp:220 src/app/qt/kid3mainwindow.cpp:240
+#: src/app/qt/kid3mainwindow.cpp:258 src/app/qt/kid3mainwindow.cpp:278
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1"
 msgstr "Importer frå %1"
 
-#: src/app/qt/kid3mainwindow.cpp:221 src/app/qt/kid3mainwindow.cpp:241
+#: src/app/qt/kid3mainwindow.cpp:259 src/app/qt/kid3mainwindow.cpp:279
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1..."
 msgstr "Importer frå %1 …"
 
-#: src/app/qt/kid3mainwindow.cpp:251
+#: src/app/qt/kid3mainwindow.cpp:289
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags"
 msgstr "Importer frå merkelappar"
 
-#: src/app/qt/kid3mainwindow.cpp:252
+#: src/app/qt/kid3mainwindow.cpp:290
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags..."
 msgstr "Importer frå merkelappar …"
 
-#: src/app/qt/kid3mainwindow.cpp:260
+#: src/app/qt/kid3mainwindow.cpp:298
 msgctxt "Kid3MainWindow|"
 msgid "Automatic import"
 msgstr "Automatisk import"
 
-#: src/app/qt/kid3mainwindow.cpp:261
+#: src/app/qt/kid3mainwindow.cpp:299
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
 msgstr "Automatisk i&mport …"
 
-#: src/app/qt/kid3mainwindow.cpp:269
+#: src/app/qt/kid3mainwindow.cpp:307
 msgctxt "Kid3MainWindow|"
 msgid "Browse album cover artwork"
 msgstr "Bla gjennom bilete til albumomslag"
 
-#: src/app/qt/kid3mainwindow.cpp:270
+#: src/app/qt/kid3mainwindow.cpp:308
 msgctxt "Kid3MainWindow|"
 msgid "&Browse Cover Art..."
 msgstr "&Bla gjennom omslagsbilete …"
 
-#: src/app/qt/kid3mainwindow.cpp:279
+#: src/app/qt/kid3mainwindow.cpp:317
 msgctxt "Kid3MainWindow|"
 msgid "Export to file or clipboard"
 msgstr "Eksporter til fil eller utklippstavla"
 
-#: src/app/qt/kid3mainwindow.cpp:280
+#: src/app/qt/kid3mainwindow.cpp:318
 msgctxt "Kid3MainWindow|"
 msgid "&Export..."
 msgstr "&Eksporter …"
 
-#: src/app/qt/kid3mainwindow.cpp:290
+#: src/app/qt/kid3mainwindow.cpp:328
 msgctxt "Kid3MainWindow|"
 msgid "Create M3U Playlist"
 msgstr "Lag ny M3U-speleliste"
 
-#: src/app/qt/kid3mainwindow.cpp:291
+#: src/app/qt/kid3mainwindow.cpp:329
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
 msgstr "&Ny speleliste …"
 
-#: src/app/qt/kid3mainwindow.cpp:304
+#: src/app/qt/kid3mainwindow.cpp:348
 msgctxt "Kid3MainWindow|"
 msgid "Quits the application"
 msgstr "Avsluttar programmet"
 
-#: src/app/qt/kid3mainwindow.cpp:305
+#: src/app/qt/kid3mainwindow.cpp:349
 msgctxt "Kid3MainWindow|"
 msgid "&Quit"
 msgstr "&Avslutt"
 
-#: src/app/qt/kid3mainwindow.cpp:316
+#: src/app/qt/kid3mainwindow.cpp:366
 msgctxt "Kid3MainWindow|"
 msgid "&Edit"
 msgstr "&Rediger"
 
-#: src/app/qt/kid3mainwindow.cpp:319
+#: src/app/qt/kid3mainwindow.cpp:369
 msgctxt "Kid3MainWindow|"
 msgid "Select all files"
 msgstr "Merk alle filer"
 
-#: src/app/qt/kid3mainwindow.cpp:320
+#: src/app/qt/kid3mainwindow.cpp:370
 msgctxt "Kid3MainWindow|"
 msgid "Select &All"
 msgstr "&Merk alle"
 
-#: src/app/qt/kid3mainwindow.cpp:335
+#: src/app/qt/kid3mainwindow.cpp:391
 msgctxt "Kid3MainWindow|"
 msgid "Deselect all files"
 msgstr "Fjern merking av filer"
 
-#: src/app/qt/kid3mainwindow.cpp:336
+#: src/app/qt/kid3mainwindow.cpp:392
 msgctxt "Kid3MainWindow|"
 msgid "Dese&lect"
 msgstr "&Fjern all merking"
 
-#: src/app/qt/kid3mainwindow.cpp:346
+#: src/app/qt/kid3mainwindow.cpp:402
 msgctxt "Kid3MainWindow|"
 msgid "Select all files in the current folder"
 msgstr "Merk alle filer i gjeldande mappe"
 
-#: src/app/qt/kid3mainwindow.cpp:347
+#: src/app/qt/kid3mainwindow.cpp:403
 msgctxt "Kid3MainWindow|"
 msgid "Select All in &Folder"
 msgstr "Merk alle i &mappa"
 
-#: src/app/qt/kid3mainwindow.cpp:355
+#: src/app/qt/kid3mainwindow.cpp:411
 msgctxt "Kid3MainWindow|"
 msgid "&Invert Selection"
 msgstr "&Omvend merking"
 
-#: src/app/qt/kid3mainwindow.cpp:363
+#: src/app/qt/kid3mainwindow.cpp:419
 msgctxt "Kid3MainWindow|"
 msgid "Select previous file"
 msgstr "Vel førre fil"
 
-#: src/app/qt/kid3mainwindow.cpp:364
+#: src/app/qt/kid3mainwindow.cpp:420
 msgctxt "Kid3MainWindow|"
 msgid "&Previous File"
 msgstr "&Førre fil"
 
-#: src/app/qt/kid3mainwindow.cpp:376
+#: src/app/qt/kid3mainwindow.cpp:438
 msgctxt "Kid3MainWindow|"
 msgid "Select next file"
 msgstr "Vel neste fil"
 
-#: src/app/qt/kid3mainwindow.cpp:377
+#: src/app/qt/kid3mainwindow.cpp:439
 msgctxt "Kid3MainWindow|"
 msgid "&Next File"
 msgstr "&Neste fil"
 
-#: src/app/qt/kid3mainwindow.cpp:390
+#: src/app/qt/kid3mainwindow.cpp:458
 msgctxt "Kid3MainWindow|"
 msgid "Find"
 msgstr "Finn"
 
-#: src/app/qt/kid3mainwindow.cpp:391
+#: src/app/qt/kid3mainwindow.cpp:459
 msgctxt "Kid3MainWindow|"
 msgid "&Find..."
 msgstr "&Finn …"
 
-#: src/app/qt/kid3mainwindow.cpp:404
+#: src/app/qt/kid3mainwindow.cpp:478
 msgctxt "Kid3MainWindow|"
 msgid "Find and replace"
 msgstr "Søk og byt ut"
 
-#: src/app/qt/kid3mainwindow.cpp:405
+#: src/app/qt/kid3mainwindow.cpp:479
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
 msgstr "&Byt ut …"
 
-#: src/app/qt/kid3mainwindow.cpp:417
+#: src/app/qt/kid3mainwindow.cpp:491
 msgctxt "Kid3MainWindow|"
 msgid "&Tools"
 msgstr "&Verktøy"
 
-#: src/app/qt/kid3mainwindow.cpp:420
+#: src/app/qt/kid3mainwindow.cpp:494
 msgctxt "Kid3MainWindow|"
 msgid "Apply Filename Format"
 msgstr "Bruk filnamn­format"
 
-#: src/app/qt/kid3mainwindow.cpp:421
+#: src/app/qt/kid3mainwindow.cpp:495
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Filename Format"
 msgstr "Bruk &filnamnformat"
 
-#: src/app/qt/kid3mainwindow.cpp:430
+#: src/app/qt/kid3mainwindow.cpp:504
 msgctxt "Kid3MainWindow|"
 msgid "Apply Tag Format"
 msgstr "Bruk merkelapp­format"
 
-#: src/app/qt/kid3mainwindow.cpp:431
+#: src/app/qt/kid3mainwindow.cpp:505
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Tag Format"
 msgstr "Bruk &merkelapp­format"
 
-#: src/app/qt/kid3mainwindow.cpp:439
+#: src/app/qt/kid3mainwindow.cpp:513
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text Encoding"
 msgstr "Bruk tekstkoding"
 
-#: src/app/qt/kid3mainwindow.cpp:440
+#: src/app/qt/kid3mainwindow.cpp:514
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text &Encoding"
 msgstr "Bruk tekst&koding"
 
-#: src/app/qt/kid3mainwindow.cpp:449
+#: src/app/qt/kid3mainwindow.cpp:523
 msgctxt "Kid3MainWindow|"
 msgid "Rename Folder"
 msgstr "Endra namn på mappe"
 
-#: src/app/qt/kid3mainwindow.cpp:450
+#: src/app/qt/kid3mainwindow.cpp:524
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
 msgstr "&Endra namn på mappe …"
 
-#: src/app/qt/kid3mainwindow.cpp:458
+#: src/app/qt/kid3mainwindow.cpp:532
 msgctxt "Kid3MainWindow|"
 msgid "Number Tracks"
 msgstr "Legg til spornummer"
 
-#: src/app/qt/kid3mainwindow.cpp:459
+#: src/app/qt/kid3mainwindow.cpp:533
 msgctxt "Kid3MainWindow|"
 msgid "&Number Tracks..."
 msgstr "&Legg til spornummer …"
 
-#: src/app/qt/kid3mainwindow.cpp:467
+#: src/app/qt/kid3mainwindow.cpp:541
 msgctxt "Kid3MainWindow|"
 msgid "Filter"
 msgstr "Filtrer"
 
-#: src/app/qt/kid3mainwindow.cpp:468
+#: src/app/qt/kid3mainwindow.cpp:542
 msgctxt "Kid3MainWindow|"
 msgid "F&ilter..."
 msgstr "F&iltrer..."
 
-#: src/app/qt/kid3mainwindow.cpp:479
+#: src/app/qt/kid3mainwindow.cpp:553
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.4"
 msgstr "Gjer ID3v2.3 om til ID3v2.4"
 
-#: src/app/qt/kid3mainwindow.cpp:480
+#: src/app/qt/kid3mainwindow.cpp:554
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.3 to ID3v2.&4"
 msgstr "Gjer ID3v2.3 om til ID3v2.&4"
 
-#: src/app/qt/kid3mainwindow.cpp:489
+#: src/app/qt/kid3mainwindow.cpp:563
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.3"
 msgstr "Gjer ID3v2.4 om til ID3v2.3"
 
-#: src/app/qt/kid3mainwindow.cpp:490
+#: src/app/qt/kid3mainwindow.cpp:564
 msgctxt "Kid3MainWindow|"
 msgid "Convert ID3v2.4 to ID3v2.&3"
 msgstr "Gjer ID3v2.4 om til ID3v2.&3"
 
-#: src/app/qt/kid3mainwindow.cpp:502
+#: src/app/qt/kid3mainwindow.cpp:576
 msgctxt "Kid3MainWindow|"
 msgid "Play"
 msgstr "Spel"
 
-#: src/app/qt/kid3mainwindow.cpp:503
+#: src/app/qt/kid3mainwindow.cpp:577
 msgctxt "Kid3MainWindow|"
 msgid "&Play"
 msgstr "&Spel"
 
-#: src/app/qt/kid3mainwindow.cpp:513
+#: src/app/qt/kid3mainwindow.cpp:592
 msgctxt "Kid3MainWindow|"
 msgid "&Settings"
 msgstr "&Innstillingar"
 
-#: src/app/qt/kid3mainwindow.cpp:517
+#: src/app/qt/kid3mainwindow.cpp:596
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the toolbar"
 msgstr "Viser/gøymer verktøylinja"
 
-#: src/app/qt/kid3mainwindow.cpp:518
+#: src/app/qt/kid3mainwindow.cpp:597
 msgctxt "Kid3MainWindow|"
 msgid "Show &Toolbar"
 msgstr "Vis &verktøylinje"
 
-#: src/app/qt/kid3mainwindow.cpp:528
+#: src/app/qt/kid3mainwindow.cpp:607
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the statusbar"
 msgstr "Viser/gøymer statuslinja"
 
-#: src/app/qt/kid3mainwindow.cpp:529
+#: src/app/qt/kid3mainwindow.cpp:608
 msgctxt "Kid3MainWindow|"
 msgid "Show St&atusbar"
 msgstr "Vis st&atuslinje"
 
-#: src/app/qt/kid3mainwindow.cpp:538
+#: src/app/qt/kid3mainwindow.cpp:617
 msgctxt "Kid3MainWindow|"
 msgid "Show Picture"
 msgstr "Vis bilete"
 
-#: src/app/qt/kid3mainwindow.cpp:539
+#: src/app/qt/kid3mainwindow.cpp:618
 msgctxt "Kid3MainWindow|"
 msgid "Show &Picture"
 msgstr "Vis &bilete"
 
-#: src/app/qt/kid3mainwindow.cpp:548
+#: src/app/qt/kid3mainwindow.cpp:627
 msgctxt "Kid3MainWindow|"
 msgid "Auto Hide Tags"
 msgstr "Gøym automatisk merkelappar"
 
-#: src/app/qt/kid3mainwindow.cpp:549
+#: src/app/qt/kid3mainwindow.cpp:628
 msgctxt "Kid3MainWindow|"
 msgid "Auto &Hide Tags"
 msgstr "&Gøym automatisk merkelappar"
 
-#: src/app/qt/kid3mainwindow.cpp:558
+#: src/app/qt/kid3mainwindow.cpp:637
 msgctxt "Kid3MainWindow|"
 msgid "Configure Kid3"
 msgstr "Set opp Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:559
+#: src/app/qt/kid3mainwindow.cpp:638
 msgctxt "Kid3MainWindow|"
 msgid "&Configure Kid3..."
 msgstr "&Set opp Kid3 …"
 
-#: src/app/qt/kid3mainwindow.cpp:573
+#: src/app/qt/kid3mainwindow.cpp:659
 msgctxt "Kid3MainWindow|"
 msgid "&Help"
 msgstr "&Hjelp"
 
-#: src/app/qt/kid3mainwindow.cpp:576
+#: src/app/qt/kid3mainwindow.cpp:662
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 Handbook"
 msgstr "Kid3-handbok"
 
-#: src/app/qt/kid3mainwindow.cpp:577
+#: src/app/qt/kid3mainwindow.cpp:663
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 &Handbook"
 msgstr "Kid3-&handbok"
 
-#: src/app/qt/kid3mainwindow.cpp:588
+#: src/app/qt/kid3mainwindow.cpp:680
 msgctxt "Kid3MainWindow|"
 msgid "About Kid3"
 msgstr "Om Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:589
+#: src/app/qt/kid3mainwindow.cpp:681
 msgctxt "Kid3MainWindow|"
 msgid "&About Kid3"
 msgstr "&Om Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:602
+#: src/app/qt/kid3mainwindow.cpp:700
 msgctxt "Kid3MainWindow|"
 msgid "About Qt"
 msgstr "Om Qt"
 
-#: src/app/qt/kid3mainwindow.cpp:603
+#: src/app/qt/kid3mainwindow.cpp:701
 msgctxt "Kid3MainWindow|"
 msgid "About &Qt"
 msgstr "Om &Qt"
 
-#: src/app/qt/kid3mainwindow.cpp:627
+#: src/app/qt/kid3mainwindow.cpp:725
 msgctxt "Kid3MainWindow|"
 msgid "Player"
 msgstr "Spelar"
 
-#: src/app/qt/kid3mainwindow.cpp:651
+#: src/app/qt/kid3mainwindow.cpp:749
 msgctxt "Kid3MainWindow|"
 msgid "Filename"
 msgstr "Filnamn"
 
 # %1 vert til eit tal (1, 2 osv.)
-#: src/app/qt/kid3mainwindow.cpp:654 src/app/qt/kid3mainwindow.cpp:677
+#: src/app/qt/kid3mainwindow.cpp:752 src/app/qt/kid3mainwindow.cpp:775
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "From Tag %1"
 msgstr "Frå merkelapp %1"
 
-#: src/app/qt/kid3mainwindow.cpp:659 src/app/qt/kid3mainwindow.cpp:702
-#: src/app/qt/kid3mainwindow.cpp:707 src/app/qt/kid3mainwindow.cpp:725
+#: src/app/qt/kid3mainwindow.cpp:757 src/app/qt/kid3mainwindow.cpp:800
+#: src/app/qt/kid3mainwindow.cpp:805 src/app/qt/kid3mainwindow.cpp:823
 msgctxt "Kid3MainWindow|"
 msgid "Focus"
 msgstr "Fokuser"
 
-#: src/app/qt/kid3mainwindow.cpp:669
+#: src/app/qt/kid3mainwindow.cpp:767
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Tag %1"
 msgstr "Merkelapp %1"
 
-#: src/app/qt/kid3mainwindow.cpp:671
+#: src/app/qt/kid3mainwindow.cpp:769
 msgctxt "Kid3MainWindow|"
 msgid "From Filename"
 msgstr "Frå filnamn"
 
-#: src/app/qt/kid3mainwindow.cpp:682
+#: src/app/qt/kid3mainwindow.cpp:780
 msgctxt "Kid3MainWindow|"
 msgid "Copy"
 msgstr "Kopier"
 
-#: src/app/qt/kid3mainwindow.cpp:685
+#: src/app/qt/kid3mainwindow.cpp:783
 msgctxt "Kid3MainWindow|"
 msgid "Paste"
 msgstr "Lim inn"
 
-#: src/app/qt/kid3mainwindow.cpp:688
+#: src/app/qt/kid3mainwindow.cpp:786
 msgctxt "Kid3MainWindow|"
 msgid "Remove"
 msgstr "Fjern"
 
-#: src/app/qt/kid3mainwindow.cpp:692
+#: src/app/qt/kid3mainwindow.cpp:790
 msgctxt "Kid3MainWindow|"
 msgid "Edit"
 msgstr "Rediger"
 
-#: src/app/qt/kid3mainwindow.cpp:695
+#: src/app/qt/kid3mainwindow.cpp:793
 msgctxt "Kid3MainWindow|"
 msgid "Add"
 msgstr "Legg til"
 
-#: src/app/qt/kid3mainwindow.cpp:698
+#: src/app/qt/kid3mainwindow.cpp:796
 msgctxt "Kid3MainWindow|"
 msgid "Delete"
 msgstr "Slett"
 
-#: src/app/qt/kid3mainwindow.cpp:706
+#: src/app/qt/kid3mainwindow.cpp:804
 msgctxt "Kid3MainWindow|"
 msgid "File List"
 msgstr "Filliste"
 
-#: src/app/qt/kid3mainwindow.cpp:710
+#: src/app/qt/kid3mainwindow.cpp:808
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
 msgstr "&Endra namn"
 
-#: src/app/qt/kid3mainwindow.cpp:717
+#: src/app/qt/kid3mainwindow.cpp:815
 msgctxt "Kid3MainWindow|"
 msgid "&Move to Trash"
 msgstr "&Flytt til papirkorga"
 
-#: src/app/qt/kid3mainwindow.cpp:724
+#: src/app/qt/kid3mainwindow.cpp:822
 msgctxt "Kid3MainWindow|"
 msgid "Folder List"
 msgstr "Mappeliste"
 
-#: src/app/qt/kid3mainwindow.cpp:730
+#: src/app/qt/kid3mainwindow.cpp:828
 msgctxt "Kid3MainWindow|"
 msgid "Section"
 msgstr "Seksjon"
 
-#: src/app/qt/kid3mainwindow.cpp:815
+#: src/app/qt/kid3mainwindow.cpp:913
 msgctxt "Kid3MainWindow|"
 msgid " [modified]"
 msgstr " [endra]"
 
-#: src/app/qt/kid3mainwindow.cpp:910
+#: src/app/qt/kid3mainwindow.cpp:1008
 msgctxt "Kid3MainWindow|"
 msgid "Audio Tag Editor"
 msgstr "Redigering av lydmetadata"
 
-#: src/app/qt/kid3mainwindow.cpp:915
+#: src/app/qt/kid3mainwindow.cpp:1013
 msgctxt "Kid3MainWindow|"
 msgid "License"
 msgstr "Lisens"
 
-#: src/app/qt/kid3mainwindow.cpp:933
+#: src/app/qt/kid3mainwindow.cpp:1031
 msgctxt "Kid3MainWindow|"
 msgid "Configure - Kid3"
 msgstr "Set opp – Kid3"
 
-#: src/app/qt/kid3mainwindow.cpp:977 src/app/qt/kid3mainwindow.cpp:989
+#: src/app/qt/kid3mainwindow.cpp:1075 src/app/qt/kid3mainwindow.cpp:1087
 msgctxt "Kid3MainWindow|"
 msgid "User Actions"
 msgstr "Brukarhandlingar"
@@ -4652,52 +4652,52 @@ msgctxt "ImportDialog|"
 msgid "D&estination:"
 msgstr "&Mål:"
 
-#: src/gui/dialogs/importdialog.cpp:190
+#: src/gui/dialogs/importdialog.cpp:195
 msgctxt "ImportDialog|"
 msgid "Revert"
 msgstr "Tilbakestill"
 
-#: src/gui/dialogs/importdialog.cpp:199
+#: src/gui/dialogs/importdialog.cpp:204
 msgctxt "ImportDialog|"
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Kontroller maks&forskjell i tid (sekund):"
 
-#: src/gui/dialogs/importdialog.cpp:207
+#: src/gui/dialogs/importdialog.cpp:212
 msgctxt "ImportDialog|"
 msgid "Match with:"
 msgstr "Finn samsvar med:"
 
-#: src/gui/dialogs/importdialog.cpp:209
+#: src/gui/dialogs/importdialog.cpp:214
 msgctxt "ImportDialog|"
 msgid "&Length"
 msgstr "&Lengd"
 
-#: src/gui/dialogs/importdialog.cpp:212
+#: src/gui/dialogs/importdialog.cpp:217
 msgctxt "ImportDialog|"
 msgid "T&rack"
 msgstr "S&por"
 
-#: src/gui/dialogs/importdialog.cpp:215
+#: src/gui/dialogs/importdialog.cpp:220
 msgctxt "ImportDialog|"
 msgid "&Title"
 msgstr "&Tittel"
 
-#: src/gui/dialogs/importdialog.cpp:243
+#: src/gui/dialogs/importdialog.cpp:248
 msgctxt "ImportDialog|"
 msgid "&Help"
 msgstr "&Hjelp"
 
-#: src/gui/dialogs/importdialog.cpp:245
+#: src/gui/dialogs/importdialog.cpp:250
 msgctxt "ImportDialog|"
 msgid "&Save Settings"
 msgstr "&Lagra innstillingar"
 
-#: src/gui/dialogs/importdialog.cpp:247
+#: src/gui/dialogs/importdialog.cpp:252
 msgctxt "ImportDialog|"
 msgid "&OK"
 msgstr "&OK"
 
-#: src/gui/dialogs/importdialog.cpp:248
+#: src/gui/dialogs/importdialog.cpp:253
 msgctxt "ImportDialog|"
 msgid "&Cancel"
 msgstr "&Avbryt"
@@ -5160,36 +5160,36 @@ msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
 msgstr "Opnar mappe …"
 
-#: src/gui/forms/basemainwindow.cpp:324
+#: src/gui/forms/basemainwindow.cpp:329
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
 msgstr "Avbryt"
 
-#: src/gui/forms/basemainwindow.cpp:393
+#: src/gui/forms/basemainwindow.cpp:398
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
 msgstr "%1 er ikkje skrivbar"
 
-#: src/gui/forms/basemainwindow.cpp:403
+#: src/gui/forms/basemainwindow.cpp:408
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
 msgstr "Feil ved skriving til fil:\n"
 
-#: src/gui/forms/basemainwindow.cpp:405 src/gui/forms/basemainwindow.cpp:411
-#: src/gui/forms/basemainwindow.cpp:1128 src/gui/forms/basemainwindow.cpp:1133
-#: src/gui/forms/basemainwindow.cpp:1569 src/gui/forms/basemainwindow.cpp:1578
-#: src/gui/forms/basemainwindow.cpp:1653
+#: src/gui/forms/basemainwindow.cpp:410 src/gui/forms/basemainwindow.cpp:416
+#: src/gui/forms/basemainwindow.cpp:1133 src/gui/forms/basemainwindow.cpp:1138
+#: src/gui/forms/basemainwindow.cpp:1574 src/gui/forms/basemainwindow.cpp:1583
+#: src/gui/forms/basemainwindow.cpp:1658
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "Filfeil"
 
-#: src/gui/forms/basemainwindow.cpp:408
+#: src/gui/forms/basemainwindow.cpp:413
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "Feil ved lagring av fila. Vil du endra filløyva?"
 
-#: src/gui/forms/basemainwindow.cpp:461
+#: src/gui/forms/basemainwindow.cpp:466
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "The current folder has been modified.\n"
@@ -5198,12 +5198,12 @@ msgstr ""
 "Gjeldande mappe er endra.\n"
 "Vil du lagra ho?"
 
-#: src/gui/forms/basemainwindow.cpp:463 src/gui/forms/basemainwindow.cpp:502
+#: src/gui/forms/basemainwindow.cpp:468 src/gui/forms/basemainwindow.cpp:507
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
 msgstr "Åtvaring"
 
-#: src/gui/forms/basemainwindow.cpp:500
+#: src/gui/forms/basemainwindow.cpp:505
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "A playlist has been modified.\n"
@@ -5212,12 +5212,12 @@ msgstr ""
 "Ei speleliste er endra.\n"
 "Vil du lagra ho?"
 
-#: src/gui/forms/basemainwindow.cpp:610
+#: src/gui/forms/basemainwindow.cpp:615
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
 msgstr "Avsluttar …"
 
-#: src/gui/forms/basemainwindow.cpp:697
+#: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
@@ -5225,7 +5225,7 @@ msgid_plural "%n folders"
 msgstr[0] "%n mappe"
 msgstr[1] "%n mapper"
 
-#: src/gui/forms/basemainwindow.cpp:702
+#: src/gui/forms/basemainwindow.cpp:707
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
@@ -5233,7 +5233,7 @@ msgid_plural "%n files"
 msgstr[0] "%n fil"
 msgstr[1] "%n filer"
 
-#: src/gui/forms/basemainwindow.cpp:707
+#: src/gui/forms/basemainwindow.cpp:712
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
@@ -5241,122 +5241,122 @@ msgid_plural "%n selected"
 msgstr[0] "%n merkt"
 msgstr[1] "%n merkte"
 
-#: src/gui/forms/basemainwindow.cpp:710
+#: src/gui/forms/basemainwindow.cpp:715
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
 msgstr "Klar."
 
-#: src/gui/forms/basemainwindow.cpp:772
+#: src/gui/forms/basemainwindow.cpp:777
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
 msgstr "Lagar speleliste …"
 
-#: src/gui/forms/basemainwindow.cpp:820
+#: src/gui/forms/basemainwindow.cpp:825
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
 msgstr "Fann ikkje filer"
 
-#: src/gui/forms/basemainwindow.cpp:821
+#: src/gui/forms/basemainwindow.cpp:826
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
 msgstr "Feil"
 
-#: src/gui/forms/basemainwindow.cpp:847
+#: src/gui/forms/basemainwindow.cpp:852
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
 msgstr "Importer"
 
-#: src/gui/forms/basemainwindow.cpp:1126 src/gui/forms/basemainwindow.cpp:1132
-#: src/gui/forms/basemainwindow.cpp:1570 src/gui/forms/basemainwindow.cpp:1579
+#: src/gui/forms/basemainwindow.cpp:1131 src/gui/forms/basemainwindow.cpp:1137
+#: src/gui/forms/basemainwindow.cpp:1575 src/gui/forms/basemainwindow.cpp:1584
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "Feil ved endring av filnamn:\n"
 
-#: src/gui/forms/basemainwindow.cpp:1127
+#: src/gui/forms/basemainwindow.cpp:1132
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
 msgstr "Vil du prøva på nytt etter mappelukking?"
 
-#: src/gui/forms/basemainwindow.cpp:1204
+#: src/gui/forms/basemainwindow.cpp:1209
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "Filtrer"
 
-#: src/gui/forms/basemainwindow.cpp:1273
+#: src/gui/forms/basemainwindow.cpp:1278
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " [filtrert %1/%2]"
 
-#: src/gui/forms/basemainwindow.cpp:1387
+#: src/gui/forms/basemainwindow.cpp:1392
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "Legg til ramme"
 
-#: src/gui/forms/basemainwindow.cpp:1388
+#: src/gui/forms/basemainwindow.cpp:1393
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "Vel ramme-ID"
 
-#: src/gui/forms/basemainwindow.cpp:1533
+#: src/gui/forms/basemainwindow.cpp:1538
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "Endra namn på fil"
 
-#: src/gui/forms/basemainwindow.cpp:1534
+#: src/gui/forms/basemainwindow.cpp:1539
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "Skriv inn nytt filnamn:"
 
-#: src/gui/forms/basemainwindow.cpp:1571 src/gui/forms/basemainwindow.cpp:1580
+#: src/gui/forms/basemainwindow.cpp:1576 src/gui/forms/basemainwindow.cpp:1585
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "Klarte ikkje endra namn frå %1 til %2\n"
 
-#: src/gui/forms/basemainwindow.cpp:1572
+#: src/gui/forms/basemainwindow.cpp:1577
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "Vil du prøva på nytt etter mappelukking?"
 
-#: src/gui/forms/basemainwindow.cpp:1590
+#: src/gui/forms/basemainwindow.cpp:1595
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Er du sikker på at du vil flytta desse %1 elementa til papirkorga?"
 
-#: src/gui/forms/basemainwindow.cpp:1618
+#: src/gui/forms/basemainwindow.cpp:1623
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Er du sikker på at du vil flytta desse %1 elementa til papirkorga?"
 
-#: src/gui/forms/basemainwindow.cpp:1620
+#: src/gui/forms/basemainwindow.cpp:1625
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "Er du sikker på at du vil flytta dette elementet til papirkorga?"
 
-#: src/gui/forms/basemainwindow.cpp:1622
+#: src/gui/forms/basemainwindow.cpp:1627
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "Flytt til papirkorga"
 
-#: src/gui/forms/basemainwindow.cpp:1651
+#: src/gui/forms/basemainwindow.cpp:1656
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "Mappa må vera tom.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1652
+#: src/gui/forms/basemainwindow.cpp:1657
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "Klarte ikkje flytta desse filene til papirkorga"
 
-#: src/gui/forms/basemainwindow.cpp:1685
+#: src/gui/forms/basemainwindow.cpp:1690
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "Fald ut alle"
 
-#: src/gui/forms/basemainwindow.cpp:1797
+#: src/gui/forms/basemainwindow.cpp:1802
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "Av&bryt"
@@ -5728,17 +5728,17 @@ msgctxt "ImageViewer|"
 msgid "&Close"
 msgstr "&Lukk"
 
-#: src/gui/widgets/picturelabel.cpp:87
+#: src/gui/widgets/picturelabel.cpp:92
 msgctxt "PictureLabel|"
 msgid "Previous"
 msgstr "Førre"
 
-#: src/gui/widgets/picturelabel.cpp:101
+#: src/gui/widgets/picturelabel.cpp:111
 msgctxt "PictureLabel|"
 msgid "Next"
 msgstr "Neste"
 
-#: src/gui/widgets/picturelabel.cpp:228
+#: src/gui/widgets/picturelabel.cpp:238
 msgctxt "@default|"
 msgid ""
 "Drag album\n"
@@ -5753,37 +5753,37 @@ msgctxt "PlayToolBar|"
 msgid "Play"
 msgstr "Spel"
 
-#: src/gui/widgets/playtoolbar.cpp:108
+#: src/gui/widgets/playtoolbar.cpp:130
 msgctxt "PlayToolBar|"
 msgid "Play/Pause"
 msgstr "Spel/pause"
 
-#: src/gui/widgets/playtoolbar.cpp:112
+#: src/gui/widgets/playtoolbar.cpp:134
 msgctxt "PlayToolBar|"
 msgid "Stop playback"
 msgstr "Stopp avspeling"
 
-#: src/gui/widgets/playtoolbar.cpp:116
+#: src/gui/widgets/playtoolbar.cpp:138
 msgctxt "PlayToolBar|"
 msgid "Previous Track"
 msgstr "Førre spor"
 
-#: src/gui/widgets/playtoolbar.cpp:120
+#: src/gui/widgets/playtoolbar.cpp:142
 msgctxt "PlayToolBar|"
 msgid "Next Track"
 msgstr "Neste spor"
 
-#: src/gui/widgets/playtoolbar.cpp:124
+#: src/gui/widgets/playtoolbar.cpp:146
 msgctxt "PlayToolBar|"
 msgid "Close"
 msgstr "Lukk"
 
-#: src/gui/widgets/playtoolbar.cpp:141
+#: src/gui/widgets/playtoolbar.cpp:163
 msgctxt "PlayToolBar|"
 msgid "Mute"
 msgstr "Demp"
 
-#: src/gui/widgets/playtoolbar.cpp:324
+#: src/gui/widgets/playtoolbar.cpp:346
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
