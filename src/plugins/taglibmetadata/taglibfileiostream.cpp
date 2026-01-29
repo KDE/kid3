@@ -78,7 +78,7 @@ void FileIOStream::closeFileHandle()
 
 void FileIOStream::setName(const QString& fileName)
 {
-  delete m_fileName;
+  delete [] m_fileName;
 #ifdef Q_OS_WIN32
   int fnLen = fileName.length();
   m_fileName = new wchar_t[fnLen + 1];
