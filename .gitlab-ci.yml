@@ -14,7 +14,6 @@ include:
       - /gitlab-templates/craft-windows-x86-64-qt6.yml
       - /gitlab-templates/flatpak.yml
       - /gitlab-templates/snap-snapcraft-lxd.yml
-      - /gitlab-templates/documentation.yml
   - local: '/.kid3-cd.yml'
 
 .craft_macos_base:
