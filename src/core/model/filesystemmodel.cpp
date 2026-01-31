@@ -1782,8 +1782,12 @@ void FileSystemModelPrivate::removeNode(FileSystemModelPrivate::FileSystemNode *
 #endif
     delete node;
     // cleanup sort files after removing rather then re-sorting which is O(n)
-    if (vLocation >= 0)
+    if (vLocation >= 0) {
         parentNode->visibleChildren.removeAt(vLocation);
+        if (parentNode->dirtyChildrenIndex != -1)
+            if (vLocation < parentNode->dirtyChildrenIndex)
+                --parentNode->dirtyChildrenIndex;
+    }
     if (vLocation >= 0 && !indexHidden)
         q->endRemoveRows();
 }
@@ -1835,6 +1839,9 @@ void FileSystemModelPrivate::removeVisibleFile(FileSystemNode *parentNode, int v
                                        translateVisibleLocation(parentNode, vLocation));
     parentNode->children.value(parentNode->visibleChildren.at(vLocation))->isVisible = false;
     parentNode->visibleChildren.removeAt(vLocation);
+    if (parentNode->dirtyChildrenIndex != -1)
+        if (vLocation < parentNode->dirtyChildrenIndex)
+            --parentNode->dirtyChildrenIndex;
     if (!indexHidden)
         q->endRemoveRows();
 }
