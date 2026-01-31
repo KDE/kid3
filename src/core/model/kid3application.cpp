@@ -1048,8 +1048,8 @@ QStringList Kid3Application::saveDirectory(QStringList* errorDescriptions)
     if (errorDescriptions) {
       errno = 0;
     }
-    if (taggedFile->isChanged() &&
-        !taggedFile->writeTags(false, &renamed,
+    if (!taggedFile->isChanged()) continue; // do not consider a non-changed file when reporting progress.
+    if (!taggedFile->writeTags(false, &renamed,
                                FileConfig::instance().preserveTime())) {
       if (QDir dir(taggedFile->getDirname());
           dir.exists(fileName) && taggedFile->isFilenameChanged()) {
@@ -1074,7 +1074,7 @@ QStringList Kid3Application::saveDirectory(QStringList* errorDescriptions)
           }
         }
         if (ok) {
-          continue;
+          goto done_with_this_file;
         }
         taggedFile->setFilename(fileName);
       }
@@ -1090,6 +1090,7 @@ QStringList Kid3Application::saveDirectory(QStringList* errorDescriptions)
         errorDescriptions->append(errorDescription);
       }
     }
+done_with_this_file:
     ++numFiles;
     emit longRunningOperationProgress(operationName, numFiles, totalFiles,
                                       &aborted);
