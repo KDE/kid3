@@ -222,11 +222,11 @@ download_and_extract_qt() {
       case "$_qtarch" in
         macos)
           for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
-            fn=6.10.2-0-202601050617${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
+            fn=6.10.2-0-202601261210${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
             $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_6102/qt6_6102/qt.qt6.6102.clang_64/$fn
           done
           for m in qtmultimedia qtimageformats; do
-            fn=qt.qt6.6102.addons.${m}.clang_64/6.10.2-0-202601050617${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
+            fn=qt.qt6.6102.addons.${m}.clang_64/6.10.2-0-202601261210${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
             $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_6102/qt6_6102/$fn
           done
           ;;
