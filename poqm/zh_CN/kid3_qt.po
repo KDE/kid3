@@ -2623,12 +2623,12 @@ msgstr "发售方"
 #: src/core/tags/frame.cpp:74
 msgctxt "@default|"
 msgid "Target Type"
-msgstr ""
+msgstr "目标类型"
 
 #: src/core/tags/frame.cpp:75
 msgctxt "@default|"
 msgid "Default"
-msgstr ""
+msgstr "默认值"
 
 #: src/core/tags/frame.cpp:82
 msgctxt "@default|"
@@ -2685,32 +2685,32 @@ msgstr "花絮/流行"
 #: src/core/tags/frame.cpp:106
 msgctxt "@default|"
 msgid "None"
-msgstr ""
+msgstr "无"
 
 #: src/core/tags/frame.cpp:107
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "镜头"
 
 #: src/core/tags/frame.cpp:108
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr ""
+msgstr "子音轨"
 
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "部分"
 
 #: src/core/tags/frame.cpp:112
 msgctxt "@default|"
 msgid "Edition"
-msgstr ""
+msgstr "版本"
 
 #: src/core/tags/frame.cpp:113
 msgctxt "@default|"
 msgid "Collection"
-msgstr ""
+msgstr "专辑"
 
 #: src/core/tags/frame.cpp:138
 msgctxt "@default|"
@@ -3293,27 +3293,27 @@ msgstr "音量"
 #: src/core/tags/frame.cpp:298
 msgctxt "@default|"
 msgid "Director"
-msgstr ""
+msgstr "导演"
 
 #: src/core/tags/frame.cpp:299
 msgctxt "@default|"
 msgid "Duration"
-msgstr ""
+msgstr "时长"
 
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "概要"
 
 #: src/core/tags/frame.cpp:301
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "简介"
 
 #: src/core/tags/frame.cpp:302
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr ""
+msgstr "总部分"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
