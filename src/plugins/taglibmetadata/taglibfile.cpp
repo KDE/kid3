@@ -49,7 +49,7 @@
 #include "taglibasfsupport.h"
 #include "taglibmodsupport.h"
 #include "taglibdsfsupport.h"
-#ifdef HAVE_TAGLIB_MATROSKA_SUPPORT
+#if TAGLIB_VERSION >= 0x020200
 #include "taglibmatroskasupport.h"
 #endif
 #include "taglibgenericsupport.h"
@@ -996,7 +996,7 @@ void TagLibFile::staticInit()
     new TagLibAsfSupport,
     new TagLibModSupport,
     new TagLibDsfSupport,
-#ifdef HAVE_TAGLIB_MATROSKA_SUPPORT
+#if TAGLIB_VERSION >= 0x020200
     new TagLibMatroskaSupport,
 #endif
     // It is essential that TagLibGenericSupport is last to provide defaults for

@@ -262,7 +262,7 @@ TagLib::File* FileIOStream::createFromContents(TagLib::IOStream* stream)
     { "audio/x-wav", "WAV" },
     { "audio/x-wavpack", "WV" },
     { "audio/x-xm", "XM" },
-#ifdef HAVE_TAGLIB_MATROSKA_SUPPORT
+#if TAGLIB_VERSION >= 0x020200
     { "audio/x-matroska", "MKA" },
     { "video/x-matroska", "MKV" },
     { "audio/webm", "WEBM" },
