@@ -111,12 +111,20 @@ bool ExtendedInformation::isInvalidDrive(const QString &path)
 static QBasicAtomicInt fetchedRoot = Q_BASIC_ATOMIC_INITIALIZER(false);
 void qt_test_resetFetchedRoot()
 {
+#if QT_VERSION >= 0x050e00
+    fetchedRoot.storeRelaxed(false);
+#else
     fetchedRoot.store(false);
+#endif
 }
 
 bool qt_test_isFetchedRoot()
 {
+#if QT_VERSION >= 0x050e00
+    return fetchedRoot.loadRelaxed();
+#else
     return fetchedRoot.load();
+#endif
 }
 #endif
 
@@ -402,7 +410,11 @@ void FileInfoGatherer::getFileInfos(const QString &path, const QStringList &file
     // List drives
     if (path.isEmpty()) {
 #ifdef QT_BUILD_INTERNAL
+#if QT_VERSION >= 0x050e00
+        fetchedRoot.storeRelaxed(true);
+#else
         fetchedRoot.store(true);
+#endif
 #endif
         QFileInfoList infoList;
         if (files.isEmpty()) {
