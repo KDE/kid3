@@ -711,8 +711,10 @@ void FrameTableModel::filterDifferent(FrameCollection& others)
 void FrameTableModel::setAllCheckStates(bool checked)
 {
   const int numRows = rowCount();
-  m_frameSelected.fill(checked, 0, numRows);
-  emit dataChanged(index(0, CI_Enable), index(numRows - 1, CI_Enable));
+  if (numRows > 0) {
+      m_frameSelected.fill(checked, 0, numRows);
+      emit dataChanged(index(0, CI_Enable), index(numRows - 1, CI_Enable));
+  }
 }
 
 /**
