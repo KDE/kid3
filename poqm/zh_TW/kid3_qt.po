@@ -2415,12 +2415,12 @@ msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "儲存資料夾…"
 
-#: src/core/model/kid3application.cpp:1237
+#: src/core/model/kid3application.cpp:1238
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "選擇區"
 
-#: src/core/model/kid3application.cpp:3449
+#: src/core/model/kid3application.cpp:3450
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "所有檔案"

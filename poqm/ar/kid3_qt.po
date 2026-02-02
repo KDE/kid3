@@ -2405,12 +2405,12 @@ msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "يحفظ المجلد…"
 
-#: src/core/model/kid3application.cpp:1237
+#: src/core/model/kid3application.cpp:1238
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "التحديد"
 
-#: src/core/model/kid3application.cpp:3449
+#: src/core/model/kid3application.cpp:3450
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "كلّ الملفّات"
