@@ -193,6 +193,7 @@ public:
     ExtendedInformation getInfo(const QFileInfo &fileInfo) const;
     AbstractFileDecorationProvider *decorationProvider() const;
     bool resolveSymlinks() const;
+    bool setHoldOffOnUpdates(bool holdoff);
 
 public Q_SLOTS:
     void list(const QString &directoryPath);
@@ -217,6 +218,7 @@ private:
     QWaitCondition condition;
     QStack<QString> path;
     QStack<QStringList> files;
+    bool holdOffOnUpdates;
     // end protected by mutex
     QAtomicInt abort;
 

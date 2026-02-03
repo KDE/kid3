@@ -144,7 +144,7 @@ static QString translateDriveName(const QFileInfo &drive)
     Creates thread
 */
 FileInfoGatherer::FileInfoGatherer(QObject *parent)
-    : QThread(parent), abort(false),
+    : QThread(parent), holdOffOnUpdates(false), abort(false),
 #ifndef QT_NO_FILESYSTEMWATCHER
       watcher(nullptr),
 #endif
@@ -258,6 +258,17 @@ void FileInfoGatherer::fetchExtendedInformation(const QString &path, const QStri
 #endif
 }
 
+bool FileInfoGatherer::setHoldOffOnUpdates(bool holdoff)
+{
+    QMutexLocker locker(&mutex);
+    bool previous = holdOffOnUpdates;
+    holdOffOnUpdates = holdoff;
+    if (!holdoff) {
+        condition.wakeAll();
+    }
+    return previous;
+}
+
 /*!
     Fetch extended information for all \a filePath
 
@@ -333,12 +344,12 @@ void FileInfoGatherer::run()
     forever {
         QMutexLocker locker(&mutex);
 #if QT_VERSION >= 0x050e00
-        while (!abort.loadRelaxed() && path.isEmpty())
+        while (!abort.loadRelaxed() && (path.isEmpty() || holdOffOnUpdates))
             condition.wait(&mutex);
         if (abort.loadRelaxed())
             return;
 #else
-        while (!abort.load() && path.isEmpty())
+        while (!abort.load() && (path.isEmpty() || holdOffOnUpdates))
             condition.wait(&mutex);
         if (abort.load())
             return;

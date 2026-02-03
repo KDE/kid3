@@ -2094,6 +2094,12 @@ QString FileSystemModel::wildcardToRegularExpression(const QString &pattern)
 }
 #endif
 
+bool FileSystemModel::setHoldOffOnUpdates(bool holdoff)
+{
+     Q_D(FileSystemModel);
+     return d->fileInfoGatherer.setHoldOffOnUpdates(holdoff);
+}
+
 /*!
     \internal
 

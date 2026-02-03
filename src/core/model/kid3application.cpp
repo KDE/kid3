@@ -39,6 +39,9 @@
 #include <QPluginLoader>
 #include <QElapsedTimer>
 #include <QUrl>
+#if QT_VERSION >= 0x050c00
+#include <QScopeGuard>
+#endif
 #ifdef Q_OS_MAC
 #include <CoreFoundation/CFURL.h>
 #endif
@@ -1022,6 +1025,13 @@ QStringList Kid3Application::saveDirectory(QStringList* errorDescriptions)
 {
   QStringList errorFiles;
   int numFiles = 0, totalFiles = 0;
+#if QT_VERSION >= 0x050c00
+  bool previous = m_fileSystemModel->setHoldOffOnUpdates(true);
+  auto reEnableFileSystemUpdated = qScopeGuard([this, previous] {
+    m_fileSystemModel->setHoldOffOnUpdates(previous);
+  });
+#endif
+
   // Get number of files to be saved to display correct progressbar
   TaggedFileIterator countIt(m_fileProxyModelRootIndex);
   while (countIt.hasNext()) {

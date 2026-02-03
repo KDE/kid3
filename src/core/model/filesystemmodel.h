@@ -162,6 +162,8 @@ public:
     static QString wildcardToRegularExpression(const QString &pattern);
 #endif
 
+    bool setHoldOffOnUpdates(bool holdoff);
+
 protected:
     FileSystemModel(FileSystemModelPrivate &, QObject *parent = Q_NULLPTR);
     void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
