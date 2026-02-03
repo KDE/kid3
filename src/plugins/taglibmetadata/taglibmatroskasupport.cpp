@@ -56,7 +56,7 @@ constexpr struct {
   {"DATE_RECORDED", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},       // FT_Date,
   {"PART_NUMBER", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},         // FT_Track,
   {"GENRE", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},               // FT_Genre,
-                                                                                // FT_LastV1Frame = FT_Track,
+                                                                                       // FT_LastV1Frame = FT_Track,
   {"ARTIST", TagLib::Matroska::SimpleTag::TargetTypeValue::Album, true},               // FT_AlbumArtist,
   {"ARRANGER", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},            // FT_Arranger,
   {"WRITTEN_BY", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},          // FT_Author,
@@ -82,7 +82,7 @@ constexpr struct {
   {"ORIGINALARTIST", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},      // FT_OriginalArtist,
   {"ORIGINALDATE", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},        // FT_OriginalDate,
   {"DESCRIPTION", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},         // FT_Description,
-  {"PERFORMER", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},      // FT_Performer,
+  {"PERFORMER", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},           // FT_Performer,
   {"PICTURE", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},             // FT_Picture,
   {"LABEL_CODE", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},          // FT_Publisher,
   {"RELEASECOUNTRY", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},      // FT_ReleaseCountry,
@@ -99,7 +99,7 @@ constexpr struct {
   {"DATE_RELEASED", TagLib::Matroska::SimpleTag::TargetTypeValue::Album, false},       // FT_ReleaseDate,
   {"RATING", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},              // FT_Rating,
   {"WORK", TagLib::Matroska::SimpleTag::TargetTypeValue::Track, false},                // FT_Work,
-                                                                                // FT_Custom1
+                                                                                       // FT_Custom1
 };
 
 /**
@@ -387,22 +387,28 @@ TagLib::Matroska::SimpleTag frameToMatroskaSimpleTag(const Frame& frame)
   const QVariant dataVar = Frame::getField(frame, Frame::ID_Data);
   const bool isBinary = dataVar.isValid();
   const QByteArray data = isBinary ? dataVar.toByteArray() : QByteArray();
-  const TagLib::String name = toTString(frame.getInternalName());
+  QString name = frame.getInternalName();
   const TagLib::String value = toTString(frame.getValue());
-  auto targetType =
-    static_cast<TagLib::Matroska::SimpleTag::TargetTypeValue>(
-      Frame::getField(frame, Frame::ID_TargetType).toInt() * 10);
+  const QVariant targetTypeVar = Frame::getField(frame, Frame::ID_TargetType);
+  auto targetType = targetTypeVar.isValid()
+      ? static_cast<TagLib::Matroska::SimpleTag::TargetTypeValue>(
+                              targetTypeVar.toInt() * 10)
+      : TagLib::Matroska::SimpleTag::TargetTypeValue::Track;
   const TagLib::String language = toTString(
     Frame::getField(frame, Frame::ID_Language).toString());
+  const QVariant defaultLanguageVar = Frame::getField(frame, Frame::ID_Default);
   const bool defaultLanguage =
-    Frame::getField(frame, Frame::ID_Default).toBool();
+      defaultLanguageVar.isValid() ? defaultLanguageVar.toBool() : true;
   const unsigned long long trackUid =
     Frame::getField(frame, Frame::ID_Id).toULongLong();
+  if (name.isEmpty()) {
+    name = getMatroskaName(frame, targetType);
+  }
   return !isBinary
     ? TagLib::Matroska::SimpleTag(
-        name, value, targetType, language, defaultLanguage, trackUid)
+        toTString(name), value, targetType, language, defaultLanguage, trackUid)
     : TagLib::Matroska::SimpleTag(
-        name, TagLib::ByteVector(data.constData(), data.size()),
+        toTString(name), TagLib::ByteVector(data.constData(), data.size()),
         targetType, language, defaultLanguage, trackUid);
 }
 
@@ -417,6 +423,41 @@ bool isExtraFrame(Frame::Type type, const QString& name)
 bool isExtraFrame(const Frame::ExtendedType& type)
 {
   return isExtraFrame(type.getType(), type.getInternalName());
+}
+
+void setExtraFrameFieldsIfNeeded(Frame& frame)
+{
+  if (frame.getFieldList().isEmpty()) {
+    if (Frame::ExtendedType extendedType = frame.getExtendedType();
+        extendedType.getType() == Frame::FT_Picture) {
+      PictureFrame::setFields(frame);
+      frame.fieldList().append({
+        {Frame::ID_Filename, QString()},
+        {Frame::ID_Id, QString()}
+      });
+    } else if (extendedType.getType() == Frame::FT_Other &&
+               extendedType.getName() == QLatin1String("General Object")) {
+      frame.fieldList() = {
+        {Frame::ID_TextEnc, Frame::TE_ISO8859_1},
+        {Frame::ID_MimeType, QString()},
+        {Frame::ID_Filename, QString()},
+        {Frame::ID_Description, QString()},
+        {Frame::ID_Data, QByteArray()},
+        {Frame::ID_Id, QString()}
+      };
+    } else if (extendedType.getType() == Frame::FT_Other &&
+               extendedType.getName() == QLatin1String("Chapters")) {
+      frame.fieldList() = {
+        {Frame::ID_TextEnc, Frame::TE_UTF8},
+        {Frame::ID_Language, QString()},
+        {Frame::ID_TimestampFormat, 2}, // milliseconds as unit
+        {Frame::ID_ContentType, 0}, // other
+        {Frame::ID_Description, QString()},
+        {Frame::ID_Id, QString()},
+        {Frame::ID_Data, QVariantList()}
+      };
+    }
+  }
 }
 
 }
@@ -556,6 +597,7 @@ bool TagLibMatroskaSupport::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
                 PictureFrame::areFieldsEqual(f.m_extraFrames[idx], newFrame)) {
               f.m_extraFrames[idx].setValueChanged(false);
             } else {
+              setExtraFrameFieldsIfNeeded(newFrame);
               f.m_extraFrames[idx] = newFrame;
               f.markTagChanged(tagNr, extendedType);
             }
@@ -581,34 +623,7 @@ bool TagLibMatroskaSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Fram
   if (auto mkaTag = dynamic_cast<TagLib::Matroska::Tag*>(f.m_tag[tagNr])) {
     if (Frame::ExtendedType extendedType = frame.getExtendedType();
         isExtraFrame(extendedType)) {
-      if (frame.getFieldList().isEmpty()) {
-        if (extendedType.getType() == Frame::FT_Picture) {
-          PictureFrame::setFields(frame);
-          frame.fieldList().append({
-            {Frame::ID_Filename, QString()},
-            {Frame::ID_Id, QString()}
-          });
-        } else if (extendedType.getName() == QLatin1String("General Object")) {
-          frame.fieldList() = {
-            {Frame::ID_TextEnc, Frame::TE_ISO8859_1},
-            {Frame::ID_MimeType, QString()},
-            {Frame::ID_Filename, QString()},
-            {Frame::ID_Description, QString()},
-            {Frame::ID_Data, QByteArray()},
-            {Frame::ID_Id, QString()}
-          };
-        } else {
-          frame.fieldList() = {
-            {Frame::ID_TextEnc, Frame::TE_UTF8},
-            {Frame::ID_Language, QString()},
-            {Frame::ID_TimestampFormat, 2}, // milliseconds as unit
-            {Frame::ID_ContentType, 0}, // other
-            {Frame::ID_Description, QString()},
-            {Frame::ID_Id, QString()},
-            {Frame::ID_Data, QVariantList()}
-          };
-        }
-      }
+      setExtraFrameFieldsIfNeeded(frame);
       if (f.m_extraFrames.isRead()) {
         frame.setIndex(Frame::toNegativeIndex(static_cast<int>(f.m_extraFrames.size())));
         f.m_extraFrames.append(frame);
