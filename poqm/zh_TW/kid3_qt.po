@@ -2410,17 +2410,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "資料"
 
-#: src/core/model/kid3application.cpp:1032
+#: src/core/model/kid3application.cpp:1042
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "儲存資料夾…"
 
-#: src/core/model/kid3application.cpp:1238
+#: src/core/model/kid3application.cpp:1248
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "選擇區"
 
-#: src/core/model/kid3application.cpp:3450
+#: src/core/model/kid3application.cpp:3460
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "所有檔案"

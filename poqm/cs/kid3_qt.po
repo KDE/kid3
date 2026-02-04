@@ -2408,17 +2408,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Data"
 
-#: src/core/model/kid3application.cpp:1032
+#: src/core/model/kid3application.cpp:1042
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "Ukládání složky..."
 
-#: src/core/model/kid3application.cpp:1238
+#: src/core/model/kid3application.cpp:1248
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Výběr"
 
-#: src/core/model/kid3application.cpp:3450
+#: src/core/model/kid3application.cpp:3460
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "Všechny soubory"

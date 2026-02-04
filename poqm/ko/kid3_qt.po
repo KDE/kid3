@@ -1,8 +1,8 @@
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Shinjo Park <kde@peremen.name>
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2026 Shinjo Park <kde@peremen.name>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-12-24 16:56+0100\n"
+"PO-Revision-Date: 2026-02-04 00:19+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.08.1\n"
 "X-Qt-Contexts: true\n"
 
 #: src/app/cli/clicommand.cpp:345
@@ -2399,17 +2399,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "데이터"
 
-#: src/core/model/kid3application.cpp:1032
+#: src/core/model/kid3application.cpp:1042
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "폴더 저장 중..."
 
-#: src/core/model/kid3application.cpp:1238
+#: src/core/model/kid3application.cpp:1248
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "선택"
 
-#: src/core/model/kid3application.cpp:3450
+#: src/core/model/kid3application.cpp:3460
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "모든 파일"
@@ -2619,20 +2619,14 @@ msgid "Seller"
 msgstr "판매자"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "콘텐츠 형식"
+msgstr "대상 형식"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "기본값 복원"
+msgstr "기본값"
 
 #: src/core/tags/frame.cpp:82
 msgctxt "@default|"
@@ -2687,9 +2681,6 @@ msgid "Trivia/pop up"
 msgstr "트리비아/팝업"
 
 #: src/core/tags/frame.cpp:106
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
 msgstr "없음"
@@ -2697,36 +2688,27 @@ msgstr "없음"
 #: src/core/tags/frame.cpp:107
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "샷"
 
 #: src/core/tags/frame.cpp:108
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "트랙 번호 매기기"
+msgstr "하위 트랙"
 
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "부분"
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "편집"
+msgstr "에디션"
 
 #: src/core/tags/frame.cpp:113
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "선택"
+msgstr "모음집"
 
 #: src/core/tags/frame.cpp:138
 msgctxt "@default|"
@@ -3307,17 +3289,11 @@ msgid "Volume"
 msgstr "음량"
 
 #: src/core/tags/frame.cpp:298
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "디렉터리 이름"
+msgstr "감독"
 
 #: src/core/tags/frame.cpp:299
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
 msgstr "시간"
@@ -3325,20 +3301,17 @@ msgstr "시간"
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "요약"
 
 #: src/core/tags/frame.cpp:301
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "시놉시스"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "총 트랙 수"
+msgstr "총 부분 수"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
