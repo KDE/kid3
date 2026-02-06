@@ -2429,17 +2429,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Data"
 
-#: src/core/model/kid3application.cpp:1032
+#: src/core/model/kid3application.cpp:1042
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "Lagrar mappe …"
 
-#: src/core/model/kid3application.cpp:1237
+#: src/core/model/kid3application.cpp:1248
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Utval"
 
-#: src/core/model/kid3application.cpp:3449
+#: src/core/model/kid3application.cpp:3460
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "Alle filer"
