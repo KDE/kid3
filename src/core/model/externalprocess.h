@@ -48,7 +48,7 @@ public:
     /**
      * Destructor.
      */
-    virtual ~IOutputViewer() = 0;
+    virtual ~IOutputViewer();
 
     /**
      * Set caption.

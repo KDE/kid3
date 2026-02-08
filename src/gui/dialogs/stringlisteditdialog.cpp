@@ -46,6 +46,8 @@ StringListEditDialog::StringListEditDialog(
   vlayout->addWidget(buttonBox);
 }
 
+StringListEditDialog::~StringListEditDialog() = default;
+
 QStringList StringListEditDialog::stringList() const {
   return m_model->stringList();
 }

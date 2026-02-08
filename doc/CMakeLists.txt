@@ -68,10 +68,11 @@ macro(kf5_create_handbook _docbook _lang)
   find_package(KF${QT_MAJOR_VERSION} REQUIRED COMPONENTS DocTools)
   set(KDOCTOOLS_MEINPROC_EXECUTABLE ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/kf5-meinproc-wrapper.py)
   if(QT_VERSION_MAJOR EQUAL 6 AND NOT HTML_INSTALL_DIR)
-    # TODO KF6: If there something defined?
     set(HTML_INSTALL_DIR "${WITH_DATAROOTDIR}/doc/HTML")
   endif()
-  kdoctools_create_handbook(${_docbook} INSTALL_DESTINATION ${HTML_INSTALL_DIR}/${_lang} SUBDIR kid3)
+  # To avoid CMP0177 warnings when HTML_INSTALL_DIR is "./doc/HTML"
+  string(REGEX REPLACE "^\./" "" _normalized_html_install_dir "${HTML_INSTALL_DIR}")
+  kdoctools_create_handbook(${_docbook} INSTALL_DESTINATION ${_normalized_html_install_dir}/${_lang} SUBDIR kid3)
 endmacro()
 
 if(UNIX)

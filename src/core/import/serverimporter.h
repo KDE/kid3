@@ -46,6 +46,11 @@ public:
   explicit AlbumListModel(QObject* parent = nullptr);
 
   /**
+   * Destructor.
+   */
+  ~AlbumListModel() override;
+
+  /**
    * Get an album item.
    * @param row model row
    * @param text the text is returned here

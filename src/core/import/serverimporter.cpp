@@ -124,6 +124,8 @@ AlbumListModel::AlbumListModel(QObject* parent)
 {
 }
 
+AlbumListModel::~AlbumListModel() = default;
+
 /**
  * Get an album item.
  * @param row model row

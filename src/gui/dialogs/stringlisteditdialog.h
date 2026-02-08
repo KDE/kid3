@@ -46,6 +46,11 @@ public:
                        QWidget* parent = nullptr);
 
   /**
+   * Destructor.
+   */
+  ~StringListEditDialog() override;
+
+  /**
    * Get list of strings edited in dialog.
    * Can be used to retrieve result when dialog is accepted.
    * @return list of strings currently shown in dialog.

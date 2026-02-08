@@ -49,7 +49,7 @@ public:
     : QObject(parent), m_audioPlayer(parent), m_currentPos(-1) {
   }
 
-  ~MediaPlaylist() override = default;
+  ~MediaPlaylist() override;
 
   void clear() {
     m_playlist.clear();
@@ -93,6 +93,8 @@ private:
   QList<QUrl> m_playlist;
   int m_currentPos;
 };
+
+MediaPlaylist::~MediaPlaylist() = default;
 
 #endif
 
