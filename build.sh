@@ -731,7 +731,7 @@ if test $kernel = "MINGW"; then
   CONFIGURE_OPTIONS+=" --prefix=/usr/local"
 elif test $kernel = "Darwin"; then
   CMAKE_OPTIONS="-GNinja"
-  _macosx_version_min=10.7
+  _macosx_version_min=10.10
 else
   CMAKE_OPTIONS="-GNinja"
 fi
@@ -744,10 +744,12 @@ if test "$compiler" = "cross-mingw"; then
     export CXX=${_crossprefix}g++${_crosssuffix}
   fi
 elif test "$compiler" = "cross-macos"; then
-  if test "$qt_nr" -ge 60500; then
-    _macosx_version_min=10.15
+  if test "$qt_nr" -ge 61000; then
+    _macosx_version_min=13.0
+  elif test "$qt_nr" -ge 60500; then
+    _macosx_version_min=11.0
   else
-    _macosx_version_min=10.7
+    _macosx_version_min=10.10
   fi
   CMAKE_OPTIONS="$CMAKE_OPTIONS -DCMAKE_TOOLCHAIN_FILE=$thisdir/osxcross.cmake -DCMAKE_C_FLAGS=\"-O2 -mmacosx-version-min=${_macosx_version_min}\" -DCMAKE_CXX_FLAGS=\"-O2 -mmacosx-version-min=${_macosx_version_min} -fvisibility=hidden -fvisibility-inlines-hidden -stdlib=libc++\" -DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_MODULE_LINKER_FLAGS=-stdlib=libc++ -DCMAKE_SHARED_LINKER_FLAGS=-stdlib=libc++"
   CONFIGURE_OPTIONS="--host=${cross_host}"
@@ -784,7 +786,7 @@ if test $kernel = "Darwin"; then
     if test "$ARCH" != "x86_64"; then
       ARCH=$MACHINE_ARCH
     fi
-    _macosx_version_min=10.15
+    _macosx_version_min=11.0
     ARCH_FLAG="-arch $ARCH"
   else
     ARCH=$MACHINE_ARCH
@@ -1672,7 +1674,7 @@ else #  cross-android
       AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --disable-iconv"
     fi
     if test $kernel = "Darwin" && test $(uname -m) = "arm64"; then
-      AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --arch=$ARCH"
+      AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --arch=$ARCH --disable-xlib"
     fi
     if test -z "${ffmpeg_version##5.*}"; then
       # No longer supported with FFmpeg 7

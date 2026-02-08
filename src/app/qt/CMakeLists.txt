@@ -1,6 +1,9 @@
 if(POLICY CMP0177)
   cmake_policy(SET CMP0177 NEW)
 endif()
+if(POLICY CMP0009)
+  cmake_policy(SET CMP0009 NEW)
+endif()
 
 add_executable(${KID3_EXECUTABLE} MACOSX_BUNDLE WIN32
   mainqt.cpp
