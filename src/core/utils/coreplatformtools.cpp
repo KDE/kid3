@@ -168,6 +168,9 @@ bool CorePlatformTools::moveToTrash(const QString& path) const
 {
   QFileInfo fi(path);
   const QString absPath(fi.absoluteFilePath());
+#if QT_VERSION >= 0x060900
+  return QFile::moveToTrash(absPath);
+#else
   FSRef fsRef;
   OSErr err = FSPathMakeRefWithOptions(
     reinterpret_cast<const UInt8*>(
@@ -177,6 +180,7 @@ bool CorePlatformTools::moveToTrash(const QString& path) const
     return false;
 
   return FSMoveObjectToTrashSync(&fsRef, 0, kFSFileOperationDefaultOptions) == noErr;
+#endif
 }
 
 #else

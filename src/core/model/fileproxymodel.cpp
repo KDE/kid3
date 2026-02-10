@@ -422,6 +422,14 @@ void FileProxyModel::setNameFilters(const QStringList& filters)
     }
   }
   QStringList oldExtensions(m_extensions);
+#if QT_VERSION >= 0x060900
+  QStringList newExtensions = QStringList(exts.constBegin(), exts.constEnd());
+  if (newExtensions != oldExtensions) {
+    beginFilterChange();
+    m_extensions = newExtensions;
+    endFilterChange(QSortFilterProxyModel::Direction::Rows);
+  }
+#else
 #if QT_VERSION >= 0x050e00
   m_extensions = QStringList(exts.constBegin(), exts.constEnd());
 #else
@@ -430,6 +438,7 @@ void FileProxyModel::setNameFilters(const QStringList& filters)
   if (m_extensions != oldExtensions) {
     invalidateFilter();
   }
+#endif
 }
 
 /**
@@ -460,8 +469,14 @@ void FileProxyModel::resetInternalData()
  */
 void FileProxyModel::disableFilteringOutIndexes()
 {
+#if QT_VERSION >= 0x060900
+  beginFilterChange();
+  m_filteredOut.clear();
+  endFilterChange(QSortFilterProxyModel::Direction::Rows);
+#else
   m_filteredOut.clear();
   invalidateFilter();
+#endif
 }
 
 /**
@@ -478,7 +493,12 @@ bool FileProxyModel::isFilteringOutIndexes() const
  */
 void FileProxyModel::applyFilteringOutIndexes()
 {
+#if QT_VERSION >= 0x060900
+  beginFilterChange();
+  endFilterChange(QSortFilterProxyModel::Direction::Rows);
+#else
   invalidateFilter();
+#endif
 }
 
 /**
@@ -489,6 +509,33 @@ void FileProxyModel::applyFilteringOutIndexes()
 void FileProxyModel::setFolderFilters(const QStringList& includeFolders,
                                       const QStringList& excludeFolders)
 {
+#if QT_VERSION >= 0x060900
+  QList<QRegularExpression>
+    oldIncludeFolderFilters = m_includeFolderFilters,
+    oldExcludeFolderFilters = m_excludeFolderFilters,
+    newIncludeFolderFilters, newExcludeFolderFilters;
+  for (QString filter : includeFolders) {
+    filter.replace(QLatin1Char('\\'), QLatin1Char('/'));
+    filter = QRegularExpression::wildcardToRegularExpression(filter);
+    newIncludeFolderFilters.append(
+          QRegularExpression(filter, QRegularExpression::CaseInsensitiveOption));
+  }
+
+  for (QString filter : excludeFolders) {
+    filter.replace(QLatin1Char('\\'), QLatin1Char('/'));
+    filter = QRegularExpression::wildcardToRegularExpression(filter);
+    newExcludeFolderFilters.append(
+          QRegularExpression(filter, QRegularExpression::CaseInsensitiveOption));
+  }
+
+  if (newIncludeFolderFilters != oldIncludeFolderFilters ||
+      newExcludeFolderFilters != oldExcludeFolderFilters) {
+    beginFilterChange();
+    m_includeFolderFilters = newIncludeFolderFilters;
+    m_excludeFolderFilters = newExcludeFolderFilters;
+    endFilterChange(QSortFilterProxyModel::Direction::Rows);
+  }
+#else
   QList<QRegularExpression> oldIncludeFolderFilters, oldExcludeFolderFilters;
   m_includeFolderFilters.swap(oldIncludeFolderFilters);
   m_excludeFolderFilters.swap(oldExcludeFolderFilters);
@@ -518,6 +565,7 @@ void FileProxyModel::setFolderFilters(const QStringList& includeFolders,
       m_excludeFolderFilters != oldExcludeFolderFilters) {
     invalidateFilter();
   }
+#endif
 }
 
 /**
