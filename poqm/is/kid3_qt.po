@@ -2299,12 +2299,12 @@ msgctxt "@default|"
 msgid "Logical negation"
 msgstr "Rökleg neitun"
 
-#: src/core/model/fileproxymodel.cpp:828
+#: src/core/model/fileproxymodel.cpp:876
 msgctxt "FileProxyModel|"
 msgid "All Supported Files"
 msgstr "Allar studdar skrár"
 
-#: src/core/model/fileproxymodel.cpp:830
+#: src/core/model/fileproxymodel.cpp:878
 msgctxt "FileProxyModel|"
 msgid "All Files"
 msgstr "Allar skrár"

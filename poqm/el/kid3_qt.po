@@ -2305,12 +2305,12 @@ msgctxt "@default|"
 msgid "Logical negation"
 msgstr "Λογική άρνηση"
 
-#: src/core/model/fileproxymodel.cpp:828
+#: src/core/model/fileproxymodel.cpp:876
 msgctxt "FileProxyModel|"
 msgid "All Supported Files"
 msgstr "Όλα τα υποστηριζόμενα αρχεία"
 
-#: src/core/model/fileproxymodel.cpp:830
+#: src/core/model/fileproxymodel.cpp:878
 msgctxt "FileProxyModel|"
 msgid "All Files"
 msgstr "Όλα τα αρχεία"

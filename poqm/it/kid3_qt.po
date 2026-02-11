@@ -2308,12 +2308,12 @@ msgctxt "@default|"
 msgid "Logical negation"
 msgstr "Negazione logica"
 
-#: src/core/model/fileproxymodel.cpp:828
+#: src/core/model/fileproxymodel.cpp:876
 msgctxt "FileProxyModel|"
 msgid "All Supported Files"
 msgstr "Tutti i file supportati"
 
-#: src/core/model/fileproxymodel.cpp:830
+#: src/core/model/fileproxymodel.cpp:878
 msgctxt "FileProxyModel|"
 msgid "All Files"
 msgstr "Tutti i file"
