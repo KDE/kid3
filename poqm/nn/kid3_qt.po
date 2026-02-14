@@ -2316,12 +2316,12 @@ msgctxt "@default|"
 msgid "Logical negation"
 msgstr "Logisk negering"
 
-#: src/core/model/fileproxymodel.cpp:828
+#: src/core/model/fileproxymodel.cpp:876
 msgctxt "FileProxyModel|"
 msgid "All Supported Files"
 msgstr "Alle støtta filer"
 
-#: src/core/model/fileproxymodel.cpp:830
+#: src/core/model/fileproxymodel.cpp:878
 msgctxt "FileProxyModel|"
 msgid "All Files"
 msgstr "Alle filer"
