@@ -309,91 +309,266 @@
     <release version="3.9.7" date="2025-07-24">
       <description>
         <p>Fixed</p>
+        <p xml:lang="pt-BR">Corrigido</p>
+        <p xml:lang="ru">Исправления:</p>
+        <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>KDE: Avoid excessive width of file dialog.</li>
+          <li xml:lang="pt-BR">KDE: Evita largura excessiva da caixa de diálogo de arquivos.</li>
+          <li xml:lang="ru">KDE: исправлено чрезмерное увеличение ширины диалога файлов;</li>
+          <li xml:lang="sl">KDE: Izogibanje preveliki širini pogovornega okna datoteke.</li>
+          <li xml:lang="uk">KDE: запобігання надмірній ширині діалогового вікна вибору файлів.</li>
           <li>Make Chapters frames accessible via kid3-cli.</li>
+          <li xml:lang="pt-BR">Torna os quadros dos capítulos acessíveis através do kid3-cli.</li>
+          <li xml:lang="ru">Фреймы глав доступны через kid3-cli;</li>
+          <li xml:lang="sl">Omogočen dostop do okvirjev poglavij prek kid3-cli.</li>
+          <li xml:lang="uk">Відкрито доступ до кадрів глав за допомогою kid3-cli.</li>
           <li>Superfluous imported tracks can be deleted before import.</li>
+          <li xml:lang="pt-BR">Faixas importadas supérfluas podem ser excluídas antes da importação.</li>
+          <li xml:lang="ru">Лишние импортированные дорожки можно удалить перед импортом;</li>
+          <li xml:lang="sl">Odvečne uvožene skladbe je mogoče pred uvozom izbrisati.</li>
+          <li xml:lang="uk">Надмірні імпортовані композиції може бути вилучено до імпортування.</li>
           <li>Fix creation of wrong editor in frame table after selection change.</li>
+          <li xml:lang="pt-BR">Corrigida a criação de um editor incorreto na tabela de quadros após a alteração da seleção.</li>
+          <li xml:lang="ru">Исправлено создание неправильного редактора в таблице кадров после изменения выделения;</li>
+          <li xml:lang="sl">Odpravljeno ustvarjanje napačnega urejevalnika v tabeli okvirjev po spremembi izbire.</li>
           <li>Completions with different values when selecting multiple files now also support genre.</li>
+          <li xml:lang="pt-BR">Agora, ao selecionar vários arquivos, as sugestões de preenchimento automático com valores diferentes também suportam o gênero.</li>
+          <li xml:lang="ru">Автозавершение с различными значениями при выделении нескольких файлов теперь также поддерживает жанр;</li>
+          <li xml:lang="sl">Dopolnjevanja z različnimi vrednostmi pri izbiri več datotek zdaj podpirajo tudi žanr.</li>
           <li>Do not leave temporary cover art files on the system.</li>
+          <li xml:lang="pt-BR">Não deixar arquivos temporários de capas de álbuns no sistema.</li>
+          <li xml:lang="ru">Не оставлять временные файлы обложек в системе;</li>
+          <li xml:lang="sl">Ne puščaj začasnih datotek z naslovnicami v sistemu.</li>
           <li>EmbedLyrics.qml: Remove illegal characters for query parameters.</li>
+          <li xml:lang="pt-BR">EmbedLyrics.qml: Remover caracteres inválidos dos parâmetros de consulta.</li>
+          <li xml:lang="ru">EmbedLyrics.qml: удалены недопустимые символы из параметров запроса;</li>
+          <li xml:lang="sl">EmbedLyrics.qml: Odstrani nedovoljene znake za parametre poizvedbe.</li>
           <li>Scripting: Fix crash if execute @qml is used from kid3-cli, fix isStandalone() when running non-interactively with kid3-cli, add new script SelectChapterTags.qml.</li>
+          <li xml:lang="pt-BR">Scripting: Corrigido o erro que causava falha ao executar @qml a partir do kid3-cli, corrigido o problema isStandalone() ao executar de forma não interativa com o kid3-cli, adicionado um novo script SelectChapterTags.qml.</li>
+          <li xml:lang="ru">Сценарии: исправлено аварийное завершение при использовании @qml execute из kid3-cli, исправлена работа isStandalone() при неинтерактивном запуске с kid3-cli, добавлен новый сценарий SelectChapterTags.qml;</li>
+          <li xml:lang="sl">Skriptiranje: Odpravljeno sesutje, če se iz kid3-cli uporablja execute @qml, popravljena je isStandalone() pri neinteraktivnem izvajanju s kid3-cli, dodana je nova skripta SelectChapterTags.qml.</li>
           <li>Build system: Don't hardcode WITH_DATAROOTDIR_DEFAULT path, support CMake option BUILD_WITH_QT5 to force using Qt5, support Qt 6/KDE 6 on Debian, add various new CI/CD targets, improve Snap support.</li>
+          <li xml:lang="pt-BR">Sistema de compilação: Não definir o caminho WITH_DATAROOTDIR_DEFAULT diretamente no código, oferecer suporte à opção CMake BUILD_WITH_QT5 para forçar o uso do Qt5, oferecer suporte ao Qt 6/KDE 6 no Debian, adicionar vários novos alvos de CI/CD e aprimorar o suporte ao Snap.</li>
+          <li xml:lang="ru">Система сборки: не жёстко кодировать путь WITH_DATAROOTDIR_DEFAULT, поддержка параметра CMake BUILD_WITH_QT5 для принудительного использования Qt5, поддержка Qt 6/KDE 6 в Debian, добавлены различные новые цели CI/CD, улучшена поддержка Snap;</li>
+          <li xml:lang="sl">Sistem za gradnjo: Pot WITH_DATAROOTDIR_DEFAULT ni trajno kodirana, podpora možnosti CMake BUILD_WITH_QT5 za vsiljeno uporabo Qt5, podpora Qt 6/KDE 6 na Debianu, dodani različni novi cilji CI/CD, izboljšana podpora za Snap.</li>
         </ul>
       </description>
     </release>
     <release version="3.9.6" date="2024-09-21">
       <description>
         <p>New</p>
+        <p xml:lang="pt-BR">Novo</p>
+        <p xml:lang="ru">Новшества</p>
+        <p xml:lang="sl">Novo</p>
+        <p xml:lang="uk">Нове</p>
         <ul>
           <li>Show preview for multiple embedded pictures.</li>
+          <li xml:lang="pt-BR">Exibir pré-visualização para várias imagens embutidas.</li>
+          <li xml:lang="ru">Предпросмотр для нескольких встроенных изображений;</li>
+          <li xml:lang="sl">Prikaži predogled za več vdelanih slik.</li>
           <li>Simplified editing of MP3 audiobooks in a "Chapters" frame edit dialog.</li>
+          <li xml:lang="pt-BR">Edição simplificada de audiolivros em MP3 em um diálogo de edição de quadro "Capítulos".</li>
+          <li xml:lang="ru">Упрощённое редактирование MP3-аудиокниг в диалоге редактирования кадра «Главы»;</li>
+          <li xml:lang="sl">Poenostavljeno urejanje zvočnih knjig MP3 v pogovornem oknu za urejanje okvirja »Poglavja«.</li>
           <li>Arabic, Esperanto, Galician and Georgian translations.</li>
+          <li xml:lang="pt-BR">Traduções para árabe, esperanto, galego e georgiano.</li>
+          <li xml:lang="ru">Переводы на арабский, эсперанто, галисийский и грузинский языки.</li>
+          <li xml:lang="sl">Prevodi v arabščino, esperanto, galicijo in gruzijščino.</li>
         </ul>
         <p>Improved</p>
+        <p xml:lang="pt-BR">Melhorias</p>
+        <p xml:lang="ru">Улучшения</p>
+        <p xml:lang="sl">Izboljšano</p>
         <ul>
           <li>macOS: Building, signing and notarizing packages.</li>
+          <li xml:lang="pt-BR">macOS: Criação, assinatura e autenticação de pacotes.</li>
+          <li xml:lang="ru">macOS: сборка, подписание и нотаризация пакетов;</li>
+          <li xml:lang="sl">macOS: Gradnja, podpisovanje in overjanje paketov.</li>
         </ul>
         <p>Fixed</p>
+        <p xml:lang="pt-BR">Corrigido</p>
+        <p xml:lang="ru">Исправления:</p>
+        <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>Embed lyrics action.</li>
+          <li xml:lang="pt-BR">Ação de letra de música embutida.</li>
+          <li xml:lang="ru">Действие «Встроить текст песни»;</li>
+          <li xml:lang="sl">Vdelava besedila pesmi.</li>
           <li>gnudb.org import, a registered e-mail address can be set in the "Token" UI control.</li>
+          <li xml:lang="pt-BR">Para importar o conteúdo de gnudb.org, é possível definir um endereço de e-mail cadastrado no controle "Token" da interface do usuário.</li>
+          <li xml:lang="ru">Импорт из gnudb.org: зарегистрированный адрес электронной почты можно задать в элементе управления интерфейса «Токен».</li>
+          <li xml:lang="sl">gnudb.org juvoz registriran e-poštni naslov je mogoče nastaviti v kontrolniku uporabniškega vmesnika "Žeton".</li>
           <li>KDE 6: Install directory for kid3ui.rc.</li>
+          <li xml:lang="pt-BR">KDE 6: Diretório de instalação para kid3ui.rc.</li>
+          <li xml:lang="ru">KDE 6: каталог установки для kid3ui.rc;</li>
+          <li xml:lang="sl">KDE 6: Namestitveni imenik za kid3ui.rc.</li>
           <li>Android: Building with arm64-v8a and x86_64 architectures.</li>
+          <li xml:lang="pt-BR">Android: Compilando com arquiteturas arm64-v8a e x86_64.</li>
+          <li xml:lang="ru">Android: сборка для архитектур arm64-v8a и x86_64;</li>
+          <li xml:lang="sl">Android: Gradnja z arhitekturama arm64-v8a in x86_64.</li>
           <li>Android: Use MANAGE_EXTERNAL_STORAGE permission to manage all files on a storage device.</li>
+          <li xml:lang="pt-BR">Android: Usar a permissão MANAGE_EXTERNAL_STORAGE para gerenciar todos os arquivos em um dispositivo de armazenamento.</li>
+          <li xml:lang="ru">Android: для управления всеми файлами на устройстве хранения используется разрешение MANAGE_EXTERNAL_STORAGE;</li>
+          <li xml:lang="sl">Android: Za upravljanje vseh datotek v napravi za shranjevanje uporabite dovoljenje MANAGE_EXTERNAL_STORAGE.</li>
           <li>Android: Saving picture tags.</li>
+          <li xml:lang="pt-BR">Android: Salvar etiquetas de imagem.</li>
+          <li xml:lang="ru">Android: сохранение меток изображений;</li>
+          <li xml:lang="sl">Android: Shranjevanje oznak slik.</li>
           <li>Haiku: Installation paths.</li>
+          <li xml:lang="pt-BR">Haiku: Caminhos de instalação.</li>
+          <li xml:lang="ru">Haiku: пути установки;</li>
+          <li xml:lang="sl">Haiku: Namestitvene poti.</li>
         </ul>
       </description>
     </release>
     <release version="3.9.5" date="2024-02-24">
       <description>
         <p>New</p>
+        <p xml:lang="pt-BR">Novo</p>
+        <p xml:lang="ru">Новшества</p>
+        <p xml:lang="sl">Novo</p>
+        <p xml:lang="uk">Нове</p>
         <ul>
           <li>Keyboard shortcuts for play toolbar.</li>
+          <li xml:lang="pt-BR">Atalhos de teclado para a barra de ferramentas de reprodução.</li>
+          <li xml:lang="ru">Комбинации клавиш для панели воспроизведения;</li>
+          <li xml:lang="sl">Bližnjice na tipkovnici za orodno vrstico predvajanja.</li>
           <li>Option "Audio output" in "User Actions" settings tab.</li>
+          <li xml:lang="pt-BR">Opção "Saída de áudio" na aba de configurações "Ações do usuário".</li>
+          <li xml:lang="ru">Параметр «Аудиовыход» на вкладке настроек «Действия пользователя»;</li>
+          <li xml:lang="sl">Možnost »Zvočni izhod« na zavihku z nastavitvami »Dejanja uporabnika«.</li>
           <li>Support WebP format for pictures.</li>
+          <li xml:lang="pt-BR">Suporte ao formato WebP para imagens.</li>
+          <li xml:lang="ru">Поддержка формата WebP для изображений;</li>
+          <li xml:lang="sl">Podpora za format slik WebP.</li>
         </ul>
         <p>Improved</p>
+        <p xml:lang="pt-BR">Melhorias</p>
+        <p xml:lang="ru">Улучшения</p>
+        <p xml:lang="sl">Izboljšano</p>
         <ul>
           <li>Clicking again on 1 star makes star rating disappear.</li>
+          <li xml:lang="pt-BR">Clicar novamente em 1 estrela faz com que a classificação por estrelas desapareça.</li>
+          <li xml:lang="ru">Повторный щелчок по 1 звезде убирает оценку;</li>
+          <li xml:lang="sl">Če ponovno kliknete na 1 zvezdico, ocena z zvezdicami izgine.</li>
           <li>Support '\|' to escape string list separators.</li>
+          <li xml:lang="pt-BR">Suporte ao uso de '\|' para escapar separadores de listas de strings.</li>
+          <li xml:lang="ru">Поддержка «\|» для экранирования разделителей в списках строк;</li>
+          <li xml:lang="sl">Podpora za '\|' za ubežni niz seznama ločil.</li>
         </ul>
         <p>Fixed</p>
+        <p xml:lang="pt-BR">Corrigido</p>
+        <p xml:lang="ru">Исправления:</p>
+        <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>Support multiple values in APE text items.</li>
+          <li xml:lang="pt-BR">Suporte a múltiplos valores em itens de texto APE.</li>
+          <li xml:lang="ru">Поддержка нескольких значений в текстовых элементах APE;</li>
+          <li xml:lang="sl">Podpora za več vrednosti v besedilnih elementih APE.</li>
           <li>Building with TagLib 2.0.</li>
+          <li xml:lang="pt-BR">Compilação com TagLib 2.0.</li>
+          <li xml:lang="ru">Сборка с TagLib 2.0;</li>
+          <li xml:lang="sl">Gradnja s TagLib 2.0.</li>
           <li>Building from macOS with arm64.</li>
+          <li xml:lang="pt-BR">Compilação do macOS com arm64.</li>
+          <li xml:lang="ru">Сборка в macOS на архитектуре arm64;</li>
+          <li xml:lang="sl">Gradnja iz macOS-a z arm64.</li>
           <li>Building snap packages.</li>
+          <li xml:lang="pt-BR">Compilação de pacotes snap.</li>
+          <li xml:lang="ru">Сборка пакетов snap;</li>
+          <li xml:lang="sl">Gradnja paketov snap.</li>
         </ul>
       </description>
     </release>
     <release version="3.9.4" date="2023-07-09">
       <description>
         <p>New</p>
+        <p xml:lang="pt-BR">Novo</p>
+        <p xml:lang="ru">Новшества</p>
+        <p xml:lang="sl">Novo</p>
+        <p xml:lang="uk">Нове</p>
         <ul>
           <li>All the official binaries are built with Qt 6. For macOS, the Darwin-amd64.dmg file is now the Qt 6 version, whereas systems older than Mojave need the package Darwin-Qt5.dmg. The string replacement settings stored by Qt 6 are not compatible with Qt 5 because a different encoding is used.</li>
+          <li xml:lang="pt-BR">Todos os binários oficiais são compilados com Qt 6. Para macOS, o arquivo Darwin-amd64.dmg agora é a versão Qt 6, enquanto sistemas anteriores ao Mojave precisam do pacote Darwin-Qt5.dmg. As configurações de substituição de strings armazenadas pelo Qt 6 não são compatíveis com o Qt 5 porque uma codificação diferente é usada.</li>
+          <li xml:lang="ru">Все официальные двоичные файлы собраны с использованием Qt 6. Для macOS файл Darwin-amd64.dmg теперь является версией для Qt 6, тогда как для систем старше Mojave требуется пакет Darwin-Qt5.dmg. Настройки замены строк, сохранённые Qt 6, несовместимы с Qt 5 из-за использования другой кодировки.</li>
+          <li xml:lang="sl">Vse uradne binarne datoteke so zgrajene s Qt 6. Za macOS je datoteka Darwin-amd64.dmg zdaj različica za Qt 6, medtem ko sistemi, starejši od Mojave, potrebujejo paket Darwin-Qt5.dmg. Nastavitve zamenjave nizov, ki jih shrani Qt 6, niso združljive s Qt 5, ker uporabljajo drugo kodiranje.</li>
           <li>Option "Select file on play" in "User Actions" settings tab.</li>
+          <li xml:lang="pt-BR">A opção "Selecionar arquivo na reprodução" está localizada na aba de configurações "Ações do usuário".</li>
+          <li xml:lang="ru">Параметр «Выделять файл при воспроизведении» на вкладке настроек «Действия пользователя»;</li>
+          <li xml:lang="sl">Možnost "Izberi datoteko ob predvajanju" na zavihku z nastavitvami "Dejanja uporabnika".</li>
         </ul>
         <p>Improved</p>
+        <p xml:lang="pt-BR">Melhorias</p>
+        <p xml:lang="ru">Улучшения</p>
+        <p xml:lang="sl">Izboljšano</p>
         <ul>
           <li>Click on play tool bar time toggles between elapsed and remaining time.</li>
+          <li xml:lang="pt-BR">Clicar na barra de ferramentas de reprodução alterna entre o tempo decorrido e o tempo restante.</li>
+          <li xml:lang="ru">Щелчок по времени на панели инструментов воспроизведения переключает между прошедшим и оставшимся временем;</li>
+          <li xml:lang="sl">S klikom na orodno vrstico predvajanja preklapljate med pretečenim in preostalim časom.</li>
           <li>The visibility and docked area of the play tool bar are restored.</li>
+          <li xml:lang="pt-BR">A visibilidade e a área de encaixe da barra de ferramentas de reprodução foram restauradas.</li>
+          <li xml:lang="ru">Восстанавливается видимость и область закрепления панели воспроизведения;</li>
+          <li xml:lang="sl">Vidnost in zasidrano območje orodne vrstice za predvajanje sta obnovljena.</li>
           <li>ID3v1: When setting multiple genres, use first supported element.</li>
+          <li xml:lang="pt-BR">ID3v1: Ao definir vários gêneros, use o primeiro elemento compatível.</li>
+          <li xml:lang="ru">ID3v1: при задании нескольких жанров используется первый поддерживаемый элемент;</li>
+          <li xml:lang="sl">ID3v1: Pri nastavljanju več žanrov uporabi prvi podprti element.</li>
           <li>Qt6: Use SVG icons for better performance in file list and dialog.</li>
+          <li xml:lang="pt-BR">Qt6: Usar ícones SVG para melhor desempenho na lista de arquivos e na caixa de diálogo.</li>
+          <li xml:lang="ru">Qt6: для повышения производительности в списке файлов и диалогах используются значки в формате SVG;</li>
+          <li xml:lang="sl">Qt6: Za boljše delovanje v seznamu datotek in pogovornih oknih uporabi ikone SVG.</li>
         </ul>
         <p>Fixed</p>
+        <p xml:lang="pt-BR">Corrigido</p>
+        <p xml:lang="ru">Исправления:</p>
+        <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>Do not mark all non-unified frames as modified if any non-unified frame is changed.</li>
+          <li xml:lang="pt-BR">Não marcar todos os quadros não unificados como modificados se algum deles for alterado.</li>
+          <li xml:lang="ru">Не помечать все несвязанные фреймы как изменённые при изменении любого из них.</li>
+          <li xml:lang="sl">Ne označi vseh nepoenotenih okvirjev kot spremenjenih, če se kateri koli nepoenoten okvir spremeni.</li>
           <li>Crash in Id3libMetadata when clicking Edit on unsupported frame.</li>
+          <li xml:lang="pt-BR">Falha no Id3libMetadata ao clicar em Editar em um quadro não suportado.</li>
+          <li xml:lang="ru">Аварийное завершение в Id3libMetadata при щелчке по «Правка» для неподдерживаемой метки;</li>
+          <li xml:lang="sl">Sesutje v Id3libMetadata pri kliku na Uredi na nepodprtem okvirju.</li>
           <li>Setting text encoding on TXXX frames with TaglibMetadata.</li>
+          <li xml:lang="pt-BR">Configuração da codificação de texto em quadros TXXX com TaglibMetadata.</li>
+          <li xml:lang="ru">Настройка кодировки текста в кадрах TXXX с помощью TaglibMetadata;</li>
+          <li xml:lang="sl">Nastavitev kodiranja besedila v okvirjih TXXX s TaglibMetadata.</li>
           <li>Skip non letter characters for first letter uppercase format.</li>
+          <li xml:lang="pt-BR">Ignorar caracteres que não sejam letras para formatar a primeira letra em maiúscula.</li>
+          <li xml:lang="ru">Пропуск небуквенных символов для формата с заглавной первой буквой;</li>
+          <li xml:lang="sl">Preskoči nečrkovne znake za prvo črko z veliko začetnico.</li>
           <li>Discogs import: Fix values in Artist, Arranger and Performer frames, use "genres" if "styles" is empty, fetch correct cover art, support vinyl track numbers like A1.</li>
+          <li xml:lang="pt-BR">Importação do Discogs: Corrigir valores nos campos Artista, Arranjador e Intérprete, usar "genres" se "styles" estiver vazio, buscar a arte da capa correta, suportar números de faixa de vinil como A1.</li>
+          <li xml:lang="ru">Импорт из Discogs: исправлены значения в полях «Исполнитель», «Аранжировщик» и «Исполнитель»; если «стили» пусты, используются «жанры»; загружается правильная обложка; поддерживаются номера дорожек на виниле, такие как A1;</li>
+          <li xml:lang="sl">Uvoz iz Discogs: Popravljene vrednosti v okvirjih Izvajalec, Aranžer in Izvajalec, uporaba »žanrov«, če je polje »stili« prazno, pridobivanje pravilnih naslovnic, podpora številkam vinilnih skladb, kot je A1.</li>
           <li>Qt6: Crash when adding item to config table.</li>
+          <li xml:lang="pt-BR">Qt6: Falha ao adicionar item à tabela de configuração.</li>
+          <li xml:lang="ru">Qt6: аварийное завершение при добавлении элемента в таблицу настроек;</li>
+          <li xml:lang="sl">Qt6: Sesutje pri dodajanju elementa v konfiguracijsko tabelo.</li>
           <li>Qt6: Larger media player slider, do not repeat when last song has been played.</li>
+          <li xml:lang="pt-BR">Qt6: Controle deslizante maior do reprodutor de mídia, não repetir quando a última música tiver sido reproduzida.</li>
+          <li xml:lang="ru">Qt6: увеличенный ползунок медиаплеера; не повторять после воспроизведения последней песни.</li>
+          <li xml:lang="sl">Qt6: Večji drsnik predvajalnika medijev, ne ponovi se po predvajanju zadnje skladbe.</li>
           <li>Windows, TaglibMetadata: Support files larger than 2 GB.</li>
+          <li xml:lang="pt-BR">Windows, TaglibMetadata: Suporte a arquivos maiores que 2 GB.</li>
+          <li xml:lang="ru">Windows, TaglibMetadata: поддержка файлов размером более 2 ГБ;</li>
+          <li xml:lang="sl">Windows, TaglibMetadata: Podpora za datoteke, večje od 2 GB.</li>
           <li>Windows, OggFlacMetadata: Build without libssp-0.dll.</li>
+          <li xml:lang="pt-BR">Windows, OggFlacMetadata: Compilar sem libssp-0.dll.</li>
+          <li xml:lang="ru">Windows, OggFlacMetadata: сборка без libssp-0.dll.</li>
+          <li xml:lang="sl">Windows, OggFlacMetadata: Izgradi brez datoteke libssp-0.dll.</li>
           <li>Windows, Mp4v2Metadata: Fix saving with file names containing non ASCII characters.</li>
+          <li xml:lang="pt-BR">Windows, Mp4v2Metadata: Correção para salvar arquivos com nomes que contêm caracteres não ASCII.</li>
+          <li xml:lang="ru">Windows, Mp4v2Metadata: исправлено сохранение файлов с именами, содержащими не-ASCII символы.</li>
+          <li xml:lang="sl">Windows, Mp4v2Metadata: Popravljeno shranjevanje z imeni datotek, ki vsebujejo znake, ki niso ASCII.</li>
         </ul>
       </description>
     </release>
