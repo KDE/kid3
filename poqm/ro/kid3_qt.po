@@ -1,17 +1,17 @@
-# Sergiu Bivol <sergiu@cip.md>, 2020, 2021.
+# SPDX-FileCopyrightText: 2020, 2021, 2025 Sergiu Bivol <sergiu@cip.md>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2021-06-03 18:10+0100\n"
+"PO-Revision-Date: 2025-10-18 15:00+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
-"Language-Team: Romanian\n"
+"Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 19.12.3\n"
+"X-Generator: Lokalize 25.08.1\n"
 "X-Qt-Contexts: true\n"
 
 #: src/app/cli/clicommand.cpp:345
@@ -330,9 +330,7 @@ msgid "Group.Option Value"
 msgstr ""
 
 #: src/app/cli/clicommand.cpp:1304 src/app/cli/clicommand.cpp:1310
-#, fuzzy, qt-format
-#| msgctxt "CdCommand|"
-#| msgid "%1 does not exist"
+#, qt-format
 msgctxt "ConfigCommand|"
 msgid "%1 does not exist"
 msgstr "%1 nu există"
@@ -346,7 +344,7 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:1411
 msgctxt "ExecuteCommand|"
 msgid "Execute command"
-msgstr ""
+msgstr "Execută comanda"
 
 #: src/app/cli/clicommand.cpp:1412
 msgctxt "ExecuteCommand|"
@@ -641,7 +639,7 @@ msgstr "Reîncarcă dosar"
 #: src/app/kde/kdemainwindow.cpp:211
 msgctxt "KdeMainWindow|"
 msgid "Unload"
-msgstr ""
+msgstr "Descarcă"
 
 #: src/app/kde/kdemainwindow.cpp:216
 msgctxt "KdeMainWindow|"
@@ -748,7 +746,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:291
 msgctxt "KdeMainWindow|"
 msgid "&Rename Folder..."
-msgstr ""
+msgstr "&Redenumire dosar..."
 
 #: src/app/kde/kdemainwindow.cpp:292
 msgctxt "KdeMainWindow|"
@@ -838,38 +836,38 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:339
 msgctxt "KdeMainWindow|"
 msgid "&Invert Selection"
-msgstr ""
+msgstr "&Inversare selecție"
 
 #: src/app/kde/kdemainwindow.cpp:343
 msgctxt "KdeMainWindow|"
 msgid "&Previous File"
-msgstr ""
+msgstr "Fișierul &precedent"
 
 #: src/app/kde/kdemainwindow.cpp:344
 msgctxt "KdeMainWindow|"
 msgid "Select previous file"
-msgstr ""
+msgstr "Alege fișierul precedent"
 
 #: src/app/kde/kdemainwindow.cpp:350
 msgctxt "KdeMainWindow|"
 msgid "&Next File"
-msgstr ""
+msgstr "Fișierul &următor"
 
 #: src/app/kde/kdemainwindow.cpp:351
 msgctxt "KdeMainWindow|"
 msgid "Select next file"
-msgstr ""
+msgstr "Alege fișierul următor"
 
 #: src/app/kde/kdemainwindow.cpp:363
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Tag %1"
-msgstr ""
+msgstr "Marcaj %1"
 
 #: src/app/kde/kdemainwindow.cpp:365 src/app/kde/kdemainwindow.cpp:417
 msgctxt "KdeMainWindow|"
 msgid "Filename"
-msgstr ""
+msgstr "Denumire fișier"
 
 #: src/app/kde/kdemainwindow.cpp:366 src/app/kde/kdemainwindow.cpp:377
 #, qt-format
@@ -885,93 +883,93 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:384
 msgctxt "KdeMainWindow|"
 msgid "Copy"
-msgstr ""
+msgstr "Copiază"
 
 #: src/app/kde/kdemainwindow.cpp:388
 msgctxt "KdeMainWindow|"
 msgid "Paste"
-msgstr ""
+msgstr "Lipește"
 
 #: src/app/kde/kdemainwindow.cpp:392
 msgctxt "KdeMainWindow|"
 msgid "Remove"
-msgstr ""
+msgstr "Elimină"
 
 #: src/app/kde/kdemainwindow.cpp:396 src/app/kde/kdemainwindow.cpp:417
 #: src/app/kde/kdemainwindow.cpp:422 src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
 msgid "Focus"
-msgstr ""
+msgstr "Focalizare"
 
 #: src/app/kde/kdemainwindow.cpp:401
 msgctxt "KdeMainWindow|"
 msgid "Frames:"
-msgstr ""
+msgstr "Cadre:"
 
 #: src/app/kde/kdemainwindow.cpp:402
 msgctxt "KdeMainWindow|"
 msgid "Edit"
-msgstr ""
+msgstr "Modifică"
 
 #: src/app/kde/kdemainwindow.cpp:406
 msgctxt "KdeMainWindow|"
 msgid "Add"
-msgstr ""
+msgstr "Adaugă"
 
 #: src/app/kde/kdemainwindow.cpp:410
 msgctxt "KdeMainWindow|"
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: src/app/kde/kdemainwindow.cpp:422
 msgctxt "KdeMainWindow|"
 msgid "File List"
-msgstr ""
+msgstr "Listă de fișiere"
 
 #: src/app/kde/kdemainwindow.cpp:426
 msgctxt "KdeMainWindow|"
 msgid "&Rename"
-msgstr ""
+msgstr "&Redenumește"
 
 #: src/app/kde/kdemainwindow.cpp:435
 msgctxt "KdeMainWindow|"
 msgid "&Move to Trash"
-msgstr ""
+msgstr "&Mută la gunoi"
 
 #: src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
 msgid "Folder List"
-msgstr ""
+msgstr "Lista de dosare"
 
 #: src/app/kde/kdemainwindow.cpp:459
 msgctxt "KdeMainWindow|"
 msgid "Section"
-msgstr ""
+msgstr "Secțiune"
 
 #: src/app/kde/kdemainwindow.cpp:473
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr ""
+msgstr "Lector"
 
 #: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
-msgstr ""
+msgstr "Configurează - Kid3"
 
 #: src/app/kde/kdeplatformtools.cpp:197 src/app/kde/kdeplatformtools.cpp:241
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "&Da"
 
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "&Nu"
 
 #: src/app/kde/mainkde.cpp:123
 msgctxt "@default|"
 msgid "folder to open"
-msgstr ""
+msgstr "dosar de deschis"
 
 #: src/app/kde/mainkde.cpp:136
 msgctxt "@default|"
@@ -981,47 +979,47 @@ msgstr ""
 #: src/app/qt/browserdialog.cpp:97
 msgctxt "BrowserDialog|"
 msgid "&Back"
-msgstr ""
+msgstr "Înap&oi"
 
 #: src/app/qt/browserdialog.cpp:104
 msgctxt "BrowserDialog|"
 msgid "&Forward"
-msgstr ""
+msgstr "În&ainte"
 
 #: src/app/qt/browserdialog.cpp:111
 msgctxt "BrowserDialog|"
 msgid "&Find:"
-msgstr ""
+msgstr "&Caută:"
 
 #: src/app/qt/browserdialog.cpp:132
 msgctxt "BrowserDialog|"
 msgid "Find Previous"
-msgstr ""
+msgstr "Caută înapoi"
 
 #: src/app/qt/browserdialog.cpp:147
 msgctxt "BrowserDialog|"
 msgid "Find Next"
-msgstr ""
+msgstr "Caută înainte"
 
 #: src/app/qt/browserdialog.cpp:155
 msgctxt "BrowserDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "În&chide"
 
 #: src/app/qt/configdialog.cpp:70
 msgctxt "ConfigDialog|"
 msgid "&Tags"
-msgstr ""
+msgstr "&Marcaje"
 
 #: src/app/qt/configdialog.cpp:71
 msgctxt "ConfigDialog|"
 msgid "&Files"
-msgstr ""
+msgstr "&Fișiere"
 
 #: src/app/qt/configdialog.cpp:72
 msgctxt "ConfigDialog|"
 msgid "&User Actions"
-msgstr ""
+msgstr "Acțiuni &utilizator"
 
 #: src/app/qt/configdialog.cpp:73
 msgctxt "ConfigDialog|"
@@ -1031,7 +1029,7 @@ msgstr ""
 #: src/app/qt/configdialog.cpp:74
 msgctxt "ConfigDialog|"
 msgid "&Plugins"
-msgstr ""
+msgstr "&Extensii"
 
 #: src/app/qt/configdialog.cpp:86
 msgctxt "ConfigDialog|"
@@ -1041,13 +1039,13 @@ msgstr ""
 #: src/app/qt/configdialog.cpp:111
 msgctxt "ConfigDialog|"
 msgid "&Language"
-msgstr ""
+msgstr "&Limba"
 
 #: src/app/qt/configdialog.cpp:113 src/app/qt/configdialog.cpp:204
 #: src/app/qt/configdialog.cpp:239
 msgctxt "ConfigDialog|"
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: src/app/qt/configdialog.cpp:122
 msgctxt "ConfigDialog|"
@@ -1077,27 +1075,27 @@ msgstr ""
 #: src/app/qt/configdialog.cpp:155
 msgctxt "ConfigDialog|"
 msgid "&Appearance"
-msgstr ""
+msgstr "&Aspect"
 
 #: src/app/qt/configdialog.cpp:164
 msgctxt "ConfigDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "&Ajutor"
 
 #: src/app/qt/configdialog.cpp:165
 msgctxt "ConfigDialog|"
 msgid "Restore Defaults"
-msgstr ""
+msgstr "Restabilește implicite"
 
 #: src/app/qt/configdialog.cpp:166
 msgctxt "ConfigDialog|"
 msgid "&OK"
-msgstr ""
+msgstr "&Bine"
 
 #: src/app/qt/configdialog.cpp:167
 msgctxt "ConfigDialog|"
 msgid "&Cancel"
-msgstr ""
+msgstr "&Renunță"
 
 #: src/app/qt/configdialog.cpp:279
 #, qt-format
@@ -1108,62 +1106,62 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:109
 msgctxt "Kid3MainWindow|"
 msgid "&File"
-msgstr ""
+msgstr "&Fișier"
 
 #: src/app/qt/kid3mainwindow.cpp:113
 msgctxt "Kid3MainWindow|"
 msgid "Open files"
-msgstr ""
+msgstr "Deschide fișiere"
 
 #: src/app/qt/kid3mainwindow.cpp:114
 msgctxt "Kid3MainWindow|"
 msgid "&Open..."
-msgstr ""
+msgstr "&Deschide..."
 
 #: src/app/qt/kid3mainwindow.cpp:134
 msgctxt "Kid3MainWindow|"
 msgid "Opens a recently used folder"
-msgstr ""
+msgstr "Deschide un dosar folosit recent"
 
 #: src/app/qt/kid3mainwindow.cpp:135
 msgctxt "Kid3MainWindow|"
 msgid "Open &Recent"
-msgstr ""
+msgstr "Deschide &recent"
 
 #: src/app/qt/kid3mainwindow.cpp:148
 msgctxt "Kid3MainWindow|"
 msgid "Opens a folder"
-msgstr ""
+msgstr "Deschide un dosar"
 
 #: src/app/qt/kid3mainwindow.cpp:149
 msgctxt "Kid3MainWindow|"
 msgid "O&pen Folder..."
-msgstr ""
+msgstr "D&eschide dosar..."
 
 #: src/app/qt/kid3mainwindow.cpp:166
 msgctxt "Kid3MainWindow|"
 msgid "Reload folder"
-msgstr ""
+msgstr "Reîncarcă dosar"
 
 #: src/app/qt/kid3mainwindow.cpp:167
 msgctxt "Kid3MainWindow|"
 msgid "Re&load"
-msgstr ""
+msgstr "Reî&ncarcă"
 
 #: src/app/qt/kid3mainwindow.cpp:184
 msgctxt "Kid3MainWindow|"
 msgid "Unload"
-msgstr ""
+msgstr "Descarcă"
 
 #: src/app/qt/kid3mainwindow.cpp:194
 msgctxt "Kid3MainWindow|"
 msgid "Saves the changed files"
-msgstr ""
+msgstr "Salvează fișierele modificate"
 
 #: src/app/qt/kid3mainwindow.cpp:195
 msgctxt "Kid3MainWindow|"
 msgid "&Save"
-msgstr ""
+msgstr "&Salvează"
 
 #: src/app/qt/kid3mainwindow.cpp:214
 msgctxt "Kid3MainWindow|"
@@ -1178,7 +1176,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:235
 msgctxt "Kid3MainWindow|"
 msgid "Import from file or clipboard"
-msgstr ""
+msgstr "Importă din fișier sau clipboard"
 
 #: src/app/qt/kid3mainwindow.cpp:236
 msgctxt "Kid3MainWindow|"
@@ -1189,33 +1187,33 @@ msgstr ""
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1"
-msgstr ""
+msgstr "Importă din %1"
 
 #: src/app/qt/kid3mainwindow.cpp:259 src/app/qt/kid3mainwindow.cpp:279
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1..."
-msgstr ""
+msgstr "Importă din %1..."
 
 #: src/app/qt/kid3mainwindow.cpp:289
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags"
-msgstr ""
+msgstr "Importă din marcaje"
 
 #: src/app/qt/kid3mainwindow.cpp:290
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags..."
-msgstr ""
+msgstr "Importă din marcaje..."
 
 #: src/app/qt/kid3mainwindow.cpp:298
 msgctxt "Kid3MainWindow|"
 msgid "Automatic import"
-msgstr ""
+msgstr "Import automat"
 
 #: src/app/qt/kid3mainwindow.cpp:299
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
-msgstr ""
+msgstr "I&mport automat..."
 
 #: src/app/qt/kid3mainwindow.cpp:307
 msgctxt "Kid3MainWindow|"
@@ -1240,12 +1238,12 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:328
 msgctxt "Kid3MainWindow|"
 msgid "Create M3U Playlist"
-msgstr ""
+msgstr "Creează listă M3U"
 
 #: src/app/qt/kid3mainwindow.cpp:329
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
-msgstr ""
+msgstr "&Creează listă de redare..."
 
 #: src/app/qt/kid3mainwindow.cpp:348
 msgctxt "Kid3MainWindow|"
@@ -1265,7 +1263,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:369
 msgctxt "Kid3MainWindow|"
 msgid "Select all files"
-msgstr ""
+msgstr "Alege toate fișierele"
 
 #: src/app/qt/kid3mainwindow.cpp:370
 msgctxt "Kid3MainWindow|"
@@ -1275,12 +1273,12 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:391
 msgctxt "Kid3MainWindow|"
 msgid "Deselect all files"
-msgstr ""
+msgstr "Deselectează toate fișierele"
 
 #: src/app/qt/kid3mainwindow.cpp:392
 msgctxt "Kid3MainWindow|"
 msgid "Dese&lect"
-msgstr ""
+msgstr "Dese&lectează"
 
 #: src/app/qt/kid3mainwindow.cpp:402
 msgctxt "Kid3MainWindow|"
@@ -1295,7 +1293,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:411
 msgctxt "Kid3MainWindow|"
 msgid "&Invert Selection"
-msgstr ""
+msgstr "&Inversare selecție"
 
 #: src/app/qt/kid3mainwindow.cpp:419
 msgctxt "Kid3MainWindow|"
@@ -1325,12 +1323,12 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:459
 msgctxt "Kid3MainWindow|"
 msgid "&Find..."
-msgstr ""
+msgstr "C&aută..."
 
 #: src/app/qt/kid3mainwindow.cpp:478
 msgctxt "Kid3MainWindow|"
 msgid "Find and replace"
-msgstr ""
+msgstr "Caută și înlocuiește"
 
 #: src/app/qt/kid3mainwindow.cpp:479
 msgctxt "Kid3MainWindow|"
@@ -1380,7 +1378,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:524
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
-msgstr ""
+msgstr "&Redenumire dosar..."
 
 #: src/app/qt/kid3mainwindow.cpp:532
 msgctxt "Kid3MainWindow|"
@@ -1440,7 +1438,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:596
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the toolbar"
-msgstr ""
+msgstr "Activează/dezactivează bara de unelte"
 
 #: src/app/qt/kid3mainwindow.cpp:597
 msgctxt "Kid3MainWindow|"
@@ -1450,12 +1448,12 @@ msgstr "Ara&tă bara de unelte"
 #: src/app/qt/kid3mainwindow.cpp:607
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the statusbar"
-msgstr ""
+msgstr "Activează/dezactivează bara de stare"
 
 #: src/app/qt/kid3mainwindow.cpp:608
 msgctxt "Kid3MainWindow|"
 msgid "Show St&atusbar"
-msgstr ""
+msgstr "&Arată bara de stare"
 
 #: src/app/qt/kid3mainwindow.cpp:617
 msgctxt "Kid3MainWindow|"
@@ -1542,13 +1540,13 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:805 src/app/qt/kid3mainwindow.cpp:823
 msgctxt "Kid3MainWindow|"
 msgid "Focus"
-msgstr ""
+msgstr "Focalizare"
 
 #: src/app/qt/kid3mainwindow.cpp:767
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Tag %1"
-msgstr ""
+msgstr "Marcaj %1"
 
 #: src/app/qt/kid3mainwindow.cpp:769
 msgctxt "Kid3MainWindow|"
@@ -1583,17 +1581,17 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:796
 msgctxt "Kid3MainWindow|"
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: src/app/qt/kid3mainwindow.cpp:804
 msgctxt "Kid3MainWindow|"
 msgid "File List"
-msgstr ""
+msgstr "Listă de fișiere"
 
 #: src/app/qt/kid3mainwindow.cpp:808
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
-msgstr ""
+msgstr "&Redenumește"
 
 #: src/app/qt/kid3mainwindow.cpp:815
 msgctxt "Kid3MainWindow|"
@@ -1603,12 +1601,12 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:822
 msgctxt "Kid3MainWindow|"
 msgid "Folder List"
-msgstr ""
+msgstr "Lista de dosare"
 
 #: src/app/qt/kid3mainwindow.cpp:828
 msgctxt "Kid3MainWindow|"
 msgid "Section"
-msgstr ""
+msgstr "Secțiune"
 
 #: src/app/qt/kid3mainwindow.cpp:913
 msgctxt "Kid3MainWindow|"
@@ -1623,7 +1621,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:1013
 msgctxt "Kid3MainWindow|"
 msgid "License"
-msgstr ""
+msgstr "Licență"
 
 #: src/app/qt/kid3mainwindow.cpp:1031
 msgctxt "Kid3MainWindow|"
@@ -1633,7 +1631,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:1075 src/app/qt/kid3mainwindow.cpp:1087
 msgctxt "Kid3MainWindow|"
 msgid "User Actions"
-msgstr ""
+msgstr "Acțiuni utilizator"
 
 #: src/app/qt/platformtools.cpp:149
 msgctxt "@default|"
@@ -1643,7 +1641,7 @@ msgstr ""
 #: src/app/qt/recentfilesmenu.cpp:119
 msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
-msgstr ""
+msgstr "&Curăță lista"
 
 #: src/app/qt/shortcutsdelegate.cpp:189
 msgctxt "ShortcutsDelegateEditor|"
@@ -1663,7 +1661,7 @@ msgstr ""
 #: src/app/qt/shortcutsmodel.cpp:189
 msgctxt "ShortcutsModel|"
 msgid "Action"
-msgstr ""
+msgstr "Acțiune"
 
 #: src/app/qt/shortcutsmodel.cpp:192
 msgctxt "ShortcutsModel|"
@@ -1673,7 +1671,7 @@ msgstr ""
 #: src/core/config/batchimportsourcesmodel.cpp:166
 msgctxt "BatchImportSourcesModel|"
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: src/core/config/batchimportsourcesmodel.cpp:168
 msgctxt "BatchImportSourcesModel|"
@@ -1774,12 +1772,12 @@ msgstr ""
 #: src/core/import/httpclient.cpp:102
 msgctxt "HttpClient|"
 msgid "Ready."
-msgstr ""
+msgstr "Gata."
 
 #: src/core/import/httpclient.cpp:104
 msgctxt "HttpClient|"
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: src/core/import/httpclient.cpp:152
 #, qt-format
@@ -1802,7 +1800,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:2053
 msgctxt "@default|"
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:134
@@ -1821,7 +1819,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:2065
 msgctxt "@default|"
 msgid "Year"
-msgstr ""
+msgstr "An"
 
 #: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:109
 #: src/core/tags/frame.cpp:2070
@@ -1833,7 +1831,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:2083
 msgctxt "@default|"
 msgid "Genre"
-msgstr ""
+msgstr "Gen"
 
 #: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:246
 #: src/core/tags/trackdata.cpp:231
@@ -1844,7 +1842,7 @@ msgstr ""
 #: src/core/model/abstractfiledecorationprovider.cpp:84
 msgctxt "@default|"
 msgid "Drive"
-msgstr ""
+msgstr "Unitate"
 
 #. %1 is a file name suffix, for example txt
 #: src/core/model/abstractfiledecorationprovider.cpp:90
@@ -1856,12 +1854,12 @@ msgstr ""
 #: src/core/model/abstractfiledecorationprovider.cpp:93
 msgctxt "@default|"
 msgid "File"
-msgstr ""
+msgstr "Fișier"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:98
 msgctxt "@default|"
 msgid "Folder"
-msgstr ""
+msgstr "Dosar"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:102
 msgctxt "@default|"
@@ -1883,13 +1881,13 @@ msgstr ""
 #: src/core/model/commandformatreplacer.cpp:148
 msgctxt "@default|"
 msgid "Filenames"
-msgstr ""
+msgstr "Denumiri de fișiere"
 
 #: src/core/model/commandformatreplacer.cpp:153 src/core/tags/frame.cpp:48
 #: src/core/tags/trackdata.cpp:221
 msgctxt "@default|"
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/core/model/commandformatreplacer.cpp:157
 msgctxt "@default|"
@@ -1899,12 +1897,12 @@ msgstr ""
 #: src/core/model/commandformatreplacer.cpp:163
 msgctxt "@default|"
 msgid "Folder name"
-msgstr ""
+msgstr "Denumire dosar"
 
 #: src/core/model/commandformatreplacer.cpp:168
 msgctxt "@default|"
 msgid "Browser"
-msgstr ""
+msgstr "Navigator"
 
 #: src/core/model/commandformatreplacer.cpp:174
 msgctxt "@default|"
@@ -1920,7 +1918,7 @@ msgstr ""
 #: src/core/model/commandformatreplacer.cpp:187
 msgctxt "@default|"
 msgid "--- separator ---"
-msgstr ""
+msgstr "--- separator ---"
 
 #: src/core/model/commandformatreplacer.cpp:193
 msgctxt "@default|"
@@ -1935,7 +1933,7 @@ msgstr ""
 #: src/core/model/commandstablemodel.cpp:165
 msgctxt "CommandsTableModel|"
 msgid "Confirm"
-msgstr ""
+msgstr "Confirmă"
 
 #: src/core/model/commandstablemodel.cpp:167
 msgctxt "CommandsTableModel|"
@@ -1950,7 +1948,7 @@ msgstr ""
 #: src/core/model/commandstablemodel.cpp:171
 msgctxt "CommandsTableModel|"
 msgid "Command"
-msgstr ""
+msgstr "Comandă"
 
 #: src/core/model/dirrenamer.cpp:249
 #, qt-format
@@ -2032,27 +2030,27 @@ msgstr ""
 #: src/core/model/dirrenamer.cpp:686
 msgctxt "@default|"
 msgid "Create folder"
-msgstr ""
+msgstr "Creează dosar"
 
 #: src/core/model/dirrenamer.cpp:687
 msgctxt "@default|"
 msgid "Rename folder"
-msgstr ""
+msgstr "Redenumește dosar"
 
 #: src/core/model/dirrenamer.cpp:688
 msgctxt "@default|"
 msgid "Rename file"
-msgstr ""
+msgstr "Redenumește fișierul"
 
 #: src/core/model/dirrenamer.cpp:689
 msgctxt "@default|"
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: src/core/model/downloadclient.cpp:53
 msgctxt "DownloadClient|"
 msgid "Ready."
-msgstr ""
+msgstr "Gata."
 
 #: src/core/model/eventtimingcode.cpp:37
 msgctxt "@default|"
@@ -2313,31 +2311,31 @@ msgstr ""
 #: src/core/model/fileproxymodel.cpp:878
 msgctxt "FileProxyModel|"
 msgid "All Files"
-msgstr ""
+msgstr "Toate fișierele"
 
 #: src/core/model/filesystemmodel.cpp:822
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 TB"
-msgstr ""
+msgstr "%1 TO"
 
 #: src/core/model/filesystemmodel.cpp:824
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 GB"
-msgstr ""
+msgstr "%1 GO"
 
 #: src/core/model/filesystemmodel.cpp:826
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 MB"
-msgstr ""
+msgstr "%1 MO"
 
 #: src/core/model/filesystemmodel.cpp:828
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 KB"
-msgstr ""
+msgstr "%1 KO"
 
 #: src/core/model/filesystemmodel.cpp:829
 #, qt-format
@@ -2358,17 +2356,17 @@ msgstr ""
 #: src/core/model/filesystemmodel.cpp:989
 msgctxt "FileSystemModel|Match OS X Finder"
 msgid "Kind"
-msgstr ""
+msgstr "Gen"
 
 #: src/core/model/filesystemmodel.cpp:991
 msgctxt "FileSystemModel|All other platforms"
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #: src/core/model/filesystemmodel.cpp:998
 msgctxt "FileSystemModel|"
 msgid "Date Modified"
-msgstr ""
+msgstr "Data modificării"
 
 #: src/core/model/filesystemmodel_p.h:319
 msgctxt "FileSystemModel|"
@@ -2378,17 +2376,17 @@ msgstr ""
 #: src/core/model/filesystemmodel_p.h:321
 msgctxt "FileSystemModel|"
 msgid "Computer"
-msgstr ""
+msgstr "Calculator"
 
 #: src/core/model/frameobjectmodel.cpp:175
 msgctxt "FrameFieldObject|"
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: src/core/model/frametablemodel.cpp:145
 msgctxt "FrameTableModel|"
 msgid "Volume"
-msgstr ""
+msgstr "Volum"
 
 #: src/core/model/frametablemodel.cpp:169
 msgctxt "FrameTableModel|"
@@ -2403,7 +2401,7 @@ msgstr ""
 #: src/core/model/frametablemodel.cpp:312
 msgctxt "FrameTableModel|"
 msgid "Data"
-msgstr ""
+msgstr "Date"
 
 #: src/core/model/kid3application.cpp:1042
 msgctxt "Kid3Application|"
@@ -2418,7 +2416,7 @@ msgstr ""
 #: src/core/model/kid3application.cpp:3460
 msgctxt "Kid3Application|"
 msgid "All Files"
-msgstr ""
+msgstr "Toate fișierele"
 
 #: src/core/model/taggedfilesystemmodel.cpp:35
 msgctxt "QFileSystemModel|"
@@ -2433,17 +2431,17 @@ msgstr ""
 #: src/core/model/taggedfilesystemmodel.cpp:39
 msgctxt "QFileSystemModel|"
 msgid "Type"
-msgstr ""
+msgstr "Tip"
 
 #: src/core/model/taggedfilesystemmodel.cpp:41
 msgctxt "QFileSystemModel|"
 msgid "Kind"
-msgstr ""
+msgstr "Gen"
 
 #: src/core/model/taggedfilesystemmodel.cpp:44
 msgctxt "QFileSystemModel|"
 msgid "Date Modified"
-msgstr ""
+msgstr "Data modificării"
 
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
@@ -2459,7 +2457,7 @@ msgstr ""
 #, qt-format
 msgctxt "TagSearcher|"
 msgid "Tag %1"
-msgstr ""
+msgstr "Marcaj %1"
 
 #: src/core/model/timeeventmodel.cpp:123
 msgctxt "TimeEventModel|"
@@ -2474,7 +2472,7 @@ msgstr ""
 #: src/core/model/timeeventmodel.cpp:128
 msgctxt "TimeEventModel|"
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: src/core/model/trackdatamodel.cpp:179
 msgctxt "TrackDataModel|"
@@ -2509,23 +2507,23 @@ msgstr ""
 #: src/core/tags/frame.cpp:47
 msgctxt "@default|"
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: src/core/tags/frame.cpp:49
 msgctxt "@default|"
 msgid "Data"
-msgstr ""
+msgstr "Date"
 
 #: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:165
 #: src/core/tags/frame.cpp:267 src/core/tags/frame.cpp:318
 msgctxt "@default|"
 msgid "Description"
-msgstr ""
+msgstr "Descriere"
 
 #: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:341
 msgctxt "@default|"
 msgid "Owner"
-msgstr ""
+msgstr "Proprietar"
 
 #: src/core/tags/frame.cpp:52
 msgctxt "@default|"
@@ -2555,17 +2553,17 @@ msgstr ""
 #: src/core/tags/frame.cpp:58
 msgctxt "@default|"
 msgid "Mimetype"
-msgstr ""
+msgstr "Tip MIME"
 
 #: src/core/tags/frame.cpp:59
 msgctxt "@default|"
 msgid "Counter"
-msgstr ""
+msgstr "Contor"
 
 #: src/core/tags/frame.cpp:60
 msgctxt "@default|"
 msgid "Identifier"
-msgstr ""
+msgstr "Identificator"
 
 #: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:226
 #: src/core/tags/frame.cpp:227
@@ -2606,12 +2604,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:68
 msgctxt "@default|"
 msgid "Content Type"
-msgstr ""
+msgstr "Tip conținut"
 
 #: src/core/tags/frame.cpp:70
 msgctxt "@default|"
 msgid "Price"
-msgstr ""
+msgstr "Preț"
 
 #: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:137
 #: src/core/tags/frame.cpp:234
@@ -2659,7 +2657,7 @@ msgstr ""
 #: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "Lyrics"
-msgstr ""
+msgstr "Versuri"
 
 #: src/core/tags/frame.cpp:97
 msgctxt "@default|"
@@ -2674,7 +2672,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:99
 msgctxt "@default|"
 msgid "Events"
-msgstr ""
+msgstr "Evenimente"
 
 #: src/core/tags/frame.cpp:100
 msgctxt "@default|"
@@ -2724,22 +2722,22 @@ msgstr ""
 #: src/core/tags/frame.cpp:141 src/core/tags/frame.cpp:264
 msgctxt "@default|"
 msgid "Album Artist"
-msgstr ""
+msgstr "Interpret album"
 
 #: src/core/tags/frame.cpp:142
 msgctxt "@default|"
 msgid "Arranger"
-msgstr ""
+msgstr "Aranjor"
 
 #: src/core/tags/frame.cpp:143
 msgctxt "@default|"
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: src/core/tags/frame.cpp:144
 msgctxt "@default|"
 msgid "BPM"
-msgstr ""
+msgstr "BPM"
 
 #: src/core/tags/frame.cpp:145
 msgctxt "@default|"
@@ -2749,7 +2747,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:146
 msgctxt "@default|"
 msgid "Compilation"
-msgstr ""
+msgstr "Compilație"
 
 #: src/core/tags/frame.cpp:147 src/core/tags/pictureframe.cpp:52
 msgctxt "@default|"
@@ -2760,17 +2758,17 @@ msgstr ""
 #: src/core/tags/pictureframe.cpp:50
 msgctxt "@default|"
 msgid "Conductor"
-msgstr ""
+msgstr "Dirijor"
 
 #: src/core/tags/frame.cpp:149
 msgctxt "@default|"
 msgid "Copyright"
-msgstr ""
+msgstr "Drept de autor"
 
 #: src/core/tags/frame.cpp:150
 msgctxt "@default|"
 msgid "Disc Number"
-msgstr ""
+msgstr "Număr disc"
 
 #: src/core/tags/frame.cpp:151 src/core/tags/frame.cpp:271
 msgctxt "@default|"
@@ -2791,7 +2789,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:266
 msgctxt "@default|"
 msgid "Grouping"
-msgstr ""
+msgstr "Grupare"
 
 #: src/core/tags/frame.cpp:155
 msgctxt "@default|"
@@ -2806,7 +2804,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:158
 msgctxt "@default|"
 msgid "Lyricist"
-msgstr ""
+msgstr "Textier"
 
 #: src/core/tags/frame.cpp:160 src/core/tags/pictureframe.cpp:47
 msgctxt "@default|"
@@ -2816,7 +2814,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:161 src/core/tags/frame.cpp:306
 msgctxt "@default|"
 msgid "Mood"
-msgstr ""
+msgstr "Dispoziție"
 
 #: src/core/tags/frame.cpp:162
 msgctxt "@default|"
@@ -2836,7 +2834,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:166
 msgctxt "@default|"
 msgid "Performer"
-msgstr ""
+msgstr "Interpret"
 
 #: src/core/tags/frame.cpp:167
 msgctxt "@default|"
@@ -2886,12 +2884,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:176
 msgctxt "@default|"
 msgid "Subtitle"
-msgstr ""
+msgstr "Subtitlu"
 
 #: src/core/tags/frame.cpp:177
 msgctxt "@default|"
 msgid "Website"
-msgstr ""
+msgstr "Sait"
 
 #: src/core/tags/frame.cpp:178
 msgctxt "@default|"
@@ -2906,7 +2904,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:180
 msgctxt "@default|"
 msgid "Release Date"
-msgstr ""
+msgstr "Data lansării"
 
 #: src/core/tags/frame.cpp:182
 msgctxt "@default|"
@@ -2926,7 +2924,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:204
 msgctxt "@default|"
 msgid "Chapter"
-msgstr ""
+msgstr "Capitol"
 
 #: src/core/tags/frame.cpp:205
 msgctxt "@default|"
@@ -2936,7 +2934,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:206
 msgctxt "@default|"
 msgid "Table of Contents"
-msgstr ""
+msgstr "Cuprins"
 
 #: src/core/tags/frame.cpp:207
 msgctxt "@default|"
@@ -3001,7 +2999,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:221 src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Podcast"
-msgstr ""
+msgstr "Podcast"
 
 #: src/core/tags/frame.cpp:222
 msgctxt "@default|"
@@ -3031,12 +3029,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:229
 msgctxt "@default|"
 msgid "Seek"
-msgstr ""
+msgstr "Derulează"
 
 #: src/core/tags/frame.cpp:230
 msgctxt "@default|"
 msgid "Signature"
-msgstr ""
+msgstr "Semnătură"
 
 #: src/core/tags/frame.cpp:231
 msgctxt "@default|"
@@ -3176,7 +3174,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:261
 msgctxt "@default|"
 msgid "Payment"
-msgstr ""
+msgstr "Plată"
 
 #: src/core/tags/frame.cpp:262
 msgctxt "@default|"
@@ -3192,7 +3190,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:265
 msgctxt "@default|"
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #: src/core/tags/frame.cpp:268 src/core/tags/frame.cpp:290
 msgctxt "@default|"
@@ -3202,7 +3200,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:269
 msgctxt "@default|"
 msgid "Encoder"
-msgstr ""
+msgstr "Codor"
 
 #: src/core/tags/frame.cpp:272
 msgctxt "@default|"
@@ -3217,7 +3215,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:274
 msgctxt "@default|"
 msgid "Ensemble"
-msgstr ""
+msgstr "Ansamblu"
 
 #: src/core/tags/frame.cpp:275
 msgctxt "@default|"
@@ -3227,7 +3225,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:276 src/core/tags/trackdata.cpp:264
 msgctxt "@default|"
 msgid "VBR"
-msgstr ""
+msgstr "VBR"
 
 #: src/core/tags/frame.cpp:277 src/core/tags/frame.cpp:324
 msgctxt "@default|"
@@ -3237,7 +3235,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:278
 msgctxt "@default|"
 msgid "Label"
-msgstr ""
+msgstr "Etichetă"
 
 #: src/core/tags/frame.cpp:279
 msgctxt "@default|"
@@ -3247,7 +3245,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:280
 msgctxt "@default|"
 msgid "License"
-msgstr ""
+msgstr "Licență"
 
 #: src/core/tags/frame.cpp:281
 msgctxt "@default|"
@@ -3257,7 +3255,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:282
 msgctxt "@default|"
 msgid "Opus"
-msgstr ""
+msgstr "Opus"
 
 #: src/core/tags/frame.cpp:284
 msgctxt "@default|"
@@ -3272,7 +3270,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:286
 msgctxt "@default|"
 msgid "Producer"
-msgstr ""
+msgstr "Producător"
 
 #: src/core/tags/frame.cpp:287
 msgctxt "@default|"
@@ -3287,12 +3285,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:295
 msgctxt "@default|"
 msgid "Version"
-msgstr ""
+msgstr "Versiune"
 
 #: src/core/tags/frame.cpp:296
 msgctxt "@default|"
 msgid "Volume"
-msgstr ""
+msgstr "Volum"
 
 #: src/core/tags/frame.cpp:298
 msgctxt "@default|"
@@ -3375,7 +3373,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:321
 msgctxt "@default|"
 msgid "Keyword"
-msgstr ""
+msgstr "Cuvânt-cheie"
 
 #: src/core/tags/frame.cpp:322
 msgctxt "@default|"
@@ -3390,7 +3388,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:326
 msgctxt "@default|"
 msgid "Purchase Date"
-msgstr ""
+msgstr "Data achiziționării"
 
 #: src/core/tags/frame.cpp:327
 msgctxt "@default|"
@@ -3410,7 +3408,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:330
 msgctxt "@default|"
 msgid "Media Type"
-msgstr ""
+msgstr "Tip mediu"
 
 #: src/core/tags/frame.cpp:331
 msgctxt "@default|"
@@ -3490,7 +3488,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:350
 msgctxt "@default|"
 msgid "Dimensions"
-msgstr ""
+msgstr "Dimensiuni"
 
 #: src/core/tags/frame.cpp:351
 msgctxt "@default|"
@@ -3500,12 +3498,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:352
 msgctxt "@default|"
 msgid "Keywords"
-msgstr ""
+msgstr "Cuvinte-cheie"
 
 #: src/core/tags/frame.cpp:353
 msgctxt "@default|"
 msgid "Lightness"
-msgstr ""
+msgstr "Luminozitate"
 
 #: src/core/tags/frame.cpp:354
 msgctxt "@default|"
@@ -3515,7 +3513,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:355
 msgctxt "@default|"
 msgid "Subject"
-msgstr ""
+msgstr "Subiect"
 
 #: src/core/tags/frame.cpp:356
 msgctxt "@default|"
@@ -3531,7 +3529,7 @@ msgstr ""
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
-msgstr ""
+msgstr "Marcaj %1"
 
 #: src/core/tags/frame.cpp:1275
 msgctxt "@default|"
@@ -3541,7 +3539,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:1279
 msgctxt "@default|"
 msgid "All Tags"
-msgstr ""
+msgstr "Toate marcajele"
 
 #: src/core/tags/frame.cpp:2088
 msgctxt "@default|"
@@ -3738,12 +3736,12 @@ msgstr ""
 #: src/core/tags/trackdata.cpp:216
 msgctxt "@default|"
 msgid "Creation date"
-msgstr ""
+msgstr "Data creării"
 
 #: src/core/tags/trackdata.cpp:226
 msgctxt "@default|"
 msgid "Directory name"
-msgstr ""
+msgstr "Numele directorului"
 
 #: src/core/tags/trackdata.cpp:241
 msgctxt "@default|"
@@ -3753,7 +3751,7 @@ msgstr ""
 #: src/core/tags/trackdata.cpp:246
 msgctxt "@default|"
 msgid "Extension"
-msgstr ""
+msgstr "Extensie"
 
 #: src/core/tags/trackdata.cpp:259
 msgctxt "@default|"
@@ -3768,12 +3766,12 @@ msgstr ""
 #: src/core/tags/trackdata.cpp:276
 msgctxt "@default|"
 msgid "Channels"
-msgstr ""
+msgstr "Canale"
 
 #: src/core/tags/trackdata.cpp:281
 msgctxt "@default|"
 msgid "Codec"
-msgstr ""
+msgstr "Codec"
 
 #: src/core/tags/trackdata.cpp:286
 msgctxt "@default|"
@@ -3798,7 +3796,7 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:193
 msgctxt "BatchImportDialog|"
 msgid "&Profile:"
-msgstr ""
+msgstr "&Profil:"
 
 #: src/gui/dialogs/batchimportdialog.cpp:204
 msgctxt "BatchImportDialog|"
@@ -3818,7 +3816,7 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:235
 msgctxt "BatchImportDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/batchimportdialog.cpp:244
 msgctxt "BatchImportDialog|"
@@ -3833,7 +3831,7 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:476
 msgctxt "BatchImportDialog|"
 msgid "Reading Folder"
-msgstr ""
+msgstr "Se citește dosarul"
 
 #: src/gui/dialogs/batchimportdialog.cpp:480
 msgctxt "BatchImportDialog|"
@@ -3848,22 +3846,22 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:486
 msgctxt "BatchImportDialog|"
 msgid "Querying"
-msgstr ""
+msgstr "Se interoghează"
 
 #: src/gui/dialogs/batchimportdialog.cpp:490
 msgctxt "BatchImportDialog|"
 msgid "Fetching"
-msgstr ""
+msgstr "Se preia"
 
 #: src/gui/dialogs/batchimportdialog.cpp:493
 msgctxt "BatchImportDialog|"
 msgid "Data received"
-msgstr ""
+msgstr "Date primite"
 
 #: src/gui/dialogs/batchimportdialog.cpp:496
 msgctxt "BatchImportDialog|"
 msgid "Cover"
-msgstr ""
+msgstr "Copertă"
 
 #: src/gui/dialogs/batchimportdialog.cpp:500
 msgctxt "BatchImportDialog|"
@@ -3878,7 +3876,7 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:507
 msgctxt "BatchImportDialog|"
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: src/gui/dialogs/batchimportdialog.cpp:523
 msgctxt "BatchImportDialog|"
@@ -3898,7 +3896,7 @@ msgstr ""
 #: src/gui/dialogs/batchimportsourcedialog.cpp:50
 msgctxt "BatchImportSourceDialog|"
 msgid "&Server:"
-msgstr ""
+msgstr "&Server:"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:58
 msgctxt "BatchImportSourceDialog|"
@@ -3939,12 +3937,12 @@ msgstr ""
 #: src/gui/dialogs/browsecoverartdialog.cpp:107
 msgctxt "BrowseCoverArtDialog|"
 msgid "Source:"
-msgstr ""
+msgstr "Sursă:"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:107
 msgctxt "BrowseCoverArtDialog|"
 msgid "URL:"
-msgstr ""
+msgstr "URL:"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:118
 msgctxt "BrowseCoverArtDialog|"
@@ -3954,7 +3952,7 @@ msgstr ""
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
 msgid "Match"
-msgstr ""
+msgstr "Potrivește"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
@@ -3969,12 +3967,12 @@ msgstr ""
 #: src/gui/dialogs/browsecoverartdialog.cpp:135
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:144
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Browse"
-msgstr ""
+msgstr "&Răsfoiește"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:145
 msgctxt "BrowseCoverArtDialog|"
@@ -4145,7 +4143,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:387
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
-msgstr ""
+msgstr "Pornire"
 
 #: src/gui/dialogs/configdialogpages.cpp:388
 msgctxt "ConfigDialogPages|"
@@ -4155,7 +4153,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:394
 msgctxt "ConfigDialogPages|"
 msgid "Save"
-msgstr ""
+msgstr "Salvează"
 
 #: src/gui/dialogs/configdialogpages.cpp:395
 msgctxt "ConfigDialogPages|"
@@ -4180,7 +4178,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
 msgid "File List"
-msgstr ""
+msgstr "Listă de fișiere"
 
 #: src/gui/dialogs/configdialogpages.cpp:414
 msgctxt "ConfigDialogPages|"
@@ -4210,21 +4208,18 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:448
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
-msgstr ""
+msgstr "Denumire fișier din marcaj"
 
 #: src/gui/dialogs/configdialogpages.cpp:453
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
-msgstr ""
+msgstr "Marcaj din denumire fișier"
 
 #: src/gui/dialogs/configdialogpages.cpp:459
 #: src/gui/dialogs/configdialogpages.cpp:519
-#, fuzzy
-#| msgctxt "PlaylistCommand|"
-#| msgid "Create playlist"
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
-msgstr "Creează listă de redare"
+msgstr "Listă de redare"
 
 #: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
@@ -4244,7 +4239,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:533
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
-msgstr ""
+msgstr "Navigator"
 
 #: src/gui/dialogs/configdialogpages.cpp:534
 msgctxt "ConfigDialogPages|"
@@ -4277,7 +4272,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:553
 msgctxt "ConfigDialogPages|"
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: src/gui/dialogs/configdialogpages.cpp:586
 msgctxt "ConfigDialogPages|"
@@ -4322,13 +4317,13 @@ msgstr ""
 #: src/gui/dialogs/editframefieldsdialog.cpp:801
 msgctxt "@default|"
 msgid "Images"
-msgstr ""
+msgstr "Imagini"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:802
 #: src/gui/widgets/timeeventeditor.cpp:350
 msgctxt "@default|"
 msgid "All Files"
-msgstr ""
+msgstr "Toate fișierele"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1195
 msgctxt "BinaryOpenSave|"
@@ -4338,7 +4333,7 @@ msgstr ""
 #: src/gui/dialogs/editframefieldsdialog.cpp:1196
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
-msgstr ""
+msgstr "În &clipboard"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1197
 msgctxt "BinaryOpenSave|"
@@ -4353,7 +4348,7 @@ msgstr ""
 #: src/gui/dialogs/editframefieldsdialog.cpp:1199
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
-msgstr ""
+msgstr "&Vezi..."
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1371
 msgctxt "EditFrameFieldsDialog|"
@@ -4373,7 +4368,7 @@ msgstr ""
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "&Format:"
-msgstr ""
+msgstr "&Format:"
 
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
@@ -4409,7 +4404,7 @@ msgstr ""
 #, qt-format
 msgctxt "ExportDialog|"
 msgid "Tag %1"
-msgstr ""
+msgstr "Marcaj %1"
 
 #: src/gui/dialogs/exportdialog.cpp:122
 msgctxt "ExportDialog|"
@@ -4419,7 +4414,7 @@ msgstr ""
 #: src/gui/dialogs/exportdialog.cpp:127
 msgctxt "ExportDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/exportdialog.cpp:136
 msgctxt "ExportDialog|"
@@ -4434,7 +4429,7 @@ msgstr ""
 #: src/gui/dialogs/exportdialog.cpp:156
 msgctxt "ExportDialog|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "Eroare la scrierea fișierului:\n"
 
 #: src/gui/dialogs/filterdialog.cpp:49
 msgctxt "FilterDialog|"
@@ -4444,12 +4439,12 @@ msgstr ""
 #: src/gui/dialogs/filterdialog.cpp:53
 msgctxt "FilterDialog|"
 msgid "&Preview"
-msgstr ""
+msgstr "&Previzualizare"
 
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
 msgid "&Filter:"
-msgstr ""
+msgstr "&Filtru:"
 
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
@@ -4464,7 +4459,7 @@ msgstr ""
 #: src/gui/dialogs/filterdialog.cpp:80
 msgctxt "FilterDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/filterdialog.cpp:91
 msgctxt "FilterDialog|"
@@ -4494,7 +4489,7 @@ msgstr ""
 #: src/gui/dialogs/filterdialog.cpp:215
 msgctxt "FilterDialog|"
 msgid "&Apply"
-msgstr ""
+msgstr "&Aplică"
 
 #: src/gui/dialogs/findreplacedialog.cpp:54
 #: src/gui/dialogs/findreplacedialog.cpp:170
@@ -4505,7 +4500,7 @@ msgstr ""
 #: src/gui/dialogs/findreplacedialog.cpp:59
 msgctxt "FindReplaceDialog|"
 msgid "F&ind:"
-msgstr ""
+msgstr "&Caută:"
 
 #: src/gui/dialogs/findreplacedialog.cpp:66
 msgctxt "FindReplaceDialog|"
@@ -4520,7 +4515,7 @@ msgstr ""
 #: src/gui/dialogs/findreplacedialog.cpp:76
 msgctxt "FindReplaceDialog|"
 msgid "&Replace"
-msgstr ""
+msgstr "Î&nlocuiește"
 
 #: src/gui/dialogs/findreplacedialog.cpp:79
 msgctxt "FindReplaceDialog|"
@@ -4535,7 +4530,7 @@ msgstr ""
 #: src/gui/dialogs/findreplacedialog.cpp:96
 msgctxt "FindReplaceDialog|"
 msgid "&Match case"
-msgstr ""
+msgstr "Potrivește &registrul"
 
 #: src/gui/dialogs/findreplacedialog.cpp:98
 msgctxt "FindReplaceDialog|"
@@ -4570,7 +4565,7 @@ msgstr ""
 #: src/gui/dialogs/findreplacedialog.cpp:137
 msgctxt "FindReplaceDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/findreplacedialog.cpp:144
 msgctxt "FindReplaceDialog|"
@@ -4640,7 +4635,7 @@ msgstr ""
 #: src/gui/dialogs/importdialog.cpp:220
 msgctxt "ImportDialog|"
 msgid "&Title"
-msgstr ""
+msgstr "&Titlu"
 
 #: src/gui/dialogs/importdialog.cpp:248
 msgctxt "ImportDialog|"
@@ -4650,7 +4645,7 @@ msgstr ""
 #: src/gui/dialogs/importdialog.cpp:250
 msgctxt "ImportDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/importdialog.cpp:252
 msgctxt "ImportDialog|"
@@ -4696,7 +4691,7 @@ msgstr ""
 #: src/gui/dialogs/numbertracksdialog.cpp:108
 msgctxt "NumberTracksDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:117
 msgctxt "NumberTracksDialog|"
@@ -4726,7 +4721,7 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:147
 msgctxt "PlaylistDialog|"
 msgid "&Format:"
-msgstr ""
+msgstr "&Format:"
 
 #: src/gui/dialogs/playlistdialog.cpp:152
 msgctxt "PlaylistDialog|"
@@ -4746,7 +4741,7 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:162
 msgctxt "PlaylistDialog|"
 msgid "Current folder"
-msgstr ""
+msgstr "Dosarul actual"
 
 #: src/gui/dialogs/playlistdialog.cpp:163
 msgctxt "PlaylistDialog|"
@@ -4766,7 +4761,7 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:167
 msgctxt "PlaylistDialog|"
 msgid "For&mat:"
-msgstr ""
+msgstr "For&mat:"
 
 #: src/gui/dialogs/playlistdialog.cpp:171
 msgctxt "PlaylistDialog|"
@@ -4811,7 +4806,7 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:211
 msgctxt "PlaylistDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/playlistdialog.cpp:219
 msgctxt "PlaylistDialog|"
@@ -4826,7 +4821,7 @@ msgstr ""
 #: src/gui/dialogs/playlisteditdialog.cpp:114
 msgctxt "PlaylistEditDialog|"
 msgid "Playlist"
-msgstr ""
+msgstr "Listă de redare"
 
 #: src/gui/dialogs/playlisteditdialog.cpp:120
 msgctxt "PlaylistEditDialog|"
@@ -4863,7 +4858,7 @@ msgstr ""
 #: src/gui/dialogs/rendirdialog.cpp:78
 msgctxt "RenDirDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/rendirdialog.cpp:101
 msgctxt "RenDirDialog|"
@@ -4888,7 +4883,7 @@ msgstr ""
 #: src/gui/dialogs/rendirdialog.cpp:126
 msgctxt "RenDirDialog|"
 msgid "&Format:"
-msgstr ""
+msgstr "&Format:"
 
 #: src/gui/dialogs/rendirdialog.cpp:138
 msgctxt "RenDirDialog|"
@@ -4913,7 +4908,7 @@ msgstr ""
 #: src/gui/dialogs/serverimportdialog.cpp:75
 msgctxt "ServerImportDialog|"
 msgid "&Server:"
-msgstr ""
+msgstr "&Server:"
 
 #: src/gui/dialogs/serverimportdialog.cpp:78
 msgctxt "ServerImportDialog|"
@@ -4948,7 +4943,7 @@ msgstr ""
 #: src/gui/dialogs/serverimportdialog.cpp:115
 msgctxt "ServerImportDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/serverimportdialog.cpp:117
 msgctxt "ServerImportDialog|"
@@ -4958,12 +4953,12 @@ msgstr ""
 #: src/gui/dialogs/serverimportdialog.cpp:132
 msgctxt "ServerImportDialog|"
 msgid "Ready."
-msgstr ""
+msgstr "Gata."
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:83
 msgctxt "ServerTrackImportDialog|"
 msgid "&Server:"
-msgstr ""
+msgstr "&Server:"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:106
 msgctxt "ServerTrackImportDialog|"
@@ -4983,7 +4978,7 @@ msgstr ""
 #: src/gui/dialogs/servertrackimportdialog.cpp:117
 msgctxt "ServerTrackImportDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:119
 msgctxt "ServerTrackImportDialog|"
@@ -4993,7 +4988,7 @@ msgstr ""
 #: src/gui/dialogs/servertrackimportdialog.cpp:120
 msgctxt "ServerTrackImportDialog|"
 msgid "&Apply"
-msgstr ""
+msgstr "&Aplică"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:121
 msgctxt "ServerTrackImportDialog|"
@@ -5021,17 +5016,17 @@ msgstr ""
 #: src/gui/dialogs/tagimportdialog.cpp:52
 msgctxt "TagImportDialog|"
 msgid "Import from Tags"
-msgstr ""
+msgstr "Importă din marcaje"
 
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
 msgid "Format:"
-msgstr ""
+msgstr "Format:"
 
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
 msgid "Source:"
-msgstr ""
+msgstr "Sursă:"
 
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
@@ -5051,12 +5046,12 @@ msgstr ""
 #: src/gui/dialogs/tagimportdialog.cpp:83
 msgctxt "TagImportDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/tagimportdialog.cpp:88
 msgctxt "TagImportDialog|"
 msgid "&Apply"
-msgstr ""
+msgstr "&Aplică"
 
 #: src/gui/dialogs/tagimportdialog.cpp:92
 msgctxt "TagImportDialog|"
@@ -5071,12 +5066,12 @@ msgstr ""
 #: src/gui/dialogs/textimportdialog.cpp:65
 msgctxt "TextImportDialog|"
 msgid "Format:"
-msgstr ""
+msgstr "Format:"
 
 #: src/gui/dialogs/textimportdialog.cpp:65
 msgctxt "TextImportDialog|"
 msgid "Header:"
-msgstr ""
+msgstr "Antet:"
 
 #: src/gui/dialogs/textimportdialog.cpp:65
 msgctxt "TextImportDialog|"
@@ -5091,7 +5086,7 @@ msgstr ""
 #: src/gui/dialogs/textimportdialog.cpp:75
 msgctxt "TextImportDialog|"
 msgid "&Save Settings"
-msgstr ""
+msgstr "&Salvează configurările"
 
 #: src/gui/dialogs/textimportdialog.cpp:80
 msgctxt "TextImportDialog|"
@@ -5132,7 +5127,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:408
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "Eroare la scrierea fișierului:\n"
 
 #: src/gui/forms/basemainwindow.cpp:410 src/gui/forms/basemainwindow.cpp:416
 #: src/gui/forms/basemainwindow.cpp:1133 src/gui/forms/basemainwindow.cpp:1138
@@ -5195,7 +5190,7 @@ msgstr[0] ""
 #: src/gui/forms/basemainwindow.cpp:715
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
-msgstr ""
+msgstr "Gata."
 
 #: src/gui/forms/basemainwindow.cpp:777
 msgctxt "BaseMainWindowImpl|"
@@ -5210,7 +5205,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:826
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: src/gui/forms/basemainwindow.cpp:852
 msgctxt "BaseMainWindowImpl|"
@@ -5252,7 +5247,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:1538
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
-msgstr ""
+msgstr "Redenumește fișierul"
 
 #: src/gui/forms/basemainwindow.cpp:1539
 msgctxt "BaseMainWindowImpl|"
@@ -5285,7 +5280,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:1625
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
-msgstr ""
+msgstr "Sigur doriți să mutați acest element la gunoi?"
 
 #: src/gui/forms/basemainwindow.cpp:1627
 msgctxt "BaseMainWindowImpl|"
@@ -5300,7 +5295,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:1657
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
-msgstr ""
+msgstr "Imposibil de mutat aceste fișiere la Gunoi"
 
 #: src/gui/forms/basemainwindow.cpp:1690
 msgctxt "BaseMainWindowImpl|"
@@ -5315,12 +5310,12 @@ msgstr ""
 #: src/gui/forms/configurabletreeview.cpp:51
 msgctxt "ConfigurableTreeView|"
 msgid "Automatic Column Widths"
-msgstr ""
+msgstr "Lățimi automate pentru coloane"
 
 #: src/gui/forms/configurabletreeview.cpp:58
 msgctxt "ConfigurableTreeView|"
 msgid "Custom Column Widths"
-msgstr ""
+msgstr "Lățimi personalizate pentru coloane"
 
 #: src/gui/forms/filelist.cpp:110
 msgctxt "FileList|"
@@ -5355,7 +5350,7 @@ msgstr ""
 #: src/gui/forms/filelist.cpp:386 src/gui/forms/filelist.cpp:390
 msgctxt "FileList|"
 msgid "&Open"
-msgstr ""
+msgstr "&Deschide"
 
 #: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
 msgctxt "FileList|"
@@ -5391,7 +5386,7 @@ msgstr ""
 #: src/gui/forms/kid3form.cpp:363 src/gui/forms/kid3form.cpp:413
 msgctxt "Kid3Form|"
 msgid "Format:"
-msgstr ""
+msgstr "Format:"
 
 #: src/gui/forms/kid3form.cpp:394
 msgctxt "Kid3Form|"
@@ -5403,7 +5398,7 @@ msgstr ""
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1"
-msgstr ""
+msgstr "Marcaj %1"
 
 #: src/gui/forms/kid3form.cpp:402
 #, qt-format
@@ -5447,7 +5442,7 @@ msgstr ""
 #: src/gui/forms/kid3form.cpp:500
 msgctxt "Kid3Form|"
 msgid "From"
-msgstr ""
+msgstr "De la"
 
 #: src/gui/forms/kid3form.cpp:502 src/gui/forms/kid3form.cpp:526
 msgctxt "Kid3Form|"
@@ -5477,7 +5472,7 @@ msgstr ""
 #: src/gui/forms/kid3form.cpp:577
 msgctxt "Kid3Form|"
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: src/gui/forms/sectionactions.cpp:146
 msgctxt "SectionActions|"
@@ -5492,7 +5487,7 @@ msgstr ""
 #: src/gui/forms/sectionactions.cpp:150
 msgctxt "SectionActions|"
 msgid "Transfer"
-msgstr ""
+msgstr "Transfer"
 
 #: src/gui/forms/sectionactions.cpp:153
 msgctxt "SectionActions|"
@@ -5522,7 +5517,7 @@ msgstr ""
 #: src/gui/forms/sectionactions.cpp:164
 msgctxt "SectionActions|"
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: src/gui/forms/sectionactions.cpp:167
 msgctxt "SectionActions|"
@@ -5562,7 +5557,7 @@ msgstr ""
 #: src/gui/widgets/chaptereditor.cpp:54
 msgctxt "ChapterEditor|"
 msgid "Start time"
-msgstr ""
+msgstr "Timp de început"
 
 #: src/gui/widgets/chaptereditor.cpp:55
 msgctxt "ChapterEditor|"
@@ -5622,7 +5617,7 @@ msgstr ""
 #: src/gui/widgets/formatbox.cpp:58
 msgctxt "FormatBox|"
 msgid "From"
-msgstr ""
+msgstr "De la"
 
 #: src/gui/widgets/formatbox.cpp:58
 msgctxt "FormatBox|"
@@ -5662,7 +5657,7 @@ msgstr ""
 #: src/gui/widgets/frametable.cpp:160
 msgctxt "FrameTable|"
 msgid "&Select all"
-msgstr ""
+msgstr "&Selectează toate"
 
 #: src/gui/widgets/frametable.cpp:162
 msgctxt "FrameTable|"
@@ -5705,12 +5700,12 @@ msgstr ""
 #: src/gui/widgets/playtoolbar.cpp:130
 msgctxt "PlayToolBar|"
 msgid "Play/Pause"
-msgstr ""
+msgstr "Redare/Pauză"
 
 #: src/gui/widgets/playtoolbar.cpp:134
 msgctxt "PlayToolBar|"
 msgid "Stop playback"
-msgstr ""
+msgstr "Oprește redarea"
 
 #: src/gui/widgets/playtoolbar.cpp:138
 msgctxt "PlayToolBar|"
@@ -5725,7 +5720,7 @@ msgstr ""
 #: src/gui/widgets/playtoolbar.cpp:146
 msgctxt "PlayToolBar|"
 msgid "Close"
-msgstr ""
+msgstr "Închide"
 
 #: src/gui/widgets/playtoolbar.cpp:163
 msgctxt "PlayToolBar|"
@@ -5736,7 +5731,7 @@ msgstr ""
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
-msgstr ""
+msgstr "Volum: %1%"
 
 #: src/gui/widgets/progresswidget.cpp:56
 msgctxt "ProgressWidget|"
@@ -5746,12 +5741,12 @@ msgstr ""
 #: src/gui/widgets/stringlistedit.cpp:52
 msgctxt "StringListEdit|"
 msgid "Add Item"
-msgstr ""
+msgstr "Adaugă element"
 
 #: src/gui/widgets/stringlistedit.cpp:71
 msgctxt "StringListEdit|"
 msgid "Edit Item"
-msgstr ""
+msgstr "Modifică element"
 
 #: src/gui/widgets/subframeseditor.cpp:67
 msgctxt "SubframesEditor|"
@@ -5766,7 +5761,7 @@ msgstr ""
 #: src/gui/widgets/subframeseditor.cpp:77
 msgctxt "SubframesEditor|"
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: src/gui/widgets/subframeseditor.cpp:129
 msgctxt "SubframesEditor|"
@@ -5826,17 +5821,17 @@ msgstr ""
 #: src/gui/widgets/timeeventeditor.cpp:129
 msgctxt "TimeEventEditor|"
 msgid "Help"
-msgstr ""
+msgstr "Ajutor"
 
 #: src/gui/widgets/timeeventeditor.cpp:187
 msgctxt "TimeEventEditor|"
 msgid "Events"
-msgstr ""
+msgstr "Evenimente"
 
 #: src/gui/widgets/timeeventeditor.cpp:193
 msgctxt "TimeEventEditor|"
 msgid "Lyrics"
-msgstr ""
+msgstr "Versuri"
 
 #: src/gui/widgets/timeeventeditor.cpp:429
 msgctxt "TimeEventEditor|"
@@ -5846,7 +5841,7 @@ msgstr ""
 #: src/gui/widgets/timeeventeditor.cpp:429
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
-msgstr ""
+msgstr "Milisecunde"
 
 #: src/gui/widgets/timeeventeditor.cpp:468
 msgctxt "TimeEventEditor|"
@@ -5901,12 +5896,12 @@ msgstr ""
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:329
 msgctxt "MusicBrainzClient|"
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:348
 msgctxt "MusicBrainzClient|"
 msgid "Fingerprint"
-msgstr ""
+msgstr "Amprentă"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:357
 msgctxt "MusicBrainzClient|"
@@ -5916,12 +5911,12 @@ msgstr ""
 #: src/plugins/amazonimport/amazonimporter.cpp:72
 msgctxt "@default|"
 msgid "Amazon"
-msgstr ""
+msgstr "Amazon"
 
 #: src/plugins/discogsimport/discogsimporter.cpp:1461
 msgctxt "@default|"
 msgid "Discogs"
-msgstr ""
+msgstr "Discogs"
 
 #: src/plugins/freedbimport/freedbimporter.cpp:72
 msgctxt "@default|"
@@ -6546,7 +6541,7 @@ msgstr ""
 #: src/qml/app/AboutDialog.qml:44
 msgctxt "AboutDialog|"
 msgid "License"
-msgstr ""
+msgstr "Licență"
 
 #: src/qml/app/AboutDialog.qml:46
 #, qt-format
@@ -6562,7 +6557,7 @@ msgstr ""
 #: src/qml/app/BatchImportPage.qml:40
 msgctxt "BatchImportPage|"
 msgid "Reading Folder"
-msgstr ""
+msgstr "Se citește dosarul"
 
 #: src/qml/app/BatchImportPage.qml:43
 msgctxt "BatchImportPage|"
@@ -6577,22 +6572,22 @@ msgstr ""
 #: src/qml/app/BatchImportPage.qml:49
 msgctxt "BatchImportPage|"
 msgid "Querying"
-msgstr ""
+msgstr "Se interoghează"
 
 #: src/qml/app/BatchImportPage.qml:53
 msgctxt "BatchImportPage|"
 msgid "Fetching"
-msgstr ""
+msgstr "Se preia"
 
 #: src/qml/app/BatchImportPage.qml:56
 msgctxt "BatchImportPage|"
 msgid "Data received"
-msgstr ""
+msgstr "Date primite"
 
 #: src/qml/app/BatchImportPage.qml:59
 msgctxt "BatchImportPage|"
 msgid "Cover"
-msgstr ""
+msgstr "Copertă"
 
 #: src/qml/app/BatchImportPage.qml:62
 msgctxt "BatchImportPage|"
@@ -6607,7 +6602,7 @@ msgstr ""
 #: src/qml/app/BatchImportPage.qml:68
 msgctxt "BatchImportPage|"
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: src/qml/app/BatchImportPage.qml:104
 msgctxt "BatchImportPage|"
@@ -6617,7 +6612,7 @@ msgstr ""
 #: src/qml/app/BatchImportPage.qml:126
 msgctxt "BatchImportPage|"
 msgid "Destination:"
-msgstr ""
+msgstr "Destinație:"
 
 #: src/qml/app/BatchImportPage.qml:136
 msgctxt "BatchImportPage|"
@@ -6643,22 +6638,19 @@ msgid "Tag 1 and Tag 2"
 msgstr ""
 
 #: src/qml/app/BatchImportPage.qml:140
-#, fuzzy
-#| msgctxt "TextCliFormatter|"
-#| msgid "Tags"
 msgctxt "BatchImportPage|"
 msgid "All Tags"
-msgstr "Marcaje"
+msgstr "Toate marcajele"
 
 #: src/qml/app/BatchImportPage.qml:153
 msgctxt "BatchImportPage|"
 msgid "Profile:"
-msgstr ""
+msgstr "Profil:"
 
 #: src/qml/app/FileCollapsible.qml:32
 msgctxt "FileCollapsible|"
 msgid "File"
-msgstr ""
+msgstr "Fișier"
 
 #: src/qml/app/FileSelectDialog.qml:42
 msgctxt "FileSelectDialog|"
@@ -6668,12 +6660,12 @@ msgstr ""
 #: src/qml/app/FileSelectDialog.qml:98
 msgctxt "FileSelectDialog|"
 msgid "Folder"
-msgstr ""
+msgstr "Dosar"
 
 #: src/qml/app/FileSelectDialog.qml:192
 msgctxt "FileSelectDialog|"
 msgid "File"
-msgstr ""
+msgstr "Fișier"
 
 #: src/qml/app/FilterPage.qml:31
 msgctxt "FilterPage|"
@@ -6703,12 +6695,12 @@ msgstr ""
 #: src/qml/app/FilterPage.qml:118
 msgctxt "FilterPage|"
 msgid "Filter:"
-msgstr ""
+msgstr "Filtru:"
 
 #: src/qml/app/FilterPage.qml:131
 msgctxt "FilterPage|"
 msgid "Expression:"
-msgstr ""
+msgstr "Expresie:"
 
 #: src/qml/app/FrameEditDialog.qml:117
 msgctxt "FrameEditDialog|"
@@ -6743,12 +6735,12 @@ msgstr ""
 #: src/qml/app/ImportProfilesEditPage.qml:34
 msgctxt "ImportProfilesEditPage|"
 msgid "Profiles"
-msgstr ""
+msgstr "Profiluri"
 
 #: src/qml/app/ImportProfilesEditPage.qml:42
 msgctxt "ImportProfilesEditPage|"
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: src/qml/app/ImportProfilesEditPage.qml:68
 #: src/qml/app/ImportProfilesEditPage.qml:138
@@ -6777,7 +6769,7 @@ msgstr ""
 #: src/qml/app/ImportProfilesEditPage.qml:130
 msgctxt "ImportProfilesEditPage|"
 msgid "Server"
-msgstr ""
+msgstr "Server"
 
 #: src/qml/app/Main.qml:92
 msgctxt "Main|"
@@ -6799,7 +6791,7 @@ msgstr ""
 #: src/qml/app/Main.qml:129
 msgctxt "Main|"
 msgid "Error while writing file:\n"
-msgstr ""
+msgstr "Eroare la scrierea fișierului:\n"
 
 #: src/qml/app/Main.qml:146
 #, qt-format
@@ -6837,17 +6829,17 @@ msgstr ""
 #: src/qml/app/MainPage.qml:155
 msgctxt "MainPage|"
 msgid "About"
-msgstr ""
+msgstr "Despre"
 
 #: src/qml/app/MainPage.qml:171
 msgctxt "MainPage|"
 msgid "Save"
-msgstr ""
+msgstr "Salvează"
 
 #: src/qml/app/MainPage.qml:180
 msgctxt "MainPage|"
 msgid "Settings"
-msgstr ""
+msgstr "Configurări"
 
 #: src/qml/app/MainPage.qml:189
 msgctxt "MainPage|"
@@ -6917,7 +6909,7 @@ msgstr ""
 #: src/qml/app/NumberTracksDialog.qml:57
 msgctxt "NumberTracksDialog|"
 msgid "Destination:"
-msgstr ""
+msgstr "Destinație:"
 
 #: src/qml/app/NumberTracksDialog.qml:63
 msgctxt "NumberTracksDialog|"
@@ -6943,12 +6935,9 @@ msgid "Tag 1 and Tag 2"
 msgstr ""
 
 #: src/qml/app/NumberTracksDialog.qml:67
-#, fuzzy
-#| msgctxt "TextCliFormatter|"
-#| msgid "Tags"
 msgctxt "NumberTracksDialog|"
 msgid "All Tags"
-msgstr "Marcaje"
+msgstr "Toate marcajele"
 
 #: src/qml/app/NumberTracksDialog.qml:83
 msgctxt "NumberTracksDialog|"
@@ -6979,12 +6968,12 @@ msgstr ""
 #: src/qml/app/RenameDirectoryPage.qml:81
 msgctxt "RenameDirectoryPage|"
 msgid "Error"
-msgstr ""
+msgstr "Eroare"
 
 #: src/qml/app/RenameDirectoryPage.qml:109
 msgctxt "RenameDirectoryPage|"
 msgid "Action:"
-msgstr ""
+msgstr "Acțiune:"
 
 #: src/qml/app/RenameDirectoryPage.qml:114
 msgctxt "RenameDirectoryPage|"
@@ -6994,7 +6983,7 @@ msgstr ""
 #: src/qml/app/RenameDirectoryPage.qml:124
 msgctxt "RenameDirectoryPage|"
 msgid "Source:"
-msgstr ""
+msgstr "Sursă:"
 
 #: src/qml/app/RenameDirectoryPage.qml:129
 msgctxt "RenameDirectoryPage|"
@@ -7017,17 +7006,14 @@ msgid "From Tag 3"
 msgstr ""
 
 #: src/qml/app/RenameDirectoryPage.qml:133
-#, fuzzy
-#| msgctxt "TextCliFormatter|"
-#| msgid "Tags"
 msgctxt "RenameDirectoryPage|"
 msgid "All Tags"
-msgstr "Marcaje"
+msgstr "Toate marcajele"
 
 #: src/qml/app/RenameDirectoryPage.qml:144
 msgctxt "RenameDirectoryPage|"
 msgid "Format:"
-msgstr ""
+msgstr "Format:"
 
 #: src/qml/app/RenameDirectoryPage.qml:155
 msgctxt "RenameDirectoryPage|"
@@ -7042,27 +7028,27 @@ msgstr ""
 #: src/qml/app/SettingsPage.qml:30
 msgctxt "SettingsPage|"
 msgid "Settings"
-msgstr ""
+msgstr "Configurări"
 
 #: src/qml/app/SettingsPage.qml:32 src/qml/app/SettingsPage.qml:44
 msgctxt "SettingsPage|"
 msgid "Tags"
-msgstr ""
+msgstr "Marcaje"
 
 #: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:204
 msgctxt "SettingsPage|"
 msgid "Files"
-msgstr ""
+msgstr "Fișiere"
 
 #: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:343
 msgctxt "SettingsPage|"
 msgid "Plugins"
-msgstr ""
+msgstr "Extensii"
 
 #: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:401
 msgctxt "SettingsPage|"
 msgid "Appearance"
-msgstr ""
+msgstr "Aspect"
 
 #: src/qml/app/SettingsPage.qml:48
 msgctxt "SettingsPage|"
@@ -7247,7 +7233,7 @@ msgstr ""
 #: src/qml/app/SettingsPage.qml:406
 msgctxt "SettingsPage|"
 msgid "System"
-msgstr ""
+msgstr "Sistem"
 
 #: src/qml/app/SettingsPage.qml:417
 msgctxt "SettingsPage|"
@@ -7268,7 +7254,7 @@ msgstr ""
 #, qt-format
 msgctxt "TagCollapsible|"
 msgid "Tag %1"
-msgstr ""
+msgstr "Marcaj %1"
 
 #: src/qml/app/TagCollapsible.qml:83
 msgctxt "TagCollapsible|"
