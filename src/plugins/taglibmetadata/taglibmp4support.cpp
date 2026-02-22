@@ -47,6 +47,9 @@ enum Mp4ValueType {
   MVT_Byte,
   MVT_UInt,
   MVT_LongLong
+#if TAGLIB_VERSION >= 0x020200
+  , MVT_Stem
+#endif
 };
 
 /** MP4 name, frame type and value type. */
@@ -117,6 +120,9 @@ const Mp4NameTypeValue mp4NameTypeValues[] = {
 #endif
   { "xid ", Frame::FT_Other, MVT_String },
   { "covr", Frame::FT_Picture, MVT_CoverArt },
+#if TAGLIB_VERSION >= 0x020200
+  { "stem", Frame::FT_Other, MVT_Stem },
+#endif
 #if TAGLIB_VERSION >= 0x010c00
   { "\251wrk", Frame::FT_Work, MVT_String },
   { "\251mvn", Frame::FT_Other, MVT_String },
@@ -375,6 +381,15 @@ TagLib::MP4::Item getMp4ItemForFrame(const Frame& frame, TagLib::String& name)
     coverArtList.append(coverArt);
     return coverArtList;
   }
+#if TAGLIB_VERSION >= 0x020200
+  case MVT_Stem:
+  {
+    QByteArray ba;
+    PictureFrame::getData(frame, ba);
+    TagLib::MP4::Stem stem(TagLib::ByteVector(ba.data(), ba.size()));
+    return stem;
+  }
+#endif
   case MVT_Byte:
     return {static_cast<uchar>(frame.getValue().toInt())};
   case MVT_UInt:
@@ -611,6 +626,11 @@ bool TagLibMp4Support::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame& fr
     frame.setExtendedType(Frame::ExtendedType(frame.getType(),
                                               toQString(name)));
     prefixMp4FreeFormName(name, mp4Tag);
+#if TAGLIB_VERSION >= 0x020200
+    if (frame.getInternalName() == QLatin1String("stem")) {
+      frame.fieldList() = {{Frame::ID_Data, QByteArray()}};
+    }
+#endif
 #if TAGLIB_VERSION >= 0x010b01
     mp4Tag->setItem(name, item);
     const TagLib::MP4::ItemMap& itemListMap = mp4Tag->itemMap();
@@ -764,6 +784,11 @@ bool TagLibMp4Support::getAllFrames(
       case MVT_CoverArt:
         // handled by m_extraFrames
         break;
+#if TAGLIB_VERSION >= 0x020200
+      case MVT_Stem:
+        // handled below
+        break;
+#endif
       case MVT_Byte:
         value.setNum(item.toByte());
         break;
@@ -778,6 +803,17 @@ bool TagLibMp4Support::getAllFrames(
         // binary data and album art are not handled by TagLib
         value = QLatin1String("");
       }
+#if TAGLIB_VERSION >= 0x020200
+      if (valueType == MVT_Stem) {
+        Frame stemFrame(type, value, toQString(name), i++);
+        TagLib::ByteVector bv = item.toStem().data();
+        stemFrame.fieldList() = {{
+              Frame::ID_Data,
+              QByteArray(bv.data(), static_cast<int>(bv.size()))
+        }};
+        frames.insert(stemFrame);
+      } else
+#endif
       if (type != Frame::FT_Picture) {
         frames.insert(
           Frame(type, value, toQString(name), i++));

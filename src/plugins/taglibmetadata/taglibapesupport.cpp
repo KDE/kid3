@@ -368,6 +368,11 @@ bool TagLibApeSupport::readAudioProperties(
     f.m_detailInfo.format += QLatin1Char(' ');
     f.m_detailInfo.format += QString::number(wvProperties->bitsPerSample());
     f.m_detailInfo.format += QLatin1String(" bit");
+#if TAGLIB_VERSION >= 0x020200
+    if (wvProperties->isDsd()) {
+      f.m_detailInfo.format += QLatin1String(" DSD");
+    }
+#endif
     return true;
   }
   return false;
