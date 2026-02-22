@@ -310,6 +310,7 @@
       <description>
         <p>Fixed</p>
         <p xml:lang="ar">أُصلح</p>
+        <p xml:lang="ca">Corregit</p>
         <p xml:lang="cs">Pevné</p>
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
@@ -320,6 +321,7 @@
         <ul>
           <li>KDE: Avoid excessive width of file dialog.</li>
           <li xml:lang="ar">كيدي: تجنب العرض المفرط لمربع حوار الملف.</li>
+          <li xml:lang="ca">KDE: Evita l'amplada excessiva del diàleg de fitxers.</li>
           <li xml:lang="nl">KDE: vermijd uitzonderlijke breedte van de bestandsdialoog.</li>
           <li xml:lang="pt-BR">KDE: Evita largura excessiva da caixa de diálogo de arquivos.</li>
           <li xml:lang="ru">KDE: исправлено чрезмерное увеличение ширины диалога файлов;</li>
@@ -328,6 +330,7 @@
           <li xml:lang="uk">KDE: запобігання надмірній ширині діалогового вікна вибору файлів.</li>
           <li>Make Chapters frames accessible via kid3-cli.</li>
           <li xml:lang="ar">إتاحة الوصول إلى أطر الفصول عبر kid3-cli (سطر الأوامر).</li>
+          <li xml:lang="ca">Fa accessibles els marcs dels capítols a través de kid3-cli.</li>
           <li xml:lang="nl">Maak Hoofdstuk-frames toegankelijk via kid3-cli.</li>
           <li xml:lang="pt-BR">Torna os quadros dos capítulos acessíveis através do kid3-cli.</li>
           <li xml:lang="ru">Фреймы глав доступны через kid3-cli;</li>
@@ -336,6 +339,7 @@
           <li xml:lang="uk">Відкрито доступ до кадрів глав за допомогою kid3-cli.</li>
           <li>Superfluous imported tracks can be deleted before import.</li>
           <li xml:lang="ar">إمكانية حذف المسارات المستوردة الزائدة قبل الاستيراد.</li>
+          <li xml:lang="ca">Les pistes importades supèrflues es poden suprimir abans d'importar.</li>
           <li xml:lang="nl">Overbodige geïmporteerde tracks kunnen vóór het importeren worden verwijderd.</li>
           <li xml:lang="pt-BR">Faixas importadas supérfluas podem ser excluídas antes da importação.</li>
           <li xml:lang="ru">Лишние импортированные дорожки можно удалить перед импортом;</li>
@@ -344,6 +348,7 @@
           <li xml:lang="uk">Надмірні імпортовані композиції може бути вилучено до імпортування.</li>
           <li>Fix creation of wrong editor in frame table after selection change.</li>
           <li xml:lang="ar">إصلاح إنشاء محرر خاطئ في جدول الأطر بعد تغيير الاختيار.</li>
+          <li xml:lang="ca">Corregeix la creació d'un editor incorrecte a la taula de marcs després del canvi de selecció.</li>
           <li xml:lang="nl">Corrigeer de aanmaak van een onjuiste bewerker in de frametabel na een selectiewijziging.</li>
           <li xml:lang="pt-BR">Corrigida a criação de um editor incorreto na tabela de quadros após a alteração da seleção.</li>
           <li xml:lang="ru">Исправлено создание неправильного редактора в таблице кадров после изменения выделения;</li>
@@ -352,6 +357,7 @@
           <li xml:lang="uk">Виправлено помилкове створення редактора у таблиці кадрів після зміни позначення.</li>
           <li>Completions with different values when selecting multiple files now also support genre.</li>
           <li xml:lang="ar">عمليات الإكمال بقيم مختلفة عند اختيار ملفات متعددة تدعم الآن النوع أيضًا.</li>
+          <li xml:lang="ca">Les complecions amb valors diferents en seleccionar diversos fitxers ara també admeten el gènere.</li>
           <li xml:lang="nl">Voltooiingen met verschillende waarden bij het selecteren van meerdere bestanden ondersteunen nu ook genre.</li>
           <li xml:lang="pt-BR">Agora, ao selecionar vários arquivos, as sugestões de preenchimento automático com valores diferentes também suportam o gênero.</li>
           <li xml:lang="ru">Автозавершение с различными значениями при выделении нескольких файлов теперь также поддерживает жанр;</li>
@@ -360,6 +366,7 @@
           <li xml:lang="uk">У доповненнях з різними значеннями при позначенні декількох файлів передбачено підтримку жанру.</li>
           <li>Do not leave temporary cover art files on the system.</li>
           <li xml:lang="ar">عدم ترك ملفات غلاف الألبوم المؤقتة في النظام.</li>
+          <li xml:lang="ca">No deixa fitxers temporals de caràtula al sistema.</li>
           <li xml:lang="nl">Laat geen tijdelijke albumhoesbestanden op het systeem staan.</li>
           <li xml:lang="pt-BR">Não deixar arquivos temporários de capas de álbuns no sistema.</li>
           <li xml:lang="ru">Не оставлять временные файлы обложек в системе;</li>
@@ -368,6 +375,7 @@
           <li xml:lang="uk">Усунено зберігання тимчасових файлів із зображеннями обкладинки у системі.</li>
           <li>EmbedLyrics.qml: Remove illegal characters for query parameters.</li>
           <li xml:lang="ar">EmbedLyrics.qml: إزالة المحارف غير القانونية لمعاملات الاستعلام.</li>
+          <li xml:lang="ca">EmbedLyrics.qml: elimina caràcters il·legals als paràmetres de consulta.</li>
           <li xml:lang="nl">EmbedLyrics.qml: verwijder ongeldige tekens voor zoekparameters.</li>
           <li xml:lang="pt-BR">EmbedLyrics.qml: Remover caracteres inválidos dos parâmetros de consulta.</li>
           <li xml:lang="ru">EmbedLyrics.qml: удалены недопустимые символы из параметров запроса;</li>
@@ -376,6 +384,7 @@
           <li xml:lang="uk">EmbedLyrics.qml: реалізовано вилучення некоректних символів для параметрів запиту.</li>
           <li>Scripting: Fix crash if execute @qml is used from kid3-cli, fix isStandalone() when running non-interactively with kid3-cli, add new script SelectChapterTags.qml.</li>
           <li xml:lang="ar">البرمجيات النصية: إصلاح الانهيار عند استخدام execute @qml من kid3-cli، وإصلاح isStandalone() عند التشغيل غير التفاعلي مع kid3-cli، وإضافة السكربت الجديد SelectChapterTags.qml.</li>
+          <li xml:lang="ca">Creació de scripts: corregeix una fallada si s'utilitza @qml d'execució des de kid3-cli, corregeix «isStandalone()» quan s'executa de manera no interactiva amb kid3-cli, afegeix un script nou SelectChapterTags.qml.</li>
           <li xml:lang="nl">Scripting: los de crash op die optreedt wanneer execute @qml wordt gebruikt vanuit kid3-cli, los het probleem op met isStandalone() wanneer niet-interactief met kid3-cli wordt uitgevoerd, voeg een nieuw script toe: SelectChapterTags.qml.</li>
           <li xml:lang="pt-BR">Scripting: Corrigido o erro que causava falha ao executar @qml a partir do kid3-cli, corrigido o problema isStandalone() ao executar de forma não interativa com o kid3-cli, adicionado um novo script SelectChapterTags.qml.</li>
           <li xml:lang="ru">Сценарии: исправлено аварийное завершение при использовании @qml execute из kid3-cli, исправлена работа isStandalone() при неинтерактивном запуске с kid3-cli, добавлен новый сценарий SelectChapterTags.qml;</li>
@@ -384,6 +393,7 @@
           <li xml:lang="uk">Скрипти: усунено аварійне завершення роботи, якщо execute @qml використовується з kid3-cli, виправлено isStandalone() під час неінтерактивного виконання з kid3-cli, додано новий скрипт SelectChapterTags.qml.</li>
           <li>Build system: Don't hardcode WITH_DATAROOTDIR_DEFAULT path, support CMake option BUILD_WITH_QT5 to force using Qt5, support Qt 6/KDE 6 on Debian, add various new CI/CD targets, improve Snap support.</li>
           <li xml:lang="ar">نظام البناء: عدم ترميز مسار WITH_DATAROOTDIR_DEFAULT يدويًا، ودعم خيار CMake المسمى BUILD_WITH_QT5 لفرض استخدام Qt5، ودعم Qt 6/KDE 6 على دبيان، وإضافة أهداف CI/CD جديدة متنوعة، وتحسين دعم Snap.</li>
+          <li xml:lang="ca">Sistema de construcció: no escriu al codi font el camí WITH_DATAROOTDIR_DEFAULT, permet l'opció BUILD_WITH_QT5 del CMake per a forçar l'ús de les Qt5, permet les Qt 6/KDE 6 a Debian, afegeix diversos objectius CI/CD nous, millora la implementació de Snap.</li>
           <li xml:lang="nl">Bouwsysteem: hardcodeer het WITH_DATAROOTDIR_DEFAULT-pad niet, ondersteun de CMake-optie BUILD_WITH_QT5 om het gebruik van Qt5 af te dwingen, ondersteun Qt 6/KDE 6 op Debian, voeg diverse nieuwe CI/CD-doelen toe en verbeter de Snap-ondersteuning.</li>
           <li xml:lang="pt-BR">Sistema de compilação: Não definir o caminho WITH_DATAROOTDIR_DEFAULT diretamente no código, oferecer suporte à opção CMake BUILD_WITH_QT5 para forçar o uso do Qt5, oferecer suporte ao Qt 6/KDE 6 no Debian, adicionar vários novos alvos de CI/CD e aprimorar o suporte ao Snap.</li>
           <li xml:lang="ru">Система сборки: не жёстко кодировать путь WITH_DATAROOTDIR_DEFAULT, поддержка параметра CMake BUILD_WITH_QT5 для принудительного использования Qt5, поддержка Qt 6/KDE 6 в Debian, добавлены различные новые цели CI/CD, улучшена поддержка Snap;</li>
@@ -397,6 +407,7 @@
       <description>
         <p>New</p>
         <p xml:lang="ar">جديد</p>
+        <p xml:lang="ca">Nou</p>
         <p xml:lang="cs">Nový</p>
         <p xml:lang="nl">Nieuw</p>
         <p xml:lang="pt-BR">Novo</p>
@@ -407,6 +418,7 @@
         <ul>
           <li>Show preview for multiple embedded pictures.</li>
           <li xml:lang="ar">إظهار معاينة للصور المضمنة المتعددة.</li>
+          <li xml:lang="ca">Mostra la vista prèvia de múltiples imatges incrustades.</li>
           <li xml:lang="nl">Toon een voorbeeldweergave voor meerdere ingesloten afbeeldingen.</li>
           <li xml:lang="pt-BR">Exibir pré-visualização para várias imagens embutidas.</li>
           <li xml:lang="ru">Предпросмотр для нескольких встроенных изображений;</li>
@@ -415,6 +427,7 @@
           <li xml:lang="uk">Реалізовано перегляд для декількох вбудованих зображень.</li>
           <li>Simplified editing of MP3 audiobooks in a "Chapters" frame edit dialog.</li>
           <li xml:lang="ar">تبسيط تحرير الكتب الصوتية بصيغة MP3 في مربع حوار تحرير أطر "الفصول".</li>
+          <li xml:lang="ca">Edició simplificada d'audiollibres MP3 en un diàleg d'edició de marcs «Capítols».</li>
           <li xml:lang="nl">Vereenvoudigde bewerking van MP3-audioboeken in een bewerkingsdialoog met de titel "Hoofdstukken".</li>
           <li xml:lang="pt-BR">Edição simplificada de audiolivros em MP3 em um diálogo de edição de quadro "Capítulos".</li>
           <li xml:lang="ru">Упрощённое редактирование MP3-аудиокниг в диалоге редактирования кадра «Главы»;</li>
@@ -423,6 +436,7 @@
           <li xml:lang="uk">Спрощено редагування звукових книг MP3 у вікні редагування кадрів «Глави».</li>
           <li>Arabic, Esperanto, Galician and Georgian translations.</li>
           <li xml:lang="ar">ترجمات للعربية، والإسبرانتو، والجاليكية، والجورجية.</li>
+          <li xml:lang="ca">Traduccions a l'àrab, esperanto, gallec i georgià.</li>
           <li xml:lang="nl">Arabische, Esperanto, Gallische en Georgiaanse vertalingen.</li>
           <li xml:lang="pt-BR">Traduções para árabe, esperanto, galego e georgiano.</li>
           <li xml:lang="ru">Переводы на арабский, эсперанто, галисийский и грузинский языки.</li>
@@ -432,6 +446,7 @@
         </ul>
         <p>Improved</p>
         <p xml:lang="ar">مُحسّن</p>
+        <p xml:lang="ca">Millorat</p>
         <p xml:lang="nl">Verbeterd</p>
         <p xml:lang="pt-BR">Melhorias</p>
         <p xml:lang="ru">Улучшения</p>
@@ -441,6 +456,7 @@
         <ul>
           <li>macOS: Building, signing and notarizing packages.</li>
           <li xml:lang="ar">ماك أو إس: بناء الحزم وتوقيعها وتوثيقها.</li>
+          <li xml:lang="ca">macOS: construcció, signatura i notaria de paquets.</li>
           <li xml:lang="nl">MacOS: pakketten bouwen, ondertekenen en notariëren.</li>
           <li xml:lang="pt-BR">macOS: Criação, assinatura e autenticação de pacotes.</li>
           <li xml:lang="ru">macOS: сборка, подписание и нотаризация пакетов;</li>
@@ -450,6 +466,7 @@
         </ul>
         <p>Fixed</p>
         <p xml:lang="ar">أُصلح</p>
+        <p xml:lang="ca">Corregit</p>
         <p xml:lang="cs">Pevné</p>
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
@@ -460,6 +477,7 @@
         <ul>
           <li>Embed lyrics action.</li>
           <li xml:lang="ar">إجراء تضمين كلمات الأغاني.</li>
+          <li xml:lang="ca">Incrusta l'acció de lletres.</li>
           <li xml:lang="nl">Actie voor het insluiten van songteksten.</li>
           <li xml:lang="pt-BR">Ação de letra de música embutida.</li>
           <li xml:lang="ru">Действие «Встроить текст песни»;</li>
@@ -468,6 +486,7 @@
           <li xml:lang="uk">Дія з вбудовування слів пісні.</li>
           <li>gnudb.org import, a registered e-mail address can be set in the "Token" UI control.</li>
           <li xml:lang="ar">استيراد gnudb.org، يمكن ضبط عنوان بريد إلكتروني مسجل في عنصر تحكم واجهة المستخدم "Token".</li>
+          <li xml:lang="ca">Importació de gnudb.org, es pot establir una adreça de correu electrònic registrada al control de la interfície d'usuari «Testimoni».</li>
           <li xml:lang="nl">Bij het importeren van gnudb.org kan een geregistreerd e-mailadres worden ingesteld in het "Token"-besturingselement in de gebruikersinterface.</li>
           <li xml:lang="pt-BR">Para importar o conteúdo de gnudb.org, é possível definir um endereço de e-mail cadastrado no controle "Token" da interface do usuário.</li>
           <li xml:lang="ru">Импорт из gnudb.org: зарегистрированный адрес электронной почты можно задать в элементе управления интерфейса «Токен».</li>
@@ -476,6 +495,7 @@
           <li xml:lang="uk">Імпортування з gnudb.org, зареєстровану адресу електронної пошти можна встановити у пункті «Жетон».</li>
           <li>KDE 6: Install directory for kid3ui.rc.</li>
           <li xml:lang="ar">كيدي 6: دليل التثبيت لملف kid3ui.rc.</li>
+          <li xml:lang="ca">KDE 6: directori d'instal·lació del kid3ui.rc.</li>
           <li xml:lang="nl">KDE 6: installeer map voor kid3ui.rc.</li>
           <li xml:lang="pt-BR">KDE 6: Diretório de instalação para kid3ui.rc.</li>
           <li xml:lang="ru">KDE 6: каталог установки для kid3ui.rc;</li>
@@ -484,6 +504,7 @@
           <li xml:lang="uk">KDE 6: встановлення каталогу для kid3ui.rc.</li>
           <li>Android: Building with arm64-v8a and x86_64 architectures.</li>
           <li xml:lang="ar">أندرويد: البناء مع معماريتي arm64-v8a و x86_64.</li>
+          <li xml:lang="ca">Android: construcció amb arquitectures arm64-v8a i x86_64.</li>
           <li xml:lang="nl">Android: bouwen met arm64-v8a en x86_64 architecturen.</li>
           <li xml:lang="pt-BR">Android: Compilando com arquiteturas arm64-v8a e x86_64.</li>
           <li xml:lang="ru">Android: сборка для архитектур arm64-v8a и x86_64;</li>
@@ -492,6 +513,7 @@
           <li xml:lang="uk">Android: збирання з архітектурами arm64-v8a і x86_64.</li>
           <li>Android: Use MANAGE_EXTERNAL_STORAGE permission to manage all files on a storage device.</li>
           <li xml:lang="ar">أندرويد: استخدام إذن MANAGE_EXTERNAL_STORAGE لإدارة جميع الملفات على جهاز التخزين.</li>
+          <li xml:lang="ca">Android: utilitza el permís de MANAGE_EXTERNAL_STORAGE per a gestionar tots els fitxers d'un dispositiu d'emmagatzematge.</li>
           <li xml:lang="nl">Android: gebruik MANAGE_EXTERNAL_STORAGE-rechten om alle bestanden te beheren op een opslagapparaat.</li>
           <li xml:lang="pt-BR">Android: Usar a permissão MANAGE_EXTERNAL_STORAGE para gerenciar todos os arquivos em um dispositivo de armazenamento.</li>
           <li xml:lang="ru">Android: для управления всеми файлами на устройстве хранения используется разрешение MANAGE_EXTERNAL_STORAGE;</li>
@@ -500,6 +522,7 @@
           <li xml:lang="uk">Android: реалізовано використання прав доступу MANAGE_EXTERNAL_STORAGE для керування усіма файлами на пристрої зберігання даних.</li>
           <li>Android: Saving picture tags.</li>
           <li xml:lang="ar">أندرويد: حفظ وسوم الصور.</li>
+          <li xml:lang="ca">Android: desament d'etiquetes d'imatge.</li>
           <li xml:lang="nl">Android: opslaan van afbeeldingstags.</li>
           <li xml:lang="pt-BR">Android: Salvar etiquetas de imagem.</li>
           <li xml:lang="ru">Android: сохранение меток изображений;</li>
@@ -508,6 +531,7 @@
           <li xml:lang="uk">Android: реалізовано мітки зображення.</li>
           <li>Haiku: Installation paths.</li>
           <li xml:lang="ar">هايكو: مسارات التثبيت.</li>
+          <li xml:lang="ca">Haiku: camins d'instal·lació.</li>
           <li xml:lang="nl">Haiku: installatiepaden.</li>
           <li xml:lang="pt-BR">Haiku: Caminhos de instalação.</li>
           <li xml:lang="ru">Haiku: пути установки;</li>
@@ -521,6 +545,7 @@
       <description>
         <p>New</p>
         <p xml:lang="ar">جديد</p>
+        <p xml:lang="ca">Nou</p>
         <p xml:lang="cs">Nový</p>
         <p xml:lang="nl">Nieuw</p>
         <p xml:lang="pt-BR">Novo</p>
@@ -531,6 +556,7 @@
         <ul>
           <li>Keyboard shortcuts for play toolbar.</li>
           <li xml:lang="ar">اختصارات لوحة المفاتيح لشريط أدوات التشغيل.</li>
+          <li xml:lang="ca">Dreceres de teclat per a la barra d'eines de reproducció.</li>
           <li xml:lang="nl">Sneltoetsen voor afspeelwerkbalk.</li>
           <li xml:lang="pt-BR">Atalhos de teclado para a barra de ferramentas de reprodução.</li>
           <li xml:lang="ru">Комбинации клавиш для панели воспроизведения;</li>
@@ -539,6 +565,7 @@
           <li xml:lang="uk">Клавіатурні скорочення для панелі інструментів відтворення.</li>
           <li>Option "Audio output" in "User Actions" settings tab.</li>
           <li xml:lang="ar">خيار "مخرج الصوت" في تبويب إعدادات "إجراءات المستخدم".</li>
+          <li xml:lang="ca">Opció «Sortida d'àudio» a la pestanya de configuració «Accions d'usuari».</li>
           <li xml:lang="nl">Instellingentabblad met optie "Audio-uitvoer" in "Gebruikersacties".</li>
           <li xml:lang="pt-BR">Opção "Saída de áudio" na aba de configurações "Ações do usuário".</li>
           <li xml:lang="ru">Параметр «Аудиовыход» на вкладке настроек «Действия пользователя»;</li>
@@ -547,6 +574,7 @@
           <li xml:lang="uk">Пункт «Виведення звуку» на вкладці параметрів «Дії користувача».</li>
           <li>Support WebP format for pictures.</li>
           <li xml:lang="ar">دعم تنسيق WebP للصور.</li>
+          <li xml:lang="ca">Permet el format WebP per a imatges.</li>
           <li xml:lang="nl">Ondersteun WebP-formaat voor afbeeldingen.</li>
           <li xml:lang="pt-BR">Suporte ao formato WebP para imagens.</li>
           <li xml:lang="ru">Поддержка формата WebP для изображений;</li>
@@ -556,6 +584,7 @@
         </ul>
         <p>Improved</p>
         <p xml:lang="ar">مُحسّن</p>
+        <p xml:lang="ca">Millorat</p>
         <p xml:lang="nl">Verbeterd</p>
         <p xml:lang="pt-BR">Melhorias</p>
         <p xml:lang="ru">Улучшения</p>
@@ -565,6 +594,7 @@
         <ul>
           <li>Clicking again on 1 star makes star rating disappear.</li>
           <li xml:lang="ar">النقر مرة أخرى على نجمة واحدة يؤدي لإخفاء تقييم النجوم.</li>
+          <li xml:lang="ca">En fer clic de nou a 1 estrella fa que la puntuació d'estrelles desaparegui.</li>
           <li xml:lang="nl">Opnieuw klikken op 1 ster laat sterwaardering verdwijnen.</li>
           <li xml:lang="pt-BR">Clicar novamente em 1 estrela faz com que a classificação por estrelas desapareça.</li>
           <li xml:lang="ru">Повторный щелчок по 1 звезде убирает оценку;</li>
@@ -573,6 +603,7 @@
           <li xml:lang="uk">Реалізовано вилучення оцінки у відповідь на повторне клацання на перші зірочці.</li>
           <li>Support '\|' to escape string list separators.</li>
           <li xml:lang="ar">دعم '\|' لتخطي فواصل قائمة السلاسل النصية.</li>
+          <li xml:lang="ca">Permet «\|» per a escapar els separadors d'una llista de cadenes.</li>
           <li xml:lang="nl">Ondersteun '\|' voor escape van scheidingstekens in lijst met tekenreeksen.</li>
           <li xml:lang="pt-BR">Suporte ao uso de '\|' para escapar separadores de listas de strings.</li>
           <li xml:lang="ru">Поддержка «\|» для экранирования разделителей в списках строк;</li>
@@ -582,6 +613,7 @@
         </ul>
         <p>Fixed</p>
         <p xml:lang="ar">أُصلح</p>
+        <p xml:lang="ca">Corregit</p>
         <p xml:lang="cs">Pevné</p>
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
@@ -592,6 +624,7 @@
         <ul>
           <li>Support multiple values in APE text items.</li>
           <li xml:lang="ar">دعم قيم متعددة في عناصر نص APE.</li>
+          <li xml:lang="ca">Permet valors diversos en els elements de text APE.</li>
           <li xml:lang="nl">Ondersteun meerdere waarden in APE-tekstitems.</li>
           <li xml:lang="pt-BR">Suporte a múltiplos valores em itens de texto APE.</li>
           <li xml:lang="ru">Поддержка нескольких значений в текстовых элементах APE;</li>
@@ -600,6 +633,7 @@
           <li xml:lang="uk">Реалізовано підтримку декількох значень у текстових записах APE.</li>
           <li>Building with TagLib 2.0.</li>
           <li xml:lang="ar">البناء باستخدام TagLib 2.0.</li>
+          <li xml:lang="ca">Construcció amb la TagLib 2.0.</li>
           <li xml:lang="nl">Bouwen met TagLib 2.0.</li>
           <li xml:lang="pt-BR">Compilação com TagLib 2.0.</li>
           <li xml:lang="ru">Сборка с TagLib 2.0;</li>
@@ -608,6 +642,7 @@
           <li xml:lang="uk">Реалізовано збирання з TagLib 2.0.</li>
           <li>Building from macOS with arm64.</li>
           <li xml:lang="ar">البناء من ماك أو إس بمعمارية arm64.</li>
+          <li xml:lang="ca">Construcció a partir de macOS amb arm64.</li>
           <li xml:lang="nl">Bouwen uit MacOS met arm64.</li>
           <li xml:lang="pt-BR">Compilação do macOS com arm64.</li>
           <li xml:lang="ru">Сборка в macOS на архитектуре arm64;</li>
@@ -616,6 +651,7 @@
           <li xml:lang="uk">Реалізовано збирання у macOS для arm64.</li>
           <li>Building snap packages.</li>
           <li xml:lang="ar">بناء حزم سناب (Snap).</li>
+          <li xml:lang="ca">Construcció de paquets Snap.</li>
           <li xml:lang="nl">Bouwen van snappakketten.</li>
           <li xml:lang="pt-BR">Compilação de pacotes snap.</li>
           <li xml:lang="ru">Сборка пакетов snap;</li>
@@ -629,6 +665,7 @@
       <description>
         <p>New</p>
         <p xml:lang="ar">جديد</p>
+        <p xml:lang="ca">Nou</p>
         <p xml:lang="cs">Nový</p>
         <p xml:lang="nl">Nieuw</p>
         <p xml:lang="pt-BR">Novo</p>
@@ -639,6 +676,7 @@
         <ul>
           <li>All the official binaries are built with Qt 6. For macOS, the Darwin-amd64.dmg file is now the Qt 6 version, whereas systems older than Mojave need the package Darwin-Qt5.dmg. The string replacement settings stored by Qt 6 are not compatible with Qt 5 because a different encoding is used.</li>
           <li xml:lang="ar">بُنيت جميع الملفات التنفيذية الرسمية باستخدام Qt 6. بالنسبة لماك أو إس، أصبح ملف Darwin-amd64.dmg الآن هو نسخة Qt 6، بينما تحتاج الأنظمة الأقدم من Mojave إلى حزمة Darwin-Qt5.dmg. لا تتوافق إعدادات استبدال السلاسل النصية المخزنة بواسطة Qt 6 مع Qt 5 بسبب استخدام ترميز مختلف.</li>
+          <li xml:lang="ca">Tots els binaris oficials estan construïts amb les Qt 6. Per al macOS, el fitxer Darwin-amd64.dmg és ara la versió de les Qt 6, mentre que els sistemes més antics que Mojave necessiten el paquet Darwin-Qt5.dmg. La configuració de reemplaçament de cadena emmagatzemada per les Qt 6 no és compatible amb les Qt 5 perquè s'utilitza una codificació diferent.</li>
           <li xml:lang="nl">Alle officiële binaire bestanden zijn met Qt 6 gebouwd. Voor MacOS, het bestand Darwin-amd64.dmg is nu de Qt 6 versie, terwijl systemen ouder dan Mojave het pakket Darwin-Qt5.dmg nodig hebben. De vervangingsinstellingen voor tekenreeksen opgeslagen door Qt 6 zijn niet compatibel met Qt 5 omdat een andere codering is gebruikt.</li>
           <li xml:lang="pt-BR">Todos os binários oficiais são compilados com Qt 6. Para macOS, o arquivo Darwin-amd64.dmg agora é a versão Qt 6, enquanto sistemas anteriores ao Mojave precisam do pacote Darwin-Qt5.dmg. As configurações de substituição de strings armazenadas pelo Qt 6 não são compatíveis com o Qt 5 porque uma codificação diferente é usada.</li>
           <li xml:lang="ru">Все официальные двоичные файлы собраны с использованием Qt 6. Для macOS файл Darwin-amd64.dmg теперь является версией для Qt 6, тогда как для систем старше Mojave требуется пакет Darwin-Qt5.dmg. Настройки замены строк, сохранённые Qt 6, несовместимы с Qt 5 из-за использования другой кодировки.</li>
@@ -647,6 +685,7 @@
           <li xml:lang="uk">Усі офіційні бінарні файли зібрані з використанням Qt 6. Для macOS файл Darwin-amd64.dmg тепер є версією на основі Qt 6, тоді як для систем, старіших за Mojave, потрібен пакет Darwin-Qt5.dmg. Параметри заміни рядків, що зберігаються Qt 6, несумісні з Qt 5, оскільки використовується інше кодування.</li>
           <li>Option "Select file on play" in "User Actions" settings tab.</li>
           <li xml:lang="ar">خيار "اختر الملف عند التشغيل" في تبويب إعدادات "إجراءات المستخدم".</li>
+          <li xml:lang="ca">Opció «Selecciona el fitxer en reproducció» a la pestanya de configuració «Accions d'usuari».</li>
           <li xml:lang="nl">Instellingentabblad met optie "Bestand bij spelen selecteren" in "Gebruikersacties".</li>
           <li xml:lang="pt-BR">A opção "Selecionar arquivo na reprodução" está localizada na aba de configurações "Ações do usuário".</li>
           <li xml:lang="ru">Параметр «Выделять файл при воспроизведении» на вкладке настроек «Действия пользователя»;</li>
@@ -656,6 +695,7 @@
         </ul>
         <p>Improved</p>
         <p xml:lang="ar">مُحسّن</p>
+        <p xml:lang="ca">Millorat</p>
         <p xml:lang="nl">Verbeterd</p>
         <p xml:lang="pt-BR">Melhorias</p>
         <p xml:lang="ru">Улучшения</p>
@@ -665,6 +705,7 @@
         <ul>
           <li>Click on play tool bar time toggles between elapsed and remaining time.</li>
           <li xml:lang="ar">النقر على وقت شريط أدوات التشغيل يبدل بين الوقت المنقضي والمتبقي.</li>
+          <li xml:lang="ca">Un clic a l'hora de la barra d'eines de reproducció commuta el temps transcorregut i el temps restant.</li>
           <li xml:lang="nl">Klikken op afspeelwerkbalktijd schakelt tussen verlopen en overblijvende tijd.</li>
           <li xml:lang="pt-BR">Clicar na barra de ferramentas de reprodução alterna entre o tempo decorrido e o tempo restante.</li>
           <li xml:lang="ru">Щелчок по времени на панели инструментов воспроизведения переключает между прошедшим и оставшимся временем;</li>
@@ -673,6 +714,7 @@
           <li xml:lang="uk">Реалізовано перемикання між використаним та залишковим часом клацанням на панелі інструментів відтворення.</li>
           <li>The visibility and docked area of the play tool bar are restored.</li>
           <li xml:lang="ar">استُعيدت حالة الرؤية ومنطقة الإرساء لشريط أدوات التشغيل.</li>
+          <li xml:lang="ca">Es restaura la visibilitat i l'àrea acoblada de la barra d'eines de reproducció.</li>
           <li xml:lang="nl">De zichtbaarheid en vastgezette gebied van de afspeelwerkbalk worden hersteld.</li>
           <li xml:lang="pt-BR">A visibilidade e a área de encaixe da barra de ferramentas de reprodução foram restauradas.</li>
           <li xml:lang="ru">Восстанавливается видимость и область закрепления панели воспроизведения;</li>
@@ -681,6 +723,7 @@
           <li xml:lang="uk">Відновлено видимість та швартовані області панелі інструментів відтворення.</li>
           <li>ID3v1: When setting multiple genres, use first supported element.</li>
           <li xml:lang="ar">ID3v1: عند ضبط أنواع متعددة، يُستخدم أول عنصر مدعوم.</li>
+          <li xml:lang="ca">ID3v1: en establir diversos gèneres, utilitza el primer element admès.</li>
           <li xml:lang="nl">ID3v1: bij instellen van meerdere genres, gebruik eerste ondersteunde element.</li>
           <li xml:lang="pt-BR">ID3v1: Ao definir vários gêneros, use o primeiro elemento compatível.</li>
           <li xml:lang="ru">ID3v1: при задании нескольких жанров используется первый поддерживаемый элемент;</li>
@@ -689,6 +732,7 @@
           <li xml:lang="uk">ID3v1: реалізовано використання першого підтримуваного елемента при встановленні декількох жанрів.</li>
           <li>Qt6: Use SVG icons for better performance in file list and dialog.</li>
           <li xml:lang="ar">Qt6: استخدام أيقونات SVG لأداء أفضل في قائمة الملفات ومربع الحوار.</li>
+          <li xml:lang="ca">Qt6: usa les icones SVG per a un rendiment millor a la llista de fitxers i al diàleg.</li>
           <li xml:lang="nl">Qt6: gebruik SVG-pictogrammen voor betere prestaties in bestandenlijst en dialoog.</li>
           <li xml:lang="pt-BR">Qt6: Usar ícones SVG para melhor desempenho na lista de arquivos e na caixa de diálogo.</li>
           <li xml:lang="ru">Qt6: для повышения производительности в списке файлов и диалогах используются значки в формате SVG;</li>
@@ -698,6 +742,7 @@
         </ul>
         <p>Fixed</p>
         <p xml:lang="ar">أُصلح</p>
+        <p xml:lang="ca">Corregit</p>
         <p xml:lang="cs">Pevné</p>
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
@@ -708,6 +753,7 @@
         <ul>
           <li>Do not mark all non-unified frames as modified if any non-unified frame is changed.</li>
           <li xml:lang="ar">عدم تعليم جميع الأطر غير الموحدة كمعدلة عند تغيير أي إطار غير موحد.</li>
+          <li xml:lang="ca">No marca tots els marcs no unificats com a modificats si es canvia qualsevol marc no unificat.</li>
           <li xml:lang="nl">Markeer niet alle niet-geünificeerde frames als gewijzigd als een niet-geünificeerd frame is gewijzigd.</li>
           <li xml:lang="pt-BR">Não marcar todos os quadros não unificados como modificados se algum deles for alterado.</li>
           <li xml:lang="ru">Не помечать все несвязанные фреймы как изменённые при изменении любого из них.</li>
@@ -716,6 +762,7 @@
           <li xml:lang="uk">Усунено позначення усіх неуніфікованих кадрів як змінених, якщо змінено будь-який неуніфікованих кадр.</li>
           <li>Crash in Id3libMetadata when clicking Edit on unsupported frame.</li>
           <li xml:lang="ar">انهيار في Id3libMetadata عند النقر على تحرير في إطار غير مدعوم.</li>
+          <li xml:lang="ca">Falla a Id3libMetadata en fer clic a Edita en un marc no admès.</li>
           <li xml:lang="nl">Crash in Id3libMetadata bij klikken op Bewerken op niet-ondersteund frame.</li>
           <li xml:lang="pt-BR">Falha no Id3libMetadata ao clicar em Editar em um quadro não suportado.</li>
           <li xml:lang="ru">Аварийное завершение в Id3libMetadata при щелчке по «Правка» для неподдерживаемой метки;</li>
@@ -724,6 +771,7 @@
           <li xml:lang="uk">Усунено аварійне завершення роботи у Id3libMetadata при виборі «Редагувати» на непідтримуваному кадрі.</li>
           <li>Setting text encoding on TXXX frames with TaglibMetadata.</li>
           <li xml:lang="ar">ضبط ترميز النص في أطر TXXX باستخدام TaglibMetadata.</li>
+          <li xml:lang="ca">Configuració de la codificació de text en marcs TXXX amb TaglibMetadata.</li>
           <li xml:lang="nl">Instellen van tekstcodering op TXXX-frames met TaglibMetadata.</li>
           <li xml:lang="pt-BR">Configuração da codificação de texto em quadros TXXX com TaglibMetadata.</li>
           <li xml:lang="ru">Настройка кодировки текста в кадрах TXXX с помощью TaglibMetadata;</li>
@@ -732,6 +780,7 @@
           <li xml:lang="uk">Реалізовано встановлення кодування тексту для кадрів TXXX з використанням TaglibMetadata.</li>
           <li>Skip non letter characters for first letter uppercase format.</li>
           <li xml:lang="ar">تخطي المحارف غير الحرفية عند استخدام تنسيق الحرف الأول الكبير.</li>
+          <li xml:lang="ca">Omet caràcters no lletres per al format en majúscula de primera lletra.</li>
           <li xml:lang="nl">Sla niet-letter tekens over voor formaat met eerste letter hoofdletter.</li>
           <li xml:lang="pt-BR">Ignorar caracteres que não sejam letras para formatar a primeira letra em maiúscula.</li>
           <li xml:lang="ru">Пропуск небуквенных символов для формата с заглавной первой буквой;</li>
@@ -740,6 +789,7 @@
           <li xml:lang="uk">Реалізовано пропускання нелітерних символів для формату великих перших літер.</li>
           <li>Discogs import: Fix values in Artist, Arranger and Performer frames, use "genres" if "styles" is empty, fetch correct cover art, support vinyl track numbers like A1.</li>
           <li xml:lang="ar">استيراد Discogs: إصلاح القيم في أطر الفنان، والمنسق، والمؤدي، واستخدام "genres" إذا كان حقل "styles" فارغًا، وجلب غلاف الألبوم الصحيح، ودعم أرقام مسارات الفينيل مثل A1.</li>
+          <li xml:lang="ca">Importació de Discogs: corregeix els valors en els marcs Artista, Arranjaments i Intèrpret, utilitza «gèneres» si «estils» està buit, recupera l'art correcte de caràtula, admet números de les pistes de vinil com A1.</li>
           <li xml:lang="nl">Discogs import: repareer waarden in Artiest-, Arrangeur- en Uitvoerder-frames, gebruik "genres" als "stijlen" leeg is, haal juiste hoeskunst op, ondersteun vinyl tracknummers zoals A1.</li>
           <li xml:lang="pt-BR">Importação do Discogs: Corrigir valores nos campos Artista, Arranjador e Intérprete, usar "genres" se "styles" estiver vazio, buscar a arte da capa correta, suportar números de faixa de vinil como A1.</li>
           <li xml:lang="ru">Импорт из Discogs: исправлены значения в полях «Исполнитель», «Аранжировщик» и «Исполнитель»; если «стили» пусты, используются «жанры»; загружается правильная обложка; поддерживаются номера дорожек на виниле, такие как A1;</li>
@@ -748,6 +798,7 @@
           <li xml:lang="uk">Імпорт з Discogs: виправлення значень у кадрах «Артист», «Аранжувальник» та «Виконавець», використання «жанрів», якщо «стилів» немає, отримання правильних обкладинок, підтримка номерів вінілових треків, таких як A1.</li>
           <li>Qt6: Crash when adding item to config table.</li>
           <li xml:lang="ar">Qt6: انهيار عند إضافة عنصر إلى جدول التكوين.</li>
+          <li xml:lang="ca">Qt6: falla en afegir un element a la taula de configuració.</li>
           <li xml:lang="nl">Qt6: crash bij toevoegen van item aan configuratietabel.</li>
           <li xml:lang="pt-BR">Qt6: Falha ao adicionar item à tabela de configuração.</li>
           <li xml:lang="ru">Qt6: аварийное завершение при добавлении элемента в таблицу настроек;</li>
@@ -756,6 +807,7 @@
           <li xml:lang="uk">Qt6: усунено аварійне завершення роботи при додавання запису до таблиці налаштувань.</li>
           <li>Qt6: Larger media player slider, do not repeat when last song has been played.</li>
           <li xml:lang="ar">Qt6: منزلق مشغل وسائط أكبر، وعدم التكرار عند انتهاء تشغيل الأغنية الأخيرة.</li>
+          <li xml:lang="ca">Qt6: control lliscant del reproductor multimèdia més gran, no repeteix quan s'hagi reproduït l'última cançó.</li>
           <li xml:lang="nl">Qt6: grotere mediaspelerschuifregelaar, niet afspelen herhalen wanneer laatste song is afgespeeld .</li>
           <li xml:lang="pt-BR">Qt6: Controle deslizante maior do reprodutor de mídia, não repetir quando a última música tiver sido reproduzida.</li>
           <li xml:lang="ru">Qt6: увеличенный ползунок медиаплеера; не повторять после воспроизведения последней песни.</li>
@@ -764,6 +816,7 @@
           <li xml:lang="uk">Qt6: збільшено повзунок програвача, усунено повторення після відтворення останньої композиції.</li>
           <li>Windows, TaglibMetadata: Support files larger than 2 GB.</li>
           <li xml:lang="ar">ويندوز، TaglibMetadata: دعم الملفات التي يتجاوز حجمها 2 جيجابايت.</li>
+          <li xml:lang="ca">Windows, TaglibMetadata: permet fitxers més grans de 2 GB.</li>
           <li xml:lang="nl">Windows, TaglibMetadata: ondersteun bestanden groter dan 2 GB.</li>
           <li xml:lang="pt-BR">Windows, TaglibMetadata: Suporte a arquivos maiores que 2 GB.</li>
           <li xml:lang="ru">Windows, TaglibMetadata: поддержка файлов размером более 2 ГБ;</li>
@@ -772,6 +825,7 @@
           <li xml:lang="uk">Windows, TaglibMetadata: реалізовано підтримку файлів, розмір яких перевищує 2 ГБ.</li>
           <li>Windows, OggFlacMetadata: Build without libssp-0.dll.</li>
           <li xml:lang="ar">ويندوز، OggFlacMetadata: بناء بدون libssp-0.dll.</li>
+          <li xml:lang="ca">Windows, OggFlacMetadata: construeix sense libssp-0.dll.</li>
           <li xml:lang="nl">Windows, OggFlacMetadata: bouw zonder libssp-0.dll.</li>
           <li xml:lang="pt-BR">Windows, OggFlacMetadata: Compilar sem libssp-0.dll.</li>
           <li xml:lang="ru">Windows, OggFlacMetadata: сборка без libssp-0.dll.</li>
@@ -780,6 +834,7 @@
           <li xml:lang="uk">Windows, OggFlacMetadata: реалізовано збирання без libssp-0.dll.</li>
           <li>Windows, Mp4v2Metadata: Fix saving with file names containing non ASCII characters.</li>
           <li xml:lang="ar">ويندوز، Mp4v2Metadata: إصلاح الحفظ بأسماء ملفات تحتوي محارف غير ASCII.</li>
+          <li xml:lang="ca">Windows, Mp4v2Metadata: corregeix el desament amb noms de fitxer que contenen caràcters no ASCII.</li>
           <li xml:lang="nl">Windows, Mp4v2Metadata: repareer opslaan met bestandsnamen die niet-ASCII tekens bevatten.</li>
           <li xml:lang="pt-BR">Windows, Mp4v2Metadata: Correção para salvar arquivos com nomes que contêm caracteres não ASCII.</li>
           <li xml:lang="ru">Windows, Mp4v2Metadata: исправлено сохранение файлов с именами, содержащими не-ASCII символы.</li>
