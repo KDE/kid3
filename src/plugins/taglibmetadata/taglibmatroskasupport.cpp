@@ -399,17 +399,32 @@ TagLib::Matroska::SimpleTag frameToMatroskaSimpleTag(const Frame& frame)
   const QVariant defaultLanguageVar = Frame::getField(frame, Frame::ID_Default);
   const bool defaultLanguage =
       defaultLanguageVar.isValid() ? defaultLanguageVar.toBool() : true;
-  const unsigned long long trackUid =
-    Frame::getField(frame, Frame::ID_Id).toULongLong();
+  const QString id = Frame::getField(frame, Frame::ID_Id).toString();
+  const QVariantMap idMap = fromSimpleTextOrJson(
+      Frame::getField(frame, Frame::ID_Id).toString());
+  const auto trackUid = idMap.value(QLatin1String("trackUid")).toULongLong();
+#if TAGLIB_VERSION >= 0x020201
+  const auto editionUid = idMap.value(QLatin1String("editionUid")).toULongLong();
+  const auto chapterUid = idMap.value(QLatin1String("chapterUid")).toULongLong();
+  const auto attachmentUid = idMap.value(QLatin1String("attachmentUid")).toULongLong();
+#endif
   if (name.isEmpty()) {
     name = getMatroskaName(frame, targetType);
   }
   return !isBinary
     ? TagLib::Matroska::SimpleTag(
-        toTString(name), value, targetType, language, defaultLanguage, trackUid)
+        toTString(name), value, targetType, language, defaultLanguage, trackUid
+#if TAGLIB_VERSION >= 0x020201
+        , editionUid, chapterUid, attachmentUid
+#endif
+      )
     : TagLib::Matroska::SimpleTag(
         toTString(name), TagLib::ByteVector(data.constData(), data.size()),
-        targetType, language, defaultLanguage, trackUid);
+        targetType, language, defaultLanguage, trackUid
+#if TAGLIB_VERSION >= 0x020201
+        , editionUid, chapterUid, attachmentUid
+#endif
+      );
 }
 
 bool isExtraFrame(Frame::Type type, const QString& name)
@@ -654,7 +669,7 @@ bool TagLibMatroskaSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Fram
       {Frame::ID_TargetType, static_cast<int>(targetType) / 10},
       {Frame::ID_Language, QLatin1String("en")},
       {Frame::ID_Default, true},
-      {Frame::ID_Id,  QLatin1String("0")}
+      {Frame::ID_Id,  QString()}
     });
     frame.setIndex(mkaTag->simpleTagsList().size());
     mkaTag->addSimpleTag(frameToMatroskaSimpleTag(frame));
@@ -768,11 +783,23 @@ bool TagLibMatroskaSupport::getAllFrames(
         frame.fieldList().append(
           {Frame::ID_Data, QByteArray(bv.data(), bv.size())});
       }
+#if TAGLIB_VERSION >= 0x020201
+      QString id = toSimpleTextOrJson({
+          {QLatin1String("trackUid"), simpleTag.trackUid()},
+          {QLatin1String("editionUid"), simpleTag.editionUid()},
+          {QLatin1String("chapterUid"), simpleTag.chapterUid()},
+          {QLatin1String("attachmentUid"), simpleTag.attachmentUid()}
+      });
+#else
+      QString id = toSimpleTextOrJson({
+          {QLatin1String("trackUid"), simpleTag.trackUid()},
+      });
+#endif
       frame.fieldList().append({
         {Frame::ID_TargetType, static_cast<int>(simpleTag.targetTypeValue()) / 10},
         {Frame::ID_Language, toQString(simpleTag.language())},
         {Frame::ID_Default, simpleTag.defaultLanguageFlag()},
-        {Frame::ID_Id,  QString::number(simpleTag.trackUid())}
+        {Frame::ID_Id, id}
       });
       frames.insert(frame);
     }
