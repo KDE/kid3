@@ -771,6 +771,74 @@ DiscogsImporter::HtmlImpl::~HtmlImpl()
 
 void DiscogsImporter::HtmlImpl::parseFindResults(const QByteArray& searchStr)
 {
+  if (auto jsonStart = searchStr.indexOf(R"({\"searchResults\":{)");
+      jsonStart >= 0) {
+    if (auto jsonEnd = searchStr.indexOf(R"(defaultOrderBy\"})", jsonStart);
+        jsonEnd > jsonStart) {
+      jsonEnd += 17;
+      // We have JSON data inside the HTML output, if it is usable, we do not
+      // have to parse the HTML output.
+      QByteArray jsonStr = searchStr.mid(jsonStart, jsonEnd - jsonStart)
+        .replace("\\\"", "\"")
+        .replace("\\\\", "\\");
+      QJsonParseError err;
+      if (auto doc = QJsonDocument::fromJson(jsonStr, &err);
+          !doc.isNull() && doc.isObject()) {
+        albumListModel()->clear();
+        if (const auto searchResultsValue = doc.object().value(QLatin1String("searchResults"));
+            searchResultsValue.isObject()) {
+          const auto searchResults = searchResultsValue.toObject();
+          if (const auto resultsValue = searchResults.value(QLatin1String("results"));
+              resultsValue.isArray()) {
+            const auto results = resultsValue.toArray();
+            for (const auto& resultValue : results) {
+              const auto result = resultValue.toObject().value(QLatin1String("result")).toObject();
+              if (QString title = fixUpArtist(result.value(QLatin1String("title")).toString());
+                  !title.isEmpty()) {
+                if (QString released = result.value(QLatin1String("released")).toString().trimmed();
+                    !released.isEmpty()) {
+                  title += QLatin1String(" (") + released + QLatin1Char(')');
+                }
+                if (const auto fmts = result.value(QLatin1String("formats")).toArray();
+                    !fmts.isEmpty()) {
+                  QStringList formats;
+                  for (const auto fmt : fmts) {
+                    if (const auto formatName =
+                          fmt.toObject().value(QLatin1String("name")).toString();
+                        !formatName.isEmpty()) {
+                      formats.append(formatName);
+                    }
+                  }
+                  if (!formats.isEmpty()) {
+                    title += QLatin1String(" [") +
+                        formats.join(QLatin1String(", ")) +
+                        QLatin1Char(']');
+                  }
+                }
+                if (QString siteUrl = result.value(QLatin1String("siteUrl")).toString().trimmed();
+                    !siteUrl.isEmpty()) {
+                  // siteUrl has the format "/release/9731183-Amon-Amarth-The-Avenger"
+                  if (const auto siteUrlParts = siteUrl.split(QLatin1Char('/'));
+                      siteUrlParts.size() >= 3) {
+                    albumListModel()->appendItem(
+                      title,
+                      siteUrlParts.at(1),
+                      siteUrlParts.at(2));
+                  }
+                }
+              }
+            }
+          }
+        }
+        return;
+      }
+      qDebug("Error parsing JSON: %s", qPrintable(err.errorString()));
+      qDebug("...%s***%s...",
+        jsonStr.mid(err.offset - 50, 50).constData(),
+        jsonStr.mid(err.offset, 50).constData());
+    }
+  }
+
   QString str = QString::fromUtf8(searchStr);
   QRegularExpression idTitleRe(QLatin1String(
       "<div.+?href=\"/artist/[^>]+?>([^<]+?)</a><span.+?</span>"
