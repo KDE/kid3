@@ -201,7 +201,7 @@ void matroskaPictureToFrame(
     frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), mediaType,
     PictureFrame::PT_CoverFront, description, data);
   frame.fieldList().append({Frame::ID_Filename, fileName});
-  frame.fieldList().append({Frame::ID_Id, uid});
+  frame.fieldList().append({Frame::ID_AttachmentId, uid});
 }
 
 TagLib::Matroska::AttachedFile frameToMatroskaPicture(const Frame& frame)
@@ -213,7 +213,7 @@ TagLib::Matroska::AttachedFile frameToMatroskaPicture(const Frame& frame)
   PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
                           description, data);
   const QString fileName = Frame::getField(frame, Frame::ID_Filename).toString();
-  const qulonglong uid = Frame::getField(frame, Frame::ID_Id).toULongLong();
+  const qulonglong uid = Frame::getField(frame, Frame::ID_AttachmentId).toULongLong();
   return TagLib::Matroska::AttachedFile(
     TagLib::ByteVector(data.constData(), static_cast<unsigned int>(data.size())),
     toTString(fileName), toTString(mimeType), uid, toTString(description));
@@ -239,7 +239,7 @@ void matroskaAttachedFileToFrame(
     {Frame::ID_Filename, fileName},
     {Frame::ID_Description, description},
     {Frame::ID_Data, data},
-    {Frame::ID_Id, uid}
+    {Frame::ID_AttachmentId, uid}
   };
 }
 
@@ -251,7 +251,7 @@ TagLib::Matroska::AttachedFile frameToMatroskaAttachedFile(const Frame& frame)
   PictureFrame::getMimeType(frame, mimeType);
   PictureFrame::getDescription(frame, description);
   const QString fileName = Frame::getField(frame, Frame::ID_Filename).toString();
-  const qulonglong uid = Frame::getField(frame, Frame::ID_Id).toULongLong();
+  const qulonglong uid = Frame::getField(frame, Frame::ID_AttachmentId).toULongLong();
   return TagLib::Matroska::AttachedFile(
     TagLib::ByteVector(data.constData(), static_cast<unsigned int>(data.size())),
     toTString(fileName), toTString(mimeType), uid, toTString(description));
@@ -313,7 +313,7 @@ void matroskaChapterEditionToFrame(
     {Frame::ID_TimestampFormat, 2}, // milliseconds as unit
     {Frame::ID_ContentType, 0}, // other
     {Frame::ID_Description, description},
-    {Frame::ID_Id, uid},
+    {Frame::ID_EditionId, uid},
     {Frame::ID_Data, synchedData}
   };
 }
@@ -372,7 +372,7 @@ TagLib::Matroska::ChapterEdition frameToMatroskaChapterEdition(const Frame& fram
     chapters.append(TagLib::Matroska::Chapter(
       cd.timeStart, cd.timeEnd, cd.displays, cd.uid, cd.hidden));
   }
-  const qulonglong uid = Frame::getField(frame, Frame::ID_Id).toULongLong();
+  const qulonglong uid = Frame::getField(frame, Frame::ID_EditionId).toULongLong();
   const QString description = Frame::getField(frame, Frame::ID_Description).toString();
   auto map = fromSimpleTextOrJson(description);
   return TagLib::Matroska::ChapterEdition(
@@ -399,14 +399,11 @@ TagLib::Matroska::SimpleTag frameToMatroskaSimpleTag(const Frame& frame)
   const QVariant defaultLanguageVar = Frame::getField(frame, Frame::ID_Default);
   const bool defaultLanguage =
       defaultLanguageVar.isValid() ? defaultLanguageVar.toBool() : true;
-  const QString id = Frame::getField(frame, Frame::ID_Id).toString();
-  const QVariantMap idMap = fromSimpleTextOrJson(
-      Frame::getField(frame, Frame::ID_Id).toString());
-  const auto trackUid = idMap.value(QLatin1String("trackUid")).toULongLong();
+  const auto trackUid = Frame::getField(frame, Frame::ID_TrackId).toULongLong();
 #if TAGLIB_VERSION >= 0x020201
-  const auto editionUid = idMap.value(QLatin1String("editionUid")).toULongLong();
-  const auto chapterUid = idMap.value(QLatin1String("chapterUid")).toULongLong();
-  const auto attachmentUid = idMap.value(QLatin1String("attachmentUid")).toULongLong();
+  const auto editionUid = Frame::getField(frame, Frame::ID_EditionId).toULongLong();
+  const auto chapterUid = Frame::getField(frame, Frame::ID_ChapterId).toULongLong();
+  const auto attachmentUid = Frame::getField(frame, Frame::ID_AttachmentId).toULongLong();
 #endif
   if (name.isEmpty()) {
     name = getMatroskaName(frame, targetType);
@@ -448,7 +445,7 @@ void setExtraFrameFieldsIfNeeded(Frame& frame)
       PictureFrame::setFields(frame);
       frame.fieldList().append({
         {Frame::ID_Filename, QString()},
-        {Frame::ID_Id, QString()}
+        {Frame::ID_AttachmentId, QString()}
       });
     } else if (extendedType.getType() == Frame::FT_Other &&
                extendedType.getName() == QLatin1String("General Object")) {
@@ -458,7 +455,7 @@ void setExtraFrameFieldsIfNeeded(Frame& frame)
         {Frame::ID_Filename, QString()},
         {Frame::ID_Description, QString()},
         {Frame::ID_Data, QByteArray()},
-        {Frame::ID_Id, QString()}
+        {Frame::ID_AttachmentId, QString()}
       };
     } else if (extendedType.getType() == Frame::FT_Other &&
                extendedType.getName() == QLatin1String("Chapters")) {
@@ -468,7 +465,7 @@ void setExtraFrameFieldsIfNeeded(Frame& frame)
         {Frame::ID_TimestampFormat, 2}, // milliseconds as unit
         {Frame::ID_ContentType, 0}, // other
         {Frame::ID_Description, QString()},
-        {Frame::ID_Id, QString()},
+        {Frame::ID_ChapterId, QString()},
         {Frame::ID_Data, QVariantList()}
       };
     }
@@ -669,7 +666,10 @@ bool TagLibMatroskaSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Fram
       {Frame::ID_TargetType, static_cast<int>(targetType) / 10},
       {Frame::ID_Language, QLatin1String("en")},
       {Frame::ID_Default, true},
-      {Frame::ID_Id,  QString()}
+      {Frame::ID_TrackId,  QString()},
+      {Frame::ID_EditionId,  QString()},
+      {Frame::ID_ChapterId,  QString()},
+      {Frame::ID_AttachmentId,  QString()}
     });
     frame.setIndex(mkaTag->simpleTagsList().size());
     mkaTag->addSimpleTag(frameToMatroskaSimpleTag(frame));
@@ -783,23 +783,16 @@ bool TagLibMatroskaSupport::getAllFrames(
         frame.fieldList().append(
           {Frame::ID_Data, QByteArray(bv.data(), bv.size())});
       }
-#if TAGLIB_VERSION >= 0x020201
-      QString id = toSimpleTextOrJson({
-          {QLatin1String("trackUid"), simpleTag.trackUid()},
-          {QLatin1String("editionUid"), simpleTag.editionUid()},
-          {QLatin1String("chapterUid"), simpleTag.chapterUid()},
-          {QLatin1String("attachmentUid"), simpleTag.attachmentUid()}
-      });
-#else
-      QString id = toSimpleTextOrJson({
-          {QLatin1String("trackUid"), simpleTag.trackUid()},
-      });
-#endif
       frame.fieldList().append({
         {Frame::ID_TargetType, static_cast<int>(simpleTag.targetTypeValue()) / 10},
         {Frame::ID_Language, toQString(simpleTag.language())},
         {Frame::ID_Default, simpleTag.defaultLanguageFlag()},
-        {Frame::ID_Id, id}
+        {Frame::ID_TrackId,  QString::number(simpleTag.trackUid())},
+#if TAGLIB_VERSION >= 0x020201
+        {Frame::ID_EditionId, QString::number(simpleTag.editionUid())},
+        {Frame::ID_ChapterId, QString::number(simpleTag.chapterUid())},
+        {Frame::ID_AttachmentId, QString::number(simpleTag.attachmentUid())}
+#endif
       });
       frames.insert(frame);
     }

@@ -170,6 +170,10 @@ public:
     // Additional fields for Matroska
     ID_TargetType,
     ID_Default,
+    ID_TrackId,
+    ID_EditionId,
+    ID_ChapterId,
+    ID_AttachmentId,
 
     // Additional field for METADATA_BLOCK_PICTURE
     ID_ImageProperties,

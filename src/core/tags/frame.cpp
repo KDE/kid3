@@ -73,6 +73,10 @@ const char* const fieldIdNames[] = {
 
   QT_TRANSLATE_NOOP("@default", "Target Type"),
   QT_TRANSLATE_NOOP("@default", "Default"),
+  QT_TRANSLATE_NOOP("@default", "Track ID"),
+  QT_TRANSLATE_NOOP("@default", "Edition ID"),
+  QT_TRANSLATE_NOOP("@default", "Chapter ID"),
+  QT_TRANSLATE_NOOP("@default", "Attachment ID"),
   nullptr
 };
 
@@ -1100,7 +1104,7 @@ QStringList Frame::getNamesForCustomFrames()
  */
 QString Frame::Field::getFieldIdName(FieldId type)
 {
-  Q_STATIC_ASSERT(std::size(fieldIdNames) == ID_Default + 2);
+  Q_STATIC_ASSERT(std::size(fieldIdNames) == ID_AttachmentId + 2);
   if (static_cast<int>(type) >= 0 &&
       static_cast<int>(type) < static_cast<int>(std::size(fieldIdNames) - 1)) {
     return QCoreApplication::translate("@default", fieldIdNames[type]);
