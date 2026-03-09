@@ -1738,17 +1738,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "Ad"
 
-#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:80
+#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:84
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:81
+#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:85
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:83
+#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -1795,50 +1795,50 @@ msgctxt "HttpClient|"
 msgid "Request sent..."
 msgstr "İstek gönderildi…"
 
-#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:133
-#: src/core/tags/frame.cpp:2049
+#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:137
+#: src/core/tags/frame.cpp:2053
 msgctxt "@default|"
 msgid "Title"
 msgstr "Şarkı Adı"
 
-#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:111
-#: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:2053
+#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:115
+#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2057
 msgctxt "@default|"
 msgid "Album"
 msgstr "Albüm"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
-#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:134
-#: src/core/tags/frame.cpp:2057
+#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:138
+#: src/core/tags/frame.cpp:2061
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Sanatçı"
 
-#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:136
-#: src/core/tags/frame.cpp:304 src/core/tags/frame.cpp:2061
+#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:140
+#: src/core/tags/frame.cpp:308 src/core/tags/frame.cpp:2065
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Yorum"
 
-#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:336
-#: src/core/tags/frame.cpp:2065
+#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:340
+#: src/core/tags/frame.cpp:2069
 msgctxt "@default|"
 msgid "Year"
 msgstr "Yıl"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:109
-#: src/core/tags/frame.cpp:2070
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:113
+#: src/core/tags/frame.cpp:2074
 msgctxt "@default|"
 msgid "Track"
 msgstr "Parça No"
 
-#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:139
-#: src/core/tags/frame.cpp:2083
+#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:143
+#: src/core/tags/frame.cpp:2087
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Tür"
 
-#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:246
+#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:250
 #: src/core/tags/trackdata.cpp:231
 msgctxt "@default|"
 msgid "Length"
@@ -1872,7 +1872,7 @@ msgid "Shortcut"
 msgstr "Kısayol"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:105
-#: src/core/tags/frame.cpp:293 src/core/tags/frame.cpp:294
+#: src/core/tags/frame.cpp:297 src/core/tags/frame.cpp:298
 msgctxt "@default|"
 msgid "Unknown"
 msgstr "Bilinmeyen"
@@ -2519,13 +2519,13 @@ msgctxt "@default|"
 msgid "Data"
 msgstr "Veri"
 
-#: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:165
-#: src/core/tags/frame.cpp:267 src/core/tags/frame.cpp:318
+#: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:169
+#: src/core/tags/frame.cpp:271 src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Description"
 msgstr "Açıklama"
 
-#: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:341
+#: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:345
 msgctxt "@default|"
 msgid "Owner"
 msgstr "Sahibi"
@@ -2535,12 +2535,12 @@ msgctxt "@default|"
 msgid "Email"
 msgstr "E-posta"
 
-#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:181
+#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:185
 msgctxt "@default|"
 msgid "Rating"
 msgstr "Derecelendirme"
 
-#: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:157
+#: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:161
 msgctxt "@default|"
 msgid "Language"
 msgstr "Dil"
@@ -2570,8 +2570,8 @@ msgctxt "@default|"
 msgid "Identifier"
 msgstr "Tanımlayıcı"
 
-#: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:226
-#: src/core/tags/frame.cpp:227
+#: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:230
+#: src/core/tags/frame.cpp:231
 msgctxt "@default|"
 msgid "Volume Adjustment"
 msgstr "Ses Düzeyi Ayarı"
@@ -2616,8 +2616,8 @@ msgctxt "@default|"
 msgid "Price"
 msgstr "Fiyat"
 
-#: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:137
-#: src/core/tags/frame.cpp:234
+#: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:141
+#: src/core/tags/frame.cpp:238
 msgctxt "@default|"
 msgid "Date"
 msgstr "Tarih"
@@ -2637,913 +2637,942 @@ msgctxt "@default|"
 msgid "Default"
 msgstr "Öntanımlı"
 
-#: src/core/tags/frame.cpp:82
+#: src/core/tags/frame.cpp:76
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Track"
+msgctxt "@default|"
+msgid "Track ID"
+msgstr "Parça No"
+
+#: src/core/tags/frame.cpp:77
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Edition"
+msgctxt "@default|"
+msgid "Edition ID"
+msgstr "Edisyon"
+
+#: src/core/tags/frame.cpp:78
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Chapter"
+msgctxt "@default|"
+msgid "Chapter ID"
+msgstr "Fasıl"
+
+#: src/core/tags/frame.cpp:79
+msgctxt "@default|"
+msgid "Attachment ID"
+msgstr ""
+
+#: src/core/tags/frame.cpp:86
 msgctxt "@default|"
 msgid "UTF16BE"
 msgstr "UTF16BE"
 
-#: src/core/tags/frame.cpp:88 src/core/tags/frame.cpp:95
+#: src/core/tags/frame.cpp:92 src/core/tags/frame.cpp:99
 #: src/core/tags/pictureframe.cpp:41
 msgctxt "@default|"
 msgid "Other"
 msgstr "Diğer"
 
-#: src/core/tags/frame.cpp:89
+#: src/core/tags/frame.cpp:93
 msgctxt "@default|"
 msgid "MPEG frames as unit"
 msgstr "Birim olarak MPEG çerçeveleri"
 
-#: src/core/tags/frame.cpp:90
+#: src/core/tags/frame.cpp:94
 msgctxt "@default|"
 msgid "Milliseconds as unit"
 msgstr "MBirim olarak milisaniye"
 
-#: src/core/tags/frame.cpp:96 src/core/tags/frame.cpp:159
+#: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
 #: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Şarkı Sözleri"
 
-#: src/core/tags/frame.cpp:97
+#: src/core/tags/frame.cpp:101
 msgctxt "@default|"
 msgid "Text transcription"
 msgstr "Yazı Çevrimi"
 
-#: src/core/tags/frame.cpp:98
+#: src/core/tags/frame.cpp:102
 msgctxt "@default|"
 msgid "Movement/part name"
 msgstr "Hareket/Bölüm adı"
 
-#: src/core/tags/frame.cpp:99
+#: src/core/tags/frame.cpp:103
 msgctxt "@default|"
 msgid "Events"
 msgstr "Olaylar"
 
-#: src/core/tags/frame.cpp:100
+#: src/core/tags/frame.cpp:104
 msgctxt "@default|"
 msgid "Chord"
 msgstr "Akor"
 
-#: src/core/tags/frame.cpp:101
+#: src/core/tags/frame.cpp:105
 msgctxt "@default|"
 msgid "Trivia/pop up"
 msgstr "Trivia/pop up"
 
-#: src/core/tags/frame.cpp:106
+#: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "None"
 msgstr "Yok"
 
-#: src/core/tags/frame.cpp:107
+#: src/core/tags/frame.cpp:111
 msgctxt "@default|"
 msgid "Shot"
 msgstr "Çekim"
 
-#: src/core/tags/frame.cpp:108
+#: src/core/tags/frame.cpp:112
 msgctxt "@default|"
 msgid "Subtrack"
 msgstr "Alt Parça"
 
-#: src/core/tags/frame.cpp:110
+#: src/core/tags/frame.cpp:114
 msgctxt "@default|"
 msgid "Part"
 msgstr "Kısım"
 
-#: src/core/tags/frame.cpp:112
+#: src/core/tags/frame.cpp:116
 msgctxt "@default|"
 msgid "Edition"
 msgstr "Edisyon"
 
-#: src/core/tags/frame.cpp:113
+#: src/core/tags/frame.cpp:117
 msgctxt "@default|"
 msgid "Collection"
 msgstr "Koleksiyon"
 
-#: src/core/tags/frame.cpp:138
+#: src/core/tags/frame.cpp:142
 msgctxt "@default|"
 msgid "Track Number"
 msgstr "Parça Numarası"
 
-#: src/core/tags/frame.cpp:141 src/core/tags/frame.cpp:264
+#: src/core/tags/frame.cpp:145 src/core/tags/frame.cpp:268
 msgctxt "@default|"
 msgid "Album Artist"
 msgstr "Albüm Sanatçısı"
 
-#: src/core/tags/frame.cpp:142
+#: src/core/tags/frame.cpp:146
 msgctxt "@default|"
 msgid "Arranger"
 msgstr "Düzenleyen"
 
-#: src/core/tags/frame.cpp:143
+#: src/core/tags/frame.cpp:147
 msgctxt "@default|"
 msgid "Author"
 msgstr "Yazar"
 
-#: src/core/tags/frame.cpp:144
+#: src/core/tags/frame.cpp:148
 msgctxt "@default|"
 msgid "BPM"
 msgstr "BPM"
 
-#: src/core/tags/frame.cpp:145
+#: src/core/tags/frame.cpp:149
 msgctxt "@default|"
 msgid "Catalog Number"
 msgstr "Katalog Numarası"
 
-#: src/core/tags/frame.cpp:146
+#: src/core/tags/frame.cpp:150
 msgctxt "@default|"
 msgid "Compilation"
 msgstr "Derleme"
 
-#: src/core/tags/frame.cpp:147 src/core/tags/pictureframe.cpp:52
+#: src/core/tags/frame.cpp:151 src/core/tags/pictureframe.cpp:52
 msgctxt "@default|"
 msgid "Composer"
 msgstr "Besteci"
 
-#: src/core/tags/frame.cpp:148 src/core/tags/frame.cpp:317
+#: src/core/tags/frame.cpp:152 src/core/tags/frame.cpp:321
 #: src/core/tags/pictureframe.cpp:50
 msgctxt "@default|"
 msgid "Conductor"
 msgstr "Orkestra Şefi"
 
-#: src/core/tags/frame.cpp:149
+#: src/core/tags/frame.cpp:153
 msgctxt "@default|"
 msgid "Copyright"
 msgstr "Telif"
 
-#: src/core/tags/frame.cpp:150
+#: src/core/tags/frame.cpp:154
 msgctxt "@default|"
 msgid "Disc Number"
 msgstr "Disk Numarası"
 
-#: src/core/tags/frame.cpp:151 src/core/tags/frame.cpp:271
+#: src/core/tags/frame.cpp:155 src/core/tags/frame.cpp:275
 msgctxt "@default|"
 msgid "Encoded-by"
 msgstr "Kodlayan"
 
-#: src/core/tags/frame.cpp:152 src/core/tags/frame.cpp:270
+#: src/core/tags/frame.cpp:156 src/core/tags/frame.cpp:274
 msgctxt "@default|"
 msgid "Encoder Settings"
 msgstr "Kodlayıcı Ayarları"
 
-#: src/core/tags/frame.cpp:153 src/core/tags/frame.cpp:235
+#: src/core/tags/frame.cpp:157 src/core/tags/frame.cpp:239
 msgctxt "@default|"
 msgid "Encoding Time"
 msgstr "Kodlama Zamanı"
 
-#: src/core/tags/frame.cpp:154 src/core/tags/frame.cpp:213
-#: src/core/tags/frame.cpp:266
+#: src/core/tags/frame.cpp:158 src/core/tags/frame.cpp:217
+#: src/core/tags/frame.cpp:270
 msgctxt "@default|"
 msgid "Grouping"
 msgstr "Gruplama"
 
-#: src/core/tags/frame.cpp:155
+#: src/core/tags/frame.cpp:159
 msgctxt "@default|"
 msgid "Initial Key"
 msgstr "İlk Anahtar"
 
-#: src/core/tags/frame.cpp:156
+#: src/core/tags/frame.cpp:160
 msgctxt "@default|"
 msgid "ISRC"
 msgstr "ISRC"
 
-#: src/core/tags/frame.cpp:158
+#: src/core/tags/frame.cpp:162
 msgctxt "@default|"
 msgid "Lyricist"
 msgstr "Söz Yazarı"
 
-#: src/core/tags/frame.cpp:160 src/core/tags/pictureframe.cpp:47
+#: src/core/tags/frame.cpp:164 src/core/tags/pictureframe.cpp:47
 msgctxt "@default|"
 msgid "Media"
 msgstr "Ortam"
 
-#: src/core/tags/frame.cpp:161 src/core/tags/frame.cpp:306
+#: src/core/tags/frame.cpp:165 src/core/tags/frame.cpp:310
 msgctxt "@default|"
 msgid "Mood"
 msgstr "Ruh Hali"
 
-#: src/core/tags/frame.cpp:162
+#: src/core/tags/frame.cpp:166
 msgctxt "@default|"
 msgid "Original Album"
 msgstr "Özgün Albüm"
 
-#: src/core/tags/frame.cpp:163 src/core/tags/frame.cpp:283
+#: src/core/tags/frame.cpp:167 src/core/tags/frame.cpp:287
 msgctxt "@default|"
 msgid "Original Artist"
 msgstr "Özgün Sanatçı"
 
-#: src/core/tags/frame.cpp:164
+#: src/core/tags/frame.cpp:168
 msgctxt "@default|"
 msgid "Original Date"
 msgstr "Özgün Tarih"
 
-#: src/core/tags/frame.cpp:166
+#: src/core/tags/frame.cpp:170
 msgctxt "@default|"
 msgid "Performer"
 msgstr "Sanatçı"
 
-#: src/core/tags/frame.cpp:167
+#: src/core/tags/frame.cpp:171
 msgctxt "@default|"
 msgid "Picture"
 msgstr "Resim"
 
-#: src/core/tags/frame.cpp:168
+#: src/core/tags/frame.cpp:172
 msgctxt "@default|"
 msgid "Publisher"
 msgstr "Yayıncı"
 
-#: src/core/tags/frame.cpp:169
+#: src/core/tags/frame.cpp:173
 msgctxt "@default|"
 msgid "Release Country"
 msgstr "Yayımlanan Ülke"
 
-#: src/core/tags/frame.cpp:170 src/core/tags/frame.cpp:289
+#: src/core/tags/frame.cpp:174 src/core/tags/frame.cpp:293
 msgctxt "@default|"
 msgid "Remixer"
 msgstr "Remiksleyen"
 
-#: src/core/tags/frame.cpp:171
+#: src/core/tags/frame.cpp:175
 msgctxt "@default|"
 msgid "Sort Album"
 msgstr "Albüme Göre Sırala"
 
-#: src/core/tags/frame.cpp:172 src/core/tags/frame.cpp:303
+#: src/core/tags/frame.cpp:176 src/core/tags/frame.cpp:307
 msgctxt "@default|"
 msgid "Sort Album Artist"
 msgstr "Albüm Sanatçısına Göre Sırala"
 
-#: src/core/tags/frame.cpp:173
+#: src/core/tags/frame.cpp:177
 msgctxt "@default|"
 msgid "Sort Artist"
 msgstr "Sanatçıya Göre Sırala"
 
-#: src/core/tags/frame.cpp:174
+#: src/core/tags/frame.cpp:178
 msgctxt "@default|"
 msgid "Sort Composer"
 msgstr "Besteciye Göre Sırala"
 
-#: src/core/tags/frame.cpp:175
+#: src/core/tags/frame.cpp:179
 msgctxt "@default|"
 msgid "Sort Name"
 msgstr "Ada Göre Sırala"
 
-#: src/core/tags/frame.cpp:176
+#: src/core/tags/frame.cpp:180
 msgctxt "@default|"
 msgid "Subtitle"
 msgstr "Altyazı"
 
-#: src/core/tags/frame.cpp:177
+#: src/core/tags/frame.cpp:181
 msgctxt "@default|"
 msgid "Website"
 msgstr "Web Sitesi"
 
-#: src/core/tags/frame.cpp:178
+#: src/core/tags/frame.cpp:182
 msgctxt "@default|"
 msgid "WWW Audio File"
 msgstr "WWW Ses Dosyası"
 
-#: src/core/tags/frame.cpp:179
+#: src/core/tags/frame.cpp:183
 msgctxt "@default|"
 msgid "WWW Audio Source"
 msgstr "WWW Ses Kaynağı"
 
-#: src/core/tags/frame.cpp:180
+#: src/core/tags/frame.cpp:184
 msgctxt "@default|"
 msgid "Release Date"
 msgstr "Yayım Tarihi"
 
-#: src/core/tags/frame.cpp:182
+#: src/core/tags/frame.cpp:186
 msgctxt "@default|"
 msgid "Work"
 msgstr "Çalışma"
 
-#: src/core/tags/frame.cpp:202
+#: src/core/tags/frame.cpp:206
 msgctxt "@default|"
 msgid "Audio Encryption"
 msgstr "Ses Şifrelemesi"
 
-#: src/core/tags/frame.cpp:203
+#: src/core/tags/frame.cpp:207
 msgctxt "@default|"
 msgid "Audio Seek Point"
 msgstr "Ses Tarama Noktası"
 
-#: src/core/tags/frame.cpp:204
+#: src/core/tags/frame.cpp:208
 msgctxt "@default|"
 msgid "Chapter"
 msgstr "Fasıl"
 
-#: src/core/tags/frame.cpp:205
+#: src/core/tags/frame.cpp:209
 msgctxt "@default|"
 msgid "Commercial"
 msgstr "Ticari"
 
-#: src/core/tags/frame.cpp:206
+#: src/core/tags/frame.cpp:210
 msgctxt "@default|"
 msgid "Table of Contents"
 msgstr "İçindekiler"
 
-#: src/core/tags/frame.cpp:207
+#: src/core/tags/frame.cpp:211
 msgctxt "@default|"
 msgid "Encryption Method"
 msgstr "Şifreleme Yöntemi"
 
-#: src/core/tags/frame.cpp:208 src/core/tags/frame.cpp:209
+#: src/core/tags/frame.cpp:212 src/core/tags/frame.cpp:213
 msgctxt "@default|"
 msgid "Equalization"
 msgstr "Ekolayzır"
 
-#: src/core/tags/frame.cpp:210
+#: src/core/tags/frame.cpp:214
 msgctxt "@default|"
 msgid "Event Timing Codes"
 msgstr "Olay Zamanlama Kodları"
 
-#: src/core/tags/frame.cpp:211
+#: src/core/tags/frame.cpp:215
 msgctxt "@default|"
 msgid "General Object"
 msgstr "Genel Nesne"
 
-#: src/core/tags/frame.cpp:212
+#: src/core/tags/frame.cpp:216
 msgctxt "@default|"
 msgid "Group Identification"
 msgstr "Grup Tanımlaması"
 
-#: src/core/tags/frame.cpp:214
+#: src/core/tags/frame.cpp:218
 msgctxt "@default|"
 msgid "Linked Information"
 msgstr "Bağlantılı Bilgi"
 
-#: src/core/tags/frame.cpp:215
+#: src/core/tags/frame.cpp:219
 msgctxt "@default|"
 msgid "Music CD Identifier"
 msgstr "Ses CD’si Tanımlayıcısı"
 
-#: src/core/tags/frame.cpp:216
+#: src/core/tags/frame.cpp:220
 msgctxt "@default|"
 msgid "MPEG Lookup Table"
 msgstr "MPEG Tarama Tablosu"
 
-#: src/core/tags/frame.cpp:217 src/core/tags/frame.cpp:338
+#: src/core/tags/frame.cpp:221 src/core/tags/frame.cpp:342
 msgctxt "@default|"
 msgid "Movement Number"
 msgstr "Hareket Numarası"
 
-#: src/core/tags/frame.cpp:218 src/core/tags/frame.cpp:337
+#: src/core/tags/frame.cpp:222 src/core/tags/frame.cpp:341
 msgctxt "@default|"
 msgid "Movement Name"
 msgstr "Hareket Adı"
 
-#: src/core/tags/frame.cpp:219
+#: src/core/tags/frame.cpp:223
 msgctxt "@default|"
 msgid "Ownership"
 msgstr "Sahiplik"
 
-#: src/core/tags/frame.cpp:220
+#: src/core/tags/frame.cpp:224
 msgctxt "@default|"
 msgid "Play Counter"
 msgstr "Çalma Sayacı"
 
-#: src/core/tags/frame.cpp:221 src/core/tags/frame.cpp:323
+#: src/core/tags/frame.cpp:225 src/core/tags/frame.cpp:327
 msgctxt "@default|"
 msgid "Podcast"
 msgstr "Pod Yayını"
 
-#: src/core/tags/frame.cpp:222
+#: src/core/tags/frame.cpp:226
 msgctxt "@default|"
 msgid "Popularimeter"
 msgstr "Popülerlikölçer"
 
-#: src/core/tags/frame.cpp:223
+#: src/core/tags/frame.cpp:227
 msgctxt "@default|"
 msgid "Position Synchronisation"
 msgstr "Konum Eşzamanlaması"
 
-#: src/core/tags/frame.cpp:224
+#: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Private"
 msgstr "Özel"
 
-#: src/core/tags/frame.cpp:225
+#: src/core/tags/frame.cpp:229
 msgctxt "@default|"
 msgid "Recommended Buffer Size"
 msgstr "Önerilen Arabellek Boyutu"
 
-#: src/core/tags/frame.cpp:228
+#: src/core/tags/frame.cpp:232
 msgctxt "@default|"
 msgid "Reverb"
 msgstr "Yankı"
 
-#: src/core/tags/frame.cpp:229
+#: src/core/tags/frame.cpp:233
 msgctxt "@default|"
 msgid "Seek"
 msgstr "Tarama"
 
-#: src/core/tags/frame.cpp:230
+#: src/core/tags/frame.cpp:234
 msgctxt "@default|"
 msgid "Signature"
 msgstr "İmza"
 
-#: src/core/tags/frame.cpp:231
+#: src/core/tags/frame.cpp:235
 msgctxt "@default|"
 msgid "Synchronized Lyrics"
 msgstr "Eşzamanlı Şarkı Sözleri"
 
-#: src/core/tags/frame.cpp:232
+#: src/core/tags/frame.cpp:236
 msgctxt "@default|"
 msgid "Synchronized Tempo Codes"
 msgstr "Eşzamanlı Tempo Kodları"
 
-#: src/core/tags/frame.cpp:233
+#: src/core/tags/frame.cpp:237
 msgctxt "@default|"
 msgid "Podcast Category"
 msgstr "Pod Yayını Kategorisi"
 
-#: src/core/tags/frame.cpp:236
+#: src/core/tags/frame.cpp:240
 msgctxt "@default|"
 msgid "Podcast Description"
 msgstr "Pod Yayını Açıklaması"
 
-#: src/core/tags/frame.cpp:237
+#: src/core/tags/frame.cpp:241
 msgctxt "@default|"
 msgid "Playlist Delay"
 msgstr "Çalma Listesi Gecikmesi"
 
-#: src/core/tags/frame.cpp:238
+#: src/core/tags/frame.cpp:242
 msgctxt "@default|"
 msgid "Original Release Time"
 msgstr "Özgün Yayım Zamanı"
 
-#: src/core/tags/frame.cpp:239
+#: src/core/tags/frame.cpp:243
 msgctxt "@default|"
 msgid "Recording Time"
 msgstr "Kayıt Süresi"
 
-#: src/core/tags/frame.cpp:240
+#: src/core/tags/frame.cpp:244
 msgctxt "@default|"
 msgid "Release Time"
 msgstr "Yayım Zamanı"
 
-#: src/core/tags/frame.cpp:241
+#: src/core/tags/frame.cpp:245
 msgctxt "@default|"
 msgid "Tagging Time"
 msgstr "Künyeleme Zamanı"
 
-#: src/core/tags/frame.cpp:242
+#: src/core/tags/frame.cpp:246
 msgctxt "@default|"
 msgid "File Type"
 msgstr "Dosya Türü"
 
-#: src/core/tags/frame.cpp:243
+#: src/core/tags/frame.cpp:247
 msgctxt "@default|"
 msgid "Podcast Identifier"
 msgstr "Pod Yayını Tanımlayıcısı"
 
-#: src/core/tags/frame.cpp:244
+#: src/core/tags/frame.cpp:248
 msgctxt "@default|"
 msgid "Time"
 msgstr "Zaman"
 
-#: src/core/tags/frame.cpp:245
+#: src/core/tags/frame.cpp:249
 msgctxt "@default|"
 msgid "Podcast Keywords"
 msgstr "Pod Yayını Anahtar Sözcükleri"
 
-#: src/core/tags/frame.cpp:247 src/core/tags/frame.cpp:307
+#: src/core/tags/frame.cpp:251 src/core/tags/frame.cpp:311
 msgctxt "@default|"
 msgid "Original Filename"
 msgstr "Özgün Dosya Adı"
 
-#: src/core/tags/frame.cpp:248
+#: src/core/tags/frame.cpp:252
 msgctxt "@default|"
 msgid "File Owner"
 msgstr "Dosyanın Sahibi"
 
-#: src/core/tags/frame.cpp:249
+#: src/core/tags/frame.cpp:253
 msgctxt "@default|"
 msgid "Produced Notice"
 msgstr "Üretilen Uyarı"
 
-#: src/core/tags/frame.cpp:250 src/core/tags/frame.cpp:288
+#: src/core/tags/frame.cpp:254 src/core/tags/frame.cpp:292
 msgctxt "@default|"
 msgid "Recording Date"
 msgstr "Kayıt Tarihi"
 
-#: src/core/tags/frame.cpp:251
+#: src/core/tags/frame.cpp:255
 msgctxt "@default|"
 msgid "Radio Station Name"
 msgstr "Radyo İstasyonu Adı"
 
-#: src/core/tags/frame.cpp:252
+#: src/core/tags/frame.cpp:256
 msgctxt "@default|"
 msgid "Radio Station Owner"
 msgstr "Radyo İstasyonu Sahibi"
 
-#: src/core/tags/frame.cpp:253
+#: src/core/tags/frame.cpp:257
 msgctxt "@default|"
 msgid "Size"
 msgstr "Boyut"
 
-#: src/core/tags/frame.cpp:254
+#: src/core/tags/frame.cpp:258
 msgctxt "@default|"
 msgid "User-defined Text"
 msgstr "Kullanıcı Tanımlı Metin"
 
-#: src/core/tags/frame.cpp:255
+#: src/core/tags/frame.cpp:259
 msgctxt "@default|"
 msgid "Unique File Identifier"
 msgstr "Benzersiz Dosya Tanımlayıcısı"
 
-#: src/core/tags/frame.cpp:256
+#: src/core/tags/frame.cpp:260
 msgctxt "@default|"
 msgid "Terms of Use"
 msgstr "Kullanım Şartları"
 
-#: src/core/tags/frame.cpp:257 src/core/tags/frame.cpp:309
+#: src/core/tags/frame.cpp:261 src/core/tags/frame.cpp:313
 msgctxt "@default|"
 msgid "Commercial URL"
 msgstr "Ticari URL"
 
-#: src/core/tags/frame.cpp:258
+#: src/core/tags/frame.cpp:262
 msgctxt "@default|"
 msgid "Copyright URL"
 msgstr "Telif URL’si"
 
-#: src/core/tags/frame.cpp:259
+#: src/core/tags/frame.cpp:263
 msgctxt "@default|"
 msgid "Podcast Feed"
 msgstr "Pod Yayını Beslemesi"
 
-#: src/core/tags/frame.cpp:260
+#: src/core/tags/frame.cpp:264
 msgctxt "@default|"
 msgid "Official Radio Station"
 msgstr "Resmi Radyo İstasyonu"
 
-#: src/core/tags/frame.cpp:261
+#: src/core/tags/frame.cpp:265
 msgctxt "@default|"
 msgid "Payment"
 msgstr "Ödeme"
 
-#: src/core/tags/frame.cpp:262
+#: src/core/tags/frame.cpp:266
 msgctxt "@default|"
 msgid "Official Publisher"
 msgstr "Resmi Yayımcı"
 
-#: src/core/tags/frame.cpp:263 src/core/tags/frame.cpp:297
-#: src/core/tags/frame.cpp:311
+#: src/core/tags/frame.cpp:267 src/core/tags/frame.cpp:301
+#: src/core/tags/frame.cpp:315
 msgctxt "@default|"
 msgid "User-defined URL"
 msgstr "Kullanıcı Tanımlı URL"
 
-#: src/core/tags/frame.cpp:265
+#: src/core/tags/frame.cpp:269
 msgctxt "@default|"
 msgid "Contact"
 msgstr "Kişi"
 
-#: src/core/tags/frame.cpp:268 src/core/tags/frame.cpp:290
+#: src/core/tags/frame.cpp:272 src/core/tags/frame.cpp:294
 msgctxt "@default|"
 msgid "Total Discs"
 msgstr "Toplam Disk"
 
-#: src/core/tags/frame.cpp:269
+#: src/core/tags/frame.cpp:273
 msgctxt "@default|"
 msgid "Encoder"
 msgstr "Kodlayıcı"
 
-#: src/core/tags/frame.cpp:272
+#: src/core/tags/frame.cpp:276
 msgctxt "@default|"
 msgid "Encoding"
 msgstr "Kodlama"
 
-#: src/core/tags/frame.cpp:273
+#: src/core/tags/frame.cpp:277
 msgctxt "@default|"
 msgid "Engineer"
 msgstr "Mühendis"
 
-#: src/core/tags/frame.cpp:274
+#: src/core/tags/frame.cpp:278
 msgctxt "@default|"
 msgid "Ensemble"
 msgstr "Ansamble"
 
-#: src/core/tags/frame.cpp:275
+#: src/core/tags/frame.cpp:279
 msgctxt "@default|"
 msgid "Guest Artist"
 msgstr "Konuk Sanatçı"
 
-#: src/core/tags/frame.cpp:276 src/core/tags/trackdata.cpp:264
+#: src/core/tags/frame.cpp:280 src/core/tags/trackdata.cpp:264
 msgctxt "@default|"
 msgid "VBR"
 msgstr "VBR"
 
-#: src/core/tags/frame.cpp:277 src/core/tags/frame.cpp:324
+#: src/core/tags/frame.cpp:281 src/core/tags/frame.cpp:328
 msgctxt "@default|"
 msgid "Gapless Playback"
 msgstr "Aralıksız Çalma"
 
-#: src/core/tags/frame.cpp:278
+#: src/core/tags/frame.cpp:282
 msgctxt "@default|"
 msgid "Label"
 msgstr "Etiket"
 
-#: src/core/tags/frame.cpp:279
+#: src/core/tags/frame.cpp:283
 msgctxt "@default|"
 msgid "Label Number"
 msgstr "Etiket Numarası"
 
-#: src/core/tags/frame.cpp:280
+#: src/core/tags/frame.cpp:284
 msgctxt "@default|"
 msgid "License"
 msgstr "Lisans"
 
-#: src/core/tags/frame.cpp:281
+#: src/core/tags/frame.cpp:285
 msgctxt "@default|"
 msgid "Location"
 msgstr "Konum"
 
-#: src/core/tags/frame.cpp:282
+#: src/core/tags/frame.cpp:286
 msgctxt "@default|"
 msgid "Opus"
 msgstr "Yapıt"
 
-#: src/core/tags/frame.cpp:284
+#: src/core/tags/frame.cpp:288
 msgctxt "@default|"
 msgid "Organization"
 msgstr "Kurum"
 
-#: src/core/tags/frame.cpp:285
+#: src/core/tags/frame.cpp:289
 msgctxt "@default|"
 msgid "Part Number"
 msgstr "Kısım Numarası"
 
-#: src/core/tags/frame.cpp:286
+#: src/core/tags/frame.cpp:290
 msgctxt "@default|"
 msgid "Producer"
 msgstr "Yapımcı"
 
-#: src/core/tags/frame.cpp:287
+#: src/core/tags/frame.cpp:291
 msgctxt "@default|"
 msgid "Product Number"
 msgstr "Ürün Numarası"
 
-#: src/core/tags/frame.cpp:291 src/core/tags/frame.cpp:292
+#: src/core/tags/frame.cpp:295 src/core/tags/frame.cpp:296
 msgctxt "@default|"
 msgid "Total Tracks"
 msgstr "Toplam Parça Sayısı"
 
-#: src/core/tags/frame.cpp:295
+#: src/core/tags/frame.cpp:299
 msgctxt "@default|"
 msgid "Version"
 msgstr "Sürüm"
 
-#: src/core/tags/frame.cpp:296
+#: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Volume"
 msgstr "Ses Düzeyi"
 
-#: src/core/tags/frame.cpp:298
+#: src/core/tags/frame.cpp:302
 msgctxt "@default|"
 msgid "Director"
 msgstr "Yönetmen"
 
-#: src/core/tags/frame.cpp:299
+#: src/core/tags/frame.cpp:303
 msgctxt "@default|"
 msgid "Duration"
 msgstr "Süre"
 
-#: src/core/tags/frame.cpp:300
+#: src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Summary"
 msgstr "Özet"
 
-#: src/core/tags/frame.cpp:301
+#: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Synopsis"
 msgstr "Senaryo Özeti"
 
-#: src/core/tags/frame.cpp:302
+#: src/core/tags/frame.cpp:306
 msgctxt "@default|"
 msgid "Total Parts"
 msgstr "Toplam Kısımlar"
 
-#: src/core/tags/frame.cpp:305
+#: src/core/tags/frame.cpp:309
 msgctxt "@default|"
 msgid "MCDI"
 msgstr "MCDI"
 
-#: src/core/tags/frame.cpp:308
+#: src/core/tags/frame.cpp:312
 msgctxt "@default|"
 msgid "Original Lyricist"
 msgstr "Özgün Söz Yazarı"
 
-#: src/core/tags/frame.cpp:310
+#: src/core/tags/frame.cpp:314
 msgctxt "@default|"
 msgid "User Rating"
 msgstr "Derecelendirme"
 
-#: src/core/tags/frame.cpp:312
+#: src/core/tags/frame.cpp:316
 msgctxt "@default|"
 msgid "Account Type"
 msgstr "Hesap Türü"
 
-#: src/core/tags/frame.cpp:313
+#: src/core/tags/frame.cpp:317
 msgctxt "@default|"
 msgid "Purchase Account"
 msgstr "Satın Alım Hesabı"
 
-#: src/core/tags/frame.cpp:314
+#: src/core/tags/frame.cpp:318
 msgctxt "@default|"
 msgid "Artist ID"
 msgstr "Sanatçı Kimliği"
 
-#: src/core/tags/frame.cpp:315
+#: src/core/tags/frame.cpp:319
 msgctxt "@default|"
 msgid "Category"
 msgstr "Kategori"
 
-#: src/core/tags/frame.cpp:316
+#: src/core/tags/frame.cpp:320
 msgctxt "@default|"
 msgid "Catalog ID"
 msgstr "Katalog Kimliği"
 
-#: src/core/tags/frame.cpp:319
+#: src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Genre ID"
 msgstr "Tür Kimliği"
 
-#: src/core/tags/frame.cpp:320
+#: src/core/tags/frame.cpp:324
 msgctxt "@default|"
 msgid "HD Video"
 msgstr "YB Video"
 
-#: src/core/tags/frame.cpp:321
+#: src/core/tags/frame.cpp:325
 msgctxt "@default|"
 msgid "Keyword"
 msgstr "Anahtar Sözcük"
 
-#: src/core/tags/frame.cpp:322
+#: src/core/tags/frame.cpp:326
 msgctxt "@default|"
 msgid "Long Description"
 msgstr "Uzun Açıklama"
 
-#: src/core/tags/frame.cpp:325
+#: src/core/tags/frame.cpp:329
 msgctxt "@default|"
 msgid "Album ID"
 msgstr "Albüm Kimliği"
 
-#: src/core/tags/frame.cpp:326
+#: src/core/tags/frame.cpp:330
 msgctxt "@default|"
 msgid "Purchase Date"
 msgstr "Satın Alım Tarihi"
 
-#: src/core/tags/frame.cpp:327
+#: src/core/tags/frame.cpp:331
 msgctxt "@default|"
 msgid "Rating/Advisory"
 msgstr "Derecelendirme/Öneri"
 
-#: src/core/tags/frame.cpp:328
+#: src/core/tags/frame.cpp:332
 msgctxt "@default|"
 msgid "Country Code"
 msgstr "Ülke Kodu"
 
-#: src/core/tags/frame.cpp:329
+#: src/core/tags/frame.cpp:333
 msgctxt "@default|"
 msgid "Sort Show"
 msgstr "Programı Sırala"
 
-#: src/core/tags/frame.cpp:330
+#: src/core/tags/frame.cpp:334
 msgctxt "@default|"
 msgid "Media Type"
 msgstr "Ortam Türü"
 
-#: src/core/tags/frame.cpp:331
+#: src/core/tags/frame.cpp:335
 msgctxt "@default|"
 msgid "TV Episode"
 msgstr "Dizi Bölümü"
 
-#: src/core/tags/frame.cpp:332
+#: src/core/tags/frame.cpp:336
 msgctxt "@default|"
 msgid "TV Episode Number"
 msgstr "Dizi Bölümü Numarası"
 
-#: src/core/tags/frame.cpp:333
+#: src/core/tags/frame.cpp:337
 msgctxt "@default|"
 msgid "TV Network Name"
 msgstr "TV Kanalı Adı"
 
-#: src/core/tags/frame.cpp:334
+#: src/core/tags/frame.cpp:338
 msgctxt "@default|"
 msgid "TV Show Name"
 msgstr "TV Programı Adı"
 
-#: src/core/tags/frame.cpp:335
+#: src/core/tags/frame.cpp:339
 msgctxt "@default|"
 msgid "TV Season"
 msgstr "Sezon"
 
-#: src/core/tags/frame.cpp:339
+#: src/core/tags/frame.cpp:343
 msgctxt "@default|"
 msgid "Movement Count"
 msgstr "Hareket Sayısı"
 
-#: src/core/tags/frame.cpp:340
+#: src/core/tags/frame.cpp:344
 msgctxt "@default|"
 msgid "Show Work & Movement"
 msgstr "Çalışmayı ve Hareketi Göster"
 
-#: src/core/tags/frame.cpp:342
+#: src/core/tags/frame.cpp:346
 msgctxt "@default|"
 msgid "Podcast URL"
 msgstr "Pod Yayını URL’si"
 
-#: src/core/tags/frame.cpp:343
+#: src/core/tags/frame.cpp:347
 msgctxt "@default|"
 msgid "Podcast GUID"
 msgstr "Pod Yayını GUID’si"
 
-#: src/core/tags/frame.cpp:344
+#: src/core/tags/frame.cpp:348
 msgctxt "@default|"
 msgid "Composer ID"
 msgstr "Besteci Kimliği"
 
-#: src/core/tags/frame.cpp:345
+#: src/core/tags/frame.cpp:349
 msgctxt "@default|"
 msgid "XID"
 msgstr "XID"
 
-#: src/core/tags/frame.cpp:346
+#: src/core/tags/frame.cpp:350
 msgctxt "@default|"
 msgid "Chapters"
 msgstr "Fasıllar"
 
-#: src/core/tags/frame.cpp:347
+#: src/core/tags/frame.cpp:351
 msgctxt "@default|"
 msgid "Archival Location"
 msgstr "Arşiv Konumu"
 
-#: src/core/tags/frame.cpp:348
+#: src/core/tags/frame.cpp:352
 msgctxt "@default|"
 msgid "Commissioned"
 msgstr "Yayında"
 
-#: src/core/tags/frame.cpp:349
+#: src/core/tags/frame.cpp:353
 msgctxt "@default|"
 msgid "Cropped"
 msgstr "Kırpılmış"
 
-#: src/core/tags/frame.cpp:350
+#: src/core/tags/frame.cpp:354
 msgctxt "@default|"
 msgid "Dimensions"
 msgstr "Boyutlar"
 
-#: src/core/tags/frame.cpp:351
+#: src/core/tags/frame.cpp:355
 msgctxt "@default|"
 msgid "Dots Per Inch"
 msgstr "Inç Başına Nokta"
 
-#: src/core/tags/frame.cpp:352
+#: src/core/tags/frame.cpp:356
 msgctxt "@default|"
 msgid "Keywords"
 msgstr "Anahtar Sözcükler"
 
-#: src/core/tags/frame.cpp:353
+#: src/core/tags/frame.cpp:357
 msgctxt "@default|"
 msgid "Lightness"
 msgstr "Aydınlık"
 
-#: src/core/tags/frame.cpp:354
+#: src/core/tags/frame.cpp:358
 msgctxt "@default|"
 msgid "Number of Colors"
 msgstr "Renk Sayısı"
 
-#: src/core/tags/frame.cpp:355
+#: src/core/tags/frame.cpp:359
 msgctxt "@default|"
 msgid "Subject"
 msgstr "Konu"
 
-#: src/core/tags/frame.cpp:356
+#: src/core/tags/frame.cpp:360
 msgctxt "@default|"
 msgid "Sharpness"
 msgstr "Keskinlik"
 
-#: src/core/tags/frame.cpp:357
+#: src/core/tags/frame.cpp:361
 msgctxt "@default|"
 msgid "Source Form"
 msgstr "Kaynak Biçimi"
 
-#: src/core/tags/frame.cpp:1270
+#: src/core/tags/frame.cpp:1274
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "Tag %1"
 
-#: src/core/tags/frame.cpp:1275
+#: src/core/tags/frame.cpp:1279
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "Künye 1 ve Künye 2"
 
-#: src/core/tags/frame.cpp:1279
+#: src/core/tags/frame.cpp:1283
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "Tüm Künyeler"
 
-#: src/core/tags/frame.cpp:2088
+#: src/core/tags/frame.cpp:2092
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "Boş değilse k1’i öne, k2’yi arkaya ekle"

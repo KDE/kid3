@@ -1730,17 +1730,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "الاسم"
 
-#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:80
+#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:84
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr " آيزو-8859-1"
 
-#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:81
+#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:85
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:83
+#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF-8"
@@ -1787,50 +1787,50 @@ msgctxt "HttpClient|"
 msgid "Request sent..."
 msgstr "أرسل الطلب…"
 
-#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:133
-#: src/core/tags/frame.cpp:2049
+#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:137
+#: src/core/tags/frame.cpp:2053
 msgctxt "@default|"
 msgid "Title"
 msgstr "العنوان"
 
-#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:111
-#: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:2053
+#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:115
+#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2057
 msgctxt "@default|"
 msgid "Album"
 msgstr "الألبوم"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
-#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:134
-#: src/core/tags/frame.cpp:2057
+#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:138
+#: src/core/tags/frame.cpp:2061
 msgctxt "@default|"
 msgid "Artist"
 msgstr "الفنّان"
 
-#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:136
-#: src/core/tags/frame.cpp:304 src/core/tags/frame.cpp:2061
+#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:140
+#: src/core/tags/frame.cpp:308 src/core/tags/frame.cpp:2065
 msgctxt "@default|"
 msgid "Comment"
 msgstr "تعليق"
 
-#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:336
-#: src/core/tags/frame.cpp:2065
+#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:340
+#: src/core/tags/frame.cpp:2069
 msgctxt "@default|"
 msgid "Year"
 msgstr "السنة"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:109
-#: src/core/tags/frame.cpp:2070
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:113
+#: src/core/tags/frame.cpp:2074
 msgctxt "@default|"
 msgid "Track"
 msgstr "المقطوعة"
 
-#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:139
-#: src/core/tags/frame.cpp:2083
+#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:143
+#: src/core/tags/frame.cpp:2087
 msgctxt "@default|"
 msgid "Genre"
 msgstr "النوع"
 
-#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:246
+#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:250
 #: src/core/tags/trackdata.cpp:231
 msgctxt "@default|"
 msgid "Length"
@@ -1864,7 +1864,7 @@ msgid "Shortcut"
 msgstr "الاختصار"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:105
-#: src/core/tags/frame.cpp:293 src/core/tags/frame.cpp:294
+#: src/core/tags/frame.cpp:297 src/core/tags/frame.cpp:298
 msgctxt "@default|"
 msgid "Unknown"
 msgstr "مجهول"
@@ -2511,13 +2511,13 @@ msgctxt "@default|"
 msgid "Data"
 msgstr "البيانات"
 
-#: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:165
-#: src/core/tags/frame.cpp:267 src/core/tags/frame.cpp:318
+#: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:169
+#: src/core/tags/frame.cpp:271 src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Description"
 msgstr "الوصف"
 
-#: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:341
+#: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:345
 msgctxt "@default|"
 msgid "Owner"
 msgstr "المالك"
@@ -2527,12 +2527,12 @@ msgctxt "@default|"
 msgid "Email"
 msgstr "البريد الإلكترونيّ"
 
-#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:181
+#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:185
 msgctxt "@default|"
 msgid "Rating"
 msgstr "التّقييم"
 
-#: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:157
+#: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:161
 msgctxt "@default|"
 msgid "Language"
 msgstr "اللغة"
@@ -2562,8 +2562,8 @@ msgctxt "@default|"
 msgid "Identifier"
 msgstr "المعرف"
 
-#: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:226
-#: src/core/tags/frame.cpp:227
+#: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:230
+#: src/core/tags/frame.cpp:231
 msgctxt "@default|"
 msgid "Volume Adjustment"
 msgstr "ضبط الصوت"
@@ -2608,8 +2608,8 @@ msgctxt "@default|"
 msgid "Price"
 msgstr "السعر"
 
-#: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:137
-#: src/core/tags/frame.cpp:234
+#: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:141
+#: src/core/tags/frame.cpp:238
 msgctxt "@default|"
 msgid "Date"
 msgstr "التاريخ"
@@ -2629,913 +2629,942 @@ msgctxt "@default|"
 msgid "Default"
 msgstr "المبدئيّ"
 
-#: src/core/tags/frame.cpp:82
+#: src/core/tags/frame.cpp:76
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Track"
+msgctxt "@default|"
+msgid "Track ID"
+msgstr "المقطوعة"
+
+#: src/core/tags/frame.cpp:77
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Edition"
+msgctxt "@default|"
+msgid "Edition ID"
+msgstr "الإصدارة"
+
+#: src/core/tags/frame.cpp:78
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Chapter"
+msgctxt "@default|"
+msgid "Chapter ID"
+msgstr "الفصل"
+
+#: src/core/tags/frame.cpp:79
+msgctxt "@default|"
+msgid "Attachment ID"
+msgstr ""
+
+#: src/core/tags/frame.cpp:86
 msgctxt "@default|"
 msgid "UTF16BE"
 msgstr "UTF16BE"
 
-#: src/core/tags/frame.cpp:88 src/core/tags/frame.cpp:95
+#: src/core/tags/frame.cpp:92 src/core/tags/frame.cpp:99
 #: src/core/tags/pictureframe.cpp:41
 msgctxt "@default|"
 msgid "Other"
 msgstr "أخرى"
 
-#: src/core/tags/frame.cpp:89
+#: src/core/tags/frame.cpp:93
 msgctxt "@default|"
 msgid "MPEG frames as unit"
 msgstr "استخدم إطارات MPEG كوحدة"
 
-#: src/core/tags/frame.cpp:90
+#: src/core/tags/frame.cpp:94
 msgctxt "@default|"
 msgid "Milliseconds as unit"
 msgstr "استخدم المللي ثانية كوحدة"
 
-#: src/core/tags/frame.cpp:96 src/core/tags/frame.cpp:159
+#: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
 #: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "الكلمات"
 
-#: src/core/tags/frame.cpp:97
+#: src/core/tags/frame.cpp:101
 msgctxt "@default|"
 msgid "Text transcription"
 msgstr "نسخ النص"
 
-#: src/core/tags/frame.cpp:98
+#: src/core/tags/frame.cpp:102
 msgctxt "@default|"
 msgid "Movement/part name"
 msgstr "اسم الحركة/الجزء"
 
-#: src/core/tags/frame.cpp:99
+#: src/core/tags/frame.cpp:103
 msgctxt "@default|"
 msgid "Events"
 msgstr "الأحداث"
 
-#: src/core/tags/frame.cpp:100
+#: src/core/tags/frame.cpp:104
 msgctxt "@default|"
 msgid "Chord"
 msgstr "الوتر الدائرة"
 
-#: src/core/tags/frame.cpp:101
+#: src/core/tags/frame.cpp:105
 msgctxt "@default|"
 msgid "Trivia/pop up"
 msgstr "معلومات سريعة/منبثقة"
 
-#: src/core/tags/frame.cpp:106
+#: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "None"
 msgstr "لا شيء"
 
-#: src/core/tags/frame.cpp:107
+#: src/core/tags/frame.cpp:111
 msgctxt "@default|"
 msgid "Shot"
 msgstr "اللقطة"
 
-#: src/core/tags/frame.cpp:108
+#: src/core/tags/frame.cpp:112
 msgctxt "@default|"
 msgid "Subtrack"
 msgstr "مسار فرعي"
 
-#: src/core/tags/frame.cpp:110
+#: src/core/tags/frame.cpp:114
 msgctxt "@default|"
 msgid "Part"
 msgstr "الجزء"
 
-#: src/core/tags/frame.cpp:112
+#: src/core/tags/frame.cpp:116
 msgctxt "@default|"
 msgid "Edition"
 msgstr "الإصدارة"
 
-#: src/core/tags/frame.cpp:113
+#: src/core/tags/frame.cpp:117
 msgctxt "@default|"
 msgid "Collection"
 msgstr "التّجميعة"
 
-#: src/core/tags/frame.cpp:138
+#: src/core/tags/frame.cpp:142
 msgctxt "@default|"
 msgid "Track Number"
 msgstr "رقم المقطوعة"
 
-#: src/core/tags/frame.cpp:141 src/core/tags/frame.cpp:264
+#: src/core/tags/frame.cpp:145 src/core/tags/frame.cpp:268
 msgctxt "@default|"
 msgid "Album Artist"
 msgstr "فنّان الألبوم"
 
-#: src/core/tags/frame.cpp:142
+#: src/core/tags/frame.cpp:146
 msgctxt "@default|"
 msgid "Arranger"
 msgstr "المنظّم"
 
-#: src/core/tags/frame.cpp:143
+#: src/core/tags/frame.cpp:147
 msgctxt "@default|"
 msgid "Author"
 msgstr "المؤلف"
 
-#: src/core/tags/frame.cpp:144
+#: src/core/tags/frame.cpp:148
 msgctxt "@default|"
 msgid "BPM"
 msgstr "النبض"
 
-#: src/core/tags/frame.cpp:145
+#: src/core/tags/frame.cpp:149
 msgctxt "@default|"
 msgid "Catalog Number"
 msgstr "رقم الدليل"
 
-#: src/core/tags/frame.cpp:146
+#: src/core/tags/frame.cpp:150
 msgctxt "@default|"
 msgid "Compilation"
 msgstr "التجميع"
 
-#: src/core/tags/frame.cpp:147 src/core/tags/pictureframe.cpp:52
+#: src/core/tags/frame.cpp:151 src/core/tags/pictureframe.cpp:52
 msgctxt "@default|"
 msgid "Composer"
 msgstr "الملحّن"
 
-#: src/core/tags/frame.cpp:148 src/core/tags/frame.cpp:317
+#: src/core/tags/frame.cpp:152 src/core/tags/frame.cpp:321
 #: src/core/tags/pictureframe.cpp:50
 msgctxt "@default|"
 msgid "Conductor"
 msgstr "قائد الفرقة"
 
-#: src/core/tags/frame.cpp:149
+#: src/core/tags/frame.cpp:153
 msgctxt "@default|"
 msgid "Copyright"
 msgstr "حقوق النسخ"
 
-#: src/core/tags/frame.cpp:150
+#: src/core/tags/frame.cpp:154
 msgctxt "@default|"
 msgid "Disc Number"
 msgstr "رقم القرص"
 
-#: src/core/tags/frame.cpp:151 src/core/tags/frame.cpp:271
+#: src/core/tags/frame.cpp:155 src/core/tags/frame.cpp:275
 msgctxt "@default|"
 msgid "Encoded-by"
 msgstr "مرمزة بواسطة"
 
-#: src/core/tags/frame.cpp:152 src/core/tags/frame.cpp:270
+#: src/core/tags/frame.cpp:156 src/core/tags/frame.cpp:274
 msgctxt "@default|"
 msgid "Encoder Settings"
 msgstr "إعدادات المرمز"
 
-#: src/core/tags/frame.cpp:153 src/core/tags/frame.cpp:235
+#: src/core/tags/frame.cpp:157 src/core/tags/frame.cpp:239
 msgctxt "@default|"
 msgid "Encoding Time"
 msgstr "وقت الترميز"
 
-#: src/core/tags/frame.cpp:154 src/core/tags/frame.cpp:213
-#: src/core/tags/frame.cpp:266
+#: src/core/tags/frame.cpp:158 src/core/tags/frame.cpp:217
+#: src/core/tags/frame.cpp:270
 msgctxt "@default|"
 msgid "Grouping"
 msgstr "التجميع"
 
-#: src/core/tags/frame.cpp:155
+#: src/core/tags/frame.cpp:159
 msgctxt "@default|"
 msgid "Initial Key"
 msgstr "المفتاح الأولي"
 
-#: src/core/tags/frame.cpp:156
+#: src/core/tags/frame.cpp:160
 msgctxt "@default|"
 msgid "ISRC"
 msgstr "ISRC"
 
-#: src/core/tags/frame.cpp:158
+#: src/core/tags/frame.cpp:162
 msgctxt "@default|"
 msgid "Lyricist"
 msgstr "كاتب الكلمات"
 
-#: src/core/tags/frame.cpp:160 src/core/tags/pictureframe.cpp:47
+#: src/core/tags/frame.cpp:164 src/core/tags/pictureframe.cpp:47
 msgctxt "@default|"
 msgid "Media"
 msgstr "وسائط"
 
-#: src/core/tags/frame.cpp:161 src/core/tags/frame.cpp:306
+#: src/core/tags/frame.cpp:165 src/core/tags/frame.cpp:310
 msgctxt "@default|"
 msgid "Mood"
 msgstr "المزاج"
 
-#: src/core/tags/frame.cpp:162
+#: src/core/tags/frame.cpp:166
 msgctxt "@default|"
 msgid "Original Album"
 msgstr "الألبوم الأصليّ"
 
-#: src/core/tags/frame.cpp:163 src/core/tags/frame.cpp:283
+#: src/core/tags/frame.cpp:167 src/core/tags/frame.cpp:287
 msgctxt "@default|"
 msgid "Original Artist"
 msgstr "الفنان الأصلي"
 
-#: src/core/tags/frame.cpp:164
+#: src/core/tags/frame.cpp:168
 msgctxt "@default|"
 msgid "Original Date"
 msgstr "التاريخ الأصلي"
 
-#: src/core/tags/frame.cpp:166
+#: src/core/tags/frame.cpp:170
 msgctxt "@default|"
 msgid "Performer"
 msgstr "المؤدّي"
 
-#: src/core/tags/frame.cpp:167
+#: src/core/tags/frame.cpp:171
 msgctxt "@default|"
 msgid "Picture"
 msgstr "الصورة"
 
-#: src/core/tags/frame.cpp:168
+#: src/core/tags/frame.cpp:172
 msgctxt "@default|"
 msgid "Publisher"
 msgstr "الناشر"
 
-#: src/core/tags/frame.cpp:169
+#: src/core/tags/frame.cpp:173
 msgctxt "@default|"
 msgid "Release Country"
 msgstr "دولة الإصدار"
 
-#: src/core/tags/frame.cpp:170 src/core/tags/frame.cpp:289
+#: src/core/tags/frame.cpp:174 src/core/tags/frame.cpp:293
 msgctxt "@default|"
 msgid "Remixer"
 msgstr "المُعِد"
 
-#: src/core/tags/frame.cpp:171
+#: src/core/tags/frame.cpp:175
 msgctxt "@default|"
 msgid "Sort Album"
 msgstr "فرز الألبوم"
 
-#: src/core/tags/frame.cpp:172 src/core/tags/frame.cpp:303
+#: src/core/tags/frame.cpp:176 src/core/tags/frame.cpp:307
 msgctxt "@default|"
 msgid "Sort Album Artist"
 msgstr "فرز فنان الألبوم"
 
-#: src/core/tags/frame.cpp:173
+#: src/core/tags/frame.cpp:177
 msgctxt "@default|"
 msgid "Sort Artist"
 msgstr "فرز الفنان"
 
-#: src/core/tags/frame.cpp:174
+#: src/core/tags/frame.cpp:178
 msgctxt "@default|"
 msgid "Sort Composer"
 msgstr "فرز الملحن"
 
-#: src/core/tags/frame.cpp:175
+#: src/core/tags/frame.cpp:179
 msgctxt "@default|"
 msgid "Sort Name"
 msgstr "فرز الاسم"
 
-#: src/core/tags/frame.cpp:176
+#: src/core/tags/frame.cpp:180
 msgctxt "@default|"
 msgid "Subtitle"
 msgstr "الترجمة"
 
-#: src/core/tags/frame.cpp:177
+#: src/core/tags/frame.cpp:181
 msgctxt "@default|"
 msgid "Website"
 msgstr "موقع الوبّ"
 
-#: src/core/tags/frame.cpp:178
+#: src/core/tags/frame.cpp:182
 msgctxt "@default|"
 msgid "WWW Audio File"
 msgstr "ملف صوتي على الويب"
 
-#: src/core/tags/frame.cpp:179
+#: src/core/tags/frame.cpp:183
 msgctxt "@default|"
 msgid "WWW Audio Source"
 msgstr "مصدر صوتي على الويب"
 
-#: src/core/tags/frame.cpp:180
+#: src/core/tags/frame.cpp:184
 msgctxt "@default|"
 msgid "Release Date"
 msgstr "تاريخ الإصدار"
 
-#: src/core/tags/frame.cpp:182
+#: src/core/tags/frame.cpp:186
 msgctxt "@default|"
 msgid "Work"
 msgstr "العمل"
 
-#: src/core/tags/frame.cpp:202
+#: src/core/tags/frame.cpp:206
 msgctxt "@default|"
 msgid "Audio Encryption"
 msgstr "تعمية الصوت"
 
-#: src/core/tags/frame.cpp:203
+#: src/core/tags/frame.cpp:207
 msgctxt "@default|"
 msgid "Audio Seek Point"
 msgstr "نقطة البحث الصوتي"
 
-#: src/core/tags/frame.cpp:204
+#: src/core/tags/frame.cpp:208
 msgctxt "@default|"
 msgid "Chapter"
 msgstr "الفصل"
 
-#: src/core/tags/frame.cpp:205
+#: src/core/tags/frame.cpp:209
 msgctxt "@default|"
 msgid "Commercial"
 msgstr "إعلاني"
 
-#: src/core/tags/frame.cpp:206
+#: src/core/tags/frame.cpp:210
 msgctxt "@default|"
 msgid "Table of Contents"
 msgstr "جدول المحتويات"
 
-#: src/core/tags/frame.cpp:207
+#: src/core/tags/frame.cpp:211
 msgctxt "@default|"
 msgid "Encryption Method"
 msgstr "طريقة التعمية"
 
-#: src/core/tags/frame.cpp:208 src/core/tags/frame.cpp:209
+#: src/core/tags/frame.cpp:212 src/core/tags/frame.cpp:213
 msgctxt "@default|"
 msgid "Equalization"
 msgstr "تسوية"
 
-#: src/core/tags/frame.cpp:210
+#: src/core/tags/frame.cpp:214
 msgctxt "@default|"
 msgid "Event Timing Codes"
 msgstr "رموز توقيت الأحداث"
 
-#: src/core/tags/frame.cpp:211
+#: src/core/tags/frame.cpp:215
 msgctxt "@default|"
 msgid "General Object"
 msgstr "كائن عام"
 
-#: src/core/tags/frame.cpp:212
+#: src/core/tags/frame.cpp:216
 msgctxt "@default|"
 msgid "Group Identification"
 msgstr "تعريف المجموعة"
 
-#: src/core/tags/frame.cpp:214
+#: src/core/tags/frame.cpp:218
 msgctxt "@default|"
 msgid "Linked Information"
 msgstr "معلومات مرتبطة"
 
-#: src/core/tags/frame.cpp:215
+#: src/core/tags/frame.cpp:219
 msgctxt "@default|"
 msgid "Music CD Identifier"
 msgstr "معرف قرص الموسيقى"
 
-#: src/core/tags/frame.cpp:216
+#: src/core/tags/frame.cpp:220
 msgctxt "@default|"
 msgid "MPEG Lookup Table"
 msgstr "جدول بحث MPEG"
 
-#: src/core/tags/frame.cpp:217 src/core/tags/frame.cpp:338
+#: src/core/tags/frame.cpp:221 src/core/tags/frame.cpp:342
 msgctxt "@default|"
 msgid "Movement Number"
 msgstr "رقم الحركة"
 
-#: src/core/tags/frame.cpp:218 src/core/tags/frame.cpp:337
+#: src/core/tags/frame.cpp:222 src/core/tags/frame.cpp:341
 msgctxt "@default|"
 msgid "Movement Name"
 msgstr "اسم الحركة"
 
-#: src/core/tags/frame.cpp:219
+#: src/core/tags/frame.cpp:223
 msgctxt "@default|"
 msgid "Ownership"
 msgstr "الملكيّة"
 
-#: src/core/tags/frame.cpp:220
+#: src/core/tags/frame.cpp:224
 msgctxt "@default|"
 msgid "Play Counter"
 msgstr "عداد التشغيل"
 
-#: src/core/tags/frame.cpp:221 src/core/tags/frame.cpp:323
+#: src/core/tags/frame.cpp:225 src/core/tags/frame.cpp:327
 msgctxt "@default|"
 msgid "Podcast"
 msgstr "النشرة"
 
-#: src/core/tags/frame.cpp:222
+#: src/core/tags/frame.cpp:226
 msgctxt "@default|"
 msgid "Popularimeter"
 msgstr "مقياس الشعبية"
 
-#: src/core/tags/frame.cpp:223
+#: src/core/tags/frame.cpp:227
 msgctxt "@default|"
 msgid "Position Synchronisation"
 msgstr "مزامنة الموضع"
 
-#: src/core/tags/frame.cpp:224
+#: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Private"
 msgstr "خاص"
 
-#: src/core/tags/frame.cpp:225
+#: src/core/tags/frame.cpp:229
 msgctxt "@default|"
 msgid "Recommended Buffer Size"
 msgstr "حجم المخزن المؤقت الموصى به"
 
-#: src/core/tags/frame.cpp:228
+#: src/core/tags/frame.cpp:232
 msgctxt "@default|"
 msgid "Reverb"
 msgstr "تردد"
 
-#: src/core/tags/frame.cpp:229
+#: src/core/tags/frame.cpp:233
 msgctxt "@default|"
 msgid "Seek"
 msgstr "القصد"
 
-#: src/core/tags/frame.cpp:230
+#: src/core/tags/frame.cpp:234
 msgctxt "@default|"
 msgid "Signature"
 msgstr "التّوقيع"
 
-#: src/core/tags/frame.cpp:231
+#: src/core/tags/frame.cpp:235
 msgctxt "@default|"
 msgid "Synchronized Lyrics"
 msgstr "كلمات متزامنة"
 
-#: src/core/tags/frame.cpp:232
+#: src/core/tags/frame.cpp:236
 msgctxt "@default|"
 msgid "Synchronized Tempo Codes"
 msgstr "رموز الإيقاع المتزامنة"
 
-#: src/core/tags/frame.cpp:233
+#: src/core/tags/frame.cpp:237
 msgctxt "@default|"
 msgid "Podcast Category"
 msgstr "فئة البودكاست"
 
-#: src/core/tags/frame.cpp:236
+#: src/core/tags/frame.cpp:240
 msgctxt "@default|"
 msgid "Podcast Description"
 msgstr "وصف البودكاست"
 
-#: src/core/tags/frame.cpp:237
+#: src/core/tags/frame.cpp:241
 msgctxt "@default|"
 msgid "Playlist Delay"
 msgstr "تأخير قائمة التشغيل"
 
-#: src/core/tags/frame.cpp:238
+#: src/core/tags/frame.cpp:242
 msgctxt "@default|"
 msgid "Original Release Time"
 msgstr "وقت الإصدار الأصلي"
 
-#: src/core/tags/frame.cpp:239
+#: src/core/tags/frame.cpp:243
 msgctxt "@default|"
 msgid "Recording Time"
 msgstr "وقت التسجيل"
 
-#: src/core/tags/frame.cpp:240
+#: src/core/tags/frame.cpp:244
 msgctxt "@default|"
 msgid "Release Time"
 msgstr "وقت الإطلاق"
 
-#: src/core/tags/frame.cpp:241
+#: src/core/tags/frame.cpp:245
 msgctxt "@default|"
 msgid "Tagging Time"
 msgstr "وقت وضع العلامات"
 
-#: src/core/tags/frame.cpp:242
+#: src/core/tags/frame.cpp:246
 msgctxt "@default|"
 msgid "File Type"
 msgstr "نوع الملف"
 
-#: src/core/tags/frame.cpp:243
+#: src/core/tags/frame.cpp:247
 msgctxt "@default|"
 msgid "Podcast Identifier"
 msgstr "معرف البودكast"
 
-#: src/core/tags/frame.cpp:244
+#: src/core/tags/frame.cpp:248
 msgctxt "@default|"
 msgid "Time"
 msgstr "الوقت"
 
-#: src/core/tags/frame.cpp:245
+#: src/core/tags/frame.cpp:249
 msgctxt "@default|"
 msgid "Podcast Keywords"
 msgstr "كلمات مفتاحية للبودكاست"
 
-#: src/core/tags/frame.cpp:247 src/core/tags/frame.cpp:307
+#: src/core/tags/frame.cpp:251 src/core/tags/frame.cpp:311
 msgctxt "@default|"
 msgid "Original Filename"
 msgstr "اسم الملف الأصلي"
 
-#: src/core/tags/frame.cpp:248
+#: src/core/tags/frame.cpp:252
 msgctxt "@default|"
 msgid "File Owner"
 msgstr "مالك الملف"
 
-#: src/core/tags/frame.cpp:249
+#: src/core/tags/frame.cpp:253
 msgctxt "@default|"
 msgid "Produced Notice"
 msgstr "إشعار الإنتاج"
 
-#: src/core/tags/frame.cpp:250 src/core/tags/frame.cpp:288
+#: src/core/tags/frame.cpp:254 src/core/tags/frame.cpp:292
 msgctxt "@default|"
 msgid "Recording Date"
 msgstr "تاريخ التسجيل"
 
-#: src/core/tags/frame.cpp:251
+#: src/core/tags/frame.cpp:255
 msgctxt "@default|"
 msgid "Radio Station Name"
 msgstr "اسم المحطة الإذاعية"
 
-#: src/core/tags/frame.cpp:252
+#: src/core/tags/frame.cpp:256
 msgctxt "@default|"
 msgid "Radio Station Owner"
 msgstr "مالك المحطة الإذاعية"
 
-#: src/core/tags/frame.cpp:253
+#: src/core/tags/frame.cpp:257
 msgctxt "@default|"
 msgid "Size"
 msgstr "الحجم"
 
-#: src/core/tags/frame.cpp:254
+#: src/core/tags/frame.cpp:258
 msgctxt "@default|"
 msgid "User-defined Text"
 msgstr "نص مُعرَّف من قبل المستخدم"
 
-#: src/core/tags/frame.cpp:255
+#: src/core/tags/frame.cpp:259
 msgctxt "@default|"
 msgid "Unique File Identifier"
 msgstr "معرف الملف الفريد"
 
-#: src/core/tags/frame.cpp:256
+#: src/core/tags/frame.cpp:260
 msgctxt "@default|"
 msgid "Terms of Use"
 msgstr "شروط الاستخدام"
 
-#: src/core/tags/frame.cpp:257 src/core/tags/frame.cpp:309
+#: src/core/tags/frame.cpp:261 src/core/tags/frame.cpp:313
 msgctxt "@default|"
 msgid "Commercial URL"
 msgstr "رابط تجاري"
 
-#: src/core/tags/frame.cpp:258
+#: src/core/tags/frame.cpp:262
 msgctxt "@default|"
 msgid "Copyright URL"
 msgstr "رابط حقوق النشر"
 
-#: src/core/tags/frame.cpp:259
+#: src/core/tags/frame.cpp:263
 msgctxt "@default|"
 msgid "Podcast Feed"
 msgstr "تغذية البودكاست"
 
-#: src/core/tags/frame.cpp:260
+#: src/core/tags/frame.cpp:264
 msgctxt "@default|"
 msgid "Official Radio Station"
 msgstr "محطة إذاعية رسمية"
 
-#: src/core/tags/frame.cpp:261
+#: src/core/tags/frame.cpp:265
 msgctxt "@default|"
 msgid "Payment"
 msgstr "الدفعة"
 
-#: src/core/tags/frame.cpp:262
+#: src/core/tags/frame.cpp:266
 msgctxt "@default|"
 msgid "Official Publisher"
 msgstr "ناشر رسمي"
 
-#: src/core/tags/frame.cpp:263 src/core/tags/frame.cpp:297
-#: src/core/tags/frame.cpp:311
+#: src/core/tags/frame.cpp:267 src/core/tags/frame.cpp:301
+#: src/core/tags/frame.cpp:315
 msgctxt "@default|"
 msgid "User-defined URL"
 msgstr "رابط مُعرَّف من قبل المستخدم"
 
-#: src/core/tags/frame.cpp:265
+#: src/core/tags/frame.cpp:269
 msgctxt "@default|"
 msgid "Contact"
 msgstr "المتراسل"
 
-#: src/core/tags/frame.cpp:268 src/core/tags/frame.cpp:290
+#: src/core/tags/frame.cpp:272 src/core/tags/frame.cpp:294
 msgctxt "@default|"
 msgid "Total Discs"
 msgstr "إجمالي الأقراص"
 
-#: src/core/tags/frame.cpp:269
+#: src/core/tags/frame.cpp:273
 msgctxt "@default|"
 msgid "Encoder"
 msgstr "المشفر"
 
-#: src/core/tags/frame.cpp:272
+#: src/core/tags/frame.cpp:276
 msgctxt "@default|"
 msgid "Encoding"
 msgstr "التّرميز"
 
-#: src/core/tags/frame.cpp:273
+#: src/core/tags/frame.cpp:277
 msgctxt "@default|"
 msgid "Engineer"
 msgstr "المهندس"
 
-#: src/core/tags/frame.cpp:274
+#: src/core/tags/frame.cpp:278
 msgctxt "@default|"
 msgid "Ensemble"
 msgstr "الطاقم"
 
-#: src/core/tags/frame.cpp:275
+#: src/core/tags/frame.cpp:279
 msgctxt "@default|"
 msgid "Guest Artist"
 msgstr "فنان ضيف"
 
-#: src/core/tags/frame.cpp:276 src/core/tags/trackdata.cpp:264
+#: src/core/tags/frame.cpp:280 src/core/tags/trackdata.cpp:264
 msgctxt "@default|"
 msgid "VBR"
 msgstr "معدل البت المتغير"
 
-#: src/core/tags/frame.cpp:277 src/core/tags/frame.cpp:324
+#: src/core/tags/frame.cpp:281 src/core/tags/frame.cpp:328
 msgctxt "@default|"
 msgid "Gapless Playback"
 msgstr "تشغيل بدون فواصل"
 
-#: src/core/tags/frame.cpp:278
+#: src/core/tags/frame.cpp:282
 msgctxt "@default|"
 msgid "Label"
 msgstr "اللصيقة"
 
-#: src/core/tags/frame.cpp:279
+#: src/core/tags/frame.cpp:283
 msgctxt "@default|"
 msgid "Label Number"
 msgstr "رقم العلامة"
 
-#: src/core/tags/frame.cpp:280
+#: src/core/tags/frame.cpp:284
 msgctxt "@default|"
 msgid "License"
 msgstr "الرخصة"
 
-#: src/core/tags/frame.cpp:281
+#: src/core/tags/frame.cpp:285
 msgctxt "@default|"
 msgid "Location"
 msgstr "المكان"
 
-#: src/core/tags/frame.cpp:282
+#: src/core/tags/frame.cpp:286
 msgctxt "@default|"
 msgid "Opus"
 msgstr "أوبوس"
 
-#: src/core/tags/frame.cpp:284
+#: src/core/tags/frame.cpp:288
 msgctxt "@default|"
 msgid "Organization"
 msgstr "المنظّمة"
 
-#: src/core/tags/frame.cpp:285
+#: src/core/tags/frame.cpp:289
 msgctxt "@default|"
 msgid "Part Number"
 msgstr "رقم الجزء"
 
-#: src/core/tags/frame.cpp:286
+#: src/core/tags/frame.cpp:290
 msgctxt "@default|"
 msgid "Producer"
 msgstr "المنتج"
 
-#: src/core/tags/frame.cpp:287
+#: src/core/tags/frame.cpp:291
 msgctxt "@default|"
 msgid "Product Number"
 msgstr "رقم المنتج"
 
-#: src/core/tags/frame.cpp:291 src/core/tags/frame.cpp:292
+#: src/core/tags/frame.cpp:295 src/core/tags/frame.cpp:296
 msgctxt "@default|"
 msgid "Total Tracks"
 msgstr "إجمالي المسارات"
 
-#: src/core/tags/frame.cpp:295
+#: src/core/tags/frame.cpp:299
 msgctxt "@default|"
 msgid "Version"
 msgstr "الإصدارة"
 
-#: src/core/tags/frame.cpp:296
+#: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Volume"
 msgstr "المستوى"
 
-#: src/core/tags/frame.cpp:298
+#: src/core/tags/frame.cpp:302
 msgctxt "@default|"
 msgid "Director"
 msgstr "المخرج"
 
-#: src/core/tags/frame.cpp:299
+#: src/core/tags/frame.cpp:303
 msgctxt "@default|"
 msgid "Duration"
 msgstr "المدّة"
 
-#: src/core/tags/frame.cpp:300
+#: src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Summary"
 msgstr "المخلص"
 
-#: src/core/tags/frame.cpp:301
+#: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Synopsis"
 msgstr "الموجز"
 
-#: src/core/tags/frame.cpp:302
+#: src/core/tags/frame.cpp:306
 msgctxt "@default|"
 msgid "Total Parts"
 msgstr "إجمالي الأجزاء"
 
-#: src/core/tags/frame.cpp:305
+#: src/core/tags/frame.cpp:309
 msgctxt "@default|"
 msgid "MCDI"
 msgstr "MCDI"
 
-#: src/core/tags/frame.cpp:308
+#: src/core/tags/frame.cpp:312
 msgctxt "@default|"
 msgid "Original Lyricist"
 msgstr "كاتب الكلمات الأصلي"
 
-#: src/core/tags/frame.cpp:310
+#: src/core/tags/frame.cpp:314
 msgctxt "@default|"
 msgid "User Rating"
 msgstr "تقييم المستخدم"
 
-#: src/core/tags/frame.cpp:312
+#: src/core/tags/frame.cpp:316
 msgctxt "@default|"
 msgid "Account Type"
 msgstr "نوع الحساب"
 
-#: src/core/tags/frame.cpp:313
+#: src/core/tags/frame.cpp:317
 msgctxt "@default|"
 msgid "Purchase Account"
 msgstr "حساب الشراء"
 
-#: src/core/tags/frame.cpp:314
+#: src/core/tags/frame.cpp:318
 msgctxt "@default|"
 msgid "Artist ID"
 msgstr "معرف الفنان"
 
-#: src/core/tags/frame.cpp:315
+#: src/core/tags/frame.cpp:319
 msgctxt "@default|"
 msgid "Category"
 msgstr "الفئة"
 
-#: src/core/tags/frame.cpp:316
+#: src/core/tags/frame.cpp:320
 msgctxt "@default|"
 msgid "Catalog ID"
 msgstr "معرف الكتالوج"
 
-#: src/core/tags/frame.cpp:319
+#: src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Genre ID"
 msgstr "معرف النوع"
 
-#: src/core/tags/frame.cpp:320
+#: src/core/tags/frame.cpp:324
 msgctxt "@default|"
 msgid "HD Video"
 msgstr "فيديو عالي الدقة"
 
-#: src/core/tags/frame.cpp:321
+#: src/core/tags/frame.cpp:325
 msgctxt "@default|"
 msgid "Keyword"
 msgstr "الكلمة المفتاح"
 
-#: src/core/tags/frame.cpp:322
+#: src/core/tags/frame.cpp:326
 msgctxt "@default|"
 msgid "Long Description"
 msgstr "وصف طويل"
 
-#: src/core/tags/frame.cpp:325
+#: src/core/tags/frame.cpp:329
 msgctxt "@default|"
 msgid "Album ID"
 msgstr "معرف الألبوم"
 
-#: src/core/tags/frame.cpp:326
+#: src/core/tags/frame.cpp:330
 msgctxt "@default|"
 msgid "Purchase Date"
 msgstr "تاريخ الشراء"
 
-#: src/core/tags/frame.cpp:327
+#: src/core/tags/frame.cpp:331
 msgctxt "@default|"
 msgid "Rating/Advisory"
 msgstr "تقييم/استشارة"
 
-#: src/core/tags/frame.cpp:328
+#: src/core/tags/frame.cpp:332
 msgctxt "@default|"
 msgid "Country Code"
 msgstr "رمز البلد"
 
-#: src/core/tags/frame.cpp:329
+#: src/core/tags/frame.cpp:333
 msgctxt "@default|"
 msgid "Sort Show"
 msgstr "فرز العرض"
 
-#: src/core/tags/frame.cpp:330
+#: src/core/tags/frame.cpp:334
 msgctxt "@default|"
 msgid "Media Type"
 msgstr "نوع الوسائط"
 
-#: src/core/tags/frame.cpp:331
+#: src/core/tags/frame.cpp:335
 msgctxt "@default|"
 msgid "TV Episode"
 msgstr "حلقة تلفزيونية"
 
-#: src/core/tags/frame.cpp:332
+#: src/core/tags/frame.cpp:336
 msgctxt "@default|"
 msgid "TV Episode Number"
 msgstr "رقم حلقة التلفزيون"
 
-#: src/core/tags/frame.cpp:333
+#: src/core/tags/frame.cpp:337
 msgctxt "@default|"
 msgid "TV Network Name"
 msgstr "اسم شبكة التلفزيون"
 
-#: src/core/tags/frame.cpp:334
+#: src/core/tags/frame.cpp:338
 msgctxt "@default|"
 msgid "TV Show Name"
 msgstr "اسم البرنامج التلفزيوني"
 
-#: src/core/tags/frame.cpp:335
+#: src/core/tags/frame.cpp:339
 msgctxt "@default|"
 msgid "TV Season"
 msgstr "الموسم التلفزيوني"
 
-#: src/core/tags/frame.cpp:339
+#: src/core/tags/frame.cpp:343
 msgctxt "@default|"
 msgid "Movement Count"
 msgstr "عدد الحركات"
 
-#: src/core/tags/frame.cpp:340
+#: src/core/tags/frame.cpp:344
 msgctxt "@default|"
 msgid "Show Work & Movement"
 msgstr "اعرض العمل والحركة"
 
-#: src/core/tags/frame.cpp:342
+#: src/core/tags/frame.cpp:346
 msgctxt "@default|"
 msgid "Podcast URL"
 msgstr "رابط البودكاست"
 
-#: src/core/tags/frame.cpp:343
+#: src/core/tags/frame.cpp:347
 msgctxt "@default|"
 msgid "Podcast GUID"
 msgstr "المعرف الفريد للبودكاست"
 
-#: src/core/tags/frame.cpp:344
+#: src/core/tags/frame.cpp:348
 msgctxt "@default|"
 msgid "Composer ID"
 msgstr "معرف الملحن"
 
-#: src/core/tags/frame.cpp:345
+#: src/core/tags/frame.cpp:349
 msgctxt "@default|"
 msgid "XID"
 msgstr "المعرف الممتد"
 
-#: src/core/tags/frame.cpp:346
+#: src/core/tags/frame.cpp:350
 msgctxt "@default|"
 msgid "Chapters"
 msgstr "الفصول"
 
-#: src/core/tags/frame.cpp:347
+#: src/core/tags/frame.cpp:351
 msgctxt "@default|"
 msgid "Archival Location"
 msgstr "موقع الأرشيف"
 
-#: src/core/tags/frame.cpp:348
+#: src/core/tags/frame.cpp:352
 msgctxt "@default|"
 msgid "Commissioned"
 msgstr "مُوكَل به"
 
-#: src/core/tags/frame.cpp:349
+#: src/core/tags/frame.cpp:353
 msgctxt "@default|"
 msgid "Cropped"
 msgstr "مقصوص"
 
-#: src/core/tags/frame.cpp:350
+#: src/core/tags/frame.cpp:354
 msgctxt "@default|"
 msgid "Dimensions"
 msgstr "الأبعاد"
 
-#: src/core/tags/frame.cpp:351
+#: src/core/tags/frame.cpp:355
 msgctxt "@default|"
 msgid "Dots Per Inch"
 msgstr "نقطة لكل بوصة"
 
-#: src/core/tags/frame.cpp:352
+#: src/core/tags/frame.cpp:356
 msgctxt "@default|"
 msgid "Keywords"
 msgstr "الكلمات المفتاحية"
 
-#: src/core/tags/frame.cpp:353
+#: src/core/tags/frame.cpp:357
 msgctxt "@default|"
 msgid "Lightness"
 msgstr "الخفة"
 
-#: src/core/tags/frame.cpp:354
+#: src/core/tags/frame.cpp:358
 msgctxt "@default|"
 msgid "Number of Colors"
 msgstr "عدد الألوان"
 
-#: src/core/tags/frame.cpp:355
+#: src/core/tags/frame.cpp:359
 msgctxt "@default|"
 msgid "Subject"
 msgstr "الموضوع"
 
-#: src/core/tags/frame.cpp:356
+#: src/core/tags/frame.cpp:360
 msgctxt "@default|"
 msgid "Sharpness"
 msgstr "الوضوح"
 
-#: src/core/tags/frame.cpp:357
+#: src/core/tags/frame.cpp:361
 msgctxt "@default|"
 msgid "Source Form"
 msgstr "نموذج المصدر"
 
-#: src/core/tags/frame.cpp:1270
+#: src/core/tags/frame.cpp:1274
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "الوسم %1"
 
-#: src/core/tags/frame.cpp:1275
+#: src/core/tags/frame.cpp:1279
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "الوسم 2 والوسم 2"
 
-#: src/core/tags/frame.cpp:1279
+#: src/core/tags/frame.cpp:1283
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "كل الوسوم"
 
-#: src/core/tags/frame.cpp:2088
+#: src/core/tags/frame.cpp:2092
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "أضِف t1 في البداية/t2 في النهاية إذا لم تكن فارغة"
@@ -5536,7 +5565,7 @@ msgstr "احذف"
 #: src/gui/forms/sectionactions.cpp:167
 msgctxt "SectionActions|"
 msgid "Open Parent Folder"
-msgstr "افتح المجلّد الأبّ"
+msgstr "افتح المجلّد الأب"
 
 #: src/gui/forms/sectionactions.cpp:170
 msgctxt "SectionActions|"

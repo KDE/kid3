@@ -1740,17 +1740,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "名稱"
 
-#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:80
+#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:84
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:81
+#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:85
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:83
+#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -1797,50 +1797,50 @@ msgctxt "HttpClient|"
 msgid "Request sent..."
 msgstr "送出連線要求…"
 
-#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:133
-#: src/core/tags/frame.cpp:2049
+#: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:137
+#: src/core/tags/frame.cpp:2053
 msgctxt "@default|"
 msgid "Title"
 msgstr "歌(曲)名"
 
-#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:111
-#: src/core/tags/frame.cpp:135 src/core/tags/frame.cpp:2053
+#: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:115
+#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2057
 msgctxt "@default|"
 msgid "Album"
 msgstr "專輯名稱"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
-#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:134
-#: src/core/tags/frame.cpp:2057
+#: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:138
+#: src/core/tags/frame.cpp:2061
 msgctxt "@default|"
 msgid "Artist"
 msgstr "演唱(奏)者"
 
-#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:136
-#: src/core/tags/frame.cpp:304 src/core/tags/frame.cpp:2061
+#: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:140
+#: src/core/tags/frame.cpp:308 src/core/tags/frame.cpp:2065
 msgctxt "@default|"
 msgid "Comment"
 msgstr "內容註釋"
 
-#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:336
-#: src/core/tags/frame.cpp:2065
+#: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:340
+#: src/core/tags/frame.cpp:2069
 msgctxt "@default|"
 msgid "Year"
 msgstr "年"
 
-#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:109
-#: src/core/tags/frame.cpp:2070
+#: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:113
+#: src/core/tags/frame.cpp:2074
 msgctxt "@default|"
 msgid "Track"
 msgstr "音軌"
 
-#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:139
-#: src/core/tags/frame.cpp:2083
+#: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:143
+#: src/core/tags/frame.cpp:2087
 msgctxt "@default|"
 msgid "Genre"
 msgstr "曲風"
 
-#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:246
+#: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:250
 #: src/core/tags/trackdata.cpp:231
 msgctxt "@default|"
 msgid "Length"
@@ -1874,7 +1874,7 @@ msgid "Shortcut"
 msgstr "快捷鍵"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:105
-#: src/core/tags/frame.cpp:293 src/core/tags/frame.cpp:294
+#: src/core/tags/frame.cpp:297 src/core/tags/frame.cpp:298
 msgctxt "@default|"
 msgid "Unknown"
 msgstr "未知"
@@ -2521,13 +2521,13 @@ msgctxt "@default|"
 msgid "Data"
 msgstr "資料"
 
-#: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:165
-#: src/core/tags/frame.cpp:267 src/core/tags/frame.cpp:318
+#: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:169
+#: src/core/tags/frame.cpp:271 src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Description"
 msgstr "描述"
 
-#: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:341
+#: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:345
 msgctxt "@default|"
 msgid "Owner"
 msgstr "擁有者"
@@ -2537,12 +2537,12 @@ msgctxt "@default|"
 msgid "Email"
 msgstr "電子信箱"
 
-#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:181
+#: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:185
 msgctxt "@default|"
 msgid "Rating"
 msgstr "評比"
 
-#: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:157
+#: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:161
 msgctxt "@default|"
 msgid "Language"
 msgstr "語言"
@@ -2572,8 +2572,8 @@ msgctxt "@default|"
 msgid "Identifier"
 msgstr "識別資料"
 
-#: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:226
-#: src/core/tags/frame.cpp:227
+#: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:230
+#: src/core/tags/frame.cpp:231
 msgctxt "@default|"
 msgid "Volume Adjustment"
 msgstr "音量調整"
@@ -2618,8 +2618,8 @@ msgctxt "@default|"
 msgid "Price"
 msgstr "價格"
 
-#: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:137
-#: src/core/tags/frame.cpp:234
+#: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:141
+#: src/core/tags/frame.cpp:238
 msgctxt "@default|"
 msgid "Date"
 msgstr "日期"
@@ -2645,59 +2645,88 @@ msgctxt "@default|"
 msgid "Default"
 msgstr "回復預設值"
 
-#: src/core/tags/frame.cpp:82
+#: src/core/tags/frame.cpp:76
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Track"
+msgctxt "@default|"
+msgid "Track ID"
+msgstr "音軌"
+
+#: src/core/tags/frame.cpp:77
+#, fuzzy
+#| msgctxt "KdeMainWindow|"
+#| msgid "Edit"
+msgctxt "@default|"
+msgid "Edition ID"
+msgstr "編輯"
+
+#: src/core/tags/frame.cpp:78
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Chapter"
+msgctxt "@default|"
+msgid "Chapter ID"
+msgstr "章節"
+
+#: src/core/tags/frame.cpp:79
+msgctxt "@default|"
+msgid "Attachment ID"
+msgstr ""
+
+#: src/core/tags/frame.cpp:86
 msgctxt "@default|"
 msgid "UTF16BE"
 msgstr "UTF16BE"
 
-#: src/core/tags/frame.cpp:88 src/core/tags/frame.cpp:95
+#: src/core/tags/frame.cpp:92 src/core/tags/frame.cpp:99
 #: src/core/tags/pictureframe.cpp:41
 msgctxt "@default|"
 msgid "Other"
 msgstr "其他"
 
-#: src/core/tags/frame.cpp:89
+#: src/core/tags/frame.cpp:93
 msgctxt "@default|"
 msgid "MPEG frames as unit"
 msgstr "以 MPEG 音框為單位"
 
-#: src/core/tags/frame.cpp:90
+#: src/core/tags/frame.cpp:94
 msgctxt "@default|"
 msgid "Milliseconds as unit"
 msgstr "以毫秒為單位"
 
-#: src/core/tags/frame.cpp:96 src/core/tags/frame.cpp:159
+#: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
 #: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "歌詞"
 
-#: src/core/tags/frame.cpp:97
+#: src/core/tags/frame.cpp:101
 msgctxt "@default|"
 msgid "Text transcription"
 msgstr "文字轉錄"
 
-#: src/core/tags/frame.cpp:98
+#: src/core/tags/frame.cpp:102
 msgctxt "@default|"
 msgid "Movement/part name"
 msgstr "樂章/區段名稱"
 
-#: src/core/tags/frame.cpp:99
+#: src/core/tags/frame.cpp:103
 msgctxt "@default|"
 msgid "Events"
 msgstr "事件"
 
-#: src/core/tags/frame.cpp:100
+#: src/core/tags/frame.cpp:104
 msgctxt "@default|"
 msgid "Chord"
 msgstr "和弦"
 
-#: src/core/tags/frame.cpp:101
+#: src/core/tags/frame.cpp:105
 msgctxt "@default|"
 msgid "Trivia/pop up"
 msgstr ""
 
-#: src/core/tags/frame.cpp:106
+#: src/core/tags/frame.cpp:110
 #, fuzzy
 #| msgctxt "FormatConfig|"
 #| msgid "None"
@@ -2705,12 +2734,12 @@ msgctxt "@default|"
 msgid "None"
 msgstr "無"
 
-#: src/core/tags/frame.cpp:107
+#: src/core/tags/frame.cpp:111
 msgctxt "@default|"
 msgid "Shot"
 msgstr ""
 
-#: src/core/tags/frame.cpp:108
+#: src/core/tags/frame.cpp:112
 #, fuzzy
 #| msgctxt "NumberTracksCommand|"
 #| msgid "Number tracks"
@@ -2718,12 +2747,12 @@ msgctxt "@default|"
 msgid "Subtrack"
 msgstr "編號音軌"
 
-#: src/core/tags/frame.cpp:110
+#: src/core/tags/frame.cpp:114
 msgctxt "@default|"
 msgid "Part"
 msgstr ""
 
-#: src/core/tags/frame.cpp:112
+#: src/core/tags/frame.cpp:116
 #, fuzzy
 #| msgctxt "KdeMainWindow|"
 #| msgid "Edit"
@@ -2731,7 +2760,7 @@ msgctxt "@default|"
 msgid "Edition"
 msgstr "編輯"
 
-#: src/core/tags/frame.cpp:113
+#: src/core/tags/frame.cpp:117
 #, fuzzy
 #| msgctxt "Kid3Application|"
 #| msgid "Selection"
@@ -2739,585 +2768,585 @@ msgctxt "@default|"
 msgid "Collection"
 msgstr "選擇區"
 
-#: src/core/tags/frame.cpp:138
+#: src/core/tags/frame.cpp:142
 msgctxt "@default|"
 msgid "Track Number"
 msgstr "音軌編號"
 
-#: src/core/tags/frame.cpp:141 src/core/tags/frame.cpp:264
+#: src/core/tags/frame.cpp:145 src/core/tags/frame.cpp:268
 msgctxt "@default|"
 msgid "Album Artist"
 msgstr "專輯演唱(奏)者"
 
-#: src/core/tags/frame.cpp:142
+#: src/core/tags/frame.cpp:146
 msgctxt "@default|"
 msgid "Arranger"
 msgstr "編曲者"
 
-#: src/core/tags/frame.cpp:143
+#: src/core/tags/frame.cpp:147
 msgctxt "@default|"
 msgid "Author"
 msgstr "作者"
 
-#: src/core/tags/frame.cpp:144
+#: src/core/tags/frame.cpp:148
 msgctxt "@default|"
 msgid "BPM"
 msgstr "BPM"
 
-#: src/core/tags/frame.cpp:145
+#: src/core/tags/frame.cpp:149
 msgctxt "@default|"
 msgid "Catalog Number"
 msgstr "資料夾編號"
 
-#: src/core/tags/frame.cpp:146
+#: src/core/tags/frame.cpp:150
 msgctxt "@default|"
 msgid "Compilation"
 msgstr "曲集"
 
-#: src/core/tags/frame.cpp:147 src/core/tags/pictureframe.cpp:52
+#: src/core/tags/frame.cpp:151 src/core/tags/pictureframe.cpp:52
 msgctxt "@default|"
 msgid "Composer"
 msgstr "作曲者"
 
-#: src/core/tags/frame.cpp:148 src/core/tags/frame.cpp:317
+#: src/core/tags/frame.cpp:152 src/core/tags/frame.cpp:321
 #: src/core/tags/pictureframe.cpp:50
 msgctxt "@default|"
 msgid "Conductor"
 msgstr "指揮"
 
-#: src/core/tags/frame.cpp:149
+#: src/core/tags/frame.cpp:153
 msgctxt "@default|"
 msgid "Copyright"
 msgstr "著作權"
 
-#: src/core/tags/frame.cpp:150
+#: src/core/tags/frame.cpp:154
 msgctxt "@default|"
 msgid "Disc Number"
 msgstr "碟片編號"
 
-#: src/core/tags/frame.cpp:151 src/core/tags/frame.cpp:271
+#: src/core/tags/frame.cpp:155 src/core/tags/frame.cpp:275
 msgctxt "@default|"
 msgid "Encoded-by"
 msgstr "編碼方式"
 
-#: src/core/tags/frame.cpp:152 src/core/tags/frame.cpp:270
+#: src/core/tags/frame.cpp:156 src/core/tags/frame.cpp:274
 msgctxt "@default|"
 msgid "Encoder Settings"
 msgstr "編碼器設定"
 
-#: src/core/tags/frame.cpp:153 src/core/tags/frame.cpp:235
+#: src/core/tags/frame.cpp:157 src/core/tags/frame.cpp:239
 msgctxt "@default|"
 msgid "Encoding Time"
 msgstr "編碼時間"
 
-#: src/core/tags/frame.cpp:154 src/core/tags/frame.cpp:213
-#: src/core/tags/frame.cpp:266
+#: src/core/tags/frame.cpp:158 src/core/tags/frame.cpp:217
+#: src/core/tags/frame.cpp:270
 msgctxt "@default|"
 msgid "Grouping"
 msgstr "群組"
 
-#: src/core/tags/frame.cpp:155
+#: src/core/tags/frame.cpp:159
 msgctxt "@default|"
 msgid "Initial Key"
 msgstr "初始調"
 
-#: src/core/tags/frame.cpp:156
+#: src/core/tags/frame.cpp:160
 msgctxt "@default|"
 msgid "ISRC"
 msgstr "ISRC"
 
-#: src/core/tags/frame.cpp:158
+#: src/core/tags/frame.cpp:162
 msgctxt "@default|"
 msgid "Lyricist"
 msgstr "作詞者"
 
-#: src/core/tags/frame.cpp:160 src/core/tags/pictureframe.cpp:47
+#: src/core/tags/frame.cpp:164 src/core/tags/pictureframe.cpp:47
 msgctxt "@default|"
 msgid "Media"
 msgstr "媒體"
 
-#: src/core/tags/frame.cpp:161 src/core/tags/frame.cpp:306
+#: src/core/tags/frame.cpp:165 src/core/tags/frame.cpp:310
 msgctxt "@default|"
 msgid "Mood"
 msgstr "情緒"
 
-#: src/core/tags/frame.cpp:162
+#: src/core/tags/frame.cpp:166
 msgctxt "@default|"
 msgid "Original Album"
 msgstr "原專輯名稱"
 
-#: src/core/tags/frame.cpp:163 src/core/tags/frame.cpp:283
+#: src/core/tags/frame.cpp:167 src/core/tags/frame.cpp:287
 msgctxt "@default|"
 msgid "Original Artist"
 msgstr "原演唱(奏)者"
 
-#: src/core/tags/frame.cpp:164
+#: src/core/tags/frame.cpp:168
 msgctxt "@default|"
 msgid "Original Date"
 msgstr "原出版日期"
 
-#: src/core/tags/frame.cpp:166
+#: src/core/tags/frame.cpp:170
 msgctxt "@default|"
 msgid "Performer"
 msgstr "演奏者"
 
-#: src/core/tags/frame.cpp:167
+#: src/core/tags/frame.cpp:171
 msgctxt "@default|"
 msgid "Picture"
 msgstr "圖片"
 
-#: src/core/tags/frame.cpp:168
+#: src/core/tags/frame.cpp:172
 msgctxt "@default|"
 msgid "Publisher"
 msgstr "出版商"
 
-#: src/core/tags/frame.cpp:169
+#: src/core/tags/frame.cpp:173
 msgctxt "@default|"
 msgid "Release Country"
 msgstr "發行地區"
 
-#: src/core/tags/frame.cpp:170 src/core/tags/frame.cpp:289
+#: src/core/tags/frame.cpp:174 src/core/tags/frame.cpp:293
 msgctxt "@default|"
 msgid "Remixer"
 msgstr "混音者"
 
-#: src/core/tags/frame.cpp:171
+#: src/core/tags/frame.cpp:175
 msgctxt "@default|"
 msgid "Sort Album"
 msgstr "排序專輯"
 
-#: src/core/tags/frame.cpp:172 src/core/tags/frame.cpp:303
+#: src/core/tags/frame.cpp:176 src/core/tags/frame.cpp:307
 msgctxt "@default|"
 msgid "Sort Album Artist"
 msgstr "排序專輯演唱(奏)者"
 
-#: src/core/tags/frame.cpp:173
+#: src/core/tags/frame.cpp:177
 msgctxt "@default|"
 msgid "Sort Artist"
 msgstr "排序演唱(奏)者"
 
-#: src/core/tags/frame.cpp:174
+#: src/core/tags/frame.cpp:178
 msgctxt "@default|"
 msgid "Sort Composer"
 msgstr "排序作曲者"
 
-#: src/core/tags/frame.cpp:175
+#: src/core/tags/frame.cpp:179
 msgctxt "@default|"
 msgid "Sort Name"
 msgstr "排序名稱"
 
-#: src/core/tags/frame.cpp:176
+#: src/core/tags/frame.cpp:180
 msgctxt "@default|"
 msgid "Subtitle"
 msgstr "字幕"
 
-#: src/core/tags/frame.cpp:177
+#: src/core/tags/frame.cpp:181
 msgctxt "@default|"
 msgid "Website"
 msgstr "網站"
 
-#: src/core/tags/frame.cpp:178
+#: src/core/tags/frame.cpp:182
 msgctxt "@default|"
 msgid "WWW Audio File"
 msgstr "WWW 音效檔"
 
-#: src/core/tags/frame.cpp:179
+#: src/core/tags/frame.cpp:183
 msgctxt "@default|"
 msgid "WWW Audio Source"
 msgstr "WWW 音訊來源"
 
-#: src/core/tags/frame.cpp:180
+#: src/core/tags/frame.cpp:184
 msgctxt "@default|"
 msgid "Release Date"
 msgstr "發行日期"
 
-#: src/core/tags/frame.cpp:182
+#: src/core/tags/frame.cpp:186
 msgctxt "@default|"
 msgid "Work"
 msgstr "作品名稱"
 
-#: src/core/tags/frame.cpp:202
+#: src/core/tags/frame.cpp:206
 msgctxt "@default|"
 msgid "Audio Encryption"
 msgstr "音效加密"
 
-#: src/core/tags/frame.cpp:203
+#: src/core/tags/frame.cpp:207
 msgctxt "@default|"
 msgid "Audio Seek Point"
 msgstr "音效搜尋點"
 
-#: src/core/tags/frame.cpp:204
+#: src/core/tags/frame.cpp:208
 msgctxt "@default|"
 msgid "Chapter"
 msgstr "章節"
 
-#: src/core/tags/frame.cpp:205
+#: src/core/tags/frame.cpp:209
 msgctxt "@default|"
 msgid "Commercial"
 msgstr "商業"
 
-#: src/core/tags/frame.cpp:206
+#: src/core/tags/frame.cpp:210
 msgctxt "@default|"
 msgid "Table of Contents"
 msgstr "目錄"
 
-#: src/core/tags/frame.cpp:207
+#: src/core/tags/frame.cpp:211
 msgctxt "@default|"
 msgid "Encryption Method"
 msgstr "加密方法"
 
-#: src/core/tags/frame.cpp:208 src/core/tags/frame.cpp:209
+#: src/core/tags/frame.cpp:212 src/core/tags/frame.cpp:213
 msgctxt "@default|"
 msgid "Equalization"
 msgstr "等化"
 
-#: src/core/tags/frame.cpp:210
+#: src/core/tags/frame.cpp:214
 msgctxt "@default|"
 msgid "Event Timing Codes"
 msgstr "事件時間代碼"
 
-#: src/core/tags/frame.cpp:211
+#: src/core/tags/frame.cpp:215
 msgctxt "@default|"
 msgid "General Object"
 msgstr "一般物件"
 
-#: src/core/tags/frame.cpp:212
+#: src/core/tags/frame.cpp:216
 msgctxt "@default|"
 msgid "Group Identification"
 msgstr "群組識別資料"
 
-#: src/core/tags/frame.cpp:214
+#: src/core/tags/frame.cpp:218
 msgctxt "@default|"
 msgid "Linked Information"
 msgstr "連結資訊"
 
-#: src/core/tags/frame.cpp:215
+#: src/core/tags/frame.cpp:219
 msgctxt "@default|"
 msgid "Music CD Identifier"
 msgstr "音樂光碟識別資料"
 
-#: src/core/tags/frame.cpp:216
+#: src/core/tags/frame.cpp:220
 msgctxt "@default|"
 msgid "MPEG Lookup Table"
 msgstr "MPEG 位置查詢表"
 
-#: src/core/tags/frame.cpp:217 src/core/tags/frame.cpp:338
+#: src/core/tags/frame.cpp:221 src/core/tags/frame.cpp:342
 msgctxt "@default|"
 msgid "Movement Number"
 msgstr "樂章數"
 
-#: src/core/tags/frame.cpp:218 src/core/tags/frame.cpp:337
+#: src/core/tags/frame.cpp:222 src/core/tags/frame.cpp:341
 msgctxt "@default|"
 msgid "Movement Name"
 msgstr "樂章名稱"
 
-#: src/core/tags/frame.cpp:219
+#: src/core/tags/frame.cpp:223
 msgctxt "@default|"
 msgid "Ownership"
 msgstr "擁有者"
 
-#: src/core/tags/frame.cpp:220
+#: src/core/tags/frame.cpp:224
 msgctxt "@default|"
 msgid "Play Counter"
 msgstr "播放計數器"
 
-#: src/core/tags/frame.cpp:221 src/core/tags/frame.cpp:323
+#: src/core/tags/frame.cpp:225 src/core/tags/frame.cpp:327
 msgctxt "@default|"
 msgid "Podcast"
 msgstr "Podcast"
 
-#: src/core/tags/frame.cpp:222
+#: src/core/tags/frame.cpp:226
 msgctxt "@default|"
 msgid "Popularimeter"
 msgstr ""
 
-#: src/core/tags/frame.cpp:223
+#: src/core/tags/frame.cpp:227
 msgctxt "@default|"
 msgid "Position Synchronisation"
 msgstr "位置同步"
 
-#: src/core/tags/frame.cpp:224
+#: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Private"
 msgstr "私人"
 
-#: src/core/tags/frame.cpp:225
+#: src/core/tags/frame.cpp:229
 msgctxt "@default|"
 msgid "Recommended Buffer Size"
 msgstr "建議緩衝區大小"
 
-#: src/core/tags/frame.cpp:228
+#: src/core/tags/frame.cpp:232
 msgctxt "@default|"
 msgid "Reverb"
 msgstr "殘響"
 
-#: src/core/tags/frame.cpp:229
+#: src/core/tags/frame.cpp:233
 msgctxt "@default|"
 msgid "Seek"
 msgstr "尋找"
 
-#: src/core/tags/frame.cpp:230
+#: src/core/tags/frame.cpp:234
 msgctxt "@default|"
 msgid "Signature"
 msgstr "簽章"
 
-#: src/core/tags/frame.cpp:231
+#: src/core/tags/frame.cpp:235
 msgctxt "@default|"
 msgid "Synchronized Lyrics"
 msgstr "同步歌詞"
 
-#: src/core/tags/frame.cpp:232
+#: src/core/tags/frame.cpp:236
 msgctxt "@default|"
 msgid "Synchronized Tempo Codes"
 msgstr "同步節拍代碼"
 
-#: src/core/tags/frame.cpp:233
+#: src/core/tags/frame.cpp:237
 msgctxt "@default|"
 msgid "Podcast Category"
 msgstr "Podcast 分類"
 
-#: src/core/tags/frame.cpp:236
+#: src/core/tags/frame.cpp:240
 msgctxt "@default|"
 msgid "Podcast Description"
 msgstr "Podcast 描述"
 
-#: src/core/tags/frame.cpp:237
+#: src/core/tags/frame.cpp:241
 msgctxt "@default|"
 msgid "Playlist Delay"
 msgstr "播放清單延遲"
 
-#: src/core/tags/frame.cpp:238
+#: src/core/tags/frame.cpp:242
 msgctxt "@default|"
 msgid "Original Release Time"
 msgstr "原始發行時間"
 
-#: src/core/tags/frame.cpp:239
+#: src/core/tags/frame.cpp:243
 msgctxt "@default|"
 msgid "Recording Time"
 msgstr "錄音時間"
 
-#: src/core/tags/frame.cpp:240
+#: src/core/tags/frame.cpp:244
 msgctxt "@default|"
 msgid "Release Time"
 msgstr "發行時間"
 
-#: src/core/tags/frame.cpp:241
+#: src/core/tags/frame.cpp:245
 msgctxt "@default|"
 msgid "Tagging Time"
 msgstr "標籤時間"
 
-#: src/core/tags/frame.cpp:242
+#: src/core/tags/frame.cpp:246
 msgctxt "@default|"
 msgid "File Type"
 msgstr "檔案類型"
 
-#: src/core/tags/frame.cpp:243
+#: src/core/tags/frame.cpp:247
 msgctxt "@default|"
 msgid "Podcast Identifier"
 msgstr "Podcast 識別資料"
 
-#: src/core/tags/frame.cpp:244
+#: src/core/tags/frame.cpp:248
 msgctxt "@default|"
 msgid "Time"
 msgstr "時間"
 
-#: src/core/tags/frame.cpp:245
+#: src/core/tags/frame.cpp:249
 msgctxt "@default|"
 msgid "Podcast Keywords"
 msgstr "Podcast 關鍵字"
 
-#: src/core/tags/frame.cpp:247 src/core/tags/frame.cpp:307
+#: src/core/tags/frame.cpp:251 src/core/tags/frame.cpp:311
 msgctxt "@default|"
 msgid "Original Filename"
 msgstr "原始檔名"
 
-#: src/core/tags/frame.cpp:248
+#: src/core/tags/frame.cpp:252
 msgctxt "@default|"
 msgid "File Owner"
 msgstr "檔案擁有者"
 
-#: src/core/tags/frame.cpp:249
+#: src/core/tags/frame.cpp:253
 msgctxt "@default|"
 msgid "Produced Notice"
 msgstr ""
 
-#: src/core/tags/frame.cpp:250 src/core/tags/frame.cpp:288
+#: src/core/tags/frame.cpp:254 src/core/tags/frame.cpp:292
 msgctxt "@default|"
 msgid "Recording Date"
 msgstr "錄製日期"
 
-#: src/core/tags/frame.cpp:251
+#: src/core/tags/frame.cpp:255
 msgctxt "@default|"
 msgid "Radio Station Name"
 msgstr "廣播電台名稱"
 
-#: src/core/tags/frame.cpp:252
+#: src/core/tags/frame.cpp:256
 msgctxt "@default|"
 msgid "Radio Station Owner"
 msgstr "廣播電台擁有者"
 
-#: src/core/tags/frame.cpp:253
+#: src/core/tags/frame.cpp:257
 msgctxt "@default|"
 msgid "Size"
 msgstr "大小"
 
-#: src/core/tags/frame.cpp:254
+#: src/core/tags/frame.cpp:258
 msgctxt "@default|"
 msgid "User-defined Text"
 msgstr "使用者定義文字資訊"
 
-#: src/core/tags/frame.cpp:255
+#: src/core/tags/frame.cpp:259
 msgctxt "@default|"
 msgid "Unique File Identifier"
 msgstr "唯一檔案識別子"
 
-#: src/core/tags/frame.cpp:256
+#: src/core/tags/frame.cpp:260
 msgctxt "@default|"
 msgid "Terms of Use"
 msgstr "使用條款"
 
-#: src/core/tags/frame.cpp:257 src/core/tags/frame.cpp:309
+#: src/core/tags/frame.cpp:261 src/core/tags/frame.cpp:313
 msgctxt "@default|"
 msgid "Commercial URL"
 msgstr "商業資訊網址"
 
-#: src/core/tags/frame.cpp:258
+#: src/core/tags/frame.cpp:262
 msgctxt "@default|"
 msgid "Copyright URL"
 msgstr "著作權資訊網址"
 
-#: src/core/tags/frame.cpp:259
+#: src/core/tags/frame.cpp:263
 msgctxt "@default|"
 msgid "Podcast Feed"
 msgstr "Podcast 動態"
 
-#: src/core/tags/frame.cpp:260
+#: src/core/tags/frame.cpp:264
 msgctxt "@default|"
 msgid "Official Radio Station"
 msgstr "官方廣播電台"
 
-#: src/core/tags/frame.cpp:261
+#: src/core/tags/frame.cpp:265
 msgctxt "@default|"
 msgid "Payment"
 msgstr "付款方式"
 
-#: src/core/tags/frame.cpp:262
+#: src/core/tags/frame.cpp:266
 msgctxt "@default|"
 msgid "Official Publisher"
 msgstr "官方發行者"
 
-#: src/core/tags/frame.cpp:263 src/core/tags/frame.cpp:297
-#: src/core/tags/frame.cpp:311
+#: src/core/tags/frame.cpp:267 src/core/tags/frame.cpp:301
+#: src/core/tags/frame.cpp:315
 msgctxt "@default|"
 msgid "User-defined URL"
 msgstr "使用者定義的網址"
 
-#: src/core/tags/frame.cpp:265
+#: src/core/tags/frame.cpp:269
 msgctxt "@default|"
 msgid "Contact"
 msgstr "聯絡方式"
 
-#: src/core/tags/frame.cpp:268 src/core/tags/frame.cpp:290
+#: src/core/tags/frame.cpp:272 src/core/tags/frame.cpp:294
 msgctxt "@default|"
 msgid "Total Discs"
 msgstr "碟片數目"
 
-#: src/core/tags/frame.cpp:269
+#: src/core/tags/frame.cpp:273
 msgctxt "@default|"
 msgid "Encoder"
 msgstr "編碼器"
 
-#: src/core/tags/frame.cpp:272
+#: src/core/tags/frame.cpp:276
 msgctxt "@default|"
 msgid "Encoding"
 msgstr "編碼方式"
 
-#: src/core/tags/frame.cpp:273
+#: src/core/tags/frame.cpp:277
 msgctxt "@default|"
 msgid "Engineer"
 msgstr "工程師"
 
-#: src/core/tags/frame.cpp:274
+#: src/core/tags/frame.cpp:278
 msgctxt "@default|"
 msgid "Ensemble"
 msgstr "合奏團"
 
-#: src/core/tags/frame.cpp:275
+#: src/core/tags/frame.cpp:279
 msgctxt "@default|"
 msgid "Guest Artist"
 msgstr "客座演奏(唱)者"
 
-#: src/core/tags/frame.cpp:276 src/core/tags/trackdata.cpp:264
+#: src/core/tags/frame.cpp:280 src/core/tags/trackdata.cpp:264
 msgctxt "@default|"
 msgid "VBR"
 msgstr "VBR"
 
-#: src/core/tags/frame.cpp:277 src/core/tags/frame.cpp:324
+#: src/core/tags/frame.cpp:281 src/core/tags/frame.cpp:328
 msgctxt "@default|"
 msgid "Gapless Playback"
 msgstr "無縫回放"
 
-#: src/core/tags/frame.cpp:278
+#: src/core/tags/frame.cpp:282
 msgctxt "@default|"
 msgid "Label"
 msgstr "標籤"
 
-#: src/core/tags/frame.cpp:279
+#: src/core/tags/frame.cpp:283
 msgctxt "@default|"
 msgid "Label Number"
 msgstr "標籤編號"
 
-#: src/core/tags/frame.cpp:280
+#: src/core/tags/frame.cpp:284
 msgctxt "@default|"
 msgid "License"
 msgstr "授權條款"
 
-#: src/core/tags/frame.cpp:281
+#: src/core/tags/frame.cpp:285
 msgctxt "@default|"
 msgid "Location"
 msgstr "位置"
 
-#: src/core/tags/frame.cpp:282
+#: src/core/tags/frame.cpp:286
 msgctxt "@default|"
 msgid "Opus"
 msgstr "Opus"
 
-#: src/core/tags/frame.cpp:284
+#: src/core/tags/frame.cpp:288
 msgctxt "@default|"
 msgid "Organization"
 msgstr "組織"
 
-#: src/core/tags/frame.cpp:285
+#: src/core/tags/frame.cpp:289
 msgctxt "@default|"
 msgid "Part Number"
 msgstr "區段編號"
 
-#: src/core/tags/frame.cpp:286
+#: src/core/tags/frame.cpp:290
 msgctxt "@default|"
 msgid "Producer"
 msgstr "製作人"
 
-#: src/core/tags/frame.cpp:287
+#: src/core/tags/frame.cpp:291
 msgctxt "@default|"
 msgid "Product Number"
 msgstr "產品編號"
 
-#: src/core/tags/frame.cpp:291 src/core/tags/frame.cpp:292
+#: src/core/tags/frame.cpp:295 src/core/tags/frame.cpp:296
 msgctxt "@default|"
 msgid "Total Tracks"
 msgstr "音軌總數"
 
-#: src/core/tags/frame.cpp:295
+#: src/core/tags/frame.cpp:299
 msgctxt "@default|"
 msgid "Version"
 msgstr "版本"
 
-#: src/core/tags/frame.cpp:296
+#: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Volume"
 msgstr "音量"
 
-#: src/core/tags/frame.cpp:298
+#: src/core/tags/frame.cpp:302
 #, fuzzy
 #| msgctxt "@default|"
 #| msgid "Directory name"
@@ -3325,7 +3354,7 @@ msgctxt "@default|"
 msgid "Director"
 msgstr "資料夾名稱"
 
-#: src/core/tags/frame.cpp:299
+#: src/core/tags/frame.cpp:303
 #, fuzzy
 #| msgctxt "TrackDataModel|"
 #| msgid "Duration"
@@ -3333,17 +3362,17 @@ msgctxt "@default|"
 msgid "Duration"
 msgstr "時長"
 
-#: src/core/tags/frame.cpp:300
+#: src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Summary"
 msgstr ""
 
-#: src/core/tags/frame.cpp:301
+#: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Synopsis"
 msgstr ""
 
-#: src/core/tags/frame.cpp:302
+#: src/core/tags/frame.cpp:306
 #, fuzzy
 #| msgctxt "@default|"
 #| msgid "Total Tracks"
@@ -3351,228 +3380,228 @@ msgctxt "@default|"
 msgid "Total Parts"
 msgstr "音軌總數"
 
-#: src/core/tags/frame.cpp:305
+#: src/core/tags/frame.cpp:309
 msgctxt "@default|"
 msgid "MCDI"
 msgstr "MCDI"
 
-#: src/core/tags/frame.cpp:308
+#: src/core/tags/frame.cpp:312
 msgctxt "@default|"
 msgid "Original Lyricist"
 msgstr "原作詞者"
 
-#: src/core/tags/frame.cpp:310
+#: src/core/tags/frame.cpp:314
 msgctxt "@default|"
 msgid "User Rating"
 msgstr "使用者評價"
 
-#: src/core/tags/frame.cpp:312
+#: src/core/tags/frame.cpp:316
 msgctxt "@default|"
 msgid "Account Type"
 msgstr "帳號類型"
 
-#: src/core/tags/frame.cpp:313
+#: src/core/tags/frame.cpp:317
 msgctxt "@default|"
 msgid "Purchase Account"
 msgstr "購買帳號"
 
-#: src/core/tags/frame.cpp:314
+#: src/core/tags/frame.cpp:318
 msgctxt "@default|"
 msgid "Artist ID"
 msgstr "演唱(奏)者 ID"
 
-#: src/core/tags/frame.cpp:315
+#: src/core/tags/frame.cpp:319
 msgctxt "@default|"
 msgid "Category"
 msgstr "分類"
 
-#: src/core/tags/frame.cpp:316
+#: src/core/tags/frame.cpp:320
 msgctxt "@default|"
 msgid "Catalog ID"
 msgstr "資料夾 ID"
 
-#: src/core/tags/frame.cpp:319
+#: src/core/tags/frame.cpp:323
 msgctxt "@default|"
 msgid "Genre ID"
 msgstr "曲風 ID"
 
-#: src/core/tags/frame.cpp:320
+#: src/core/tags/frame.cpp:324
 msgctxt "@default|"
 msgid "HD Video"
 msgstr "HD 影像"
 
-#: src/core/tags/frame.cpp:321
+#: src/core/tags/frame.cpp:325
 msgctxt "@default|"
 msgid "Keyword"
 msgstr "關鍵字"
 
-#: src/core/tags/frame.cpp:322
+#: src/core/tags/frame.cpp:326
 msgctxt "@default|"
 msgid "Long Description"
 msgstr "詳細說明"
 
-#: src/core/tags/frame.cpp:325
+#: src/core/tags/frame.cpp:329
 msgctxt "@default|"
 msgid "Album ID"
 msgstr "專輯 ID"
 
-#: src/core/tags/frame.cpp:326
+#: src/core/tags/frame.cpp:330
 msgctxt "@default|"
 msgid "Purchase Date"
 msgstr "購買日期"
 
-#: src/core/tags/frame.cpp:327
+#: src/core/tags/frame.cpp:331
 msgctxt "@default|"
 msgid "Rating/Advisory"
 msgstr "評分/諮詢"
 
-#: src/core/tags/frame.cpp:328
+#: src/core/tags/frame.cpp:332
 msgctxt "@default|"
 msgid "Country Code"
 msgstr "國碼"
 
-#: src/core/tags/frame.cpp:329
+#: src/core/tags/frame.cpp:333
 msgctxt "@default|"
 msgid "Sort Show"
 msgstr ""
 
-#: src/core/tags/frame.cpp:330
+#: src/core/tags/frame.cpp:334
 msgctxt "@default|"
 msgid "Media Type"
 msgstr "媒體型態"
 
-#: src/core/tags/frame.cpp:331
+#: src/core/tags/frame.cpp:335
 msgctxt "@default|"
 msgid "TV Episode"
 msgstr "TV 集名"
 
-#: src/core/tags/frame.cpp:332
+#: src/core/tags/frame.cpp:336
 msgctxt "@default|"
 msgid "TV Episode Number"
 msgstr "TV 集數"
 
-#: src/core/tags/frame.cpp:333
+#: src/core/tags/frame.cpp:337
 msgctxt "@default|"
 msgid "TV Network Name"
 msgstr "TV 網路名稱"
 
-#: src/core/tags/frame.cpp:334
+#: src/core/tags/frame.cpp:338
 msgctxt "@default|"
 msgid "TV Show Name"
 msgstr "TV 秀名稱"
 
-#: src/core/tags/frame.cpp:335
+#: src/core/tags/frame.cpp:339
 msgctxt "@default|"
 msgid "TV Season"
 msgstr "TV 季名"
 
-#: src/core/tags/frame.cpp:339
+#: src/core/tags/frame.cpp:343
 msgctxt "@default|"
 msgid "Movement Count"
 msgstr "樂章總數"
 
-#: src/core/tags/frame.cpp:340
+#: src/core/tags/frame.cpp:344
 msgctxt "@default|"
 msgid "Show Work & Movement"
 msgstr "顯示作品與樂章"
 
-#: src/core/tags/frame.cpp:342
+#: src/core/tags/frame.cpp:346
 msgctxt "@default|"
 msgid "Podcast URL"
 msgstr "Podcast 網址"
 
-#: src/core/tags/frame.cpp:343
+#: src/core/tags/frame.cpp:347
 msgctxt "@default|"
 msgid "Podcast GUID"
 msgstr "Podcast GUID"
 
-#: src/core/tags/frame.cpp:344
+#: src/core/tags/frame.cpp:348
 msgctxt "@default|"
 msgid "Composer ID"
 msgstr "作曲者 ID"
 
-#: src/core/tags/frame.cpp:345
+#: src/core/tags/frame.cpp:349
 msgctxt "@default|"
 msgid "XID"
 msgstr "XID"
 
-#: src/core/tags/frame.cpp:346
+#: src/core/tags/frame.cpp:350
 msgctxt "@default|"
 msgid "Chapters"
 msgstr "章節"
 
-#: src/core/tags/frame.cpp:347
+#: src/core/tags/frame.cpp:351
 msgctxt "@default|"
 msgid "Archival Location"
 msgstr "封存位置"
 
-#: src/core/tags/frame.cpp:348
+#: src/core/tags/frame.cpp:352
 msgctxt "@default|"
 msgid "Commissioned"
 msgstr ""
 
-#: src/core/tags/frame.cpp:349
+#: src/core/tags/frame.cpp:353
 msgctxt "@default|"
 msgid "Cropped"
 msgstr ""
 
-#: src/core/tags/frame.cpp:350
+#: src/core/tags/frame.cpp:354
 msgctxt "@default|"
 msgid "Dimensions"
 msgstr "幾何尺寸"
 
-#: src/core/tags/frame.cpp:351
+#: src/core/tags/frame.cpp:355
 msgctxt "@default|"
 msgid "Dots Per Inch"
 msgstr "解析度（點/英吋）"
 
-#: src/core/tags/frame.cpp:352
+#: src/core/tags/frame.cpp:356
 msgctxt "@default|"
 msgid "Keywords"
 msgstr "關鍵字"
 
-#: src/core/tags/frame.cpp:353
+#: src/core/tags/frame.cpp:357
 msgctxt "@default|"
 msgid "Lightness"
 msgstr "亮度"
 
-#: src/core/tags/frame.cpp:354
+#: src/core/tags/frame.cpp:358
 msgctxt "@default|"
 msgid "Number of Colors"
 msgstr "色彩數目"
 
-#: src/core/tags/frame.cpp:355
+#: src/core/tags/frame.cpp:359
 msgctxt "@default|"
 msgid "Subject"
 msgstr "主題"
 
-#: src/core/tags/frame.cpp:356
+#: src/core/tags/frame.cpp:360
 msgctxt "@default|"
 msgid "Sharpness"
 msgstr "銳利度"
 
-#: src/core/tags/frame.cpp:357
+#: src/core/tags/frame.cpp:361
 msgctxt "@default|"
 msgid "Source Form"
 msgstr ""
 
-#: src/core/tags/frame.cpp:1270
+#: src/core/tags/frame.cpp:1274
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "%1 標籤"
 
-#: src/core/tags/frame.cpp:1275
+#: src/core/tags/frame.cpp:1279
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "標籤 1 與 標籤 2"
 
-#: src/core/tags/frame.cpp:1279
+#: src/core/tags/frame.cpp:1283
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "所有標籤"
 
-#: src/core/tags/frame.cpp:2088
+#: src/core/tags/frame.cpp:2092
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "若不是空白，則在前方加上 t1（或是在後方加上 t2）"
