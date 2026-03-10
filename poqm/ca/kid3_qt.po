@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3\n"
-"PO-Revision-Date: 2026-01-08 08:33+0100\n"
+"PO-Revision-Date: 2026-03-09 11:42+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.04.0\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -2638,33 +2638,24 @@ msgid "Default"
 msgstr "Predeterminat"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "Peça"
+msgstr "ID de peça"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Edition"
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "Edició"
+msgstr "ID d'edició"
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "Capítol"
+msgstr "ID de capítol"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "ID d'adjunt"
 
 # skip-rule: da-be
 #: src/core/tags/frame.cpp:86

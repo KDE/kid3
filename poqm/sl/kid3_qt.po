@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kid3 Trunk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-03-28 00:39+0000\n"
-"PO-Revision-Date: 2026-01-08 07:44+0100\n"
+"PO-Revision-Date: 2026-03-09 06:57+0100\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -2640,33 +2640,24 @@ msgid "Default"
 msgstr "Privzeto"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "Posnetek"
+msgstr "ID posnetka"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Edition"
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "Izdaja"
+msgstr "ID izdaje"
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "Poglavje"
+msgstr "ID poglavja"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "ID priloge"
 
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-01-09 01:34+0100\n"
+"PO-Revision-Date: 2026-03-09 14:35+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.3\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Language: es\n"
 "X-Source-Language: en\n"
@@ -2639,33 +2639,24 @@ msgid "Default"
 msgstr "Predeterminado"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "Pista"
+msgstr "ID de pista"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Edition"
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "Edición"
+msgstr "ID de edición"
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "Capítulo"
+msgstr "ID de capítulo"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "ID de adjunto"
 
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"

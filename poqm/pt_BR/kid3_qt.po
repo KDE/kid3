@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2026-01-08 08:24-0300\n"
+"PO-Revision-Date: 2026-03-09 07:44-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.0\n"
+"X-Generator: Lokalize 25.12.2\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -2633,33 +2633,24 @@ msgid "Default"
 msgstr "Padrão"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "Trilha"
+msgstr "ID da trilha"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Edition"
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "Edição"
+msgstr "ID da edição"
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "Capítulo"
+msgstr "ID do capítulo"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "ID do anexo"
 
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"

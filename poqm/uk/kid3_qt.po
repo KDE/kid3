@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-01-08 07:23+0200\n"
+"PO-Revision-Date: 2026-03-09 09:02+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -2638,33 +2638,24 @@ msgid "Default"
 msgstr "Типове"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "Доріжка"
+msgstr "Ід. доріжки"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Edition"
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "Версія"
+msgstr "Ід. версії"
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "Глава"
+msgstr "Ід. глави"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "Ід. долучення"
 
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"
