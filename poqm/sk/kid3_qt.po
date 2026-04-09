@@ -13,11 +13,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.08.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.08.3\n"
 "X-Language: sk\n"
-"X-Source-Language: C\n"
 "X-Qt-Contexts: true\n"
+"X-Source-Language: C\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -60,7 +60,6 @@ msgid "Type 'exit force' to quit."
 msgstr ""
 
 #: src/app/cli/clicommand.cpp:468
-#, fuzzy
 msgctxt "CdCommand|"
 msgid "Change folder"
 msgstr "Zmeniť priečinok"
@@ -224,7 +223,7 @@ msgstr "Chyba"
 #: src/app/cli/clicommand.cpp:889
 msgctxt "PlaylistCommand|"
 msgid "Create playlist"
-msgstr ""
+msgstr "Vytvoriť playlist"
 
 #: src/app/cli/clicommand.cpp:896
 msgctxt "PlaylistCommand|"
@@ -323,9 +322,6 @@ msgid "Remove"
 msgstr "Odstrániť"
 
 #: src/app/cli/clicommand.cpp:1283
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Configure Toolbars"
 msgctxt "ConfigCommand|"
 msgid "Configure Kid3"
 msgstr "Nastaviť panely nástrojov"
@@ -336,20 +332,16 @@ msgid "Group.Option Value"
 msgstr ""
 
 #: src/app/cli/clicommand.cpp:1304 src/app/cli/clicommand.cpp:1310
-#, fuzzy, qt-format
-#| msgctxt "CdCommand|"
-#| msgid "%1 does not exist"
+#, qt-format
 msgctxt "ConfigCommand|"
 msgid "%1 does not exist"
 msgstr "%1 neexistuje"
 
 #: src/app/cli/clicommand.cpp:1337 src/app/cli/clicommand.cpp:1357
-#, fuzzy, qt-format
-#| msgctxt "BatchImporter|"
-#| msgid "Invalid File"
+#, qt-format
 msgctxt "ConfigCommand|"
 msgid "Invalid value %1"
-msgstr "Zlá hodnota."
+msgstr ""
 
 #: src/app/cli/clicommand.cpp:1411
 msgctxt "ExecuteCommand|"
@@ -482,10 +474,9 @@ msgid "Timeout"
 msgstr "Časový limit"
 
 #: src/app/cli/textcliformatter.cpp:305
-#, fuzzy
 msgctxt "TextCliFormatter|"
 msgid "Reading Folder"
-msgstr "Čítam adresár: %1"
+msgstr ""
 
 #: src/app/cli/textcliformatter.cpp:307
 msgctxt "TextCliFormatter|"
@@ -650,7 +641,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:211
 msgctxt "KdeMainWindow|"
 msgid "Unload"
-msgstr ""
+msgstr "Uvoľniť"
 
 #: src/app/kde/kdemainwindow.cpp:216
 msgctxt "KdeMainWindow|"
@@ -958,9 +949,6 @@ msgid "Section"
 msgstr "Oblasť"
 
 #: src/app/kde/kdemainwindow.cpp:473
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Play"
 msgctxt "KdeMainWindow|"
 msgid "Player"
 msgstr "Prehrať"
@@ -1057,7 +1045,6 @@ msgstr "&Jazyk"
 
 #: src/app/qt/configdialog.cpp:113 src/app/qt/configdialog.cpp:204
 #: src/app/qt/configdialog.cpp:239
-#, fuzzy
 msgctxt "ConfigDialog|"
 msgid "System"
 msgstr "Systém"
@@ -1068,7 +1055,6 @@ msgid "Use custom app&lication font"
 msgstr ""
 
 #: src/app/qt/configdialog.cpp:124
-#, fuzzy
 msgctxt "ConfigDialog|"
 msgid "A&pplication Font..."
 msgstr "Font aplikácie"
@@ -1167,7 +1153,7 @@ msgstr "Znovu načítať"
 #: src/app/qt/kid3mainwindow.cpp:184
 msgctxt "Kid3MainWindow|"
 msgid "Unload"
-msgstr ""
+msgstr "Uvoľniť"
 
 #: src/app/qt/kid3mainwindow.cpp:194
 msgctxt "Kid3MainWindow|"
@@ -1537,9 +1523,6 @@ msgid "About &Qt"
 msgstr "O knižnici &Qt"
 
 #: src/app/qt/kid3mainwindow.cpp:725
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Play"
 msgctxt "Kid3MainWindow|"
 msgid "Player"
 msgstr "Prehrať"
@@ -2642,41 +2625,26 @@ msgid "Seller"
 msgstr ""
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "Typ obsahu"
+msgstr "Typ cieľa"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
 msgstr "Obnoviť štandardné"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
 msgstr "Stopa"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition ID"
 msgstr "Upraviť"
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
 msgstr "Kapitola"
@@ -2739,9 +2707,6 @@ msgid "Trivia/pop up"
 msgstr ""
 
 #: src/core/tags/frame.cpp:110
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
 msgstr "Žiadne"
@@ -2752,9 +2717,6 @@ msgid "Shot"
 msgstr ""
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Subtrack"
 msgstr "Stopa"
@@ -2762,20 +2724,14 @@ msgstr "Stopa"
 #: src/core/tags/frame.cpp:114
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "Časť"
 
 #: src/core/tags/frame.cpp:116
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
 msgstr "Upraviť"
 
 #: src/core/tags/frame.cpp:117
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
 msgstr "Výber"
@@ -3113,9 +3069,6 @@ msgid "Synchronized Tempo Codes"
 msgstr ""
 
 #: src/core/tags/frame.cpp:237
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Category"
 msgctxt "@default|"
 msgid "Podcast Category"
 msgstr "Kategória"
@@ -3141,7 +3094,6 @@ msgid "Recording Time"
 msgstr ""
 
 #: src/core/tags/frame.cpp:244
-#, fuzzy
 msgctxt "@default|"
 msgid "Release Time"
 msgstr "Čas vydania"
@@ -3167,9 +3119,6 @@ msgid "Time"
 msgstr "Čas"
 
 #: src/core/tags/frame.cpp:249
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Keywords"
 msgctxt "@default|"
 msgid "Podcast Keywords"
 msgstr "Kľúčové slová"
@@ -3182,7 +3131,7 @@ msgstr "Pôvodný názov súboru"
 #: src/core/tags/frame.cpp:252
 msgctxt "@default|"
 msgid "File Owner"
-msgstr ""
+msgstr "Názov súboru"
 
 #: src/core/tags/frame.cpp:253
 msgctxt "@default|"
@@ -3366,17 +3315,11 @@ msgid "Volume"
 msgstr "Hlasitosť"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "Názov adresára"
+msgstr "Režisér"
 
 #: src/core/tags/frame.cpp:303
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
 msgstr "Trvanie"
@@ -3524,7 +3467,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:346
 msgctxt "@default|"
 msgid "Podcast URL"
-msgstr ""
+msgstr "Pridať Podcast"
 
 #: src/core/tags/frame.cpp:347
 msgctxt "@default|"
@@ -3542,15 +3485,11 @@ msgid "XID"
 msgstr ""
 
 #: src/core/tags/frame.cpp:350
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapters"
-msgstr "Kapitola"
+msgstr "Kapitoly"
 
 #: src/core/tags/frame.cpp:351
-#, fuzzy
 msgctxt "@default|"
 msgid "Archival Location"
 msgstr "Archívne umiestnenie"
@@ -3601,7 +3540,6 @@ msgid "Sharpness"
 msgstr "Ostrosť"
 
 #: src/core/tags/frame.cpp:361
-#, fuzzy
 msgctxt "@default|"
 msgid "Source Form"
 msgstr "Forma zdroja"
@@ -3910,10 +3848,9 @@ msgid "New"
 msgstr "Nové"
 
 #: src/gui/dialogs/batchimportdialog.cpp:476
-#, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Reading Folder"
-msgstr "Čítam adresár: %1"
+msgstr ""
 
 #: src/gui/dialogs/batchimportdialog.cpp:480
 msgctxt "BatchImportDialog|"
@@ -4299,9 +4236,6 @@ msgstr ""
 
 #: src/gui/dialogs/configdialogpages.cpp:459
 #: src/gui/dialogs/configdialogpages.cpp:519
-#, fuzzy
-#| msgctxt "PlaylistEditDialog|"
-#| msgid "Playlist"
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Zoznam skladieb"
@@ -4342,9 +4276,6 @@ msgid "&Play on double click"
 msgstr ""
 
 #: src/gui/dialogs/configdialogpages.cpp:548
-#, fuzzy
-#| msgctxt "SelectCommand|"
-#| msgid "Select file"
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "Vyberte súbor"
@@ -4355,7 +4286,6 @@ msgid "A&udio output:"
 msgstr ""
 
 #: src/gui/dialogs/configdialogpages.cpp:553
-#, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "Systém"
@@ -5002,7 +4932,6 @@ msgid "C&GI Path:"
 msgstr ""
 
 #: src/gui/dialogs/serverimportdialog.cpp:89
-#, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Token:"
 msgstr "Žetón"
@@ -5272,7 +5201,7 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: src/gui/forms/basemainwindow.cpp:712
-#, fuzzy, qt-format
+#, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
 msgid_plural "%n selected"
@@ -5574,31 +5503,21 @@ msgid "Delete"
 msgstr "Vymazať"
 
 #: src/gui/forms/sectionactions.cpp:146
-#, fuzzy
-#| msgctxt "BrowserDialog|"
-#| msgid "Find Previous"
 msgctxt "SectionActions|"
 msgid "Previous"
 msgstr "Predchádzajúci"
 
 #: src/gui/forms/sectionactions.cpp:148
-#, fuzzy
-#| msgctxt "BrowserDialog|"
-#| msgid "Find Next"
 msgctxt "SectionActions|"
 msgid "Next"
 msgstr "Nasledujúci"
 
 #: src/gui/forms/sectionactions.cpp:150
-#, fuzzy
 msgctxt "SectionActions|"
 msgid "Transfer"
 msgstr "Prenos"
 
 #: src/gui/forms/sectionactions.cpp:153
-#, fuzzy
-#| msgctxt "CopyCommand|"
-#| msgid "Copy"
 msgctxt "SectionActions|"
 msgid "Copy"
 msgstr "Kopírovať"
@@ -5614,9 +5533,6 @@ msgid "Remove"
 msgstr "Odstrániť"
 
 #: src/gui/forms/sectionactions.cpp:160
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "SectionActions|"
 msgid "Edit"
 msgstr "Upraviť"
@@ -5627,25 +5543,16 @@ msgid "Add"
 msgstr "Pridať"
 
 #: src/gui/forms/sectionactions.cpp:164
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Delete"
 msgctxt "SectionActions|"
 msgid "Delete"
 msgstr "Vymazať"
 
 #: src/gui/forms/sectionactions.cpp:167
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Rename Folder"
 msgctxt "SectionActions|"
 msgid "Open Parent Folder"
 msgstr "Premenovať priečinok"
 
 #: src/gui/forms/sectionactions.cpp:170
-#, fuzzy
-#| msgctxt "PlaylistDialog|"
-#| msgid "Current folder"
 msgctxt "SectionActions|"
 msgid "Open Current Folder"
 msgstr "Aktuálny priečinok"
@@ -5796,17 +5703,11 @@ msgid "&Close"
 msgstr "&Zavrieť"
 
 #: src/gui/widgets/picturelabel.cpp:92
-#, fuzzy
-#| msgctxt "BrowserDialog|"
-#| msgid "Find Previous"
 msgctxt "PictureLabel|"
 msgid "Previous"
 msgstr "Predchádzajúci"
 
 #: src/gui/widgets/picturelabel.cpp:111
-#, fuzzy
-#| msgctxt "BrowserDialog|"
-#| msgid "Find Next"
 msgctxt "PictureLabel|"
 msgid "Next"
 msgstr "Nasledujúci"
@@ -6682,10 +6583,9 @@ msgid "Automatic Import"
 msgstr ""
 
 #: src/qml/app/BatchImportPage.qml:40
-#, fuzzy
 msgctxt "BatchImportPage|"
 msgid "Reading Folder"
-msgstr "Čítam adresár: %1"
+msgstr ""
 
 #: src/qml/app/BatchImportPage.qml:43
 msgctxt "BatchImportPage|"
@@ -6753,9 +6653,6 @@ msgid "Tag 2"
 msgstr "Značka 2"
 
 #: src/qml/app/BatchImportPage.qml:138
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "Tag &3"
 msgctxt "BatchImportPage|"
 msgid "Tag 3"
 msgstr "Značka 2"
@@ -6766,9 +6663,6 @@ msgid "Tag 1 and Tag 2"
 msgstr ""
 
 #: src/qml/app/BatchImportPage.qml:140
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "All Tags"
 msgctxt "BatchImportPage|"
 msgid "All Tags"
 msgstr "Všetky značky"
@@ -7053,9 +6947,6 @@ msgid "Tag 2"
 msgstr "Značka 2"
 
 #: src/qml/app/NumberTracksDialog.qml:65
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "Tag &3"
 msgctxt "NumberTracksDialog|"
 msgid "Tag 3"
 msgstr "Značka 2"
@@ -7066,9 +6957,6 @@ msgid "Tag 1 and Tag 2"
 msgstr ""
 
 #: src/qml/app/NumberTracksDialog.qml:67
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "All Tags"
 msgctxt "NumberTracksDialog|"
 msgid "All Tags"
 msgstr "Všetky značky"
@@ -7135,17 +7023,11 @@ msgid "From Tag 2"
 msgstr ""
 
 #: src/qml/app/RenameDirectoryPage.qml:132
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "Tag &3"
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 3"
 msgstr "Značka &3"
 
 #: src/qml/app/RenameDirectoryPage.qml:133
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "All Tags"
 msgctxt "RenameDirectoryPage|"
 msgid "All Tags"
 msgstr "Všetky značky"
@@ -7371,7 +7253,6 @@ msgid "Language"
 msgstr "Jazyk"
 
 #: src/qml/app/SettingsPage.qml:406
-#, fuzzy
 msgctxt "SettingsPage|"
 msgid "System"
 msgstr "Systém"
