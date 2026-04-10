@@ -218,6 +218,7 @@
     <p xml:lang="pt">Os dados dos álbuns podem ser importados a partir do gnudb.org, MusicBrainz, Discogs, Amazon; está disponível a importação automática em lote para várias pastas. Também é possível exportar os dados e gerar listas de reprodução.</p>
     <p xml:lang="pt-BR">Os dados de álbuns podem ser importados de gnudb.org, MusicBrainz, Discogs, Amazon; a importação em lotes está disponível para múltiplas pastas. Também é possível exportar dados e gerar listas de reprodução.</p>
     <p xml:lang="ru">Данные об альбомах возможно импортировать из gnudb.org, MusicBrainz, Discogs, Amazon; доступна функция автоматического пакетного импорта для нескольких каталогов. Также возможно экспортировать данные и создавать списки воспроизведения.</p>
+    <p xml:lang="sk">Dáta albumu je možné importovať z gnudb.org, TrackType.org, MusicBrainz, Discogs, Amazon; automatický dávkový import je k dispozícii pre viac priečinkov.Je tiež možné exportovať údaje a vytvárať zoznamy skladieb.</p>
     <p xml:lang="sl">Podatke o albumu lahko uvozite iz gnudb.org, MusicBrainz, Discogs, Amazon; samodejni uvoz paketov je na voljo za več map. Možen je tudi izvoz podatkov in ustvarjanje seznamov predvajanja.</p>
     <p xml:lang="sv">Albumdata kan importeras från gnudb.org, MusicBrainz, Discogs, eller Amazon. Automatisk import i bakgrunden är tillgänglig för flera kataloger. Det är också möjligt att exportera data och skapa spellistor.</p>
     <p xml:lang="tr">Albüm verisi gnudb.org, MusicBrainz, Discogs, Amazon konumlarından içe aktarılabilir; çoklu klasörler için otomatik toplu içe aktarım mevcuttur. Veri dışa aktarımı ve çalma listeleri oluşturma da olanaklıdır.</p>
@@ -323,6 +324,7 @@
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
+        <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="uk">Виправлено</p>
@@ -469,6 +471,7 @@
         <p xml:lang="nl">Nieuw</p>
         <p xml:lang="pt-BR">Novo</p>
         <p xml:lang="ru">Новшества</p>
+        <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="uk">Нове</p>
@@ -557,6 +560,7 @@
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
+        <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="uk">Виправлено</p>
@@ -675,6 +679,7 @@
         <p xml:lang="nl">Nieuw</p>
         <p xml:lang="pt-BR">Novo</p>
         <p xml:lang="ru">Новшества</p>
+        <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="uk">Нове</p>
@@ -777,6 +782,7 @@
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
+        <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="uk">Виправлено</p>
@@ -853,6 +859,7 @@
         <p xml:lang="nl">Nieuw</p>
         <p xml:lang="pt-BR">Novo</p>
         <p xml:lang="ru">Новшества</p>
+        <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="uk">Нове</p>
@@ -969,6 +976,7 @@
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
+        <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="uk">Виправлено</p>
