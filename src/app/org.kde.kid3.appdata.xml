@@ -322,6 +322,7 @@
         <p xml:lang="es">Correcciones</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="it">Corretti</p>
+        <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
@@ -338,6 +339,7 @@
           <li xml:lang="es">KDE: Evitar excesiva anchura del diálogo de archivos.</li>
           <li xml:lang="fr">KDE : bloquer une largeur excessive de la boîte de dialogue de fichiers.</li>
           <li xml:lang="it">KDE: evita una larghezza eccessiva della finestra dei file.</li>
+          <li xml:lang="ko">KDE: 파일 대화 상자 폭이 너무 크게 늘어나는 것을 방지했습니다.</li>
           <li xml:lang="nl">KDE: vermijd uitzonderlijke breedte van de bestandsdialoog.</li>
           <li xml:lang="pt-BR">KDE: Evita largura excessiva da caixa de diálogo de arquivos.</li>
           <li xml:lang="ru">KDE: исправлено чрезмерное увеличение ширины диалога файлов;</li>
@@ -353,6 +355,7 @@
           <li xml:lang="es">Hacer accesible la estructura Chapters mediante kid3-cli.</li>
           <li xml:lang="fr">Rendre les trames des chapitres accessibles grâce à kid3-cli.</li>
           <li xml:lang="it">Rende accessibili i frame dei capitoli tramite kid3-cli.</li>
+          <li xml:lang="ko">kid3-cli에서 챕터 프레임을 접근할 수 있도록 변경했습니다.</li>
           <li xml:lang="nl">Maak Hoofdstuk-frames toegankelijk via kid3-cli.</li>
           <li xml:lang="pt-BR">Torna os quadros dos capítulos acessíveis através do kid3-cli.</li>
           <li xml:lang="ru">Фреймы глав доступны через kid3-cli;</li>
@@ -368,6 +371,7 @@
           <li xml:lang="es">Las pistas superfluas importadas se pueden borrar antes de la importación.</li>
           <li xml:lang="fr">Les pistes importées superflues peuvent être supprimées avant l'importation.</li>
           <li xml:lang="it">Le tracce importate superflue possono essere eliminate prima dell'importazione.</li>
+          <li xml:lang="ko">가져오기 전에 필요하지 않은 트랙을 삭제할 수 있습니다.</li>
           <li xml:lang="nl">Overbodige geïmporteerde tracks kunnen vóór het importeren worden verwijderd.</li>
           <li xml:lang="pt-BR">Faixas importadas supérfluas podem ser excluídas antes da importação.</li>
           <li xml:lang="ru">Лишние импортированные дорожки можно удалить перед импортом;</li>
@@ -383,6 +387,7 @@
           <li xml:lang="es">Se ha corregido la creación de un editor incorrecto en la tabla de estructuras después del cambio de selección.</li>
           <li xml:lang="fr">Correction de la création de l'éditeur incorrect dans la table des trames après la modification de sélection.</li>
           <li xml:lang="it">Correzione della creazione di un editor errato nella tabella dei frame dopo la modifica della selezione.</li>
+          <li xml:lang="ko">선택을 변경한 후 프레임 표에 잘못된 편집기가 생성되는 문제를 해결했습니다.</li>
           <li xml:lang="nl">Corrigeer de aanmaak van een onjuiste bewerker in de frametabel na een selectiewijziging.</li>
           <li xml:lang="pt-BR">Corrigida a criação de um editor incorreto na tabela de quadros após a alteração da seleção.</li>
           <li xml:lang="ru">Исправлено создание неправильного редактора в таблице кадров после изменения выделения;</li>
@@ -572,6 +577,7 @@
         <p xml:lang="es">Correcciones</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="it">Corretti</p>
+        <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
@@ -807,6 +813,7 @@
         <p xml:lang="es">Correcciones</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="it">Corretti</p>
+        <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
@@ -1012,6 +1019,7 @@
         <p xml:lang="es">Correcciones</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="it">Corretti</p>
+        <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
