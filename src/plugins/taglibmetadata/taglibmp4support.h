@@ -30,6 +30,7 @@
 
 namespace TagLib::MP4 {
   class Tag;
+  class File;
 }
 
 class TagLibMp4Support : public TagLibFormatSupport {
@@ -61,7 +62,8 @@ protected:
     const TagLib::String& str) const override;
 
 private:
-  static void putPicturesInExtraFrames(TagLibFile& f);
+  static void putPicturesAndChaptersInExtraFrames(
+    TagLibFile& f, TagLib::MP4::File* file);
   static void setMp4Frame(TagLibFile& f, const Frame& frame,
                           TagLib::MP4::Tag* mp4Tag);
 };
