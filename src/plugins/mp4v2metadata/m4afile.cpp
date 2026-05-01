@@ -384,12 +384,15 @@ QByteArray getValueByteArray(const char* name,
  * Set a SYLT frame with data from MP4 chapters.
  * @param frame frame to set
  * @param data list with time stamps and chapter titles
+ * @param isNero true if Nero type, false if QuickTime
  */
 void setMp4ChaptersFields(Frame& frame,
-                          const QVariantList& data = QVariantList())
+                          const QVariantList& data = QVariantList(),
+                          bool isNero = false)
 {
-  frame.setExtendedType(Frame::ExtendedType(Frame::FT_Other,
-                                            QLatin1String("Chapters")));
+  frame.setExtendedType(Frame::ExtendedType(
+    Frame::FT_Other,
+    QLatin1String(isNero ? "Chapters (Nero)" : "Chapters (QT)")));
   frame.setValue(QString(QLatin1String("")));
 
   Frame::Field field;
@@ -418,9 +421,10 @@ void setMp4ChaptersFields(Frame& frame,
  * @param chapterList MP4 chapters
  * @param chapterCount number of elements in chapterList
  * @param frame the SYLT frame is returned here
+ * @param isNero true if Nero type, false if QuickTime
  */
 void mp4ChaptersToFrame(const MP4Chapter_t* chapterList, uint32_t chapterCount,
-                        Frame& frame)
+                        Frame& frame, bool isNero = false)
 {
   QVariantList data;
   quint32 time = 0;
@@ -432,7 +436,7 @@ void mp4ChaptersToFrame(const MP4Chapter_t* chapterList, uint32_t chapterCount,
   }
   data.append(time);
   data.append(QString());
-  setMp4ChaptersFields(frame, data);
+  setMp4ChaptersFields(frame, data, isNero);
 }
 
 /**
@@ -609,10 +613,20 @@ void M4aFile::readTags(bool force)
 
     MP4Chapter_t* chapterList = nullptr;
     uint32_t chapterCount = 0;
+    MP4GetChapters(handle, &chapterList, &chapterCount, MP4ChapterTypeNero);
+    if (chapterList) {
+      Frame frame;
+      mp4ChaptersToFrame(chapterList, chapterCount, frame, true);
+      frame.setIndex(Frame::toNegativeIndex(m_extraFrames.size()));
+      m_extraFrames.append(frame);
+      MP4Free(chapterList);
+    }
+    chapterList = nullptr;
+    chapterCount = 0;
     MP4GetChapters(handle, &chapterList, &chapterCount, MP4ChapterTypeQt);
     if (chapterList) {
       Frame frame;
-      mp4ChaptersToFrame(chapterList, chapterCount, frame);
+      mp4ChaptersToFrame(chapterList, chapterCount, frame, false);
       frame.setIndex(Frame::toNegativeIndex(m_extraFrames.size()));
       m_extraFrames.append(frame);
       MP4Free(chapterList);
@@ -1009,16 +1023,23 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
         }
       }
 
-      bool hasChapters = false;
+      bool hasNeroChapters = false;
+      bool hasQtChapters = false;
       const auto frames = m_extraFrames;
       for (const Frame& frame : frames) {
         if (frame.getType() == Frame::FT_Other &&
-            frame.getName() == QLatin1String("Chapters")) {
+            frame.getName().startsWith(QLatin1String("Chapters"))) {
+          const bool isNero = frame.getName().contains(QLatin1String("Nero"));
           uint32_t chapterCount = 0;
           MP4Chapter_t* chapterList = nullptr;
           frameToMp4Chapters(frame, chapterList, chapterCount);
-          MP4SetChapters(handle, chapterList, chapterCount, MP4ChapterTypeQt);
-          hasChapters = true;
+          MP4SetChapters(handle, chapterList, chapterCount,
+            isNero ? MP4ChapterTypeNero : MP4ChapterTypeQt);
+          if (isNero) {
+            hasNeroChapters = true;
+          } else {
+            hasQtChapters = true;
+          }
           delete [] chapterList;
         } else {
           QByteArray ba;
@@ -1046,8 +1067,11 @@ bool M4aFile::writeTags(bool force, bool* renamed, bool preserve)
           }
         }
       }
-      if (!hasChapters) {
-        MP4DeleteChapters(handle);
+      if (!hasNeroChapters) {
+        MP4DeleteChapters(handle, MP4ChapterTypeNero);
+      }
+      if (!hasQtChapters) {
+        MP4DeleteChapters(handle, MP4ChapterTypeQt);
       }
 
 #if MPEG4IP_MAJOR_MINOR_VERSION >= 0x0109
@@ -1134,14 +1158,15 @@ void M4aFile::deleteFrames(Frame::TagNumber tagNr, const FrameFilter& flt)
       }
     }
     bool pictureEnabled = flt.isEnabled(Frame::FT_Picture);
-    bool chaptersEnabled = flt.isEnabled(Frame::FT_Other,
-                                         QLatin1String("Chapters"));
+    bool chaptersEnabled =
+      flt.isEnabled(Frame::FT_Other, QLatin1String("Chapters (Nero)")) ||
+      flt.isEnabled(Frame::FT_Other, QLatin1String("Chapters (QT)"));
     if ((pictureEnabled || chaptersEnabled) && !m_extraFrames.isEmpty()) {
       for (auto it = m_extraFrames.begin(); it != m_extraFrames.end();) {
         Frame::Type type = it->getType();
         if ((pictureEnabled && type == Frame::FT_Picture) ||
             (chaptersEnabled && type == Frame::FT_Other &&
-             it->getName() == QLatin1String("Chapters"))) {
+             it->getName().startsWith(QLatin1String("Chapters")))) {
           it = m_extraFrames.erase(it);
           changed = true;
         } else {
@@ -1322,14 +1347,14 @@ bool M4aFile::setFrame(Frame::TagNumber tagNr, const Frame& frame)
   if (tagNr == Frame::Tag_2) {
     if ((frame.getType() == Frame::FT_Picture) ||
         (frame.getType() == Frame::FT_Other &&
-                frame.getName() == QLatin1String("Chapters"))) {
+                frame.getName().startsWith(QLatin1String("Chapters")))) {
       int idx = Frame::fromNegativeIndex(frame.getIndex());
       if (idx >= 0 && idx < m_extraFrames.size()) {
         Frame newFrame(frame);
         if ((frame.getType() == Frame::FT_Picture &&
              PictureFrame::areFieldsEqual(m_extraFrames[idx], newFrame)) ||
             (frame.getType() == Frame::FT_Other &&
-             frame.getName() == QLatin1String("Chapters") &&
+             frame.getName().startsWith(QLatin1String("Chapters")) &&
              areMp4ChaptersFieldsEqual(m_extraFrames[idx], newFrame))) {
           m_extraFrames[idx].setValueChanged(false);
         } else {
@@ -1439,9 +1464,10 @@ bool M4aFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
       return true;
     }
     if (type == Frame::FT_Other &&
-        frame.getName() == QLatin1String("Chapters")) {
+        frame.getName().startsWith(QLatin1String("Chapters"))) {
       if (frame.getFieldList().empty()) {
-        setMp4ChaptersFields(frame);
+        setMp4ChaptersFields(frame, {},
+          frame.getName().contains(QLatin1String("Nero")));
       }
       frame.setIndex(Frame::toNegativeIndex(m_extraFrames.size()));
       m_extraFrames.append(frame);
@@ -1477,7 +1503,7 @@ bool M4aFile::deleteFrame(Frame::TagNumber tagNr, const Frame& frame)
   if (tagNr == Frame::Tag_2) {
     if ((frame.getType() == Frame::FT_Picture) ||
         (frame.getType() == Frame::FT_Other &&
-                frame.getName() == QLatin1String("Chapters"))) {
+                frame.getName().startsWith(QLatin1String("Chapters")))) {
       int idx = Frame::fromNegativeIndex(frame.getIndex());
       if (idx >= 0 && idx < m_extraFrames.size()) {
         m_extraFrames.removeAt(idx);
@@ -1597,7 +1623,7 @@ QStringList M4aFile::getFrameIds(Frame::TagNumber tagNr) const
     QLatin1String("tves") << QLatin1String("tvnn") << QLatin1String("tvsh") << QLatin1String("tvsn") <<
     QLatin1String("purl") << QLatin1String("egid") << QLatin1String("cmID") << QLatin1String("xid ");
 #endif
-  lst << QLatin1String("Chapters");
+  lst << QLatin1String("Chapters (Nero)") << QLatin1String("Chapters (QT)");
   return lst;
 }
 
