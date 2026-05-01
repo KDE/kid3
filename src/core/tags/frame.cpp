@@ -348,6 +348,8 @@ QMap<QByteArray, QByteArray> getDisplayNamesOfIds()
     { "cmID", QT_TRANSLATE_NOOP("@default", "Composer ID") },
     { "xid ", QT_TRANSLATE_NOOP("@default", "XID") },
     { "Chapters", QT_TRANSLATE_NOOP("@default", "Chapters") },
+    { "Chapters (Nero)", QT_TRANSLATE_NOOP("@default", "Chapters (Nero)") },
+    { "Chapters (QT)", QT_TRANSLATE_NOOP("@default", "Chapters (QT)") },
     { "IARL", QT_TRANSLATE_NOOP("@default", "Archival Location") },
     { "ICMS", QT_TRANSLATE_NOOP("@default", "Commissioned") },
     { "ICRP", QT_TRANSLATE_NOOP("@default", "Cropped") },
