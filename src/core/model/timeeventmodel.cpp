@@ -483,7 +483,7 @@ void TimeEventModel::clearMarkedRow()
 void TimeEventModel::fromLrcFile(QTextStream& stream)
 {
   QRegularExpression timeStampRe(QLatin1String(
-                        R"(([[<])(\d\d):(\d\d)(?:\.(\d{1,3}))?([\]>]))"));
+                        R"(([[<])(?:(\d+):)?(\d\d):(\d\d)(?:\.(\d{1,3}))?([\]>]))"));
   QList<TimeEvent> timeEvents;
   bool isFirstLine = true;
   forever {
@@ -512,16 +512,16 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
     while (it.hasNext()) {
       auto match = it.next();
       bool newLine = match.captured(1) == QLatin1String("[");
-      QString millisecondsStr = match.captured(4);
+      QString millisecondsStr = match.captured(5);
       int milliseconds = millisecondsStr.toInt();
       if (millisecondsStr.length() == 2) {
         milliseconds *= 10;
       } else if (millisecondsStr.length() == 1) {
         milliseconds *= 100;
       }
-      QTime timeStamp(0,
-                      match.captured(2).toInt(),
+      QTime timeStamp(match.captured(2).toInt(),
                       match.captured(3).toInt(),
+                      match.captured(4).toInt(),
                       milliseconds);
       int pos = match.capturedStart();
       int textBegin = pos + match.capturedLength();
