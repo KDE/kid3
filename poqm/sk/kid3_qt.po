@@ -324,7 +324,7 @@ msgstr "Odstrániť"
 #: src/app/cli/clicommand.cpp:1283
 msgctxt "ConfigCommand|"
 msgid "Configure Kid3"
-msgstr "Nastaviť panely nástrojov"
+msgstr "Konfigurovať Kid3"
 
 #: src/app/cli/clicommand.cpp:1284
 msgctxt "ConfigCommand|"
@@ -951,7 +951,7 @@ msgstr "Oblasť"
 #: src/app/kde/kdemainwindow.cpp:473
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr "Prehrať"
+msgstr "Prehrávač"
 
 #: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
@@ -1693,7 +1693,7 @@ msgstr "Ďalšie značky"
 #: src/core/config/batchimportsourcesmodel.cpp:174
 msgctxt "BatchImportSourcesModel|"
 msgid "Cover Art"
-msgstr "Obal"
+msgstr "Obal (Cover Art)"
 
 #: src/core/config/fileconfig.cpp:181
 msgctxt "Kid3Application|"
@@ -1796,7 +1796,7 @@ msgstr "Požiadavka odoslaná..."
 #: src/core/tags/frame.cpp:2053
 msgctxt "@default|"
 msgid "Title"
-msgstr "Názov"
+msgstr "Titul"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:115
 #: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2057
@@ -2358,7 +2358,7 @@ msgstr "Veľkosť"
 #: src/core/model/filesystemmodel.cpp:989
 msgctxt "FileSystemModel|Match OS X Finder"
 msgid "Kind"
-msgstr "Typ"
+msgstr "Druh"
 
 #: src/core/model/filesystemmodel.cpp:991
 msgctxt "FileSystemModel|All other platforms"
@@ -2632,22 +2632,22 @@ msgstr "Typ cieľa"
 #: src/core/tags/frame.cpp:75
 msgctxt "@default|"
 msgid "Default"
-msgstr "Obnoviť štandardné"
+msgstr "Predvolené"
 
 #: src/core/tags/frame.cpp:76
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "Stopa"
+msgstr "ID stopy"
 
 #: src/core/tags/frame.cpp:77
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "Upraviť"
+msgstr "ID vydania"
 
 #: src/core/tags/frame.cpp:78
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "Kapitola"
+msgstr "ID kapitoly"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
@@ -2719,7 +2719,7 @@ msgstr "Záber"
 #: src/core/tags/frame.cpp:112
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "Stopa"
+msgstr "Podstopa"
 
 #: src/core/tags/frame.cpp:114
 msgctxt "@default|"
@@ -2729,12 +2729,12 @@ msgstr "Časť"
 #: src/core/tags/frame.cpp:116
 msgctxt "@default|"
 msgid "Edition"
-msgstr "Upraviť"
+msgstr "Vydanie"
 
 #: src/core/tags/frame.cpp:117
 msgctxt "@default|"
 msgid "Collection"
-msgstr "Výber"
+msgstr "Kolekcia"
 
 #: src/core/tags/frame.cpp:142
 msgctxt "@default|"
@@ -3001,7 +3001,7 @@ msgstr "Vyhľadávacia tabuľka MPEG"
 #: src/core/tags/frame.cpp:221 src/core/tags/frame.cpp:342
 msgctxt "@default|"
 msgid "Movement Number"
-msgstr "Číslo časti"
+msgstr "Číslo časti skladby"
 
 #: src/core/tags/frame.cpp:222 src/core/tags/frame.cpp:341
 msgctxt "@default|"
@@ -3071,7 +3071,7 @@ msgstr "Synchronizované kódy tempa"
 #: src/core/tags/frame.cpp:237
 msgctxt "@default|"
 msgid "Podcast Category"
-msgstr "Kategória"
+msgstr "Kategória podcastu"
 
 #: src/core/tags/frame.cpp:240
 msgctxt "@default|"
@@ -3121,7 +3121,7 @@ msgstr "Čas"
 #: src/core/tags/frame.cpp:249
 msgctxt "@default|"
 msgid "Podcast Keywords"
-msgstr "Kľúčové slová"
+msgstr "Kľúčové slová podcastu"
 
 #: src/core/tags/frame.cpp:251 src/core/tags/frame.cpp:311
 msgctxt "@default|"
@@ -3131,7 +3131,7 @@ msgstr "Pôvodný názov súboru"
 #: src/core/tags/frame.cpp:252
 msgctxt "@default|"
 msgid "File Owner"
-msgstr "Názov súboru"
+msgstr "Vlastník súboru"
 
 #: src/core/tags/frame.cpp:253
 msgctxt "@default|"
@@ -4280,7 +4280,7 @@ msgstr "&Prehrať pri dvojkliku"
 #: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
-msgstr "Vyberte súbor"
+msgstr "&Vybrať súbor pri prehrávaní"
 
 #: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
@@ -5552,12 +5552,12 @@ msgstr "Vymazať"
 #: src/gui/forms/sectionactions.cpp:167
 msgctxt "SectionActions|"
 msgid "Open Parent Folder"
-msgstr "Premenovať priečinok"
+msgstr "Otvoriť nadriadený priečinok"
 
 #: src/gui/forms/sectionactions.cpp:170
 msgctxt "SectionActions|"
 msgid "Open Current Folder"
-msgstr "Aktuálny priečinok"
+msgstr "Otvoriť aktuálny priečinok"
 
 #: src/gui/widgets/abstractlistedit.cpp:50
 msgctxt "AbstractListEdit|"
@@ -6660,7 +6660,7 @@ msgstr "Značka 2"
 #: src/qml/app/BatchImportPage.qml:138
 msgctxt "BatchImportPage|"
 msgid "Tag 3"
-msgstr "Značka 2"
+msgstr "Značka 3"
 
 #: src/qml/app/BatchImportPage.qml:139
 msgctxt "BatchImportPage|"
@@ -7032,7 +7032,7 @@ msgstr "Zo značky 2"
 #: src/qml/app/RenameDirectoryPage.qml:132
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 3"
-msgstr "Značka &3"
+msgstr "Zo značky 3"
 
 #: src/qml/app/RenameDirectoryPage.qml:133
 msgctxt "RenameDirectoryPage|"
