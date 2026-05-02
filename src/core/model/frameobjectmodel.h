@@ -129,6 +129,7 @@ class FrameFieldObject : public QObject {
   Q_PROPERTY(int id READ id CONSTANT)
   Q_PROPERTY(QVariant value READ value WRITE setValue NOTIFY valueChanged)
   Q_PROPERTY(int type READ type CONSTANT)
+  Q_PROPERTY(QString frameName READ frameName CONSTANT)
 public:
   /**
    * Constructor.
@@ -171,6 +172,12 @@ public:
    * @return type, type Frame::Type.
    */
   int type() const;
+
+  /**
+   * Get frame name.
+   * @return frame name.
+   */
+  QString frameName() const;
 
 signals:
   /** Emitted when the value is changed. */

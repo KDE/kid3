@@ -235,3 +235,15 @@ int FrameFieldObject::type() const
   }
   return Frame::FT_UnknownFrame;
 }
+
+/**
+   * Get frame name.
+   * @return frame name.
+   */
+QString FrameFieldObject::frameName() const
+{
+  if (FrameObjectModel* fom = frameObject()) {
+    return fom->m_frame.getName();
+  }
+  return {};
+}

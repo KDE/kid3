@@ -128,21 +128,31 @@ Dialog {
       parent: page.parent  // Overlay.overlay
       title: qsTr("Export")
       saveMode: true
-      nameFilters: ["*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG"]
+      nameFilters: field.frameName === "Picture"
+                   ? ["*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG", "*.webp", "*.WEBP"]
+                   : ["*.*"]
       onFinished: {
         if (path) {
           if (script.fileExists(path)) {
             function writeIfOk(ok) {
               confirmOverwriteDialog.completed.disconnect(writeIfOk)
               if (ok) {
-                script.writeFile(path, field.value)
+                if (field.frameName === "Picture") {
+                  script.writeFile(path, field.value)
+                } else {
+                  app.getFrame(Kid3.Frame.TagVAll, field.frameName + ":" + path)
+                }
               }
             }
 
             confirmOverwriteDialog.completed.connect(writeIfOk)
             confirmOverwriteDialog.open()
           } else {
-            script.writeFile(path, field.value)
+            if (field.frameName === "Picture") {
+              script.writeFile(path, field.value)
+            } else {
+              app.getFrame(Kid3.Frame.TagVAll, field.frameName + ":" + path)
+            }
           }
         }
       }
@@ -155,13 +165,19 @@ Dialog {
       property variant field
       parent: page.parent  // Overlay.overlay
       title: qsTr("Import")
-      nameFilters: ["*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG"]
+      nameFilters: field.frameName === "Picture"
+                   ? ["*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG", "*.webp", "*.WEBP"]
+                   : ["*.*"]
       onFinished: {
-        if (path) {
-          field.value = script.readFile(path)
-          page.imageSource = "file://" + path
+        if (field.frameName === "Picture") {
+          if (path) {
+            field.value = script.readFile(path)
+            page.imageSource = "file://" + path
+          } else {
+            page.imageSource = app.coverArtImageId
+          }
         } else {
-          page.imageSource = app.coverArtImageId
+          app.setFrame(Kid3.Frame.TagVAll, field.frameName + ":" + path, "")
         }
       }
     }
@@ -227,6 +243,44 @@ Dialog {
     }
   }
 
+  Component {
+    id: dataImportExport
+
+    Column {
+      width: parent.width
+      spacing: constants.spacing
+
+      Button {
+        id: importButton
+        width: parent.width
+        text: qsTr("Import")
+        onClicked: {
+          constants.openPopup(importFileSelectDialog, importButton,
+            {
+              "folder": app.dirName,
+              "currentFile": _modelData.frameName,
+              "field": _modelData
+            })
+        }
+      }
+
+      Button {
+        id: exportButton
+        width: parent.width
+        text: qsTr("Export")
+
+        onClicked: {
+          constants.openPopup(exportFileSelectDialog, exportButton,
+            {
+              "folder": app.dirName,
+              "currentFile": _modelData.frameName,
+              "field": _modelData
+            })
+        }
+      }
+    }
+  }
+
   contentItem: ListView {
     id: fieldList
     clip: true
@@ -272,6 +326,8 @@ Dialog {
             if (modelData.id === Kid3.Frame.ID_Data &&
                 modelData.type === Kid3.Frame.FT_Picture)
               imageView
+            else if (modelData.id === Kid3.Frame.ID_Data)
+              dataImportExport
       }
       ThinDivider {
         anchors {
