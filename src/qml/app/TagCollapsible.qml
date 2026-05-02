@@ -110,6 +110,16 @@ Collapsible {
           text: qsTr("Remove")
           onTriggered: collapsible.appTag.removeTags()
         }
+        MenuSeparator {
+        }
+        MenuItem {
+          text: qsTr("Select All")
+          onTriggered: collapsible.appTag.frameModel.selectAllFrames()
+        }
+        MenuItem {
+          text: qsTr("Deselect All")
+          onTriggered: collapsible.appTag.frameModel.deselectAllFrames()
+        }
       }
     }
   ]
