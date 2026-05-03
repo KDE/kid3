@@ -9,14 +9,14 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-03-09 18:21+0300\n"
+"PO-Revision-Date: 2026-05-02 19:27+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Language: tr\n"
 "X-Source-Language: en\n"
@@ -3194,7 +3194,7 @@ msgstr "Pod Yayını Beslemesi"
 #: src/core/tags/frame.cpp:264
 msgctxt "@default|"
 msgid "Official Radio Station"
-msgstr "Resmi Radyo İstasyonu"
+msgstr "Resmî Radyo İstasyonu"
 
 #: src/core/tags/frame.cpp:265
 msgctxt "@default|"
@@ -3204,7 +3204,7 @@ msgstr "Ödeme"
 #: src/core/tags/frame.cpp:266
 msgctxt "@default|"
 msgid "Official Publisher"
-msgstr "Resmi Yayımcı"
+msgstr "Resmî Yayımcı"
 
 #: src/core/tags/frame.cpp:267 src/core/tags/frame.cpp:301
 #: src/core/tags/frame.cpp:315
@@ -6353,25 +6353,25 @@ msgstr "WCOP — Telif Hakkı / Kanuni bilgi"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:566
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
-msgstr "WOAF — Ses dosyasının resmi internet sitesi"
+msgstr "WOAF — Ses dosyasının resmî internet sitesi"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:993
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:567
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR — Sanatçının/Şarkıcının resmi web sitesi"
+msgstr "WOAR — Sanatçının/Şarkıcının resmî web sitesi"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:994
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:568
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
-msgstr "WOAS — Ses dosyasının resmi internet adresi"
+msgstr "WOAS — Ses dosyasının resmî internet adresi"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:995
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:569
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
-msgstr "WORS — İnternet radyo istasyonunun resmi adresi"
+msgstr "WORS — İnternet radyo istasyonunun resmî adresi"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:996
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:570
@@ -6383,7 +6383,7 @@ msgstr "WPAY — Ödeme"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:571
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
-msgstr "WPUB — Resmi yayımcı"
+msgstr "WPUB — Resmî yayımcı"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:998
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:572
