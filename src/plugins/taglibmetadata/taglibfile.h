@@ -430,7 +430,7 @@ private:
     bool m_read;
   };
 
-  ExtraFrames m_extraFrames;
+  ExtraFrames m_extraFrames[NUM_TAGS];
 
   /** default text encoding */
   static TagLib::String::Type s_defaultTextEncoding;

@@ -65,6 +65,13 @@ public:
    */
   static void addFieldList(const TagLibFile& f, Frame::TagNumber tagNr, Frame& frame);
 
+  /**
+   * Create pseudo "Chapters" frame in extra frames from CTOC and CHAP frames.
+   * @param f file
+   * @param tagNr tag number
+   */
+  static void putChaptersInExtraFrames(TagLibFile& f, Frame::TagNumber tagNr);
+
 protected:
   void setTagValue(TagLibFile& f, Frame::TagNumber tagNr, Frame::Type type,
     const TagLib::String& str) const override;

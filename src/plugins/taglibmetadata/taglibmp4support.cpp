@@ -516,7 +516,7 @@ bool TagLibMp4Support::readFile(TagLibFile& f, TagLib::File* file) const
 void TagLibMp4Support::putPicturesAndChaptersInExtraFrames(
   TagLibFile& f, TagLib::MP4::File* file)
 {
-  if (!f.m_extraFrames.isRead()) {
+  if (!f.m_extraFrames[Frame::Tag_2].isRead()) {
     if (auto mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(f.m_tag[Frame::Tag_2])) {
 #if TAGLIB_VERSION >= 0x010a00
       const auto& itemMap = mp4Tag->itemMap();
@@ -556,7 +556,7 @@ void TagLibMp4Support::putPicturesAndChaptersInExtraFrames(
         frame.setIndex(Frame::toNegativeIndex(i++));
         frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture,
                                                   QLatin1String("covr")));
-        f.m_extraFrames.append(frame);
+        f.m_extraFrames[Frame::Tag_2].append(frame);
       }
 
 #if TAGLIB_VERSION >= 0x020300
@@ -565,20 +565,20 @@ void TagLibMp4Support::putPicturesAndChaptersInExtraFrames(
         Frame frame;
         mp4ChaptersToFrame(chapterList, frame, true);
         frame.setIndex(Frame::toNegativeIndex(i++));
-        f.m_extraFrames.append(frame);
+        f.m_extraFrames[Frame::Tag_2].append(frame);
       }
       chapterList = file->qtChapters();
       if (!chapterList.isEmpty()) {
         Frame frame;
         mp4ChaptersToFrame(chapterList, frame, false);
         frame.setIndex(Frame::toNegativeIndex(i++));
-        f.m_extraFrames.append(frame);
+        f.m_extraFrames[Frame::Tag_2].append(frame);
       }
 #else
      Q_UNUSED(file);
 #endif
 
-      f.m_extraFrames.setRead(true);
+      f.m_extraFrames[Frame::Tag_2].setRead(true);
     }
   }
 }
@@ -593,8 +593,8 @@ bool TagLibMp4Support::writeFile(TagLibFile& f, TagLib::File* file, bool force,
       TagLib::MP4::ChapterList neroChapterList;
       TagLib::MP4::ChapterList qtChapterList;
 #endif
-      if (!f.m_extraFrames.isEmpty()) {
-        const auto frames = f.m_extraFrames;
+      if (!f.m_extraFrames[Frame::Tag_2].isEmpty()) {
+        const auto frames = f.m_extraFrames[Frame::Tag_2];
         for (const Frame& frame : frames) {
           if (frame.getType() == Frame::FT_Other &&
               frame.getName().startsWith(QLatin1String("Chapters"))) {
@@ -709,22 +709,22 @@ bool TagLibMp4Support::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
 {
   if (auto mp4Tag = dynamic_cast<TagLib::MP4::Tag*>(f.m_tag[tagNr])) {
     if (int index = frame.getIndex(); index != -1) {
-      if (f.m_extraFrames.isRead()) {
+      if (f.m_extraFrames[tagNr].isRead()) {
         if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-            idx >= 0 && idx < f.m_extraFrames.size()) {
+            idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
           Frame newFrame(frame);
           if (Frame::ExtendedType extendedType = frame.getExtendedType();
               (extendedType.getType() == Frame::FT_Picture &&
-               PictureFrame::areFieldsEqual(f.m_extraFrames[idx], newFrame))
+               PictureFrame::areFieldsEqual(f.m_extraFrames[tagNr][idx], newFrame))
 #if TAGLIB_VERSION >= 0x020300
               || (extendedType.getType() == Frame::FT_Other &&
                   frame.getName().startsWith(QLatin1String("Chapters")) &&
-                  areMp4ChaptersFieldsEqual(f.m_extraFrames[idx], newFrame))
+                  areMp4ChaptersFieldsEqual(f.m_extraFrames[tagNr][idx], newFrame))
 #endif
              ) {
-              f.m_extraFrames[idx].setValueChanged(false);
+              f.m_extraFrames[tagNr][idx].setValueChanged(false);
           } else {
-            f.m_extraFrames[idx] = newFrame;
+            f.m_extraFrames[tagNr][idx] = newFrame;
             f.markTagChanged(tagNr, extendedType);
           }
           return true;
@@ -746,9 +746,9 @@ bool TagLibMp4Support::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame& fr
       if (frame.getFieldList().empty()) {
         PictureFrame::setFields(frame);
       }
-      if (f.m_extraFrames.isRead()) {
-        frame.setIndex(Frame::toNegativeIndex(static_cast<int>(f.m_extraFrames.size())));
-        f.m_extraFrames.append(frame);
+      if (f.m_extraFrames[tagNr].isRead()) {
+        frame.setIndex(Frame::toNegativeIndex(static_cast<int>(f.m_extraFrames[tagNr].size())));
+        f.m_extraFrames[tagNr].append(frame);
         f.markTagChanged(tagNr, frame.getExtendedType());
         return true;
       }
@@ -760,8 +760,8 @@ bool TagLibMp4Support::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame& fr
         setMp4ChaptersFields(frame, {},
           frame.getName().contains(QLatin1String("Nero")));
       }
-      frame.setIndex(Frame::toNegativeIndex(static_cast<int>(f.m_extraFrames.size())));
-      f.m_extraFrames.append(frame);
+      frame.setIndex(Frame::toNegativeIndex(static_cast<int>(f.m_extraFrames[tagNr].size())));
+      f.m_extraFrames[tagNr].append(frame);
       f.markTagChanged(Frame::Tag_2, frame.getExtendedType());
       return true;;
     }
@@ -809,12 +809,12 @@ bool TagLibMp4Support::deleteFrame(TagLibFile& f, Frame::TagNumber tagNr,
     if ((frame.getType() == Frame::FT_Picture) ||
         (frame.getType() == Frame::FT_Other &&
          frame.getName().startsWith(QLatin1String("Chapters")))) {
-      if (f.m_extraFrames.isRead()) {
+      if (f.m_extraFrames[tagNr].isRead()) {
         if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-            idx >= 0 && idx < f.m_extraFrames.size()) {
-          f.m_extraFrames.removeAt(idx);
-          while (idx < f.m_extraFrames.size()) {
-            f.m_extraFrames[idx].setIndex(Frame::toNegativeIndex(idx));
+            idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
+          f.m_extraFrames[tagNr].removeAt(idx);
+          while (idx < f.m_extraFrames[tagNr].size()) {
+            f.m_extraFrames[tagNr][idx].setIndex(Frame::toNegativeIndex(idx));
             ++idx;
           }
           f.markTagChanged(tagNr, frame.getExtendedType());
@@ -848,7 +848,7 @@ bool TagLibMp4Support::deleteFrames(
 #else
       mp4Tag->itemListMap().clear();
 #endif
-      f.m_extraFrames.clear();
+      f.m_extraFrames[tagNr].clear();
     } else {
 #if TAGLIB_VERSION >= 0x010b01
       for (auto it = itemMap.begin(); it != itemMap.end();) {
@@ -883,13 +883,13 @@ bool TagLibMp4Support::deleteFrames(
       bool chaptersEnabled =
         flt.isEnabled(Frame::FT_Other, QLatin1String("Chapters (Nero)")) ||
         flt.isEnabled(Frame::FT_Other, QLatin1String("Chapters (QT)"));
-      if ((pictureEnabled || chaptersEnabled) && !f.m_extraFrames.isEmpty()) {
-        for (auto it = f.m_extraFrames.begin(); it != f.m_extraFrames.end();) {
+      if ((pictureEnabled || chaptersEnabled) && !f.m_extraFrames[tagNr].isEmpty()) {
+        for (auto it = f.m_extraFrames[tagNr].begin(); it != f.m_extraFrames[tagNr].end();) {
           Frame::Type type = it->getType();
           if ((pictureEnabled && type == Frame::FT_Picture) ||
               (chaptersEnabled && type == Frame::FT_Other &&
                it->getName().startsWith(QLatin1String("Chapters")))) {
-            it = f.m_extraFrames.erase(it);
+            it = f.m_extraFrames[tagNr].erase(it);
           } else {
             ++it;
           }
@@ -982,8 +982,8 @@ bool TagLibMp4Support::getAllFrames(
           Frame(type, value, toQString(name), i++));
       }
     }
-    if (f.m_extraFrames.isRead()) {
-      for (auto it = f.m_extraFrames.constBegin(); it != f.m_extraFrames.constEnd(); ++it) {
+    if (f.m_extraFrames[tagNr].isRead()) {
+      for (auto it = f.m_extraFrames[tagNr].constBegin(); it != f.m_extraFrames[tagNr].constEnd(); ++it) {
         frames.insert(*it);
       }
     }

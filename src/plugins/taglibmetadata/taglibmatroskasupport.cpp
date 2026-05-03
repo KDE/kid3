@@ -405,7 +405,7 @@ TagLib::Matroska::SimpleTag frameToMatroskaSimpleTag(const Frame& frame)
   const auto chapterUid = Frame::getField(frame, Frame::ID_ChapterId).toULongLong();
   const auto attachmentUid = Frame::getField(frame, Frame::ID_AttachmentId).toULongLong();
 #endif
-  if (name.isEmpty()) {
+  if (!targetTypeVar.isValid() || name.isEmpty()) {
     name = getMatroskaName(frame, targetType);
   }
   return !isBinary
@@ -489,7 +489,7 @@ bool TagLibMatroskaSupport::readFile(TagLibFile& f, TagLib::File* file) const
     f.m_fileExtension = QLatin1String(".mka");
     putFileRefTagInTag2(f);
 
-    if (!f.m_extraFrames.isRead()) {
+    if (!f.m_extraFrames[Frame::Tag_2].isRead()) {
       int i = 0;
       if (auto attachments = mkaFile->attachments()) {
         for (const auto& attachedFile : attachments->attachedFileList()) {
@@ -497,12 +497,12 @@ bool TagLibMatroskaSupport::readFile(TagLibFile& f, TagLib::File* file) const
             PictureFrame frame;
             matroskaPictureToFrame(attachedFile, frame);
             frame.setIndex(Frame::toNegativeIndex(i++));
-            f.m_extraFrames.append(frame);
+            f.m_extraFrames[Frame::Tag_2].append(frame);
           } else {
             Frame frame;
             matroskaAttachedFileToFrame(attachedFile, frame);
             frame.setIndex(Frame::toNegativeIndex(i++));
-            f.m_extraFrames.append(frame);
+            f.m_extraFrames[Frame::Tag_2].append(frame);
           }
         }
       }
@@ -511,10 +511,10 @@ bool TagLibMatroskaSupport::readFile(TagLibFile& f, TagLib::File* file) const
           Frame frame;
           matroskaChapterEditionToFrame(chapterEdition, frame);
           frame.setIndex(Frame::toNegativeIndex(i++));
-          f.m_extraFrames.append(frame);
+          f.m_extraFrames[Frame::Tag_2].append(frame);
         }
       }
-      f.m_extraFrames.setRead(true);
+      f.m_extraFrames[Frame::Tag_2].setRead(true);
     }
     return true;
   }
@@ -533,7 +533,7 @@ bool TagLibMatroskaSupport::writeFile(TagLibFile& f, TagLib::File* file, bool fo
       if (auto chapters = mkaFile->chapters(false)) {
         chapters->clear();
       }
-      const auto frames = f.m_extraFrames;
+      const auto frames = f.m_extraFrames[Frame::Tag_2];
       for (const Frame& frame : frames) {
         if (frame.getExtendedType() == Frame::ExtendedType(
               Frame::FT_Other, QLatin1String("Chapters"))) {
@@ -602,15 +602,15 @@ bool TagLibMatroskaSupport::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
     if (int index = frame.getIndex(); index != -1) {
       if (Frame::ExtendedType extendedType = frame.getExtendedType();
           isExtraFrame(extendedType)) {
-        if (f.m_extraFrames.isRead()) {
+        if (f.m_extraFrames[tagNr].isRead()) {
           if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-              idx >= 0 && idx < f.m_extraFrames.size()) {
+              idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
             if (Frame newFrame(frame);
-                PictureFrame::areFieldsEqual(f.m_extraFrames[idx], newFrame)) {
-              f.m_extraFrames[idx].setValueChanged(false);
+                PictureFrame::areFieldsEqual(f.m_extraFrames[tagNr][idx], newFrame)) {
+              f.m_extraFrames[tagNr][idx].setValueChanged(false);
             } else {
               setExtraFrameFieldsIfNeeded(newFrame);
-              f.m_extraFrames[idx] = newFrame;
+              f.m_extraFrames[tagNr][idx] = newFrame;
               f.markTagChanged(tagNr, extendedType);
             }
             return true;
@@ -636,9 +636,9 @@ bool TagLibMatroskaSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Fram
     if (Frame::ExtendedType extendedType = frame.getExtendedType();
         isExtraFrame(extendedType)) {
       setExtraFrameFieldsIfNeeded(frame);
-      if (f.m_extraFrames.isRead()) {
-        frame.setIndex(Frame::toNegativeIndex(static_cast<int>(f.m_extraFrames.size())));
-        f.m_extraFrames.append(frame);
+      if (f.m_extraFrames[tagNr].isRead()) {
+        frame.setIndex(Frame::toNegativeIndex(static_cast<int>(f.m_extraFrames[tagNr].size())));
+        f.m_extraFrames[tagNr].append(frame);
         f.markTagChanged(tagNr, extendedType);
         return true;
       }
@@ -685,12 +685,12 @@ bool TagLibMatroskaSupport::deleteFrame(TagLibFile& f, Frame::TagNumber tagNr,
   if (auto mkaTag = dynamic_cast<TagLib::Matroska::Tag*>(f.m_tag[tagNr])) {
     if (Frame::ExtendedType extendedType = frame.getExtendedType();
         isExtraFrame(extendedType)) {
-      if (f.m_extraFrames.isRead()) {
+      if (f.m_extraFrames[tagNr].isRead()) {
         if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-            idx >= 0 && idx < f.m_extraFrames.size()) {
-          f.m_extraFrames.removeAt(idx);
-          while (idx < f.m_extraFrames.size()) {
-            f.m_extraFrames[idx].setIndex(Frame::toNegativeIndex(idx));
+            idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
+          f.m_extraFrames[tagNr].removeAt(idx);
+          while (idx < f.m_extraFrames[tagNr].size()) {
+            f.m_extraFrames[tagNr][idx].setIndex(Frame::toNegativeIndex(idx));
             ++idx;
           }
           f.markTagChanged(tagNr, extendedType);
@@ -713,7 +713,7 @@ bool TagLibMatroskaSupport::deleteFrames(
   if (auto mkaTag = dynamic_cast<TagLib::Matroska::Tag*>(f.m_tag[tagNr])) {
     if (flt.areAllEnabled()) {
       mkaTag->clearSimpleTags();
-      f.m_extraFrames.clear();
+      f.m_extraFrames[tagNr].clear();
       f.markTagChanged(tagNr, Frame::ExtendedType());
     } else {
       TagLib::Matroska::SimpleTagsList simpleTags = mkaTag->simpleTagsList();
@@ -735,19 +735,19 @@ bool TagLibMatroskaSupport::deleteFrames(
       }
 
       bool extraFrameRemoved = false;
-      if (f.m_extraFrames.isRead()) {
-        for (auto it = f.m_extraFrames.begin();
-             it != f.m_extraFrames.end();) {
+      if (f.m_extraFrames[tagNr].isRead()) {
+        for (auto it = f.m_extraFrames[tagNr].begin();
+             it != f.m_extraFrames[tagNr].end();) {
           if (flt.isEnabled(it->getType(), it->getInternalName())) {
             extraFrameRemoved = true;
-            it = f.m_extraFrames.erase(it);
+            it = f.m_extraFrames[tagNr].erase(it);
           } else {
             ++it;
           }
         }
         if (extraFrameRemoved) {
           int i = 0;
-          for (Frame& frame : f.m_extraFrames) {
+          for (Frame& frame : f.m_extraFrames[tagNr]) {
             frame.setIndex(Frame::toNegativeIndex(i++));
           }
         }
@@ -796,9 +796,9 @@ bool TagLibMatroskaSupport::getAllFrames(
       });
       frames.insert(frame);
     }
-    if (f.m_extraFrames.isRead()) {
-      for (auto it = f.m_extraFrames.constBegin();
-           it != f.m_extraFrames.constEnd();
+    if (f.m_extraFrames[tagNr].isRead()) {
+      for (auto it = f.m_extraFrames[tagNr].constBegin();
+           it != f.m_extraFrames[tagNr].constEnd();
            ++it) {
         frames.insert(*it);
       }

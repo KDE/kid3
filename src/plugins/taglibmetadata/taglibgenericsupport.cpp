@@ -201,16 +201,16 @@ bool TagLibGenericSupport::readFile(TagLibFile& f, TagLib::File* file) const
       f.m_fileExtension = filename.mid(dotPos);
       putFileRefTagInTag2(f);
 #if TAGLIB_VERSION >= 0x020000
-      if (!f.m_extraFrames.isRead()) {
+      if (!f.m_extraFrames[Frame::Tag_2].isRead()) {
         const auto pics = file->complexProperties("PICTURE");
         int i = 0;
         for (const auto& pic : pics) {
           PictureFrame frame;
           propertyPictureToFrame(pic, frame);
           frame.setIndex(Frame::toNegativeIndex(i++));
-          f.m_extraFrames.append(frame);
+          f.m_extraFrames[Frame::Tag_2].append(frame);
         }
-        f.m_extraFrames.setRead(true);
+        f.m_extraFrames[Frame::Tag_2].setRead(true);
         return true;
       }
 #endif
@@ -224,9 +224,9 @@ bool TagLibGenericSupport::writeFile(TagLibFile& f, TagLib::File*, bool force,
 {
   if (anyTagMustBeSaved(f, force)) {
 #if TAGLIB_VERSION >= 0x020000
-    if (f.m_extraFrames.isRead()) {
+    if (f.m_extraFrames[Frame::Tag_2].isRead()) {
       TagLib::List<TagLib::VariantMap> props;
-      const auto frames = f.m_extraFrames;
+      const auto frames = f.m_extraFrames[Frame::Tag_2];
       for (const Frame& frame : frames) {
         if (frame.getType() == Frame::FT_Picture) {
           TagLib::VariantMap prop;
@@ -268,15 +268,15 @@ bool TagLibGenericSupport::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
     if (Frame::ExtendedType extendedType = frame.getExtendedType();
         extendedType.getType() == Frame::FT_Picture) {
 #if TAGLIB_VERSION >= 0x020000
-      if (f.m_extraFrames.isRead()) {
+      if (f.m_extraFrames[tagNr].isRead()) {
         if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-            idx >= 0 && idx < f.m_extraFrames.size()) {
+            idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
           Frame newFrame(frame);
           PictureFrame::setDescription(newFrame, frame.getValue());
-          if (PictureFrame::areFieldsEqual(f.m_extraFrames[idx], newFrame)) {
-            f.m_extraFrames[idx].setValueChanged(false);
+          if (PictureFrame::areFieldsEqual(f.m_extraFrames[tagNr][idx], newFrame)) {
+            f.m_extraFrames[tagNr][idx].setValueChanged(false);
           } else {
-            f.m_extraFrames[idx] = newFrame;
+            f.m_extraFrames[tagNr][idx] = newFrame;
             f.markTagChanged(tagNr, extendedType);
           }
           return true;
@@ -313,7 +313,7 @@ bool TagLibGenericSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame
       tagNr == Frame::Tag_2 && (tag = f.m_tag[tagNr]) != nullptr) {
     if (frame.getType() == Frame::FT_Picture) {
 #if TAGLIB_VERSION >= 0x020000
-      if (f.m_extraFrames.isRead()) {
+      if (f.m_extraFrames[tagNr].isRead()) {
         if (frame.getFieldList().isEmpty()) {
           PictureFrame::setFields(
             frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
@@ -321,8 +321,8 @@ bool TagLibGenericSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame
             QByteArray());
         }
         PictureFrame::setDescription(frame, frame.getValue());
-        frame.setIndex(Frame::toNegativeIndex(f.m_extraFrames.size()));
-        f.m_extraFrames.append(frame);
+        frame.setIndex(Frame::toNegativeIndex(f.m_extraFrames[tagNr].size()));
+        f.m_extraFrames[tagNr].append(frame);
         f.markTagChanged(tagNr, frame.getExtendedType());
         return true;
       }
@@ -365,12 +365,12 @@ bool TagLibGenericSupport::deleteFrame(TagLibFile& f, Frame::TagNumber tagNr,
       tagNr == Frame::Tag_2 && (tag = f.m_tag[tagNr]) != nullptr) {
     if (frame.getType() == Frame::FT_Picture) {
 #if TAGLIB_VERSION >= 0x020000
-      if (f.m_extraFrames.isRead()) {
+      if (f.m_extraFrames[tagNr].isRead()) {
         if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-            idx >= 0 && idx < f.m_extraFrames.size()) {
-          f.m_extraFrames.removeAt(idx);
-          while (idx < f.m_extraFrames.size()) {
-            f.m_extraFrames[idx].setIndex(Frame::toNegativeIndex(idx));
+            idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
+          f.m_extraFrames[tagNr].removeAt(idx);
+          while (idx < f.m_extraFrames[tagNr].size()) {
+            f.m_extraFrames[tagNr][idx].setIndex(Frame::toNegativeIndex(idx));
             ++idx;
           }
           f.markTagChanged(tagNr, frame.getExtendedType());
@@ -414,7 +414,7 @@ bool TagLibGenericSupport::deleteFrames(
 #else
       tag->removeUnsupportedProperties(propertyMap.unsupportedData());
 #endif
-      f.m_extraFrames.clear();
+      f.m_extraFrames[tagNr].clear();
     } else {
       TagLib::StringList keys;
       for (auto& [propertyName, stringList] : propertyMap) {
@@ -428,7 +428,7 @@ bool TagLibGenericSupport::deleteFrames(
       }
 #if TAGLIB_VERSION >= 0x020000
       if (flt.isEnabled(Frame::FT_Picture)) {
-        f.m_extraFrames.clear();
+        f.m_extraFrames[tagNr].clear();
       }
 #endif
     }
@@ -459,8 +459,8 @@ bool TagLibGenericSupport::getAllFrames(
       Frame::Type type = getTypeFromPropertyName(name);
       frames.insert(Frame(type, joinToQString(stringList), name, i++));
     }
-    if (f.m_extraFrames.isRead()) {
-      for (auto it = f.m_extraFrames.constBegin(); it != f.m_extraFrames.constEnd(); ++it) {
+    if (f.m_extraFrames[tagNr].isRead()) {
+      for (auto it = f.m_extraFrames[tagNr].constBegin(); it != f.m_extraFrames[tagNr].constEnd(); ++it) {
         frames.insert(*it);
       }
     }
@@ -495,7 +495,7 @@ QStringList TagLibGenericSupport::getFrameIds(
     "VERSION",
     "VOLUME"
   };
-  const bool picturesSupported = f.m_extraFrames.isRead() ||
+  const bool picturesSupported = f.m_extraFrames[tagNr].isRead() ||
       f.m_tagType[tagNr] == TaggedFile::TT_Vorbis || f.m_tagType[tagNr] == TaggedFile::TT_Ape;
   for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
     if (k != Frame::FT_Picture || picturesSupported) {

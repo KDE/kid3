@@ -37,6 +37,7 @@
 #include "pictureframe.h"
 #include "taglibutils.h"
 #include "taglibfile.h"
+#include "taglibmpegsupport.h"
 
 using namespace TagLibUtils;
 
@@ -145,17 +146,18 @@ bool TagLibVorbisSupport::readFile(TagLibFile& f, TagLib::File* file) const
     if (!f.m_tag[Frame::Tag_3]) {
       f.m_tag[Frame::Tag_3] = flacFile->ID3v2Tag();
       f.markTagUnchanged(Frame::Tag_3);
+      TagLibMpegSupport::putChaptersInExtraFrames(f, Frame::Tag_3);
     }
-    if (!f.m_extraFrames.isRead()) {
+    if (!f.m_extraFrames[Frame::Tag_2].isRead()) {
       const TagLib::List pics(flacFile->pictureList());
       int i = 0;
       for (auto it = pics.begin(); it != pics.end(); ++it) {
         PictureFrame frame;
         flacPictureToFrame(*it, frame);
         frame.setIndex(Frame::toNegativeIndex(i++));
-        f.m_extraFrames.append(frame);
+        f.m_extraFrames[Frame::Tag_2].append(frame);
       }
-      f.m_extraFrames.setRead(true);
+      f.m_extraFrames[Frame::Tag_2].setRead(true);
     }
     return true;
   }
@@ -182,7 +184,7 @@ bool TagLibVorbisSupport::readFile(TagLibFile& f, TagLib::File* file) const
 
 void TagLibVorbisSupport::putPicturesInExtraFrames(TagLibFile& f)
 {
-  if (!f.m_extraFrames.isRead()) {
+  if (!f.m_extraFrames[Frame::Tag_2].isRead()) {
 #if TAGLIB_VERSION >= 0x010b00
     if (auto xiphComment =
       dynamic_cast<TagLib::Ogg::XiphComment*>(f.m_tag[Frame::Tag_2])) {
@@ -192,9 +194,9 @@ void TagLibVorbisSupport::putPicturesInExtraFrames(TagLibFile& f)
         PictureFrame frame;
         flacPictureToFrame(*it, frame);
         frame.setIndex(Frame::toNegativeIndex(i++));
-        f.m_extraFrames.append(frame);
+        f.m_extraFrames[Frame::Tag_2].append(frame);
       }
-      f.m_extraFrames.setRead(true);
+      f.m_extraFrames[Frame::Tag_2].setRead(true);
     }
 #endif
   }
@@ -220,7 +222,7 @@ bool TagLibVorbisSupport::writeFile(TagLibFile& f, TagLib::File* file, bool forc
       }
 #endif
       flacFile->removePictures();
-      const auto frames = f.m_extraFrames;
+      const auto frames = f.m_extraFrames[Frame::Tag_2];
       for (const Frame& frame : frames) {
         // ReSharper disable once CppDFAMemoryLeak
         auto pic = new TagLib::FLAC::Picture;
@@ -238,7 +240,7 @@ bool TagLibVorbisSupport::writeFile(TagLibFile& f, TagLib::File* file, bool forc
       dynamic_cast<TagLib::Ogg::XiphComment*>(f.m_tag[Frame::Tag_2])) {
     if (anyTagMustBeSaved(f, force)) {
       xiphComment->removeAllPictures();
-      const auto frames = f.m_extraFrames;
+      const auto frames = f.m_extraFrames[Frame::Tag_2];
       for (const Frame& frame : frames) {
         // ReSharper disable once CppDFAMemoryLeak
         auto pic = new TagLib::FLAC::Picture;
@@ -325,15 +327,15 @@ bool TagLibVorbisSupport::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
       QString frameValue(frame.getValue());
       if (Frame::ExtendedType extendedType = frame.getExtendedType();
           extendedType.getType() == Frame::FT_Picture) {
-        if (f.m_extraFrames.isRead()) {
+        if (f.m_extraFrames[tagNr].isRead()) {
           if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-              idx >= 0 && idx < f.m_extraFrames.size()) {
+              idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
             Frame newFrame(frame);
             PictureFrame::setDescription(newFrame, frameValue);
-            if (PictureFrame::areFieldsEqual(f.m_extraFrames[idx], newFrame)) {
-              f.m_extraFrames[idx].setValueChanged(false);
+            if (PictureFrame::areFieldsEqual(f.m_extraFrames[tagNr][idx], newFrame)) {
+              f.m_extraFrames[tagNr][idx].setValueChanged(false);
             } else {
-              f.m_extraFrames[idx] = newFrame;
+              f.m_extraFrames[tagNr][idx] = newFrame;
               f.markTagChanged(tagNr, extendedType);
             }
             return true;
@@ -408,10 +410,10 @@ bool TagLibVorbisSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame&
           frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
           PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
       }
-      if (f.m_extraFrames.isRead()) {
+      if (f.m_extraFrames[tagNr].isRead()) {
         PictureFrame::setDescription(frame, value);
-        frame.setIndex(Frame::toNegativeIndex(f.m_extraFrames.size()));
-        f.m_extraFrames.append(frame);
+        frame.setIndex(Frame::toNegativeIndex(f.m_extraFrames[tagNr].size()));
+        f.m_extraFrames[tagNr].append(frame);
         f.markTagChanged(tagNr, frame.getExtendedType());
         return true;
       }
@@ -451,12 +453,12 @@ bool TagLibVorbisSupport::deleteFrame(TagLibFile& f, Frame::TagNumber tagNr,
   if (auto oggTag = dynamic_cast<TagLib::Ogg::XiphComment*>(f.m_tag[tagNr])) {
     QString frameValue(frame.getValue());
     if (frame.getType() == Frame::FT_Picture) {
-      if (f.m_extraFrames.isRead()) {
+      if (f.m_extraFrames[tagNr].isRead()) {
         if (int idx = Frame::fromNegativeIndex(frame.getIndex());
-            idx >= 0 && idx < f.m_extraFrames.size()) {
-          f.m_extraFrames.removeAt(idx);
-          while (idx < f.m_extraFrames.size()) {
-            f.m_extraFrames[idx].setIndex(Frame::toNegativeIndex(idx));
+            idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
+          f.m_extraFrames[tagNr].removeAt(idx);
+          while (idx < f.m_extraFrames[tagNr].size()) {
+            f.m_extraFrames[tagNr][idx].setIndex(Frame::toNegativeIndex(idx));
             ++idx;
           }
           f.markTagChanged(tagNr, frame.getExtendedType());
@@ -493,6 +495,7 @@ bool TagLibVorbisSupport::deleteFrames(
         oggTag->removeField((it++)->first);
 #endif
       }
+      f.m_extraFrames[tagNr].clear();
     } else {
       for (auto it = fieldListMap.begin();
            it != fieldListMap.end();) {
@@ -508,7 +511,7 @@ bool TagLibVorbisSupport::deleteFrames(
         }
       }
       if (flt.isEnabled(Frame::FT_Picture)) {
-        f.m_extraFrames.clear();
+        f.m_extraFrames[tagNr].clear();
       }
     }
     f.markTagChanged(tagNr, Frame::ExtendedType());
@@ -547,8 +550,8 @@ bool TagLibVorbisSupport::getAllFrames(
         }
       }
     }
-    if (f.m_extraFrames.isRead()) {
-      for (auto it = f.m_extraFrames.constBegin(); it != f.m_extraFrames.constEnd(); ++it) {
+    if (f.m_extraFrames[tagNr].isRead()) {
+      for (auto it = f.m_extraFrames[tagNr].constBegin(); it != f.m_extraFrames[tagNr].constEnd(); ++it) {
         frames.insert(*it);
       }
     }

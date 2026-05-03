@@ -438,6 +438,9 @@ bool TagLibRiffSupport::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
 {
 #if TAGLIB_VERSION >= 0x010a00
   if (auto infoTag = dynamic_cast<TagLib::RIFF::Info::Tag*>(f.m_tag[tagNr])) {
+    if (frame.getType() == Frame::FT_Picture) {
+      return false;
+    }
     if (int index = frame.getIndex(); index != -1) {
       infoTag->setFieldText(getInfoName(frame), toTString(frame.getValue()));
       f.markTagChanged(tagNr, frame.getExtendedType());
@@ -453,6 +456,9 @@ bool TagLibRiffSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame& f
 {
 #if TAGLIB_VERSION >= 0x010a00
   if (auto infoTag = dynamic_cast<TagLib::RIFF::Info::Tag*>(f.m_tag[tagNr])) {
+    if (frame.getType() == Frame::FT_Picture) {
+      return false;
+    }
     TagLib::ByteVector id = getInfoName(frame);
     TagLib::String tvalue = toTString(frame.getValue());
     if (tvalue.isEmpty()) {

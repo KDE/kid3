@@ -2439,6 +2439,28 @@ TagLib::File* TagLibMpegSupport::createFromExtension(
   return nullptr;
 }
 
+void TagLibMpegSupport::putChaptersInExtraFrames(TagLibFile& f, Frame::TagNumber tagNr)
+{
+#if TAGLIB_VERSION >= 0x010a00
+  if (!f.m_extraFrames[tagNr].isRead()) {
+    if (auto id3v2Tag = dynamic_cast<TagLib::ID3v2::Tag*>(f.m_tag[tagNr])) {
+      const auto ctocFrames = id3v2Tag->frameList("CTOC");
+      int i = 0;
+      for (auto ctocFrame : ctocFrames) {
+        if (Frame frame;
+            ctocChapToChaptersFrame(
+              ctocFrame, id3v2Tag->frameList("CHAP"), frame)) {
+          frame.setIndex(Frame::toNegativeIndex(i++));
+          f.m_extraFrames[tagNr].append(frame);
+          break;
+        }
+      }
+    }
+    f.m_extraFrames[tagNr].setRead(true);
+  }
+#endif
+}
+
 bool TagLibMpegSupport::readFile(TagLibFile& f, TagLib::File* file) const
 {
   if (auto mpegFile = dynamic_cast<TagLib::MPEG::File*>(file)) {
@@ -2458,22 +2480,7 @@ bool TagLibMpegSupport::readFile(TagLibFile& f, TagLib::File* file) const
       f.setId3v2VersionFromTag(id3v2Tag);
       f.m_tag[Frame::Tag_2] = id3v2Tag;
       f.markTagUnchanged(Frame::Tag_2);
-#if TAGLIB_VERSION >= 0x010a00
-      if (!f.m_extraFrames.isRead()) {
-        const auto ctocFrames = id3v2Tag->frameList("CTOC");
-        int i = 0;
-        for (auto ctocFrame : ctocFrames) {
-          if (Frame frame;
-              ctocChapToChaptersFrame(
-                ctocFrame, id3v2Tag->frameList("CHAP"), frame)) {
-            frame.setIndex(Frame::toNegativeIndex(i++));
-            f.m_extraFrames.append(frame);
-            break;
-          }
-        }
-        f.m_extraFrames.setRead(true);
-      }
-#endif
+      putChaptersInExtraFrames(f, Frame::Tag_2);
     }
     if (!f.m_tag[Frame::Tag_3]) {
       f.m_tag[Frame::Tag_3] = mpegFile->APETag();
@@ -2641,10 +2648,10 @@ bool TagLibMpegSupport::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
 #if TAGLIB_VERSION >= 0x010a00
       if (frame.getType() == Frame::FT_Other &&
           frame.getName() == QLatin1String("Chapters") &&
-          !f.m_extraFrames.isEmpty() &&
-          f.m_extraFrames.front().getName() == QLatin1String("Chapters")) {
+          !f.m_extraFrames[tagNr].isEmpty() &&
+          f.m_extraFrames[tagNr].front().getName() == QLatin1String("Chapters")) {
         chaptersFrameToCtocChap(frame, id3v2Tag);
-        f.m_extraFrames.front() = frame;
+        f.m_extraFrames[tagNr].front() = frame;
         f.markTagChanged(tagNr, frame.getExtendedType());
         return true;
       }
@@ -2661,12 +2668,12 @@ bool TagLibMpegSupport::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
         if (frame.getType() == Frame::FT_Other &&
           (frame.getName().startsWith(QLatin1String("CHAP")) ||
             frame.getName().startsWith(QLatin1String("CTOC"))) &&
-          !f.m_extraFrames.isEmpty() &&
-          f.m_extraFrames.front().getName() == QLatin1String("Chapters")) {
+          !f.m_extraFrames[tagNr].isEmpty() &&
+          f.m_extraFrames[tagNr].front().getName() == QLatin1String("Chapters")) {
           const auto ctocFrames = id3v2Tag->frameList("CTOC");
           for (auto ctocFrame : ctocFrames) {
             if (ctocChapToChaptersFrame(
-              ctocFrame, id3v2Tag->frameList("CHAP"), f.m_extraFrames.front())) {
+              ctocFrame, id3v2Tag->frameList("CHAP"), f.m_extraFrames[tagNr].front())) {
               break;
             }
           }
@@ -2689,12 +2696,12 @@ bool TagLibMpegSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame& f
 #if TAGLIB_VERSION >= 0x010a00
     if (frame.getType() == Frame::FT_Other &&
         frame.getName() == QLatin1String("Chapters") &&
-        f.m_extraFrames.isRead()) {
+        f.m_extraFrames[tagNr].isRead()) {
       if (frame.getFieldList().empty()) {
         setChaptersFrameFields(frame);
       }
-      frame.setIndex(Frame::toNegativeIndex(f.m_extraFrames.size()));
-      f.m_extraFrames.append(frame);
+      frame.setIndex(Frame::toNegativeIndex(f.m_extraFrames[tagNr].size()));
+      f.m_extraFrames[tagNr].append(frame);
       f.markTagChanged(tagNr, frame.getExtendedType());
       return true;
     }
@@ -2751,7 +2758,7 @@ bool TagLibMpegSupport::deleteFrames(
         id3v2Tag->removeFrame(*it++, true);
       }
 #if TAGLIB_VERSION >= 0x010a00
-      f.m_extraFrames.clear();
+      f.m_extraFrames[tagNr].clear();
 #endif
     } else {
       for (auto it = frameList.begin();
@@ -2791,8 +2798,8 @@ bool TagLibMpegSupport::getAllFrames(
       frames.insert(frame);
     }
 #if TAGLIB_VERSION >= 0x010a00
-    if (f.m_extraFrames.isRead()) {
-      for (auto it = f.m_extraFrames.constBegin(); it != f.m_extraFrames.constEnd(); ++it) {
+    if (f.m_extraFrames[tagNr].isRead()) {
+      for (auto it = f.m_extraFrames[tagNr].constBegin(); it != f.m_extraFrames[tagNr].constEnd(); ++it) {
         frames.insert(*it);
       }
     }

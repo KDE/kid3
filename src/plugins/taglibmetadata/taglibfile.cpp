@@ -148,10 +148,10 @@ void TagLibFile::clearTags(bool force)
 
   bool priorIsTagInformationRead = isTagInformationRead();
   closeFile(true);
-  m_extraFrames.clear();
-  m_extraFrames.setRead(false);
   m_tagInformationRead = false;
   FOR_TAGLIB_TAGS(tagNr) {
+    m_extraFrames[tagNr].clear();
+    m_extraFrames[tagNr].setRead(false);
     m_hasTag[tagNr] = false;
     m_tagFormat[tagNr].clear();
     m_tagType[tagNr] = TT_Unknown;
@@ -185,14 +185,13 @@ void TagLibFile::readTags(bool force)
     }
     FOR_TAGLIB_TAGS(tagNr) {
       m_tag[tagNr] = nullptr;
+      m_extraFrames[tagNr].clear();
+      m_extraFrames[tagNr].setRead(false);
     }
     FOR_TAGLIB_TAGS(tagNr) {
       markTagUnchanged(tagNr);
     }
     m_fileRead = true;
-
-    m_extraFrames.clear();
-    m_extraFrames.setRead(false);
   }
 
   if (TagLib::File* file;
