@@ -51,6 +51,8 @@ public:
     const FrameFilter& flt) const override;
   bool getAllFrames(TagLibFile& f, Frame::TagNumber tagNr,
     FrameCollection& frames) const override;
+  QStringList getFrameIds(const TagLibFile& f,
+    Frame::TagNumber tagNr) const override;
 
 protected:
   void setTagValue(TagLibFile& f, Frame::TagNumber tagNr, Frame::Type type,

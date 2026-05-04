@@ -181,6 +181,14 @@ public:
 
 protected:
   /**
+   * Get the IDs/keys of all frames for a generic (Vorbis-like) format.
+   * @param f TagLibFile
+   * @param tagNr tag number
+   * @return list of IDs.
+   */
+  static QStringList getGenericFrameIds(const TagLibFile& f, Frame::TagNumber tagNr);
+
+  /**
    * Set the value of a standard frame.
    * Called by setFrameWithoutIndex() to set the value of standard tags,
    * can be reimplemented for different tag formats. The default implementation

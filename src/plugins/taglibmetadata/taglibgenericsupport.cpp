@@ -472,42 +472,5 @@ bool TagLibGenericSupport::getAllFrames(
 QStringList TagLibGenericSupport::getFrameIds(
   const TagLibFile& f, Frame::TagNumber tagNr) const
 {
-  QStringList lst;
-  static const char* const fieldNames[] = {
-    "CONTACT",
-    "DISCTOTAL",
-    "EAN/UPN",
-    "ENCODING",
-    "ENGINEER",
-    "ENSEMBLE",
-    "GUESTARTIST",
-    "LABEL",
-    "LABELNO",
-    "LICENSE",
-    "LOCATION",
-    "OPUS",
-    "ORGANIZATION",
-    "PARTNUMBER",
-    "PRODUCER",
-    "PRODUCTNUMBER",
-    "RECORDINGDATE",
-    "TRACKTOTAL",
-    "VERSION",
-    "VOLUME"
-  };
-  const bool picturesSupported = f.m_extraFrames[tagNr].isRead() ||
-      f.m_tagType[tagNr] == TaggedFile::TT_Vorbis || f.m_tagType[tagNr] == TaggedFile::TT_Ape;
-  for (int k = Frame::FT_FirstFrame; k <= Frame::FT_LastFrame; ++k) {
-    if (k != Frame::FT_Picture || picturesSupported) {
-      if (auto name = Frame::ExtendedType(static_cast<Frame::Type>(k),
-                                          QLatin1String("")).getName();
-          !name.isEmpty()) {
-        lst.append(name);
-      }
-    }
-  }
-  for (auto fieldName : fieldNames) {
-    lst.append(QString::fromLatin1(fieldName)); // clazy:exclude=reserve-candidates
-  }
-  return lst;
+  return getGenericFrameIds(f, tagNr);
 }
