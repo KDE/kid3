@@ -40,6 +40,9 @@ const char* const defaultCommentName = "COMMENT";
 /** Default value for RIFF track name */
 const char* const defaultRiffTrackName = "IPRT";
 
+/** Default value for Matroska write style */
+const char* const defaultMatroskaWriteStyle = "Compact";
+
 }
 
 
@@ -229,6 +232,7 @@ TagConfig::TagConfig()
     m_starRatingMapping(new StarRatingMapping),
     m_commentName(QString::fromLatin1(defaultCommentName)),
     m_riffTrackName(QString::fromLatin1(defaultRiffTrackName)),
+    m_matroskaWriteStyle(QString::fromLatin1(defaultMatroskaWriteStyle)),
     m_pictureNameItem(VP_METADATA_BLOCK_PICTURE),
     m_id3v2Version(ID3v2_3_0),
     m_textEncodingV1(QLatin1String("ISO-8859-1")),
@@ -285,6 +289,8 @@ void TagConfig::writeToConfig(ISettings* config) const
                    QVariant(m_pictureNameItem));
   config->setValue(QLatin1String("RiffTrackName"),
                    QVariant(m_riffTrackName));
+  config->setValue(QLatin1String("MatroskaWriteStyle"),
+                   QVariant(m_matroskaWriteStyle));
   config->setValue(QLatin1String("CustomGenres"),
                    QVariant(m_customGenres));
   config->setValue(QLatin1String("CustomFrames"),
@@ -350,6 +356,9 @@ void TagConfig::readFromConfig(ISettings* config)
   m_riffTrackName =
       config->value(QLatin1String("RiffTrackName"),
                     QString::fromLatin1(defaultRiffTrackName)).toString();
+  m_matroskaWriteStyle =
+      config->value(QLatin1String("MatroskaWriteStyle"),
+                    QString::fromLatin1(defaultMatroskaWriteStyle)).toString();
   m_customGenres = config->value(QLatin1String("CustomGenres"),
                                  m_customGenres).toStringList();
   m_customFrames = config->value(QLatin1String("CustomFrames"),
@@ -518,6 +527,15 @@ void TagConfig::setRiffTrackName(const QString& riffTrackName)
   if (m_riffTrackName != riffTrackName) {
     m_riffTrackName = riffTrackName;
     emit riffTrackNameChanged(m_riffTrackName);
+  }
+}
+
+/** Set Matroska write style. */
+void TagConfig::setMatroskaWriteStyle(const QString& matroskaWriteStyle)
+{
+  if (m_matroskaWriteStyle != matroskaWriteStyle) {
+    m_matroskaWriteStyle = matroskaWriteStyle;
+    emit matroskaWriteStyleChanged(m_matroskaWriteStyle);
   }
 }
 
@@ -772,6 +790,14 @@ QStringList TagConfig::getPictureNames()
 QStringList TagConfig::getRiffTrackNames()
 {
   return {QLatin1String("IPRT"), QLatin1String("ITRK"), QLatin1String("TRCK")};
+}
+
+/**
+ * String list with available Matroska write styles.
+ */
+QStringList TagConfig::getMatroskaWriteStyles()
+{
+  return {QLatin1String("Compact"), QLatin1String("DoNotShrink"), QLatin1String("AvoidInsert")};
 }
 
 /**

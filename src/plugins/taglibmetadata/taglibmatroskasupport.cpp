@@ -547,9 +547,25 @@ bool TagLibMatroskaSupport::writeFile(TagLibFile& f, TagLib::File* file, bool fo
             frameToMatroskaAttachedFile(frame));
         }
       }
+#if TAGLIB_VERSION >= 0x020300
+      auto writeStyle = TagLib::Matroska::WriteStyle::Compact;
+      if (const QString writeStyleStr = TagConfig::instance().matroskaWriteStyle();
+          writeStyleStr == QLatin1String("DoNotShrink")) {
+        writeStyle = TagLib::Matroska::WriteStyle::DoNotShrink;
+      } else if (writeStyleStr == QLatin1String("AvoidInsert")) {
+        writeStyle = TagLib::Matroska::WriteStyle::AvoidInsert;
+      }
+      if (mkaFile->save(writeStyle)) {
+        fileChanged = true;
+        FOR_TAGLIB_TAGS(tagNr) {
+          f.markTagUnchanged(tagNr);
+        }
+      }
+#else
       if (saveFileRef(f)) {
         fileChanged = true;
       }
+#endif
     }
     return true;
   }

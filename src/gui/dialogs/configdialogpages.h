@@ -166,6 +166,8 @@ private:
   QComboBox* m_commentNameComboBox;
   /** Picture field name combo box */
   QComboBox* m_pictureNameComboBox;
+  /** Matroska write style name combo box */
+  QComboBox* m_writeStyleComboBox;
   /** Mark if larger check box */
   QCheckBox* m_markOversizedPicturesCheckBox;
   /** Maximum picture size spin box */

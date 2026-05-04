@@ -72,6 +72,9 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   /** field name used for RIFF track entries */
   Q_PROPERTY(QString riffTrackName READ riffTrackName WRITE setRiffTrackName
              NOTIFY riffTrackNameChanged)
+  /** Matroska write style */
+  Q_PROPERTY(QString matroskaWriteStyle READ matroskaWriteStyle WRITE setMatroskaWriteStyle
+             NOTIFY matroskaWriteStyleChanged)
   /** custom genres for ID3v2.3 */
   Q_PROPERTY(QStringList customGenres READ customGenres WRITE setCustomGenres
              NOTIFY customGenresChanged)
@@ -239,6 +242,12 @@ public:
 
   /** Set field name used for RIFF track entries. */
   void setRiffTrackName(const QString& riffTrackName);
+
+  /** Matroska write style */
+  QString matroskaWriteStyle() const { return m_matroskaWriteStyle; }
+
+  /** Set Matroska write style. */
+  void setMatroskaWriteStyle(const QString& matroskaWriteStyle);
 
   /** custom genres for ID3v2.3 */
   QStringList customGenres() const { return m_customGenres; }
@@ -420,6 +429,11 @@ public:
   Q_INVOKABLE static QStringList getRiffTrackNames();
 
   /**
+   * String list with available Matroska write styles.
+   */
+  Q_INVOKABLE static QStringList getMatroskaWriteStyles();
+
+  /**
    * Convert list of custom frame names to display names.
    * @param names custom frame names
    * @return possibly translated display representations of @a names.
@@ -497,6 +511,9 @@ signals:
   /** Emitted when @a riffTrackName changed. */
   void riffTrackNameChanged(const QString& riffTrackName);
 
+  /** Emitted when @a matroskaWriteStyle changed. */
+  void matroskaWriteStyleChanged(const QString& matroskaWriteStyle);
+
   /** Emitted when @a customGenres changed. */
   void customGenresChanged(const QStringList& customGenres);
 
@@ -543,6 +560,7 @@ private:
 
   QString m_commentName;
   QString m_riffTrackName;
+  QString m_matroskaWriteStyle;
   int m_pictureNameItem;
   QStringList m_customGenres;
   QStringList m_customFrames;

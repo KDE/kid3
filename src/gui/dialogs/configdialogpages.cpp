@@ -140,7 +140,8 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
   m_fileTextEncodingComboBox(nullptr),
   m_markTruncationsCheckBox(nullptr), m_textEncodingV1ComboBox(nullptr),
   m_totalNumTracksCheckBox(nullptr), m_commentNameComboBox(nullptr),
-  m_pictureNameComboBox(nullptr), m_markOversizedPicturesCheckBox(nullptr),
+  m_pictureNameComboBox(nullptr), m_writeStyleComboBox(nullptr),
+  m_markOversizedPicturesCheckBox(nullptr),
   m_maximumPictureSizeSpinBox(nullptr), m_genreNotNumericCheckBox(nullptr),
   m_lowercaseId3ChunkCheckBox(nullptr),
   m_markStandardViolationsCheckBox(nullptr), m_textEncodingComboBox(nullptr),
@@ -271,6 +272,23 @@ QWidget* ConfigDialogPages::createTagsPage()
   if (!(tagCfg.taggedFileFeatures() & TaggedFile::TF_OggPictures)) {
     vorbisGroupBox->hide();
   }
+  auto matroskaGroupBox = new QGroupBox(tr("Matroska"), tag2Page);
+  auto writeStyleLabel = new QLabel(tr("&Write mode:"), matroskaGroupBox);
+  m_writeStyleComboBox = new QComboBox(matroskaGroupBox);
+  m_writeStyleComboBox->addItem(tr("Compact"), QLatin1String("Compact"));
+  m_writeStyleComboBox->addItem(tr("Do not shrink"), QLatin1String("DoNotShrink"));
+  m_writeStyleComboBox->addItem(tr("Avoid insert"), QLatin1String("AvoidInsert"));
+  m_writeStyleComboBox->setSizePolicy(
+        QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
+  writeStyleLabel->setBuddy(m_writeStyleComboBox);
+  auto matroskaGroupBoxLayout = new QHBoxLayout(matroskaGroupBox);
+  matroskaGroupBoxLayout->addWidget(writeStyleLabel);
+  matroskaGroupBoxLayout->addWidget(m_writeStyleComboBox);
+  // auto matroskaGroupBoxLayout = new QGridLayout(matroskaGroupBox);
+  // matroskaGroupBoxLayout->addWidget(writeStyleLabel, 1, 0);
+  // matroskaGroupBoxLayout->addWidget(m_writeStyleComboBox, 1, 1);
+  matroskaGroupBox->setLayout(matroskaGroupBoxLayout);
+  tag2LeftLayout->addWidget(matroskaGroupBox);
   auto pictureGroupBox = new QGroupBox(tr("Picture"), tag2Page);
   auto pictureGroupBoxLayout = new QHBoxLayout(pictureGroupBox);
   m_markOversizedPicturesCheckBox =
@@ -740,6 +758,8 @@ void ConfigDialogPages::setConfigs(
     m_commentNameComboBox->setCurrentIndex(m_commentNameComboBox->count() - 1);
   }
   m_pictureNameComboBox->setCurrentIndex(tagCfg.pictureNameIndex());
+  m_writeStyleComboBox->setCurrentIndex(
+    m_writeStyleComboBox->findData(tagCfg.matroskaWriteStyle()));
   m_genreNotNumericCheckBox->setChecked(tagCfg.genreNotNumeric());
   m_lowercaseId3ChunkCheckBox->setChecked(tagCfg.lowercaseId3RiffChunk());
   m_markStandardViolationsCheckBox->setChecked(tagCfg.markStandardViolations());
@@ -874,6 +894,7 @@ void ConfigDialogPages::getConfig() const
   userActionsCfg.setContextMenuCommands(m_commandsTableModel->getCommandList());
   tagCfg.setCommentName(m_commentNameComboBox->currentText());
   tagCfg.setPictureNameIndex(m_pictureNameComboBox->currentIndex());
+  tagCfg.setMatroskaWriteStyle(m_writeStyleComboBox->currentData().toString());
   tagCfg.setGenreNotNumeric(m_genreNotNumericCheckBox->isChecked());
   tagCfg.setLowercaseId3RiffChunk(m_lowercaseId3ChunkCheckBox->isChecked());
   tagCfg.setMarkStandardViolations(m_markStandardViolationsCheckBox->isChecked());
