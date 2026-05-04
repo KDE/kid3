@@ -259,6 +259,24 @@ bool TagLibRiffSupport::readFile(TagLibFile& f, TagLib::File* file) const
       f.markTagUnchanged(Frame::Tag_2);
     }
 #endif
+#if TAGLIB_VERSION >= 0x020300
+    if (!f.m_extraFrames[Frame::Tag_3].isRead()) {
+      int i = 0;
+      if (const TagLib::String ixml = wavFile->iXMLData(); !ixml.isEmpty()) {
+        f.m_extraFrames[Frame::Tag_3].append(Frame(
+            Frame::ExtendedType(Frame::Type::FT_Other, QLatin1String("iXML")),
+            toQString(ixml), Frame::toNegativeIndex(i++)));
+      }
+      if (const TagLib::ByteVector bext = wavFile->BEXTData(); !bext.isEmpty()) {
+        Frame frame = Frame(
+            Frame::ExtendedType(Frame::Type::FT_Other, QLatin1String("BEXT")),
+            {}, Frame::toNegativeIndex(i++));
+        frame.setFieldList({{Frame::ID_Data, QByteArray(bext.data(), bext.size())}});
+        f.m_extraFrames[Frame::Tag_3].append(frame);
+      }
+      f.m_extraFrames[Frame::Tag_3].setRead(true);
+    }
+#endif
     return true;
   }
   if (dynamic_cast<TagLib::RIFF::AIFF::File*>(file) != nullptr) {
@@ -292,6 +310,25 @@ bool TagLibRiffSupport::writeFile(TagLibFile& f, TagLib::File* file, bool force,
         }
       }
       f.setId3v2VersionOrDefault(id3v2Version);
+
+#if TAGLIB_VERSION >= 0x020300
+      TagLib::String ixml;
+      TagLib::ByteVector bext;
+      const auto frames = f.m_extraFrames[Frame::Tag_3];
+      for (const Frame& frame : frames) {
+        if (frame.getType() == Frame::FT_Other) {
+          if (const QString name = frame.getName(); name == QLatin1String("iXML")) {
+            ixml = toTString(frame.getValue());
+          } else if (name == QLatin1String("BEXT")) {
+            const QByteArray data = frame.getFieldValue(Frame::ID_Data).toByteArray();
+            bext = TagLib::ByteVector(data.constData(), data.size());
+          }
+        }
+      }
+      wavFile->setiXMLData(ixml);
+      wavFile->setBEXTData(bext);
+#endif
+
       if (
   #if TAGLIB_VERSION >= 0x010c00
           wavFile->save(
@@ -441,6 +478,20 @@ bool TagLibRiffSupport::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
     if (frame.getType() == Frame::FT_Picture) {
       return false;
     }
+#if TAGLIB_VERSION >= 0x020300
+    if (f.m_extraFrames[tagNr].isRead() && frame.getType() == Frame::FT_Other &&
+        (frame.getName() == QLatin1String("iXML") ||
+         frame.getName() == QLatin1String("BEXT"))) {
+      if (int idx = Frame::fromNegativeIndex(frame.getIndex());
+          idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
+        Frame newFrame(frame);
+        f.m_extraFrames[tagNr][idx] = newFrame;
+        f.markTagChanged(tagNr, frame.getExtendedType());
+        return true;
+      }
+      return false;
+    }
+#endif
     if (int index = frame.getIndex(); index != -1) {
       infoTag->setFieldText(getInfoName(frame), toTString(frame.getValue()));
       f.markTagChanged(tagNr, frame.getExtendedType());
@@ -459,6 +510,20 @@ bool TagLibRiffSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame& f
     if (frame.getType() == Frame::FT_Picture) {
       return false;
     }
+#if TAGLIB_VERSION >= 0x020300
+    if (f.m_extraFrames[tagNr].isRead() && frame.getType() == Frame::FT_Other &&
+        (frame.getName() == QLatin1String("iXML") ||
+         frame.getName() == QLatin1String("BEXT"))) {
+      if (frame.getName() == QLatin1String("BEXT") &&
+          frame.getFieldList().empty()) {
+        frame.setFieldList({{Frame::ID_Data, QByteArray()}});
+      }
+      frame.setIndex(Frame::toNegativeIndex(f.m_extraFrames[tagNr].size()));
+      f.m_extraFrames[tagNr].append(frame);
+      f.markTagChanged(tagNr, frame.getExtendedType());
+      return true;
+    }
+#endif
     TagLib::ByteVector id = getInfoName(frame);
     TagLib::String tvalue = toTString(frame.getValue());
     if (tvalue.isEmpty()) {
@@ -490,6 +555,23 @@ bool TagLibRiffSupport::deleteFrame(TagLibFile& f, Frame::TagNumber tagNr,
 {
 #if TAGLIB_VERSION >= 0x010a00
   if (auto infoTag = dynamic_cast<TagLib::RIFF::Info::Tag*>(f.m_tag[tagNr])) {
+#if TAGLIB_VERSION >= 0x020300
+    if (f.m_extraFrames[tagNr].isRead() && frame.getType() == Frame::FT_Other &&
+        (frame.getName() == QLatin1String("iXML") ||
+         frame.getName() == QLatin1String("BEXT"))) {
+      if (int idx = Frame::fromNegativeIndex(frame.getIndex());
+          idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
+        f.m_extraFrames[tagNr].removeAt(idx);
+        while (idx < f.m_extraFrames[tagNr].size()) {
+          f.m_extraFrames[tagNr][idx].setIndex(Frame::toNegativeIndex(idx));
+          ++idx;
+        }
+        f.markTagChanged(tagNr, frame.getExtendedType());
+        return true;
+      }
+      return false;
+    }
+#endif
     QByteArray ba = frame.getInternalName().toLatin1();
     TagLib::ByteVector id(ba.constData(), ba.size());
     infoTag->removeField(id);
@@ -510,6 +592,9 @@ bool TagLibRiffSupport::deleteFrames(
       for (auto it = itemListMap.begin(); it != itemListMap.end(); ++it) {
         infoTag->removeField(it->first);
       }
+#if TAGLIB_VERSION >= 0x020300
+      f.m_extraFrames[tagNr].clear();
+#endif
     } else {
       for (auto it = itemListMap.begin(); it != itemListMap.end(); ++it) {
         TagLib::ByteVector id = it->first;
@@ -518,6 +603,23 @@ bool TagLibRiffSupport::deleteFrames(
           infoTag->removeField(id);
         }
       }
+#if TAGLIB_VERSION >= 0x020300
+      const bool ixmlEnabled =
+          flt.isEnabled(Frame::FT_Other, QLatin1String("iXML"));
+      const bool bextEnabled =
+          flt.isEnabled(Frame::FT_Other, QLatin1String("BEXT"));
+      if ((ixmlEnabled || bextEnabled) && !f.m_extraFrames[tagNr].isEmpty()) {
+        for (auto it = f.m_extraFrames[tagNr].begin(); it != f.m_extraFrames[tagNr].end();) {
+          if (it->getType() == Frame::FT_Other &&
+              ((ixmlEnabled && it->getName() == QLatin1String("iXML")) ||
+               (bextEnabled && it->getName() == QLatin1String("BEXT")))) {
+            it = f.m_extraFrames[tagNr].erase(it);
+          } else {
+            ++it;
+          }
+        }
+      }
+#endif
     }
     f.markTagChanged(tagNr, Frame::ExtendedType());
     return true;
@@ -542,6 +644,15 @@ bool TagLibRiffSupport::getAllFrames(
       Frame frame(type, value, name, i++);
       frames.insert(frame);
     }
+#if TAGLIB_VERSION >= 0x020300
+    if (f.m_extraFrames[tagNr].isRead()) {
+      for (auto it = f.m_extraFrames[tagNr].constBegin();
+           it != f.m_extraFrames[tagNr].constEnd();
+           ++it) {
+        frames.insert(*it);
+      }
+    }
+#endif
     return true;
   }
 #endif
@@ -576,6 +687,9 @@ QStringList TagLibRiffSupport::getFrameIds(
     for (auto fieldName : fieldNames) {
       lst.append(QString::fromLatin1(fieldName)); // clazy:exclude=reserve-candidates
     }
+#if TAGLIB_VERSION >= 0x020300
+    lst << QLatin1String("BEXT") << QLatin1String("iXML");
+#endif
   }
 #endif
   return lst;
