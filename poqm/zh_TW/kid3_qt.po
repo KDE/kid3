@@ -1740,17 +1740,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "名稱"
 
-#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:84
+#: src/core/config/tagconfig.cpp:751 src/core/tags/frame.cpp:84
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:85
+#: src/core/config/tagconfig.cpp:752 src/core/tags/frame.cpp:85
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:87
+#: src/core/config/tagconfig.cpp:753 src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -1798,44 +1798,44 @@ msgid "Request sent..."
 msgstr "送出連線要求…"
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:137
-#: src/core/tags/frame.cpp:2053
+#: src/core/tags/frame.cpp:2055
 msgctxt "@default|"
 msgid "Title"
 msgstr "歌(曲)名"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:115
-#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2057
+#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2059
 msgctxt "@default|"
 msgid "Album"
 msgstr "專輯名稱"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:138
-#: src/core/tags/frame.cpp:2061
+#: src/core/tags/frame.cpp:2063
 msgctxt "@default|"
 msgid "Artist"
 msgstr "演唱(奏)者"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:140
-#: src/core/tags/frame.cpp:308 src/core/tags/frame.cpp:2065
+#: src/core/tags/frame.cpp:308 src/core/tags/frame.cpp:2067
 msgctxt "@default|"
 msgid "Comment"
 msgstr "內容註釋"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:340
-#: src/core/tags/frame.cpp:2069
+#: src/core/tags/frame.cpp:2071
 msgctxt "@default|"
 msgid "Year"
 msgstr "年"
 
 #: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:113
-#: src/core/tags/frame.cpp:2074
+#: src/core/tags/frame.cpp:2076
 msgctxt "@default|"
 msgid "Track"
 msgstr "音軌"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:143
-#: src/core/tags/frame.cpp:2087
+#: src/core/tags/frame.cpp:2089
 msgctxt "@default|"
 msgid "Genre"
 msgstr "曲風"
@@ -3531,77 +3531,93 @@ msgid "Chapters"
 msgstr "章節"
 
 #: src/core/tags/frame.cpp:351
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Chapters"
+msgctxt "@default|"
+msgid "Chapters (Nero)"
+msgstr "章節"
+
+#: src/core/tags/frame.cpp:352
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Chapters"
+msgctxt "@default|"
+msgid "Chapters (QT)"
+msgstr "章節"
+
+#: src/core/tags/frame.cpp:353
 msgctxt "@default|"
 msgid "Archival Location"
 msgstr "封存位置"
 
-#: src/core/tags/frame.cpp:352
+#: src/core/tags/frame.cpp:354
 msgctxt "@default|"
 msgid "Commissioned"
 msgstr ""
 
-#: src/core/tags/frame.cpp:353
+#: src/core/tags/frame.cpp:355
 msgctxt "@default|"
 msgid "Cropped"
 msgstr ""
 
-#: src/core/tags/frame.cpp:354
+#: src/core/tags/frame.cpp:356
 msgctxt "@default|"
 msgid "Dimensions"
 msgstr "幾何尺寸"
 
-#: src/core/tags/frame.cpp:355
+#: src/core/tags/frame.cpp:357
 msgctxt "@default|"
 msgid "Dots Per Inch"
 msgstr "解析度（點/英吋）"
 
-#: src/core/tags/frame.cpp:356
+#: src/core/tags/frame.cpp:358
 msgctxt "@default|"
 msgid "Keywords"
 msgstr "關鍵字"
 
-#: src/core/tags/frame.cpp:357
+#: src/core/tags/frame.cpp:359
 msgctxt "@default|"
 msgid "Lightness"
 msgstr "亮度"
 
-#: src/core/tags/frame.cpp:358
+#: src/core/tags/frame.cpp:360
 msgctxt "@default|"
 msgid "Number of Colors"
 msgstr "色彩數目"
 
-#: src/core/tags/frame.cpp:359
+#: src/core/tags/frame.cpp:361
 msgctxt "@default|"
 msgid "Subject"
 msgstr "主題"
 
-#: src/core/tags/frame.cpp:360
+#: src/core/tags/frame.cpp:362
 msgctxt "@default|"
 msgid "Sharpness"
 msgstr "銳利度"
 
-#: src/core/tags/frame.cpp:361
+#: src/core/tags/frame.cpp:363
 msgctxt "@default|"
 msgid "Source Form"
 msgstr ""
 
-#: src/core/tags/frame.cpp:1274
+#: src/core/tags/frame.cpp:1276
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "%1 標籤"
 
-#: src/core/tags/frame.cpp:1279
+#: src/core/tags/frame.cpp:1281
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "標籤 1 與 標籤 2"
 
-#: src/core/tags/frame.cpp:1283
+#: src/core/tags/frame.cpp:1285
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "所有標籤"
 
-#: src/core/tags/frame.cpp:2092
+#: src/core/tags/frame.cpp:2094
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "若不是空白，則在前方加上 t1（或是在後方加上 t2）"
@@ -4049,324 +4065,352 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "然後從瀏覽器拖拉圖片至 Kid3."
 
-#: src/gui/dialogs/configdialogpages.cpp:176
+#: src/gui/dialogs/configdialogpages.cpp:177
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:179
+#: src/gui/dialogs/configdialogpages.cpp:180
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "標記被截斷的欄位(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:181
-#: src/gui/dialogs/configdialogpages.cpp:210
+#: src/gui/dialogs/configdialogpages.cpp:182
+#: src/gui/dialogs/configdialogpages.cpp:211
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "編碼(&E)："
 
-#: src/gui/dialogs/configdialogpages.cpp:195
+#: src/gui/dialogs/configdialogpages.cpp:196
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:198
+#: src/gui/dialogs/configdialogpages.cpp:199
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "使用「音軌/音軌總數」的格式(&T)"
 
-#: src/gui/dialogs/configdialogpages.cpp:201
+#: src/gui/dialogs/configdialogpages.cpp:202
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "音軌編號位數(&D)："
 
-#: src/gui/dialogs/configdialogpages.cpp:205
+#: src/gui/dialogs/configdialogpages.cpp:206
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "將曲風視做文字而不是數字字串(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:207
+#: src/gui/dialogs/configdialogpages.cpp:208
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "在 &WAV 檔案中寫入小寫 id3 標籤"
 
-#: src/gui/dialogs/configdialogpages.cpp:209
+#: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "標注違反標準的地方(&K)"
 
-#: src/gui/dialogs/configdialogpages.cpp:228
+#: src/gui/dialogs/configdialogpages.cpp:229
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "新標籤使用的版本(&V)："
 
-#: src/gui/dialogs/configdialogpages.cpp:232
+#: src/gui/dialogs/configdialogpages.cpp:233
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:234
+#: src/gui/dialogs/configdialogpages.cpp:235
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:248
+#: src/gui/dialogs/configdialogpages.cpp:249
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:249
+#: src/gui/dialogs/configdialogpages.cpp:250
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "內容註釋欄位名稱(&M)："
 
-#: src/gui/dialogs/configdialogpages.cpp:252
+#: src/gui/dialogs/configdialogpages.cpp:253
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "圖片欄位名稱(&P)："
 
-#: src/gui/dialogs/configdialogpages.cpp:274
+#: src/gui/dialogs/configdialogpages.cpp:275
+msgctxt "ConfigDialogPages|"
+msgid "Matroska"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:276
+msgctxt "ConfigDialogPages|"
+msgid "&Write mode:"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:278
+#, fuzzy
+#| msgctxt "FileSystemModel|"
+#| msgid "Computer"
+msgctxt "ConfigDialogPages|"
+msgid "Compact"
+msgstr "電腦"
+
+#: src/gui/dialogs/configdialogpages.cpp:279
+msgctxt "ConfigDialogPages|"
+msgid "Do not shrink"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:280
+msgctxt "ConfigDialogPages|"
+msgid "Avoid insert"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "圖片"
 
-#: src/gui/dialogs/configdialogpages.cpp:277
+#: src/gui/dialogs/configdialogpages.cpp:295
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "大於這個尺寸就會標記(位元組)(&L)："
 
-#: src/gui/dialogs/configdialogpages.cpp:290
+#: src/gui/dialogs/configdialogpages.cpp:308
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "僅顯示自訂曲風(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:298
+#: src/gui/dialogs/configdialogpages.cpp:316
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "自訂曲風(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:310
+#: src/gui/dialogs/configdialogpages.cpp:328
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "自訂影格(&R)"
 
-#: src/gui/dialogs/configdialogpages.cpp:325
+#: src/gui/dialogs/configdialogpages.cpp:343
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "使用拖放重新排序項目"
 
-#: src/gui/dialogs/configdialogpages.cpp:328
+#: src/gui/dialogs/configdialogpages.cpp:346
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "標籤捷徑區(&Q)"
 
-#: src/gui/dialogs/configdialogpages.cpp:335
+#: src/gui/dialogs/configdialogpages.cpp:353
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF INFO"
 
-#: src/gui/dialogs/configdialogpages.cpp:336
+#: src/gui/dialogs/configdialogpages.cpp:354
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "音軌編號欄位名稱(&M)："
 
-#: src/gui/dialogs/configdialogpages.cpp:353
+#: src/gui/dialogs/configdialogpages.cpp:371
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "標籤格式(&T)"
 
-#: src/gui/dialogs/configdialogpages.cpp:355
+#: src/gui/dialogs/configdialogpages.cpp:373
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "評比"
 
-#: src/gui/dialogs/configdialogpages.cpp:365
+#: src/gui/dialogs/configdialogpages.cpp:383
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "標籤 &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:367
+#: src/gui/dialogs/configdialogpages.cpp:385
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "標籤 &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:368
+#: src/gui/dialogs/configdialogpages.cpp:386
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "標籤 &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:369
+#: src/gui/dialogs/configdialogpages.cpp:387
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "所有標籤(&G)"
 
-#: src/gui/dialogs/configdialogpages.cpp:387
+#: src/gui/dialogs/configdialogpages.cpp:405
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "啟動"
 
-#: src/gui/dialogs/configdialogpages.cpp:388
+#: src/gui/dialogs/configdialogpages.cpp:406
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "載入最後開啟的檔案(&L)"
 
-#: src/gui/dialogs/configdialogpages.cpp:394
+#: src/gui/dialogs/configdialogpages.cpp:412
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "儲存"
 
-#: src/gui/dialogs/configdialogpages.cpp:395
+#: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "保留檔案的原來時間(&P)"
 
-#: src/gui/dialogs/configdialogpages.cpp:397
+#: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "標記變更(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:407
+#: src/gui/dialogs/configdialogpages.cpp:425
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "專輯封面的檔名(&I)："
 
-#: src/gui/dialogs/configdialogpages.cpp:408
+#: src/gui/dialogs/configdialogpages.cpp:426
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "編碼 (匯出、播放清單)(&E)："
 
-#: src/gui/dialogs/configdialogpages.cpp:413
+#: src/gui/dialogs/configdialogpages.cpp:431
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "檔案清單"
 
-#: src/gui/dialogs/configdialogpages.cpp:414
+#: src/gui/dialogs/configdialogpages.cpp:432
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "篩選(&R)："
 
-#: src/gui/dialogs/configdialogpages.cpp:424
+#: src/gui/dialogs/configdialogpages.cpp:442
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "包含的資料夾(&D)："
 
-#: src/gui/dialogs/configdialogpages.cpp:428
+#: src/gui/dialogs/configdialogpages.cpp:446
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "排除的資料夾(&X)："
 
-#: src/gui/dialogs/configdialogpages.cpp:432
+#: src/gui/dialogs/configdialogpages.cpp:450
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "顯示隱藏檔(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:444
+#: src/gui/dialogs/configdialogpages.cpp:462
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "格式"
 
-#: src/gui/dialogs/configdialogpages.cpp:448
+#: src/gui/dialogs/configdialogpages.cpp:466
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "標籤到檔名"
 
-#: src/gui/dialogs/configdialogpages.cpp:453
+#: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "檔名到標籤"
 
-#: src/gui/dialogs/configdialogpages.cpp:459
-#: src/gui/dialogs/configdialogpages.cpp:519
+#: src/gui/dialogs/configdialogpages.cpp:477
+#: src/gui/dialogs/configdialogpages.cpp:537
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "播放清單"
 
-#: src/gui/dialogs/configdialogpages.cpp:471
+#: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "檔案名稱格式(&F)"
 
-#: src/gui/dialogs/configdialogpages.cpp:487
+#: src/gui/dialogs/configdialogpages.cpp:505
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "標籤到檔名"
 
-#: src/gui/dialogs/configdialogpages.cpp:503
+#: src/gui/dialogs/configdialogpages.cpp:521
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "檔名到標籤"
 
-#: src/gui/dialogs/configdialogpages.cpp:533
+#: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "瀏覽"
 
-#: src/gui/dialogs/configdialogpages.cpp:534
+#: src/gui/dialogs/configdialogpages.cpp:552
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "網頁瀏覽器(&B)："
 
-#: src/gui/dialogs/configdialogpages.cpp:543
+#: src/gui/dialogs/configdialogpages.cpp:561
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "內文選單指令(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:546
+#: src/gui/dialogs/configdialogpages.cpp:564
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "對檔案按兩下直接播放(&P)"
 
-#: src/gui/dialogs/configdialogpages.cpp:548
+#: src/gui/dialogs/configdialogpages.cpp:566
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "播放時選取檔案(&S)"
 
-#: src/gui/dialogs/configdialogpages.cpp:551
+#: src/gui/dialogs/configdialogpages.cpp:569
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
 msgstr "音訊輸出(&U)："
 
-#: src/gui/dialogs/configdialogpages.cpp:553
+#: src/gui/dialogs/configdialogpages.cpp:571
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "系統"
 
-#: src/gui/dialogs/configdialogpages.cpp:586
+#: src/gui/dialogs/configdialogpages.cpp:604
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "代理伺服器"
 
-#: src/gui/dialogs/configdialogpages.cpp:587
+#: src/gui/dialogs/configdialogpages.cpp:605
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "代理伺服器(&P)："
 
-#: src/gui/dialogs/configdialogpages.cpp:590
+#: src/gui/dialogs/configdialogpages.cpp:608
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "代理伺服器要認證(&U)"
 
-#: src/gui/dialogs/configdialogpages.cpp:592
+#: src/gui/dialogs/configdialogpages.cpp:610
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "代理伺服器帳號(&N)："
 
-#: src/gui/dialogs/configdialogpages.cpp:596
+#: src/gui/dialogs/configdialogpages.cpp:614
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "代理伺服器密碼(&W)："
 
-#: src/gui/dialogs/configdialogpages.cpp:630
+#: src/gui/dialogs/configdialogpages.cpp:648
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "中繼資料外掛程式 && 優先級(&M)"
 
-#: src/gui/dialogs/configdialogpages.cpp:642
+#: src/gui/dialogs/configdialogpages.cpp:660
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "可用的外掛程式(&V)"
 
-#: src/gui/dialogs/configdialogpages.cpp:653
+#: src/gui/dialogs/configdialogpages.cpp:671
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "某些變更在重新啟動後才會生效!"
@@ -6781,12 +6825,14 @@ msgctxt "FrameEditDialog|"
 msgid "File already exists. Overwrite?"
 msgstr "檔案已經存在。您要覆寫它嗎？"
 
-#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:199
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:215
+#: src/qml/app/FrameEditDialog.qml:270
 msgctxt "FrameEditDialog|"
 msgid "Export"
 msgstr "匯出"
 
-#: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
+#: src/qml/app/FrameEditDialog.qml:167 src/qml/app/FrameEditDialog.qml:196
+#: src/qml/app/FrameEditDialog.qml:256
 msgctxt "FrameEditDialog|"
 msgid "Import"
 msgstr "匯入"
@@ -7360,6 +7406,22 @@ msgstr "貼上"
 msgctxt "TagCollapsible|"
 msgid "Remove"
 msgstr "移除"
+
+#: src/qml/app/TagCollapsible.qml:116
+#, fuzzy
+#| msgctxt "Kid3MainWindow|"
+#| msgid "Select &All"
+msgctxt "TagCollapsible|"
+msgid "Select All"
+msgstr "全選(&A)"
+
+#: src/qml/app/TagCollapsible.qml:120
+#, fuzzy
+#| msgctxt "FrameTable|"
+#| msgid "&Deselect all"
+msgctxt "TagCollapsible|"
+msgid "Deselect All"
+msgstr "取消選擇(&D)"
 
 #~ msgctxt "ConfigDialogPages|"
 #~ msgid "Custom &Genres"

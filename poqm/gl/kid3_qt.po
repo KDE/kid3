@@ -1729,17 +1729,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "Nome"
 
-#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:84
+#: src/core/config/tagconfig.cpp:751 src/core/tags/frame.cpp:84
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:85
+#: src/core/config/tagconfig.cpp:752 src/core/tags/frame.cpp:85
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:87
+#: src/core/config/tagconfig.cpp:753 src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -1787,44 +1787,44 @@ msgid "Request sent..."
 msgstr "Enviouse a solicitude…"
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:137
-#: src/core/tags/frame.cpp:2053
+#: src/core/tags/frame.cpp:2055
 msgctxt "@default|"
 msgid "Title"
 msgstr "Título"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:115
-#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2057
+#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2059
 msgctxt "@default|"
 msgid "Album"
 msgstr "Álbum"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:138
-#: src/core/tags/frame.cpp:2061
+#: src/core/tags/frame.cpp:2063
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Intérprete"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:140
-#: src/core/tags/frame.cpp:308 src/core/tags/frame.cpp:2065
+#: src/core/tags/frame.cpp:308 src/core/tags/frame.cpp:2067
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Comentario"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:340
-#: src/core/tags/frame.cpp:2069
+#: src/core/tags/frame.cpp:2071
 msgctxt "@default|"
 msgid "Year"
 msgstr "Ano"
 
 #: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:113
-#: src/core/tags/frame.cpp:2074
+#: src/core/tags/frame.cpp:2076
 msgctxt "@default|"
 msgid "Track"
 msgstr "Pista"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:143
-#: src/core/tags/frame.cpp:2087
+#: src/core/tags/frame.cpp:2089
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Xénero"
@@ -3520,77 +3520,93 @@ msgid "Chapters"
 msgstr "Capítulos"
 
 #: src/core/tags/frame.cpp:351
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Chapters"
+msgctxt "@default|"
+msgid "Chapters (Nero)"
+msgstr "Capítulos"
+
+#: src/core/tags/frame.cpp:352
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Chapters"
+msgctxt "@default|"
+msgid "Chapters (QT)"
+msgstr "Capítulos"
+
+#: src/core/tags/frame.cpp:353
 msgctxt "@default|"
 msgid "Archival Location"
 msgstr "Localización de arquivo"
 
-#: src/core/tags/frame.cpp:352
+#: src/core/tags/frame.cpp:354
 msgctxt "@default|"
 msgid "Commissioned"
 msgstr "Encargado por"
 
-#: src/core/tags/frame.cpp:353
+#: src/core/tags/frame.cpp:355
 msgctxt "@default|"
 msgid "Cropped"
 msgstr "Con recorte"
 
-#: src/core/tags/frame.cpp:354
+#: src/core/tags/frame.cpp:356
 msgctxt "@default|"
 msgid "Dimensions"
 msgstr "Dimensións"
 
-#: src/core/tags/frame.cpp:355
+#: src/core/tags/frame.cpp:357
 msgctxt "@default|"
 msgid "Dots Per Inch"
 msgstr "Puntos por polgada"
 
-#: src/core/tags/frame.cpp:356
+#: src/core/tags/frame.cpp:358
 msgctxt "@default|"
 msgid "Keywords"
 msgstr "Palabras clave"
 
-#: src/core/tags/frame.cpp:357
+#: src/core/tags/frame.cpp:359
 msgctxt "@default|"
 msgid "Lightness"
 msgstr "Luminosidade"
 
-#: src/core/tags/frame.cpp:358
+#: src/core/tags/frame.cpp:360
 msgctxt "@default|"
 msgid "Number of Colors"
 msgstr "Número de cores"
 
-#: src/core/tags/frame.cpp:359
+#: src/core/tags/frame.cpp:361
 msgctxt "@default|"
 msgid "Subject"
 msgstr "Asunto"
 
-#: src/core/tags/frame.cpp:360
+#: src/core/tags/frame.cpp:362
 msgctxt "@default|"
 msgid "Sharpness"
 msgstr "Nitidez"
 
-#: src/core/tags/frame.cpp:361
+#: src/core/tags/frame.cpp:363
 msgctxt "@default|"
 msgid "Source Form"
 msgstr "Forma orixinal"
 
-#: src/core/tags/frame.cpp:1274
+#: src/core/tags/frame.cpp:1276
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "Etiqueta %1"
 
-#: src/core/tags/frame.cpp:1279
+#: src/core/tags/frame.cpp:1281
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "Etiqueta 1 e etiqueta 2"
 
-#: src/core/tags/frame.cpp:1283
+#: src/core/tags/frame.cpp:1285
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "Todas as etiquetas"
 
-#: src/core/tags/frame.cpp:2092
+#: src/core/tags/frame.cpp:2094
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "Engadir t1 diante ou t2 detrás se non está baleira"
@@ -4040,324 +4056,352 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "A continuación arrastre a imaxe do navegador a Kid3."
 
-#: src/gui/dialogs/configdialogpages.cpp:176
+#: src/gui/dialogs/configdialogpages.cpp:177
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:179
+#: src/gui/dialogs/configdialogpages.cpp:180
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "&Marcar os campos recortados."
 
-#: src/gui/dialogs/configdialogpages.cpp:181
-#: src/gui/dialogs/configdialogpages.cpp:210
+#: src/gui/dialogs/configdialogpages.cpp:182
+#: src/gui/dialogs/configdialogpages.cpp:211
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "Codificación de t&exto:"
 
-#: src/gui/dialogs/configdialogpages.cpp:195
+#: src/gui/dialogs/configdialogpages.cpp:196
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:198
+#: src/gui/dialogs/configdialogpages.cpp:199
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "Usar o formato «pista/pistas &totais»."
 
-#: src/gui/dialogs/configdialogpages.cpp:201
+#: src/gui/dialogs/configdialogpages.cpp:202
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "&Díxitos dos números de pista:"
 
-#: src/gui/dialogs/configdialogpages.cpp:205
+#: src/gui/dialogs/configdialogpages.cpp:206
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Xénero como texto en vez de cadea numérica."
 
-#: src/gui/dialogs/configdialogpages.cpp:207
+#: src/gui/dialogs/configdialogpages.cpp:208
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "Ficheiros &WAV cun fragmento id3 en minúsculas."
 
-#: src/gui/dialogs/configdialogpages.cpp:209
+#: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "Mar&car os incumprimentos do estándar."
 
-#: src/gui/dialogs/configdialogpages.cpp:228
+#: src/gui/dialogs/configdialogpages.cpp:229
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "&Versión que se usa para novas etiquetas:"
 
-#: src/gui/dialogs/configdialogpages.cpp:232
+#: src/gui/dialogs/configdialogpages.cpp:233
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:234
+#: src/gui/dialogs/configdialogpages.cpp:235
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:248
+#: src/gui/dialogs/configdialogpages.cpp:249
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:249
+#: src/gui/dialogs/configdialogpages.cpp:250
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "Nome do campo de co&mentario:"
 
-#: src/gui/dialogs/configdialogpages.cpp:252
+#: src/gui/dialogs/configdialogpages.cpp:253
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "Nome do cam&po de imaxe:"
 
-#: src/gui/dialogs/configdialogpages.cpp:274
+#: src/gui/dialogs/configdialogpages.cpp:275
+msgctxt "ConfigDialogPages|"
+msgid "Matroska"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:276
+msgctxt "ConfigDialogPages|"
+msgid "&Write mode:"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:278
+#, fuzzy
+#| msgctxt "FileSystemModel|"
+#| msgid "Computer"
+msgctxt "ConfigDialogPages|"
+msgid "Compact"
+msgstr "Computador"
+
+#: src/gui/dialogs/configdialogpages.cpp:279
+msgctxt "ConfigDialogPages|"
+msgid "Do not shrink"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:280
+msgctxt "ConfigDialogPages|"
+msgid "Avoid insert"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Imaxe"
 
-#: src/gui/dialogs/configdialogpages.cpp:277
+#: src/gui/dialogs/configdialogpages.cpp:295
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "Marcar se s&upera (bytes):"
 
-#: src/gui/dialogs/configdialogpages.cpp:290
+#: src/gui/dialogs/configdialogpages.cpp:308
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "Amo&sar só xéneros personalizados."
 
-#: src/gui/dialogs/configdialogpages.cpp:298
+#: src/gui/dialogs/configdialogpages.cpp:316
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "Xénero&s personalizados"
 
-#: src/gui/dialogs/configdialogpages.cpp:310
+#: src/gui/dialogs/configdialogpages.cpp:328
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "Seccións pe&rsonalizadas"
 
-#: src/gui/dialogs/configdialogpages.cpp:325
+#: src/gui/dialogs/configdialogpages.cpp:343
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "Arrastre e solte para reordenar os elementos."
 
-#: src/gui/dialogs/configdialogpages.cpp:328
+#: src/gui/dialogs/configdialogpages.cpp:346
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "Seccións de acceso &rápido"
 
-#: src/gui/dialogs/configdialogpages.cpp:335
+#: src/gui/dialogs/configdialogpages.cpp:353
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "Información de RIFF"
 
-#: src/gui/dialogs/configdialogpages.cpp:336
+#: src/gui/dialogs/configdialogpages.cpp:354
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "No&me do campo de número de pista:"
 
-#: src/gui/dialogs/configdialogpages.cpp:353
+#: src/gui/dialogs/configdialogpages.cpp:371
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "Formato das e&tiquetas"
 
-#: src/gui/dialogs/configdialogpages.cpp:355
+#: src/gui/dialogs/configdialogpages.cpp:373
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Cualificación"
 
-#: src/gui/dialogs/configdialogpages.cpp:365
+#: src/gui/dialogs/configdialogpages.cpp:383
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "Etiqueta &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:367
+#: src/gui/dialogs/configdialogpages.cpp:385
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "Etiqueta &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:368
+#: src/gui/dialogs/configdialogpages.cpp:386
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "Etiqueta &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:369
+#: src/gui/dialogs/configdialogpages.cpp:387
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "Todas as eti&quetas"
 
-#: src/gui/dialogs/configdialogpages.cpp:387
+#: src/gui/dialogs/configdialogpages.cpp:405
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Inicio"
 
-#: src/gui/dialogs/configdialogpages.cpp:388
+#: src/gui/dialogs/configdialogpages.cpp:406
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "Cargar os ú&ltimos ficheiros abertos."
 
-#: src/gui/dialogs/configdialogpages.cpp:394
+#: src/gui/dialogs/configdialogpages.cpp:412
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Gardar"
 
-#: src/gui/dialogs/configdialogpages.cpp:395
+#: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "&Preservar a marca temporal dos ficheiros."
 
-#: src/gui/dialogs/configdialogpages.cpp:397
+#: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "&Marcar os cambios."
 
-#: src/gui/dialogs/configdialogpages.cpp:407
+#: src/gui/dialogs/configdialogpages.cpp:425
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "Nome de f&icheiro da portada:"
 
-#: src/gui/dialogs/configdialogpages.cpp:408
+#: src/gui/dialogs/configdialogpages.cpp:426
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Codificación de t&exto (exportar, lista de reprodución):"
 
-#: src/gui/dialogs/configdialogpages.cpp:413
+#: src/gui/dialogs/configdialogpages.cpp:431
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Lista de ficheiros"
 
-#: src/gui/dialogs/configdialogpages.cpp:414
+#: src/gui/dialogs/configdialogpages.cpp:432
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Filt&ro:"
 
-#: src/gui/dialogs/configdialogpages.cpp:424
+#: src/gui/dialogs/configdialogpages.cpp:442
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "Cartafoles para incl&uír:"
 
-#: src/gui/dialogs/configdialogpages.cpp:428
+#: src/gui/dialogs/configdialogpages.cpp:446
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "Cartafoles para e&xcluír:"
 
-#: src/gui/dialogs/configdialogpages.cpp:432
+#: src/gui/dialogs/configdialogpages.cpp:450
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "Amo&sar os ficheiros agochados."
 
-#: src/gui/dialogs/configdialogpages.cpp:444
+#: src/gui/dialogs/configdialogpages.cpp:462
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Formato"
 
-#: src/gui/dialogs/configdialogpages.cpp:448
+#: src/gui/dialogs/configdialogpages.cpp:466
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "Nome do ficheiro a partir da etiqueta"
 
-#: src/gui/dialogs/configdialogpages.cpp:453
+#: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "Etiqueta a partir do nome do ficheiro"
 
-#: src/gui/dialogs/configdialogpages.cpp:459
-#: src/gui/dialogs/configdialogpages.cpp:519
+#: src/gui/dialogs/configdialogpages.cpp:477
+#: src/gui/dialogs/configdialogpages.cpp:537
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Lista de reprodución"
 
-#: src/gui/dialogs/configdialogpages.cpp:471
+#: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "&Formato do nome de ficheiro"
 
-#: src/gui/dialogs/configdialogpages.cpp:487
+#: src/gui/dialogs/configdialogpages.cpp:505
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "Nome do ficheiro a partir da etiqueta"
 
-#: src/gui/dialogs/configdialogpages.cpp:503
+#: src/gui/dialogs/configdialogpages.cpp:521
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "Etiqueta a partir do nome do ficheiro"
 
-#: src/gui/dialogs/configdialogpages.cpp:533
+#: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Navegador"
 
-#: src/gui/dialogs/configdialogpages.cpp:534
+#: src/gui/dialogs/configdialogpages.cpp:552
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "&Navegador web:"
 
-#: src/gui/dialogs/configdialogpages.cpp:543
+#: src/gui/dialogs/configdialogpages.cpp:561
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "Ordes do &menú contextual"
 
-#: src/gui/dialogs/configdialogpages.cpp:546
+#: src/gui/dialogs/configdialogpages.cpp:564
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "Re&producir ao facer clic duplo."
 
-#: src/gui/dialogs/configdialogpages.cpp:548
+#: src/gui/dialogs/configdialogpages.cpp:566
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "&Seleccionar o ficheiro que soa."
 
-#: src/gui/dialogs/configdialogpages.cpp:551
+#: src/gui/dialogs/configdialogpages.cpp:569
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
 msgstr "Saída de &son:"
 
-#: src/gui/dialogs/configdialogpages.cpp:553
+#: src/gui/dialogs/configdialogpages.cpp:571
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "Sistema"
 
-#: src/gui/dialogs/configdialogpages.cpp:586
+#: src/gui/dialogs/configdialogpages.cpp:604
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Mandatario"
 
-#: src/gui/dialogs/configdialogpages.cpp:587
+#: src/gui/dialogs/configdialogpages.cpp:605
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Proxy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:590
+#: src/gui/dialogs/configdialogpages.cpp:608
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "&Usar autenticación co mandatario."
 
-#: src/gui/dialogs/configdialogpages.cpp:592
+#: src/gui/dialogs/configdialogpages.cpp:610
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "&Nome de persoa usuaria do mandatario:"
 
-#: src/gui/dialogs/configdialogpages.cpp:596
+#: src/gui/dialogs/configdialogpages.cpp:614
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "&Contrasinal do mandatario:"
 
-#: src/gui/dialogs/configdialogpages.cpp:630
+#: src/gui/dialogs/configdialogpages.cpp:648
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "Complementos e prioridade dos &metadatos"
 
-#: src/gui/dialogs/configdialogpages.cpp:642
+#: src/gui/dialogs/configdialogpages.cpp:660
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "Complementos &dispoñíbeis"
 
-#: src/gui/dialogs/configdialogpages.cpp:653
+#: src/gui/dialogs/configdialogpages.cpp:671
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "Os cambios só xorden efecto tras reiniciar!"
@@ -6770,12 +6814,14 @@ msgctxt "FrameEditDialog|"
 msgid "File already exists. Overwrite?"
 msgstr "O ficheiro xa existe. Quere substituílo?"
 
-#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:199
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:215
+#: src/qml/app/FrameEditDialog.qml:270
 msgctxt "FrameEditDialog|"
 msgid "Export"
 msgstr "Exportar"
 
-#: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
+#: src/qml/app/FrameEditDialog.qml:167 src/qml/app/FrameEditDialog.qml:196
+#: src/qml/app/FrameEditDialog.qml:256
 msgctxt "FrameEditDialog|"
 msgid "Import"
 msgstr "Importar"
@@ -7349,3 +7395,19 @@ msgstr "Pegar"
 msgctxt "TagCollapsible|"
 msgid "Remove"
 msgstr "Retirar"
+
+#: src/qml/app/TagCollapsible.qml:116
+#, fuzzy
+#| msgctxt "Kid3MainWindow|"
+#| msgid "Select &All"
+msgctxt "TagCollapsible|"
+msgid "Select All"
+msgstr "Seleccion&ar todo"
+
+#: src/qml/app/TagCollapsible.qml:120
+#, fuzzy
+#| msgctxt "FrameTable|"
+#| msgid "&Deselect all"
+msgctxt "TagCollapsible|"
+msgid "Deselect All"
+msgstr "&Anular a selección"

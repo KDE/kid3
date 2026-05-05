@@ -1738,17 +1738,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "Název"
 
-#: src/core/config/tagconfig.cpp:733 src/core/tags/frame.cpp:84
+#: src/core/config/tagconfig.cpp:751 src/core/tags/frame.cpp:84
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:734 src/core/tags/frame.cpp:85
+#: src/core/config/tagconfig.cpp:752 src/core/tags/frame.cpp:85
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:735 src/core/tags/frame.cpp:87
+#: src/core/config/tagconfig.cpp:753 src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -1796,44 +1796,44 @@ msgid "Request sent..."
 msgstr "Požadavek odeslán..."
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:137
-#: src/core/tags/frame.cpp:2053
+#: src/core/tags/frame.cpp:2055
 msgctxt "@default|"
 msgid "Title"
 msgstr "Název"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:115
-#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2057
+#: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2059
 msgctxt "@default|"
 msgid "Album"
 msgstr "Album"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:138
-#: src/core/tags/frame.cpp:2061
+#: src/core/tags/frame.cpp:2063
 msgctxt "@default|"
 msgid "Artist"
 msgstr "Umělec"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:140
-#: src/core/tags/frame.cpp:308 src/core/tags/frame.cpp:2065
+#: src/core/tags/frame.cpp:308 src/core/tags/frame.cpp:2067
 msgctxt "@default|"
 msgid "Comment"
 msgstr "Komentář"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:340
-#: src/core/tags/frame.cpp:2069
+#: src/core/tags/frame.cpp:2071
 msgctxt "@default|"
 msgid "Year"
 msgstr "Rok"
 
 #: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:113
-#: src/core/tags/frame.cpp:2074
+#: src/core/tags/frame.cpp:2076
 msgctxt "@default|"
 msgid "Track"
 msgstr "Skladba"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:143
-#: src/core/tags/frame.cpp:2087
+#: src/core/tags/frame.cpp:2089
 msgctxt "@default|"
 msgid "Genre"
 msgstr "Žánr"
@@ -3494,77 +3494,93 @@ msgid "Chapters"
 msgstr "Kapitoly"
 
 #: src/core/tags/frame.cpp:351
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Chapters"
+msgctxt "@default|"
+msgid "Chapters (Nero)"
+msgstr "Kapitoly"
+
+#: src/core/tags/frame.cpp:352
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Chapters"
+msgctxt "@default|"
+msgid "Chapters (QT)"
+msgstr "Kapitoly"
+
+#: src/core/tags/frame.cpp:353
 msgctxt "@default|"
 msgid "Archival Location"
 msgstr "Místo archivace"
 
-#: src/core/tags/frame.cpp:352
+#: src/core/tags/frame.cpp:354
 msgctxt "@default|"
 msgid "Commissioned"
 msgstr "Oprávněný"
 
-#: src/core/tags/frame.cpp:353
+#: src/core/tags/frame.cpp:355
 msgctxt "@default|"
 msgid "Cropped"
 msgstr "Ořezaný"
 
-#: src/core/tags/frame.cpp:354
+#: src/core/tags/frame.cpp:356
 msgctxt "@default|"
 msgid "Dimensions"
 msgstr "Rozměry"
 
-#: src/core/tags/frame.cpp:355
+#: src/core/tags/frame.cpp:357
 msgctxt "@default|"
 msgid "Dots Per Inch"
 msgstr "Bodů na palec"
 
-#: src/core/tags/frame.cpp:356
+#: src/core/tags/frame.cpp:358
 msgctxt "@default|"
 msgid "Keywords"
 msgstr "Klíčová slova"
 
-#: src/core/tags/frame.cpp:357
+#: src/core/tags/frame.cpp:359
 msgctxt "@default|"
 msgid "Lightness"
 msgstr "Jas"
 
-#: src/core/tags/frame.cpp:358
+#: src/core/tags/frame.cpp:360
 msgctxt "@default|"
 msgid "Number of Colors"
 msgstr "Počet barev"
 
-#: src/core/tags/frame.cpp:359
+#: src/core/tags/frame.cpp:361
 msgctxt "@default|"
 msgid "Subject"
 msgstr "Předmět"
 
-#: src/core/tags/frame.cpp:360
+#: src/core/tags/frame.cpp:362
 msgctxt "@default|"
 msgid "Sharpness"
 msgstr "Ostrost"
 
-#: src/core/tags/frame.cpp:361
+#: src/core/tags/frame.cpp:363
 msgctxt "@default|"
 msgid "Source Form"
 msgstr "Druh zdroje"
 
-#: src/core/tags/frame.cpp:1274
+#: src/core/tags/frame.cpp:1276
 #, qt-format
 msgctxt "@default|"
 msgid "Tag %1"
 msgstr "Značka %1"
 
-#: src/core/tags/frame.cpp:1279
+#: src/core/tags/frame.cpp:1281
 msgctxt "@default|"
 msgid "Tag 1 and Tag 2"
 msgstr "Značka 1 a značka 2"
 
-#: src/core/tags/frame.cpp:1283
+#: src/core/tags/frame.cpp:1285
 msgctxt "@default|"
 msgid "All Tags"
 msgstr "Všechny značky"
 
-#: src/core/tags/frame.cpp:2092
+#: src/core/tags/frame.cpp:2094
 msgctxt "@default|"
 msgid "Prepend t1/append t2 if not empty"
 msgstr "Připojte t1/připojit t2, pokud není prázdný"
@@ -4014,324 +4030,352 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Potom přetáhněte obrázek z prohlížeče do okna Kid3."
 
-#: src/gui/dialogs/configdialogpages.cpp:176
+#: src/gui/dialogs/configdialogpages.cpp:177
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:179
+#: src/gui/dialogs/configdialogpages.cpp:180
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "&Označit zkrácená pole"
 
-#: src/gui/dialogs/configdialogpages.cpp:181
-#: src/gui/dialogs/configdialogpages.cpp:210
+#: src/gui/dialogs/configdialogpages.cpp:182
+#: src/gui/dialogs/configdialogpages.cpp:211
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "Kódování t&extu:"
 
-#: src/gui/dialogs/configdialogpages.cpp:195
+#: src/gui/dialogs/configdialogpages.cpp:196
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr " ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:198
+#: src/gui/dialogs/configdialogpages.cpp:199
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "Použít formát číslo/celkový počet &skladeb"
 
-#: src/gui/dialogs/configdialogpages.cpp:201
+#: src/gui/dialogs/configdialogpages.cpp:202
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "&Počet číslic v čísle skladby:"
 
-#: src/gui/dialogs/configdialogpages.cpp:205
+#: src/gui/dialogs/configdialogpages.cpp:206
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "Žá&nr jako text místo jako číslo"
 
-#: src/gui/dialogs/configdialogpages.cpp:207
+#: src/gui/dialogs/configdialogpages.cpp:208
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "Soubory &WAV s blokem id3 s malými písmeny"
 
-#: src/gui/dialogs/configdialogpages.cpp:209
+#: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "Označte &porušení standardu"
 
-#: src/gui/dialogs/configdialogpages.cpp:228
+#: src/gui/dialogs/configdialogpages.cpp:229
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "&Verze používaná pro nové značky:"
 
-#: src/gui/dialogs/configdialogpages.cpp:232
+#: src/gui/dialogs/configdialogpages.cpp:233
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:234
+#: src/gui/dialogs/configdialogpages.cpp:235
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:248
+#: src/gui/dialogs/configdialogpages.cpp:249
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:249
+#: src/gui/dialogs/configdialogpages.cpp:250
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "Název pole s pozná&mkou:"
 
-#: src/gui/dialogs/configdialogpages.cpp:252
+#: src/gui/dialogs/configdialogpages.cpp:253
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "Název pole s &obrázkem:"
 
-#: src/gui/dialogs/configdialogpages.cpp:274
+#: src/gui/dialogs/configdialogpages.cpp:275
+msgctxt "ConfigDialogPages|"
+msgid "Matroska"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:276
+msgctxt "ConfigDialogPages|"
+msgid "&Write mode:"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:278
+#, fuzzy
+#| msgctxt "FileSystemModel|"
+#| msgid "Computer"
+msgctxt "ConfigDialogPages|"
+msgid "Compact"
+msgstr "Počítač"
+
+#: src/gui/dialogs/configdialogpages.cpp:279
+msgctxt "ConfigDialogPages|"
+msgid "Do not shrink"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:280
+msgctxt "ConfigDialogPages|"
+msgid "Avoid insert"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Obrázek"
 
-#: src/gui/dialogs/configdialogpages.cpp:277
+#: src/gui/dialogs/configdialogpages.cpp:295
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "Označit, &je-li větší než (bajty):"
 
-#: src/gui/dialogs/configdialogpages.cpp:290
+#: src/gui/dialogs/configdialogpages.cpp:308
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "&Ukázat pouze vlastní žánry"
 
-#: src/gui/dialogs/configdialogpages.cpp:298
+#: src/gui/dialogs/configdialogpages.cpp:316
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "Vla&stní žánry"
 
-#: src/gui/dialogs/configdialogpages.cpp:310
+#: src/gui/dialogs/configdialogpages.cpp:328
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "Vlastní p&rvky"
 
-#: src/gui/dialogs/configdialogpages.cpp:325
+#: src/gui/dialogs/configdialogpages.cpp:343
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "Uspořádání můžete upravit přetahováním položek"
 
-#: src/gui/dialogs/configdialogpages.cpp:328
+#: src/gui/dialogs/configdialogpages.cpp:346
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "Prvky s &rychlým přístupem"
 
-#: src/gui/dialogs/configdialogpages.cpp:335
+#: src/gui/dialogs/configdialogpages.cpp:353
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF INFO"
 
-#: src/gui/dialogs/configdialogpages.cpp:336
+#: src/gui/dialogs/configdialogpages.cpp:354
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "Název skladby &číslo pole:"
 
-#: src/gui/dialogs/configdialogpages.cpp:353
+#: src/gui/dialogs/configdialogpages.cpp:371
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "&Formát značky"
 
-#: src/gui/dialogs/configdialogpages.cpp:355
+#: src/gui/dialogs/configdialogpages.cpp:373
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Hodnocení"
 
-#: src/gui/dialogs/configdialogpages.cpp:365
+#: src/gui/dialogs/configdialogpages.cpp:383
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "Značka &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:367
+#: src/gui/dialogs/configdialogpages.cpp:385
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "Značka &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:368
+#: src/gui/dialogs/configdialogpages.cpp:386
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "Značka &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:369
+#: src/gui/dialogs/configdialogpages.cpp:387
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "Všechny značk&y"
 
-#: src/gui/dialogs/configdialogpages.cpp:387
+#: src/gui/dialogs/configdialogpages.cpp:405
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Spuštění"
 
-#: src/gui/dialogs/configdialogpages.cpp:388
+#: src/gui/dialogs/configdialogpages.cpp:406
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "&Načíst naposledy otevřené soubory"
 
-#: src/gui/dialogs/configdialogpages.cpp:394
+#: src/gui/dialogs/configdialogpages.cpp:412
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Uložit"
 
-#: src/gui/dialogs/configdialogpages.cpp:395
+#: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "&Neměnit časové razítko souboru"
 
-#: src/gui/dialogs/configdialogpages.cpp:397
+#: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "&Označit změny"
 
-#: src/gui/dialogs/configdialogpages.cpp:407
+#: src/gui/dialogs/configdialogpages.cpp:425
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "&Název souboru s obalem:"
 
-#: src/gui/dialogs/configdialogpages.cpp:408
+#: src/gui/dialogs/configdialogpages.cpp:426
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Kódování t&extu (Export, seznam skladeb):"
 
-#: src/gui/dialogs/configdialogpages.cpp:413
+#: src/gui/dialogs/configdialogpages.cpp:431
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Seznam souborů"
 
-#: src/gui/dialogs/configdialogpages.cpp:414
+#: src/gui/dialogs/configdialogpages.cpp:432
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Filt&r:"
 
-#: src/gui/dialogs/configdialogpages.cpp:424
+#: src/gui/dialogs/configdialogpages.cpp:442
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "Z&ahrnout složky:"
 
-#: src/gui/dialogs/configdialogpages.cpp:428
+#: src/gui/dialogs/configdialogpages.cpp:446
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "Přeskočit složk&y:"
 
-#: src/gui/dialogs/configdialogpages.cpp:432
+#: src/gui/dialogs/configdialogpages.cpp:450
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "Zobrazovat &skryté soubory"
 
-#: src/gui/dialogs/configdialogpages.cpp:444
+#: src/gui/dialogs/configdialogpages.cpp:462
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Formát"
 
-#: src/gui/dialogs/configdialogpages.cpp:448
+#: src/gui/dialogs/configdialogpages.cpp:466
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "Název souboru ze značky"
 
-#: src/gui/dialogs/configdialogpages.cpp:453
+#: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "Značka z názvu souboru"
 
-#: src/gui/dialogs/configdialogpages.cpp:459
-#: src/gui/dialogs/configdialogpages.cpp:519
+#: src/gui/dialogs/configdialogpages.cpp:477
+#: src/gui/dialogs/configdialogpages.cpp:537
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Seznam skladeb"
 
-#: src/gui/dialogs/configdialogpages.cpp:471
+#: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "Formát názvu &souboru"
 
-#: src/gui/dialogs/configdialogpages.cpp:487
+#: src/gui/dialogs/configdialogpages.cpp:505
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "Název souboru ze značky"
 
-#: src/gui/dialogs/configdialogpages.cpp:503
+#: src/gui/dialogs/configdialogpages.cpp:521
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "Značka z názvu souboru"
 
-#: src/gui/dialogs/configdialogpages.cpp:533
+#: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Prohlížeč"
 
-#: src/gui/dialogs/configdialogpages.cpp:534
+#: src/gui/dialogs/configdialogpages.cpp:552
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "We&bový prohlížeč:"
 
-#: src/gui/dialogs/configdialogpages.cpp:543
+#: src/gui/dialogs/configdialogpages.cpp:561
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "Příkazy souvisejících &nabídek"
 
-#: src/gui/dialogs/configdialogpages.cpp:546
+#: src/gui/dialogs/configdialogpages.cpp:564
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "&Přehrát po dvojitém kliknutí"
 
-#: src/gui/dialogs/configdialogpages.cpp:548
+#: src/gui/dialogs/configdialogpages.cpp:566
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "Vybrat &soubor pro přehrání"
 
-#: src/gui/dialogs/configdialogpages.cpp:551
+#: src/gui/dialogs/configdialogpages.cpp:569
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
 msgstr "Zv&ukový výstup:"
 
-#: src/gui/dialogs/configdialogpages.cpp:553
+#: src/gui/dialogs/configdialogpages.cpp:571
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "Systém"
 
-#: src/gui/dialogs/configdialogpages.cpp:586
+#: src/gui/dialogs/configdialogpages.cpp:604
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Proxy"
 
-#: src/gui/dialogs/configdialogpages.cpp:587
+#: src/gui/dialogs/configdialogpages.cpp:605
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Proxy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:590
+#: src/gui/dialogs/configdialogpages.cpp:608
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "Po&užít ověření s proxy"
 
-#: src/gui/dialogs/configdialogpages.cpp:592
+#: src/gui/dialogs/configdialogpages.cpp:610
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "Uživatelské jmé&no proxy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:596
+#: src/gui/dialogs/configdialogpages.cpp:614
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "Heslo pro&xy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:630
+#: src/gui/dialogs/configdialogpages.cpp:648
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "&Moduly pro metadata a priorita"
 
-#: src/gui/dialogs/configdialogpages.cpp:642
+#: src/gui/dialogs/configdialogpages.cpp:660
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "Dostupné modul&y"
 
-#: src/gui/dialogs/configdialogpages.cpp:653
+#: src/gui/dialogs/configdialogpages.cpp:671
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "Změny se projeví až po restartu!"
@@ -6747,12 +6791,14 @@ msgctxt "FrameEditDialog|"
 msgid "File already exists. Overwrite?"
 msgstr "Soubor již existuje. Přejete si jej přepsat?"
 
-#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:199
+#: src/qml/app/FrameEditDialog.qml:129 src/qml/app/FrameEditDialog.qml:215
+#: src/qml/app/FrameEditDialog.qml:270
 msgctxt "FrameEditDialog|"
 msgid "Export"
 msgstr "Exportovat"
 
-#: src/qml/app/FrameEditDialog.qml:157 src/qml/app/FrameEditDialog.qml:180
+#: src/qml/app/FrameEditDialog.qml:167 src/qml/app/FrameEditDialog.qml:196
+#: src/qml/app/FrameEditDialog.qml:256
 msgctxt "FrameEditDialog|"
 msgid "Import"
 msgstr "Importovat"
@@ -7326,3 +7372,19 @@ msgstr "Vložit"
 msgctxt "TagCollapsible|"
 msgid "Remove"
 msgstr "Odstranit"
+
+#: src/qml/app/TagCollapsible.qml:116
+#, fuzzy
+#| msgctxt "Kid3MainWindow|"
+#| msgid "Select &All"
+msgctxt "TagCollapsible|"
+msgid "Select All"
+msgstr "Vybr&at vše"
+
+#: src/qml/app/TagCollapsible.qml:120
+#, fuzzy
+#| msgctxt "FrameTable|"
+#| msgid "&Deselect all"
+msgctxt "TagCollapsible|"
+msgid "Deselect All"
+msgstr "Zrušit vý&běr"
