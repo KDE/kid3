@@ -312,6 +312,35 @@
   <update_contact>ufleisch@users.sourceforge.net</update_contact>
   <translation type="qt">kid3/translations/kid3</translation>
   <releases>
+    <release version="3.10.0" date="2026-06-06">
+      <description>
+        <p>New</p>
+        <ul>
+          <li>Support for Matroska and WebM files.</li>
+          <li>MP4: Support both QuickTime and Nero Chapters, also with TagLib.</li>
+          <li>MP4: Support STEM.</li>
+          <li>WAV, FLAC: Support iXML and BEXT chunks.</li>
+          <li>Android: Select all/deselect all frames.</li>
+          <li>Android: Import/Export of chapters and synchronized lyrics as LRC files.</li>
+        </ul>
+        <p>Improved</p>
+        <ul>
+          <li>Improved save performance.</li>
+          <li>macOS: Consistent icon set with dark mode.</li>
+          <li>Export CSV, JSON: Only export selected folders.</li>
+        </ul>
+        <p>Fixed</p>
+        <ul>
+          <li>Fix Discogs import.</li>
+          <li>Consider the configured language for the handbook.</li>
+          <li>Fix: Import of LRC files (synchronized lyrics, chapters) with hour values.</li>
+          <li>Fix broken file list behavior when renaming many files and the list is sorted in descending order.</li>
+          <li>Fix progress reporting when files are saved.</li>
+          <li>ID3v2: Support values with multiple strings in TXXX frames.</li>
+          <li>Windows: Support MP4 64-bit atoms on Windows.</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.9.7" date="2025-07-24">
       <description>
         <p>Fixed</p>
