@@ -1033,12 +1033,8 @@ MP4 audiobooks typically have a <filename class="extension">.m4b</filename>
 extension and are rather large because  they contain all chapters in a single
 file. To navigate in such files, they can contain chapter marks, which can be
 edited in &kid3; in a pseudo "Chapters" frame using the same editor which is
-used for <link linkend="synchronized-lyrics">synchronized lyrics</link>. Note,
-however, that this feature is only available with the
-<guilabel>Mp4v2Metadata</guilabel> plugin, so make sure that it is activated
-and above the <guilabel>TaglibMetadata</guilabel> plugin in the
-<guilabel>Plugins</guilabel> tab of the settings if you have to edit MP4
-chapters.
+used for <link linkend="synchronized-lyrics">synchronized lyrics</link>.
+There are two types of chapters in MP4 files: "Nero" and "QuickTime (QT)".
 </para>
 <para>
 The chapter information in MP3 audiobooks is stored in multiple "Chapter"
@@ -2351,6 +2347,25 @@ The first is the official standard and uses the same format as pictures in FLAC
 tags. "<literal>COVERART</literal>" is an earlier unofficial way to include
 pictures in Vorbis comments. It can be used for compatibility with legacy players.
 </para>
+<para>
+The mode used when saving <guilabel>Matroska</guilabel> files can be selected
+with <guilabel>Write mode</guilabel>. It controls the trade-off between file
+size and write speed when saving tags, attachments and chapters to the file.
+For very large files and/or slow (network) filesystems, using
+<guilabel>Avoid insert</guilabel> will reduce write time significantly.
+There are three possible modes:
+</para>
+<itemizedlist>
+<listitem><para>Compact: Write tags, attachments and chapters as compact as
+possible. This is the default mode.</para></listitem>
+<listitem><para>Do not shrink: Do not shrink blocks when writing, add padding
+when content gets smaller. Allow inserts when content gets larger.
+</para></listitem>
+<listitem><para>Avoid insert: Like <guilabel>Do not shrink</guilabel> but also
+avoid inserts for blocks which are not at the end of the file: Replace a growing
+non-last block with padding of the old size and append a new block at the end of
+the file.</para></listitem>
+</itemizedlist>
 <para>
 If the <guilabel>Mark if larger than (bytes)</guilabel> check box is activated,
 files containing embedded album cover art exceeding the given size in bytes
