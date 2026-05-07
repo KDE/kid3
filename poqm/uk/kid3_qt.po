@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-03-09 09:02+0200\n"
+"PO-Revision-Date: 2026-05-05 08:50+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -3493,20 +3493,14 @@ msgid "Chapters"
 msgstr "Глави"
 
 #: src/core/tags/frame.cpp:351
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (Nero)"
-msgstr "Глави"
+msgstr "Глави (Nero)"
 
 #: src/core/tags/frame.cpp:352
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (QT)"
-msgstr "Глави"
+msgstr "Глави (QT)"
 
 #: src/core/tags/frame.cpp:353
 msgctxt "@default|"
@@ -4108,30 +4102,27 @@ msgstr "Назва поля з&ображення:"
 #: src/gui/dialogs/configdialogpages.cpp:275
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
-msgstr ""
+msgstr "Matroska"
 
 #: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
-msgstr ""
+msgstr "&Режим запису:"
 
 #: src/gui/dialogs/configdialogpages.cpp:278
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Computer"
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
-msgstr "Комп'ютер"
+msgstr "Компактний"
 
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
-msgstr ""
+msgstr "Не стискати"
 
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
-msgstr ""
+msgstr "Уникнути вставлення"
 
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
@@ -7378,20 +7369,14 @@ msgid "Remove"
 msgstr "Вилучити"
 
 #: src/qml/app/TagCollapsible.qml:116
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Select &All"
 msgctxt "TagCollapsible|"
 msgid "Select All"
-msgstr "Позна&чити все"
+msgstr "Позначити все"
 
 #: src/qml/app/TagCollapsible.qml:120
-#, fuzzy
-#| msgctxt "FrameTable|"
-#| msgid "&Deselect all"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
-msgstr "З&няти позначення з усіх"
+msgstr "Зняти позначення з усього"
 
 #~ msgctxt "ConfigDialogPages|"
 #~ msgid "Custom &Genres"

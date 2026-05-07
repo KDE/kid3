@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3\n"
-"PO-Revision-Date: 2026-03-09 11:42+0100\n"
+"PO-Revision-Date: 2026-05-05 08:51+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 25.04.0\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -957,7 +957,7 @@ msgstr "Reproductor"
 #: src/app/kde/kdemainwindow.cpp:671
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
-msgstr "Configuració - Kid3"
+msgstr "Configuració – Kid3"
 
 #: src/app/kde/kdeplatformtools.cpp:197 src/app/kde/kdeplatformtools.cpp:241
 msgctxt "@default|"
@@ -1631,7 +1631,7 @@ msgstr "Llicència"
 #: src/app/qt/kid3mainwindow.cpp:1031
 msgctxt "Kid3MainWindow|"
 msgid "Configure - Kid3"
-msgstr "Configuració - Kid3"
+msgstr "Configuració – Kid3"
 
 #: src/app/qt/kid3mainwindow.cpp:1075 src/app/qt/kid3mainwindow.cpp:1087
 msgctxt "Kid3MainWindow|"
@@ -3495,20 +3495,14 @@ msgid "Chapters"
 msgstr "Capítols"
 
 #: src/core/tags/frame.cpp:351
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (Nero)"
-msgstr "Capítols"
+msgstr "Capítols (Nero)"
 
 #: src/core/tags/frame.cpp:352
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (QT)"
-msgstr "Capítols"
+msgstr "Capítols (Qt)"
 
 #: src/core/tags/frame.cpp:353
 msgctxt "@default|"
@@ -4113,30 +4107,27 @@ msgstr "Nom del camp de la imat&ge:"
 #: src/gui/dialogs/configdialogpages.cpp:275
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
-msgstr ""
+msgstr "Matroska"
 
 #: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
-msgstr ""
+msgstr "Mode d'&escriptura:"
 
 #: src/gui/dialogs/configdialogpages.cpp:278
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Computer"
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
-msgstr "Ordinador"
+msgstr "Compacta"
 
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
-msgstr ""
+msgstr "No enculles"
 
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
-msgstr ""
+msgstr "Evita la inserció"
 
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
@@ -4359,7 +4350,7 @@ msgstr "&Servidor intermediari:"
 #: src/gui/dialogs/configdialogpages.cpp:608
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
-msgstr "Utilit&za autenticació amb el servidor intermediari"
+msgstr "&Utilitza autenticació amb el servidor intermediari"
 
 #: src/gui/dialogs/configdialogpages.cpp:610
 msgctxt "ConfigDialogPages|"
@@ -5039,7 +5030,7 @@ msgstr "&Servidor:"
 #: src/gui/dialogs/servertrackimportdialog.cpp:106
 msgctxt "ServerTrackImportDialog|"
 msgid "Track Title/Artist - Album"
-msgstr "Títol/Artista de la peça - Àlbum"
+msgstr "Títol/Artista de la peça – Àlbum"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:107
 msgctxt "ServerTrackImportDialog|"
@@ -6015,436 +6006,436 @@ msgstr "gnudb.org"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:456
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
-msgstr "AENC - Encriptació de l'àudio"
+msgstr "AENC – Encriptació de l'àudio"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:908
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:457
 msgctxt "@default|"
 msgid "APIC - Attached picture"
-msgstr "APIC - Imatge adjunta"
+msgstr "APIC – Imatge adjunta"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:910
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:462
 msgctxt "@default|"
 msgid "COMM - Comments"
-msgstr "COMM - Comentaris"
+msgstr "COMM – Comentaris"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:911
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:463
 msgctxt "@default|"
 msgid "COMR - Commercial"
-msgstr "COMR - Comercial"
+msgstr "COMR – Comercial"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:912
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:467
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
-msgstr "ENCR - Registre del mètode d'encriptació"
+msgstr "ENCR – Registre del mètode d'encriptació"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:914
 msgctxt "@default|"
 msgid "EQUA - Equalization"
-msgstr "EQUA - Equalització"
+msgstr "EQUA – Equalització"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:915
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:469
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
-msgstr "ETCO - Codis de temps dels esdeveniments"
+msgstr "ETCO – Codis de temps dels esdeveniments"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:916
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:470
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
-msgstr "GEOB - Objecte general encapsulat"
+msgstr "GEOB – Objecte general encapsulat"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:917
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:471
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
-msgstr "GRID - Registre de la identificació del grup"
+msgstr "GRID – Registre de la identificació del grup"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:918
 msgctxt "@default|"
 msgid "IPLS - Involved people list"
-msgstr "IPLS - Llista de les persones implicades"
+msgstr "IPLS – Llista de les persones implicades"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:919
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:475
 msgctxt "@default|"
 msgid "LINK - Linked information"
-msgstr "LINK - Informació enllaçada"
+msgstr "LINK – Informació enllaçada"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:920
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:476
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
-msgstr "MCDI - Identificador del CD de música"
+msgstr "MCDI – Identificador del CD de música"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:921
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:477
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - Taula de busca de la ubicació en MPEG"
+msgstr "MLLT – Taula de busca de la ubicació en MPEG"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:922
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:482
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
-msgstr "OWNE - Marc propietari"
+msgstr "OWNE – Marc propietari"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:923
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:483
 msgctxt "@default|"
 msgid "PRIV - Private frame"
-msgstr "PRIV - Marc privat"
+msgstr "PRIV – Marc privat"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:924
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:484
 msgctxt "@default|"
 msgid "PCNT - Play counter"
-msgstr "PCNT - Comptador de la reproducció"
+msgstr "PCNT – Comptador de la reproducció"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:925
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:488
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
-msgstr "POPM - Mesurador de la popularitat"
+msgstr "POPM – Mesurador de la popularitat"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:926
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:489
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
-msgstr "POSS - Marc de sincronització de la posició"
+msgstr "POSS – Marc de sincronització de la posició"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:927
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:490
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - Mida recomanada de la memòria intermèdia"
+msgstr "RBUF – Mida recomanada de la memòria intermèdia"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:929
 msgctxt "@default|"
 msgid "RVAD - Relative volume adjustment"
-msgstr "RVAD - Ajust relatiu del volum"
+msgstr "RVAD – Ajust relatiu del volum"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:930
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:492
 msgctxt "@default|"
 msgid "RVRB - Reverb"
-msgstr "RVRB - Reverberació"
+msgstr "RVRB – Reverberació"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:933
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:495
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT - Lletra/text sincronitzat"
+msgstr "SYLT – Lletra/text sincronitzat"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:934
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:496
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
-msgstr "SYTC - Codis del ritme sincronitzat"
+msgstr "SYTC – Codis del ritme sincronitzat"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:935
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:497
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
-msgstr "TALB - Títol de l'àlbum/pel·lícula/programa"
+msgstr "TALB – Títol de l'àlbum/pel·lícula/programa"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:936
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:498
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM - PPM (pulsacions per minut)"
+msgstr "TBPM – PPM (pulsacions per minut)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:937
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:503
 msgctxt "@default|"
 msgid "TCOM - Composer"
-msgstr "TCOM - Compositor"
+msgstr "TCOM – Compositor"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:938
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:504
 msgctxt "@default|"
 msgid "TCON - Content type"
-msgstr "TCON - Tipus de contingut"
+msgstr "TCON – Tipus de contingut"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:939
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:505
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
-msgstr "TCOP - Missatge dels drets d'autoria"
+msgstr "TCOP – Missatge dels drets d'autoria"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:940
 msgctxt "@default|"
 msgid "TDAT - Date"
-msgstr "TDAT - Data"
+msgstr "TDAT – Data"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:942
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:510
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
-msgstr "TDLY - Retard de la llista de reproducció"
+msgstr "TDLY – Retard de la llista de reproducció"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:948
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:515
 msgctxt "@default|"
 msgid "TENC - Encoded by"
-msgstr "TENC - Codificat per"
+msgstr "TENC – Codificat per"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:949
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:516
 msgctxt "@default|"
 msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - Lletrista/escriptor del text"
+msgstr "TEXT – Lletrista/escriptor del text"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:950
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:517
 msgctxt "@default|"
 msgid "TFLT - File type"
-msgstr "TFLT - Tipus de fitxer"
+msgstr "TFLT – Tipus de fitxer"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:951
 msgctxt "@default|"
 msgid "TIME - Time"
-msgstr "TIME - Temps"
+msgstr "TIME – Temps"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:952
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:522
 msgctxt "@default|"
 msgid "TIT1 - Content group description"
-msgstr "TIT1 - Descripció del grup del contingut"
+msgstr "TIT1 – Descripció del grup del contingut"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:953
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:523
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - Títol/nom de la cançó/descripció del contingut"
+msgstr "TIT2 – Títol/nom de la cançó/descripció del contingut"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:954
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:524
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 - Millora del subtítol/descripció"
+msgstr "TIT3 – Millora del subtítol/descripció"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:955
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:525
 msgctxt "@default|"
 msgid "TKEY - Initial key"
-msgstr "TKEY - Clau inicial"
+msgstr "TKEY – Clau inicial"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:956
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:529
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
-msgstr "TLAN - Idiomes"
+msgstr "TLAN – Idiomes"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:957
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:530
 msgctxt "@default|"
 msgid "TLEN - Length"
-msgstr "TLEN - Llargària"
+msgstr "TLEN – Llargària"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:959
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:532
 msgctxt "@default|"
 msgid "TMED - Media type"
-msgstr "TMED - Tipus de suport"
+msgstr "TMED – Tipus de suport"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:961
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:534
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - Títol de l'àlbum/pel·lícula/programa"
+msgstr "TOAL – Títol de l'àlbum/pel·lícula/programa"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:962
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:535
 msgctxt "@default|"
 msgid "TOFN - Original filename"
-msgstr "TOFN - Nom del fitxer original"
+msgstr "TOFN – Nom del fitxer original"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:963
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:536
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - Lletristes / escriptors originals del text"
+msgstr "TOLY – Lletristes / escriptors originals del text"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:964
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:537
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - Artistes / intèrprets originals"
+msgstr "TOPE – Artistes / intèrprets originals"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:965
 msgctxt "@default|"
 msgid "TORY - Original release year"
-msgstr "TORY - Any del llançament original"
+msgstr "TORY – Any del llançament original"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:966
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:538
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
-msgstr "TOWN - Propietari/llicència del fitxer"
+msgstr "TOWN – Propietari/llicència del fitxer"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:967
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:539
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - Intèrprets / solistes principals"
+msgstr "TPE1 – Intèrprets / solistes principals"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:968
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:540
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 - Banda/orquestra/acompanyament"
+msgstr "TPE2 – Banda/orquestra/acompanyament"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:969
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:541
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 - Clarificació del director/intèrpret"
+msgstr "TPE3 – Clarificació del director/intèrpret"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:970
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:542
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr "TPE4 - Interpretat, remesclat o modificat d'alguna forma per"
+msgstr "TPE4 – Interpretat, remesclat o modificat d'alguna forma per"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:971
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:543
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
-msgstr "TPOS - Part d'un conjunt"
+msgstr "TPOS – Part d'un conjunt"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:973
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:545
 msgctxt "@default|"
 msgid "TPUB - Publisher"
-msgstr "TPUB - Editor"
+msgstr "TPUB – Editor"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:974
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:546
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - Número de la peça/Posició en el conjunt"
+msgstr "TRCK – Número de la peça/Posició en el conjunt"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:975
 msgctxt "@default|"
 msgid "TRDA - Recording dates"
-msgstr "TRDA - Dates de la gravació"
+msgstr "TRDA – Dates de la gravació"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:976
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:547
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
-msgstr "TRSN - Nom de l'emissora de ràdio per Internet"
+msgstr "TRSN – Nom de l'emissora de ràdio per Internet"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:977
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:548
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
-msgstr "TRSO - Propietari de l'emissora de ràdio per Internet"
+msgstr "TRSO – Propietari de l'emissora de ràdio per Internet"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:978
 msgctxt "@default|"
 msgid "TSIZ - Size"
-msgstr "TSIZ - Mida"
+msgstr "TSIZ – Mida"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:982
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:554
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
-msgstr "TSRC - ISRC (codi de gravació estàndard internacional)"
+msgstr "TSRC – ISRC (codi de gravació estàndard internacional)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:983
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:555
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - Programari/maquinari i la configuració emprada per a codificar"
+msgstr "TSSE – Programari/maquinari i la configuració emprada per a codificar"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:985
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:557
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
-msgstr "TXXX - Informació del text definit per l'usuari"
+msgstr "TXXX – Informació del text definit per l'usuari"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:986
 msgctxt "@default|"
 msgid "TYER - Year"
-msgstr "TYER - Any"
+msgstr "TYER – Any"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:987
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:558
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
-msgstr "UFID - Identificador únic del fitxer"
+msgstr "UFID – Identificador únic del fitxer"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:988
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:559
 msgctxt "@default|"
 msgid "USER - Terms of use"
-msgstr "USER - Termes d'ús"
+msgstr "USER – Termes d'ús"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:989
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:560
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr "USLT - Transcripció del text/lletra sense sincronitzar"
+msgstr "USLT – Transcripció del text/lletra sense sincronitzar"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:990
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:561
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
-msgstr "WCOM - Informació comercial"
+msgstr "WCOM – Informació comercial"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:991
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:562
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - Informació sobre els drets d'autoria i legal"
+msgstr "WCOP – Informació sobre els drets d'autoria i legal"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:992
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:566
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - Pàgina web oficial del fitxer d'àudio"
+msgstr "WOAF – Pàgina web oficial del fitxer d'àudio"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:993
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:567
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - Pàgina web oficial de l'artista/intèrpret"
+msgstr "WOAR – Pàgina web oficial de l'artista/intèrpret"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:994
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:568
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
-msgstr "WOAS - Pàgina web oficial de la font de l'àudio"
+msgstr "WOAS – Pàgina web oficial de la font de l'àudio"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:995
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:569
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
-msgstr "WORS - Pàgina web oficial de l'emissora de ràdio per Internet"
+msgstr "WORS – Pàgina web oficial de l'emissora de ràdio per Internet"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:996
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:570
 msgctxt "@default|"
 msgid "WPAY - Payment"
-msgstr "WPAY - Pagament"
+msgstr "WPAY – Pagament"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:997
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:571
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
-msgstr "WPUB - Pàgina web oficial de l'editorial"
+msgstr "WPUB – Pàgina web oficial de l'editorial"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:998
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:572
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
-msgstr "WXXX - Enllaç URL definit per l'usuari"
+msgstr "WXXX – Enllaç URL definit per l'usuari"
 
 #: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
 msgctxt "@default|"
@@ -6459,162 +6450,162 @@ msgstr "Informació de la puntuació"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:458
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
-msgstr "ASPI - Índex dels punts de busca de l'àudio"
+msgstr "ASPI – Índex dels punts de busca de l'àudio"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:460
 msgctxt "@default|"
 msgid "CHAP - Chapter"
-msgstr "CHAP - Capítol"
+msgstr "CHAP – Capítol"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:465
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
-msgstr "CTOC - Taula de contingut"
+msgstr "CTOC – Taula de contingut"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:468
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
-msgstr "EQU2 - Equalització (2)"
+msgstr "EQU2 – Equalització (2)"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:473
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
-msgstr "GRP1 - Agrupament"
+msgstr "GRP1 – Agrupament"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:479
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
-msgstr "MVIN - Número del moviment"
+msgstr "MVIN – Número del moviment"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:480
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
-msgstr "MVNM - Nom del moviment"
+msgstr "MVNM – Nom del moviment"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:486
 msgctxt "@default|"
 msgid "PCST - Podcast"
-msgstr "PCST - Pòdcast"
+msgstr "PCST – Pòdcast"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:491
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
-msgstr "RVA2 - Ajust relatiu del volum (2)"
+msgstr "RVA2 – Ajust relatiu del volum (2)"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:493
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
-msgstr "SEEK - Marc de busca"
+msgstr "SEEK – Marc de busca"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:494
 msgctxt "@default|"
 msgid "SIGN - Signature frame"
-msgstr "SIGN - Marc de signatura"
+msgstr "SIGN – Marc de signatura"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:500
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
-msgstr "TCAT - Categoria pòdcast"
+msgstr "TCAT – Categoria pòdcast"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:502
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
-msgstr "TCMP - Etiqueta de compilació d'iTunes"
+msgstr "TCMP – Etiqueta de compilació d'iTunes"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:506
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
-msgstr "TDEN - Temps de la codificació"
+msgstr "TDEN – Temps de la codificació"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:508
 msgctxt "@default|"
 msgid "TDES - Podcast description"
-msgstr "TDES - Descripció del pòdcast"
+msgstr "TDES – Descripció del pòdcast"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:511
 msgctxt "@default|"
 msgid "TDOR - Original release time"
-msgstr "TDOR - Temps del llançament original"
+msgstr "TDOR – Temps del llançament original"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:512
 msgctxt "@default|"
 msgid "TDRC - Recording time"
-msgstr "TDRC - Temps de la gravació"
+msgstr "TDRC – Temps de la gravació"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:513
 msgctxt "@default|"
 msgid "TDRL - Release time"
-msgstr "TDRL - Temps del llançament"
+msgstr "TDRL – Temps del llançament"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:514
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
-msgstr "TDTG - Temps de l'etiquetatge"
+msgstr "TDTG – Temps de l'etiquetatge"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:519
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
-msgstr "TGID - Identificador del pòdcast"
+msgstr "TGID – Identificador del pòdcast"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:521
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
-msgstr "TIPL - Llista de les persones implicades"
+msgstr "TIPL – Llista de les persones implicades"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:527
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
-msgstr "TKWD - Paraules clau del pòdcast"
+msgstr "TKWD – Paraules clau del pòdcast"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:531
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
-msgstr "TMCL - Llista de crèdits dels músics"
+msgstr "TMCL – Llista de crèdits dels músics"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:533
 msgctxt "@default|"
 msgid "TMOO - Mood"
-msgstr "TMOO - Estat d'ànim"
+msgstr "TMOO – Estat d'ànim"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:544
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
-msgstr "TPRO - Anotació de producció"
+msgstr "TPRO – Anotació de producció"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:549
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
-msgstr "TSO2 - Criteri d'ordenació en l'àlbum dels artistes"
+msgstr "TSO2 – Criteri d'ordenació en l'àlbum dels artistes"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:550
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
-msgstr "TSOA - Criteri d'ordenació de l'àlbum"
+msgstr "TSOA – Criteri d'ordenació de l'àlbum"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:551
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
-msgstr "TSOC - Criteri d'ordenació de l'editor"
+msgstr "TSOC – Criteri d'ordenació de l'editor"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:552
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
-msgstr "TSOP - Criteri d'ordenació de l'intèrpret"
+msgstr "TSOP – Criteri d'ordenació de l'intèrpret"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:553
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
-msgstr "TSOT - Criteri d'ordenació del títol"
+msgstr "TSOT – Criteri d'ordenació del títol"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:556
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
-msgstr "TSST - Establix el subtítol"
+msgstr "TSST – Establix el subtítol"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:564
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
-msgstr "WFED - Canal de pòdcast"
+msgstr "WFED – Canal de pòdcast"
 
 #: src/qml/app/AboutDialog.qml:29
 msgctxt "AboutDialog|"
@@ -7383,17 +7374,11 @@ msgid "Remove"
 msgstr "Elimina"
 
 #: src/qml/app/TagCollapsible.qml:116
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Select &All"
 msgctxt "TagCollapsible|"
 msgid "Select All"
-msgstr "Seleccion&a-ho tot"
+msgstr "Selecciona-ho tot"
 
 #: src/qml/app/TagCollapsible.qml:120
-#, fuzzy
-#| msgctxt "FrameTable|"
-#| msgid "&Deselect all"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
-msgstr "&Desselecciona-ho tot"
+msgstr "Desselecciona-ho tot"
