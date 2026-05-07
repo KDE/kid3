@@ -315,6 +315,20 @@
     <release version="3.10.0" date="2026-06-06">
       <description>
         <p>New</p>
+        <p xml:lang="ar">جديد</p>
+        <p xml:lang="ca">Nou</p>
+        <p xml:lang="ca-valencia">Nou</p>
+        <p xml:lang="cs">Nové</p>
+        <p xml:lang="es">Novedades</p>
+        <p xml:lang="fr">Nouveau</p>
+        <p xml:lang="it">Nuovi</p>
+        <p xml:lang="nl">Nieuw</p>
+        <p xml:lang="pt-BR">Novo</p>
+        <p xml:lang="ru">Новшества</p>
+        <p xml:lang="sk">Nové</p>
+        <p xml:lang="sl">Novo</p>
+        <p xml:lang="tr">Yeni</p>
+        <p xml:lang="uk">Нове</p>
         <ul>
           <li>Support for Matroska and WebM files.</li>
           <li>MP4: Support both QuickTime and Nero Chapters, also with TagLib.</li>
@@ -324,12 +338,41 @@
           <li>Android: Import/Export of chapters and synchronized lyrics as LRC files.</li>
         </ul>
         <p>Improved</p>
+        <p xml:lang="ar">مُحسّن</p>
+        <p xml:lang="ca">Millorat</p>
+        <p xml:lang="ca-valencia">Millorat</p>
+        <p xml:lang="cs">Vylepšeno</p>
+        <p xml:lang="es">Mejoras</p>
+        <p xml:lang="fr">Amélioré</p>
+        <p xml:lang="it">Migliorati</p>
+        <p xml:lang="nl">Verbeterd</p>
+        <p xml:lang="pt-BR">Melhorias</p>
+        <p xml:lang="ru">Улучшения</p>
+        <p xml:lang="sk">Vylepšené</p>
+        <p xml:lang="sl">Izboljšano</p>
+        <p xml:lang="tr">İyileştirildi</p>
+        <p xml:lang="uk">Удосконалення</p>
         <ul>
           <li>Improved save performance.</li>
           <li>macOS: Consistent icon set with dark mode.</li>
           <li>Export CSV, JSON: Only export selected folders.</li>
         </ul>
         <p>Fixed</p>
+        <p xml:lang="ar">أُصلح</p>
+        <p xml:lang="ca">Corregit</p>
+        <p xml:lang="ca-valencia">Corregit</p>
+        <p xml:lang="cs">Opraveno</p>
+        <p xml:lang="es">Correcciones</p>
+        <p xml:lang="fr">Corrigé</p>
+        <p xml:lang="it">Corretti</p>
+        <p xml:lang="ko">수정됨</p>
+        <p xml:lang="nl">Vast</p>
+        <p xml:lang="pt-BR">Corrigido</p>
+        <p xml:lang="ru">Исправления:</p>
+        <p xml:lang="sk">Opravené</p>
+        <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="tr">Onarıldı</p>
+        <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>Fix Discogs import.</li>
           <li>Consider the configured language for the handbook.</li>
