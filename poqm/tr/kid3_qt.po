@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-05-05 11:20+0300\n"
+"PO-Revision-Date: 2026-05-07 14:04+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -50,7 +50,7 @@ msgstr "Zaman"
 #: src/app/cli/clicommand.cpp:441
 msgctxt "QuitCommand|"
 msgid "Quit application"
-msgstr "Uygulamadan çık"
+msgstr "Uygulamadan Çık"
 
 #: src/app/cli/clicommand.cpp:450
 msgctxt "QuitCommand|"
@@ -65,7 +65,7 @@ msgstr "Çıkmak için “exit force” yazın."
 #: src/app/cli/clicommand.cpp:468
 msgctxt "CdCommand|"
 msgid "Change folder"
-msgstr "Klasör değiştir"
+msgstr "Klasör Değiştir"
 
 #: src/app/cli/clicommand.cpp:482
 #, qt-format
@@ -76,7 +76,7 @@ msgstr "%1 yok"
 #: src/app/cli/clicommand.cpp:502
 msgctxt "PwdCommand|"
 msgid "Print the filename of the current folder"
-msgstr "Geçerli klasörün dosya adını yazdır"
+msgstr "Geçerli Klasörün Adını Yazdır"
 
 #: src/app/cli/clicommand.cpp:518
 msgctxt "LsCommand|"
@@ -96,7 +96,7 @@ msgstr "Dosyaya yazılırken hata:\n"
 #: src/app/cli/clicommand.cpp:550
 msgctxt "SelectCommand|"
 msgid "Select file"
-msgstr "Dosya seç"
+msgstr "Dosya Seç"
 
 #: src/app/cli/clicommand.cpp:572
 #, qt-format
@@ -107,17 +107,17 @@ msgstr "%1 bulunamadı"
 #: src/app/cli/clicommand.cpp:582
 msgctxt "TagCommand|"
 msgid "Select tag"
-msgstr "Künye seç"
+msgstr "Künye Seç"
 
 #: src/app/cli/clicommand.cpp:599
 msgctxt "GetCommand|"
 msgid "Get tag frame"
-msgstr "Künye çerçevesi al"
+msgstr "Künye Çerçevesini Al"
 
 #: src/app/cli/clicommand.cpp:627
 msgctxt "SetCommand|"
 msgid "Set tag frame"
-msgstr "Künye çerçevesi ayarla"
+msgstr "Künye Çerçevesini Ayarla"
 
 #: src/app/cli/clicommand.cpp:644
 #, qt-format
@@ -133,7 +133,7 @@ msgstr "Geri Al"
 #: src/app/cli/clicommand.cpp:666
 msgctxt "ImportCommand|"
 msgid "Import from file"
-msgstr "Dosyadan içe aktar"
+msgstr "Dosyadan İçe Aktar"
 
 #: src/app/cli/clicommand.cpp:668
 msgctxt "ImportCommand|"
@@ -195,12 +195,12 @@ msgstr "Kullanılabilir"
 #: src/app/cli/clicommand.cpp:809
 msgctxt "AlbumArtCommand|"
 msgid "Download album cover artwork"
-msgstr "Kapak görselini indir"
+msgstr "Kapak Görselini İndir"
 
 #: src/app/cli/clicommand.cpp:852
 msgctxt "ExportCommand|"
 msgid "Export to file"
-msgstr "Dosyaya dışa aktar"
+msgstr "Dosyaya Dışa Aktar"
 
 #: src/app/cli/clicommand.cpp:853
 msgctxt "ExportCommand|"
@@ -241,7 +241,7 @@ msgstr "Dosya Adı Yapısını Uygula"
 #: src/app/cli/clicommand.cpp:914
 msgctxt "TagFormatCommand|"
 msgid "Apply tag format"
-msgstr "Tag Yapısını Uygula"
+msgstr "Künye Biçimini Uygula"
 
 #: src/app/cli/clicommand.cpp:926
 msgctxt "TextEncodingCommand|"
@@ -251,17 +251,17 @@ msgstr "Karakter Kodlaması Uygula"
 #: src/app/cli/clicommand.cpp:937
 msgctxt "RenameDirectoryCommand|"
 msgid "Rename folder"
-msgstr "Klasörü yeniden adlandır"
+msgstr "Klasörü Yeniden Adlandır"
 
 #: src/app/cli/clicommand.cpp:1028
 msgctxt "NumberTracksCommand|"
 msgid "Number tracks"
-msgstr "Parça Numaraları"
+msgstr "Parçaları Numaralandır"
 
 #: src/app/cli/clicommand.cpp:1029
 msgctxt "NumberTracksCommand|"
 msgid "Track number"
-msgstr "Parça Numarası"
+msgstr "Parça numarası"
 
 #: src/app/cli/clicommand.cpp:1053
 msgctxt "FilterCommand|"
@@ -332,7 +332,7 @@ msgstr "Kid3’ü Yapılandır"
 #: src/app/cli/clicommand.cpp:1284
 msgctxt "ConfigCommand|"
 msgid "Group.Option Value"
-msgstr "Grup.Seçenek Değeri"
+msgstr "Grup.Seçenek değeri"
 
 #: src/app/cli/clicommand.cpp:1304 src/app/cli/clicommand.cpp:1310
 #, qt-format
@@ -349,7 +349,7 @@ msgstr "Değer hatalı %1"
 #: src/app/cli/clicommand.cpp:1411
 msgctxt "ExecuteCommand|"
 msgid "Execute command"
-msgstr "Komutu yürüt"
+msgstr "Komutu Yürüt"
 
 #: src/app/cli/clicommand.cpp:1412
 msgctxt "ExecuteCommand|"
@@ -1616,7 +1616,7 @@ msgstr "Bölüm"
 #: src/app/qt/kid3mainwindow.cpp:913
 msgctxt "Kid3MainWindow|"
 msgid " [modified]"
-msgstr " [değişti]"
+msgstr " [değiştirildi]"
 
 #: src/app/qt/kid3mainwindow.cpp:1008
 msgctxt "Kid3MainWindow|"
@@ -1721,7 +1721,7 @@ msgstr "Tümü BÜYÜK harf"
 #: src/core/config/formatconfig.cpp:504
 msgctxt "@default|"
 msgid "First letter uppercase"
-msgstr "Cümlenin ilk harfi büyük"
+msgstr "İlk harf BÜYÜK"
 
 #: src/core/config/formatconfig.cpp:505
 msgctxt "@default|"
@@ -1923,7 +1923,7 @@ msgstr "URL olarak Kodla"
 #: src/core/model/commandformatreplacer.cpp:187
 msgctxt "@default|"
 msgid "--- separator ---"
-msgstr "--- ayraç ---"
+msgstr "--- ayırıcı ---"
 
 #: src/core/model/commandformatreplacer.cpp:193
 msgctxt "@default|"
@@ -1971,7 +1971,7 @@ msgstr "%1 klasörü oluşturulamadı\n"
 #, qt-format
 msgctxt "@default|"
 msgid "File %1 already exists\n"
-msgstr "Zaten %1 adında bir dosya var\n"
+msgstr "Hâlihazırda %1 adında bir dosya var\n"
 
 #: src/core/model/dirrenamer.cpp:287
 #, qt-format
@@ -2371,12 +2371,12 @@ msgstr "Tür"
 #: src/core/model/filesystemmodel.cpp:998
 msgctxt "FileSystemModel|"
 msgid "Date Modified"
-msgstr "Değişim Tarihi"
+msgstr "Değiştirilme Tarihi"
 
 #: src/core/model/filesystemmodel_p.h:319
 msgctxt "FileSystemModel|"
 msgid "My Computer"
-msgstr "Çalma sayacı"
+msgstr "Bilgisayarım"
 
 #: src/core/model/filesystemmodel_p.h:321
 msgctxt "FileSystemModel|"
@@ -2446,7 +2446,7 @@ msgstr "Tür"
 #: src/core/model/taggedfilesystemmodel.cpp:44
 msgctxt "QFileSystemModel|"
 msgid "Date Modified"
-msgstr "Değişim Tarihi"
+msgstr "Değiştirilme Tarihi"
 
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
@@ -2482,7 +2482,7 @@ msgstr "Metin"
 #: src/core/model/trackdatamodel.cpp:179
 msgctxt "TrackDataModel|"
 msgid "Track"
-msgstr "Parça No"
+msgstr "Parça"
 
 #: src/core/model/trackdatamodel.cpp:184
 msgctxt "TrackDataModel|"
@@ -5360,7 +5360,7 @@ msgstr "Klasör adı boş olmalıdır.\n"
 #: src/gui/forms/basemainwindow.cpp:1657
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
-msgstr "Bu dosyalar Çöp Kutusuna taşınamadı"
+msgstr "Bu dosyalar Çöp Kutusu’na taşınamadı"
 
 #: src/gui/forms/basemainwindow.cpp:1690
 msgctxt "BaseMainWindowImpl|"
@@ -6013,7 +6013,7 @@ msgstr "COMM — Yorumlar"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:463
 msgctxt "@default|"
 msgid "COMR - Commercial"
-msgstr "COMR — Ticari"
+msgstr "COMR — Ticarî"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:912
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:467
@@ -6883,7 +6883,7 @@ msgstr "%1 dosyası yazılabilir değil"
 #: src/qml/app/MainPage.qml:48
 msgctxt "MainPage|"
 msgid " [modified]"
-msgstr " [değişti]"
+msgstr " [değiştirildi]"
 
 #: src/qml/app/MainPage.qml:49
 #, qt-format

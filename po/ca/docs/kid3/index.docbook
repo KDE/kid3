@@ -57,7 +57,7 @@
 >&FDLNotice;</legalnotice>
 
 <date
->24 de juliol de 2025</date>
+>2025-07-24</date>
 <releaseinfo
 >3.9.7</releaseinfo>
 
@@ -2857,17 +2857,17 @@ end manpage include-->
 >Capítols en els fitxers MP4</title>
 
 <para
->Els audiollibres MP4 normalment solen tenir una extensió <filename class="extension"
+>MP4 audiobooks typically have a <filename class="extension"
 >.m4b</filename
-> i són bastant grans perquè contenen tots els capítols en un sol fitxer. Per a navegar en aquests fitxers, poden contenir marques de capítols, que es poden editar en el &kid3; en un pseudomarc de «Capítols» utilitzant el mateix editor que s'utilitza per a les <link linkend="synchronized-lyrics"
->lletres sincronitzades</link
->. No obstant això, cal tenir en compte que aquesta característica només està disponible amb el connector <guilabel
+> extension and are rather large because they contain all chapters in a single file. To navigate in such files, they can contain chapter marks, which can be edited in &kid3; in a pseudo "Chapters" frame using the same editor which is used for <link linkend="synchronized-lyrics"
+>synchronized lyrics</link
+>. Note, however, that this feature is only available with the <guilabel
 >Mp4v2Metadata</guilabel
->, així que assegureu-vos que està activat i per sobre del connector <guilabel
+> plugin, so make sure that it is activated and above the <guilabel
 >TaglibMetadata</guilabel
-> a la pestanya <guilabel
->Connectors</guilabel
-> de la configuració si heu d'editar capítols MP4. </para>
+> plugin in the <guilabel
+>Plugins</guilabel
+> tab of the settings if you have to edit MP4 chapters. </para>
 <para
 >La informació del capítol en els audiollibres MP3 s'emmagatzema en marcs múltiples «Chapter» (CHAP) als quals es fa referència amb un marc «Taula de continguts» (CTOC), i aquests marcs tenen submarcs incrustats. Per a editar aquesta informació en un sol lloc, també es pot utilitzar un pseudo marc «Chapters» per a etiquetes ID3v2. El seu contingut s'utilitza per a crear el capítol real, la taula de continguts i els marcs incrustats: la <guilabel
 >Descripció</guilabel

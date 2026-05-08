@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2026-03-09 21:17+0400\n"
+"PO-Revision-Date: 2026-05-07 12:32+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -3485,20 +3485,14 @@ msgid "Chapters"
 msgstr "الفصول"
 
 #: src/core/tags/frame.cpp:351
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (Nero)"
-msgstr "الفصول"
+msgstr "الفصول (نيرو)"
 
 #: src/core/tags/frame.cpp:352
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (QT)"
-msgstr "الفصول"
+msgstr "الفصول (QT)"
 
 #: src/core/tags/frame.cpp:353
 msgctxt "@default|"
@@ -4100,30 +4094,27 @@ msgstr "اسم حقل ال&صورة:"
 #: src/gui/dialogs/configdialogpages.cpp:275
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
-msgstr ""
+msgstr "ماتروسكا"
 
 #: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
-msgstr ""
+msgstr "&وضع الكتابة:"
 
 #: src/gui/dialogs/configdialogpages.cpp:278
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Computer"
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
-msgstr "الحاسوب"
+msgstr "متراصّ"
 
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
-msgstr ""
+msgstr "لا تقلص"
 
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
-msgstr ""
+msgstr "تفادى الإدراج"
 
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
@@ -7373,17 +7364,11 @@ msgid "Remove"
 msgstr "أزل"
 
 #: src/qml/app/TagCollapsible.qml:116
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Select &All"
 msgctxt "TagCollapsible|"
 msgid "Select All"
-msgstr "حدّد ال&كلّ"
+msgstr "حدّد الكلّ"
 
 #: src/qml/app/TagCollapsible.qml:120
-#, fuzzy
-#| msgctxt "FrameTable|"
-#| msgid "&Deselect all"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
-msgstr "أل&غِ تحديد الكل"
+msgstr "ألغِ تحديد الكلّ"

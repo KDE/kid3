@@ -35,7 +35,7 @@
 
 <copyright>
 <year
->2025</year>
+>2026</year>
 <holder
 >Urs Fleisch</holder>
 </copyright>
@@ -43,9 +43,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2025-07-24</date>
+>2026-06-06</date>
 <releaseinfo
->3.9.7</releaseinfo>
+>3.10.0</releaseinfo>
 
 <abstract>
 <para
@@ -2819,13 +2819,7 @@ end manpage include-->
 >.m4b</filename
 > extensie en zijn tamelijk groot omdat ze alle hoofdstukken in een enkel bestand bevatten. Om in zulke bestanden te navigeren, kunnen ze hoofdstukmarkeringen bevatten, die bewerkt kunnen worden in &kid3; in een pseudo "Hoofdstukken" frame met gebruik van dezelfde bewerker die gebruikt wordt voor <link linkend="synchronized-lyrics"
 >gesynchroniseerde liedteksten</link
->. Merk echter op dat deze functie alleen beschikbaar is met de plug-in <guilabel
->Mp4v2Metadata</guilabel
->, ga dus na dat deze is geactiveerd en boven de plug-in <guilabel
->TaglibMetadata</guilabel
-> in het tabblad <guilabel
->Plug-ins</guilabel
-> van de instellingen staat als u MP4-hoofdstukken moet bewerken. </para>
+>. Er zijn twee typen hoofdstukken in MP4 bestanden: "Nero" en "QuickTime (QT)". </para>
 <para
 >De hoofdstukinformatie in MP3 audioboeken is opgeslagen in meerdere "Chapter" (CHAP) frames waarnaar gerefereerd wordt in een "Inhoudsopgave" (CTOC) frame en deze frames hebben ingebedde subframes. Om deze informatie te bewerken op een enkele plaats, kan een pseudo "Chapters" frame ook gebruikt worden voor ID3v2 tags. De inhoud ervan wordt gebruikt om het echte hoofdstuk, inhoudsopgave en ingebedde frames te aan te maken: De <guilabel
 >Beschrijving</guilabel
@@ -4753,6 +4747,30 @@ end manpage include-->
 >" kan zijn. De eerste is de officiële standaard en gebruikt hetzelfde formaat als afbeeldingen in FLAC tags. "<literal
 >COVERART</literal
 >" is een vroegere onofficiële manier om afbeeldingen in Vorbis commentaar in te voegen. Het kan gebruikt worden voor compatibiliteit met oudere afspelers. </para>
+<para
+>De modus die wordt gebruikt bij het opslaan van <guilabel
+>Matroska</guilabel
+>-bestanden kan worden geselecteerd met <guilabel
+>Schrijfmodus</guilabel
+>. Deze modus bepaalt de afweging tussen bestandsgrootte en schrijfsnelheid bij het opslaan van tags, bijlagen en hoofdstukken in het bestand. Voor zeer grote bestanden en/of trage (netwerk)bestandssystemen zal het gebruik van <guilabel
+>Invoegen vermijden</guilabel
+> de schrijftijd aanzienlijk verkorten. Er zijn drie mogelijke modi: </para>
+<itemizedlist>
+<listitem
+><para
+>Compact: schrijf tags, bijlagen en hoofdstukken zo compact mogelijk. Dit is de standaardmodus.</para
+></listitem>
+<listitem
+><para
+>Niet verkleinen: Verklein blokken niet tijdens het schrijven, voeg opvulling toe wanneer de inhoud kleiner wordt. Sta invoegingen toe wanneer de inhoud groter wordt. </para
+></listitem>
+<listitem
+><para
+>Vermijd invoegen: Net als <guilabel
+>Niet verkleinen</guilabel
+>, maar vermijd ook invoegingen voor blokken die niet aan het einde van het bestand staan: Vervang een groeiend blok dat niet aan het einde van het bestand staat met opvulling van de oude grootte en voeg een nieuw blok toe aan het einde van het bestand.</para
+></listitem>
+</itemizedlist>
 <para
 >Als het keuzevakje <guilabel
 >Markeren indien groter dan (bytes)</guilabel
