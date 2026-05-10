@@ -333,50 +333,68 @@
         <ul>
           <li>Support for Matroska and WebM files.</li>
           <li xml:lang="ca">Implementació de fitxers Matroska i WebM.</li>
+          <li xml:lang="ca-valencia">Implementació de fitxers Matroska i WebM.</li>
           <li xml:lang="es">Compatibilidad con archivos Matroska y WebM.</li>
           <li xml:lang="is">Bætt við stuðningi við Matroska og WebM-skrár.</li>
+          <li xml:lang="it">Supporto per file Matroska e WebM.</li>
           <li xml:lang="nl">Ondersteuning voor Matroska en WebM bestanden.</li>
           <li xml:lang="pt-BR">Suporte para arquivos Matroska e WebM.</li>
+          <li xml:lang="sk">Podpora súborov Matroska a WebM.</li>
           <li xml:lang="sl">Podpora za datoteke Matroska in WebM.</li>
           <li xml:lang="tr">Matroska ve WebM dosyaları desteği</li>
           <li xml:lang="uk">Підтримка файлів Matroska і WebM.</li>
           <li>MP4: Support both QuickTime and Nero Chapters, also with TagLib.</li>
           <li xml:lang="ca">MP4: permet tant capítols QuickTime com Nero, també amb TagLib.</li>
+          <li xml:lang="ca-valencia">MP4: permet tant capítols QuickTime com Nero, també amb TagLib.</li>
           <li xml:lang="es">MP4: Compatibilidad con capítulos de QuickTime y Nero, y con TagLib.</li>
+          <li xml:lang="it">MP4: supporta sia QuickTime che Nero Chapters, oltre a TagLib.</li>
           <li xml:lang="nl">MP4: Ondersteuning voor zowel QuickTime als Nero hoofdstukken, ook met TagLib.</li>
           <li xml:lang="pt-BR">MP4: Suporte ao QuickTime e Nero Chapters, inclusive com TagLib.</li>
+          <li xml:lang="sk">MP4: Podpora kapitol QuickTime aj Nero, aj s TagLib.</li>
           <li xml:lang="sl">MP4: Podpira poglavja QuickTime in Nero, tudi s TagLib.</li>
           <li xml:lang="tr">MP4: Hem QuickTime hem de TagLib ile Nero fasılları desteği</li>
           <li xml:lang="uk">MP4: реалізовано підтримку глав QuickTime і Nero, також із TagLib.</li>
           <li>MP4: Support STEM.</li>
           <li xml:lang="ca">MP4: implementa STEM.</li>
+          <li xml:lang="ca-valencia">MP4: implementa STEM.</li>
           <li xml:lang="es">MP4: Compatibilidad con STEM.</li>
+          <li xml:lang="it">MP4: supporto STEM.</li>
           <li xml:lang="nl">MP4: ondersteunt STEM.</li>
           <li xml:lang="pt-BR">MP4: Suporte ao STEM.</li>
+          <li xml:lang="sk">MP4: Podpora STEM.</li>
           <li xml:lang="sl">MP4: Podpira STEM.</li>
           <li xml:lang="tr">MP4: STEM desteği</li>
           <li xml:lang="uk">MP4: реалізовано підтримку STEM.</li>
           <li>WAV, FLAC: Support iXML and BEXT chunks.</li>
           <li xml:lang="ca">WAV, FLAC: implementa fragments iXML i BEXT.</li>
+          <li xml:lang="ca-valencia">WAV, FLAC: implementa fragments iXML i BEXT.</li>
           <li xml:lang="es">WAV, FLAC: Compatibilidad con trozos de iXML y BEXT.</li>
+          <li xml:lang="it">WAV, FLAC: Supporto per i blocchi iXML e BEXT.</li>
           <li xml:lang="nl">WAV, FLAC: ondersteunt iXML en BEXT gedeelten.</li>
           <li xml:lang="pt-BR">WAV, FLAC: Suporte a blocos iXML e BEXT.</li>
+          <li xml:lang="sk">WAV, FLAC: Podpora blokov iXML a BEXT.</li>
           <li xml:lang="sl">WAV, FLAC: Podpira bloke iXML in BEXT.</li>
           <li xml:lang="tr">WAV, FLAC: iXML ve BEXT parçaları desteği</li>
           <li xml:lang="uk">WAV, FLAC: реалізовано підтримку фрагментів iXML і BEXT.</li>
           <li>Android: Select all/deselect all frames.</li>
           <li xml:lang="ca">Android: selecciona tot/desselecciona tots els marcs.</li>
+          <li xml:lang="ca-valencia">Android: selecciona tot/desselecciona tots els marcs.</li>
           <li xml:lang="es">Android: Seleccionar/deseleccionar todos los fotogramas.</li>
+          <li xml:lang="it">Android: seleziona tutti i frame/deseleziona tutti i frame.</li>
           <li xml:lang="nl">Android: selecteer alle/deselecteer alle frames.</li>
           <li xml:lang="pt-BR">Android: Selecionar tudo/desmarcar todos os quadros.</li>
+          <li xml:lang="sk">Android: Vybrať všetky/zrušiť výber všetkých snímok.</li>
           <li xml:lang="sl">Android: Izberi vse/prekliči izbiro vseh okvirjev.</li>
           <li xml:lang="tr">Android: Tüm kareler artık seçilip seçimleri kaldırılabiliyor.</li>
           <li xml:lang="uk">Android: реалізовано підтримку позначення усіх і зняття позначення з усіх фреймів.</li>
           <li>Android: Import/Export of chapters and synchronized lyrics as LRC files.</li>
           <li xml:lang="ca">Android: importa/exporta capítols i lletres sincronitzades com a fitxers LRC.</li>
+          <li xml:lang="ca-valencia">Android: importa/exporta capítols i lletres sincronitzades com a fitxers LRC.</li>
           <li xml:lang="es">Android: Importación/exportación de capítulos y letras sincronizadas como archivos LRC.</li>
+          <li xml:lang="it">Android: importazione/esportazione di capitoli e testi sincronizzati come file LRC.</li>
           <li xml:lang="nl">Android: importeer/exporteer hoofdstukken en gesynchroniseerde liedteksten als LRC-bestanden.</li>
           <li xml:lang="pt-BR">Android: Importar/Exportar capítulos e letras sincronizadas como arquivos LRC.</li>
+          <li xml:lang="sk">Android: Import/export kapitol a synchronizovaných textov piesní ako súborov LRC.</li>
           <li xml:lang="sl">Android: Uvoz/izvoz poglavij in sinhroniziranih besedil kot datotek LRC.</li>
           <li xml:lang="tr">Android: Fasıllar ve eşzamanlı şarkı sözleri artık LRC dosyaları olarak dışa aktarılabiliyor.</li>
           <li xml:lang="uk">Android: імпортування/експортування глав і синхронізованих текстів як файлів LRC.</li>
@@ -400,25 +418,34 @@
         <ul>
           <li>Improved save performance.</li>
           <li xml:lang="ca">Ha millorat el rendiment en desar.</li>
+          <li xml:lang="ca-valencia">Ha millorat el rendiment en guardar.</li>
           <li xml:lang="es">Mejora de rendimiento al guardar.</li>
+          <li xml:lang="it">Prestazioni di salvataggio migliorate.</li>
           <li xml:lang="nl">Verbeterde prestaties voor opslag.</li>
           <li xml:lang="pt-BR">Melhoria do desempenho ao salvar.</li>
+          <li xml:lang="sk">Zlepšený výkon ukladania.</li>
           <li xml:lang="sl">Izboljšana zmogljivost shranjevanja.</li>
           <li xml:lang="tr">İyileştirilmiş kaydetme başarımı</li>
           <li xml:lang="uk">Удосконалено швидкодію програми при збереженні.</li>
           <li>macOS: Consistent icon set with dark mode.</li>
           <li xml:lang="ca">macOS: joc d'icones coherents amb el mode fosc.</li>
+          <li xml:lang="ca-valencia">macOS: joc d'icones coherents amb el mode fosc.</li>
           <li xml:lang="es">macOS: Conjunto de iconos consistente con el modo oscuro.</li>
+          <li xml:lang="it">macOS: insieme di icone coerente con la modalità scura.</li>
           <li xml:lang="nl">macOS: consistente pictogram set met donkere modus.</li>
           <li xml:lang="pt-BR">macOS: Conjunto de ícones consistente com modo escuro.</li>
+          <li xml:lang="sk">macOS: Konzistentná sada ikon s tmavým režimom.</li>
           <li xml:lang="sl">macOS: Dosleden nabor ikon s temnim načinom.</li>
           <li xml:lang="tr">macOS: Koyu kip ile uyumlu simge kümesi</li>
           <li xml:lang="uk">macOS: сумісний з темним режимом набір піктограм.</li>
           <li>Export CSV, JSON: Only export selected folders.</li>
           <li xml:lang="ca">Exportació a CSV, JSON: només exporta les carpetes seleccionades.</li>
+          <li xml:lang="ca-valencia">Exporteu cap a CSV, JSON: exporta només les carpetes seleccionades.</li>
           <li xml:lang="es">Exportación CSV, JSON: Exportar solo las carpetas seleccionadas.</li>
+          <li xml:lang="it">Esporta in formato CSV e JSON: esporta solo le cartelle selezionate.</li>
           <li xml:lang="nl">Exporteer CSV, JSON: exporteer alleen geselecteerde mappen.</li>
           <li xml:lang="pt-BR">Exportar CSV, JSON: Exportar apenas as pastas selecionadas.</li>
+          <li xml:lang="sk">Export CSV, JSON: Exportovať iba vybraté priečinky.</li>
           <li xml:lang="sl">Izvoz CSV, JSON: Izvoz samo izbranih map.</li>
           <li xml:lang="tr">CSV, JSON dışa aktarma: Yalnızca seçili klasörler dışa aktarılabiliyor.</li>
           <li xml:lang="uk">Експорт CSV, JSON: реалізовано експортування лише позначених тек.</li>
@@ -443,57 +470,78 @@
         <ul>
           <li>Fix Discogs import.</li>
           <li xml:lang="ca">Corregeix la importació de Discogs.</li>
+          <li xml:lang="ca-valencia">Corregix la importació de Discogs.</li>
           <li xml:lang="es">Se ha corregido la importación de Discogs.</li>
+          <li xml:lang="it">Risolto il problema di importazione da Discogs.</li>
           <li xml:lang="nl">Los Discogs importeren op.</li>
           <li xml:lang="pt-BR">Corrigida importação do Discogs.</li>
+          <li xml:lang="sk">Oprava importu Discogs.</li>
           <li xml:lang="sl">Popravljen uvoz iz Discogsa.</li>
           <li xml:lang="tr">Discogs içe aktarma desteği onarıldı.</li>
           <li xml:lang="uk">Виправлено імпортування Discogs.</li>
           <li>Consider the configured language for the handbook.</li>
           <li xml:lang="ca">Té en compte l'idioma configurat al manual.</li>
+          <li xml:lang="ca-valencia">Té en compte l'idioma configurat al manual.</li>
           <li xml:lang="es">Tener en cuenta el idioma configurado para el manual.</li>
+          <li xml:lang="it">Considera la lingua configurata per il manuale.</li>
           <li xml:lang="nl">Overweeg de geconfigureerde taal voor het handboek.</li>
           <li xml:lang="pt-BR">Considera o idioma configurado para o manual.</li>
+          <li xml:lang="sk">Zohľadnenie nastaveného jazyka pre príručku.</li>
           <li xml:lang="sl">Upošteva konfiguriran jezik za priročnik.</li>
           <li xml:lang="tr">El kitabı için yapılandırılmış dil dikkate alınıyor.</li>
           <li xml:lang="uk">Використання налаштованої мови інтерфейсу для підручника.</li>
           <li>Fix: Import of LRC files (synchronized lyrics, chapters) with hour values.</li>
           <li xml:lang="ca">Correcció: importació de fitxers LRC (lletres sincronitzades, capítols) amb valors d'hora.</li>
+          <li xml:lang="ca-valencia">Correcció: importació de fitxers LRC (lletres sincronitzades, capítols) amb valors prompte.</li>
           <li xml:lang="es">Corrección: Importación de archivos LRC (letras sincronizadas, capítulos) con valores horarios.</li>
+          <li xml:lang="it">Correzione: Importazione dei file LRC (testi sincronizzati, capitoli) con valori orari.</li>
           <li xml:lang="nl">Oplossen: importeren van LRC-bestanden (gesynchroniseerde liedteksten, hoofdstukken) met uur waarden.</li>
           <li xml:lang="pt-BR">Correção: Importação de arquivos LRC (letras sincronizadas, capítulos) com valores de hora.</li>
+          <li xml:lang="sk">Oprava: Import súborov LRC (synchronizované texty piesní, kapitoly) s hodnotami hodín.</li>
           <li xml:lang="sl">Popravek: Uvoz datotek LRC (sinhronizirana besedila, poglavja) z urnimi vrednostmi.</li>
           <li xml:lang="tr">Düzeltme: Saat değerleriyle birlikte (şarkı sözleri, fasıllar) LRC dosyalarını içe aktarma onarıldı.</li>
           <li xml:lang="uk">Виправлення: імпортування файлів LRC (синхронізовані тексти, глави) зі значеннями для годин.</li>
           <li>Fix broken file list behavior when renaming many files and the list is sorted in descending order.</li>
           <li xml:lang="ca">Corregeix el comportament incorrecte de la llista de fitxers quan es canvien els noms de molts fitxers i la llista està ordenada en ordre descendent.</li>
+          <li xml:lang="ca-valencia">Corregix el comportament incorrecte de la llista de fitxers quan es canvien els noms de molts fitxers i la llista està ordenada en ordre descendent.</li>
           <li xml:lang="es">Se ha corregido el comportamiento de la lista de archivos incompletos cuando se cambia el nombre de muchos archivos y la lista se ordena de forma descendente.</li>
+          <li xml:lang="it">Risolto il problema di visualizzazione dell'elenco dei file quando si rinominano più file; l'elenco è ordinato in ordine decrescente.</li>
           <li xml:lang="nl">Los gebroken bestandslijstgedrag op bij hernoemen van vele bestanden en de lijst is gesorteerd in aflopende volgorde.</li>
           <li xml:lang="pt-BR">Corrigido o comportamento incorreto da lista de arquivos ao renomear vários arquivos e a lista estar classificada em ordem decrescente.</li>
+          <li xml:lang="sk">Oprava nefunkčného správania zoznamu súborov pri premenovaní mnohých súborov, keď je zoznam zoradený zostupne.</li>
           <li xml:lang="sl">Odpravljeno je pokvarjeno delovanje seznama datotek pri preimenovanju več datotek, seznam pa je razvrščen v padajočem vrstnem redu.</li>
           <li xml:lang="tr">Liste azalan sırada sıralandığında ve birden çok dosya yeniden adlandırılırken dosya listesi davranışı onarıldı.</li>
           <li xml:lang="uk">Виправлено помилкову поведінку при обробці списків файлів при перейменуванні багатьох файлів і упорядковуванні списку за спаданням.</li>
           <li>Fix progress reporting when files are saved.</li>
           <li xml:lang="ca">Corregeix la informació de progrés en desar els fitxers.</li>
+          <li xml:lang="ca-valencia">Corregix la informació de progrés en guardar els fitxers.</li>
           <li xml:lang="es">Se ha corregido la información de avance al guardar archivos.</li>
+          <li xml:lang="it">Corregge il messaggio di avanzamento del salvataggio dei file.</li>
           <li xml:lang="nl">Los rapporteren van voorgang op wanneer bestanden opgeslagen worden.</li>
           <li xml:lang="pt-BR">Corrigido o relatório de progresso ao salvar arquivos.</li>
+          <li xml:lang="sk">Oprava hlásenia priebehu pri ukladaní súborov.</li>
           <li xml:lang="sl">Popravljeno je poročanje o napredku pri shranjevanju datotek.</li>
           <li xml:lang="tr">Dosyalar kaydedildiğinde ilerleme bildirimi artık düzgün çalışıyor.</li>
           <li xml:lang="uk">Виправлено звітування щодо поступу при збереженні файлів.</li>
           <li>ID3v2: Support values with multiple strings in TXXX frames.</li>
           <li xml:lang="ca">ID3v2: permet valors amb diverses cadenes en els marcs TXXX.</li>
+          <li xml:lang="ca-valencia">ID3v2: permet valors amb diverses cadenes en els marcs TXXX.</li>
           <li xml:lang="es">ID3v2: Compatibilidad con valores con múltiples cadenas en fotogramas TXXX.</li>
+          <li xml:lang="it">ID3v2: supporta i valori con stringhe multiple nei frame TXXX.</li>
           <li xml:lang="nl">ID3v2: ondersteun waarden met meerdere tekenreeksen in TXXX-frames.</li>
           <li xml:lang="pt-BR">ID3v2: Suporte a valores com múltiplas strings em quadros TXXX.</li>
+          <li xml:lang="sk">ID3v2: Podpora hodnôt s viacerými reťazcami v rámcoch TXXX.</li>
           <li xml:lang="sl">ID3v2: Podpora za vrednosti z več nizi v okvirjih TXXX.</li>
           <li xml:lang="tr">ID3v2: TXXX karelerinde birden çok dizi içeren değerler destekleniyor.</li>
           <li xml:lang="uk">ID3v2: реалізовано підтримку значень із декількома рядками у фреймах TXXX.</li>
           <li>Windows: Support MP4 64-bit atoms on Windows.</li>
           <li xml:lang="ca">Windows: permet àtoms de 64 bits de MP4 al Windows.</li>
+          <li xml:lang="ca-valencia">Windows: permet àtoms de 64 bits de MP4 a Windows.</li>
           <li xml:lang="es">Windows: Compatibilidad con átomos MP4 de 64 bits en Windows.</li>
+          <li xml:lang="it">Windows: supporto per MP4 a 64 bit su Windows.</li>
           <li xml:lang="nl">Windows: ondersteun MP4 64-bit atoms in Windows.</li>
           <li xml:lang="pt-BR">Windows: Suporte para arquivos MP4 de 64 bits no Windows.</li>
+          <li xml:lang="sk">Windows: Podpora 64-bitových atómov MP4 v systéme Windows.</li>
           <li xml:lang="sl">Windows: Podpora za 64-bitne atome MP4 na sistemu Windows.</li>
           <li xml:lang="tr">Windows: 64 bit MP4 atomları desteği</li>
           <li xml:lang="uk">Windows: реалізовано підтримку 64-бітових атомів MP4 у Windows.</li>
