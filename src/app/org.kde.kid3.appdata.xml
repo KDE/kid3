@@ -335,6 +335,7 @@
           <li xml:lang="ca">Implementació de fitxers Matroska i WebM.</li>
           <li xml:lang="ca-valencia">Implementació de fitxers Matroska i WebM.</li>
           <li xml:lang="es">Compatibilidad con archivos Matroska y WebM.</li>
+          <li xml:lang="fr">Prise en charge des fichiers « Matroska » et « WebM ».</li>
           <li xml:lang="is">Bætt við stuðningi við Matroska og WebM-skrár.</li>
           <li xml:lang="it">Supporto per file Matroska e WebM.</li>
           <li xml:lang="nl">Ondersteuning voor Matroska en WebM bestanden.</li>
@@ -347,6 +348,7 @@
           <li xml:lang="ca">MP4: permet tant capítols QuickTime com Nero, també amb TagLib.</li>
           <li xml:lang="ca-valencia">MP4: permet tant capítols QuickTime com Nero, també amb TagLib.</li>
           <li xml:lang="es">MP4: Compatibilidad con capítulos de QuickTime y Nero, y con TagLib.</li>
+          <li xml:lang="fr">MP4 : prise en charge à la fois les chapitres  »« QuickTime » et « Nero, également avec TagLib.</li>
           <li xml:lang="it">MP4: supporta sia QuickTime che Nero Chapters, oltre a TagLib.</li>
           <li xml:lang="nl">MP4: Ondersteuning voor zowel QuickTime als Nero hoofdstukken, ook met TagLib.</li>
           <li xml:lang="pt-BR">MP4: Suporte ao QuickTime e Nero Chapters, inclusive com TagLib.</li>
@@ -358,6 +360,7 @@
           <li xml:lang="ca">MP4: implementa STEM.</li>
           <li xml:lang="ca-valencia">MP4: implementa STEM.</li>
           <li xml:lang="es">MP4: Compatibilidad con STEM.</li>
+          <li xml:lang="fr">MP4 : prise en charge de STEM.</li>
           <li xml:lang="it">MP4: supporto STEM.</li>
           <li xml:lang="nl">MP4: ondersteunt STEM.</li>
           <li xml:lang="pt-BR">MP4: Suporte ao STEM.</li>
@@ -369,6 +372,7 @@
           <li xml:lang="ca">WAV, FLAC: implementa fragments iXML i BEXT.</li>
           <li xml:lang="ca-valencia">WAV, FLAC: implementa fragments iXML i BEXT.</li>
           <li xml:lang="es">WAV, FLAC: Compatibilidad con trozos de iXML y BEXT.</li>
+          <li xml:lang="fr">WAV, FLAC : prise en charge des blocs « iXML » et « BEXT ».</li>
           <li xml:lang="it">WAV, FLAC: Supporto per i blocchi iXML e BEXT.</li>
           <li xml:lang="nl">WAV, FLAC: ondersteunt iXML en BEXT gedeelten.</li>
           <li xml:lang="pt-BR">WAV, FLAC: Suporte a blocos iXML e BEXT.</li>
@@ -380,6 +384,7 @@
           <li xml:lang="ca">Android: selecciona tot/desselecciona tots els marcs.</li>
           <li xml:lang="ca-valencia">Android: selecciona tot/desselecciona tots els marcs.</li>
           <li xml:lang="es">Android: Seleccionar/deseleccionar todos los fotogramas.</li>
+          <li xml:lang="fr">Android : tout sélectionner / désélectionner toutes les trames.</li>
           <li xml:lang="it">Android: seleziona tutti i frame/deseleziona tutti i frame.</li>
           <li xml:lang="nl">Android: selecteer alle/deselecteer alle frames.</li>
           <li xml:lang="pt-BR">Android: Selecionar tudo/desmarcar todos os quadros.</li>
@@ -391,6 +396,7 @@
           <li xml:lang="ca">Android: importa/exporta capítols i lletres sincronitzades com a fitxers LRC.</li>
           <li xml:lang="ca-valencia">Android: importa/exporta capítols i lletres sincronitzades com a fitxers LRC.</li>
           <li xml:lang="es">Android: Importación/exportación de capítulos y letras sincronizadas como archivos LRC.</li>
+          <li xml:lang="fr">Android : importation / exportation de chapitres et paroles synchronisées dans le format de fichiers « LRC ».</li>
           <li xml:lang="it">Android: importazione/esportazione di capitoli e testi sincronizzati come file LRC.</li>
           <li xml:lang="nl">Android: importeer/exporteer hoofdstukken en gesynchroniseerde liedteksten als LRC-bestanden.</li>
           <li xml:lang="pt-BR">Android: Importar/Exportar capítulos e letras sincronizadas como arquivos LRC.</li>
@@ -420,6 +426,7 @@
           <li xml:lang="ca">Ha millorat el rendiment en desar.</li>
           <li xml:lang="ca-valencia">Ha millorat el rendiment en guardar.</li>
           <li xml:lang="es">Mejora de rendimiento al guardar.</li>
+          <li xml:lang="fr">Amélioration des performances d'enregistrement.</li>
           <li xml:lang="it">Prestazioni di salvataggio migliorate.</li>
           <li xml:lang="nl">Verbeterde prestaties voor opslag.</li>
           <li xml:lang="pt-BR">Melhoria do desempenho ao salvar.</li>
@@ -431,6 +438,7 @@
           <li xml:lang="ca">macOS: joc d'icones coherents amb el mode fosc.</li>
           <li xml:lang="ca-valencia">macOS: joc d'icones coherents amb el mode fosc.</li>
           <li xml:lang="es">macOS: Conjunto de iconos consistente con el modo oscuro.</li>
+          <li xml:lang="fr">macOS : ensemble d'icônes cohérent avec le mode sombre.</li>
           <li xml:lang="it">macOS: insieme di icone coerente con la modalità scura.</li>
           <li xml:lang="nl">macOS: consistente pictogram set met donkere modus.</li>
           <li xml:lang="pt-BR">macOS: Conjunto de ícones consistente com modo escuro.</li>
@@ -442,6 +450,7 @@
           <li xml:lang="ca">Exportació a CSV, JSON: només exporta les carpetes seleccionades.</li>
           <li xml:lang="ca-valencia">Exporteu cap a CSV, JSON: exporta només les carpetes seleccionades.</li>
           <li xml:lang="es">Exportación CSV, JSON: Exportar solo las carpetas seleccionadas.</li>
+          <li xml:lang="fr">Exportation « CSV », « JSON » : exportation que des dossiers sélectionnés.</li>
           <li xml:lang="it">Esporta in formato CSV e JSON: esporta solo le cartelle selezionate.</li>
           <li xml:lang="nl">Exporteer CSV, JSON: exporteer alleen geselecteerde mappen.</li>
           <li xml:lang="pt-BR">Exportar CSV, JSON: Exportar apenas as pastas selecionadas.</li>
@@ -472,6 +481,7 @@
           <li xml:lang="ca">Corregeix la importació de Discogs.</li>
           <li xml:lang="ca-valencia">Corregix la importació de Discogs.</li>
           <li xml:lang="es">Se ha corregido la importación de Discogs.</li>
+          <li xml:lang="fr">Correction de l'importation pour Discogs.</li>
           <li xml:lang="it">Risolto il problema di importazione da Discogs.</li>
           <li xml:lang="nl">Los Discogs importeren op.</li>
           <li xml:lang="pt-BR">Corrigida importação do Discogs.</li>
@@ -483,6 +493,7 @@
           <li xml:lang="ca">Té en compte l'idioma configurat al manual.</li>
           <li xml:lang="ca-valencia">Té en compte l'idioma configurat al manual.</li>
           <li xml:lang="es">Tener en cuenta el idioma configurado para el manual.</li>
+          <li xml:lang="fr">Prendre en compte la langue configurée pour le manuel.</li>
           <li xml:lang="it">Considera la lingua configurata per il manuale.</li>
           <li xml:lang="nl">Overweeg de geconfigureerde taal voor het handboek.</li>
           <li xml:lang="pt-BR">Considera o idioma configurado para o manual.</li>
@@ -494,6 +505,7 @@
           <li xml:lang="ca">Correcció: importació de fitxers LRC (lletres sincronitzades, capítols) amb valors d'hora.</li>
           <li xml:lang="ca-valencia">Correcció: importació de fitxers LRC (lletres sincronitzades, capítols) amb valors prompte.</li>
           <li xml:lang="es">Corrección: Importación de archivos LRC (letras sincronizadas, capítulos) con valores horarios.</li>
+          <li xml:lang="fr">Correction : importation de fichiers « LRC » (Paroles synchronisées, chapitres) avec des valeurs horaires.</li>
           <li xml:lang="it">Correzione: Importazione dei file LRC (testi sincronizzati, capitoli) con valori orari.</li>
           <li xml:lang="nl">Oplossen: importeren van LRC-bestanden (gesynchroniseerde liedteksten, hoofdstukken) met uur waarden.</li>
           <li xml:lang="pt-BR">Correção: Importação de arquivos LRC (letras sincronizadas, capítulos) com valores de hora.</li>
@@ -505,6 +517,7 @@
           <li xml:lang="ca">Corregeix el comportament incorrecte de la llista de fitxers quan es canvien els noms de molts fitxers i la llista està ordenada en ordre descendent.</li>
           <li xml:lang="ca-valencia">Corregix el comportament incorrecte de la llista de fitxers quan es canvien els noms de molts fitxers i la llista està ordenada en ordre descendent.</li>
           <li xml:lang="es">Se ha corregido el comportamiento de la lista de archivos incompletos cuando se cambia el nombre de muchos archivos y la lista se ordena de forma descendente.</li>
+          <li xml:lang="fr">Correction du comportement erroné de la liste de fichiers lors du renommage de nombreux fichiers lorsque la liste est triée par ordre décroissant.</li>
           <li xml:lang="it">Risolto il problema di visualizzazione dell'elenco dei file quando si rinominano più file; l'elenco è ordinato in ordine decrescente.</li>
           <li xml:lang="nl">Los gebroken bestandslijstgedrag op bij hernoemen van vele bestanden en de lijst is gesorteerd in aflopende volgorde.</li>
           <li xml:lang="pt-BR">Corrigido o comportamento incorreto da lista de arquivos ao renomear vários arquivos e a lista estar classificada em ordem decrescente.</li>
@@ -516,6 +529,7 @@
           <li xml:lang="ca">Corregeix la informació de progrés en desar els fitxers.</li>
           <li xml:lang="ca-valencia">Corregix la informació de progrés en guardar els fitxers.</li>
           <li xml:lang="es">Se ha corregido la información de avance al guardar archivos.</li>
+          <li xml:lang="fr">Correction du rapport d'avancement lors de l'enregistrement de fichiers.</li>
           <li xml:lang="it">Corregge il messaggio di avanzamento del salvataggio dei file.</li>
           <li xml:lang="nl">Los rapporteren van voorgang op wanneer bestanden opgeslagen worden.</li>
           <li xml:lang="pt-BR">Corrigido o relatório de progresso ao salvar arquivos.</li>
@@ -527,6 +541,7 @@
           <li xml:lang="ca">ID3v2: permet valors amb diverses cadenes en els marcs TXXX.</li>
           <li xml:lang="ca-valencia">ID3v2: permet valors amb diverses cadenes en els marcs TXXX.</li>
           <li xml:lang="es">ID3v2: Compatibilidad con valores con múltiples cadenas en fotogramas TXXX.</li>
+          <li xml:lang="fr">ID3v2 : prise en charge des valeurs avec plusieurs chaînes dans les trames « TXXX ».</li>
           <li xml:lang="it">ID3v2: supporta i valori con stringhe multiple nei frame TXXX.</li>
           <li xml:lang="nl">ID3v2: ondersteun waarden met meerdere tekenreeksen in TXXX-frames.</li>
           <li xml:lang="pt-BR">ID3v2: Suporte a valores com múltiplas strings em quadros TXXX.</li>
@@ -538,6 +553,7 @@
           <li xml:lang="ca">Windows: permet àtoms de 64 bits de MP4 al Windows.</li>
           <li xml:lang="ca-valencia">Windows: permet àtoms de 64 bits de MP4 a Windows.</li>
           <li xml:lang="es">Windows: Compatibilidad con átomos MP4 de 64 bits en Windows.</li>
+          <li xml:lang="fr">Windows : prise en charge des atomes « MP4 » 64 bits sous Windows.</li>
           <li xml:lang="it">Windows: supporto per MP4 a 64 bit su Windows.</li>
           <li xml:lang="nl">Windows: ondersteun MP4 64-bit atoms in Windows.</li>
           <li xml:lang="pt-BR">Windows: Suporte para arquivos MP4 de 64 bits no Windows.</li>
