@@ -1,24 +1,25 @@
 # Kid3 German Translation.
 # This file is put in the public domain.
-# SPDX-FileCopyrightText: 2024 Johannes Obermayr <johannesobermayr@gmx.de>
-# SPDX-FileCopyrightText: 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011 Urs Fleisch <ufleisch@users.sourceforge.net>
+# SPDX-FileCopyrightText: 2003-2011 Urs Fleisch <ufleisch@users.sourceforge.net>
 # SPDX-FileCopyrightText: 2011, 2022 Frank Steinmetzger <Warp_7@gmx.de>
-# SPDX-FileCopyrightText: 2020, 2021 Burkhard Lück <lueck@hube-lueck.de>
-# SPDX-FileCopyrightText: 2022, 2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2020-2021 Burkhard Lück <lueck@hube-lueck.de>
+# SPDX-FileCopyrightText: 2022-2023 Frederik Schwarzer <schwarzer@kde.org>
+# SPDX-FileCopyrightText: 2024 Johannes Obermayr <johannesobermayr@gmx.de>
+# SPDX-FileCopyrightText: 2026 Philipp Kiemle <l10n.daphipz@fastmail.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2024-03-20 21:15+0100\n"
-"Last-Translator: Johannes Obermayr <johannesobermayr@gmx.de>\n"
+"PO-Revision-Date: 2026-05-09 14:35+0200\n"
+"Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 24.02.0\n"
+"X-Generator: Lokalize 25.12.3\n"
 "X-Qt-Contexts: true\n"
 
 #: src/app/cli/clicommand.cpp:345
@@ -132,7 +133,7 @@ msgstr "Zuletzt gespeicherte Fassung"
 #: src/app/cli/clicommand.cpp:666
 msgctxt "ImportCommand|"
 msgid "Import from file"
-msgstr "Von Datei importieren"
+msgstr "Aus Datei importieren"
 
 #: src/app/cli/clicommand.cpp:668
 msgctxt "ImportCommand|"
@@ -225,7 +226,7 @@ msgstr "Fehler"
 #: src/app/cli/clicommand.cpp:889
 msgctxt "PlaylistCommand|"
 msgid "Create playlist"
-msgstr "Stückliste erstellen"
+msgstr "Wiedergabeliste erstellen"
 
 #: src/app/cli/clicommand.cpp:896
 msgctxt "PlaylistCommand|"
@@ -623,7 +624,7 @@ msgstr "Einstellungen"
 #: src/app/kde/kdemainwindow.cpp:191
 msgctxt "KdeMainWindow|"
 msgid "O&pen Folder..."
-msgstr "&Ordner öffnen ..."
+msgstr "&Ordner öffnen …"
 
 #: src/app/kde/kdemainwindow.cpp:192
 msgctxt "KdeMainWindow|"
@@ -648,39 +649,39 @@ msgstr "Entladen"
 #: src/app/kde/kdemainwindow.cpp:216
 msgctxt "KdeMainWindow|"
 msgid "&Import..."
-msgstr "&Importieren ..."
+msgstr "&Importieren …"
 
 #: src/app/kde/kdemainwindow.cpp:217
 msgctxt "KdeMainWindow|"
 msgid "Import from file or clipboard"
-msgstr "Von Datei oder Zwischenablage importieren"
+msgstr "Aus Datei oder Zwischenablage importieren"
 
 #: src/app/kde/kdemainwindow.cpp:231 src/app/kde/kdemainwindow.cpp:247
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1..."
-msgstr "Importieren von %1 ..."
+msgstr "Aus %1 importieren …"
 
 #: src/app/kde/kdemainwindow.cpp:233 src/app/kde/kdemainwindow.cpp:248
 #, qt-format
 msgctxt "KdeMainWindow|"
 msgid "Import from %1"
-msgstr "Import von %1"
+msgstr "Aus %1 importieren"
 
 #: src/app/kde/kdemainwindow.cpp:255
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags..."
-msgstr "Importieren von Tags ..."
+msgstr "Aus Tags importieren …"
 
 #: src/app/kde/kdemainwindow.cpp:256
 msgctxt "KdeMainWindow|"
 msgid "Import from Tags"
-msgstr "Import von Tags"
+msgstr "Aus Tags importieren"
 
 #: src/app/kde/kdemainwindow.cpp:260
 msgctxt "KdeMainWindow|"
 msgid "Automatic I&mport..."
-msgstr "Automatisch i&mportieren ..."
+msgstr "Automatisch i&mportieren …"
 
 #: src/app/kde/kdemainwindow.cpp:261
 msgctxt "KdeMainWindow|"
@@ -690,7 +691,7 @@ msgstr "Automatisch importieren"
 #: src/app/kde/kdemainwindow.cpp:265
 msgctxt "KdeMainWindow|"
 msgid "&Browse Cover Art..."
-msgstr "Nach Cover-&Bildern suchen ..."
+msgstr "Nach Cover-&Bildern suchen …"
 
 #: src/app/kde/kdemainwindow.cpp:266
 msgctxt "KdeMainWindow|"
@@ -700,7 +701,7 @@ msgstr "Nach Cover-Bildern suchen"
 #: src/app/kde/kdemainwindow.cpp:270
 msgctxt "KdeMainWindow|"
 msgid "&Export..."
-msgstr "&Exportieren ..."
+msgstr "&Exportieren …"
 
 #: src/app/kde/kdemainwindow.cpp:271
 msgctxt "KdeMainWindow|"
@@ -710,12 +711,12 @@ msgstr "In Datei oder Zwischenablage exportieren"
 #: src/app/kde/kdemainwindow.cpp:275
 msgctxt "KdeMainWindow|"
 msgid "&Create Playlist..."
-msgstr "Stü&ckliste erstellen ..."
+msgstr "Wiedergabeliste &erstellen …"
 
 #: src/app/kde/kdemainwindow.cpp:276
 msgctxt "KdeMainWindow|"
 msgid "Create M3U Playlist"
-msgstr "M3U-Stückliste erstellen"
+msgstr "M3U-Wiedergabeliste erstellen"
 
 #: src/app/kde/kdemainwindow.cpp:279
 msgctxt "KdeMainWindow|"
@@ -750,7 +751,7 @@ msgstr "Textkodierung anwenden"
 #: src/app/kde/kdemainwindow.cpp:291
 msgctxt "KdeMainWindow|"
 msgid "&Rename Folder..."
-msgstr "Ordner &umbenennen ..."
+msgstr "Ordner &umbenennen …"
 
 #: src/app/kde/kdemainwindow.cpp:292
 msgctxt "KdeMainWindow|"
@@ -760,7 +761,7 @@ msgstr "Ordner umbenennen"
 #: src/app/kde/kdemainwindow.cpp:295
 msgctxt "KdeMainWindow|"
 msgid "&Number Tracks..."
-msgstr "Stücke &nummerieren ..."
+msgstr "Stücke &nummerieren …"
 
 #: src/app/kde/kdemainwindow.cpp:296
 msgctxt "KdeMainWindow|"
@@ -770,7 +771,7 @@ msgstr "Stücke nummerieren"
 #: src/app/kde/kdemainwindow.cpp:299
 msgctxt "KdeMainWindow|"
 msgid "F&ilter..."
-msgstr "F&ilter ..."
+msgstr "F&iltern …"
 
 #: src/app/kde/kdemainwindow.cpp:300
 msgctxt "KdeMainWindow|"
@@ -1059,7 +1060,7 @@ msgstr "Benutzerdefinierte &Schrift verwenden"
 #: src/app/qt/configdialog.cpp:124
 msgctxt "ConfigDialog|"
 msgid "A&pplication Font..."
-msgstr "Schr&ift ..."
+msgstr "Schr&ift …"
 
 #: src/app/qt/configdialog.cpp:126
 msgctxt "ConfigDialog|"
@@ -1120,12 +1121,12 @@ msgstr "Dateien öffnen"
 #: src/app/qt/kid3mainwindow.cpp:114
 msgctxt "Kid3MainWindow|"
 msgid "&Open..."
-msgstr "&Öffnen ..."
+msgstr "&Öffnen …"
 
 #: src/app/qt/kid3mainwindow.cpp:134
 msgctxt "Kid3MainWindow|"
 msgid "Opens a recently used folder"
-msgstr "Öffnet einen kürzlich benutzten Ordner"
+msgstr "Öffnet einen kürzlich verwendeten Ordner"
 
 #: src/app/qt/kid3mainwindow.cpp:135
 msgctxt "Kid3MainWindow|"
@@ -1140,7 +1141,7 @@ msgstr "Öffnet einen Ordner"
 #: src/app/qt/kid3mainwindow.cpp:149
 msgctxt "Kid3MainWindow|"
 msgid "O&pen Folder..."
-msgstr "&Ordner öffnen ..."
+msgstr "&Ordner öffnen …"
 
 #: src/app/qt/kid3mainwindow.cpp:166
 msgctxt "Kid3MainWindow|"
@@ -1180,34 +1181,34 @@ msgstr "&Zuletzt gespeicherte Fassung"
 #: src/app/qt/kid3mainwindow.cpp:235
 msgctxt "Kid3MainWindow|"
 msgid "Import from file or clipboard"
-msgstr "Von Datei oder Zwischenablage importieren"
+msgstr "Aus Datei oder Zwischenablage importieren"
 
 #: src/app/qt/kid3mainwindow.cpp:236
 msgctxt "Kid3MainWindow|"
 msgid "&Import..."
-msgstr "&Importieren ..."
+msgstr "&Importieren …"
 
 #: src/app/qt/kid3mainwindow.cpp:258 src/app/qt/kid3mainwindow.cpp:278
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1"
-msgstr "Import von %1"
+msgstr "Aus %1 importieren"
 
 #: src/app/qt/kid3mainwindow.cpp:259 src/app/qt/kid3mainwindow.cpp:279
 #, qt-format
 msgctxt "Kid3MainWindow|"
 msgid "Import from %1..."
-msgstr "Importieren von %1 ..."
+msgstr "Aus %1 importieren …"
 
 #: src/app/qt/kid3mainwindow.cpp:289
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags"
-msgstr "Import von Tags"
+msgstr "Aus Tags importieren"
 
 #: src/app/qt/kid3mainwindow.cpp:290
 msgctxt "Kid3MainWindow|"
 msgid "Import from Tags..."
-msgstr "Importieren von Tags ..."
+msgstr "Aus Tags importieren …"
 
 #: src/app/qt/kid3mainwindow.cpp:298
 msgctxt "Kid3MainWindow|"
@@ -1217,7 +1218,7 @@ msgstr "Automatisch importieren"
 #: src/app/qt/kid3mainwindow.cpp:299
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
-msgstr "Automatisch i&mportieren ..."
+msgstr "Automatisch i&mportieren …"
 
 #: src/app/qt/kid3mainwindow.cpp:307
 msgctxt "Kid3MainWindow|"
@@ -1227,7 +1228,7 @@ msgstr "Nach Cover-Bildern suchen"
 #: src/app/qt/kid3mainwindow.cpp:308
 msgctxt "Kid3MainWindow|"
 msgid "&Browse Cover Art..."
-msgstr "Nach Cover-&Bildern suchen ..."
+msgstr "Nach Cover-&Bildern suchen …"
 
 #: src/app/qt/kid3mainwindow.cpp:317
 msgctxt "Kid3MainWindow|"
@@ -1237,17 +1238,17 @@ msgstr "In Datei oder Zwischenablage exportieren"
 #: src/app/qt/kid3mainwindow.cpp:318
 msgctxt "Kid3MainWindow|"
 msgid "&Export..."
-msgstr "&Exportieren ..."
+msgstr "&Exportieren …"
 
 #: src/app/qt/kid3mainwindow.cpp:328
 msgctxt "Kid3MainWindow|"
 msgid "Create M3U Playlist"
-msgstr "M3U-Stückliste erstellen"
+msgstr "M3U-Wiedergabeliste erstellen"
 
 #: src/app/qt/kid3mainwindow.cpp:329
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
-msgstr "Stü&ckliste erstellen ..."
+msgstr "Wiedergabeliste &erstellen …"
 
 #: src/app/qt/kid3mainwindow.cpp:348
 msgctxt "Kid3MainWindow|"
@@ -1327,7 +1328,7 @@ msgstr "Suchen"
 #: src/app/qt/kid3mainwindow.cpp:459
 msgctxt "Kid3MainWindow|"
 msgid "&Find..."
-msgstr "&Suchen ..."
+msgstr "&Suchen …"
 
 #: src/app/qt/kid3mainwindow.cpp:478
 msgctxt "Kid3MainWindow|"
@@ -1337,7 +1338,7 @@ msgstr "Suchen und Ersetzen"
 #: src/app/qt/kid3mainwindow.cpp:479
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
-msgstr "&Ersetzen ..."
+msgstr "&Ersetzen …"
 
 #: src/app/qt/kid3mainwindow.cpp:491
 msgctxt "Kid3MainWindow|"
@@ -1382,7 +1383,7 @@ msgstr "Ordner umbenennen"
 #: src/app/qt/kid3mainwindow.cpp:524
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
-msgstr "Ordner &umbenennen ..."
+msgstr "Ordner &umbenennen …"
 
 #: src/app/qt/kid3mainwindow.cpp:532
 msgctxt "Kid3MainWindow|"
@@ -1392,7 +1393,7 @@ msgstr "Stücke nummerieren"
 #: src/app/qt/kid3mainwindow.cpp:533
 msgctxt "Kid3MainWindow|"
 msgid "&Number Tracks..."
-msgstr "Stücke &nummerieren ..."
+msgstr "Stücke &nummerieren …"
 
 #: src/app/qt/kid3mainwindow.cpp:541
 msgctxt "Kid3MainWindow|"
@@ -1402,7 +1403,7 @@ msgstr "Filter"
 #: src/app/qt/kid3mainwindow.cpp:542
 msgctxt "Kid3MainWindow|"
 msgid "F&ilter..."
-msgstr "F&ilter ..."
+msgstr "F&iltern …"
 
 #: src/app/qt/kid3mainwindow.cpp:553
 msgctxt "Kid3MainWindow|"
@@ -1487,7 +1488,7 @@ msgstr "Kid3 einrichten"
 #: src/app/qt/kid3mainwindow.cpp:638
 msgctxt "Kid3MainWindow|"
 msgid "&Configure Kid3..."
-msgstr "Kid3 einr&ichten ..."
+msgstr "Kid3 einr&ichten …"
 
 #: src/app/qt/kid3mainwindow.cpp:659
 msgctxt "Kid3MainWindow|"
@@ -1792,7 +1793,7 @@ msgstr "Daten empfangen: %1"
 #: src/core/import/httpclient.cpp:228
 msgctxt "HttpClient|"
 msgid "Request sent..."
-msgstr "Anfrage gesendet ..."
+msgstr "Anfrage gesendet …"
 
 #: src/core/import/importparser.cpp:54 src/core/tags/frame.cpp:137
 #: src/core/tags/frame.cpp:2055
@@ -2280,17 +2281,17 @@ msgstr "Tag 2"
 #: src/core/model/filefilter.cpp:108
 msgctxt "@default|"
 msgid "True if strings are equal"
-msgstr "Wahr wenn die Zeichenfolgen gleich sind"
+msgstr "Wahr, wenn Zeichenfolgen gleich sind"
 
 #: src/core/model/filefilter.cpp:114
 msgctxt "@default|"
 msgid "True if string contains substring"
-msgstr "Wahr wenn in Zeichenfolge enthalten"
+msgstr "Wahr, wenn in Zeichenfolge enthalten"
 
 #: src/core/model/filefilter.cpp:121
 msgctxt "@default|"
 msgid "True if string matches regexp"
-msgstr "Wahr wenn Zeichenfolge Regexp erfüllt"
+msgstr "Wahr, wenn Zeichenfolge Regexp erfüllt"
 
 #: src/core/model/filefilter.cpp:127
 msgctxt "@default|"
@@ -2410,7 +2411,7 @@ msgstr "Daten"
 #: src/core/model/kid3application.cpp:1042
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
-msgstr "Ordner speichern ..."
+msgstr "Ordner wird gespeichert …"
 
 #: src/core/model/kid3application.cpp:1248
 msgctxt "Kid3Application|"
@@ -2627,49 +2628,34 @@ msgid "Seller"
 msgstr "Verkäufer"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "Stil"
+msgstr "Zieltyp"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "Standardwerte wiederherstellen"
+msgstr "Standard"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "Stück"
+msgstr "Stückkennung"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "Bearbeiten"
+msgstr "Editionskennung"
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "Kapitel"
+msgstr "Kapitelkennung"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "Anhangskennung"
 
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"
@@ -2724,9 +2710,6 @@ msgid "Trivia/pop up"
 msgstr "Trivia/Popup"
 
 #: src/core/tags/frame.cpp:110
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
 msgstr "Keine"
@@ -2747,23 +2730,17 @@ msgstr "Stücke nummerieren"
 #: src/core/tags/frame.cpp:114
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "Teil"
 
 #: src/core/tags/frame.cpp:116
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "Bearbeiten"
+msgstr "Edition"
 
 #: src/core/tags/frame.cpp:117
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "Auswahl"
+msgstr "Sammlung"
 
 #: src/core/tags/frame.cpp:142
 msgctxt "@default|"
@@ -3110,7 +3087,7 @@ msgstr "Podcast Beschreibung"
 #: src/core/tags/frame.cpp:241
 msgctxt "@default|"
 msgid "Playlist Delay"
-msgstr "Stücklistenverzögerung"
+msgstr "Wiedergabelistenverzögerung"
 
 #: src/core/tags/frame.cpp:242
 msgctxt "@default|"
@@ -3210,7 +3187,7 @@ msgstr "Kommerzielle URL"
 #: src/core/tags/frame.cpp:262
 msgctxt "@default|"
 msgid "Copyright URL"
-msgstr "Copyright URL"
+msgstr "Copyright-Adresse"
 
 #: src/core/tags/frame.cpp:263
 msgctxt "@default|"
@@ -3344,17 +3321,11 @@ msgid "Volume"
 msgstr "Lautstärke"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "Ordnername"
+msgstr "Regisseur"
 
 #: src/core/tags/frame.cpp:303
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
 msgstr "Dauer"
@@ -3362,12 +3333,12 @@ msgstr "Dauer"
 #: src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "Zusammenfassung"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "Übersicht"
 
 #: src/core/tags/frame.cpp:306
 #, fuzzy
@@ -3528,20 +3499,14 @@ msgid "Chapters"
 msgstr "Kapitel"
 
 #: src/core/tags/frame.cpp:351
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (Nero)"
-msgstr "Kapitel"
+msgstr "Kapitel (Nero)"
 
 #: src/core/tags/frame.cpp:352
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (QT)"
-msgstr "Kapitel"
+msgstr "Kapitel (QT)"
 
 #: src/core/tags/frame.cpp:353
 msgctxt "@default|"
@@ -3966,7 +3931,7 @@ msgstr "St&arten"
 #: src/gui/dialogs/batchimportsourcedialog.cpp:44
 msgctxt "BatchImportSourceDialog|"
 msgid "Import Source"
-msgstr "Import Quelle"
+msgstr "Import-Quelle"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:50
 msgctxt "BatchImportSourceDialog|"
@@ -4143,20 +4108,17 @@ msgstr "Name des &Bild-Feldes:"
 #: src/gui/dialogs/configdialogpages.cpp:275
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
-msgstr ""
+msgstr "Matroska"
 
 #: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
-msgstr ""
+msgstr "&Schreibmodus:"
 
 #: src/gui/dialogs/configdialogpages.cpp:278
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Computer"
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
-msgstr "Computer"
+msgstr "Kompakt"
 
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
@@ -4166,7 +4128,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
-msgstr ""
+msgstr "Einfügen vermeiden"
 
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
@@ -4276,7 +4238,7 @@ msgstr "Date&iname für Cover:"
 #: src/gui/dialogs/configdialogpages.cpp:426
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
-msgstr "T&extkodierung (Export, Stückliste):"
+msgstr "T&extkodierung (Export, Wiedergabeliste):"
 
 #: src/gui/dialogs/configdialogpages.cpp:431
 msgctxt "ConfigDialogPages|"
@@ -4322,7 +4284,7 @@ msgstr "Tag von Dateiname"
 #: src/gui/dialogs/configdialogpages.cpp:537
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
-msgstr "Stückliste"
+msgstr "Wiedergabeliste"
 
 #: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
@@ -4438,17 +4400,17 @@ msgstr "In &Zwischenablage"
 #: src/gui/dialogs/editframefieldsdialog.cpp:1197
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
-msgstr "&Importieren ..."
+msgstr "&Importieren …"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1198
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
-msgstr "&Exportieren ..."
+msgstr "&Exportieren …"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1199
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
-msgstr "&Ansicht ..."
+msgstr "&Ansicht …"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1371
 msgctxt "EditFrameFieldsDialog|"
@@ -4488,7 +4450,7 @@ msgstr "Fuß&zeile:"
 #: src/gui/dialogs/exportdialog.cpp:91
 msgctxt "ExportDialog|"
 msgid "To F&ile..."
-msgstr "In Date&i ..."
+msgstr "In Date&i …"
 
 #: src/gui/dialogs/exportdialog.cpp:96
 msgctxt "ExportDialog|"
@@ -4690,17 +4652,17 @@ msgstr "Cover-Bild:"
 #: src/gui/dialogs/importdialog.cpp:148
 msgctxt "ImportDialog|"
 msgid "From F&ile/Clipboard..."
-msgstr "Von Date&i/Zwischenablage ..."
+msgstr "Aus Date&i/Zwischenablage …"
 
 #: src/gui/dialogs/importdialog.cpp:151
 msgctxt "ImportDialog|"
 msgid "From T&ags..."
-msgstr "Von T&ags ..."
+msgstr "Aus T&ags …"
 
 #: src/gui/dialogs/importdialog.cpp:154
 msgctxt "ImportDialog|"
 msgid "&From Server..."
-msgstr "&Von Server ..."
+msgstr "&Von Server …"
 
 #: src/gui/dialogs/importdialog.cpp:176
 msgctxt "ImportDialog|"
@@ -4806,12 +4768,12 @@ msgstr "&Abbrechen"
 #: src/gui/dialogs/playlistdialog.cpp:56
 msgctxt "PlaylistDialog|"
 msgid "Create Playlist"
-msgstr "Stückliste erstellen"
+msgstr "Wiedergabeliste erstellen"
 
 #: src/gui/dialogs/playlistdialog.cpp:144
 msgctxt "PlaylistDialog|"
 msgid "Playlist File Name"
-msgstr "Dateiname der Stückliste"
+msgstr "Dateiname der Wiedergabeliste"
 
 #: src/gui/dialogs/playlistdialog.cpp:145
 msgctxt "PlaylistDialog|"
@@ -4826,7 +4788,7 @@ msgstr "&Format:"
 #: src/gui/dialogs/playlistdialog.cpp:152
 msgctxt "PlaylistDialog|"
 msgid "Create ne&w empty playlist:"
-msgstr "Erstelle neue leere Stü&ckliste:"
+msgstr "Neue leere &Wiedergabeliste erstellen:"
 
 #: src/gui/dialogs/playlistdialog.cpp:153
 msgctxt "PlaylistDialog|"
@@ -4881,12 +4843,12 @@ msgstr "Nach &Tag-Feld sortieren"
 #: src/gui/dialogs/playlistdialog.cpp:191
 msgctxt "PlaylistDialog|"
 msgid "Use &relative path for files in playlist"
-msgstr "&Relativen Pfad für Dateien in der Wiedergabeliste benutzen"
+msgstr "&Relativen Pfad für Dateien in der Wiedergabeliste verwenden"
 
 #: src/gui/dialogs/playlistdialog.cpp:193
 msgctxt "PlaylistDialog|"
 msgid "Use full p&ath for files in playlist"
-msgstr "Vollen Pf&ad für Dateien in der Wiedergabeliste benutzen"
+msgstr "Absoluten Pf&ad für Dateien in der Wiedergabeliste verwenden"
 
 #: src/gui/dialogs/playlistdialog.cpp:194
 msgctxt "PlaylistDialog|"
@@ -4921,12 +4883,12 @@ msgstr "&Abbrechen"
 #: src/gui/dialogs/playlisteditdialog.cpp:114
 msgctxt "PlaylistEditDialog|"
 msgid "Playlist"
-msgstr "Stückliste"
+msgstr "Wiedergabeliste"
 
 #: src/gui/dialogs/playlisteditdialog.cpp:120
 msgctxt "PlaylistEditDialog|"
 msgid " [modified]"
-msgstr " [Geändert]"
+msgstr " [geändert]"
 
 #: src/gui/dialogs/playlisteditdialog.cpp:130
 msgctxt "PlaylistEditDialog|"
@@ -4939,7 +4901,7 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
-"Eine Stückliste wurde verändert.\n"
+"Eine Wiedergabeliste wurde verändert.\n"
 "Soll sie gespeichert werden?"
 
 #: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:100
@@ -4980,7 +4942,7 @@ msgstr "&Quelle:"
 #: src/gui/dialogs/rendirdialog.cpp:122
 msgctxt "RenDirDialog|"
 msgid "&Edit..."
-msgstr "B&earbeiten ..."
+msgstr "B&earbeiten …"
 
 #: src/gui/dialogs/rendirdialog.cpp:126
 msgctxt "RenDirDialog|"
@@ -5118,7 +5080,7 @@ msgstr "Kein Resultat ausgewählt"
 #: src/gui/dialogs/tagimportdialog.cpp:52
 msgctxt "TagImportDialog|"
 msgid "Import from Tags"
-msgstr "Import von Tags"
+msgstr "Aus Tags importieren"
 
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
@@ -5163,7 +5125,7 @@ msgstr "&Schließen"
 #: src/gui/dialogs/textimportdialog.cpp:58
 msgctxt "TextImportDialog|"
 msgid "Import from File/Clipboard"
-msgstr "Von Datei/Zwischenablage importieren"
+msgstr "Aus Datei/Zwischenablage importieren"
 
 #: src/gui/dialogs/textimportdialog.cpp:65
 msgctxt "TextImportDialog|"
@@ -5193,12 +5155,12 @@ msgstr "Einstellungen &speichern"
 #: src/gui/dialogs/textimportdialog.cpp:80
 msgctxt "TextImportDialog|"
 msgid "From F&ile..."
-msgstr "Von Date&i ..."
+msgstr "Aus Date&i …"
 
 #: src/gui/dialogs/textimportdialog.cpp:84
 msgctxt "TextImportDialog|"
 msgid "From Clip&board"
-msgstr "Von Zwischena&blage"
+msgstr "Aus Zwischena&blage"
 
 #: src/gui/dialogs/textimportdialog.cpp:88
 msgctxt "TextImportDialog|"
@@ -5213,7 +5175,7 @@ msgstr "Download"
 #: src/gui/forms/basemainwindow.cpp:233
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
-msgstr "Ordner öffnen ..."
+msgstr "Ordner wird geöffnet …"
 
 #: src/gui/forms/basemainwindow.cpp:329
 msgctxt "BaseMainWindowImpl|"
@@ -5266,13 +5228,13 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
-"Eine Stückliste wurde verändert.\n"
+"Eine Wiedergabeliste wurde verändert.\n"
 "Soll sie gespeichert werden?"
 
 #: src/gui/forms/basemainwindow.cpp:615
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
-msgstr "Beenden ..."
+msgstr "Wird beendet …"
 
 #: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
@@ -5306,7 +5268,7 @@ msgstr "Bereit."
 #: src/gui/forms/basemainwindow.cpp:777
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
-msgstr "Stückliste erstellen ....."
+msgstr "Wiedergabeliste wird erstellt …"
 
 #: src/gui/forms/basemainwindow.cpp:825
 msgctxt "BaseMainWindowImpl|"
@@ -5574,12 +5536,12 @@ msgstr "Entfernen"
 #: src/gui/forms/kid3form.cpp:565
 msgctxt "Kid3Form|"
 msgid "Edit..."
-msgstr "Bearbeiten ..."
+msgstr "Bearbeiten …"
 
 #: src/gui/forms/kid3form.cpp:571
 msgctxt "Kid3Form|"
 msgid "Add..."
-msgstr "Hinzufügen ..."
+msgstr "Hinzufügen …"
 
 #: src/gui/forms/kid3form.cpp:577
 msgctxt "Kid3Form|"
@@ -5644,7 +5606,7 @@ msgstr "Aktuellen Ordner öffnen"
 #: src/gui/widgets/abstractlistedit.cpp:50
 msgctxt "AbstractListEdit|"
 msgid "&Add..."
-msgstr "&Hinzufügen ..."
+msgstr "&Hinzufügen …"
 
 #: src/gui/widgets/abstractlistedit.cpp:51
 msgctxt "AbstractListEdit|"
@@ -5659,7 +5621,7 @@ msgstr "Nach &unten"
 #: src/gui/widgets/abstractlistedit.cpp:53
 msgctxt "AbstractListEdit|"
 msgid "&Edit..."
-msgstr "B&earbeiten ..."
+msgstr "B&earbeiten …"
 
 #: src/gui/widgets/abstractlistedit.cpp:54
 msgctxt "AbstractListEdit|"
@@ -5787,20 +5749,14 @@ msgid "&Close"
 msgstr "&Schließen"
 
 #: src/gui/widgets/picturelabel.cpp:92
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Previous"
 msgctxt "PictureLabel|"
 msgid "Previous"
-msgstr "Vorheriger"
+msgstr "Zurück"
 
 #: src/gui/widgets/picturelabel.cpp:111
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Next"
 msgctxt "PictureLabel|"
 msgid "Next"
-msgstr "Nächster"
+msgstr "Weiter"
 
 #: src/gui/widgets/picturelabel.cpp:238
 msgctxt "@default|"
@@ -5872,12 +5828,12 @@ msgstr "Element bearbeiten"
 #: src/gui/widgets/subframeseditor.cpp:67
 msgctxt "SubframesEditor|"
 msgid "Edit..."
-msgstr "Bearbeiten ..."
+msgstr "Bearbeiten …"
 
 #: src/gui/widgets/subframeseditor.cpp:72
 msgctxt "SubframesEditor|"
 msgid "Add..."
-msgstr "Hinzufügen ..."
+msgstr "Hinzufügen …"
 
 #: src/gui/widgets/subframeseditor.cpp:77
 msgctxt "SubframesEditor|"
@@ -5932,12 +5888,12 @@ msgstr "Von Zwischena&blage"
 #: src/gui/widgets/timeeventeditor.cpp:125
 msgctxt "TimeEventEditor|"
 msgid "&Import..."
-msgstr "&Importieren ..."
+msgstr "&Importieren …"
 
 #: src/gui/widgets/timeeventeditor.cpp:127
 msgctxt "TimeEventEditor|"
 msgid "&Export..."
-msgstr "&Exportieren ..."
+msgstr "&Exportieren …"
 
 #: src/gui/widgets/timeeventeditor.cpp:129
 msgctxt "TimeEventEditor|"
@@ -5982,7 +5938,7 @@ msgstr "&Löschen"
 #: src/gui/widgets/timeeventeditor.cpp:475
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
-msgstr "Zeitabstand &hinzufügen ..."
+msgstr "Zeitversatz &hinzufügen …"
 
 #: src/gui/widgets/timeeventeditor.cpp:477
 msgctxt "TimeEventEditor|"
@@ -6048,441 +6004,441 @@ msgstr "gnudb.org"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:456
 msgctxt "@default|"
 msgid "AENC - Audio encryption"
-msgstr "AENC - Audioverschlüsselung"
+msgstr "AENC – Audioverschlüsselung"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:908
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:457
 msgctxt "@default|"
 msgid "APIC - Attached picture"
-msgstr "APIC - Dazugehöriges Bild"
+msgstr "APIC – Angehängtes Bild"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:910
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:462
 msgctxt "@default|"
 msgid "COMM - Comments"
-msgstr "COMM - Kommentar"
+msgstr "COMM – Kommentare"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:911
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:463
 msgctxt "@default|"
 msgid "COMR - Commercial"
-msgstr "COMR - Kommerzielle Information"
+msgstr "COMR – Kommerzielle Information"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:912
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:467
 msgctxt "@default|"
 msgid "ENCR - Encryption method registration"
-msgstr "ENCR - Verschlüsselungsmethode"
+msgstr "ENCR – Verschlüsselungsmethode"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:914
 msgctxt "@default|"
 msgid "EQUA - Equalization"
-msgstr "EQUA - Equalization"
+msgstr "EQUA – Equalization"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:915
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:469
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
-msgstr "ETCO - Ereignis-Zeitcodes"
+msgstr "ETCO – Ereignis-Zeitcodes"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:916
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:470
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
-msgstr "GEOB - Allgemeines gekapseltes Objekt"
+msgstr "GEOB – Allgemeines gekapseltes Objekt"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:917
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:471
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
-msgstr "GRID - Gruppierungsidentifikation"
+msgstr "GRID – Gruppierungsidentifikation"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:918
 msgctxt "@default|"
 msgid "IPLS - Involved people list"
-msgstr "IPLS - Liste beteiligter Personen"
+msgstr "IPLS – Liste beteiligter Personen"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:919
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:475
 msgctxt "@default|"
 msgid "LINK - Linked information"
-msgstr "LINK - Verknüpfungsinformation"
+msgstr "LINK – Verknüpfte Informationen"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:920
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:476
 msgctxt "@default|"
 msgid "MCDI - Music CD identifier"
-msgstr "MCDI - Musik-CD-Identifikation"
+msgstr "MCDI – Musik-CD-Identifikator"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:921
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:477
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - MPEG-Positions-Nachschlagetabelle"
+msgstr "MLLT – MPEG-Positions-Nachschlagetabelle"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:922
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:482
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
-msgstr "OWNE - Besitzer"
+msgstr "OWNE – Besitzer"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:923
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:483
 msgctxt "@default|"
 msgid "PRIV - Private frame"
-msgstr "PRIV - Privat"
+msgstr "PRIV – Privat"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:924
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:484
 msgctxt "@default|"
 msgid "PCNT - Play counter"
-msgstr "PCNT - Abspielzähler"
+msgstr "PCNT – Abspielzähler"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:925
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:488
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
-msgstr "POPM - Beliebtheitsmessung"
+msgstr "POPM – Beliebtheitsmesser"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:926
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:489
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
-msgstr "POSS - Positionssynchronisierung"
+msgstr "POSS – Positionssynchronisierung"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:927
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:490
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - Empfohlene Puffergröße"
+msgstr "RBUF – Empfohlene Puffergröße"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:929
 msgctxt "@default|"
 msgid "RVAD - Relative volume adjustment"
-msgstr "RVAD - Relative Lautstärkenanpassung"
+msgstr "RVAD – Relative Lautstärkenanpassung"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:930
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:492
 msgctxt "@default|"
 msgid "RVRB - Reverb"
-msgstr "RVRB - Echo"
+msgstr "RVRB – Echo"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:933
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:495
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT - Synchronisierter Liedtext"
+msgstr "SYLT – Synchronisierter Liedtext"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:934
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:496
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
-msgstr "SYTC - Codes für synchronisiertes Tempo"
+msgstr "SYTC – Codes für synchronisiertes Tempo"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:935
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:497
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
-msgstr "TALB - Album-/Film-/Showtitel"
+msgstr "TALB – Album-/Film-/Showtitel"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:936
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:498
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM - BPM (Schläge pro Minute)"
+msgstr "TBPM – BPM (Schläge pro Minute)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:937
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:503
 msgctxt "@default|"
 msgid "TCOM - Composer"
-msgstr "TCOM - Komponist"
+msgstr "TCOM – Komponist"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:938
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:504
 msgctxt "@default|"
 msgid "TCON - Content type"
-msgstr "TCON - Stil"
+msgstr "TCON – Stil"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:939
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:505
 msgctxt "@default|"
 msgid "TCOP - Copyright message"
-msgstr "TCOP - Copyright-Information"
+msgstr "TCOP – Copyright-Information"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:940
 msgctxt "@default|"
 msgid "TDAT - Date"
-msgstr "TDAT - Datum"
+msgstr "TDAT – Datum"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:942
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:510
 msgctxt "@default|"
 msgid "TDLY - Playlist delay"
-msgstr "TDLY - Stücklistenverzögerung"
+msgstr "TDLY – Wiedergabelistenverzögerung"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:948
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:515
 msgctxt "@default|"
 msgid "TENC - Encoded by"
-msgstr "TENC - Kodiert von"
+msgstr "TENC – Kodiert von"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:949
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:516
 msgctxt "@default|"
 msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - Texter"
+msgstr "TEXT – Texter"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:950
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:517
 msgctxt "@default|"
 msgid "TFLT - File type"
-msgstr "TFLT - Dateityp"
+msgstr "TFLT – Dateityp"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:951
 msgctxt "@default|"
 msgid "TIME - Time"
-msgstr "TIME - Zeit"
+msgstr "TIME – Zeit"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:952
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:522
 msgctxt "@default|"
 msgid "TIT1 - Content group description"
-msgstr "TIT1 - Beschreibung des Werks"
+msgstr "TIT1 – Beschreibung des Werks"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:953
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:523
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - Titel/Name/Inhaltsbeschreibung"
+msgstr "TIT2 – Titel/Name/Inhaltsbeschreibung"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:954
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:524
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 - Untergeordneter Titel/Genauere Beschreibung"
+msgstr "TIT3 – Untergeordneter Titel/Genauere Beschreibung"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:955
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:525
 msgctxt "@default|"
 msgid "TKEY - Initial key"
-msgstr "TKEY - Anfangstonart"
+msgstr "TKEY – Anfangstonart"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:956
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:529
 msgctxt "@default|"
 msgid "TLAN - Language(s)"
-msgstr "TLAN - Sprache(n)"
+msgstr "TLAN – Sprache(n)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:957
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:530
 msgctxt "@default|"
 msgid "TLEN - Length"
-msgstr "TLEN - Länge"
+msgstr "TLEN – Länge"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:959
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:532
 msgctxt "@default|"
 msgid "TMED - Media type"
-msgstr "TMED - Mediumtyp"
+msgstr "TMED – Medientyp"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:961
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:534
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - Originaltitel des Albums/Films/der Show"
+msgstr "TOAL – Originaltitel des Albums/Films/der Show"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:962
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:535
 msgctxt "@default|"
 msgid "TOFN - Original filename"
-msgstr "TOFN - Originaler Dateiname"
+msgstr "TOFN – Originaler Dateiname"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:963
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:536
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - Originaler Texter"
+msgstr "TOLY – Originaler Texter"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:964
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:537
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - Originaler Künstler/Interpret"
+msgstr "TOPE – Originaler Künstler/Interpret"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:965
 msgctxt "@default|"
 msgid "TORY - Original release year"
-msgstr "TORY - Originales Erscheinungsjahr"
+msgstr "TORY – Originales Erscheinungsjahr"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:966
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:538
 msgctxt "@default|"
 msgid "TOWN - File owner/licensee"
-msgstr "TOWN - Originaler Dateibesitzer/Lizenznehmer"
+msgstr "TOWN – Originaler Dateibesitzer/Lizenznehmer"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:967
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:539
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - Hauptinterpret(en)/-solist(en)"
+msgstr "TPE1 – Hauptinterpret(en)/-solist(en)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:968
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:540
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 - Band/Orchester/Begleitung"
+msgstr "TPE2 – Band/Orchester/Begleitung"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:969
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:541
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 - Dirigent/Interpret (genauere Angaben)"
+msgstr "TPE3 – Dirigent/Interpret (genauere Angaben)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:970
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:542
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr "TPE4 - Interpretiert, remixed oder auf andere Weise modifiziert durch"
+msgstr "TPE4 – Interpretiert, remixed oder auf andere Weise modifiziert durch"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:971
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:543
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
-msgstr "TPOS - Teil einer Menge"
+msgstr "TPOS – Teil einer Menge"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:973
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:545
 msgctxt "@default|"
 msgid "TPUB - Publisher"
-msgstr "TPUB - Herausgeber"
+msgstr "TPUB – Herausgeber"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:974
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:546
 msgctxt "@default|"
 msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - Stücknummer/Position in einer Menge"
+msgstr "TRCK – Stücknummer/Position in einer Zusammenstellung"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:975
 msgctxt "@default|"
 msgid "TRDA - Recording dates"
-msgstr "TRDA - Aufnahmedaten"
+msgstr "TRDA – Aufnahmedaten"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:976
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:547
 msgctxt "@default|"
 msgid "TRSN - Internet radio station name"
-msgstr "TRSN - Internetradiosender"
+msgstr "TRSN – Internetradiosender"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:977
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:548
 msgctxt "@default|"
 msgid "TRSO - Internet radio station owner"
-msgstr "TRSO - Internetradiosender-Besitzer"
+msgstr "TRSO – Internetradiosender-Besitzer"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:978
 msgctxt "@default|"
 msgid "TSIZ - Size"
-msgstr "TSIZ - Größe"
+msgstr "TSIZ – Größe"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:982
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:554
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
-msgstr "TSRC - ISRC (Internationaler Standardaufnahmecode)"
+msgstr "TSRC – ISRC (Internationaler Standardaufnahmecode)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:983
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:555
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - Software/Hardware und Einstellungen der Kodierung"
+msgstr "TSSE – Software/Hardware und Einstellungen der Kodierung"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:985
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:557
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
-msgstr "TXXX - Benutzerdefinierte Textinformation"
+msgstr "TXXX – Benutzerdefinierte Textinformation"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:986
 msgctxt "@default|"
 msgid "TYER - Year"
-msgstr "TYER - Jahr"
+msgstr "TYER – Jahr"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:987
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:558
 msgctxt "@default|"
 msgid "UFID - Unique file identifier"
-msgstr "UFID - Eindeutige Dateiidentifikation"
+msgstr "UFID – Eindeutige Dateiidentifikation"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:988
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:559
 msgctxt "@default|"
 msgid "USER - Terms of use"
-msgstr "USER - Benutzungsbedingungen"
+msgstr "USER – Nutzungsbedingungen"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:989
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:560
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr "USLT - Unsynchronisierte Textabschrift"
+msgstr "USLT – Unsynchronisierte Textabschrift"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:990
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:561
 msgctxt "@default|"
 msgid "WCOM - Commercial information"
-msgstr "WCOM - Kommerzielle Information"
+msgstr "WCOM – Kommerzielle Information"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:991
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:562
 msgctxt "@default|"
 msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - Copyright/Gesetzliche Information"
+msgstr "WCOP – Copyright/Gesetzliche Information"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:992
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:566
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - Offizielle Webseite der Audio-Datei"
+msgstr "WOAF – Offizielle Webseite der Audio-Datei"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:993
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:567
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - Offizielle Webseite des Künstlers/Interpreten"
+msgstr "WOAR – Offizielle Webseite des Künstlers/Interpreten"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:994
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:568
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
-msgstr "WOAS - Offizielle Webseite der Audio-Quelle"
+msgstr "WOAS – Offizielle Webseite der Audio-Quelle"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:995
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:569
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
-msgstr "WORS - Offizielle Webseite der Internetradiostation"
+msgstr "WORS – Offizielle Webseite der Internetradiostation"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:996
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:570
 msgctxt "@default|"
 msgid "WPAY - Payment"
-msgstr "WPAY - Bezahlung"
+msgstr "WPAY – Bezahlung"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:997
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:571
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
-msgstr "WPUB - Offizielle Webseite des Herausgebers"
+msgstr "WPUB – Offizielle Webseite des Herausgebers"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:998
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:572
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
-msgstr "WXXX - Benutzerdefinierte URL"
+msgstr "WXXX – Benutzerdefinierte Adresse"
 
 #: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
 msgctxt "@default|"
 msgid "MusicBrainz Release"
-msgstr "MusicBrainz-Album"
+msgstr "MusicBrainz-Veröffentlichung"
 
 #: src/plugins/taglibmetadata/taglibasfsupport.cpp:560
 msgctxt "@default|"
@@ -6492,162 +6448,162 @@ msgstr "Bewertungsinformation"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:458
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
-msgstr "ASPI - Audio-Suchpunkt-Index"
+msgstr "ASPI – Audio-Suchpunkt-Index"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:460
 msgctxt "@default|"
 msgid "CHAP - Chapter"
-msgstr "CHAP - Kapitel"
+msgstr "CHAP – Kapitel"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:465
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
-msgstr "CTOC - Inhaltsverzeichnis"
+msgstr "CTOC – Inhaltsverzeichnis"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:468
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
-msgstr "EQU2 - Equalisation (2)"
+msgstr "EQU2 – Equalisation (2)"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:473
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
-msgstr "GRP1 - Gruppierung"
+msgstr "GRP1 – Gruppierung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:479
 msgctxt "@default|"
 msgid "MVIN - Movement Number"
-msgstr "MVIN - Nummer des Satzes"
+msgstr "MVIN – Nummer des Satzes"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:480
 msgctxt "@default|"
 msgid "MVNM - Movement Name"
-msgstr "MVNM - Name des Satzes"
+msgstr "MVNM – Name des Satzes"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:486
 msgctxt "@default|"
 msgid "PCST - Podcast"
-msgstr "PCST - Podcast"
+msgstr "PCST – Podcast"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:491
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
-msgstr "RVA2 - Relative Lautstärkenanpassung (2)"
+msgstr "RVA2 – Relative Lautstärkenanpassung (2)"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:493
 msgctxt "@default|"
 msgid "SEEK - Seek frame"
-msgstr "SEEK - Suchelement"
+msgstr "SEEK – Suchelement"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:494
 msgctxt "@default|"
 msgid "SIGN - Signature frame"
-msgstr "SIGN - Signaturelement"
+msgstr "SIGN – Signaturelement"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:500
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
-msgstr "PCST - Podcast Kategorie"
+msgstr "PCST – Podcast Kategorie"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:502
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
-msgstr "TCMP - iTunes Zusammenstellung"
+msgstr "TCMP – iTunes Zusammenstellung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:506
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
-msgstr "TDEN - Kodierdatum"
+msgstr "TDEN – Kodierdatum"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:508
 msgctxt "@default|"
 msgid "TDES - Podcast description"
-msgstr "TDES - Podcast Beschreibung"
+msgstr "TDES – Podcast Beschreibung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:511
 msgctxt "@default|"
 msgid "TDOR - Original release time"
-msgstr "TDOR - Originales Erscheinungsdatum"
+msgstr "TDOR – Originales Erscheinungsdatum"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:512
 msgctxt "@default|"
 msgid "TDRC - Recording time"
-msgstr "TDRC - Aufnahmedatum"
+msgstr "TDRC – Aufnahmedatum"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:513
 msgctxt "@default|"
 msgid "TDRL - Release time"
-msgstr "TDRL - Erscheinungsdatum"
+msgstr "TDRL – Erscheinungsdatum"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:514
 msgctxt "@default|"
 msgid "TDTG - Tagging time"
-msgstr "TDTG - Tag-Datum"
+msgstr "TDTG – Tag-Datum"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:519
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
-msgstr "TGID - Podcast Identifikation"
+msgstr "TGID – Podcast Identifikation"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:521
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
-msgstr "TIPL - Liste beteiligter Personen"
+msgstr "TIPL – Liste beteiligter Personen"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:527
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
-msgstr "WFED - Podcast Stichwörter"
+msgstr "WFED – Podcast Stichwörter"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:531
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
-msgstr "TMCL - Musikerzuordnung"
+msgstr "TMCL – Musikerzuordnung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:533
 msgctxt "@default|"
 msgid "TMOO - Mood"
-msgstr "TMOO - Stimmung"
+msgstr "TMOO – Stimmung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:544
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
-msgstr "TPRO - Produktions-Urheberrecht"
+msgstr "TPRO – Produktions-Urheberrecht"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:549
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
-msgstr "TSO2 - Albuminterpret für Sortierung"
+msgstr "TSO2 – Albuminterpret für Sortierung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:550
 msgctxt "@default|"
 msgid "TSOA - Album sort order"
-msgstr "TSOA - Album für Sortierung"
+msgstr "TSOA – Album für Sortierung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:551
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
-msgstr "TSOC - Komponist für Sortierung"
+msgstr "TSOC – Komponist für Sortierung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:552
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
-msgstr "TSOP - Musiker für Sortierung"
+msgstr "TSOP – Musiker für Sortierung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:553
 msgctxt "@default|"
 msgid "TSOT - Title sort order"
-msgstr "TSOT - Titel für Sortierung"
+msgstr "TSOT – Titel für Sortierung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:556
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
-msgstr "TSST - Teil-Untertitel"
+msgstr "TSST – Untertitel der Zusammenstellung"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:564
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
-msgstr "WFED - Podcast Feed"
+msgstr "WFED – Podcast Feed"
 
 #: src/qml/app/AboutDialog.qml:29
 msgctxt "AboutDialog|"
@@ -6974,7 +6930,7 @@ msgstr "Automatisch importieren"
 #: src/qml/app/MainPage.qml:198
 msgctxt "MainPage|"
 msgid "Create Playlist"
-msgstr "Stückliste erstellen"
+msgstr "Wiedergabeliste erstellen"
 
 #: src/qml/app/MainPage.qml:202
 msgctxt "MainPage|"
@@ -7190,7 +7146,7 @@ msgstr "ID3v2 Textkodierung"
 #: src/qml/app/SettingsPage.qml:65
 msgctxt "SettingsPage|"
 msgid "Use track/total number of tracks format"
-msgstr "Format „Nummer/Anzahl Stücke“ benutzen"
+msgstr "Format „Nummer/Anzahl Stücke“ verwenden"
 
 #: src/qml/app/SettingsPage.qml:70
 msgctxt "SettingsPage|"
@@ -7230,7 +7186,7 @@ msgstr "RIFF Name des Stücknummer-Feldes"
 #: src/qml/app/SettingsPage.qml:117
 msgctxt "SettingsPage|"
 msgid "Mark if picture larger than maximum size"
-msgstr "Markieren wenn Bild größer als Maximum"
+msgstr "Markieren, wenn Bild größer als maximale Größe"
 
 #: src/qml/app/SettingsPage.qml:122
 msgctxt "SettingsPage|"
@@ -7310,7 +7266,7 @@ msgstr "Für Wiedergabelisten und Ordnernamen verwenden"
 #: src/qml/app/SettingsPage.qml:233
 msgctxt "SettingsPage|"
 msgid "Use maximum length"
-msgstr "Maximale Länge benutzen"
+msgstr "Maximale Länge verwenden"
 
 #: src/qml/app/SettingsPage.qml:238
 msgctxt "SettingsPage|"
@@ -7325,7 +7281,7 @@ msgstr "Dateiname für Cover"
 #: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
-msgstr "Textkodierung Stückliste"
+msgstr "Textkodierung Wiedergabeliste"
 
 #: src/qml/app/SettingsPage.qml:286
 msgctxt "SettingsPage|"
@@ -7416,17 +7372,11 @@ msgid "Remove"
 msgstr "Entfernen"
 
 #: src/qml/app/TagCollapsible.qml:116
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Select &All"
 msgctxt "TagCollapsible|"
 msgid "Select All"
-msgstr "A&lles auswählen"
+msgstr "Alles auswählen"
 
 #: src/qml/app/TagCollapsible.qml:120
-#, fuzzy
-#| msgctxt "FrameTable|"
-#| msgid "&Deselect all"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
-msgstr "Alles abwäh&len"
+msgstr "Alles abwählen"
