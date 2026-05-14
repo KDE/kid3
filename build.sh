@@ -217,22 +217,22 @@ download_and_extract_qt() {
       esac
       for fn in *.7z; do 7za x $fn; done
       rm -f *.7z
-    elif test $qt_version = "6.10.2"; then
+    elif test $qt_version = "6.11.1"; then
       case "$_qtarch" in
         macos)
           for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
-            fn=6.10.2-0-202601261210${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
-            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_6102/qt6_6102/qt.qt6.6102.clang_64/$fn
+            fn=6.11.1-0-202605090526${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_6111/qt6_6111/qt.qt6.6111.clang_64/$fn
           done
           for m in qtmultimedia qtimageformats; do
-            fn=qt.qt6.6102.addons.${m}.clang_64/6.10.2-0-202601261210${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
-            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_6102/qt6_6102/$fn
+            fn=qt.qt6.6111.addons.${m}.clang_64/6.11.1-0-202605090526${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_6111/qt6_6111/$fn
           done
+          mkdir -p 6.11.1/macos
+          (cd 6.11.1/macos && for fn in ../../*.7z; do $EXTRACT7Z $fn; done)
+          rm -f *.7z
           ;;
       esac
-      mkdir -p 6.10.2/macos
-      (cd 6.10.2/macos && for fn in ../../*.7z; do 7za x $fn; done)
-      rm -f *.7z
     fi
     cd -
   fi
@@ -550,6 +550,11 @@ if test "$1" = "getqt"; then
   else
     DOWNLOAD="curl -skfLO"
   fi
+  if which bsdtar >/dev/null; then
+    EXTRACT7Z="bsdtar xf"
+  else
+    EXTRACT7Z="7za x"
+  fi
   compiler=${COMPILER:-gcc}
   download_and_extract_qt
   exit 0
@@ -811,6 +816,13 @@ if which wget >/dev/null; then
   DOWNLOAD=wget
 else
   DOWNLOAD="curl -skfLO"
+fi
+if which bsdtar >/dev/null; then
+  # from package libarchive-tools on Debian
+  EXTRACT7Z="bsdtar xf"
+else
+  # 7za does not extract symlinks to symlinks
+  EXTRACT7Z="7za x"
 fi
 
 test -d buildroot || mkdir buildroot
