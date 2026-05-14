@@ -248,7 +248,7 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforms"
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}"
-                     PATTERN "libqwayland-*${CMAKE_SHARED_LIBRARY_SUFFIX}")
+                     PATTERN "libqwayland*${CMAKE_SHARED_LIBRARY_SUFFIX}")
     install(DIRECTORY "${QT_PLUGINS_DIR}/wayland-graphics-integration-client"
       DESTINATION ${plugin_dest_dir}
       FILES_MATCHING PATTERN "libqt-plugin-wayland-egl${CMAKE_SHARED_LIBRARY_SUFFIX}")
@@ -257,8 +257,12 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       FILES_MATCHING PATTERN "libxdg-shell${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqxcb${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqwayland-generic${CMAKE_SHARED_LIBRARY_SUFFIX}")
-    CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqwayland-egl${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    if(QT_VERSION VERSION_LESS 6.8)
+      CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqwayland-generic${CMAKE_SHARED_LIBRARY_SUFFIX}")
+      CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqwayland-egl${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    else()
+      CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/platforms/libqwayland${CMAKE_SHARED_LIBRARY_SUFFIX}")
+    endif()
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/wayland-graphics-integration-client/libqt-plugin-wayland-egl${CMAKE_SHARED_LIBRARY_SUFFIX}")
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/wayland-shell-integration/libxdg-shell${CMAKE_SHARED_LIBRARY_SUFFIX}")
     install(DIRECTORY "${QT_PLUGINS_DIR}/platforminputcontexts"
@@ -282,7 +286,11 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
           install(DIRECTORY "${QT_PLUGINS_DIR}/multimedia"
             DESTINATION ${plugin_dest_dir}
             FILES_MATCHING PATTERN "*${CMAKE_SHARED_LIBRARY_SUFFIX}")
-          CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/multimedia/libgstreamermediaplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
+          if(QT_VERSION VERSION_LESS 6.8)
+            CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/multimedia/libgstreamermediaplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
+          else()
+            CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/multimedia/libffmpegmediaplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
+          endif()
         endif()
         CHANGE_RPATH("\$ORIGIN/../../../.." "${plugin_dest_dir}/plugins/imports/QtQml/WorkerScript/libworkerscriptplugin${CMAKE_SHARED_LIBRARY_SUFFIX}")
       endif()
@@ -396,6 +404,10 @@ if(WIN32)
                   "${_qtBinDir}/Qt${QT_VERSION_MAJOR}QmlModels.dll"
                   "${_qtBinDir}/Qt${QT_VERSION_MAJOR}Quick.dll"
                   "${_qtBinDir}/Qt${QT_VERSION_MAJOR}QmlWorkerScript.dll"
+            DESTINATION ${WITH_BINDIR})
+  endif()
+  if(QT_VERSION VERSION_GREATER_EQUAL 6.8)
+    install(FILES "${_qtBinDir}/Qt${QT_VERSION_MAJOR}QmlMeta.dll"
             DESTINATION ${WITH_BINDIR})
   endif()
 endif()

@@ -219,6 +219,61 @@ download_and_extract_qt() {
       rm -f *.7z
     elif test $qt_version = "6.11.1"; then
       case "$_qtarch" in
+        android_x86_64)
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.11.1-0-202605090529${m}-Linux-RHEL_9_6-Clang-Android-Android_ANY-X86_64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/all_os/android/qt6_6111/qt6_6111_x86_64/qt.qt6.6111.android_x86_64/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.6111.addons.${m}.android_x86_64/6.11.1-0-202605090529${m}-Linux-RHEL_9_6-Clang-Android-Android_ANY-X86_64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/all_os/android/qt6_6111/qt6_6111_x86_64/$fn
+          done
+          mkdir -p 6.11.1/android_x86_64
+          (cd 6.11.1/android_x86_64 && for fn in ../../*.7z; do $EXTRACT7Z $fn; done)
+          rm -f *.7z
+          ;;
+        android_arm64_v8a)
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.11.1-0-202605090529${m}-MacOS-MacOS_14-Clang-Android-Android_ANY-ARM64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/all_os/android/qt6_6111/qt6_6111_arm64_v8a/qt.qt6.6111.android_arm64_v8a/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.6111.addons.${m}.android_arm64_v8a/6.11.1-0-202605090529${m}-MacOS-MacOS_14-Clang-Android-Android_ANY-ARM64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/all_os/android/qt6_6111/qt6_6111_arm64_v8a/$fn
+          done
+          mkdir -p 6.11.1/android_arm64_v8a
+          (cd 6.11.1/android_arm64_v8a && for fn in ../../*.7z; do $EXTRACT7Z $fn; done)
+          rm -f *.7z
+          ;;
+        android_armv7)
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.11.1-0-202605090529${m}-Windows-Windows_11_24H2-Clang-Android-Android_ANY-ARMv7.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/all_os/android/qt6_6111/qt6_6111_armv7/qt.qt6.6111.android_armv7/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.6111.addons.${m}.android_armv7/6.11.1-0-202605090529${m}-Windows-Windows_11_24H2-Clang-Android-Android_ANY-ARMv7.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/all_os/android/qt6_6111/qt6_6111_armv7/$fn
+          done
+          mkdir -p 6.11.1/android_armv7
+          (cd 6.11.1/android_armv7 && for fn in ../../*.7z; do $EXTRACT7Z $fn; done)
+          rm -f *.7z
+          ;;
+        gcc_64)
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase qtwayland; do
+            fn=6.11.1-0-202605090529${m}-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_6111/qt6_6111/qt.qt6.6111.linux_gcc_64/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.6111.addons.${m}.linux_gcc_64/6.11.1-0-202605090529${m}-Linux-RHEL_9_6-GCC-Linux-RHEL_9_6-X86_64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_6111/qt6_6111/$fn
+          done
+          mkdir -p 6.11.1/gcc_64
+          (cd 6.11.1/gcc_64 && for fn in ../../*.7z; do $EXTRACT7Z $fn; done)
+          $DOWNLOAD https://download.qt.io/online/qtsdkrepository/linux_x64/desktop/qt6_6111/qt6_6111/qt.qt6.6111.linux_gcc_64/6.11.1-0-202605090529icu-linux-Rhel8.6-x86_64.7z
+          (cd 6.11.1/gcc_64/lib && $EXTRACT7Z ../../../6.11.1-0-202605090529icu-linux-Rhel8.6-x86_64.7z)
+          rm -f *.7z
+          tar xf ../icu73_reduced_linux.tgz -C 6.11.1/gcc_64/lib/
+          ;;
         macos)
           for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
             fn=6.11.1-0-202605090526${m}-MacOS-MacOS_15-Clang-MacOS-MacOS_15-X86_64-ARM64.7z
@@ -231,6 +286,31 @@ download_and_extract_qt() {
           mkdir -p 6.11.1/macos
           (cd 6.11.1/macos && for fn in ../../*.7z; do $EXTRACT7Z $fn; done)
           rm -f *.7z
+          ;;
+        mingw_64)
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.11.1-0-202605090529${m}-Windows-Windows_11_24H2-Mingw-Windows-Windows_11_24H2-X86_64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_mingw/qt.qt6.6111.win64_mingw/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.6111.addons.${m}.win64_mingw/6.11.1-0-202605090529${m}-Windows-Windows_11_24H2-Mingw-Windows-Windows_11_24H2-X86_64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_mingw/$fn
+          done
+          mkdir -p 6.11.1/mingw_64
+          (cd 6.11.1/mingw_64 && for fn in ../../*.7z; do $EXTRACT7Z $fn; done)
+          rm -f *.7z
+          for m in opengl32sw-64-mesa_11_2_2-signed_sha256 d3dcompiler_47-x64 MinGW-w64-x86_64-13.1.0-release-posix-seh-msvcrt-rt_v11-rev1-runtime; do
+            fn=6.11.1-0-202605090529${m}.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/qt6_6111/qt6_6111_mingw/qt.qt6.6111.win64_mingw/$fn
+          done
+          (cd 6.11.1/mingw_64/bin && for fn in ../../../*.7z; do $EXTRACT7Z $fn; done)
+          rm -f *.7z
+          for m in mingw1310; do
+            fn=13.1.0-202407240918${m}.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/windows_x86/desktop/tools_mingw1310/qt.tools.win64_mingw1310/$fn
+            $EXTRACT7Z $fn
+            rm -f $fn
+          done
           ;;
       esac
     fi
@@ -446,13 +526,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 devscripts build-essential lintian debhelper extra-cmake-modules \
 libkf5kio-dev libkf5doctools-dev qtmultimedia5-dev qtdeclarative5-dev \
 qttools5-dev qttools5-dev-tools qtdeclarative5-dev-tools \
-qml-module-qtquick2 cmake python libid3-3.8.3-dev libflac++-dev \
+qml-module-qtquick2 cmake python3 libid3-3.8.3-dev libflac++-dev \
 libvorbis-dev libtag1-dev libchromaprint-dev libavformat-dev \
 libavcodec-dev docbook-xsl pkg-config libreadline-dev xsltproc \
 debian-keyring dput-ng python3-distro-info sudo curl less \
-locales ninja-build ccache p7zip-full genisoimage \
+locales ninja-build ccache p7zip-full libarchive-tools genisoimage \
 clang llvm nasm lib32z1 chrpath libpulse-mainloop-glib0 dmg2img archivemount \
-openjdk-17-jre-headless libxcb-cursor0 libxrandr2
+openjdk-17-jdk libxcb-cursor0 libxrandr2
 ARG USER
 ARG UID
 RUN adduser --quiet --disabled-password --uid $UID --gecos "User" $USER && \
@@ -937,7 +1017,7 @@ foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-
     )
   endif ()
 endforeach (_exe)
-foreach (_exe lupdate lrelease windeployqt qtpaths androiddeployqt androidtestrunner lconvert)
+foreach (_exe lupdate lrelease windeployqt qtpaths androiddeployqt androidtestrunner lconvert syncqt wasmdeployqt lcheck ltext2id)
   if (NOT TARGET Qt${qt_version_major}::\${_exe})
     add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
     set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
@@ -1010,7 +1090,7 @@ set(QT_MKSPECS_DIR  \${QT_PREFIX}/mkspecs)
 set(QT_MOC_EXECUTABLE  \${QT_LIBEXEC_DIR}/moc)
 set(QT_UIC_EXECUTABLE  \${QT_LIBEXEC_DIR}/uic)
 
-foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-pro lupdate-pro tracepointgen)
+foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-pro lupdate-pro tracepointgen syncqt)
   if (NOT TARGET Qt${qt_version_major}::\${_exe})
     add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
     set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
@@ -1018,7 +1098,7 @@ foreach (_exe moc rcc uic tracegen cmake_automoc_parser qlalr lprodump lrelease-
     )
   endif ()
 endforeach (_exe)
-foreach (_exe lupdate lrelease macdeployqt qtpaths androiddeployqt androidtestrunner lconvert)
+foreach (_exe lupdate lrelease macdeployqt qtpaths androiddeployqt androidtestrunner lconvert wasmdeployqt)
   if (NOT TARGET Qt${qt_version_major}::\${_exe})
     add_executable(Qt${qt_version_major}::\${_exe} IMPORTED)
     set_target_properties(Qt${qt_version_major}::\${_exe} PROPERTIES
