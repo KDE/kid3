@@ -319,6 +319,7 @@
         <p xml:lang="ca">Nou</p>
         <p xml:lang="ca-valencia">Nou</p>
         <p xml:lang="cs">Nové</p>
+        <p xml:lang="de">Neu</p>
         <p xml:lang="es">Novedades</p>
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
@@ -410,6 +411,7 @@
         <p xml:lang="ca">Millorat</p>
         <p xml:lang="ca-valencia">Millorat</p>
         <p xml:lang="cs">Vylepšeno</p>
+        <p xml:lang="de">Verbessert</p>
         <p xml:lang="es">Mejoras</p>
         <p xml:lang="fr">Amélioré</p>
         <p xml:lang="is">Endurbætt</p>
@@ -464,6 +466,7 @@
         <p xml:lang="ca">Corregit</p>
         <p xml:lang="ca-valencia">Corregit</p>
         <p xml:lang="cs">Opraveno</p>
+        <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
@@ -480,6 +483,7 @@
           <li>Fix Discogs import.</li>
           <li xml:lang="ca">Corregeix la importació de Discogs.</li>
           <li xml:lang="ca-valencia">Corregix la importació de Discogs.</li>
+          <li xml:lang="de">Fehler beim Importieren von Discogs behoben.</li>
           <li xml:lang="es">Se ha corregido la importación de Discogs.</li>
           <li xml:lang="fr">Correction de l'importation pour Discogs.</li>
           <li xml:lang="it">Risolto il problema di importazione da Discogs.</li>
@@ -571,6 +575,7 @@
         <p xml:lang="ca">Corregit</p>
         <p xml:lang="ca-valencia">Corregit</p>
         <p xml:lang="cs">Opraveno</p>
+        <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
@@ -733,6 +738,7 @@
         <p xml:lang="ca">Nou</p>
         <p xml:lang="ca-valencia">Nou</p>
         <p xml:lang="cs">Nové</p>
+        <p xml:lang="de">Neu</p>
         <p xml:lang="es">Novedades</p>
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
@@ -796,6 +802,7 @@
         <p xml:lang="ca">Millorat</p>
         <p xml:lang="ca-valencia">Millorat</p>
         <p xml:lang="cs">Vylepšeno</p>
+        <p xml:lang="de">Verbessert</p>
         <p xml:lang="es">Mejoras</p>
         <p xml:lang="fr">Amélioré</p>
         <p xml:lang="is">Endurbætt</p>
@@ -829,6 +836,7 @@
         <p xml:lang="ca">Corregit</p>
         <p xml:lang="ca-valencia">Corregit</p>
         <p xml:lang="cs">Opraveno</p>
+        <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
@@ -957,6 +965,7 @@
         <p xml:lang="ca">Nou</p>
         <p xml:lang="ca-valencia">Nou</p>
         <p xml:lang="cs">Nové</p>
+        <p xml:lang="de">Neu</p>
         <p xml:lang="es">Novedades</p>
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
@@ -1020,6 +1029,7 @@
         <p xml:lang="ca">Millorat</p>
         <p xml:lang="ca-valencia">Millorat</p>
         <p xml:lang="cs">Vylepšeno</p>
+        <p xml:lang="de">Verbessert</p>
         <p xml:lang="es">Mejoras</p>
         <p xml:lang="fr">Amélioré</p>
         <p xml:lang="is">Endurbætt</p>
@@ -1068,6 +1078,7 @@
         <p xml:lang="ca">Corregit</p>
         <p xml:lang="ca-valencia">Corregit</p>
         <p xml:lang="cs">Opraveno</p>
+        <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
@@ -1151,6 +1162,7 @@
         <p xml:lang="ca">Nou</p>
         <p xml:lang="ca-valencia">Nou</p>
         <p xml:lang="cs">Nové</p>
+        <p xml:lang="de">Neu</p>
         <p xml:lang="es">Novedades</p>
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
@@ -1199,6 +1211,7 @@
         <p xml:lang="ca">Millorat</p>
         <p xml:lang="ca-valencia">Millorat</p>
         <p xml:lang="cs">Vylepšeno</p>
+        <p xml:lang="de">Verbessert</p>
         <p xml:lang="es">Mejoras</p>
         <p xml:lang="fr">Amélioré</p>
         <p xml:lang="is">Endurbætt</p>
@@ -1277,6 +1290,7 @@
         <p xml:lang="ca">Corregit</p>
         <p xml:lang="ca-valencia">Corregit</p>
         <p xml:lang="cs">Opraveno</p>
+        <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
