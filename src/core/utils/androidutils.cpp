@@ -84,3 +84,46 @@ JNIEXPORT void JNICALL Java_net_sourceforge_kid3_Kid3Activity_setFilePathFromInt
 }
 #endif
 #endif
+
+int AndroidUtils::statusBarHeight() const
+{
+#ifdef Q_OS_ANDROID
+#if QT_VERSION >= 0x060000
+  QJniObject activity = QNativeInterface::QAndroidApplication::context();
+#else
+  QAndroidJniObject activity = QtAndroid::androidActivity();
+#endif
+  return activity.callMethod<jint>("getStatusBarHeight");
+#else
+  return 0;
+#endif
+}
+
+int AndroidUtils::navigationBarHeight() const
+{
+#ifdef Q_OS_ANDROID
+#if QT_VERSION >= 0x060000
+  QJniObject activity = QNativeInterface::QAndroidApplication::context();
+#else
+  QAndroidJniObject activity = QtAndroid::androidActivity();
+#endif
+  return activity.callMethod<jint>("getNavigationBarHeight");
+#else
+  return 0;
+#endif
+}
+
+void AndroidUtils::setSystemBarTheme(bool isAppDarkTheme, bool useSystemTheme)
+{
+#ifdef Q_OS_ANDROID
+#if QT_VERSION >= 0x060000
+  QJniObject activity = QNativeInterface::QAndroidApplication::context();
+#else
+  QAndroidJniObject activity = QtAndroid::androidActivity();
+#endif
+  activity.callMethod<void>("setSystemBarTheme", "(ZZ)V", isAppDarkTheme, useSystemTheme);
+#else
+  Q_UNUSED(isAppDarkTheme);
+  Q_UNUSED(useSystemTheme);
+#endif
+}

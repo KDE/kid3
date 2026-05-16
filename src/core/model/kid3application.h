@@ -101,6 +101,10 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_PROPERTY(int filterPassedCount READ filterPassedCount NOTIFY fileFiltered)
   /** Total number of files checked by filter. */
   Q_PROPERTY(int filterTotalCount READ filterTotalCount NOTIFY fileFiltered)
+  /** Status bar height on Android */
+  Q_PROPERTY(int statusBarHeight READ statusBarHeight CONSTANT)
+  /** Navigation bar height on Android */
+  Q_PROPERTY(int navigationBarHeight READ navigationBarHeight CONSTANT)
   /** Frame editor. */
   Q_PROPERTY(FrameEditorObject* frameEditor READ frameEditor WRITE setFrameEditor
              NOTIFY frameEditorChanged)
@@ -809,6 +813,18 @@ public:
    * @return total number of files checked by filter.
    */
   int filterTotalCount() const { return m_filterTotal; }
+
+  /**
+   * Get height of status bar on Android.
+   * @return height of status bar in density-independent pixels.
+   */
+  int statusBarHeight() const { return m_statusBarHeight; }
+
+  /**
+   * Get height of navigation bar on Android.
+   * @return height of navigation bar in density-independent pixels.
+   */
+  int navigationBarHeight() const { return m_navigationBarHeight; }
 
   /**
    * Get the selected file.
@@ -1651,6 +1667,8 @@ private:
   QString m_lastProcessedDirName;
   int m_filterPassed;
   int m_filterTotal;
+  int m_statusBarHeight;
+  int m_navigationBarHeight;
   /* Context for batchImportNextFile() */
   QScopedPointer<BatchImportProfile> m_namedBatchImportProfile;
   const BatchImportProfile* m_batchImportProfile;

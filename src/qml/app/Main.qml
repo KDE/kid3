@@ -28,13 +28,15 @@ import QtQml 2.11
 import Kid3 1.1 as Kid3
 
 ApplicationWindow {
+  property bool isMobile: Qt.platform.os === "android" || Qt.platform.os === "ios"
+
   id: root
   visible: true
-  visibility: Qt.platform.os === "android" ? "FullScreen" : "Windowed"
+  visibility: isMobile ? Window.Maximized : Window.Windowed
   objectName: "mainView"
   title: "Kid3"
-  width: constants.gu(100)
-  height: constants.gu(100)
+  width: isMobile ? Screen.desktopAvailableWidth : constants.gu(100)
+  height: isMobile ? Screen.desktopAvailableHeight : constants.gu(100)
 
   FontLoader {
     id: materialFont
@@ -183,6 +185,8 @@ ApplicationWindow {
     id: pageStack
     initialItem: mainPage
     anchors.fill: parent
+    anchors.topMargin: app.statusBarHeight
+    anchors.bottomMargin: app.navigationBarHeight
 
     MainPage {
       id: mainPage

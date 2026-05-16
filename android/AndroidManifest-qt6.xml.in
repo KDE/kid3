@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest android:versionName="@QT_ANDROID_APP_VERSION@" package="@QT_ANDROID_APP_PACKAGE_NAME@" android:installLocation="auto" xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="@QT_ANDROID_APP_VERSION_CODE@">
   <application android:label="@QT_ANDROID_APP_NAME@" android:name="@KID3_ANDROID_NAME@" android:icon="@drawable/icon">
-    <activity android:label="@QT_ANDROID_APP_NAME@" android:name="net.sourceforge.kid3.Kid3Activity" android:screenOrientation="unspecified" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:launchMode="singleInstance" android:taskAffinity="">
+    <activity android:label="@QT_ANDROID_APP_NAME@" android:name="net.sourceforge.kid3.Kid3Activity" android:screenOrientation="unspecified" android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|locale|fontScale|keyboard|keyboardHidden|navigation" android:launchMode="singleInstance" android:taskAffinity="" android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
@@ -24,7 +24,9 @@
   <uses-sdk android:minSdkVersion="@KID3_ANDROID_MIN_SDK_VERSION@" android:targetSdkVersion="@KID3_ANDROID_TARGET_SDK_VERSION@"/>
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <!-- Legacy permissions: Ignored by Android 11+ -->
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <!-- Modern permission: Gives low-level POSIX file access on Android 11+ -->
   <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 </manifest>

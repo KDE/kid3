@@ -55,6 +55,25 @@ public:
   void emitFilePathReceived(const QString& path);
 
   /**
+   * Get the height of the Android status bar.
+   * @return size of status bar in density-independent pixels (dp).
+   */
+  int statusBarHeight() const;
+
+  /**
+   * Get the height of the Android navigation bar.
+   * @return size of navigation bar in density-independent pixels (dp).
+   */
+  int navigationBarHeight() const;
+
+  /**
+   * Set the theme for the Android system bar.
+   * @param isAppDarkTheme true for dark theme
+   * @param useSystemTheme true to use system theme
+   */
+  void setSystemBarTheme(bool isAppDarkTheme, bool useSystemTheme);
+
+  /**
    * Get a pointer to the application's config store instance.
    * @return config store, 0 if no instance has been allocated.
    */

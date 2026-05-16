@@ -267,7 +267,7 @@ Page {
 
     Drawer {
       id: drawer
-      y: header.height
+      y: header.height + app.statusBarHeight
       width: Math.min(constants.gu(44), body.width - constants.gu(4))
       height: parent.height - y
       modal: false

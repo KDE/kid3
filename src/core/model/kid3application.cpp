@@ -47,6 +47,7 @@
 #endif
 #ifdef Q_OS_ANDROID
 #include <QStandardPaths>
+#include "mainwindowconfig.h"
 #endif
 #if defined Q_OS_LINUX && !defined Q_OS_ANDROID
 #include <malloc.h>
@@ -274,6 +275,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
   m_expressionFileFilter(nullptr),
   m_downloadImageDest(ImageForSelectedFiles),
   m_fileFilter(nullptr), m_filterPassed(0), m_filterTotal(0),
+  m_statusBarHeight(0), m_navigationBarHeight(0),
   m_batchImportProfile(nullptr), m_batchImportTagVersion(Frame::TagNone),
   m_editFrameTaggedFile(nullptr), m_addFrameTaggedFile(nullptr),
   m_frameEditor(nullptr), m_storedFrameEditor(nullptr),
@@ -340,6 +342,15 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
                    this, [this](const QString& path) {
     dropLocalFiles({path}, false);
   });
+  m_statusBarHeight = AndroidUtils::instance()->statusBarHeight();
+  m_navigationBarHeight = AndroidUtils::instance()->navigationBarHeight();
+
+  const MainWindowConfig& mainWindowConfig = MainWindowConfig::instance();
+  const bool isDark = mainWindowConfig.qtQuickStyle().contains(
+      QLatin1String("dark"), Qt::CaseInsensitive);
+  const bool useSystemTheme = mainWindowConfig.qtQuickStyle().contains(
+      QLatin1String("system"), Qt::CaseInsensitive);
+  AndroidUtils::instance()->setSystemBarTheme(isDark, useSystemTheme);
 #endif
 }
 
