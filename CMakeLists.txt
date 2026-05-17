@@ -36,6 +36,7 @@ set(WITH_GSTREAMER OFF CACHE BOOL "force use of GStreamer for Chromaprint decodi
 set(WITH_QAUDIODECODER OFF CACHE BOOL "force use of QAudioDecoder for Chromaprint decoding")
 set(WITH_NO_MANCOMPRESS OFF CACHE BOOL "disable compressed manpages")
 set(WITH_MULTIMEDIA ON CACHE BOOL "build with Qt Multimedia")
+set(WITH_DOC ON CACHE BOOL "build the documentation")
 if(ANDROID)
   set(CMAKE_INSTALL_PREFIX "" CACHE PATH "install path prefix" FORCE)
   set(WITH_ID3LIB OFF CACHE BOOL "build with id3lib")
@@ -552,7 +553,11 @@ if(APPLE AND CMAKE_STRIP)
 endif()
 
 add_subdirectory(src)
-add_subdirectory(doc)
+
+if(WITH_DOC)
+  add_subdirectory(doc)
+endif()
+
 add_subdirectory(translations)
 
 if(ANDROID)
