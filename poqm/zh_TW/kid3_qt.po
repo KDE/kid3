@@ -2410,17 +2410,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "資料"
 
-#: src/core/model/kid3application.cpp:1042
+#: src/core/model/kid3application.cpp:1053
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "儲存資料夾…"
 
-#: src/core/model/kid3application.cpp:1248
+#: src/core/model/kid3application.cpp:1259
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "選擇區"
 
-#: src/core/model/kid3application.cpp:3460
+#: src/core/model/kid3application.cpp:3471
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "所有檔案"
@@ -6886,12 +6886,12 @@ msgctxt "ImportProfilesEditPage|"
 msgid "Server"
 msgstr "伺服器"
 
-#: src/qml/app/Main.qml:92
+#: src/qml/app/Main.qml:94
 msgctxt "Main|"
 msgid "Warning"
 msgstr "警告"
 
-#: src/qml/app/Main.qml:93
+#: src/qml/app/Main.qml:95
 msgctxt "Main|"
 msgid ""
 "The current folder has been modified.\n"
@@ -6900,28 +6900,28 @@ msgstr ""
 "目前資料夾已更動\n"
 "要儲存嗎？"
 
-#: src/qml/app/Main.qml:128 src/qml/app/Main.qml:145 src/qml/app/Main.qml:162
+#: src/qml/app/Main.qml:130 src/qml/app/Main.qml:147 src/qml/app/Main.qml:164
 msgctxt "Main|"
 msgid "File Error"
 msgstr "檔案錯誤"
 
-#: src/qml/app/Main.qml:129
+#: src/qml/app/Main.qml:131
 msgctxt "Main|"
 msgid "Error while writing file:\n"
 msgstr "寫入檔案時發生錯誤：\n"
 
-#: src/qml/app/Main.qml:146
+#: src/qml/app/Main.qml:148
 #, qt-format
 msgctxt "Main|"
 msgid "SD card is only writable in %1"
 msgstr "SD 卡只能在 %1 中写入"
 
-#: src/qml/app/Main.qml:163
+#: src/qml/app/Main.qml:165
 msgctxt "Main|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "寫入檔案錯誤。要自動更正資料夾權限嗎？"
 
-#: src/qml/app/Main.qml:260
+#: src/qml/app/Main.qml:264
 #, qt-format
 msgctxt "Main|"
 msgid "%1 is not writable"

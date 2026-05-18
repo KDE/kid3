@@ -2399,17 +2399,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Gögn"
 
-#: src/core/model/kid3application.cpp:1042
+#: src/core/model/kid3application.cpp:1053
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "Vista möppu..."
 
-#: src/core/model/kid3application.cpp:1248
+#: src/core/model/kid3application.cpp:1259
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Val"
 
-#: src/core/model/kid3application.cpp:3460
+#: src/core/model/kid3application.cpp:3471
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "Allar skrár"
@@ -6829,12 +6829,12 @@ msgctxt "ImportProfilesEditPage|"
 msgid "Server"
 msgstr "Vefþjónn"
 
-#: src/qml/app/Main.qml:92
+#: src/qml/app/Main.qml:94
 msgctxt "Main|"
 msgid "Warning"
 msgstr "Aðvörun"
 
-#: src/qml/app/Main.qml:93
+#: src/qml/app/Main.qml:95
 msgctxt "Main|"
 msgid ""
 "The current folder has been modified.\n"
@@ -6843,28 +6843,28 @@ msgstr ""
 "Núverandi möppu hefur verið breytt.\n"
 "Viltu vista hana ?"
 
-#: src/qml/app/Main.qml:128 src/qml/app/Main.qml:145 src/qml/app/Main.qml:162
+#: src/qml/app/Main.qml:130 src/qml/app/Main.qml:147 src/qml/app/Main.qml:164
 msgctxt "Main|"
 msgid "File Error"
 msgstr "Skráarvilla"
 
-#: src/qml/app/Main.qml:129
+#: src/qml/app/Main.qml:131
 msgctxt "Main|"
 msgid "Error while writing file:\n"
 msgstr "Villa við skrifun skráar:\n"
 
-#: src/qml/app/Main.qml:146
+#: src/qml/app/Main.qml:148
 #, qt-format
 msgctxt "Main|"
 msgid "SD card is only writable in %1"
 msgstr "SD-minniskort er aðeins skrifanlegt í %1"
 
-#: src/qml/app/Main.qml:163
+#: src/qml/app/Main.qml:165
 msgctxt "Main|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "Villa við skrifun skráar. Viltu breyta heimildunum?"
 
-#: src/qml/app/Main.qml:260
+#: src/qml/app/Main.qml:264
 #, qt-format
 msgctxt "Main|"
 msgid "%1 is not writable"

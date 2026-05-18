@@ -2400,17 +2400,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "البيانات"
 
-#: src/core/model/kid3application.cpp:1042
+#: src/core/model/kid3application.cpp:1053
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "يحفظ المجلد…"
 
-#: src/core/model/kid3application.cpp:1248
+#: src/core/model/kid3application.cpp:1259
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "التحديد"
 
-#: src/core/model/kid3application.cpp:3460
+#: src/core/model/kid3application.cpp:3471
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "كلّ الملفّات"
@@ -6842,12 +6842,12 @@ msgctxt "ImportProfilesEditPage|"
 msgid "Server"
 msgstr "الخادم"
 
-#: src/qml/app/Main.qml:92
+#: src/qml/app/Main.qml:94
 msgctxt "Main|"
 msgid "Warning"
 msgstr "تحذير"
 
-#: src/qml/app/Main.qml:93
+#: src/qml/app/Main.qml:95
 msgctxt "Main|"
 msgid ""
 "The current folder has been modified.\n"
@@ -6856,28 +6856,28 @@ msgstr ""
 "لقد عُدّل المجلد الحالي.\n"
 "أتريد حفظه؟"
 
-#: src/qml/app/Main.qml:128 src/qml/app/Main.qml:145 src/qml/app/Main.qml:162
+#: src/qml/app/Main.qml:130 src/qml/app/Main.qml:147 src/qml/app/Main.qml:164
 msgctxt "Main|"
 msgid "File Error"
 msgstr "خطأ ملف"
 
-#: src/qml/app/Main.qml:129
+#: src/qml/app/Main.qml:131
 msgctxt "Main|"
 msgid "Error while writing file:\n"
 msgstr "حدث خطأ أثناء كتابة الملف:\n"
 
-#: src/qml/app/Main.qml:146
+#: src/qml/app/Main.qml:148
 #, qt-format
 msgctxt "Main|"
 msgid "SD card is only writable in %1"
 msgstr "تكون بطاقة SD قابلة للكتابة فقط في %1"
 
-#: src/qml/app/Main.qml:163
+#: src/qml/app/Main.qml:165
 msgctxt "Main|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "حدث خطأ أثناء كتابة الملف. أتريد تغيير الأذونات؟"
 
-#: src/qml/app/Main.qml:260
+#: src/qml/app/Main.qml:264
 #, qt-format
 msgctxt "Main|"
 msgid "%1 is not writable"
