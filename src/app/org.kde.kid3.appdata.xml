@@ -333,6 +333,7 @@
         <p xml:lang="uk">Нове</p>
         <ul>
           <li>Support for Matroska and WebM files.</li>
+          <li xml:lang="ar">دعم ملفات Matroska وWebM.</li>
           <li xml:lang="ca">Implementació de fitxers Matroska i WebM.</li>
           <li xml:lang="ca-valencia">Implementació de fitxers Matroska i WebM.</li>
           <li xml:lang="cs">Podpora souborů ve formátech Matroska a WebM.</li>
@@ -347,6 +348,7 @@
           <li xml:lang="tr">Matroska ve WebM dosyaları desteği</li>
           <li xml:lang="uk">Підтримка файлів Matroska і WebM.</li>
           <li>MP4: Support both QuickTime and Nero Chapters, also with TagLib.</li>
+          <li xml:lang="ar">MP4: ادعم كلاً من QuickTime وفصول Nero، بالإضافة إلى TagLib.</li>
           <li xml:lang="ca">MP4: permet tant capítols QuickTime com Nero, també amb TagLib.</li>
           <li xml:lang="ca-valencia">MP4: permet tant capítols QuickTime com Nero, també amb TagLib.</li>
           <li xml:lang="cs">MP4: Podporuje kapitoly QuickTime i Nero, a to i s TagLib.</li>
@@ -360,6 +362,7 @@
           <li xml:lang="tr">MP4: Hem QuickTime hem de TagLib ile Nero fasılları desteği</li>
           <li xml:lang="uk">MP4: реалізовано підтримку глав QuickTime і Nero, також із TagLib.</li>
           <li>MP4: Support STEM.</li>
+          <li xml:lang="ar">MP4: دعم STEM.</li>
           <li xml:lang="ca">MP4: implementa STEM.</li>
           <li xml:lang="ca-valencia">MP4: implementa STEM.</li>
           <li xml:lang="cs">MP4: Podpora STEM.</li>
@@ -373,6 +376,7 @@
           <li xml:lang="tr">MP4: STEM desteği</li>
           <li xml:lang="uk">MP4: реалізовано підтримку STEM.</li>
           <li>WAV, FLAC: Support iXML and BEXT chunks.</li>
+          <li xml:lang="ar">WAV، FLAC: دعم مقاطع iXML وBEXT.</li>
           <li xml:lang="ca">WAV, FLAC: implementa fragments iXML i BEXT.</li>
           <li xml:lang="ca-valencia">WAV, FLAC: implementa fragments iXML i BEXT.</li>
           <li xml:lang="cs">WAV, FLAC: Podpora segmentů iXML a BEXT.</li>
@@ -386,6 +390,7 @@
           <li xml:lang="tr">WAV, FLAC: iXML ve BEXT parçaları desteği</li>
           <li xml:lang="uk">WAV, FLAC: реалізовано підтримку фрагментів iXML і BEXT.</li>
           <li>Android: Select all/deselect all frames.</li>
+          <li xml:lang="ar">أندرويد: اختر كل الإطارات/ألغِ اختيار كل الإطارات.</li>
           <li xml:lang="ca">Android: selecciona tot/desselecciona tots els marcs.</li>
           <li xml:lang="ca-valencia">Android: selecciona tot/desselecciona tots els marcs.</li>
           <li xml:lang="cs">Android: Vybrat vše/zrušit výběr všech snímků.</li>
@@ -399,6 +404,7 @@
           <li xml:lang="tr">Android: Tüm kareler artık seçilip seçimleri kaldırılabiliyor.</li>
           <li xml:lang="uk">Android: реалізовано підтримку позначення усіх і зняття позначення з усіх фреймів.</li>
           <li>Android: Import/Export of chapters and synchronized lyrics as LRC files.</li>
+          <li xml:lang="ar">أندرويد: استيراد/تصدير الفصول والكلمات المتزامنة كملفات LRC.</li>
           <li xml:lang="ca">Android: importa/exporta capítols i lletres sincronitzades com a fitxers LRC.</li>
           <li xml:lang="ca-valencia">Android: importa/exporta capítols i lletres sincronitzades com a fitxers LRC.</li>
           <li xml:lang="cs">Android: Import/export kapitol a synchronizovaných textů písní ve formátu LRC.</li>
@@ -431,6 +437,7 @@
         <p xml:lang="uk">Удосконалення</p>
         <ul>
           <li>Improved save performance.</li>
+          <li xml:lang="ar">تحسين أداء الحفظ.</li>
           <li xml:lang="ca">Ha millorat el rendiment en desar.</li>
           <li xml:lang="ca-valencia">Ha millorat el rendiment en guardar.</li>
           <li xml:lang="cs">Zlepšený výkon při ukládání.</li>
@@ -444,6 +451,7 @@
           <li xml:lang="tr">İyileştirilmiş kaydetme başarımı</li>
           <li xml:lang="uk">Удосконалено швидкодію програми при збереженні.</li>
           <li>macOS: Consistent icon set with dark mode.</li>
+          <li xml:lang="ar">ماك أو إس: مجموعة أيقونات متناسقة مع الوضع الداكن.</li>
           <li xml:lang="ca">macOS: joc d'icones coherents amb el mode fosc.</li>
           <li xml:lang="ca-valencia">macOS: joc d'icones coherents amb el mode fosc.</li>
           <li xml:lang="cs">macOS: Sada ikon přizpůsobená tmavému režimu.</li>
@@ -457,6 +465,7 @@
           <li xml:lang="tr">macOS: Koyu kip ile uyumlu simge kümesi</li>
           <li xml:lang="uk">macOS: сумісний з темним режимом набір піктограм.</li>
           <li>Export CSV, JSON: Only export selected folders.</li>
+          <li xml:lang="ar">تصدير CSV، JSON: تصدير المجلدات المحددة فقط.</li>
           <li xml:lang="ca">Exportació a CSV, JSON: només exporta les carpetes seleccionades.</li>
           <li xml:lang="ca-valencia">Exporteu cap a CSV, JSON: exporta només les carpetes seleccionades.</li>
           <li xml:lang="cs">Export do CSV, JSON: Exportovat pouze vybrané složky.</li>
@@ -490,6 +499,7 @@
         <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>Fix Discogs import.</li>
+          <li xml:lang="ar">إصلاح استيراد ديسكوجز.</li>
           <li xml:lang="ca">Corregeix la importació de Discogs.</li>
           <li xml:lang="ca-valencia">Corregix la importació de Discogs.</li>
           <li xml:lang="cs">Opraven import z Discogs.</li>
@@ -504,6 +514,7 @@
           <li xml:lang="tr">Discogs içe aktarma desteği onarıldı.</li>
           <li xml:lang="uk">Виправлено імпортування Discogs.</li>
           <li>Consider the configured language for the handbook.</li>
+          <li xml:lang="ar">ضع في اعتبارك اللغة المضبوطة للدليل.</li>
           <li xml:lang="ca">Té en compte l'idioma configurat al manual.</li>
           <li xml:lang="ca-valencia">Té en compte l'idioma configurat al manual.</li>
           <li xml:lang="cs">Zohledněn jazyk, ve kterém je příručka nastavena.</li>
@@ -517,6 +528,7 @@
           <li xml:lang="tr">El kitabı için yapılandırılmış dil dikkate alınıyor.</li>
           <li xml:lang="uk">Використання налаштованої мови інтерфейсу для підручника.</li>
           <li>Fix: Import of LRC files (synchronized lyrics, chapters) with hour values.</li>
+          <li xml:lang="ar">إصلاح: استيراد ملفات LRC (كلمات متزامنة، فصول) مع قيم الساعات.</li>
           <li xml:lang="ca">Correcció: importació de fitxers LRC (lletres sincronitzades, capítols) amb valors d'hora.</li>
           <li xml:lang="ca-valencia">Correcció: importació de fitxers LRC (lletres sincronitzades, capítols) amb valors prompte.</li>
           <li xml:lang="cs">Oprava: Import souborů LRC (synchronizované texty písní, kapitoly) s časovými hodnotami.</li>
@@ -530,6 +542,7 @@
           <li xml:lang="tr">Düzeltme: Saat değerleriyle birlikte (şarkı sözleri, fasıllar) LRC dosyalarını içe aktarma onarıldı.</li>
           <li xml:lang="uk">Виправлення: імпортування файлів LRC (синхронізовані тексти, глави) зі значеннями для годин.</li>
           <li>Fix broken file list behavior when renaming many files and the list is sorted in descending order.</li>
+          <li xml:lang="ar">إصلاح سلوك قائمة الملفات المعطوب عند إعادة تسمية ملفات كثيرة والقائمة مرتبة ترتيبًا تنازليًا.</li>
           <li xml:lang="ca">Corregeix el comportament incorrecte de la llista de fitxers quan es canvien els noms de molts fitxers i la llista està ordenada en ordre descendent.</li>
           <li xml:lang="ca-valencia">Corregix el comportament incorrecte de la llista de fitxers quan es canvien els noms de molts fitxers i la llista està ordenada en ordre descendent.</li>
           <li xml:lang="cs">Opraveno nesprávné chování seznamu souborů při přejmenovávání většího počtu souborů, pokud je seznam seřazen sestupně.</li>
@@ -543,6 +556,7 @@
           <li xml:lang="tr">Liste azalan sırada sıralandığında ve birden çok dosya yeniden adlandırılırken dosya listesi davranışı onarıldı.</li>
           <li xml:lang="uk">Виправлено помилкову поведінку при обробці списків файлів при перейменуванні багатьох файлів і упорядковуванні списку за спаданням.</li>
           <li>Fix progress reporting when files are saved.</li>
+          <li xml:lang="ar">تصحيح الإبلاغ عن التقدّم عند حفظ الملفات.</li>
           <li xml:lang="ca">Corregeix la informació de progrés en desar els fitxers.</li>
           <li xml:lang="ca-valencia">Corregix la informació de progrés en guardar els fitxers.</li>
           <li xml:lang="cs">Opraveno hlášení o průběhu při ukládání souborů.</li>
@@ -556,6 +570,7 @@
           <li xml:lang="tr">Dosyalar kaydedildiğinde ilerleme bildirimi artık düzgün çalışıyor.</li>
           <li xml:lang="uk">Виправлено звітування щодо поступу при збереженні файлів.</li>
           <li>ID3v2: Support values with multiple strings in TXXX frames.</li>
+          <li xml:lang="ar">ID3v2: دعم القيم ذات السلاسل المتعددة في إطارات TXXX.</li>
           <li xml:lang="ca">ID3v2: permet valors amb diverses cadenes en els marcs TXXX.</li>
           <li xml:lang="ca-valencia">ID3v2: permet valors amb diverses cadenes en els marcs TXXX.</li>
           <li xml:lang="cs">ID3v2: Podpora hodnot s více řetězci v rámcích TXXX.</li>
@@ -569,6 +584,7 @@
           <li xml:lang="tr">ID3v2: TXXX karelerinde birden çok dizi içeren değerler destekleniyor.</li>
           <li xml:lang="uk">ID3v2: реалізовано підтримку значень із декількома рядками у фреймах TXXX.</li>
           <li>Windows: Support MP4 64-bit atoms on Windows.</li>
+          <li xml:lang="ar">ويندوز: دعم ذرات MP4 64-بت على ويندوز.</li>
           <li xml:lang="ca">Windows: permet àtoms de 64 bits de MP4 al Windows.</li>
           <li xml:lang="ca-valencia">Windows: permet àtoms de 64 bits de MP4 a Windows.</li>
           <li xml:lang="cs">Windows: Podpora 64bitových atomů MP4 ve Windows.</li>
