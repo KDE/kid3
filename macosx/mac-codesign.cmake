@@ -23,6 +23,17 @@ if(NOT DEFINED ENV{SIGNING_IDENTITY})
     if(NOT (${_result} EQUAL 0))
       message(WARNING "signmacapp.py ${_pathToBundle} failed with ${_result}")
     endif()
+    return()
+  endif()
+
+  message(WARNING "Signing ${_bundleName} with ad-hoc signature")
+  execute_process(
+    COMMAND codesign --deep --force --sign - ${_pathToBundle}
+    WORKING_DIRECTORY "$ENV{CI_PROJECT_DIR}"
+    RESULT_VARIABLE _result
+  )
+  if(NOT (${_result} EQUAL 0))
+    message(WARNING "codesign failed with ${_result}")
   endif()
 
   return()
