@@ -87,6 +87,14 @@ public:
    */
   virtual void sync() = 0;
 
+  /**
+   * Migrate settings from com.kid3.Kid3 to org.kde.kid3 on macOS.
+   * Qt 6 on macOS changed the QSettings path when no organizationDomain
+   * was set. Call this once after setting the organizationDomain, before
+   * reading any settings.
+   */
+  static void migrateComKid3Kid3ToOrgKdeKid3Settings();
+
 protected:
   /**
    * Migrate from an old settings version.

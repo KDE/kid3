@@ -57,9 +57,7 @@ ISettings* CorePlatformTools::applicationSettings()
   if (!m_config) {
     if (QByteArray configPath = qgetenv("KID3_CONFIG_FILE");
         configPath.isNull()) {
-      m_settings = new QSettings(
-            QSettings::UserScope, QLatin1String("Kid3"),
-            QLatin1String("Kid3"), qApp);
+      m_settings = new QSettings(qApp);
     } else {
       m_settings = new QSettings(
             QFile::decodeName(configPath), QSettings::IniFormat, qApp);

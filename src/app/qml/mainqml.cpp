@@ -41,6 +41,7 @@
 #include "config.h"
 #include "loadtranslation.h"
 #include "kid3application.h"
+#include "isettings.h"
 
 namespace {
 
@@ -130,6 +131,9 @@ int main(int argc, char* argv[])
 #endif
 
   QCoreApplication::setApplicationName(QLatin1String("Kid3"));
+  QCoreApplication::setOrganizationName(QLatin1String("Kid3"));
+  QCoreApplication::setOrganizationDomain(QLatin1String("kde.org"));
+  ISettings::migrateComKid3Kid3ToOrgKdeKid3Settings();
 #if QT_VERSION < 0x060000
   QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
@@ -137,11 +141,9 @@ int main(int argc, char* argv[])
   // The QtQuickStyle setting has to be read bypassing the regular
   // configuration object because the style environment variable
   // must be set before the QGuiApplication is created.
-  auto style = QSettings(QSettings::UserScope, QLatin1String("Kid3"),
-                         QLatin1String("Kid3"))
+  auto style = QSettings()
       .value(QLatin1String("MainWindow/QtQuickStyle")).toByteArray();
-  auto configuredLanguage = QSettings(
-        QSettings::UserScope, QLatin1String("Kid3"), QLatin1String("Kid3"))
+  auto configuredLanguage = QSettings()
       .value(QLatin1String("MainWindow/Language")).toString();
   if (style.isEmpty()) {
 #ifdef Q_OS_ANDROID

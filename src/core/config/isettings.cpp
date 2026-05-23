@@ -27,6 +27,34 @@
 #include "isettings.h"
 #include <QVariant>
 #include <QStringList>
+#if defined Q_OS_MAC && QT_VERSION >= 0x060000
+#include <QSettings>
+#endif
+
+/**
+ * Migrate settings from com.kid3.Kid3 to org.kde.kid3 on macOS.
+ * Qt 6 on macOS changed the QSettings path when no organizationDomain
+ * was set. Call this once after setting the organizationDomain, before
+ * reading any settings.
+ */
+void ISettings::migrateComKid3Kid3ToOrgKdeKid3Settings()
+{
+#if defined Q_OS_MAC && QT_VERSION >= 0x060000
+  const QSettings oldSettings(QSettings::UserScope,
+                              QLatin1String("Kid3"), QLatin1String("Kid3"));
+  const int oldConfigVersion = oldSettings.value("ConfigStore/ConfigVersion").toInt();
+  if (oldConfigVersion > 0) {
+    QSettings newSettings;
+    const int newConfigVersion = newSettings.value("ConfigStore/ConfigVersion").toInt();
+    if (newConfigVersion < oldConfigVersion) {
+      const QStringList keys = oldSettings.allKeys();
+      for (const QString& key : keys) {
+        newSettings.setValue(key, oldSettings.value(key));
+      }
+    }
+  }
+#endif
+}
 
 /**
  * Destructor.

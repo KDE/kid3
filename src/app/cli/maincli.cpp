@@ -34,6 +34,7 @@
 #include "standardiohandler.h"
 #include "coreplatformtools.h"
 #include "kid3application.h"
+#include "isettings.h"
 
 #if defined Q_OS_WIN32 && defined Q_CC_MINGW
 // Disable command line globbing to avoid crash in QCoreApplication::arguments()
@@ -53,6 +54,9 @@ int main(int argc, char* argv[])
 {
   QCoreApplication app(argc, argv);
   QCoreApplication::setApplicationName(QLatin1String("Kid3"));
+  QCoreApplication::setOrganizationName(QLatin1String("Kid3"));
+  QCoreApplication::setOrganizationDomain(QLatin1String("kde.org"));
+  ISettings::migrateComKid3Kid3ToOrgKdeKid3Settings();
 
 #ifdef Q_OS_MAC
   QDir dir(QCoreApplication::applicationDirPath());
@@ -73,8 +77,7 @@ int main(int argc, char* argv[])
   // the application is created.
   QByteArray configPath = qgetenv("KID3_CONFIG_FILE");
   auto configuredLanguage = configPath.isNull()
-      ? QSettings(QSettings::UserScope, QLatin1String("Kid3"),
-                  QLatin1String("Kid3"))
+      ? QSettings()
         .value(QLatin1String("MainWindow/Language")).toString()
       : QSettings(QFile::decodeName(configPath), QSettings::IniFormat)
         .value(QLatin1String("MainWindow/Language")).toString();

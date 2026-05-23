@@ -37,6 +37,7 @@
 #include "platformtools.h"
 #include "kid3application.h"
 #include "kid3qtapplication.h"
+#include "isettings.h"
 
 /**
  * Main program.
@@ -60,6 +61,9 @@ int main(int argc, char* argv[])
 #endif
   Kid3QtApplication app(argc, argv);
   QCoreApplication::setApplicationName(QLatin1String("Kid3"));
+  QCoreApplication::setOrganizationName(QLatin1String("Kid3"));
+  QCoreApplication::setOrganizationDomain(QLatin1String("kde.org"));
+  ISettings::migrateComKid3Kid3ToOrgKdeKid3Settings();
 
 #if defined Q_OS_LINUX && QT_VERSION >= 0x050700
   app.setDesktopFileName(QLatin1String("org.kde.kid3-qt"));
@@ -84,8 +88,7 @@ int main(int argc, char* argv[])
   // the application is created.
   QByteArray configPath = qgetenv("KID3_CONFIG_FILE");
   auto configuredLanguage = configPath.isNull()
-      ? QSettings(QSettings::UserScope, QLatin1String("Kid3"),
-                  QLatin1String("Kid3"))
+      ? QSettings()
         .value(QLatin1String("MainWindow/Language")).toString()
       : QSettings(QFile::decodeName(configPath), QSettings::IniFormat)
         .value(QLatin1String("MainWindow/Language")).toString();
