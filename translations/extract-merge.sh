@@ -10,25 +10,14 @@ BUGADDR="https://bugs.kde.org" # MSGID-Bugs
 WDIR=`pwd` # working dir
 
 # Use extract-merge.sh if found in the path, its from
-# svn://anonsvn.kde.org/home/kde/trunk/l10n-kf5/scripts
-if test -f po/${PROJECT}_qt.pot; then
-  echo "NOTE: Keeping po/${PROJECT}_qt.pot, delete it to extract messages"
+# git@invent.kde.org:sysadmin/l10n-scripty.git
+if test -f poqm/${PROJECT}_qt.pot; then
+  echo "NOTE: Keeping poqm/${PROJECT}_qt.pot, delete it to extract messages"
 elif hash extract-messages.sh 2>/dev/null; then
-  echo "Using extract-messages.sh from l10n-kf5/scripts"
-  cd ..
-  mkdir -p po enpo
-  extract-messages.sh
-  cd -
-  mkdir -p po
-  mv ../po/* po
-  if test -f ../enpo/kid3_qt.po; then
-    mkdir -p po/en
-    mv ../enpo/kid3_qt.po po/en/
-  fi
-  rmdir ../po ../enpo
+  echo "Using extract-messages.sh from l10n-scripty"
+  mkdir -p poqm/en
+  podir=poqm enpodir=poqm/en extract-messages.sh
 else
-  echo "extract-messages.sh not found in path, falling back to custom extraction"
-
   echo "Preparing rc files"
   cd ${BASEDIR}
   # we use simple sorting to make sure the lines do not jump around too much from system to system
@@ -43,7 +32,7 @@ else
   find . -name '*.cpp' -o -name '*.h' -o -name '*.c' -o -name '*.hpp' -o -name '*.qml' | sort > ${WDIR}/infiles.list
   echo "rc.cpp" >> ${WDIR}/infiles.list
   cd ${WDIR}
-  mkdir -p po
+  mkdir -p poqm
   xgettext --from-code=UTF-8 -C --qt -ci18n -ktr:1,1t -ktr:1,2c,2t -ktr:1,1,2c,3t \
     -kQT_TRANSLATE_NOOP:1,1t -kQT_TRANSLATE_NOOP:2,2t \
     -kqsTr:1,1t -kqsTr:1,2c,2t -kqsTr:1,1,2c,3t \
@@ -51,7 +40,7 @@ else
     --msgid-bugs-address="${BUGADDR}" \
     --package-name="${PROJECT^}" \
     --package-version="${PROJECTVERSION}" \
-    --files-from=infiles.list -D ${BASEDIR} -D ${WDIR} -o po/${PROJECT}_qt.pot || { echo "error while calling xgettext. aborting."; exit 1; }
+    --files-from=infiles.list -D ${BASEDIR} -D ${WDIR} -o poqm/${PROJECT}_qt.pot || { echo "error while calling xgettext. aborting."; exit 1; }
   echo "Done extracting messages"
   rm rcfiles.list
   rm infiles.list
@@ -59,11 +48,11 @@ else
 fi
 
 echo "Merging translations"
-CATALOGS=`find po -name '*.po'`
+CATALOGS=`find poqm -name '*.po'`
 for CAT in $CATALOGS; do
-  if test "$CAT" != "po/en/kid3_qt.po"; then
+  if test "$CAT" != "poqm/en/kid3_qt.po"; then
     echo $CAT
-    msgmerge --quiet --update --backup=none $CAT po/${PROJECT}_qt.pot
+    msgmerge --quiet --update --backup=none $CAT poqm/${PROJECT}_qt.pot
   fi
 done
 echo "Done"
