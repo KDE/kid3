@@ -324,6 +324,7 @@
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
         <p xml:lang="it">Nuovi</p>
+        <p xml:lang="ko">새로운 기능</p>
         <p xml:lang="nl">Nieuw</p>
         <p xml:lang="pt-BR">Novo</p>
         <p xml:lang="ru">Новшества</p>
@@ -341,6 +342,7 @@
           <li xml:lang="fr">Prise en charge des fichiers « Matroska » et « WebM ».</li>
           <li xml:lang="is">Bætt við stuðningi við Matroska og WebM-skrár.</li>
           <li xml:lang="it">Supporto per file Matroska e WebM.</li>
+          <li xml:lang="ko">Matroska와 WebM 파일을 지원합니다.</li>
           <li xml:lang="nl">Ondersteuning voor Matroska en WebM bestanden.</li>
           <li xml:lang="pt-BR">Suporte para arquivos Matroska e WebM.</li>
           <li xml:lang="sk">Podpora súborov Matroska a WebM.</li>
@@ -355,6 +357,7 @@
           <li xml:lang="es">MP4: Compatibilidad con capítulos de QuickTime y Nero, y con TagLib.</li>
           <li xml:lang="fr">MP4 : prise en charge à la fois les chapitres  »« QuickTime » et « Nero, également avec TagLib.</li>
           <li xml:lang="it">MP4: supporta sia QuickTime che Nero Chapters, oltre a TagLib.</li>
+          <li xml:lang="ko">MP4: QuickTime과 Nero 챕터를 지원하며, TagLib를 사용합니다.</li>
           <li xml:lang="nl">MP4: Ondersteuning voor zowel QuickTime als Nero hoofdstukken, ook met TagLib.</li>
           <li xml:lang="pt-BR">MP4: Suporte ao QuickTime e Nero Chapters, inclusive com TagLib.</li>
           <li xml:lang="sk">MP4: Podpora kapitol QuickTime aj Nero, aj s TagLib.</li>
@@ -369,6 +372,7 @@
           <li xml:lang="es">MP4: Compatibilidad con STEM.</li>
           <li xml:lang="fr">MP4 : prise en charge de STEM.</li>
           <li xml:lang="it">MP4: supporto STEM.</li>
+          <li xml:lang="ko">MP4: STEM을 지원합니다.</li>
           <li xml:lang="nl">MP4: ondersteunt STEM.</li>
           <li xml:lang="pt-BR">MP4: Suporte ao STEM.</li>
           <li xml:lang="sk">MP4: Podpora STEM.</li>
@@ -775,6 +779,7 @@
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
         <p xml:lang="it">Nuovi</p>
+        <p xml:lang="ko">새로운 기능</p>
         <p xml:lang="nl">Nieuw</p>
         <p xml:lang="pt-BR">Novo</p>
         <p xml:lang="ru">Новшества</p>
@@ -1002,6 +1007,7 @@
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
         <p xml:lang="it">Nuovi</p>
+        <p xml:lang="ko">새로운 기능</p>
         <p xml:lang="nl">Nieuw</p>
         <p xml:lang="pt-BR">Novo</p>
         <p xml:lang="ru">Новшества</p>
@@ -1199,6 +1205,7 @@
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
         <p xml:lang="it">Nuovi</p>
+        <p xml:lang="ko">새로운 기능</p>
         <p xml:lang="nl">Nieuw</p>
         <p xml:lang="pt-BR">Novo</p>
         <p xml:lang="ru">Новшества</p>
