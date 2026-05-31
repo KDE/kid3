@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Poedit 3.5\n"
+"X-Generator: Poedit 3.9\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -1081,7 +1081,7 @@ msgstr "&დახმარება"
 #: src/app/qt/configdialog.cpp:165
 msgctxt "ConfigDialog|"
 msgid "Restore Defaults"
-msgstr "&ნაგულისხმევი პარამეტრების აღდგენა"
+msgstr "ნაგულისხმევების აღდგენა"
 
 #: src/app/qt/configdialog.cpp:166
 msgctxt "ConfigDialog|"
@@ -1723,7 +1723,7 @@ msgstr "ყველა პირველი სიმბოლო მაღა
 #: src/core/config/formatconfig.cpp:520
 msgctxt "FormatConfig|"
 msgid "None"
-msgstr "არაფერი"
+msgstr "არცერთი"
 
 #: src/core/config/starratingmappingsmodel.cpp:129
 msgctxt "StarRatingMappingsModel|"
@@ -2489,7 +2489,7 @@ msgstr "ფაილის სახელი"
 #: src/core/model/trackdatamodel.cpp:188
 msgctxt "TrackDataModel|"
 msgid "Duration"
-msgstr "ხანგრძლოვობა"
+msgstr "ხანგრძლივობა"
 
 #: src/core/model/trackdatamodel.cpp:190
 msgctxt "TrackDataModel|"
@@ -2620,49 +2620,34 @@ msgid "Seller"
 msgstr "გამყიდველი"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "შემცველობის ტიპი"
+msgstr "სამიზნის ტიპი"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "&ნაგულისხმევი პარამეტრების აღდგენა"
+msgstr "ნაგულისხმევი"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "ტრეკი"
+msgstr "ტრეკის ID"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "ჩასწორება"
+msgstr "გამოცემის ID"
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "თავი"
+msgstr "თავის ID"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "მიმაგრებული ფაილის ID"
 
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"
@@ -2717,46 +2702,34 @@ msgid "Trivia/pop up"
 msgstr "საინტერესო ფაქტები"
 
 #: src/core/tags/frame.cpp:110
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
-msgstr "არაფერი"
+msgstr "არცერთი"
 
 #: src/core/tags/frame.cpp:111
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "გადაღება"
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "ტრეკების დანომრვა"
+msgstr "ქვეტრეკი"
 
 #: src/core/tags/frame.cpp:114
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "ნაწილი"
 
 #: src/core/tags/frame.cpp:116
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "ჩასწორება"
+msgstr "გამოცემა"
 
 #: src/core/tags/frame.cpp:117
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "მონიშნული"
+msgstr "კოლექცია"
 
 #: src/core/tags/frame.cpp:142
 msgctxt "@default|"
@@ -3337,38 +3310,29 @@ msgid "Volume"
 msgstr "ხმის სიმაღლე"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "საქაღალდის სახელი"
+msgstr "რეჟისორი"
 
 #: src/core/tags/frame.cpp:303
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
-msgstr "ხანგრძლოვობა"
+msgstr "ხანგრძლივობა"
 
 #: src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "შეჯამება"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "დასკვნა"
 
 #: src/core/tags/frame.cpp:306
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "სულ ტრეკები"
+msgstr "სულ ნაწილები"
 
 #: src/core/tags/frame.cpp:309
 msgctxt "@default|"
@@ -3521,20 +3485,14 @@ msgid "Chapters"
 msgstr "თავები"
 
 #: src/core/tags/frame.cpp:351
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (Nero)"
-msgstr "თავები"
+msgstr "თავები (Nero)"
 
 #: src/core/tags/frame.cpp:352
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (QT)"
-msgstr "თავები"
+msgstr "თავები (QT)"
 
 #: src/core/tags/frame.cpp:353
 msgctxt "@default|"
@@ -4081,27 +4039,27 @@ msgstr "ID3v2"
 #: src/gui/dialogs/configdialogpages.cpp:199
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
-msgstr ""
+msgstr "&ტრეკის/ტრეკების ჯამური რაოდენობის ფორმატის გამოყენება"
 
 #: src/gui/dialogs/configdialogpages.cpp:202
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
-msgstr ""
+msgstr "ციფრების რაო&დენობა ტრეკის სახელში:"
 
 #: src/gui/dialogs/configdialogpages.cpp:206
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
-msgstr ""
+msgstr "&ჟანრი, როგორც ტექსტი რიცხვითი სტრიქონის ნაცვლად"
 
 #: src/gui/dialogs/configdialogpages.cpp:208
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
-msgstr ""
+msgstr "&WAV ფაილების, რომლის id3 ფრაგმენტი პატარა ასოებითაა"
 
 #: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
-msgstr ""
+msgstr "სტანდარტული დარღვევების მონი&შვნა"
 
 #: src/gui/dialogs/configdialogpages.cpp:229
 msgctxt "ConfigDialogPages|"
@@ -4136,30 +4094,27 @@ msgstr "&სურათის ველის სახელი:"
 #: src/gui/dialogs/configdialogpages.cpp:275
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
-msgstr ""
+msgstr "Matroska"
 
 #: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
-msgstr ""
+msgstr "&ჩაწერის რეჟიმი:"
 
 #: src/gui/dialogs/configdialogpages.cpp:278
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Computer"
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
-msgstr "კომპიუტერი"
+msgstr "კომპაქტური"
 
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
-msgstr ""
+msgstr "არ შემცირდეს"
 
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
-msgstr ""
+msgstr "ჩასმის თავიდან აცილება"
 
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
@@ -4169,7 +4124,7 @@ msgstr "სურათი"
 #: src/gui/dialogs/configdialogpages.cpp:295
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
-msgstr ""
+msgstr "დანიშვ&ნა, თუ ის დიდია, ვიდრე (ბაიტებში):"
 
 #: src/gui/dialogs/configdialogpages.cpp:308
 msgctxt "ConfigDialogPages|"
@@ -4179,22 +4134,22 @@ msgstr "&მხოლოდ ხელით მითითებული ჟ�
 #: src/gui/dialogs/configdialogpages.cpp:316
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
-msgstr ""
+msgstr "მომხმარებლის &ჟანრები"
 
 #: src/gui/dialogs/configdialogpages.cpp:328
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
-msgstr ""
+msgstr "მომხმა&რებლის კადრები"
 
 #: src/gui/dialogs/configdialogpages.cpp:343
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
-msgstr ""
+msgstr "ელემენტების გადასალაგებლად გამოიყენეთ გადათრევა და დაგდება"
 
 #: src/gui/dialogs/configdialogpages.cpp:346
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
-msgstr ""
+msgstr "სწრაფი წვდომის კად&რები"
 
 #: src/gui/dialogs/configdialogpages.cpp:353
 msgctxt "ConfigDialogPages|"
@@ -4204,7 +4159,7 @@ msgstr "RIFF INFO"
 #: src/gui/dialogs/configdialogpages.cpp:354
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
-msgstr ""
+msgstr "ტრეკის ნო&მრის ველის სახელი:"
 
 #: src/gui/dialogs/configdialogpages.cpp:371
 msgctxt "ConfigDialogPages|"
@@ -4269,7 +4224,7 @@ msgstr "ყდის &ფაილის სახელი:"
 #: src/gui/dialogs/configdialogpages.cpp:426
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
-msgstr ""
+msgstr "ტექსტის კოდირ&ება (გატანისას, დასაკრავი სიის):"
 
 #: src/gui/dialogs/configdialogpages.cpp:431
 msgctxt "ConfigDialogPages|"
@@ -4360,7 +4315,7 @@ msgstr "&აირჩიეთ დასაკრავი ფაილი"
 #: src/gui/dialogs/configdialogpages.cpp:569
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
-msgstr ""
+msgstr "ა&უდიოს გამოტანა:"
 
 #: src/gui/dialogs/configdialogpages.cpp:571
 msgctxt "ConfigDialogPages|"
@@ -4769,7 +4724,7 @@ msgstr "&დანიშნულება:"
 #: src/gui/dialogs/numbertracksdialog.cpp:83
 msgctxt "NumberTracksDialog|"
 msgid "&Reset counter for each folder"
-msgstr ""
+msgstr "მთვლელის ჩამოყ&რა თითოეული საქაღალდისთვის"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:89
 msgctxt "NumberTracksDialog|"
@@ -4859,7 +4814,7 @@ msgstr "&ფორმატი:"
 #: src/gui/dialogs/playlistdialog.cpp:171
 msgctxt "PlaylistDialog|"
 msgid "Incl&ude only the selected files"
-msgstr ""
+msgstr "მხოლოდ, მონიშნ&ული ფაილების ჩასმა"
 
 #: src/gui/dialogs/playlistdialog.cpp:172
 msgctxt "PlaylistDialog|"
@@ -4874,22 +4829,22 @@ msgstr "&ჭდის ველით დალაგება"
 #: src/gui/dialogs/playlistdialog.cpp:191
 msgctxt "PlaylistDialog|"
 msgid "Use &relative path for files in playlist"
-msgstr ""
+msgstr "შედა&რებითი ბილიკის გამოყენება დასაკრავ სიაში არსებული ფაილებისთვის"
 
 #: src/gui/dialogs/playlistdialog.cpp:193
 msgctxt "PlaylistDialog|"
 msgid "Use full p&ath for files in playlist"
-msgstr ""
+msgstr "სრული ბილიკის გამოყენებ&ა დასაკრავ სიაში არსებული ფაილებისთვის"
 
 #: src/gui/dialogs/playlistdialog.cpp:194
 msgctxt "PlaylistDialog|"
 msgid "Write only &list of files"
-msgstr ""
+msgstr "მხო&ლოდ ფაილების სიის ჩაწერა"
 
 #: src/gui/dialogs/playlistdialog.cpp:196
 msgctxt "PlaylistDialog|"
 msgid "Write &info using"
-msgstr ""
+msgstr "&ინფორმაციის ჩაწერა პროგრამით"
 
 #: src/gui/dialogs/playlistdialog.cpp:207
 msgctxt "PlaylistDialog|"
@@ -4932,6 +4887,8 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"დასაკრავი სია შეიცვალა.\n"
+"გნებავთ მისი შენახვა?"
 
 #: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:100
 msgctxt "RenDirDialog|"
@@ -5233,7 +5190,7 @@ msgstr "ფაილის შეცდომა"
 #: src/gui/forms/basemainwindow.cpp:413
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
-msgstr ""
+msgstr "შეცდომა ფაილის ჩაწერისას. გნებავთ წვდომების შეცვლა?"
 
 #: src/gui/forms/basemainwindow.cpp:466
 msgctxt "BaseMainWindowImpl|"
@@ -5241,6 +5198,8 @@ msgid ""
 "The current folder has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"მიმდინარე საქაღალდე შეიცვალა.\n"
+"გნებავთ მისი შენახვა?"
 
 #: src/gui/forms/basemainwindow.cpp:468 src/gui/forms/basemainwindow.cpp:507
 msgctxt "BaseMainWindowImpl|"
@@ -5253,6 +5212,8 @@ msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"დასაკრავი სია შეიცვალა.\n"
+"გნებავთ მისი შენახვა?"
 
 #: src/gui/forms/basemainwindow.cpp:615
 msgctxt "BaseMainWindowImpl|"
@@ -5758,7 +5719,7 @@ msgstr "ყველაფრის &მონიშვნა"
 #: src/gui/widgets/frametable.cpp:162
 msgctxt "FrameTable|"
 msgid "&Deselect all"
-msgstr "&მონიშვნის მოხსნა"
+msgstr "&მონიშვნის მოხსნა ყველაფერზე"
 
 #: src/gui/widgets/imageviewer.cpp:49
 msgctxt "ImageViewer|"
@@ -5787,6 +5748,9 @@ msgid ""
 "artwork\n"
 "here"
 msgstr ""
+"გადმოათრიეთ\n"
+"ალბომის სურათები\n"
+"აქ"
 
 #: src/gui/widgets/playtoolbar.cpp:103
 msgctxt "PlayToolBar|"
@@ -5957,7 +5921,7 @@ msgstr "გასუ&ფთავება"
 #: src/gui/widgets/timeeventeditor.cpp:475
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
-msgstr "&ნაცვლების დამატება..."
+msgstr "&წანაცვლების დამატება..."
 
 #: src/gui/widgets/timeeventeditor.cpp:477
 msgctxt "TimeEventEditor|"
@@ -6058,30 +6022,30 @@ msgstr "EQUA - ეკვალიზაცია"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:469
 msgctxt "@default|"
 msgid "ETCO - Event timing codes"
-msgstr ""
+msgstr "ETCO - მოვლენის დროის კოდები"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:916
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:470
 msgctxt "@default|"
 msgid "GEOB - General encapsulated object"
-msgstr ""
+msgstr "GEOB - ზოგადი ინკაფსულირებული ობიექტი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:917
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:471
 msgctxt "@default|"
 msgid "GRID - Group identification registration"
-msgstr ""
+msgstr "GRID - ჯგუფის იდენტიფიკაციის რეგისტრაცია"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:918
 msgctxt "@default|"
 msgid "IPLS - Involved people list"
-msgstr ""
+msgstr "IPLS - ჩართული ადამიანების სია"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:919
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:475
 msgctxt "@default|"
 msgid "LINK - Linked information"
-msgstr ""
+msgstr "LINK - დაკავშირებული ინფორმაცია"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:920
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:476
@@ -6093,7 +6057,7 @@ msgstr "MCDI - მუსიკალური CD-ის იდენტიფი
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:477
 msgctxt "@default|"
 msgid "MLLT - MPEG location lookup table"
-msgstr ""
+msgstr "MLLT - MPEG მდებარეობის საძიებო ცხრილი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:922
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:482
@@ -6123,48 +6087,48 @@ msgstr "POPM - პოპულარობის მზომი"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:489
 msgctxt "@default|"
 msgid "POSS - Position synchronisation frame"
-msgstr ""
+msgstr "POSS - პოზიციის სინქრონიზაციის კადრი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:927
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:490
 msgctxt "@default|"
 msgid "RBUF - Recommended buffer size"
-msgstr ""
+msgstr "RBUF - რეკომენდებული ბუფერის ზომა"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:929
 msgctxt "@default|"
 msgid "RVAD - Relative volume adjustment"
-msgstr ""
+msgstr "RVAD - ფარდობითი ხმის რეგულირება"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:930
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:492
 msgctxt "@default|"
 msgid "RVRB - Reverb"
-msgstr ""
+msgstr "RVRB - რევერბერაცია"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:933
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:495
 msgctxt "@default|"
 msgid "SYLT - Synchronized lyric/text"
-msgstr ""
+msgstr "SYLT - სინქრონიზებული ლირიკა/ტექსტი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:934
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:496
 msgctxt "@default|"
 msgid "SYTC - Synchronized tempo codes"
-msgstr ""
+msgstr "SYTC - სინქრონიზებული ტემპის კოდები"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:935
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:497
 msgctxt "@default|"
 msgid "TALB - Album/Movie/Show title"
-msgstr ""
+msgstr "TALB - ალბომის/ფილმის/შოუს დასახელება"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:936
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:498
 msgctxt "@default|"
 msgid "TBPM - BPM (beats per minute)"
-msgstr ""
+msgstr "TBPM - BPM (დარტყმა წუთში)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:937
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:503
@@ -6228,13 +6192,13 @@ msgstr "TIT1 - შემცველობის ჯგუფის აღწე
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:523
 msgctxt "@default|"
 msgid "TIT2 - Title/songname/content description"
-msgstr ""
+msgstr "TIT2 - სათაური/სიმღერის სახელი/შინაარსის აღწერა"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:954
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:524
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
-msgstr ""
+msgstr "TIT3 - სუბტიტრების/აღწერის დახვეწა"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:955
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:525
@@ -6264,7 +6228,7 @@ msgstr "TMED - მედიის ტიპი"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:534
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
-msgstr ""
+msgstr "TOAL - ორიგინალური ალბომის/ფილმის/შოუს დასახელება"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:962
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:535
@@ -6276,13 +6240,13 @@ msgstr "TOFN - ორიგინალური ფაილის სახე
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:536
 msgctxt "@default|"
 msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr ""
+msgstr "TOLY - ორიგინალური ლირიკის/ტექსტის ავტორ(ებ)-ი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:964
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:537
 msgctxt "@default|"
 msgid "TOPE - Original artist(s)/performer(s)"
-msgstr ""
+msgstr "TOPE - ორიგინალური მსახიობ(ებ)-ი/შემსრულებლ(ებ)ი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:965
 msgctxt "@default|"
@@ -6299,25 +6263,25 @@ msgstr "TOWN - ფაილის/ლიცენზიის მფლობე
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:539
 msgctxt "@default|"
 msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr ""
+msgstr "TPE1 - წამყვანი შემსრულებლები/სოლისტ(ებ)ი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:968
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:540
 msgctxt "@default|"
 msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr ""
+msgstr "TPE2 - ბენდი/ორკესტრი/აკომპანიმენტი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:969
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:541
 msgctxt "@default|"
 msgid "TPE3 - Conductor/performer refinement"
-msgstr ""
+msgstr "TPE3 - დირიჟორის/შემსრულებლის დახვეწა"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:970
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:542
 msgctxt "@default|"
 msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr ""
+msgstr "TPE4 - ინტერპრეტირებული, რემიქსი ან სხვაგვარად შეცვლილი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:971
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:543
@@ -6363,19 +6327,21 @@ msgstr "TSIZ - ზომა"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:554
 msgctxt "@default|"
 msgid "TSRC - ISRC (international standard recording code)"
-msgstr ""
+msgstr "TSRC - ISRC (საერთაშორისო სტანდარტის ჩანაწერის კოდი)"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:983
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:555
 msgctxt "@default|"
 msgid "TSSE - Software/Hardware and settings used for encoding"
 msgstr ""
+"TSSE - კოდირებისთვის გამოყენებული პროგრამული უზრუნველყოფა / აპარატურა და "
+"პარამეტრები"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:985
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:557
 msgctxt "@default|"
 msgid "TXXX - User defined text information"
-msgstr ""
+msgstr "TXXX - მომხმარებლის მიერ განსაზღვრული ტექსტური ინფორმაცია"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:986
 msgctxt "@default|"
@@ -6398,7 +6364,7 @@ msgstr "USER - გამოყენების პირობები"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:560
 msgctxt "@default|"
 msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr ""
+msgstr "USLT - არასინქრონიზებული ტექსტის/ტექსტის ტრანსკრიფცია"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:990
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:561
@@ -6416,25 +6382,25 @@ msgstr "WCOP - საავტორო უფლებების/იური
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:566
 msgctxt "@default|"
 msgid "WOAF - Official audio file webpage"
-msgstr ""
+msgstr "WOAF - აუდიო ფაილის ოფიციალური ვებგვერდი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:993
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:567
 msgctxt "@default|"
 msgid "WOAR - Official artist/performer webpage"
-msgstr ""
+msgstr "WOAR - მსახიობის/შემსრულებლის ოფიციალური ვებგვერდი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:994
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:568
 msgctxt "@default|"
 msgid "WOAS - Official audio source webpage"
-msgstr ""
+msgstr "WOAS - აუდიო წყაროს ოფიციალური ვებგვერდი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:995
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:569
 msgctxt "@default|"
 msgid "WORS - Official internet radio station homepage"
-msgstr ""
+msgstr "WORS - ინტერნეტრადიოსადგურის ოფიციალური საწყისი გვერდი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:996
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:570
@@ -6446,13 +6412,13 @@ msgstr "WPAY - გადახდა"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:571
 msgctxt "@default|"
 msgid "WPUB - Official publisher webpage"
-msgstr ""
+msgstr "WPUB - გამომცემლის ოფიციალური ვებგვერდი"
 
 #: src/plugins/id3libmetadata/mp3file.cpp:998
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:572
 msgctxt "@default|"
 msgid "WXXX - User defined URL link"
-msgstr ""
+msgstr "WXXX - მომხმარებლის განსაზღვრული URL ბმული"
 
 #: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
 msgctxt "@default|"
@@ -6467,7 +6433,7 @@ msgstr "რეტინგის ინფორმაცია"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:458
 msgctxt "@default|"
 msgid "ASPI - Audio seek point index"
-msgstr ""
+msgstr "ASPI - აუდიო გადახვევის წერტილის ინდექსი"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:460
 msgctxt "@default|"
@@ -6482,7 +6448,7 @@ msgstr "CTOC - სარჩევი"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:468
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
-msgstr ""
+msgstr "EQU2 - ეკვალიზაცია (2)"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:473
 msgctxt "@default|"
@@ -6507,7 +6473,7 @@ msgstr "PCST - პოდკასტი"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:491
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
-msgstr ""
+msgstr "RVA2 - ფარდობითი ხმის დონის რეგულირება (2)"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:493
 msgctxt "@default|"
@@ -6527,7 +6493,7 @@ msgstr "TCAT - პოდკასტის კატეგორია"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:502
 msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
-msgstr ""
+msgstr "TCMP - iTunes კომპილაციის ალამი"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:506
 msgctxt "@default|"
@@ -6567,7 +6533,7 @@ msgstr "TGID - პოდკასტის იდენტიფიაკტო�
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:521
 msgctxt "@default|"
 msgid "TIPL - Involved people list"
-msgstr ""
+msgstr "TIPL - ჩართული ადამიანების სია"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:527
 msgctxt "@default|"
@@ -6577,7 +6543,7 @@ msgstr "TKWD - პოდკასტის საკვანძო სიტყ
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:531
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
-msgstr ""
+msgstr "TMCL - მუსიკოსის კრედიტების სია"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:533
 msgctxt "@default|"
@@ -6587,12 +6553,12 @@ msgstr "TMOO - ხასიათი"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:544
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
-msgstr ""
+msgstr "TPRO - წარმოებული შეტყობინება"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:549
 msgctxt "@default|"
 msgid "TSO2 - Album artist sort order"
-msgstr ""
+msgstr "TSO2 - ალბომის შემსრულებლების დალაგების პირობა"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:550
 msgctxt "@default|"
@@ -6602,12 +6568,12 @@ msgstr "TSOA - ალბომის დალაგების მიმდე
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:551
 msgctxt "@default|"
 msgid "TSOC - Composer sort order"
-msgstr ""
+msgstr "TSOC - კომპოზიტორის დალაგების პირობა"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:552
 msgctxt "@default|"
 msgid "TSOP - Performer sort order"
-msgstr ""
+msgstr "TSOP - შემსრულებლის დალაგების პირობა"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:553
 msgctxt "@default|"
@@ -6644,6 +6610,7 @@ msgstr "ლიცენზია"
 msgctxt "AboutDialog|"
 msgid "This program uses <a href=\"http://www.qt.io/\">Qt</a> version %1."
 msgstr ""
+"ეს პროგრამა იყენებს <a href=\"http://www.qt.io/\">Qt</a>-ის ვერსიას %1."
 
 #: src/qml/app/BatchImportPage.qml:32
 msgctxt "BatchImportPage|"
@@ -6877,6 +6844,8 @@ msgid ""
 "The current folder has been modified.\n"
 "Do you want to save it?"
 msgstr ""
+"მიმდინარე საქაღალდე შეიცვალა.\n"
+"გნებავთ მისი შენახვა?"
 
 #: src/qml/app/Main.qml:130 src/qml/app/Main.qml:147 src/qml/app/Main.qml:164
 msgctxt "Main|"
@@ -6897,7 +6866,7 @@ msgstr "SD ბარათი მხოლოდ %1-შია ჩაწერა
 #: src/qml/app/Main.qml:165
 msgctxt "Main|"
 msgid "Error while writing file. Do you want to change the permissions?"
-msgstr ""
+msgstr "შეცდომა ფაილის ჩაწერისას. გნებავთ წვდომების შეცვლა?"
 
 #: src/qml/app/Main.qml:264
 #, qt-format
@@ -7034,12 +7003,12 @@ msgstr "ყველა ჭდე"
 #: src/qml/app/NumberTracksDialog.qml:83
 msgctxt "NumberTracksDialog|"
 msgid "Reset counter for each folder"
-msgstr ""
+msgstr "მთვლელის ჩამოყრა თითოეული საქაღალდისთვის"
 
 #: src/qml/app/NumberTracksDialog.qml:96
 msgctxt "NumberTracksDialog|"
 msgid "Total number of tracks"
-msgstr ""
+msgstr "ტრეკების საერთო რაოდენობა"
 
 #: src/qml/app/PictureCollapsible.qml:27
 msgctxt "PictureCollapsible|"
@@ -7080,7 +7049,7 @@ msgstr "წყარო:"
 #: src/qml/app/RenameDirectoryPage.qml:129
 msgctxt "RenameDirectoryPage|"
 msgid "From Tag 2 and Tag 1"
-msgstr ""
+msgstr "ჭდიდან 2 და ჭდიდან 1"
 
 #: src/qml/app/RenameDirectoryPage.qml:130
 msgctxt "RenameDirectoryPage|"
@@ -7160,17 +7129,17 @@ msgstr "ID3v2 ტექსტის კოდირება"
 #: src/qml/app/SettingsPage.qml:65
 msgctxt "SettingsPage|"
 msgid "Use track/total number of tracks format"
-msgstr ""
+msgstr "ტრეკის/ტრეკების ჯამური რაოდენობის ფორმატის გამოყენება"
 
 #: src/qml/app/SettingsPage.qml:70
 msgctxt "SettingsPage|"
 msgid "Genre as text instead of numeric string"
-msgstr ""
+msgstr "ჟანრი, როგორც ტექსტი რიცხვითი სტრიქონის ნაცვლად"
 
 #: src/qml/app/SettingsPage.qml:75
 msgctxt "SettingsPage|"
 msgid "WAV files with lowercase id3 chunk"
-msgstr ""
+msgstr "WAV ფაილების, რომლის id3 ფრაგმენტი პატარა ასოებითაა"
 
 #: src/qml/app/SettingsPage.qml:80
 msgctxt "SettingsPage|"
@@ -7240,12 +7209,12 @@ msgstr "სტრიქონის ჩანაცვლება"
 #: src/qml/app/SettingsPage.qml:174
 msgctxt "SettingsPage|"
 msgid "Custom frames"
-msgstr ""
+msgstr "მორგებული კადრები"
 
 #: src/qml/app/SettingsPage.qml:176
 msgctxt "SettingsPage|"
 msgid "Custom Frames"
-msgstr ""
+msgstr "მორგებული კადრები"
 
 #: src/qml/app/SettingsPage.qml:189
 msgctxt "SettingsPage|"
@@ -7386,17 +7355,11 @@ msgid "Remove"
 msgstr "წაშლა"
 
 #: src/qml/app/TagCollapsible.qml:116
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Select &All"
 msgctxt "TagCollapsible|"
 msgid "Select All"
-msgstr "ყველაფრის &მონიშვნა"
+msgstr "ყველაფრის მონიშვნა"
 
 #: src/qml/app/TagCollapsible.qml:120
-#, fuzzy
-#| msgctxt "FrameTable|"
-#| msgid "&Deselect all"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
-msgstr "&მონიშვნის მოხსნა"
+msgstr "მონიშვნის მოხსნა ყველაფერზე"
