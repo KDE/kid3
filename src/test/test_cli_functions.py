@@ -580,7 +580,7 @@ class CliFunctionsTestCase(unittest.TestCase):
 
     def test_multiple_files(self):
         with tempfile.TemporaryDirectory() as tmpdir:
-            extensions = ('m4a', 'flac', 'spx', 'mp3', 'ape', 'wav', 'opus', 'aif')
+            extensions = ('m4a', 'flac', 'spx', 'mp3', 'ape', 'wav', 'aif', 'wma')
             for nr, ext in enumerate(extensions):
                 create_test_file(os.path.join(tmpdir, 'track%02d.%s' % (nr, ext)))
             import_csv = \
@@ -680,24 +680,28 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          1988\n'
                 '  Track Number  08\n'
                 '  Genre         Metal\n'
-                'File: Opus 1 48000 Hz 1 Channels\n'
-                '  Name: track06\\.opus\n'
-                'Tag 2: Vorbis\n'
+                'File: AIFF [^\\n]+ kbps 44100 Hz 2 Channels\n'
+                '  Name: track06\\.aif\n'
+                'Tag 2: ID3v2\\.4\\.0\n'
                 '  Title         The Warriors Prayer\n'
                 '  Artist        Manowar\n'
                 '  Album         Kings Of Metal\n'
                 '  Date          1988\n'
                 '  Track Number  09\n'
                 '  Genre         Metal\n'
-                'File: AIFF [^\\n]+ kbps 44100 Hz 2 Channels\n'
-                '  Name: track07\\.aif\n'
-                'Tag 2: ID3v2\\.4\\.0\n'
-                '  Title         Blood Of The Kings\n'
-                '  Artist        Manowar\n'
-                '  Album         Kings Of Metal\n'
-                '  Date          1988\n'
-                '  Track Number  10\n'
-                '  Genre         Metal\n'
+                'File: ASF 128 kbps 44100 Hz 1 Channels\n'
+                '  Name: track07.wma\n'
+                'Tag 2: ASF\n'
+                '  Title               Blood Of The Kings\n'
+                '  Artist              Manowar\n'
+                '  Album               Kings Of Metal\n'
+                '  Comment             \n'
+                '  Date                1988\n'
+                '  Track Number        10\n'
+                '  Genre               Metal\n'
+                '  Copyright           \n'
+                '  Encoder Settings    Lavf61.7.102\n'
+                '  Rating Information  \n'
                 'Tag 1:\n'
                 '  Title         ≠\n'
                 '  Artist        Manowar\n'
@@ -706,12 +710,16 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Track Number  ≠\n'
                 '  Genre         Metal\n'
                 'Tag 2:\n'
-                '  Title         ≠\n'
-                '  Artist        Manowar\n'
-                '  Album         Kings Of Metal\n'
-                '  Date          1988\n'
-                '  Track Number  ≠\n'
-                '  Genre         Metal\n')
+                '  Title               ≠\n'
+                '  Artist              Manowar\n'
+                '  Album               Kings Of Metal\n'
+                '  Date                1988\n'
+                '  Track Number        ≠\n'
+                '  Genre               Metal\n'
+                '  Copyright           ≠\n'
+                '  Encoder Settings    ≠\n'
+                '  Rating Information  ≠\n'
+                )
             if sys.platform == 'win32':
                 expected = expected.replace('≠', '\\?')
             self.assertRegex(call_kid3_cli(
@@ -743,8 +751,8 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  12- 05 The Crown And The Ring \\(Lament Of The Kings\\).mp3\n'
                 '  12- 06 Kingdom Come.ape\n'
                 '  -2- 08 Hail And Kill.wav\n'
-                '  -2- 09 The Warriors Prayer.opus\n'
-                '  -2- 10 Blood Of The Kings.aif\n')
+                '  -2- 09 The Warriors Prayer.aif\n'
+                '  -2- 10 Blood Of The Kings.wma\n')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'tag 2',
                  '-c', 'numbertracks 101',
@@ -775,8 +783,8 @@ class CliFunctionsTestCase(unittest.TestCase):
                 lines[2:],
                 ['- 01 Wheels Of Fire.m4a', '- 02 Kings Of Metal.flac',
                  '- 03 Heart Of Steel.spx', '+ 05 The Crown And The Ring (Lament Of The Kings).mp3',
-                 '- 06 Kingdom Come.ape', '+ 08 Hail And Kill.wav', '- 09 The Warriors Prayer.opus',
-                 '- 10 Blood Of The Kings.aif', 'Finished'])
+                 '- 06 Kingdom Come.ape', '+ 08 Hail And Kill.wav', '- 09 The Warriors Prayer.aif',
+                 '- 10 Blood Of The Kings.wma', 'Finished'])
             call_kid3_cli(['-c', 'renamedir "%{artist} - [%{year}] %{album}" "create"', tmpdir])
             new_dirname = 'Manowar - [1988] Kings Of Metal'
             new_dirpath = os.path.join(tmpdir, new_dirname)
@@ -792,8 +800,8 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '05 The Crown And The Ring (Lament Of The Kings).mp3\n'
                 '06 Kingdom Come.ape\n'
                 '08 Hail And Kill.wav\n'
-                '09 The Warriors Prayer.opus\n'
-                '10 Blood Of The Kings.aif\n')
+                '09 The Warriors Prayer.aif\n'
+                '10 Blood Of The Kings.wma\n')
 
     def test_filename_tag_format(self):
         with tempfile.TemporaryDirectory() as tmpdir:

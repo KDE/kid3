@@ -3,6 +3,8 @@ import sys
 import re
 import locale
 import subprocess
+import base64
+import zlib
 
 _kid3_cli_path = ''
 
@@ -104,6 +106,13 @@ def create_test_file(filename):
     elif ext == '.flac':
         d = b'fLaC\x80\x00\x00"\x10\x00\x10\x00\x00\x00\x0c\x00\x00\x0c\n\xc4@\xf0\x00\x00\x00\x01\xc4\x10?\x12-\'g|' \
             b'\x9d\xb1D\xca\xe19Jf\xff\xf8i\x08\x00\x00\x1d\x02\x00\x00 \x0c'
+    elif ext == '.wma':
+        d = zlib.decompress(base64.b64decode(
+            b'eJwzUNtU2pd2XnDZTYZVDEnnct4wMoABKxAzMi28s7rHfeV5wb4nDAd4FIJTMxiwAzkmKKPB7uq9jXMZYeIHWG8yIquT4YHQIOUNPBDM'
+            b'8IWRYSvz/ng9kD2PIfboQdULXrq8ehdI/BlEnA0s6rDkwiX2x5cEp39gWHAybkVAElQ1I4MGQziDL4M+gytDHkMyQz5DCkMmkJXOEMyQ'
+            b'ylAChBBeMVi1FIMPQyJDGUMagxmDIYMegzkQGzIYMBgB5Say39m+HcneIqgNDvMyf/hGnxdc8ZehIT7GRTvg7OH9/YnnBbs3AUNvyyMF'
+            b'uD+BmAPsIhBIZGRkcFkDChwGhudMAgxcUNeCyedMz5mATIegi22yhhcEFy8B+onZ41sK1CRHNHFGcOiJA/0J8ksK0I/lQP8oAH2dCvZt'
+            b'IpDtyFAKZucD2WEMFtAQT2Q0Q4trIxyxCQOMjAAAHXQK'))
     elif ext == '.spx':
         d = b'OggS\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x0c8_\n\x00\x00\x00\x00\x1a\xb2i\xd1\x01PSpeex   1.2rc1' \
             b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00P\x00\x00\x00D\xac\x00\x00\x02' \
