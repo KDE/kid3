@@ -275,10 +275,11 @@ QVariantMap MprisPlayerInterface::metadata() const
               if (m_tempCoverArtFile)
                 m_tempCoverArtFile->deleteLater();
               m_tempCoverArtFile = new QTemporaryFile;
-              m_tempCoverArtFile->open();
-              m_tempCoverArtFile->write(data);
-              artPath = m_tempCoverArtFile->fileName();
-              m_tempCoverArtFile->close();
+              if (m_tempCoverArtFile->open()) {
+                m_tempCoverArtFile->write(data);
+                artPath = m_tempCoverArtFile->fileName();
+                m_tempCoverArtFile->close();
+              }
             }
           }
           break;
