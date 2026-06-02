@@ -117,8 +117,6 @@ int main(int argc, char* argv[])
   QCommandLineParser parser;
   aboutData.setupCommandLine(&parser);
   parser.setApplicationDescription(aboutData.shortDescription());
-  parser.addHelpOption();
-  parser.addVersionOption();
   const char* const directoryToOpenStr =
       QT_TRANSLATE_NOOP("@default", "folder to open");
   parser.addPositionalArgument(

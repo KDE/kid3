@@ -127,7 +127,7 @@ void KdeMainWindow::initActions()
       form(), SLOT(selectAllFiles()), collection);
 #endif
   action->setStatusTip(tr("Select all files"));
-  action->setShortcut(QKeySequence(QLatin1String("Alt+Shift+A")));
+  collection->setDefaultShortcut(action, QKeySequence(QLatin1String("Alt+Shift+A")));
 #if KCONFIGWIDGETS_VERSION >= 0x051700
   action = KStandardAction::deselect(
       form(), &Kid3Form::deselectAllFiles, collection);
@@ -190,8 +190,8 @@ void KdeMainWindow::initActions()
   action = new QAction(QIcon::fromTheme(QLatin1String("document-open")),
                        tr("O&pen Folder..."), this);
   action->setStatusTip(tr("Opens a folder"));
-  action->setShortcut(QKeySequence(QLatin1String("Ctrl+D")));
   collection->addAction(QLatin1String("open_directory"), action);
+  collection->setDefaultShortcut(action, QKeySequence(QLatin1String("Ctrl+D")));
   connect(action, &QAction::triggered,
           impl(), &BaseMainWindowImpl::slotFileOpenDirectory);
 
@@ -203,8 +203,8 @@ void KdeMainWindow::initActions()
   // Avoid this by assigning Qt::Key_F5 instead of QKeySequence::Refresh.
   // The section "Standard Shortcuts" in the QKeySequence documentation lists
   // F5 as a key for "Refresh" on all platforms.
-  action->setShortcut(Qt::Key_F5);
   collection->addAction(QLatin1String("reload"), action);
+  collection->setDefaultShortcut(action, Qt::Key_F5);
   connect(action, &QAction::triggered,
           impl(), &BaseMainWindowImpl::slotFileReload);
 
@@ -475,6 +475,10 @@ void KdeMainWindow::initActions()
   for (QAction* mediaAction : actions) {
     mediaAction->setText(actionPrefix + mediaAction->text());
     collection->addAction(mediaAction->objectName(), mediaAction);
+    QKeySequence shortcut = mediaAction->shortcut();
+    if (!shortcut.isEmpty()) {
+      collection->setDefaultShortcut(mediaAction, shortcut);
+    }
   }
 
   createGUI();
