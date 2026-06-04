@@ -958,7 +958,7 @@ msgctxt "KdeMainWindow|"
 msgid "Player"
 msgstr "播放器"
 
-#: src/app/kde/kdemainwindow.cpp:671
+#: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "設定 - Kid3"
@@ -973,12 +973,12 @@ msgctxt "@default|"
 msgid "&No"
 msgstr "否(&N)"
 
-#: src/app/kde/mainkde.cpp:123
+#: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
 msgid "folder to open"
 msgstr "要開啟的資料夾"
 
-#: src/app/kde/mainkde.cpp:136
+#: src/app/kde/mainkde.cpp:134
 msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "音訊標籤編輯器"

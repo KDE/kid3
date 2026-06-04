@@ -957,7 +957,7 @@ msgctxt "KdeMainWindow|"
 msgid "Player"
 msgstr "Hráč"
 
-#: src/app/kde/kdemainwindow.cpp:671
+#: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Nastavit Kid3"
@@ -972,12 +972,12 @@ msgctxt "@default|"
 msgid "&No"
 msgstr "&Ne"
 
-#: src/app/kde/mainkde.cpp:123
+#: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
 msgid "folder to open"
 msgstr "složka k otevření"
 
-#: src/app/kde/mainkde.cpp:136
+#: src/app/kde/mainkde.cpp:134
 msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "Editor značek zvukových záznamů"

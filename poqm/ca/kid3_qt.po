@@ -954,7 +954,7 @@ msgctxt "KdeMainWindow|"
 msgid "Player"
 msgstr "Reproductor"
 
-#: src/app/kde/kdemainwindow.cpp:671
+#: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Configuració - Kid3"
@@ -969,12 +969,12 @@ msgctxt "@default|"
 msgid "&No"
 msgstr "&No"
 
-#: src/app/kde/mainkde.cpp:123
+#: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
 msgid "folder to open"
 msgstr "carpeta a obrir"
 
-#: src/app/kde/mainkde.cpp:136
+#: src/app/kde/mainkde.cpp:134
 msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "Editor per a les etiquetes d'àudio"

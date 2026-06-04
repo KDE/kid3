@@ -1,30 +1,24 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: kid3_qt\n"
-"Language-Team: Irish Translation Team <gaeilge-gnulinux@lists.sourceforge."
-"net>\n"
-"Language: ga\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
-"3 : 4\n"
 "X-Qt-Contexts: true\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
 msgid "Timeout"
-msgstr ""
+msgstr "مۆھلىتى"
 
 #: src/app/cli/clicommand.cpp:389
 msgctxt "HelpCommand|"
 msgid "Help"
-msgstr ""
+msgstr "ياردەم"
 
 #: src/app/cli/clicommand.cpp:390
 msgctxt "HelpCommand|"
 msgid "Command name"
-msgstr ""
+msgstr "بۇيرۇق ئاتى"
 
 #: src/app/cli/clicommand.cpp:401
 msgctxt "TimeoutCommand|"
@@ -34,12 +28,12 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:402
 msgctxt "TimeoutCommand|"
 msgid "Time"
-msgstr ""
+msgstr "ۋاقىت"
 
 #: src/app/cli/clicommand.cpp:441
 msgctxt "QuitCommand|"
 msgid "Quit application"
-msgstr ""
+msgstr "پىروگراممىدىن چېكىنىدۇ"
 
 #: src/app/cli/clicommand.cpp:450
 msgctxt "QuitCommand|"
@@ -70,7 +64,7 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:518
 msgctxt "LsCommand|"
 msgid "Folder list"
-msgstr ""
+msgstr "قىسقۇچ تىزىمى"
 
 #: src/app/cli/clicommand.cpp:530
 msgctxt "SaveCommand|"
@@ -85,13 +79,13 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:550
 msgctxt "SelectCommand|"
 msgid "Select file"
-msgstr ""
+msgstr "ھۆججەت تاللا"
 
 #: src/app/cli/clicommand.cpp:572
 #, qt-format
 msgctxt "SelectCommand|"
 msgid "%1 not found"
-msgstr ""
+msgstr "%1 تېپىلمىدى"
 
 #: src/app/cli/clicommand.cpp:582
 msgctxt "TagCommand|"
@@ -117,7 +111,7 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:654
 msgctxt "RevertCommand|"
 msgid "Revert"
-msgstr ""
+msgstr "ئەسلىگە ياندۇر"
 
 #: src/app/cli/clicommand.cpp:666
 msgctxt "ImportCommand|"
@@ -137,7 +131,7 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:669
 msgctxt "ImportCommand|"
 msgid "Source"
-msgstr ""
+msgstr "مەنبە"
 
 #: src/app/cli/clicommand.cpp:670
 msgctxt "ImportCommand|"
@@ -153,12 +147,12 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:700
 msgctxt "ImportCommand|"
 msgid "Available"
-msgstr ""
+msgstr "ئىشلەتكىلى بولىدۇ"
 
 #: src/app/cli/clicommand.cpp:711
 msgctxt "ImportCommand|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/app/cli/clicommand.cpp:721
 msgctxt "BatchImportCommand|"
@@ -168,7 +162,7 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:722
 msgctxt "BatchImportCommand|"
 msgid "Profile name"
-msgstr ""
+msgstr "سەپلىمە ھۆججەت ئاتى"
 
 #: src/app/cli/clicommand.cpp:734
 #, qt-format
@@ -179,7 +173,7 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:736
 msgctxt "BatchImportCommand|"
 msgid "Available"
-msgstr ""
+msgstr "ئىشلەتكىلى بولىدۇ"
 
 #: src/app/cli/clicommand.cpp:809
 msgctxt "AlbumArtCommand|"
@@ -205,12 +199,12 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:869
 msgctxt "ExportCommand|"
 msgid "Available"
-msgstr ""
+msgstr "ئىشلەتكىلى بولىدۇ"
 
 #: src/app/cli/clicommand.cpp:880
 msgctxt "ExportCommand|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/app/cli/clicommand.cpp:889
 msgctxt "PlaylistCommand|"
@@ -220,7 +214,7 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:896
 msgctxt "PlaylistCommand|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/app/cli/clicommand.cpp:903
 msgctxt "FilenameFormatCommand|"
@@ -255,7 +249,7 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:1053
 msgctxt "FilterCommand|"
 msgid "Filter"
-msgstr ""
+msgstr "سۈزگۈچ"
 
 #: src/app/cli/clicommand.cpp:1054
 msgctxt "FilterCommand|"
@@ -271,7 +265,7 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:1071
 msgctxt "FilterCommand|"
 msgid "Available"
-msgstr ""
+msgstr "ئىشلەتكىلى بولىدۇ"
 
 #: src/app/cli/clicommand.cpp:1145
 msgctxt "ToId3v24Command|"
@@ -301,17 +295,17 @@ msgstr ""
 #: src/app/cli/clicommand.cpp:1244
 msgctxt "CopyCommand|"
 msgid "Copy"
-msgstr ""
+msgstr "كۆچۈر"
 
 #: src/app/cli/clicommand.cpp:1257
 msgctxt "PasteCommand|"
 msgid "Paste"
-msgstr ""
+msgstr "چاپلا"
 
 #: src/app/cli/clicommand.cpp:1270
 msgctxt "RemoveCommand|"
 msgid "Remove"
-msgstr ""
+msgstr "چىقىرىۋەت"
 
 #: src/app/cli/clicommand.cpp:1283
 msgctxt "ConfigCommand|"
@@ -354,17 +348,17 @@ msgstr ""
 #, qt-format
 msgctxt "JsonCliFormatter|"
 msgid "Unknown command '%1'"
-msgstr ""
+msgstr "نامەلۇم بۇيرۇق «%1»"
 
 #: src/app/cli/jsoncliformatter.cpp:207
 msgctxt "JsonCliFormatter|"
 msgid "Usage:"
-msgstr ""
+msgstr "ئىشلىتىش ئۇسۇلى:"
 
 #: src/app/cli/kid3cli.cpp:300
 msgctxt "Kid3Cli|"
 msgid "Parameter"
-msgstr ""
+msgstr "پارامېتىر"
 
 #: src/app/cli/kid3cli.cpp:301
 msgctxt "Kid3Cli|"
@@ -374,7 +368,7 @@ msgstr ""
 #: src/app/cli/kid3cli.cpp:302
 msgctxt "Kid3Cli|"
 msgid "URL"
-msgstr ""
+msgstr "تور ئادرېسى"
 
 #: src/app/cli/kid3cli.cpp:303
 msgctxt "Kid3Cli|"
@@ -394,7 +388,7 @@ msgstr ""
 #: src/app/cli/kid3cli.cpp:309
 msgctxt "Kid3Cli|"
 msgid "Format"
-msgstr ""
+msgstr "پىچىمى"
 
 #: src/app/cli/kid3cli.cpp:310
 msgctxt "Kid3Cli|"
@@ -404,12 +398,12 @@ msgstr ""
 #: src/app/cli/kid3cli.cpp:311
 msgctxt "Kid3Cli|"
 msgid "Available Commands"
-msgstr ""
+msgstr "بار بۇيرۇقلار"
 
 #: src/app/cli/kid3cli.cpp:755
 msgctxt "Kid3Cli|"
 msgid "Usage:"
-msgstr ""
+msgstr "ئىشلىتىش ئۇسۇلى:"
 
 #: src/app/cli/kid3cli.cpp:773
 #, qt-format
@@ -437,22 +431,22 @@ msgstr ""
 #: src/app/cli/textcliformatter.cpp:204
 msgctxt "TextCliFormatter|"
 msgid "Usage:"
-msgstr ""
+msgstr "ئىشلىتىش ئۇسۇلى:"
 
 #: src/app/cli/textcliformatter.cpp:245
 msgctxt "TextCliFormatter|"
 msgid "Tags"
-msgstr ""
+msgstr "بەلگە"
 
 #: src/app/cli/textcliformatter.cpp:252
 msgctxt "TextCliFormatter|"
 msgid "File"
-msgstr ""
+msgstr "ھۆججەت"
 
 #: src/app/cli/textcliformatter.cpp:257
 msgctxt "TextCliFormatter|"
 msgid "Name"
-msgstr ""
+msgstr "ئاتى"
 
 #: src/app/cli/textcliformatter.cpp:278
 #, qt-format
@@ -463,7 +457,7 @@ msgstr ""
 #: src/app/cli/textcliformatter.cpp:299
 msgctxt "TextCliFormatter|"
 msgid "Timeout"
-msgstr ""
+msgstr "مۆھلىتى"
 
 #: src/app/cli/textcliformatter.cpp:305
 msgctxt "TextCliFormatter|"
@@ -473,22 +467,22 @@ msgstr ""
 #: src/app/cli/textcliformatter.cpp:307
 msgctxt "TextCliFormatter|"
 msgid "Started"
-msgstr ""
+msgstr "باشلاندى"
 
 #: src/app/cli/textcliformatter.cpp:309
 msgctxt "TextCliFormatter|"
 msgid "Source"
-msgstr ""
+msgstr "مەنبە"
 
 #: src/app/cli/textcliformatter.cpp:311
 msgctxt "TextCliFormatter|"
 msgid "Querying"
-msgstr ""
+msgstr "سۈرۈشتۈرۈۋاتىدۇ"
 
 #: src/app/cli/textcliformatter.cpp:313
 msgctxt "TextCliFormatter|"
 msgid "Fetching"
-msgstr ""
+msgstr "تۇتۇۋاتىدۇ"
 
 #: src/app/cli/textcliformatter.cpp:315
 msgctxt "TextCliFormatter|"
@@ -503,27 +497,27 @@ msgstr ""
 #: src/app/cli/textcliformatter.cpp:319
 msgctxt "TextCliFormatter|"
 msgid "Finished"
-msgstr ""
+msgstr "تاماملاندى"
 
 #: src/app/cli/textcliformatter.cpp:321
 msgctxt "TextCliFormatter|"
 msgid "Aborted"
-msgstr ""
+msgstr "توختىتىلدى"
 
 #: src/app/cli/textcliformatter.cpp:323
 msgctxt "TextCliFormatter|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/app/kde/kdeconfigdialog.cpp:51
 msgctxt "KdeConfigDialog|"
 msgid "Tags"
-msgstr ""
+msgstr "بەلگە"
 
 #: src/app/kde/kdeconfigdialog.cpp:53
 msgctxt "KdeConfigDialog|"
 msgid "Files"
-msgstr ""
+msgstr "ھۆججەت"
 
 #: src/app/kde/kdeconfigdialog.cpp:55
 msgctxt "KdeConfigDialog|"
@@ -533,17 +527,17 @@ msgstr ""
 #: src/app/kde/kdeconfigdialog.cpp:57
 msgctxt "KdeConfigDialog|"
 msgid "Network"
-msgstr ""
+msgstr "تور"
 
 #: src/app/kde/kdeconfigdialog.cpp:59
 msgctxt "KdeConfigDialog|"
 msgid "Plugins"
-msgstr ""
+msgstr "قىستۇرما"
 
 #: src/app/kde/kdemainwindow.cpp:71 src/app/qt/kid3mainwindow.cpp:96
 msgctxt "@default|"
 msgid "Main Toolbar"
-msgstr ""
+msgstr "ئاساسىي قورال بالداق"
 
 #: src/app/kde/kdemainwindow.cpp:86
 msgctxt "KdeMainWindow|"
@@ -568,7 +562,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:121
 msgctxt "KdeMainWindow|"
 msgid "Quits the application"
-msgstr ""
+msgstr "پىروگراممىنى ئاخىرلاشتۇرىدۇ"
 
 #: src/app/kde/kdemainwindow.cpp:129
 msgctxt "KdeMainWindow|"
@@ -583,7 +577,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:146
 msgctxt "KdeMainWindow|"
 msgid "Find"
-msgstr ""
+msgstr "ئىزدە"
 
 #: src/app/kde/kdemainwindow.cpp:154
 msgctxt "KdeMainWindow|"
@@ -593,17 +587,17 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:164
 msgctxt "KdeMainWindow|"
 msgid "Configure Shortcuts"
-msgstr ""
+msgstr "تېزلەتمە سەپلە"
 
 #: src/app/kde/kdemainwindow.cpp:172
 msgctxt "KdeMainWindow|"
 msgid "Configure Toolbars"
-msgstr ""
+msgstr "قورال بالداق سەپلە"
 
 #: src/app/kde/kdemainwindow.cpp:180
 msgctxt "KdeMainWindow|"
 msgid "Enables/disables the statusbar"
-msgstr ""
+msgstr "ھالەت بالداقنى ئىناۋەتلىك/ئىناۋەتسىز قىل"
 
 #: src/app/kde/kdemainwindow.cpp:188
 msgctxt "KdeMainWindow|"
@@ -633,12 +627,12 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:211
 msgctxt "KdeMainWindow|"
 msgid "Unload"
-msgstr ""
+msgstr "يۈك چۈشۈر"
 
 #: src/app/kde/kdemainwindow.cpp:216
 msgctxt "KdeMainWindow|"
 msgid "&Import..."
-msgstr ""
+msgstr "ئىمپورت قىل(&I)…"
 
 #: src/app/kde/kdemainwindow.cpp:217
 msgctxt "KdeMainWindow|"
@@ -690,7 +684,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:270
 msgctxt "KdeMainWindow|"
 msgid "&Export..."
-msgstr ""
+msgstr "ئېكسپورت قىل(&E)…"
 
 #: src/app/kde/kdemainwindow.cpp:271
 msgctxt "KdeMainWindow|"
@@ -765,7 +759,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:300
 msgctxt "KdeMainWindow|"
 msgid "Filter"
-msgstr ""
+msgstr "سۈزگۈچ"
 
 #: src/app/kde/kdemainwindow.cpp:305
 msgctxt "KdeMainWindow|"
@@ -790,12 +784,12 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:318
 msgctxt "KdeMainWindow|"
 msgid "&Play"
-msgstr ""
+msgstr "قوي(&P)"
 
 #: src/app/kde/kdemainwindow.cpp:319
 msgctxt "KdeMainWindow|"
 msgid "Play"
-msgstr ""
+msgstr "ياڭرات"
 
 #: src/app/kde/kdemainwindow.cpp:323
 msgctxt "KdeMainWindow|"
@@ -830,7 +824,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:339
 msgctxt "KdeMainWindow|"
 msgid "&Invert Selection"
-msgstr ""
+msgstr "ئەكسىچە تاللا(&I)"
 
 #: src/app/kde/kdemainwindow.cpp:343
 msgctxt "KdeMainWindow|"
@@ -861,7 +855,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:365 src/app/kde/kdemainwindow.cpp:417
 msgctxt "KdeMainWindow|"
 msgid "Filename"
-msgstr ""
+msgstr "ھۆججەت ئاتى"
 
 #: src/app/kde/kdemainwindow.cpp:366 src/app/kde/kdemainwindow.cpp:377
 #, qt-format
@@ -877,23 +871,23 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:384
 msgctxt "KdeMainWindow|"
 msgid "Copy"
-msgstr ""
+msgstr "كۆچۈر"
 
 #: src/app/kde/kdemainwindow.cpp:388
 msgctxt "KdeMainWindow|"
 msgid "Paste"
-msgstr ""
+msgstr "چاپلا"
 
 #: src/app/kde/kdemainwindow.cpp:392
 msgctxt "KdeMainWindow|"
 msgid "Remove"
-msgstr ""
+msgstr "چىقىرىۋەت"
 
 #: src/app/kde/kdemainwindow.cpp:396 src/app/kde/kdemainwindow.cpp:417
 #: src/app/kde/kdemainwindow.cpp:422 src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
 msgid "Focus"
-msgstr ""
+msgstr "فوكۇس"
 
 #: src/app/kde/kdemainwindow.cpp:401
 msgctxt "KdeMainWindow|"
@@ -903,32 +897,32 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:402
 msgctxt "KdeMainWindow|"
 msgid "Edit"
-msgstr ""
+msgstr "تەھرىر"
 
 #: src/app/kde/kdemainwindow.cpp:406
 msgctxt "KdeMainWindow|"
 msgid "Add"
-msgstr ""
+msgstr "قوش"
 
 #: src/app/kde/kdemainwindow.cpp:410
 msgctxt "KdeMainWindow|"
 msgid "Delete"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: src/app/kde/kdemainwindow.cpp:422
 msgctxt "KdeMainWindow|"
 msgid "File List"
-msgstr ""
+msgstr "ھۆججەت تىزىمى"
 
 #: src/app/kde/kdemainwindow.cpp:426
 msgctxt "KdeMainWindow|"
 msgid "&Rename"
-msgstr ""
+msgstr "ئات ئۆزگەرت(&R)"
 
 #: src/app/kde/kdemainwindow.cpp:435
 msgctxt "KdeMainWindow|"
 msgid "&Move to Trash"
-msgstr ""
+msgstr "ئەخلەتخانىغا يۆتكە(&M)"
 
 #: src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
@@ -943,7 +937,7 @@ msgstr ""
 #: src/app/kde/kdemainwindow.cpp:473
 msgctxt "KdeMainWindow|"
 msgid "Player"
-msgstr ""
+msgstr "قويغۇچ"
 
 #: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
@@ -953,12 +947,12 @@ msgstr ""
 #: src/app/kde/kdeplatformtools.cpp:197 src/app/kde/kdeplatformtools.cpp:241
 msgctxt "@default|"
 msgid "&Yes"
-msgstr ""
+msgstr "ھەئە(&Y)"
 
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
 msgctxt "@default|"
 msgid "&No"
-msgstr ""
+msgstr "ياق(&N)"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
@@ -973,12 +967,12 @@ msgstr ""
 #: src/app/qt/browserdialog.cpp:97
 msgctxt "BrowserDialog|"
 msgid "&Back"
-msgstr ""
+msgstr "قايت(&B)"
 
 #: src/app/qt/browserdialog.cpp:104
 msgctxt "BrowserDialog|"
 msgid "&Forward"
-msgstr ""
+msgstr "ئالدىغا(&F)"
 
 #: src/app/qt/browserdialog.cpp:111
 msgctxt "BrowserDialog|"
@@ -993,12 +987,12 @@ msgstr ""
 #: src/app/qt/browserdialog.cpp:147
 msgctxt "BrowserDialog|"
 msgid "Find Next"
-msgstr ""
+msgstr "كېيىنكىنى ئىزدە"
 
 #: src/app/qt/browserdialog.cpp:155
 msgctxt "BrowserDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "ياپ(&C)"
 
 #: src/app/qt/configdialog.cpp:70
 msgctxt "ConfigDialog|"
@@ -1018,12 +1012,12 @@ msgstr ""
 #: src/app/qt/configdialog.cpp:73
 msgctxt "ConfigDialog|"
 msgid "&Network"
-msgstr ""
+msgstr "تور(&N)"
 
 #: src/app/qt/configdialog.cpp:74
 msgctxt "ConfigDialog|"
 msgid "&Plugins"
-msgstr ""
+msgstr "قىستۇرما(&P)"
 
 #: src/app/qt/configdialog.cpp:86
 msgctxt "ConfigDialog|"
@@ -1033,13 +1027,13 @@ msgstr ""
 #: src/app/qt/configdialog.cpp:111
 msgctxt "ConfigDialog|"
 msgid "&Language"
-msgstr ""
+msgstr "تىل(&L)"
 
 #: src/app/qt/configdialog.cpp:113 src/app/qt/configdialog.cpp:204
 #: src/app/qt/configdialog.cpp:239
 msgctxt "ConfigDialog|"
 msgid "System"
-msgstr ""
+msgstr "سىستېما"
 
 #: src/app/qt/configdialog.cpp:122
 msgctxt "ConfigDialog|"
@@ -1059,7 +1053,7 @@ msgstr ""
 #: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
 msgctxt "ConfigDialog|"
 msgid "Unknown"
-msgstr ""
+msgstr "يوچۇن"
 
 #: src/app/qt/configdialog.cpp:151
 msgctxt "ConfigDialog|"
@@ -1069,27 +1063,27 @@ msgstr ""
 #: src/app/qt/configdialog.cpp:155
 msgctxt "ConfigDialog|"
 msgid "&Appearance"
-msgstr ""
+msgstr "كۆرۈنۈشى(&A)"
 
 #: src/app/qt/configdialog.cpp:164
 msgctxt "ConfigDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/app/qt/configdialog.cpp:165
 msgctxt "ConfigDialog|"
 msgid "Restore Defaults"
-msgstr ""
+msgstr "كۆڭۈلدىكىگە قايتۇر"
 
 #: src/app/qt/configdialog.cpp:166
 msgctxt "ConfigDialog|"
 msgid "&OK"
-msgstr ""
+msgstr "جەزملە(&O)"
 
 #: src/app/qt/configdialog.cpp:167
 msgctxt "ConfigDialog|"
 msgid "&Cancel"
-msgstr ""
+msgstr "ۋاز كەچ(&C)"
 
 #: src/app/qt/configdialog.cpp:279
 #, qt-format
@@ -1100,7 +1094,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:109
 msgctxt "Kid3MainWindow|"
 msgid "&File"
-msgstr ""
+msgstr "ھۆججەت(&F)"
 
 #: src/app/qt/kid3mainwindow.cpp:113
 msgctxt "Kid3MainWindow|"
@@ -1110,7 +1104,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:114
 msgctxt "Kid3MainWindow|"
 msgid "&Open..."
-msgstr ""
+msgstr "ئاچ(&O)…"
 
 #: src/app/qt/kid3mainwindow.cpp:134
 msgctxt "Kid3MainWindow|"
@@ -1120,7 +1114,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:135
 msgctxt "Kid3MainWindow|"
 msgid "Open &Recent"
-msgstr ""
+msgstr "يېقىنقىنى ئاچ(&R)"
 
 #: src/app/qt/kid3mainwindow.cpp:148
 msgctxt "Kid3MainWindow|"
@@ -1145,7 +1139,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:184
 msgctxt "Kid3MainWindow|"
 msgid "Unload"
-msgstr ""
+msgstr "يۈك چۈشۈر"
 
 #: src/app/qt/kid3mainwindow.cpp:194
 msgctxt "Kid3MainWindow|"
@@ -1155,7 +1149,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:195
 msgctxt "Kid3MainWindow|"
 msgid "&Save"
-msgstr ""
+msgstr "ساقلا(&S)"
 
 #: src/app/qt/kid3mainwindow.cpp:214
 msgctxt "Kid3MainWindow|"
@@ -1165,7 +1159,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:215
 msgctxt "Kid3MainWindow|"
 msgid "Re&vert"
-msgstr ""
+msgstr "ئەسلىگە قايتۇر(&V)"
 
 #: src/app/qt/kid3mainwindow.cpp:235
 msgctxt "Kid3MainWindow|"
@@ -1175,7 +1169,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:236
 msgctxt "Kid3MainWindow|"
 msgid "&Import..."
-msgstr ""
+msgstr "ئىمپورت قىل(&I)…"
 
 #: src/app/qt/kid3mainwindow.cpp:258 src/app/qt/kid3mainwindow.cpp:278
 #, qt-format
@@ -1227,7 +1221,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:318
 msgctxt "Kid3MainWindow|"
 msgid "&Export..."
-msgstr ""
+msgstr "ئېكسپورت قىل(&E)…"
 
 #: src/app/qt/kid3mainwindow.cpp:328
 msgctxt "Kid3MainWindow|"
@@ -1242,17 +1236,17 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:348
 msgctxt "Kid3MainWindow|"
 msgid "Quits the application"
-msgstr ""
+msgstr "پىروگراممىنى ئاخىرلاشتۇرىدۇ"
 
 #: src/app/qt/kid3mainwindow.cpp:349
 msgctxt "Kid3MainWindow|"
 msgid "&Quit"
-msgstr ""
+msgstr "چېكىن(&Q)"
 
 #: src/app/qt/kid3mainwindow.cpp:366
 msgctxt "Kid3MainWindow|"
 msgid "&Edit"
-msgstr ""
+msgstr "تەھرىر(&E)"
 
 #: src/app/qt/kid3mainwindow.cpp:369
 msgctxt "Kid3MainWindow|"
@@ -1262,7 +1256,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:370
 msgctxt "Kid3MainWindow|"
 msgid "Select &All"
-msgstr ""
+msgstr "ھەممىنى تاللا(&A)"
 
 #: src/app/qt/kid3mainwindow.cpp:391
 msgctxt "Kid3MainWindow|"
@@ -1272,7 +1266,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:392
 msgctxt "Kid3MainWindow|"
 msgid "Dese&lect"
-msgstr ""
+msgstr "ئەكسىچە تاللا(&L)"
 
 #: src/app/qt/kid3mainwindow.cpp:402
 msgctxt "Kid3MainWindow|"
@@ -1287,7 +1281,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:411
 msgctxt "Kid3MainWindow|"
 msgid "&Invert Selection"
-msgstr ""
+msgstr "ئەكسىچە تاللا(&I)"
 
 #: src/app/qt/kid3mainwindow.cpp:419
 msgctxt "Kid3MainWindow|"
@@ -1312,7 +1306,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:458
 msgctxt "Kid3MainWindow|"
 msgid "Find"
-msgstr ""
+msgstr "ئىزدە"
 
 #: src/app/qt/kid3mainwindow.cpp:459
 msgctxt "Kid3MainWindow|"
@@ -1327,12 +1321,12 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:479
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
-msgstr ""
+msgstr "ئالماشتۇر(&R)…"
 
 #: src/app/qt/kid3mainwindow.cpp:491
 msgctxt "Kid3MainWindow|"
 msgid "&Tools"
-msgstr ""
+msgstr "قورال(&T)"
 
 #: src/app/qt/kid3mainwindow.cpp:494
 msgctxt "Kid3MainWindow|"
@@ -1387,7 +1381,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:541
 msgctxt "Kid3MainWindow|"
 msgid "Filter"
-msgstr ""
+msgstr "سۈزگۈچ"
 
 #: src/app/qt/kid3mainwindow.cpp:542
 msgctxt "Kid3MainWindow|"
@@ -1417,17 +1411,17 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:576
 msgctxt "Kid3MainWindow|"
 msgid "Play"
-msgstr ""
+msgstr "ياڭرات"
 
 #: src/app/qt/kid3mainwindow.cpp:577
 msgctxt "Kid3MainWindow|"
 msgid "&Play"
-msgstr ""
+msgstr "قوي(&P)"
 
 #: src/app/qt/kid3mainwindow.cpp:592
 msgctxt "Kid3MainWindow|"
 msgid "&Settings"
-msgstr ""
+msgstr "تەڭشەك(&S)"
 
 #: src/app/qt/kid3mainwindow.cpp:596
 msgctxt "Kid3MainWindow|"
@@ -1437,17 +1431,17 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:597
 msgctxt "Kid3MainWindow|"
 msgid "Show &Toolbar"
-msgstr ""
+msgstr "قورال بالداق كۆرسەت(&T)"
 
 #: src/app/qt/kid3mainwindow.cpp:607
 msgctxt "Kid3MainWindow|"
 msgid "Enables/disables the statusbar"
-msgstr ""
+msgstr "ھالەت بالداقنى ئىناۋەتلىك/ئىناۋەتسىز قىل"
 
 #: src/app/qt/kid3mainwindow.cpp:608
 msgctxt "Kid3MainWindow|"
 msgid "Show St&atusbar"
-msgstr ""
+msgstr "ھالەت بالدىقىنى كۆرسەت(&A)"
 
 #: src/app/qt/kid3mainwindow.cpp:617
 msgctxt "Kid3MainWindow|"
@@ -1482,7 +1476,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:659
 msgctxt "Kid3MainWindow|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/app/qt/kid3mainwindow.cpp:662
 msgctxt "Kid3MainWindow|"
@@ -1517,12 +1511,12 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:725
 msgctxt "Kid3MainWindow|"
 msgid "Player"
-msgstr ""
+msgstr "قويغۇچ"
 
 #: src/app/qt/kid3mainwindow.cpp:749
 msgctxt "Kid3MainWindow|"
 msgid "Filename"
-msgstr ""
+msgstr "ھۆججەت ئاتى"
 
 #: src/app/qt/kid3mainwindow.cpp:752 src/app/qt/kid3mainwindow.cpp:775
 #, qt-format
@@ -1534,7 +1528,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:805 src/app/qt/kid3mainwindow.cpp:823
 msgctxt "Kid3MainWindow|"
 msgid "Focus"
-msgstr ""
+msgstr "فوكۇس"
 
 #: src/app/qt/kid3mainwindow.cpp:767
 #, qt-format
@@ -1550,47 +1544,47 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:780
 msgctxt "Kid3MainWindow|"
 msgid "Copy"
-msgstr ""
+msgstr "كۆچۈر"
 
 #: src/app/qt/kid3mainwindow.cpp:783
 msgctxt "Kid3MainWindow|"
 msgid "Paste"
-msgstr ""
+msgstr "چاپلا"
 
 #: src/app/qt/kid3mainwindow.cpp:786
 msgctxt "Kid3MainWindow|"
 msgid "Remove"
-msgstr ""
+msgstr "چىقىرىۋەت"
 
 #: src/app/qt/kid3mainwindow.cpp:790
 msgctxt "Kid3MainWindow|"
 msgid "Edit"
-msgstr ""
+msgstr "تەھرىر"
 
 #: src/app/qt/kid3mainwindow.cpp:793
 msgctxt "Kid3MainWindow|"
 msgid "Add"
-msgstr ""
+msgstr "قوش"
 
 #: src/app/qt/kid3mainwindow.cpp:796
 msgctxt "Kid3MainWindow|"
 msgid "Delete"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: src/app/qt/kid3mainwindow.cpp:804
 msgctxt "Kid3MainWindow|"
 msgid "File List"
-msgstr ""
+msgstr "ھۆججەت تىزىمى"
 
 #: src/app/qt/kid3mainwindow.cpp:808
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
-msgstr ""
+msgstr "ئات ئۆزگەرت(&R)"
 
 #: src/app/qt/kid3mainwindow.cpp:815
 msgctxt "Kid3MainWindow|"
 msgid "&Move to Trash"
-msgstr ""
+msgstr "ئەخلەتخانىغا يۆتكە(&M)"
 
 #: src/app/qt/kid3mainwindow.cpp:822
 msgctxt "Kid3MainWindow|"
@@ -1615,7 +1609,7 @@ msgstr ""
 #: src/app/qt/kid3mainwindow.cpp:1013
 msgctxt "Kid3MainWindow|"
 msgid "License"
-msgstr ""
+msgstr "ئىجازەتنامە"
 
 #: src/app/qt/kid3mainwindow.cpp:1031
 msgctxt "Kid3MainWindow|"
@@ -1635,17 +1629,17 @@ msgstr ""
 #: src/app/qt/recentfilesmenu.cpp:119
 msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
-msgstr ""
+msgstr "تىزىمنى تازىلا(&C)"
 
 #: src/app/qt/shortcutsdelegate.cpp:189
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Clear"
-msgstr ""
+msgstr "تازىلا"
 
 #: src/app/qt/shortcutsdelegate.cpp:194
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Reset"
-msgstr ""
+msgstr "ئەسلىگە قايتۇر"
 
 #: src/app/qt/shortcutsmodel.cpp:113
 msgctxt "ShortcutsModel|"
@@ -1655,22 +1649,22 @@ msgstr ""
 #: src/app/qt/shortcutsmodel.cpp:189
 msgctxt "ShortcutsModel|"
 msgid "Action"
-msgstr ""
+msgstr "مەشغۇلات"
 
 #: src/app/qt/shortcutsmodel.cpp:192
 msgctxt "ShortcutsModel|"
 msgid "Shortcut"
-msgstr ""
+msgstr "تېزلەتمە"
 
 #: src/core/config/batchimportsourcesmodel.cpp:166
 msgctxt "BatchImportSourcesModel|"
 msgid "Server"
-msgstr ""
+msgstr "مۇلازىمېتىر"
 
 #: src/core/config/batchimportsourcesmodel.cpp:168
 msgctxt "BatchImportSourcesModel|"
 msgid "Accuracy"
-msgstr ""
+msgstr "توغرىلىقى"
 
 #: src/core/config/batchimportsourcesmodel.cpp:170
 msgctxt "BatchImportSourcesModel|"
@@ -1690,7 +1684,7 @@ msgstr ""
 #: src/core/config/fileconfig.cpp:181
 msgctxt "Kid3Application|"
 msgid "All Supported Files"
-msgstr ""
+msgstr "قوللايدىغان ھەممە ھۆججەت"
 
 #: src/core/config/formatconfig.cpp:501
 msgctxt "@default|"
@@ -1720,12 +1714,12 @@ msgstr ""
 #: src/core/config/formatconfig.cpp:520
 msgctxt "FormatConfig|"
 msgid "None"
-msgstr ""
+msgstr "يوق"
 
 #: src/core/config/starratingmappingsmodel.cpp:129
 msgctxt "StarRatingMappingsModel|"
 msgid "Name"
-msgstr ""
+msgstr "ئاتى"
 
 #: src/core/config/tagconfig.cpp:751 src/core/tags/frame.cpp:84
 msgctxt "@default|"
@@ -1745,12 +1739,12 @@ msgstr ""
 #: src/core/import/batchimporter.cpp:337
 msgctxt "BatchImporter|"
 msgid "Accuracy"
-msgstr ""
+msgstr "توغرىلىقى"
 
 #: src/core/import/batchimporter.cpp:340
 msgctxt "BatchImporter|"
 msgid "Unknown"
-msgstr ""
+msgstr "يوچۇن"
 
 #: src/core/import/batchimporter.cpp:415
 msgctxt "BatchImporter|"
@@ -1766,12 +1760,12 @@ msgstr ""
 #: src/core/import/httpclient.cpp:102
 msgctxt "HttpClient|"
 msgid "Ready."
-msgstr ""
+msgstr "تەييار."
 
 #: src/core/import/httpclient.cpp:104
 msgctxt "HttpClient|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/core/import/httpclient.cpp:152
 #, qt-format
@@ -1788,89 +1782,89 @@ msgstr ""
 #: src/core/tags/frame.cpp:2055
 msgctxt "@default|"
 msgid "Title"
-msgstr ""
+msgstr "ماۋزۇ"
 
 #: src/core/import/importparser.cpp:58 src/core/tags/frame.cpp:115
 #: src/core/tags/frame.cpp:139 src/core/tags/frame.cpp:2059
 msgctxt "@default|"
 msgid "Album"
-msgstr ""
+msgstr "ئالبوم"
 
 #: src/core/import/importparser.cpp:62 src/core/model/filefilter.cpp:97
 #: src/core/model/filefilter.cpp:103 src/core/tags/frame.cpp:138
 #: src/core/tags/frame.cpp:2063
 msgctxt "@default|"
 msgid "Artist"
-msgstr ""
+msgstr "ئورۇنلىغۇچى"
 
 #: src/core/import/importparser.cpp:66 src/core/tags/frame.cpp:140
 #: src/core/tags/frame.cpp:308 src/core/tags/frame.cpp:2067
 msgctxt "@default|"
 msgid "Comment"
-msgstr ""
+msgstr "ئىزاھات"
 
 #: src/core/import/importparser.cpp:70 src/core/tags/frame.cpp:340
 #: src/core/tags/frame.cpp:2071
 msgctxt "@default|"
 msgid "Year"
-msgstr ""
+msgstr "يىل"
 
 #: src/core/import/importparser.cpp:75 src/core/tags/frame.cpp:113
 #: src/core/tags/frame.cpp:2076
 msgctxt "@default|"
 msgid "Track"
-msgstr ""
+msgstr "نەغمە"
 
 #: src/core/import/importparser.cpp:79 src/core/tags/frame.cpp:143
 #: src/core/tags/frame.cpp:2089
 msgctxt "@default|"
 msgid "Genre"
-msgstr ""
+msgstr "ئېقىم"
 
 #: src/core/import/importparser.cpp:83 src/core/tags/frame.cpp:250
 #: src/core/tags/trackdata.cpp:231
 msgctxt "@default|"
 msgid "Length"
-msgstr ""
+msgstr "ئۇزۇنلۇقى"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:84
 msgctxt "@default|"
 msgid "Drive"
-msgstr ""
+msgstr "قوزغاتقۇچ"
 
 #. %1 is a file name suffix, for example txt
 #: src/core/model/abstractfiledecorationprovider.cpp:90
 #, qt-format
 msgctxt "@default|"
 msgid "%1 File"
-msgstr ""
+msgstr "%1 ھۆججەت"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:93
 msgctxt "@default|"
 msgid "File"
-msgstr ""
+msgstr "ھۆججەت"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:98
 msgctxt "@default|"
 msgid "Folder"
-msgstr ""
+msgstr "قىسقۇچ"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:102
 msgctxt "@default|"
 msgid "Shortcut"
-msgstr ""
+msgstr "تېزلەتمە"
 
 #: src/core/model/abstractfiledecorationprovider.cpp:105
 #: src/core/tags/frame.cpp:297 src/core/tags/frame.cpp:298
 msgctxt "@default|"
 msgid "Unknown"
-msgstr ""
+msgstr "يوچۇن"
 
 #: src/core/model/commandformatreplacer.cpp:144 src/core/tags/frame.cpp:54
 #: src/core/tags/trackdata.cpp:199 src/gui/dialogs/tagimportdialog.cpp:212
 msgctxt "@default|"
 msgid "Filename"
-msgstr ""
+msgstr "ھۆججەت ئاتى"
 
 #: src/core/model/commandformatreplacer.cpp:148
 msgctxt "@default|"
@@ -1881,12 +1875,12 @@ msgstr ""
 #: src/core/tags/trackdata.cpp:221
 msgctxt "@default|"
 msgid "URL"
-msgstr ""
+msgstr "تور ئادرېسى"
 
 #: src/core/model/commandformatreplacer.cpp:157
 msgctxt "@default|"
 msgid "URLs"
-msgstr ""
+msgstr "تور ئادرېس"
 
 #: src/core/model/commandformatreplacer.cpp:163
 msgctxt "@default|"
@@ -1896,7 +1890,7 @@ msgstr ""
 #: src/core/model/commandformatreplacer.cpp:168
 msgctxt "@default|"
 msgid "Browser"
-msgstr ""
+msgstr "توركۆرگۈ"
 
 #: src/core/model/commandformatreplacer.cpp:174
 msgctxt "@default|"
@@ -1912,7 +1906,7 @@ msgstr ""
 #: src/core/model/commandformatreplacer.cpp:187
 msgctxt "@default|"
 msgid "--- separator ---"
-msgstr ""
+msgstr "--- ئايرىغۇچ---"
 
 #: src/core/model/commandformatreplacer.cpp:193
 msgctxt "@default|"
@@ -1927,22 +1921,22 @@ msgstr ""
 #: src/core/model/commandstablemodel.cpp:165
 msgctxt "CommandsTableModel|"
 msgid "Confirm"
-msgstr ""
+msgstr "جەزملە"
 
 #: src/core/model/commandstablemodel.cpp:167
 msgctxt "CommandsTableModel|"
 msgid "Output"
-msgstr ""
+msgstr "چىقار"
 
 #: src/core/model/commandstablemodel.cpp:169
 msgctxt "CommandsTableModel|"
 msgid "Name"
-msgstr ""
+msgstr "ئاتى"
 
 #: src/core/model/commandstablemodel.cpp:171
 msgctxt "CommandsTableModel|"
 msgid "Command"
-msgstr ""
+msgstr "بۇيرۇق"
 
 #: src/core/model/dirrenamer.cpp:249
 #, qt-format
@@ -2034,17 +2028,17 @@ msgstr ""
 #: src/core/model/dirrenamer.cpp:688
 msgctxt "@default|"
 msgid "Rename file"
-msgstr ""
+msgstr "ھۆججەت ئاتىنى ئۆزگەرت"
 
 #: src/core/model/dirrenamer.cpp:689
 msgctxt "@default|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/core/model/downloadclient.cpp:53
 msgctxt "DownloadClient|"
 msgid "Ready."
-msgstr ""
+msgstr "تەييار."
 
 #: src/core/model/eventtimingcode.cpp:37
 msgctxt "@default|"
@@ -2300,12 +2294,12 @@ msgstr ""
 #: src/core/model/fileproxymodel.cpp:876
 msgctxt "FileProxyModel|"
 msgid "All Supported Files"
-msgstr ""
+msgstr "قوللايدىغان ھەممە ھۆججەت"
 
 #: src/core/model/fileproxymodel.cpp:878
 msgctxt "FileProxyModel|"
 msgid "All Files"
-msgstr ""
+msgstr "بارلىق ھۆججەت"
 
 #: src/core/model/filesystemmodel.cpp:822
 #, qt-format
@@ -2335,32 +2329,32 @@ msgstr ""
 #, qt-format
 msgctxt "FileSystemModel|"
 msgid "%1 bytes"
-msgstr ""
+msgstr "%1 بايت"
 
 #: src/core/model/filesystemmodel.cpp:983
 msgctxt "FileSystemModel|"
 msgid "Name"
-msgstr ""
+msgstr "ئاتى"
 
 #: src/core/model/filesystemmodel.cpp:985
 msgctxt "FileSystemModel|"
 msgid "Size"
-msgstr ""
+msgstr "چوڭلۇقى"
 
 #: src/core/model/filesystemmodel.cpp:989
 msgctxt "FileSystemModel|Match OS X Finder"
 msgid "Kind"
-msgstr ""
+msgstr "تۈر"
 
 #: src/core/model/filesystemmodel.cpp:991
 msgctxt "FileSystemModel|All other platforms"
 msgid "Type"
-msgstr ""
+msgstr "تۈرى"
 
 #: src/core/model/filesystemmodel.cpp:998
 msgctxt "FileSystemModel|"
 msgid "Date Modified"
-msgstr ""
+msgstr "ئۆزگەرتكەن چېسلا"
 
 #: src/core/model/filesystemmodel_p.h:319
 msgctxt "FileSystemModel|"
@@ -2370,17 +2364,17 @@ msgstr ""
 #: src/core/model/filesystemmodel_p.h:321
 msgctxt "FileSystemModel|"
 msgid "Computer"
-msgstr ""
+msgstr "كومپيۇتېر"
 
 #: src/core/model/frameobjectmodel.cpp:175
 msgctxt "FrameFieldObject|"
 msgid "Text"
-msgstr ""
+msgstr "تېكىست"
 
 #: src/core/model/frametablemodel.cpp:145
 msgctxt "FrameTableModel|"
 msgid "Volume"
-msgstr ""
+msgstr "ئاۋاز مىقدارى"
 
 #: src/core/model/frametablemodel.cpp:169
 msgctxt "FrameTableModel|"
@@ -2390,12 +2384,12 @@ msgstr ""
 #: src/core/model/frametablemodel.cpp:312
 msgctxt "FrameTableModel|"
 msgid "Name"
-msgstr ""
+msgstr "ئاتى"
 
 #: src/core/model/frametablemodel.cpp:312
 msgctxt "FrameTableModel|"
 msgid "Data"
-msgstr ""
+msgstr "سانلىق مەلۇمات"
 
 #: src/core/model/kid3application.cpp:1053
 msgctxt "Kid3Application|"
@@ -2405,37 +2399,37 @@ msgstr ""
 #: src/core/model/kid3application.cpp:1259
 msgctxt "Kid3Application|"
 msgid "Selection"
-msgstr ""
+msgstr "تاللاش"
 
 #: src/core/model/kid3application.cpp:3471
 msgctxt "Kid3Application|"
 msgid "All Files"
-msgstr ""
+msgstr "بارلىق ھۆججەت"
 
 #: src/core/model/taggedfilesystemmodel.cpp:35
 msgctxt "QFileSystemModel|"
 msgid "Name"
-msgstr ""
+msgstr "ئاتى"
 
 #: src/core/model/taggedfilesystemmodel.cpp:37
 msgctxt "QFileSystemModel|"
 msgid "Size"
-msgstr ""
+msgstr "چوڭلۇقى"
 
 #: src/core/model/taggedfilesystemmodel.cpp:39
 msgctxt "QFileSystemModel|"
 msgid "Type"
-msgstr ""
+msgstr "تۈرى"
 
 #: src/core/model/taggedfilesystemmodel.cpp:41
 msgctxt "QFileSystemModel|"
 msgid "Kind"
-msgstr ""
+msgstr "تۈر"
 
 #: src/core/model/taggedfilesystemmodel.cpp:44
 msgctxt "QFileSystemModel|"
 msgid "Date Modified"
-msgstr ""
+msgstr "ئۆزگەرتكەن چېسلا"
 
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
@@ -2445,7 +2439,7 @@ msgstr ""
 #: src/core/model/tagsearcher.cpp:462
 msgctxt "TagSearcher|"
 msgid "Filename"
-msgstr ""
+msgstr "ھۆججەت ئاتى"
 
 #: src/core/model/tagsearcher.cpp:464
 #, qt-format
@@ -2456,7 +2450,7 @@ msgstr ""
 #: src/core/model/timeeventmodel.cpp:123
 msgctxt "TimeEventModel|"
 msgid "Time"
-msgstr ""
+msgstr "ۋاقىت"
 
 #: src/core/model/timeeventmodel.cpp:126
 msgctxt "TimeEventModel|"
@@ -2466,12 +2460,12 @@ msgstr ""
 #: src/core/model/timeeventmodel.cpp:128
 msgctxt "TimeEventModel|"
 msgid "Text"
-msgstr ""
+msgstr "تېكىست"
 
 #: src/core/model/trackdatamodel.cpp:179
 msgctxt "TrackDataModel|"
 msgid "Track"
-msgstr ""
+msgstr "نەغمە"
 
 #: src/core/model/trackdatamodel.cpp:184
 msgctxt "TrackDataModel|"
@@ -2481,17 +2475,17 @@ msgstr ""
 #: src/core/model/trackdatamodel.cpp:186
 msgctxt "TrackDataModel|"
 msgid "Filename"
-msgstr ""
+msgstr "ھۆججەت ئاتى"
 
 #: src/core/model/trackdatamodel.cpp:188
 msgctxt "TrackDataModel|"
 msgid "Duration"
-msgstr ""
+msgstr "ۋاقتى"
 
 #: src/core/model/trackdatamodel.cpp:190
 msgctxt "TrackDataModel|"
 msgid "Length"
-msgstr ""
+msgstr "ئۇزۇنلۇقى"
 
 #: src/core/tags/frame.cpp:46
 msgctxt "@default|"
@@ -2501,38 +2495,38 @@ msgstr ""
 #: src/core/tags/frame.cpp:47
 msgctxt "@default|"
 msgid "Text"
-msgstr ""
+msgstr "تېكىست"
 
 #: src/core/tags/frame.cpp:49
 msgctxt "@default|"
 msgid "Data"
-msgstr ""
+msgstr "سانلىق مەلۇمات"
 
 #: src/core/tags/frame.cpp:50 src/core/tags/frame.cpp:169
 #: src/core/tags/frame.cpp:271 src/core/tags/frame.cpp:322
 msgctxt "@default|"
 msgid "Description"
-msgstr ""
+msgstr "چۈشەندۈرۈش"
 
 #: src/core/tags/frame.cpp:51 src/core/tags/frame.cpp:345
 msgctxt "@default|"
 msgid "Owner"
-msgstr ""
+msgstr "ئىگىدار"
 
 #: src/core/tags/frame.cpp:52
 msgctxt "@default|"
 msgid "Email"
-msgstr ""
+msgstr "ئېلخەت"
 
 #: src/core/tags/frame.cpp:53 src/core/tags/frame.cpp:185
 msgctxt "@default|"
 msgid "Rating"
-msgstr ""
+msgstr "باھالاش"
 
 #: src/core/tags/frame.cpp:55 src/core/tags/frame.cpp:161
 msgctxt "@default|"
 msgid "Language"
-msgstr ""
+msgstr "تىل"
 
 #: src/core/tags/frame.cpp:56
 msgctxt "@default|"
@@ -2547,17 +2541,17 @@ msgstr ""
 #: src/core/tags/frame.cpp:58
 msgctxt "@default|"
 msgid "Mimetype"
-msgstr ""
+msgstr "Mime تۈرى"
 
 #: src/core/tags/frame.cpp:59
 msgctxt "@default|"
 msgid "Counter"
-msgstr ""
+msgstr "سانىغۇچ"
 
 #: src/core/tags/frame.cpp:60
 msgctxt "@default|"
 msgid "Identifier"
-msgstr ""
+msgstr "پەرقلەندۈرگۈچ"
 
 #: src/core/tags/frame.cpp:61 src/core/tags/frame.cpp:230
 #: src/core/tags/frame.cpp:231
@@ -2598,18 +2592,18 @@ msgstr ""
 #: src/core/tags/frame.cpp:68
 msgctxt "@default|"
 msgid "Content Type"
-msgstr ""
+msgstr "مەزمۇن تىپى"
 
 #: src/core/tags/frame.cpp:70
 msgctxt "@default|"
 msgid "Price"
-msgstr ""
+msgstr "باھاسى"
 
 #: src/core/tags/frame.cpp:71 src/core/tags/frame.cpp:141
 #: src/core/tags/frame.cpp:238
 msgctxt "@default|"
 msgid "Date"
-msgstr ""
+msgstr "چېسلا"
 
 #: src/core/tags/frame.cpp:72
 msgctxt "@default|"
@@ -2624,7 +2618,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:75
 msgctxt "@default|"
 msgid "Default"
-msgstr ""
+msgstr "كۆڭۈلدىكى"
 
 #: src/core/tags/frame.cpp:76
 msgctxt "@default|"
@@ -2655,7 +2649,7 @@ msgstr ""
 #: src/core/tags/pictureframe.cpp:41
 msgctxt "@default|"
 msgid "Other"
-msgstr ""
+msgstr "باشقا"
 
 #: src/core/tags/frame.cpp:93
 msgctxt "@default|"
@@ -2671,7 +2665,7 @@ msgstr ""
 #: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "Lyrics"
-msgstr ""
+msgstr "ناخشا سۆزى"
 
 #: src/core/tags/frame.cpp:101
 msgctxt "@default|"
@@ -2686,12 +2680,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:103
 msgctxt "@default|"
 msgid "Events"
-msgstr ""
+msgstr "ھادىسە"
 
 #: src/core/tags/frame.cpp:104
 msgctxt "@default|"
 msgid "Chord"
-msgstr ""
+msgstr "ئاككورد"
 
 #: src/core/tags/frame.cpp:105
 msgctxt "@default|"
@@ -2701,7 +2695,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "None"
-msgstr ""
+msgstr "يوق"
 
 #: src/core/tags/frame.cpp:111
 msgctxt "@default|"
@@ -2721,22 +2715,22 @@ msgstr ""
 #: src/core/tags/frame.cpp:116
 msgctxt "@default|"
 msgid "Edition"
-msgstr ""
+msgstr "نەشرى"
 
 #: src/core/tags/frame.cpp:117
 msgctxt "@default|"
 msgid "Collection"
-msgstr ""
+msgstr "توپلام"
 
 #: src/core/tags/frame.cpp:142
 msgctxt "@default|"
 msgid "Track Number"
-msgstr ""
+msgstr "نەغمە نومۇرى"
 
 #: src/core/tags/frame.cpp:145 src/core/tags/frame.cpp:268
 msgctxt "@default|"
 msgid "Album Artist"
-msgstr ""
+msgstr "ناخشا توپلىمى سەنئەتكارى"
 
 #: src/core/tags/frame.cpp:146
 msgctxt "@default|"
@@ -2746,7 +2740,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:147
 msgctxt "@default|"
 msgid "Author"
-msgstr ""
+msgstr "يازغۇچى"
 
 #: src/core/tags/frame.cpp:148
 msgctxt "@default|"
@@ -2766,7 +2760,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:151 src/core/tags/pictureframe.cpp:52
 msgctxt "@default|"
 msgid "Composer"
-msgstr ""
+msgstr "مۇزىكىسىنى ئىشلىگۈچى"
 
 #: src/core/tags/frame.cpp:152 src/core/tags/frame.cpp:321
 #: src/core/tags/pictureframe.cpp:50
@@ -2777,12 +2771,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:153
 msgctxt "@default|"
 msgid "Copyright"
-msgstr ""
+msgstr "نەشر ھوقۇقى"
 
 #: src/core/tags/frame.cpp:154
 msgctxt "@default|"
 msgid "Disc Number"
-msgstr ""
+msgstr "دىسكا نومۇرى"
 
 #: src/core/tags/frame.cpp:155 src/core/tags/frame.cpp:275
 msgctxt "@default|"
@@ -2803,7 +2797,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:270
 msgctxt "@default|"
 msgid "Grouping"
-msgstr ""
+msgstr "گۇرۇپپىلاش"
 
 #: src/core/tags/frame.cpp:159
 msgctxt "@default|"
@@ -2823,12 +2817,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:164 src/core/tags/pictureframe.cpp:47
 msgctxt "@default|"
 msgid "Media"
-msgstr ""
+msgstr "ۋاسىتە"
 
 #: src/core/tags/frame.cpp:165 src/core/tags/frame.cpp:310
 msgctxt "@default|"
 msgid "Mood"
-msgstr ""
+msgstr "ھالەت"
 
 #: src/core/tags/frame.cpp:166
 msgctxt "@default|"
@@ -2853,12 +2847,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:171
 msgctxt "@default|"
 msgid "Picture"
-msgstr ""
+msgstr "رەسىم"
 
 #: src/core/tags/frame.cpp:172
 msgctxt "@default|"
 msgid "Publisher"
-msgstr ""
+msgstr "تارقاتقۇچى"
 
 #: src/core/tags/frame.cpp:173
 msgctxt "@default|"
@@ -2898,12 +2892,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:180
 msgctxt "@default|"
 msgid "Subtitle"
-msgstr ""
+msgstr "قوشۇمچە ماۋزۇ"
 
 #: src/core/tags/frame.cpp:181
 msgctxt "@default|"
 msgid "Website"
-msgstr ""
+msgstr "تور بېكەت"
 
 #: src/core/tags/frame.cpp:182
 msgctxt "@default|"
@@ -2923,7 +2917,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:186
 msgctxt "@default|"
 msgid "Work"
-msgstr ""
+msgstr "ئىش"
 
 #: src/core/tags/frame.cpp:206
 msgctxt "@default|"
@@ -2938,7 +2932,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:208
 msgctxt "@default|"
 msgid "Chapter"
-msgstr ""
+msgstr "باب"
 
 #: src/core/tags/frame.cpp:209
 msgctxt "@default|"
@@ -2948,7 +2942,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:210
 msgctxt "@default|"
 msgid "Table of Contents"
-msgstr ""
+msgstr "مەزمۇن مۇندەرىجىسى"
 
 #: src/core/tags/frame.cpp:211
 msgctxt "@default|"
@@ -3003,7 +2997,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:223
 msgctxt "@default|"
 msgid "Ownership"
-msgstr ""
+msgstr "ئىگىدارلىق"
 
 #: src/core/tags/frame.cpp:224
 msgctxt "@default|"
@@ -3013,7 +3007,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:225 src/core/tags/frame.cpp:327
 msgctxt "@default|"
 msgid "Podcast"
-msgstr ""
+msgstr "پودكەست(podcast)"
 
 #: src/core/tags/frame.cpp:226
 msgctxt "@default|"
@@ -3028,7 +3022,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:228
 msgctxt "@default|"
 msgid "Private"
-msgstr ""
+msgstr "شەخسىي"
 
 #: src/core/tags/frame.cpp:229
 msgctxt "@default|"
@@ -3043,12 +3037,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:233
 msgctxt "@default|"
 msgid "Seek"
-msgstr ""
+msgstr "ئىزدەش"
 
 #: src/core/tags/frame.cpp:234
 msgctxt "@default|"
 msgid "Signature"
-msgstr ""
+msgstr "ئىمزا"
 
 #: src/core/tags/frame.cpp:235
 msgctxt "@default|"
@@ -3098,7 +3092,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:246
 msgctxt "@default|"
 msgid "File Type"
-msgstr ""
+msgstr "ھۆججەت تۈرى"
 
 #: src/core/tags/frame.cpp:247
 msgctxt "@default|"
@@ -3108,7 +3102,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:248
 msgctxt "@default|"
 msgid "Time"
-msgstr ""
+msgstr "ۋاقىت"
 
 #: src/core/tags/frame.cpp:249
 msgctxt "@default|"
@@ -3123,7 +3117,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:252
 msgctxt "@default|"
 msgid "File Owner"
-msgstr ""
+msgstr "ئىگىسى"
 
 #: src/core/tags/frame.cpp:253
 msgctxt "@default|"
@@ -3148,7 +3142,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:257
 msgctxt "@default|"
 msgid "Size"
-msgstr ""
+msgstr "چوڭلۇقى"
 
 #: src/core/tags/frame.cpp:258
 msgctxt "@default|"
@@ -3188,7 +3182,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:265
 msgctxt "@default|"
 msgid "Payment"
-msgstr ""
+msgstr "تۆلەش"
 
 #: src/core/tags/frame.cpp:266
 msgctxt "@default|"
@@ -3204,7 +3198,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:269
 msgctxt "@default|"
 msgid "Contact"
-msgstr ""
+msgstr "ئالاقەداش"
 
 #: src/core/tags/frame.cpp:272 src/core/tags/frame.cpp:294
 msgctxt "@default|"
@@ -3219,7 +3213,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:276
 msgctxt "@default|"
 msgid "Encoding"
-msgstr ""
+msgstr "كودلاش"
 
 #: src/core/tags/frame.cpp:277
 msgctxt "@default|"
@@ -3249,7 +3243,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:282
 msgctxt "@default|"
 msgid "Label"
-msgstr ""
+msgstr "بەلگە"
 
 #: src/core/tags/frame.cpp:283
 msgctxt "@default|"
@@ -3259,12 +3253,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:284
 msgctxt "@default|"
 msgid "License"
-msgstr ""
+msgstr "ئىجازەتنامە"
 
 #: src/core/tags/frame.cpp:285
 msgctxt "@default|"
 msgid "Location"
-msgstr ""
+msgstr "ئورنى"
 
 #: src/core/tags/frame.cpp:286
 msgctxt "@default|"
@@ -3274,7 +3268,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:288
 msgctxt "@default|"
 msgid "Organization"
-msgstr ""
+msgstr "تەشكىل"
 
 #: src/core/tags/frame.cpp:289
 msgctxt "@default|"
@@ -3284,7 +3278,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:290
 msgctxt "@default|"
 msgid "Producer"
-msgstr ""
+msgstr "فىلىم ئىشلىگۈچى"
 
 #: src/core/tags/frame.cpp:291
 msgctxt "@default|"
@@ -3299,27 +3293,27 @@ msgstr ""
 #: src/core/tags/frame.cpp:299
 msgctxt "@default|"
 msgid "Version"
-msgstr ""
+msgstr "نەشرى"
 
 #: src/core/tags/frame.cpp:300
 msgctxt "@default|"
 msgid "Volume"
-msgstr ""
+msgstr "ئاۋاز مىقدارى"
 
 #: src/core/tags/frame.cpp:302
 msgctxt "@default|"
 msgid "Director"
-msgstr ""
+msgstr "رېژىسسور"
 
 #: src/core/tags/frame.cpp:303
 msgctxt "@default|"
 msgid "Duration"
-msgstr ""
+msgstr "ۋاقتى"
 
 #: src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "ئۈزۈندە"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
@@ -3364,7 +3358,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:319
 msgctxt "@default|"
 msgid "Category"
-msgstr ""
+msgstr "كاتېگورىيە"
 
 #: src/core/tags/frame.cpp:320
 msgctxt "@default|"
@@ -3384,7 +3378,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:325
 msgctxt "@default|"
 msgid "Keyword"
-msgstr ""
+msgstr "ھالقىلىق سۆز"
 
 #: src/core/tags/frame.cpp:326
 msgctxt "@default|"
@@ -3419,7 +3413,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:334
 msgctxt "@default|"
 msgid "Media Type"
-msgstr ""
+msgstr "ۋاسىتە تىپى"
 
 #: src/core/tags/frame.cpp:335
 msgctxt "@default|"
@@ -3509,7 +3503,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:356
 msgctxt "@default|"
 msgid "Dimensions"
-msgstr ""
+msgstr "ئۆلچەم"
 
 #: src/core/tags/frame.cpp:357
 msgctxt "@default|"
@@ -3519,12 +3513,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:358
 msgctxt "@default|"
 msgid "Keywords"
-msgstr ""
+msgstr "ئاچقۇچلۇق سۆز"
 
 #: src/core/tags/frame.cpp:359
 msgctxt "@default|"
 msgid "Lightness"
-msgstr ""
+msgstr "يورۇقلۇق دەرىجىسى"
 
 #: src/core/tags/frame.cpp:360
 msgctxt "@default|"
@@ -3534,12 +3528,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:361
 msgctxt "@default|"
 msgid "Subject"
-msgstr ""
+msgstr "ماۋزۇ"
 
 #: src/core/tags/frame.cpp:362
 msgctxt "@default|"
 msgid "Sharpness"
-msgstr ""
+msgstr "ئۆتكۈرلۈك"
 
 #: src/core/tags/frame.cpp:363
 msgctxt "@default|"
@@ -3560,7 +3554,7 @@ msgstr ""
 #: src/core/tags/frame.cpp:1285
 msgctxt "@default|"
 msgid "All Tags"
-msgstr ""
+msgstr "بارلىق بەلگە"
 
 #: src/core/tags/frame.cpp:2094
 msgctxt "@default|"
@@ -3757,7 +3751,7 @@ msgstr ""
 #: src/core/tags/trackdata.cpp:216
 msgctxt "@default|"
 msgid "Creation date"
-msgstr ""
+msgstr "قۇرغان ۋاقىت"
 
 #: src/core/tags/trackdata.cpp:226
 msgctxt "@default|"
@@ -3772,12 +3766,12 @@ msgstr ""
 #: src/core/tags/trackdata.cpp:246
 msgctxt "@default|"
 msgid "Extension"
-msgstr ""
+msgstr "كېڭەيتىلمە"
 
 #: src/core/tags/trackdata.cpp:259
 msgctxt "@default|"
 msgid "Bitrate"
-msgstr ""
+msgstr "بايت نىسبىتى"
 
 #: src/core/tags/trackdata.cpp:269
 msgctxt "@default|"
@@ -3787,12 +3781,12 @@ msgstr ""
 #: src/core/tags/trackdata.cpp:276
 msgctxt "@default|"
 msgid "Channels"
-msgstr ""
+msgstr "قانال"
 
 #: src/core/tags/trackdata.cpp:281
 msgctxt "@default|"
 msgid "Codec"
-msgstr ""
+msgstr "كود يەشكۈچ"
 
 #: src/core/tags/trackdata.cpp:286
 msgctxt "@default|"
@@ -3822,17 +3816,17 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:204
 msgctxt "BatchImportDialog|"
 msgid "Add"
-msgstr ""
+msgstr "قوش"
 
 #: src/gui/dialogs/batchimportdialog.cpp:208
 msgctxt "BatchImportDialog|"
 msgid "Remove"
-msgstr ""
+msgstr "چىقىرىۋەت"
 
 #: src/gui/dialogs/batchimportdialog.cpp:229
 msgctxt "BatchImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/batchimportdialog.cpp:235
 msgctxt "BatchImportDialog|"
@@ -3842,12 +3836,12 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:244
 msgctxt "BatchImportDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "ياپ(&C)"
 
 #: src/gui/dialogs/batchimportdialog.cpp:284
 msgctxt "BatchImportDialog|"
 msgid "New"
-msgstr ""
+msgstr "يېڭى"
 
 #: src/gui/dialogs/batchimportdialog.cpp:476
 msgctxt "BatchImportDialog|"
@@ -3857,22 +3851,22 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:480
 msgctxt "BatchImportDialog|"
 msgid "Started"
-msgstr ""
+msgstr "باشلاندى"
 
 #: src/gui/dialogs/batchimportdialog.cpp:483
 msgctxt "BatchImportDialog|"
 msgid "Source"
-msgstr ""
+msgstr "مەنبە"
 
 #: src/gui/dialogs/batchimportdialog.cpp:486
 msgctxt "BatchImportDialog|"
 msgid "Querying"
-msgstr ""
+msgstr "سۈرۈشتۈرۈۋاتىدۇ"
 
 #: src/gui/dialogs/batchimportdialog.cpp:490
 msgctxt "BatchImportDialog|"
 msgid "Fetching"
-msgstr ""
+msgstr "تۇتۇۋاتىدۇ"
 
 #: src/gui/dialogs/batchimportdialog.cpp:493
 msgctxt "BatchImportDialog|"
@@ -3887,22 +3881,22 @@ msgstr ""
 #: src/gui/dialogs/batchimportdialog.cpp:500
 msgctxt "BatchImportDialog|"
 msgid "Finished"
-msgstr ""
+msgstr "تاماملاندى"
 
 #: src/gui/dialogs/batchimportdialog.cpp:504
 msgctxt "BatchImportDialog|"
 msgid "Aborted"
-msgstr ""
+msgstr "توختىتىلدى"
 
 #: src/gui/dialogs/batchimportdialog.cpp:507
 msgctxt "BatchImportDialog|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/gui/dialogs/batchimportdialog.cpp:523
 msgctxt "BatchImportDialog|"
 msgid "A&bort"
-msgstr ""
+msgstr "توختات(&B)"
 
 #: src/gui/dialogs/batchimportdialog.cpp:523
 msgctxt "BatchImportDialog|"
@@ -3917,7 +3911,7 @@ msgstr ""
 #: src/gui/dialogs/batchimportsourcedialog.cpp:50
 msgctxt "BatchImportSourceDialog|"
 msgid "&Server:"
-msgstr ""
+msgstr "مۇلازىمېتىر(&S):"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:58
 msgctxt "BatchImportSourceDialog|"
@@ -3958,12 +3952,12 @@ msgstr ""
 #: src/gui/dialogs/browsecoverartdialog.cpp:107
 msgctxt "BrowseCoverArtDialog|"
 msgid "Source:"
-msgstr ""
+msgstr "مەنبە:"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:107
 msgctxt "BrowseCoverArtDialog|"
 msgid "URL:"
-msgstr ""
+msgstr "تور ئادرېسى:"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:118
 msgctxt "BrowseCoverArtDialog|"
@@ -3973,7 +3967,7 @@ msgstr ""
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
 msgid "Match"
-msgstr ""
+msgstr "مۇۋاپىق"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
@@ -3983,7 +3977,7 @@ msgstr ""
 #: src/gui/dialogs/browsecoverartdialog.cpp:130
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:135
 msgctxt "BrowseCoverArtDialog|"
@@ -3993,12 +3987,12 @@ msgstr ""
 #: src/gui/dialogs/browsecoverartdialog.cpp:144
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Browse"
-msgstr ""
+msgstr "كۆز يۈگۈرت(&B)"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:145
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Cancel"
-msgstr ""
+msgstr "ۋاز كەچ(&C)"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:177
 msgctxt "BrowseCoverArtDialog|"
@@ -4099,7 +4093,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:278
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
-msgstr ""
+msgstr "ئىخچام"
 
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
@@ -4114,7 +4108,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
-msgstr ""
+msgstr "رەسىم"
 
 #: src/gui/dialogs/configdialogpages.cpp:295
 msgctxt "ConfigDialogPages|"
@@ -4164,7 +4158,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:373
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
-msgstr ""
+msgstr "باھالاش"
 
 #: src/gui/dialogs/configdialogpages.cpp:383
 msgctxt "ConfigDialogPages|"
@@ -4189,7 +4183,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:405
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
-msgstr ""
+msgstr "قوزغىلىش"
 
 #: src/gui/dialogs/configdialogpages.cpp:406
 msgctxt "ConfigDialogPages|"
@@ -4199,7 +4193,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:412
 msgctxt "ConfigDialogPages|"
 msgid "Save"
-msgstr ""
+msgstr "ساقلا"
 
 #: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
@@ -4224,7 +4218,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:431
 msgctxt "ConfigDialogPages|"
 msgid "File List"
-msgstr ""
+msgstr "ھۆججەت تىزىمى"
 
 #: src/gui/dialogs/configdialogpages.cpp:432
 msgctxt "ConfigDialogPages|"
@@ -4249,7 +4243,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:462
 msgctxt "ConfigDialogPages|"
 msgid "Format"
-msgstr ""
+msgstr "پىچىمى"
 
 #: src/gui/dialogs/configdialogpages.cpp:466
 msgctxt "ConfigDialogPages|"
@@ -4265,7 +4259,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:537
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
-msgstr ""
+msgstr "قويۇش تىزىمى"
 
 #: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
@@ -4285,7 +4279,7 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:551
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
-msgstr ""
+msgstr "توركۆرگۈ"
 
 #: src/gui/dialogs/configdialogpages.cpp:552
 msgctxt "ConfigDialogPages|"
@@ -4315,12 +4309,12 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:571
 msgctxt "ConfigDialogPages|"
 msgid "System"
-msgstr ""
+msgstr "سىستېما"
 
 #: src/gui/dialogs/configdialogpages.cpp:604
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
-msgstr ""
+msgstr "ۋاكالەتچى"
 
 #: src/gui/dialogs/configdialogpages.cpp:605
 msgctxt "ConfigDialogPages|"
@@ -4360,13 +4354,13 @@ msgstr ""
 #: src/gui/dialogs/editframefieldsdialog.cpp:801
 msgctxt "@default|"
 msgid "Images"
-msgstr ""
+msgstr "سۈرەت"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:802
 #: src/gui/widgets/timeeventeditor.cpp:350
 msgctxt "@default|"
 msgid "All Files"
-msgstr ""
+msgstr "بارلىق ھۆججەت"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1195
 msgctxt "BinaryOpenSave|"
@@ -4376,17 +4370,17 @@ msgstr ""
 #: src/gui/dialogs/editframefieldsdialog.cpp:1196
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
-msgstr ""
+msgstr "چاپلاش تاختىسىغا(&T)"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1197
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
-msgstr ""
+msgstr "ئىمپورت قىل(&I)…"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1198
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
-msgstr ""
+msgstr "ئېكسپورت قىل(&E)…"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1199
 msgctxt "BinaryOpenSave|"
@@ -4396,22 +4390,22 @@ msgstr ""
 #: src/gui/dialogs/editframefieldsdialog.cpp:1371
 msgctxt "EditFrameFieldsDialog|"
 msgid "&OK"
-msgstr ""
+msgstr "جەزملە(&O)"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1372
 msgctxt "EditFrameFieldsDialog|"
 msgid "&Cancel"
-msgstr ""
+msgstr "ۋاز كەچ(&C)"
 
 #: src/gui/dialogs/exportdialog.cpp:68
 msgctxt "ExportDialog|"
 msgid "Export"
-msgstr ""
+msgstr "چىقار"
 
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "&Format:"
-msgstr ""
+msgstr "فورمات(&F):"
 
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
@@ -4441,7 +4435,7 @@ msgstr ""
 #: src/gui/dialogs/exportdialog.cpp:105
 msgctxt "ExportDialog|"
 msgid "&Source:"
-msgstr ""
+msgstr "مەنبە(&S):"
 
 #: src/gui/dialogs/exportdialog.cpp:110
 #, qt-format
@@ -4452,7 +4446,7 @@ msgstr ""
 #: src/gui/dialogs/exportdialog.cpp:122
 msgctxt "ExportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/exportdialog.cpp:127
 msgctxt "ExportDialog|"
@@ -4462,7 +4456,7 @@ msgstr ""
 #: src/gui/dialogs/exportdialog.cpp:136
 msgctxt "ExportDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "ياپ(&C)"
 
 #: src/gui/dialogs/exportdialog.cpp:155
 msgctxt "ExportDialog|"
@@ -4477,17 +4471,17 @@ msgstr ""
 #: src/gui/dialogs/filterdialog.cpp:49
 msgctxt "FilterDialog|"
 msgid "Filter"
-msgstr ""
+msgstr "سۈزگۈچ"
 
 #: src/gui/dialogs/filterdialog.cpp:53
 msgctxt "FilterDialog|"
 msgid "&Preview"
-msgstr ""
+msgstr "ئالدىن كۆزەت(&P)"
 
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
 msgid "&Filter:"
-msgstr ""
+msgstr "سۈزگۈچ(&F):"
 
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
@@ -4497,7 +4491,7 @@ msgstr ""
 #: src/gui/dialogs/filterdialog.cpp:75
 msgctxt "FilterDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/filterdialog.cpp:80
 msgctxt "FilterDialog|"
@@ -4507,32 +4501,32 @@ msgstr ""
 #: src/gui/dialogs/filterdialog.cpp:91
 msgctxt "FilterDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "ياپ(&C)"
 
 #: src/gui/dialogs/filterdialog.cpp:182
 msgctxt "FilterDialog|"
 msgid "Started"
-msgstr ""
+msgstr "باشلاندى"
 
 #: src/gui/dialogs/filterdialog.cpp:198
 msgctxt "FilterDialog|"
 msgid "Finished"
-msgstr ""
+msgstr "تاماملاندى"
 
 #: src/gui/dialogs/filterdialog.cpp:202
 msgctxt "FilterDialog|"
 msgid "Aborted"
-msgstr ""
+msgstr "توختىتىلدى"
 
 #: src/gui/dialogs/filterdialog.cpp:215
 msgctxt "FilterDialog|"
 msgid "A&bort"
-msgstr ""
+msgstr "توختات(&B)"
 
 #: src/gui/dialogs/filterdialog.cpp:215
 msgctxt "FilterDialog|"
 msgid "&Apply"
-msgstr ""
+msgstr "قوللان(&A)"
 
 #: src/gui/dialogs/findreplacedialog.cpp:54
 #: src/gui/dialogs/findreplacedialog.cpp:170
@@ -4543,12 +4537,12 @@ msgstr ""
 #: src/gui/dialogs/findreplacedialog.cpp:59
 msgctxt "FindReplaceDialog|"
 msgid "F&ind:"
-msgstr ""
+msgstr "ئىزدە(&I)"
 
 #: src/gui/dialogs/findreplacedialog.cpp:66
 msgctxt "FindReplaceDialog|"
 msgid "&Find"
-msgstr ""
+msgstr "ئىزدە(&F)"
 
 #: src/gui/dialogs/findreplacedialog.cpp:69
 msgctxt "FindReplaceDialog|"
@@ -4558,7 +4552,7 @@ msgstr ""
 #: src/gui/dialogs/findreplacedialog.cpp:76
 msgctxt "FindReplaceDialog|"
 msgid "&Replace"
-msgstr ""
+msgstr "ئالماشتۇر(&R)"
 
 #: src/gui/dialogs/findreplacedialog.cpp:79
 msgctxt "FindReplaceDialog|"
@@ -4568,12 +4562,12 @@ msgstr ""
 #: src/gui/dialogs/findreplacedialog.cpp:94
 msgctxt "FindReplaceDialog|"
 msgid "Options"
-msgstr ""
+msgstr "تاللانما"
 
 #: src/gui/dialogs/findreplacedialog.cpp:96
 msgctxt "FindReplaceDialog|"
 msgid "&Match case"
-msgstr ""
+msgstr "چوڭ-كىچىكلىكىگە قارا(&M)"
 
 #: src/gui/dialogs/findreplacedialog.cpp:98
 msgctxt "FindReplaceDialog|"
@@ -4598,12 +4592,12 @@ msgstr ""
 #: src/gui/dialogs/findreplacedialog.cpp:117
 msgctxt "FindReplaceDialog|"
 msgid "Filename"
-msgstr ""
+msgstr "ھۆججەت ئاتى"
 
 #: src/gui/dialogs/findreplacedialog.cpp:132
 msgctxt "FindReplaceDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/findreplacedialog.cpp:137
 msgctxt "FindReplaceDialog|"
@@ -4613,17 +4607,17 @@ msgstr ""
 #: src/gui/dialogs/findreplacedialog.cpp:144
 msgctxt "FindReplaceDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "ياپ(&C)"
 
 #: src/gui/dialogs/findreplacedialog.cpp:170
 msgctxt "FindReplaceDialog|"
 msgid "Find"
-msgstr ""
+msgstr "ئىزدە"
 
 #: src/gui/dialogs/importdialog.cpp:128
 msgctxt "ImportDialog|"
 msgid "Accuracy:"
-msgstr ""
+msgstr "توغرىلىق دەرىجىسى:"
 
 #: src/gui/dialogs/importdialog.cpp:139
 msgctxt "ImportDialog|"
@@ -4653,7 +4647,7 @@ msgstr ""
 #: src/gui/dialogs/importdialog.cpp:195
 msgctxt "ImportDialog|"
 msgid "Revert"
-msgstr ""
+msgstr "ئەسلىگە ياندۇر"
 
 #: src/gui/dialogs/importdialog.cpp:204
 msgctxt "ImportDialog|"
@@ -4683,7 +4677,7 @@ msgstr ""
 #: src/gui/dialogs/importdialog.cpp:248
 msgctxt "ImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/importdialog.cpp:250
 msgctxt "ImportDialog|"
@@ -4693,12 +4687,12 @@ msgstr ""
 #: src/gui/dialogs/importdialog.cpp:252
 msgctxt "ImportDialog|"
 msgid "&OK"
-msgstr ""
+msgstr "جەزملە(&O)"
 
 #: src/gui/dialogs/importdialog.cpp:253
 msgctxt "ImportDialog|"
 msgid "&Cancel"
-msgstr ""
+msgstr "ۋاز كەچ(&C)"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:50
 #: src/qml/app/NumberTracksDialog.qml:32
@@ -4729,7 +4723,7 @@ msgstr ""
 #: src/gui/dialogs/numbertracksdialog.cpp:103
 msgctxt "NumberTracksDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:108
 msgctxt "NumberTracksDialog|"
@@ -4739,12 +4733,12 @@ msgstr ""
 #: src/gui/dialogs/numbertracksdialog.cpp:117
 msgctxt "NumberTracksDialog|"
 msgid "&OK"
-msgstr ""
+msgstr "جەزملە(&O)"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:123
 msgctxt "NumberTracksDialog|"
 msgid "&Cancel"
-msgstr ""
+msgstr "ۋاز كەچ(&C)"
 
 #: src/gui/dialogs/playlistdialog.cpp:56
 msgctxt "PlaylistDialog|"
@@ -4764,7 +4758,7 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:147
 msgctxt "PlaylistDialog|"
 msgid "&Format:"
-msgstr ""
+msgstr "فورمات(&F):"
 
 #: src/gui/dialogs/playlistdialog.cpp:152
 msgctxt "PlaylistDialog|"
@@ -4774,7 +4768,7 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:153
 msgctxt "PlaylistDialog|"
 msgid "New"
-msgstr ""
+msgstr "يېڭى"
 
 #: src/gui/dialogs/playlistdialog.cpp:159
 msgctxt "PlaylistDialog|"
@@ -4784,7 +4778,7 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:162
 msgctxt "PlaylistDialog|"
 msgid "Current folder"
-msgstr ""
+msgstr "نۆۋەتتىكى قىسقۇچ"
 
 #: src/gui/dialogs/playlistdialog.cpp:163
 msgctxt "PlaylistDialog|"
@@ -4804,7 +4798,7 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:167
 msgctxt "PlaylistDialog|"
 msgid "For&mat:"
-msgstr ""
+msgstr "پىچىم(&M):"
 
 #: src/gui/dialogs/playlistdialog.cpp:171
 msgctxt "PlaylistDialog|"
@@ -4844,7 +4838,7 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:207
 msgctxt "PlaylistDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/playlistdialog.cpp:211
 msgctxt "PlaylistDialog|"
@@ -4854,17 +4848,17 @@ msgstr ""
 #: src/gui/dialogs/playlistdialog.cpp:219
 msgctxt "PlaylistDialog|"
 msgid "&OK"
-msgstr ""
+msgstr "جەزملە(&O)"
 
 #: src/gui/dialogs/playlistdialog.cpp:222
 msgctxt "PlaylistDialog|"
 msgid "&Cancel"
-msgstr ""
+msgstr "ۋاز كەچ(&C)"
 
 #: src/gui/dialogs/playlisteditdialog.cpp:114
 msgctxt "PlaylistEditDialog|"
 msgid "Playlist"
-msgstr ""
+msgstr "قويۇش تىزىمى"
 
 #: src/gui/dialogs/playlisteditdialog.cpp:120
 msgctxt "PlaylistEditDialog|"
@@ -4874,7 +4868,7 @@ msgstr ""
 #: src/gui/dialogs/playlisteditdialog.cpp:130
 msgctxt "PlaylistEditDialog|"
 msgid "Warning"
-msgstr ""
+msgstr "ئاگاھلاندۇرۇش"
 
 #: src/gui/dialogs/playlisteditdialog.cpp:131
 msgctxt "PlaylistEditDialog|"
@@ -4891,12 +4885,12 @@ msgstr ""
 #: src/gui/dialogs/rendirdialog.cpp:69
 msgctxt "RenDirDialog|"
 msgid "Format"
-msgstr ""
+msgstr "پىچىمى"
 
 #: src/gui/dialogs/rendirdialog.cpp:74
 msgctxt "RenDirDialog|"
 msgid "Preview"
-msgstr ""
+msgstr "ئالدىن كۆزەت"
 
 #: src/gui/dialogs/rendirdialog.cpp:78
 msgctxt "RenDirDialog|"
@@ -4906,7 +4900,7 @@ msgstr ""
 #: src/gui/dialogs/rendirdialog.cpp:101
 msgctxt "RenDirDialog|"
 msgid "Create Folder"
-msgstr ""
+msgstr "قىسقۇچ قۇر"
 
 #: src/gui/dialogs/rendirdialog.cpp:102
 msgctxt "RenDirDialog|"
@@ -4916,27 +4910,27 @@ msgstr ""
 #: src/gui/dialogs/rendirdialog.cpp:110
 msgctxt "RenDirDialog|"
 msgid "&Source:"
-msgstr ""
+msgstr "مەنبە(&S):"
 
 #: src/gui/dialogs/rendirdialog.cpp:122
 msgctxt "RenDirDialog|"
 msgid "&Edit..."
-msgstr ""
+msgstr "تەھرىر(&E)…"
 
 #: src/gui/dialogs/rendirdialog.cpp:126
 msgctxt "RenDirDialog|"
 msgid "&Format:"
-msgstr ""
+msgstr "فورمات(&F):"
 
 #: src/gui/dialogs/rendirdialog.cpp:138
 msgctxt "RenDirDialog|"
 msgid "From:"
-msgstr ""
+msgstr "كىمدىن:"
 
 #: src/gui/dialogs/rendirdialog.cpp:139
 msgctxt "RenDirDialog|"
 msgid "To:"
-msgstr ""
+msgstr "كىمگە:"
 
 #: src/gui/dialogs/rendirdialog.cpp:325
 msgctxt "RenDirDialog|"
@@ -4946,12 +4940,12 @@ msgstr ""
 #: src/gui/dialogs/serverimportdialog.cpp:61
 msgctxt "ServerImportDialog|"
 msgid "&Find"
-msgstr ""
+msgstr "ئىزدە(&F)"
 
 #: src/gui/dialogs/serverimportdialog.cpp:75
 msgctxt "ServerImportDialog|"
 msgid "&Server:"
-msgstr ""
+msgstr "مۇلازىمېتىر(&S):"
 
 #: src/gui/dialogs/serverimportdialog.cpp:78
 msgctxt "ServerImportDialog|"
@@ -4981,7 +4975,7 @@ msgstr ""
 #: src/gui/dialogs/serverimportdialog.cpp:113
 msgctxt "ServerImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/serverimportdialog.cpp:115
 msgctxt "ServerImportDialog|"
@@ -4991,17 +4985,17 @@ msgstr ""
 #: src/gui/dialogs/serverimportdialog.cpp:117
 msgctxt "ServerImportDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "ياپ(&C)"
 
 #: src/gui/dialogs/serverimportdialog.cpp:132
 msgctxt "ServerImportDialog|"
 msgid "Ready."
-msgstr ""
+msgstr "تەييار."
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:83
 msgctxt "ServerTrackImportDialog|"
 msgid "&Server:"
-msgstr ""
+msgstr "مۇلازىمېتىر(&S):"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:106
 msgctxt "ServerTrackImportDialog|"
@@ -5011,12 +5005,12 @@ msgstr ""
 #: src/gui/dialogs/servertrackimportdialog.cpp:107
 msgctxt "ServerTrackImportDialog|"
 msgid "State"
-msgstr ""
+msgstr "ھالەت"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:115
 msgctxt "ServerTrackImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:117
 msgctxt "ServerTrackImportDialog|"
@@ -5026,17 +5020,17 @@ msgstr ""
 #: src/gui/dialogs/servertrackimportdialog.cpp:119
 msgctxt "ServerTrackImportDialog|"
 msgid "&OK"
-msgstr ""
+msgstr "جەزملە(&O)"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:120
 msgctxt "ServerTrackImportDialog|"
 msgid "&Apply"
-msgstr ""
+msgstr "قوللان(&A)"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:121
 msgctxt "ServerTrackImportDialog|"
 msgid "&Cancel"
-msgstr ""
+msgstr "ۋاز كەچ(&C)"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:229
 #: src/gui/dialogs/servertrackimportdialog.cpp:368
@@ -5049,7 +5043,7 @@ msgstr ""
 #: src/gui/dialogs/servertrackimportdialog.cpp:247
 msgctxt "ServerTrackImportDialog|"
 msgid "Unknown"
-msgstr ""
+msgstr "يوچۇن"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:368
 msgctxt "ServerTrackImportDialog|"
@@ -5064,12 +5058,12 @@ msgstr ""
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
 msgid "Format:"
-msgstr ""
+msgstr "فورمات:"
 
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
 msgid "Source:"
-msgstr ""
+msgstr "مەنبە:"
 
 #: src/gui/dialogs/tagimportdialog.cpp:58
 msgctxt "TagImportDialog|"
@@ -5084,7 +5078,7 @@ msgstr ""
 #: src/gui/dialogs/tagimportdialog.cpp:79
 msgctxt "TagImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/tagimportdialog.cpp:83
 msgctxt "TagImportDialog|"
@@ -5094,12 +5088,12 @@ msgstr ""
 #: src/gui/dialogs/tagimportdialog.cpp:88
 msgctxt "TagImportDialog|"
 msgid "&Apply"
-msgstr ""
+msgstr "قوللان(&A)"
 
 #: src/gui/dialogs/tagimportdialog.cpp:92
 msgctxt "TagImportDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "ياپ(&C)"
 
 #: src/gui/dialogs/textimportdialog.cpp:58
 msgctxt "TextImportDialog|"
@@ -5109,7 +5103,7 @@ msgstr ""
 #: src/gui/dialogs/textimportdialog.cpp:65
 msgctxt "TextImportDialog|"
 msgid "Format:"
-msgstr ""
+msgstr "فورمات:"
 
 #: src/gui/dialogs/textimportdialog.cpp:65
 msgctxt "TextImportDialog|"
@@ -5124,7 +5118,7 @@ msgstr ""
 #: src/gui/dialogs/textimportdialog.cpp:71
 msgctxt "TextImportDialog|"
 msgid "&Help"
-msgstr ""
+msgstr "ياردەم(&H)"
 
 #: src/gui/dialogs/textimportdialog.cpp:75
 msgctxt "TextImportDialog|"
@@ -5144,12 +5138,12 @@ msgstr ""
 #: src/gui/dialogs/textimportdialog.cpp:88
 msgctxt "TextImportDialog|"
 msgid "&Close"
-msgstr ""
+msgstr "ياپ(&C)"
 
 #: src/gui/forms/basemainwindow.cpp:112
 msgctxt "BaseMainWindowImpl|"
 msgid "Download"
-msgstr ""
+msgstr "چۈشۈرۈش"
 
 #: src/gui/forms/basemainwindow.cpp:233
 msgctxt "BaseMainWindowImpl|"
@@ -5159,7 +5153,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:329
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
-msgstr ""
+msgstr "توختات"
 
 #: src/gui/forms/basemainwindow.cpp:398
 #, qt-format
@@ -5195,7 +5189,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:468 src/gui/forms/basemainwindow.cpp:507
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
-msgstr ""
+msgstr "ئاگاھلاندۇرۇش"
 
 #: src/gui/forms/basemainwindow.cpp:505
 msgctxt "BaseMainWindowImpl|"
@@ -5207,7 +5201,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:615
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
-msgstr ""
+msgstr "چېكىنىۋاتىدۇ…"
 
 #: src/gui/forms/basemainwindow.cpp:702
 #, qt-format
@@ -5233,7 +5227,7 @@ msgstr[0] ""
 #: src/gui/forms/basemainwindow.cpp:715
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
-msgstr ""
+msgstr "تەييار."
 
 #: src/gui/forms/basemainwindow.cpp:777
 msgctxt "BaseMainWindowImpl|"
@@ -5248,12 +5242,12 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:826
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/gui/forms/basemainwindow.cpp:852
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
-msgstr ""
+msgstr "ئەكىر"
 
 #: src/gui/forms/basemainwindow.cpp:1131 src/gui/forms/basemainwindow.cpp:1137
 #: src/gui/forms/basemainwindow.cpp:1575 src/gui/forms/basemainwindow.cpp:1584
@@ -5269,7 +5263,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:1209
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
-msgstr ""
+msgstr "سۈزگۈچ"
 
 #: src/gui/forms/basemainwindow.cpp:1278
 #, qt-format
@@ -5290,7 +5284,7 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:1538
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
-msgstr ""
+msgstr "ھۆججەت ئاتىنى ئۆزگەرت"
 
 #: src/gui/forms/basemainwindow.cpp:1539
 msgctxt "BaseMainWindowImpl|"
@@ -5312,23 +5306,23 @@ msgstr ""
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
-msgstr ""
+msgstr "سىز راستتىنلا %1 تۈرنى ئەخلەتخانىغا يۆتكەمسىز؟"
 
 #: src/gui/forms/basemainwindow.cpp:1623
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
-msgstr ""
+msgstr "سىز راستتىنلا %1 تۈرنى ئەخلەتخانىغا يۆتكەمسىز؟"
 
 #: src/gui/forms/basemainwindow.cpp:1625
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
-msgstr ""
+msgstr "سىز راستتىنلا بۇ تۈرنى ئەخلەتخانىغا يۆتكەمسىز؟"
 
 #: src/gui/forms/basemainwindow.cpp:1627
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
-msgstr ""
+msgstr "%1 ھۆججەتنى ئەخلەتخانىغا يۆتكە"
 
 #: src/gui/forms/basemainwindow.cpp:1656
 msgctxt "BaseMainWindowImpl|"
@@ -5338,37 +5332,37 @@ msgstr ""
 #: src/gui/forms/basemainwindow.cpp:1657
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
-msgstr ""
+msgstr "بۇ ھۆججەتلەرنى ئەخلەتخانىغا يۆتكىيەلمەيدۇ"
 
 #: src/gui/forms/basemainwindow.cpp:1690
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
-msgstr ""
+msgstr "ھەممىنى ياي"
 
 #: src/gui/forms/basemainwindow.cpp:1802
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
-msgstr ""
+msgstr "توختات(&B)"
 
 #: src/gui/forms/configurabletreeview.cpp:51
 msgctxt "ConfigurableTreeView|"
 msgid "Automatic Column Widths"
-msgstr ""
+msgstr "ئاپتوماتىك رەت كەڭلىكى"
 
 #: src/gui/forms/configurabletreeview.cpp:58
 msgctxt "ConfigurableTreeView|"
 msgid "Custom Column Widths"
-msgstr ""
+msgstr "ئىختىيارى رەت كەڭلىكى"
 
 #: src/gui/forms/filelist.cpp:110
 msgctxt "FileList|"
 msgid "C&lear"
-msgstr ""
+msgstr "تازىلا(&L)"
 
 #: src/gui/forms/filelist.cpp:114
 msgctxt "FileList|"
 msgid "&Close"
-msgstr ""
+msgstr "ياپ(&C)"
 
 #: src/gui/forms/filelist.cpp:358 src/gui/forms/filelist.cpp:362
 msgctxt "FileList|"
@@ -5383,7 +5377,7 @@ msgstr ""
 #: src/gui/forms/filelist.cpp:373 src/gui/forms/filelist.cpp:375
 msgctxt "FileList|"
 msgid "&Play"
-msgstr ""
+msgstr "قوي(&P)"
 
 #: src/gui/forms/filelist.cpp:379
 msgctxt "FileList|"
@@ -5393,7 +5387,7 @@ msgstr ""
 #: src/gui/forms/filelist.cpp:386 src/gui/forms/filelist.cpp:390
 msgctxt "FileList|"
 msgid "&Open"
-msgstr ""
+msgstr "ئاچ(&O)"
 
 #: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
 msgctxt "FileList|"
@@ -5403,7 +5397,7 @@ msgstr ""
 #: src/gui/forms/filelist.cpp:562
 msgctxt "FileList|"
 msgid "Execute "
-msgstr ""
+msgstr "ئىجرا قىل "
 
 #: src/gui/forms/filelist.cpp:571
 msgctxt "FileList|"
@@ -5424,17 +5418,17 @@ msgstr ""
 #: src/gui/forms/kid3form.cpp:354
 msgctxt "Kid3Form|"
 msgid "Name:"
-msgstr ""
+msgstr "ئاتى:"
 
 #: src/gui/forms/kid3form.cpp:363 src/gui/forms/kid3form.cpp:413
 msgctxt "Kid3Form|"
 msgid "Format:"
-msgstr ""
+msgstr "فورمات:"
 
 #: src/gui/forms/kid3form.cpp:394
 msgctxt "Kid3Form|"
 msgid "From:"
-msgstr ""
+msgstr "كىمدىن:"
 
 #: src/gui/forms/kid3form.cpp:400 src/gui/forms/kid3form.cpp:426
 #: src/gui/forms/kid3form.cpp:508 src/gui/forms/kid3form.cpp:532
@@ -5452,7 +5446,7 @@ msgstr ""
 #: src/gui/forms/kid3form.cpp:419
 msgctxt "Kid3Form|"
 msgid "To:"
-msgstr ""
+msgstr "كىمگە:"
 
 #: src/gui/forms/kid3form.cpp:427
 #, qt-format
@@ -5475,92 +5469,92 @@ msgstr ""
 #: src/gui/forms/kid3form.cpp:485 src/gui/forms/kid3form.cpp:541
 msgctxt "Kid3Form|"
 msgid "Copy"
-msgstr ""
+msgstr "كۆچۈر"
 
 #: src/gui/forms/kid3form.cpp:493 src/gui/forms/kid3form.cpp:517
 msgctxt "Kid3Form|"
 msgid "Paste"
-msgstr ""
+msgstr "چاپلا"
 
 #: src/gui/forms/kid3form.cpp:500
 msgctxt "Kid3Form|"
 msgid "From"
-msgstr ""
+msgstr "كىمدىن"
 
 #: src/gui/forms/kid3form.cpp:502 src/gui/forms/kid3form.cpp:526
 msgctxt "Kid3Form|"
 msgid "Filename"
-msgstr ""
+msgstr "ھۆججەت ئاتى"
 
 #: src/gui/forms/kid3form.cpp:524
 msgctxt "Kid3Form|"
 msgid "To"
-msgstr ""
+msgstr "تاپشۇرۇپ ئالغۇچى"
 
 #: src/gui/forms/kid3form.cpp:551
 msgctxt "Kid3Form|"
 msgid "Remove"
-msgstr ""
+msgstr "چىقىرىۋەت"
 
 #: src/gui/forms/kid3form.cpp:565
 msgctxt "Kid3Form|"
 msgid "Edit..."
-msgstr ""
+msgstr "تەھرىر…"
 
 #: src/gui/forms/kid3form.cpp:571
 msgctxt "Kid3Form|"
 msgid "Add..."
-msgstr ""
+msgstr "قوش…"
 
 #: src/gui/forms/kid3form.cpp:577
 msgctxt "Kid3Form|"
 msgid "Delete"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: src/gui/forms/sectionactions.cpp:146
 msgctxt "SectionActions|"
 msgid "Previous"
-msgstr ""
+msgstr "ئالدىنقى"
 
 #: src/gui/forms/sectionactions.cpp:148
 msgctxt "SectionActions|"
 msgid "Next"
-msgstr ""
+msgstr "كېيىنكى"
 
 #: src/gui/forms/sectionactions.cpp:150
 msgctxt "SectionActions|"
 msgid "Transfer"
-msgstr ""
+msgstr "يوللا"
 
 #: src/gui/forms/sectionactions.cpp:153
 msgctxt "SectionActions|"
 msgid "Copy"
-msgstr ""
+msgstr "كۆچۈر"
 
 #: src/gui/forms/sectionactions.cpp:155
 msgctxt "SectionActions|"
 msgid "Paste"
-msgstr ""
+msgstr "چاپلا"
 
 #: src/gui/forms/sectionactions.cpp:157
 msgctxt "SectionActions|"
 msgid "Remove"
-msgstr ""
+msgstr "چىقىرىۋەت"
 
 #: src/gui/forms/sectionactions.cpp:160
 msgctxt "SectionActions|"
 msgid "Edit"
-msgstr ""
+msgstr "تەھرىر"
 
 #: src/gui/forms/sectionactions.cpp:162
 msgctxt "SectionActions|"
 msgid "Add"
-msgstr ""
+msgstr "قوش"
 
 #: src/gui/forms/sectionactions.cpp:164
 msgctxt "SectionActions|"
 msgid "Delete"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: src/gui/forms/sectionactions.cpp:167
 msgctxt "SectionActions|"
@@ -5575,32 +5569,32 @@ msgstr ""
 #: src/gui/widgets/abstractlistedit.cpp:50
 msgctxt "AbstractListEdit|"
 msgid "&Add..."
-msgstr ""
+msgstr "قوش(&A)…"
 
 #: src/gui/widgets/abstractlistedit.cpp:51
 msgctxt "AbstractListEdit|"
 msgid "Move &Up"
-msgstr ""
+msgstr "يۇقىرىغا(&U)"
 
 #: src/gui/widgets/abstractlistedit.cpp:52
 msgctxt "AbstractListEdit|"
 msgid "Move &Down"
-msgstr ""
+msgstr "تۆۋەنگە(&D)"
 
 #: src/gui/widgets/abstractlistedit.cpp:53
 msgctxt "AbstractListEdit|"
 msgid "&Edit..."
-msgstr ""
+msgstr "تەھرىر(&E)…"
 
 #: src/gui/widgets/abstractlistedit.cpp:54
 msgctxt "AbstractListEdit|"
 msgid "&Remove"
-msgstr ""
+msgstr "چىقىرىۋەت(&R)"
 
 #: src/gui/widgets/chaptereditor.cpp:54
 msgctxt "ChapterEditor|"
 msgid "Start time"
-msgstr ""
+msgstr "باشلاش ۋاقتى"
 
 #: src/gui/widgets/chaptereditor.cpp:55
 msgctxt "ChapterEditor|"
@@ -5620,7 +5614,7 @@ msgstr ""
 #: src/gui/widgets/configtable.cpp:42
 msgctxt "ConfigTable|"
 msgid "&Add"
-msgstr ""
+msgstr "قوش(&A)"
 
 #: src/gui/widgets/configtable.cpp:141
 msgctxt "ConfigTable|"
@@ -5660,12 +5654,12 @@ msgstr ""
 #: src/gui/widgets/formatbox.cpp:58
 msgctxt "FormatBox|"
 msgid "From"
-msgstr ""
+msgstr "كىمدىن"
 
 #: src/gui/widgets/formatbox.cpp:58
 msgctxt "FormatBox|"
 msgid "To"
-msgstr ""
+msgstr "تاپشۇرۇپ ئالغۇچى"
 
 #: src/gui/widgets/formatbox.cpp:66
 msgctxt "FormatBox|"
@@ -5680,17 +5674,17 @@ msgstr ""
 #: src/gui/widgets/formatlistedit.cpp:83
 msgctxt "FormatListEdit|"
 msgid "&Add"
-msgstr ""
+msgstr "قوش(&A)"
 
 #: src/gui/widgets/formatlistedit.cpp:85
 msgctxt "FormatListEdit|"
 msgid "&Remove"
-msgstr ""
+msgstr "چىقىرىۋەت(&R)"
 
 #: src/gui/widgets/formatlistedit.cpp:245
 msgctxt "FormatListEdit|"
 msgid "New"
-msgstr ""
+msgstr "يېڭى"
 
 #: src/gui/widgets/frametable.cpp:68 src/gui/widgets/frametable.cpp:70
 msgctxt "FrameTable|"
@@ -5700,7 +5694,7 @@ msgstr ""
 #: src/gui/widgets/frametable.cpp:160
 msgctxt "FrameTable|"
 msgid "&Select all"
-msgstr ""
+msgstr "ھەممىنى تاللا(&S)"
 
 #: src/gui/widgets/frametable.cpp:162
 msgctxt "FrameTable|"
@@ -5715,17 +5709,17 @@ msgstr ""
 #: src/gui/widgets/imageviewer.cpp:55
 msgctxt "ImageViewer|"
 msgid "&Close"
-msgstr ""
+msgstr "ياپ(&C)"
 
 #: src/gui/widgets/picturelabel.cpp:92
 msgctxt "PictureLabel|"
 msgid "Previous"
-msgstr ""
+msgstr "ئالدىنقى"
 
 #: src/gui/widgets/picturelabel.cpp:111
 msgctxt "PictureLabel|"
 msgid "Next"
-msgstr ""
+msgstr "كېيىنكى"
 
 #: src/gui/widgets/picturelabel.cpp:238
 msgctxt "@default|"
@@ -5738,73 +5732,73 @@ msgstr ""
 #: src/gui/widgets/playtoolbar.cpp:103
 msgctxt "PlayToolBar|"
 msgid "Play"
-msgstr ""
+msgstr "ياڭرات"
 
 #: src/gui/widgets/playtoolbar.cpp:130
 msgctxt "PlayToolBar|"
 msgid "Play/Pause"
-msgstr ""
+msgstr "ياڭرات/ۋاقىتلىق توختا"
 
 #: src/gui/widgets/playtoolbar.cpp:134
 msgctxt "PlayToolBar|"
 msgid "Stop playback"
-msgstr ""
+msgstr "توختات"
 
 #: src/gui/widgets/playtoolbar.cpp:138
 msgctxt "PlayToolBar|"
 msgid "Previous Track"
-msgstr ""
+msgstr "ئالدىنقى نەغمە"
 
 #: src/gui/widgets/playtoolbar.cpp:142
 msgctxt "PlayToolBar|"
 msgid "Next Track"
-msgstr ""
+msgstr "كېيىنكى نەغمە"
 
 #: src/gui/widgets/playtoolbar.cpp:146
 msgctxt "PlayToolBar|"
 msgid "Close"
-msgstr ""
+msgstr "ياپ"
 
 #: src/gui/widgets/playtoolbar.cpp:163
 msgctxt "PlayToolBar|"
 msgid "Mute"
-msgstr ""
+msgstr "ئۈنسىز"
 
 #: src/gui/widgets/playtoolbar.cpp:346
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
-msgstr ""
+msgstr "ئاۋاز مىقدارى: %1%"
 
 #: src/gui/widgets/progresswidget.cpp:56
 msgctxt "ProgressWidget|"
 msgid "&Cancel"
-msgstr ""
+msgstr "ۋاز كەچ(&C)"
 
 #: src/gui/widgets/stringlistedit.cpp:52
 msgctxt "StringListEdit|"
 msgid "Add Item"
-msgstr ""
+msgstr "تۈر قوش"
 
 #: src/gui/widgets/stringlistedit.cpp:71
 msgctxt "StringListEdit|"
 msgid "Edit Item"
-msgstr ""
+msgstr "تۈر تەھرىرلەش"
 
 #: src/gui/widgets/subframeseditor.cpp:67
 msgctxt "SubframesEditor|"
 msgid "Edit..."
-msgstr ""
+msgstr "تەھرىر…"
 
 #: src/gui/widgets/subframeseditor.cpp:72
 msgctxt "SubframesEditor|"
 msgid "Add..."
-msgstr ""
+msgstr "قوش…"
 
 #: src/gui/widgets/subframeseditor.cpp:77
 msgctxt "SubframesEditor|"
 msgid "Delete"
-msgstr ""
+msgstr "ئۆچۈر"
 
 #: src/gui/widgets/subframeseditor.cpp:129
 msgctxt "SubframesEditor|"
@@ -5819,7 +5813,7 @@ msgstr ""
 #: src/gui/widgets/tablemodeledit.cpp:35
 msgctxt "TableModelEdit|"
 msgid "&Add"
-msgstr ""
+msgstr "قوش(&A)"
 
 #: src/gui/widgets/tableofcontentseditor.cpp:43
 msgctxt "TableOfContentsEditor|"
@@ -5839,12 +5833,12 @@ msgstr ""
 #: src/gui/widgets/timeeventeditor.cpp:119
 msgctxt "TimeEventEditor|"
 msgid "&Add"
-msgstr ""
+msgstr "قوش(&A)"
 
 #: src/gui/widgets/timeeventeditor.cpp:121
 msgctxt "TimeEventEditor|"
 msgid "&Delete"
-msgstr ""
+msgstr "ئۆچۈر(&D)"
 
 #: src/gui/widgets/timeeventeditor.cpp:123
 msgctxt "TimeEventEditor|"
@@ -5854,37 +5848,37 @@ msgstr ""
 #: src/gui/widgets/timeeventeditor.cpp:125
 msgctxt "TimeEventEditor|"
 msgid "&Import..."
-msgstr ""
+msgstr "ئىمپورت قىل(&I)…"
 
 #: src/gui/widgets/timeeventeditor.cpp:127
 msgctxt "TimeEventEditor|"
 msgid "&Export..."
-msgstr ""
+msgstr "ئېكسپورت قىل(&E)…"
 
 #: src/gui/widgets/timeeventeditor.cpp:129
 msgctxt "TimeEventEditor|"
 msgid "Help"
-msgstr ""
+msgstr "ياردەم"
 
 #: src/gui/widgets/timeeventeditor.cpp:187
 msgctxt "TimeEventEditor|"
 msgid "Events"
-msgstr ""
+msgstr "ھادىسە"
 
 #: src/gui/widgets/timeeventeditor.cpp:193
 msgctxt "TimeEventEditor|"
 msgid "Lyrics"
-msgstr ""
+msgstr "ناخشا سۆزى"
 
 #: src/gui/widgets/timeeventeditor.cpp:429
 msgctxt "TimeEventEditor|"
 msgid "Offset"
-msgstr ""
+msgstr "ئېغىش"
 
 #: src/gui/widgets/timeeventeditor.cpp:429
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
-msgstr ""
+msgstr "مىللىسېكۇنت"
 
 #: src/gui/widgets/timeeventeditor.cpp:468
 msgctxt "TimeEventEditor|"
@@ -5899,7 +5893,7 @@ msgstr ""
 #: src/gui/widgets/timeeventeditor.cpp:473
 msgctxt "TimeEventEditor|"
 msgid "C&lear"
-msgstr ""
+msgstr "تازىلا(&L)"
 
 #: src/gui/widgets/timeeventeditor.cpp:475
 msgctxt "TimeEventEditor|"
@@ -5939,12 +5933,12 @@ msgstr ""
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:329
 msgctxt "MusicBrainzClient|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:348
 msgctxt "MusicBrainzClient|"
 msgid "Fingerprint"
-msgstr ""
+msgstr "بارماق ئىزى"
 
 #: src/plugins/acoustidimport/musicbrainzclient.cpp:357
 msgctxt "MusicBrainzClient|"
@@ -5954,7 +5948,7 @@ msgstr ""
 #: src/plugins/amazonimport/amazonimporter.cpp:72
 msgctxt "@default|"
 msgid "Amazon"
-msgstr ""
+msgstr "ئامازون"
 
 #: src/plugins/discogsimport/discogsimporter.cpp:1529
 msgctxt "@default|"
@@ -6584,7 +6578,7 @@ msgstr ""
 #: src/qml/app/AboutDialog.qml:44
 msgctxt "AboutDialog|"
 msgid "License"
-msgstr ""
+msgstr "ئىجازەتنامە"
 
 #: src/qml/app/AboutDialog.qml:46
 #, qt-format
@@ -6605,22 +6599,22 @@ msgstr ""
 #: src/qml/app/BatchImportPage.qml:43
 msgctxt "BatchImportPage|"
 msgid "Started"
-msgstr ""
+msgstr "باشلاندى"
 
 #: src/qml/app/BatchImportPage.qml:46
 msgctxt "BatchImportPage|"
 msgid "Source"
-msgstr ""
+msgstr "مەنبە"
 
 #: src/qml/app/BatchImportPage.qml:49
 msgctxt "BatchImportPage|"
 msgid "Querying"
-msgstr ""
+msgstr "سۈرۈشتۈرۈۋاتىدۇ"
 
 #: src/qml/app/BatchImportPage.qml:53
 msgctxt "BatchImportPage|"
 msgid "Fetching"
-msgstr ""
+msgstr "تۇتۇۋاتىدۇ"
 
 #: src/qml/app/BatchImportPage.qml:56
 msgctxt "BatchImportPage|"
@@ -6635,27 +6629,27 @@ msgstr ""
 #: src/qml/app/BatchImportPage.qml:62
 msgctxt "BatchImportPage|"
 msgid "Finished"
-msgstr ""
+msgstr "تاماملاندى"
 
 #: src/qml/app/BatchImportPage.qml:65
 msgctxt "BatchImportPage|"
 msgid "Aborted"
-msgstr ""
+msgstr "توختىتىلدى"
 
 #: src/qml/app/BatchImportPage.qml:68
 msgctxt "BatchImportPage|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/qml/app/BatchImportPage.qml:104
 msgctxt "BatchImportPage|"
 msgid "Start"
-msgstr ""
+msgstr "باشلا"
 
 #: src/qml/app/BatchImportPage.qml:126
 msgctxt "BatchImportPage|"
 msgid "Destination:"
-msgstr ""
+msgstr "نىشان:"
 
 #: src/qml/app/BatchImportPage.qml:136
 msgctxt "BatchImportPage|"
@@ -6680,7 +6674,7 @@ msgstr ""
 #: src/qml/app/BatchImportPage.qml:140
 msgctxt "BatchImportPage|"
 msgid "All Tags"
-msgstr ""
+msgstr "بارلىق بەلگە"
 
 #: src/qml/app/BatchImportPage.qml:153
 msgctxt "BatchImportPage|"
@@ -6690,62 +6684,62 @@ msgstr ""
 #: src/qml/app/FileCollapsible.qml:32
 msgctxt "FileCollapsible|"
 msgid "File"
-msgstr ""
+msgstr "ھۆججەت"
 
 #: src/qml/app/FileSelectDialog.qml:42
 msgctxt "FileSelectDialog|"
 msgid "Open"
-msgstr ""
+msgstr "ئاچ"
 
 #: src/qml/app/FileSelectDialog.qml:98
 msgctxt "FileSelectDialog|"
 msgid "Folder"
-msgstr ""
+msgstr "قىسقۇچ"
 
 #: src/qml/app/FileSelectDialog.qml:192
 msgctxt "FileSelectDialog|"
 msgid "File"
-msgstr ""
+msgstr "ھۆججەت"
 
 #: src/qml/app/FilterPage.qml:31
 msgctxt "FilterPage|"
 msgid "Filter"
-msgstr ""
+msgstr "سۈزگۈچ"
 
 #: src/qml/app/FilterPage.qml:39
 msgctxt "FilterPage|"
 msgid "Started"
-msgstr ""
+msgstr "باشلاندى"
 
 #: src/qml/app/FilterPage.qml:57
 msgctxt "FilterPage|"
 msgid "Finished"
-msgstr ""
+msgstr "تاماملاندى"
 
 #: src/qml/app/FilterPage.qml:60
 msgctxt "FilterPage|"
 msgid "Aborted"
-msgstr ""
+msgstr "توختىتىلدى"
 
 #: src/qml/app/FilterPage.qml:92
 msgctxt "FilterPage|"
 msgid "Start"
-msgstr ""
+msgstr "باشلا"
 
 #: src/qml/app/FilterPage.qml:118
 msgctxt "FilterPage|"
 msgid "Filter:"
-msgstr ""
+msgstr "سۈزگۈچ:"
 
 #: src/qml/app/FilterPage.qml:131
 msgctxt "FilterPage|"
 msgid "Expression:"
-msgstr ""
+msgstr "ئىپادە:"
 
 #: src/qml/app/FrameEditDialog.qml:117
 msgctxt "FrameEditDialog|"
 msgid "Warning"
-msgstr ""
+msgstr "ئاگاھلاندۇرۇش"
 
 #: src/qml/app/FrameEditDialog.qml:118
 msgctxt "FrameEditDialog|"
@@ -6756,13 +6750,13 @@ msgstr ""
 #: src/qml/app/FrameEditDialog.qml:270
 msgctxt "FrameEditDialog|"
 msgid "Export"
-msgstr ""
+msgstr "چىقار"
 
 #: src/qml/app/FrameEditDialog.qml:167 src/qml/app/FrameEditDialog.qml:196
 #: src/qml/app/FrameEditDialog.qml:256
 msgctxt "FrameEditDialog|"
 msgid "Import"
-msgstr ""
+msgstr "ئەكىر"
 
 #: src/qml/app/FrameSelectDialog.qml:38
 msgctxt "FrameSelectDialog|"
@@ -6777,18 +6771,18 @@ msgstr ""
 #: src/qml/app/ImportProfilesEditPage.qml:34
 msgctxt "ImportProfilesEditPage|"
 msgid "Profiles"
-msgstr ""
+msgstr "سەپلىمە ھۆججەت"
 
 #: src/qml/app/ImportProfilesEditPage.qml:42
 msgctxt "ImportProfilesEditPage|"
 msgid "Profile"
-msgstr ""
+msgstr "سەپلىمە ھۆججەت"
 
 #: src/qml/app/ImportProfilesEditPage.qml:68
 #: src/qml/app/ImportProfilesEditPage.qml:138
 msgctxt "ImportProfilesEditPage|"
 msgid "Accuracy"
-msgstr ""
+msgstr "توغرىلىقى"
 
 #: src/qml/app/ImportProfilesEditPage.qml:71
 #: src/qml/app/ImportProfilesEditPage.qml:151
@@ -6811,12 +6805,12 @@ msgstr ""
 #: src/qml/app/ImportProfilesEditPage.qml:130
 msgctxt "ImportProfilesEditPage|"
 msgid "Server"
-msgstr ""
+msgstr "مۇلازىمېتىر"
 
 #: src/qml/app/Main.qml:94
 msgctxt "Main|"
 msgid "Warning"
-msgstr ""
+msgstr "ئاگاھلاندۇرۇش"
 
 #: src/qml/app/Main.qml:95
 msgctxt "Main|"
@@ -6866,22 +6860,22 @@ msgstr ""
 #: src/qml/app/MainPage.qml:95 src/qml/app/MainPage.qml:164
 msgctxt "MainPage|"
 msgid "Open"
-msgstr ""
+msgstr "ئاچ"
 
 #: src/qml/app/MainPage.qml:155
 msgctxt "MainPage|"
 msgid "About"
-msgstr ""
+msgstr "ھەققىدە"
 
 #: src/qml/app/MainPage.qml:171
 msgctxt "MainPage|"
 msgid "Save"
-msgstr ""
+msgstr "ساقلا"
 
 #: src/qml/app/MainPage.qml:180
 msgctxt "MainPage|"
 msgid "Settings"
-msgstr ""
+msgstr "تەڭشەك"
 
 #: src/qml/app/MainPage.qml:189
 msgctxt "MainPage|"
@@ -6906,7 +6900,7 @@ msgstr ""
 #: src/qml/app/MainPage.qml:220
 msgctxt "MainPage|"
 msgid "Filter"
-msgstr ""
+msgstr "سۈزگۈچ"
 
 #: src/qml/app/MainPage.qml:229
 msgctxt "MainPage|"
@@ -6936,12 +6930,12 @@ msgstr ""
 #: src/qml/app/MainPage.qml:249
 msgctxt "MainPage|"
 msgid "Revert"
-msgstr ""
+msgstr "ئەسلىگە ياندۇر"
 
 #: src/qml/app/MainPage.qml:253
 msgctxt "MainPage|"
 msgid "Quit"
-msgstr ""
+msgstr "چىكىن"
 
 #: src/qml/app/NumberTracksDialog.qml:48
 msgctxt "NumberTracksDialog|"
@@ -6951,7 +6945,7 @@ msgstr ""
 #: src/qml/app/NumberTracksDialog.qml:57
 msgctxt "NumberTracksDialog|"
 msgid "Destination:"
-msgstr ""
+msgstr "نىشان:"
 
 #: src/qml/app/NumberTracksDialog.qml:63
 msgctxt "NumberTracksDialog|"
@@ -6976,7 +6970,7 @@ msgstr ""
 #: src/qml/app/NumberTracksDialog.qml:67
 msgctxt "NumberTracksDialog|"
 msgid "All Tags"
-msgstr ""
+msgstr "بارلىق بەلگە"
 
 #: src/qml/app/NumberTracksDialog.qml:83
 msgctxt "NumberTracksDialog|"
@@ -6991,7 +6985,7 @@ msgstr ""
 #: src/qml/app/PictureCollapsible.qml:27
 msgctxt "PictureCollapsible|"
 msgid "Picture"
-msgstr ""
+msgstr "رەسىم"
 
 #: src/qml/app/RenameDirectoryPage.qml:37
 #: src/qml/app/RenameDirectoryPage.qml:114
@@ -7002,27 +6996,27 @@ msgstr ""
 #: src/qml/app/RenameDirectoryPage.qml:77
 msgctxt "RenameDirectoryPage|"
 msgid "Start"
-msgstr ""
+msgstr "باشلا"
 
 #: src/qml/app/RenameDirectoryPage.qml:81
 msgctxt "RenameDirectoryPage|"
 msgid "Error"
-msgstr ""
+msgstr "خاتالىق"
 
 #: src/qml/app/RenameDirectoryPage.qml:109
 msgctxt "RenameDirectoryPage|"
 msgid "Action:"
-msgstr ""
+msgstr "مەشغۇلات:"
 
 #: src/qml/app/RenameDirectoryPage.qml:114
 msgctxt "RenameDirectoryPage|"
 msgid "Create Folder"
-msgstr ""
+msgstr "قىسقۇچ قۇر"
 
 #: src/qml/app/RenameDirectoryPage.qml:124
 msgctxt "RenameDirectoryPage|"
 msgid "Source:"
-msgstr ""
+msgstr "مەنبە:"
 
 #: src/qml/app/RenameDirectoryPage.qml:129
 msgctxt "RenameDirectoryPage|"
@@ -7047,12 +7041,12 @@ msgstr ""
 #: src/qml/app/RenameDirectoryPage.qml:133
 msgctxt "RenameDirectoryPage|"
 msgid "All Tags"
-msgstr ""
+msgstr "بارلىق بەلگە"
 
 #: src/qml/app/RenameDirectoryPage.qml:144
 msgctxt "RenameDirectoryPage|"
 msgid "Format:"
-msgstr ""
+msgstr "فورمات:"
 
 #: src/qml/app/RenameDirectoryPage.qml:155
 msgctxt "RenameDirectoryPage|"
@@ -7062,32 +7056,32 @@ msgstr ""
 #: src/qml/app/RenameDirectoryPage.qml:188
 msgctxt "RenameDirectoryPage|"
 msgid "Preview"
-msgstr ""
+msgstr "ئالدىن كۆزەت"
 
 #: src/qml/app/SettingsPage.qml:30
 msgctxt "SettingsPage|"
 msgid "Settings"
-msgstr ""
+msgstr "تەڭشەك"
 
 #: src/qml/app/SettingsPage.qml:32 src/qml/app/SettingsPage.qml:44
 msgctxt "SettingsPage|"
 msgid "Tags"
-msgstr ""
+msgstr "بەلگە"
 
 #: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:204
 msgctxt "SettingsPage|"
 msgid "Files"
-msgstr ""
+msgstr "ھۆججەت"
 
 #: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:343
 msgctxt "SettingsPage|"
 msgid "Plugins"
-msgstr ""
+msgstr "قىستۇرما"
 
 #: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:401
 msgctxt "SettingsPage|"
 msgid "Appearance"
-msgstr ""
+msgstr "قىياپەت"
 
 #: src/qml/app/SettingsPage.qml:48
 msgctxt "SettingsPage|"
@@ -7267,17 +7261,17 @@ msgstr ""
 #: src/qml/app/SettingsPage.qml:405
 msgctxt "SettingsPage|"
 msgid "Language"
-msgstr ""
+msgstr "تىل"
 
 #: src/qml/app/SettingsPage.qml:406
 msgctxt "SettingsPage|"
 msgid "System"
-msgstr ""
+msgstr "سىستېما"
 
 #: src/qml/app/SettingsPage.qml:417
 msgctxt "SettingsPage|"
 msgid "Theme"
-msgstr ""
+msgstr "ئۆرنەك"
 
 #: src/qml/app/SettingsPage.qml:435
 msgctxt "SettingsPage|"
@@ -7287,7 +7281,7 @@ msgstr ""
 #: src/qml/app/StringListEditPage.qml:85
 msgctxt "StringListEditPage|"
 msgid "Edit"
-msgstr ""
+msgstr "تەھرىر"
 
 #: src/qml/app/TagCollapsible.qml:40
 #, qt-format
@@ -7320,24 +7314,24 @@ msgstr ""
 #: src/qml/app/TagCollapsible.qml:102
 msgctxt "TagCollapsible|"
 msgid "Copy"
-msgstr ""
+msgstr "كۆچۈر"
 
 #: src/qml/app/TagCollapsible.qml:106
 msgctxt "TagCollapsible|"
 msgid "Paste"
-msgstr ""
+msgstr "چاپلا"
 
 #: src/qml/app/TagCollapsible.qml:110
 msgctxt "TagCollapsible|"
 msgid "Remove"
-msgstr ""
+msgstr "چىقىرىۋەت"
 
 #: src/qml/app/TagCollapsible.qml:116
 msgctxt "TagCollapsible|"
 msgid "Select All"
-msgstr ""
+msgstr "ھەممىنى تاللا"
 
 #: src/qml/app/TagCollapsible.qml:120
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
-msgstr ""
+msgstr "ھەممىنى تاللىما"

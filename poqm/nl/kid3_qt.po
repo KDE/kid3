@@ -956,7 +956,7 @@ msgctxt "KdeMainWindow|"
 msgid "Player"
 msgstr "Speler"
 
-#: src/app/kde/kdemainwindow.cpp:671
+#: src/app/kde/kdemainwindow.cpp:675
 msgctxt "KdeMainWindow|"
 msgid "Configure - Kid3"
 msgstr "Configureren - Kid3"
@@ -971,12 +971,12 @@ msgctxt "@default|"
 msgid "&No"
 msgstr "&Nee"
 
-#: src/app/kde/mainkde.cpp:123
+#: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
 msgid "folder to open"
 msgstr "te openen map"
 
-#: src/app/kde/mainkde.cpp:136
+#: src/app/kde/mainkde.cpp:134
 msgctxt "@default|"
 msgid "Audio Tag Editor"
 msgstr "Bewerker van audiotag"
