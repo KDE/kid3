@@ -73,6 +73,7 @@
   <summary xml:lang="sl">Urejanje metapodatkov zvočne datoteke</summary>
   <summary xml:lang="sv">Redigera metadata i ljudfiler</summary>
   <summary xml:lang="tr">Ses dosyalarının üst verisini düzenleyin</summary>
+  <summary xml:lang="ug">ئۈن ھۆججەتلىرىنىڭ مېتا مەلۇماتلىرىنى تەھرىرلەش</summary>
   <summary xml:lang="uk">Редагування метаданих звукових файлів</summary>
   <summary xml:lang="zh-CN">编辑音频文件元数据</summary>
   <summary xml:lang="zh-TW">編輯音訊檔案中繼資料</summary>
@@ -293,6 +294,7 @@
       <caption xml:lang="sl">Glavno okno Kid3</caption>
       <caption xml:lang="sv">Huvudfönstret i Kid3</caption>
       <caption xml:lang="tr">Kid3 ana penceresi</caption>
+      <caption xml:lang="ug">Kid3نىڭ باش كۆزنىكى</caption>
       <caption xml:lang="uk">Головне вікно Kid3</caption>
       <caption xml:lang="zh-CN">Kid3 主窗口</caption>
       <caption xml:lang="zh-TW">Kid3 主視窗</caption>
@@ -337,6 +339,7 @@
         <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
         <p xml:lang="tr">Yeni</p>
+        <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
         <ul>
           <li>Support for Matroska and WebM files.</li>
@@ -517,6 +520,7 @@
         <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
         <p xml:lang="tr">Onarıldı</p>
+        <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>Fix Discogs import.</li>
@@ -648,6 +652,7 @@
         <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
         <p xml:lang="tr">Onarıldı</p>
+        <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>KDE: Avoid excessive width of file dialog.</li>
@@ -821,6 +826,7 @@
         <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
         <p xml:lang="tr">Yeni</p>
+        <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
         <ul>
           <li>Show preview for multiple embedded pictures.</li>
@@ -926,6 +932,7 @@
         <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
         <p xml:lang="tr">Onarıldı</p>
+        <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>Embed lyrics action.</li>
@@ -1063,6 +1070,7 @@
         <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
         <p xml:lang="tr">Yeni</p>
+        <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
         <ul>
           <li>Keyboard shortcuts for play toolbar.</li>
@@ -1184,6 +1192,7 @@
         <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
         <p xml:lang="tr">Onarıldı</p>
+        <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>Support multiple values in APE text items.</li>
@@ -1273,6 +1282,7 @@
         <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
         <p xml:lang="tr">Yeni</p>
+        <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
         <ul>
           <li>All the official binaries are built with Qt 6. For macOS, the Darwin-amd64.dmg file is now the Qt 6 version, whereas systems older than Mojave need the package Darwin-Qt5.dmg. The string replacement settings stored by Qt 6 are not compatible with Qt 5 because a different encoding is used.</li>
@@ -1410,6 +1420,7 @@
         <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
         <p xml:lang="tr">Onarıldı</p>
+        <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>Do not mark all non-unified frames as modified if any non-unified frame is changed.</li>
