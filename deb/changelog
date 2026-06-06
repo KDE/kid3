@@ -4,11 +4,14 @@ kid3 (3.10.0-0) unstable; urgency=low
 
  -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 06 Jun 2026 14:28:35 +0200
 
-kid3 (3.9.7-0) unstable; urgency=low
+kid3 (3.9.7-1) unstable; urgency=medium
 
   * New upstream release.
+    - Drop merged patch 01-missing-appstream-metadata.
+  * Bump Standards-Version to 4.7.2.
+  * Adjust lintian overrides.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Thu, 24 Jul 2025 13:36:49 +0200
+ -- Patrick Matthäi <pmatthaei@debian.org>  Thu, 11 Sep 2025 15:15:36 +0200
 
 kid3 (3.9.6-3) unstable; urgency=medium
 
