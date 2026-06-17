@@ -712,6 +712,9 @@ if test "$compiler" = "cross-mingw"; then
       _crossprefix=${cross_host}-
       # Qt uses posix threads, but x86_64-w64-mingw32-gcc uses win32 thread model.
       _crosssuffix=-posix
+    elif hash ${cross_host}.shared.win32-gcc 2>/dev/null; then
+      _crossprefix=${cross_host}.shared.win32-
+      _crosssuffix=
     elif hash ${cross_host}.shared-gcc 2>/dev/null; then
       _crossprefix=${cross_host}.shared-
       _crosssuffix=
