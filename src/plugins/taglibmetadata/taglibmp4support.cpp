@@ -729,7 +729,6 @@ bool TagLibMp4Support::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
           }
           return true;
         }
-        return false;
       }
       setMp4Frame(f, frame, mp4Tag);
       return true;
