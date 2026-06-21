@@ -876,10 +876,10 @@ QString Mp3File::getFileExtension() const
  */
 QString Mp3File::getTagFormat(Frame::TagNumber tagNr) const
 {
-  if (tagNr == Frame::Tag_1 && m_tagV1 && m_tagV1->HasV1Tag()) {
+  if (tagNr == Frame::Tag_1 && m_tagV1 && (m_tagV1->HasV1Tag() || m_tagV2->NumFrames())) {
     return QLatin1String("ID3v1.1");
   }
-  if (tagNr == Frame::Tag_2 && m_tagV2 && m_tagV2->HasV2Tag()) {
+  if (tagNr == Frame::Tag_2 && m_tagV2 && (m_tagV2->HasV2Tag() || m_tagV2->NumFrames())) {
     switch (m_tagV2->GetSpec()) {
     case ID3V2_3_0:
       return QLatin1String("ID3v2.3.0");

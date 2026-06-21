@@ -3,8 +3,55 @@ import sys
 import re
 import locale
 import subprocess
+import tempfile
 import base64
 import zlib
+
+
+class Kid3ConfigFile:
+    """Temporary file context manager with INI file contents."""
+    def __init__(self, contents):
+        self._contents = contents
+        self._file = tempfile.NamedTemporaryFile('w+')
+
+    def __enter__(self):
+        result = self._file.__enter__()
+        result.write(self._contents)
+        result.flush()
+        os.environ['KID3_CONFIG_FILE'] = self._file.name
+        return result
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        os.environ['KID3_CONFIG_FILE'] = ''
+        return self._file.__exit__(exc_type, exc_val, exc_tb)
+
+    def __getattr__(self, name):
+        return getattr(self._file, name)
+
+
+class Kid3ConfigFileUsingOnlyTagLib(Kid3ConfigFile):
+    """Context for configuration using only the TaglibMetadata plugin."""
+    def __init__(self):
+        super().__init__('[Tags]\nDisabledPlugins=Id3libMetadata, OggFlacMetadata, Mp4v2Metadata\n')
+
+
+class Kid3ConfigFileUsingOnlyId3lib(Kid3ConfigFile):
+    """Context for configuration using only the Id3libMetadata plugin."""
+    def __init__(self):
+        super().__init__('[Tags]\nDisabledPlugins=TaglibMetadata, OggFlacMetadata, Mp4v2Metadata\n')
+
+
+class Kid3ConfigFileUsingOnlyOggFlac(Kid3ConfigFile):
+    """Context for configuration using only the OggFlacMetadata plugin."""
+    def __init__(self):
+        super().__init__('[Tags]\nDisabledPlugins=TaglibMetadata, Id3libMetadata, Mp4v2Metadata\n')
+
+
+class Kid3ConfigFileUsingOnlyMp4v2(Kid3ConfigFile):
+    """Context for configuration using only the Mp4v2Metadata plugin."""
+    def __init__(self):
+        super().__init__('[Tags]\nDisabledPlugins=TaglibMetadata, Id3libMetadata, OggFlacMetadata\n')
+
 
 _kid3_cli_path = ''
 
@@ -159,6 +206,41 @@ def create_test_file(filename):
             b'\x01\x01d\x01D\xac\x00\x00\x00\x00\x00OggS\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x91d\x87S\x01\x00' \
             b'\x00\x002\xa1\x1d5\x01\x1bOpusTags\x0b\x00\x00\x00libopus 1.1\x00\x00\x00\x00OggS\x00\x04f\x01\x00\x00' \
             b'\x00\x00\x00\x00\x91d\x87S\x02\x00\x00\x00\xe6\xe1CE\x01\x03\xf8\xff\xfe'
+    elif ext == '.ogg':
+            d = zlib.decompress(base64.b64decode(
+            b'eJztV31QU1cWv4GAASO+QLCBxprgi+SliZNgbImL2+SVaIimwINYPmRXgRTixxaJdGG2nYkk2DRQJpvGtE1TBzBJIRVHaLGWnZ3pWq'
+            b'UqFvmo6LbbrS1dQOrs2PWPOts/ds97gao7nWl3dvtfz9zcd+6559xz7+/c3HtuYV1dCYpDi/T5cB3Dfzvz7ArWQ6xnnm6sttpoQVz+'
+            b'8ZiGfYjFfE+zCmlLdK8l3fP1thwN77F/3U/L4mMjcUFh++5nnnpEtf7R9SrlBtpgDfwsv6l5utbSuBn6aqBPpYFOlWiftTpmxkqIfS'
+            b'Xk4ztYSIsQbhPItoRtq5xYJlmUMSMkx/bezCC381qFOdsrRyU2jzjURboqpYfGPWZEGzyva+Y73TqO2CnZXOZ1ZG8GzqUBmZWWYeRS'
+            b'pdfUQ6+Os9o5o8zlOv6We0cIsjIMZPMi50rydMBxXAN6+EZDkSNRMy90npFL3a1nladXOdkbpR2tXyrPf+RYTroCjoKNdzKddbrmVT'
+            b'EfuM7gcSTqzgucW3Qwg0TNab5zVNeb6ZRpOGucInVtOvIg1NUjdfdIk7HMwWR0HiFMW8z/4IDwwu+FFwaEyzkryhMQYiEO6BncIUPn'
+            b'lwYvXu6VMGX2hah8dJApOYy5AaGiYq7+AH8ZY1eLEKcr1x0uc4fr3XOuTo7z8PE4ZEeIDW7Uj5fkbfXlXy41Xz21/5N7SqXfksGYA4'
+            b'bYpPWpvkSXMj4jkYkDTMPOcyvP2pdAtguMKT1J/ZrPgjNd5SkB44BmddAw1OJ9zf2uZi5oG7swG1SNAdcTLOcGQG8ueLarPDnGZQ+0'
+            b'jAdkNHdg7MauIG8EuHX9LZ7Ai0PAJfRbOwPbBoAzvNtCvbZtiBlvqVo4d0MYTKO53j++639t/BxwhSM3/hrExu7TY0CG9Wqxwy/u/g'
+            b'vBmZyrF23hVWfm3NB9M69MynQEyYWJ+fqQbxNHcuQAZcyOAR6HtBxxG58yLFXVLvFhQeNF4o2uVqOsr7enI2dU/tYlptp08/hbKb/g'
+            b'qs5ijz/cf5Yq2b9xumzv3zVzAcfbOyr29g9RRiLso5IZ/EQwFzIxo9ZTHBuUeCPYmCzrjcEpokODUOE/hBO81XfL18LLPElxKhTFVM'
+            b'7GqRK9ucly1d9U/s5zldfaqr557lMod5p2l/kt5feV2NLhry2CfR5bCDEisF3SzOM+bGmZEFDUwN/K7LeCQXzbJP7hpLzwtrowbXMx'
+            b'Xz+lNk+kVxU/ur/4EcvUxqqSR6rMO/Y/6d9fearpk5ctn3zz3Gf3lKplzBJTEdrkXUt4swjvTG4nXqCtPy9D2kR6s7i/kHbO5HrxAq'
+            b'/E6q1r8fe+Grjx6lFZlFFBGK1CkzvS7O5rdvc2d867vPWv+nv7Ag9fjNwcPvHVD5XlzAbHETqIb23Et1K4ngKGQdfOpdEVvq/C9Y3y'
+            b'0Ul1bI0TaZsB0CcPHro3AAhxL5zkj04ITamSK5TCXKK4QumvlJh/iExTalMaAJuEPCzkwUoUipFAUjtePbnnza4aLnUzPGCQ1Q29c1'
+            b'HVJhj6VebzvmLsd314jVt3SREaJ9b1T5eSbfzQKzWydCqFguC1ISzAut4g1A7KoSweuR71ivG8lSfVKxfbuCleXhivvhyP/nfSTqq1'
+            b't/OgLLbB0a083q183mJbfjlePRGfV8z+CXydBF/5vPG8e3yBo7yJ/8e6fqaf6QcIg3IdfrvE/MzBLORKQw2GVDzJy/4w3uBPMDkif1'
+            b'KzvBbdVJdVabprhUOHbkrkRgXQMa52Zd3t8kZoZUxvD0FHfeZ3/yGgy2qxG9O/su69DSZXVj4vkvT9U4KTWdAAH2U397s55botLGSf'
+            b'yfXD2d05U7YKoTK/xI3QrvKANO77h/nxdL/DVOSKQw1ScPjBgPw6eMQvDCJ/wniePcKC1YCylFY+qSupPmCHgz8OFSOUeG5AbkrTe0'
+            b'PWQLYbL5jKK+RbA3MtR61nbufRy+6pD2D6YrXplYg1KlOazHA/FTGwOyJnv0Bth4+zERmHhO7q8sBsy9Fsd6QvEBtFP6E2lZgLvJGW'
+            b'o5AsWQOR6KDcdDuPvqJKzea2RXE0ugCOGG3zlabP6RHAY3RhmHE6VWoyN1WJ3BFrIBqNnlieX8iHMauuNh2ae4G2fXN4PWaih2uqKk'
+            b'+kZxj96mKO1gwjVT3pZ9EmXw0PcovMV6Hfb0F0Sz4KqKcI4SLt6HqpQ9Z+csK5fKW2W/xwnF2K0HuCCL/konKdOIRljuBOPrlOEp6k'
+            b'oqIQRRHpzlKjTHLMR+0hzBhF9PmSSZnkCIXQtUPx8Gsrqj9vRKKVyK7cQl/aT2SF+DVjmmwe5VbNBV8yqmYhvSkgMuA2nwv5mGyHMt'
+            b'IyDRFm8h4fZQTZE0ZC4hzTZYd9kyBLQ6iUQfvY+Vn2Wh0DN8VC3M4aGm5Ayo8z0ZIGIusKYgGIXljC88jcIsayq+mQF5jM5qpBOYPl'
+            b'wrCShg1giYE2vH5fJY2aJeNUP0QEMNt5tcnyZ/8h+R9O3Px4EKFb7GWoK+7BHVtziczlcnWthL4vtQKHB7JxC0Ymi50+ipP0H7vRAF'
+            b'u+Y2CaTqimtXVQAWe/xDTvVtT9zR9VKSA5YzK0e6oE9E9zLrrz2LWTm84UTJTtgoiy7A10RMMCG5ckwqUciMDB0or2AdKlmsNDH1Xs'
+            b'O2cb00nFR6ar5UdtKSRBnNtRU0w4KcqoOFXWbuw+5qWM/VfKOlR9oemK9v6R6o4C4u2PKtpVq9buM/UNXdvz5oCgZq9M8bagpuMc59'
+            b'e1+xSRj/esGOGsrZQrrlTsVY4IPq1sD58KtKt+eedjSq6a3onQbx3xKL/1xQ3H8dfTOxMfoGEC3EQYbBLYM7ANQlSHBnZFCsnpLgUZ'
+            b'w4l9HfTuYZ4+lHFkkfNQC4scZiReZ/QgayTCjkWZNBziL76Y+kI+xpaE1UKgGD1JCDJcWsbpdtIgtoFe2Oel4Uw1JkmcqRRBhPlGcE'
+            b'4ZQVZqTOp2psLmpMFmXEJ0hbmQHAt02RnmVbuPJT3wUOxUgTeMp8dHEQp9a1ZYEBJs25JuK6pw9zZyqQ/7qDHRLO53qZy+l0pzZvkk'
+            b'l1wQNm0nEhVHBOSIIHStcVu3LQWONh2y2+GlFc9O2IDeu44+t2EH49hbH0R2Uf5Trvz3yYbmoiSMV8LSVreS61Fp2c5Q1U7ty6z181'
+            b'+ciBezxRydPKXLzhYGG95Pe7r5zIonxglZk4g5NFegWzDBnYjHm7i0u7Z+X8PB5mftTleHh8N0Z6Bn4ZqQaPPz1TZBRuaDwtUPrRGJ'
+            b's9bicIzHXuAiO2KzYxkV3WazmSc2e+npTT+xabn2W223gvXfEEpO+fH0b8XzhTk='))
     elif ext == '.mpc':
         d = b'MPCKSH\x0cp\n\xc9\xab\x08\x01\x00\x1b\x0bRG\x0c\x01\x00\x00\x00\x00\x00\x00\x00\x00EI\x07\xa0\x01\x1e' \
             b'\x01SO\x08\x0c\x00\x00\x00\x00AP\x04\x00ST\x06\x01\x12\xb0SE\x03'
@@ -175,6 +257,58 @@ def create_test_file(filename):
             b'\xe3\x9c\xe3\x94\xe3\xdf\xe3\xb5\xe4#\xe3\xe2\xe4f\xe4\x0f\xe4\xb0\xe4O\xe5!\xe4o\xe5\x94\xe4\xa3\xe6' \
             b'\x07\xe4\xbc\xe6X\xe4\xd2\xe6\xc3\xe4\xd6\xe7\x18\xe4\xf1\xe7\x83\xe5\t\xe7\xed\xe5 \xe8_\xe58\xe8' \
             b'\xce\xe5r\xe9C\xe5\xae\xe9\xc9\xe5\xe9\xeao\xe6(\xeb\x06\xe6\x82\xeb\xac'
+    elif ext == '.mkv':
+        # Valid minimal Matroska video container with one subtitle track.
+        d = zlib.decompress(base64.b64decode(
+            'eNqTcr2/eLFTWyOj03cg/tTI4vS5kcOpqSM3saQovzg70akdKNTayCgR3JDOyAACYmaCvrNL9vju7gle3SLquTIteE2TADOEKxay'
+            'LhvErYdwZYJ3g7giTyBcoZDD6SDuvzf++xlGwSgYBaNgFIyCUTAKRsEoGAWjYBSMglEw2AGo3/9d6/rGZn4nB9+GxTmZSalJuTkK'
+            'ZYZ6JnqmCtoKQAHYCAJI0FzPMNxxXm52WW5qUXqqQpmlpZ6Bgoa6U2l2orqmgpmJblJmiUtnh0O/A9h0l8QOboVXD+Rv1zAUL5mQ'
+            'uqVrlo0dg8gX7u6WrPyZ30GDDBvXrb/eyFh8tOPLwTexM7afWtjcKDinkUFp65zm0ryUtu7g+BDXiBD90BA3C6Wtc0Fib1zERqNt'
+            'FIyCUYAK5J23lU583siwoGdhWyOQ75E5u4n5BWjocuruyZsbGbb3fW9k/Ngkcu5DI/MmoAxoFNPRqLjYUS/5QHcyogRKP9HturjZ'
+            'KSDYpb3J0Cz9xALXxR0uoUGOIZ7+fi7tkwwMrEDIUM8ABtJPTHddPMEv1NfJNSje3y3eLcjR1xWou9Ew/cQ018X9CBmnyBCwhFH6'
+            'id2ui6fHB4cATQ0O8XQOjg8P8gzx9HOPdwwIcGknUMKmn9jqungONt0ujiGu8aEhzi7tk40MjMx0DUx1jQ0VDEytTIytDIC2HgY6'
+            'FFlfiKM70D1rgZ5VgHlRAd0jCmjuBwDHXfqa'))
+    elif ext == '.mka':
+        # Valid Matroska audio container with chapters and one attachment.
+        d = zlib.decompress(base64.b64decode(
+            'eNrtmH9MG2UYx1swTEPMYHGDbf64sURQobQFWgoaubZXrFkB2yMgMdYWSiGUstGC/KGGa4FW5sKvOXBDt+WWTTZGdFgcYcQlONfF'
+            'xJhpJNmytHfPe+W3Yy5zLkbn3QjZsizxP/3nPrnnTb7P875P3ucuuTfvs42I0LS2i5Jqb/P2G/WY9ib1uNYXbLR5m5s8DTZtgHd1'
+            'UtJUS7tTKhFI/STZdMh7xTT1keVUx2bjSK1l1JcUvya3kGMNgvxgTT5tmRJkin5NbiJnnIKsWpNJuhO7ebk5fU1uxY/V8/KpxeXS'
+            'oxIREREREREREREREREREZH/H+He//uLs1/6KvtN7bSr3u6wN7qwVoUsV5aHvYTxjvUGguBUyxQV+GeNDa2NjmanA2vVaGRyLCNd'
+            '29JgS38BU+Vm2eu9+g+DReb2e8n1tmAitrTpeNKExHOsN5R6fTLz4HbryWTa9mfKyUWhx3Bx7MIsJfVcCBq55J7Cu6/m+am4tNCw'
+            'v8Vd07UPt5bpTNnGEjJ7l5HcCf6OOHuVJC30qRBl9oU6ijP1ksNUnL2GSlrWPyN+SxERkUci9CSL1LYTRTkGd6dN5m3zGt7p9jra'
+            'vNm7XbZ6t+Gt3jqHy9WE2bxeW3Vdo8PtNYwFD5zVVFXETsUL/c2bxOQqMU1JiKu8XePtXDDFPj5yJVXSOjHi+TY4rf484+O/Omx9'
+            'lGSIjw5R0vb+zk6jm/936t7zO9xO3fs+h3tilJ96uLA/41LanpY+/0Zt0frkgc4uU31NjcvxwOxl7j95N8/pJlrw/DlKcgRXHsUz'
+            'Kd71I+fi2rhKbitXyE2gbdzb6C5KQH+jb+A6ImEF3WEvoj72DMplu9F3TC2qYV5Bq9FEFIxG4eXoGdgQ3Qs/RyogFFHCZCQBLkfi'
+            '4VbkFrsj+itrjl5lD0Svseejc+xydIV9kllkC5g/2EomBTyMAgaZEhhnnPATMwCzzHG4w5wGKfsVPMuehefZaTCwIahiaWhj+2GQ'
+            'bYVx9l34nq2DedYOiVAK24GALHgNMkHHjwVQCG+AEar4sQP2wDDshwiEYCdioRZtRF+gUrSDa0L7ORptiJ1DlbHLaCb2C0qdu4H8'
+            'c09wK3MYZ53P536Yb+Z0C2PcpYUFrmkxI5aw5IuNLh2iXhda431TPeOU5Ovu25T0hm9LwioVL3TIcY3Hg+dVn99bff94c4Z7Cdqv'
+            'LbPoAwFljipfLpc7w0cIOqgvN+OksbREH+iXywvuPTK5XKFSq/PVKmd4kKB7S8pNWsJsLTVYDWbcRPApKIUzPETQPfcj2jdJIeBX'
+            'avhFUwQ9aLWQfF4LadRZrBVmI2ksKbbiZWX6wL+c4s5wiKCHH7Vaj5OEtZzU6QMDSrlSlSXPy8pRYPK8glxVQY7GGZ7ht/rgOhIv'
+            '5nd0mq8ZWy8Se7gU7KEK/gGe/SWt'))
+    elif ext == '.webm':
+        # Minimal EBML header and segment for WebM container recognition tests.
+        d = b'\x1a\x45\xdf\xa3\x9f\x42\x86\x81\x01\x42\xf7\x81\x01\x42\xf2\x81\x04' \
+            b'\x42\xf3\x81\x08\x42\x82\x84\x77\x65\x62\x6d\x42\x87\x81\x04\x42\x85\x81\x02' \
+            b'\x18\x53\x80\x67\xff\xff\xff\xff\xff\xff\xff\xff'
+    elif ext == '.dsf':
+        # Minimal DSF file with valid DSD/fmt/data chunks.
+        d = b'DSD '\
+            b'\x1c\x00\x00\x00\x00\x00\x00\x00' \
+            b'@\x00\x00\x00\x00\x00\x00\x00' \
+            b'\x00\x00\x00\x00\x00\x00\x00\x00' \
+            b'fmt ' \
+            b'4\x00\x00\x00\x00\x00\x00\x00' \
+            b'\x01\x00\x00\x00' \
+            b'\x00\x00\x00\x00' \
+            b'\x02\x00\x00\x00' \
+            b'\x02\x00\x00\x00' \
+            b'\x80\x11+\x00' \
+            b'\x01\x00\x00\x00' \
+            b'\x00\x10\x00\x00' \
+            b'\x00\x00\x00\x00\x00\x00\x00\x00' \
+            b'data' \
+            b'\x0c\x00\x00\x00\x00\x00\x00\x00'
     elif ext == '.jpg':
         d = b'\xff\xd8\xff\xdb\x00C\x00\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff' \
             b'\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff\xff' \
@@ -196,7 +330,21 @@ def create_test_file(filename):
             b'\x14\x11\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xda\x00\x08\x01\x02' \
             b'\x01\x01?\x10\x7f\xff\xc4\x00\x14\x10\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 ' \
             b'\xff\xda\x00\x08\x01\x01\x00\x01?\x10\x1f\xff\xd9'
+    elif ext == '.lrc':
+        d = b'[ti:Title]\r\n' \
+            b'\r\n' \
+            b'[00:00:00.000]Intro\r\n' \
+            b'[00:00:20.181]Middle\r\n' \
+            b'[25:34:56.789]Much later\r\n' \
+            b'[25:35:00.999]\r\n'
     else:
         d = b''
     with open(filename, 'wb') as fh:
         fh.write(d)
+
+
+def ignore_audio_properties(s):
+    """Transform output string to ignore exact audio properties."""
+    s = re.sub(r'\d+ kbps', 'n kbps', s)
+    s = re.sub(r'AAC \d+ bit ', '', s)
+    return s
