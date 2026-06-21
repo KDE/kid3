@@ -421,8 +421,6 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Album        An Album\n'
                 '  Copyright    ≠\n'
                 '  Disc Number  ≠\n')
-            if sys.platform == 'win32':
-                expected = expected.replace('≠', '?')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'select all',
                  '-c', 'set artist "An Artist"',
@@ -720,8 +718,6 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Encoder Settings    ≠\n'
                 '  Rating Information  ≠\n'
                 )
-            if sys.platform == 'win32':
-                expected = expected.replace('≠', '\\?')
             self.assertRegex(call_kid3_cli(
                 ['-c', 'select first',
                  '-c', 'get',
@@ -843,8 +839,6 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          2016\n'
                 '  Track Number  1\n'
             )
-            if sys.platform == 'win32' and platform.release() == 'XP':
-                expected = expected.replace('ö', '?')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'select first',
                  '-c', 'set title "Schön"',
@@ -862,8 +856,6 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '  Date          2016\n'
                 '  Track Number  1\n'
             )
-            if sys.platform == 'win32' and platform.release() == 'XP':
-                expected = expected.replace('ö', '?')
             self.assertEqual(call_kid3_cli(
                 ['-c', 'get', os.path.join(albumdir, '*.mp3')]),
                 expected)
