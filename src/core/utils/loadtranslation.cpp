@@ -66,6 +66,14 @@ void Utils::loadTranslation(const QString& lang)
   // "sr-latin". Both "sr@ijekavian" and "sr@ijekavianlatin" give "sr-ijekavia",
   // so this case cannot be fixed.
   for (auto it = languages.begin(); it != languages.end(); ++it) {
+    if (it->startsWith(QLatin1String("zh-Hans"))) {
+      *it = QLatin1String("zh_CN");
+      continue;
+    }
+    if (it->startsWith(QLatin1String("zh-Hant"))) {
+      *it = QLatin1String("zh_TW");
+      continue;
+    }
     const int len = it->length();
     if (const int dashPos = it->lastIndexOf(QLatin1Char('-'));
         dashPos > 0 && dashPos < len -1) {
