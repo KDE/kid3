@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-08-25 12:17+0200\n"
+"PO-Revision-Date: 2026-06-27 11:49+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
 "Language: nn\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.11.70\n"
+"X-Generator: Lokalize 26.07.70\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: qtrich\n"
@@ -2653,32 +2653,32 @@ msgstr "Seljar"
 #: src/core/tags/frame.cpp:74
 msgctxt "@default|"
 msgid "Target Type"
-msgstr ""
+msgstr "Måltype"
 
 #: src/core/tags/frame.cpp:75
 msgctxt "@default|"
 msgid "Default"
-msgstr ""
+msgstr "Standard"
 
 #: src/core/tags/frame.cpp:76
 msgctxt "@default|"
 msgid "Track ID"
-msgstr ""
+msgstr "Spor-ID"
 
 #: src/core/tags/frame.cpp:77
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr ""
+msgstr "Utgåve-ID"
 
 #: src/core/tags/frame.cpp:78
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr ""
+msgstr "Kapittel-ID"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "Vedleggs-ID"
 
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"
@@ -2735,7 +2735,7 @@ msgstr "Trivia / sprettopp"
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "None"
-msgstr ""
+msgstr "Ingen"
 
 #: src/core/tags/frame.cpp:111
 msgctxt "@default|"
@@ -2755,12 +2755,12 @@ msgstr ""
 #: src/core/tags/frame.cpp:116
 msgctxt "@default|"
 msgid "Edition"
-msgstr ""
+msgstr "Utgåve"
 
 #: src/core/tags/frame.cpp:117
 msgctxt "@default|"
 msgid "Collection"
-msgstr ""
+msgstr "Samling"
 
 #: src/core/tags/frame.cpp:142
 msgctxt "@default|"
@@ -3351,17 +3351,17 @@ msgstr "Lydstyrke"
 #: src/core/tags/frame.cpp:302
 msgctxt "@default|"
 msgid "Director"
-msgstr ""
+msgstr "Regissør"
 
 #: src/core/tags/frame.cpp:303
 msgctxt "@default|"
 msgid "Duration"
-msgstr ""
+msgstr "Lengd"
 
 #: src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "Samandrag"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
@@ -3527,15 +3527,17 @@ msgctxt "@default|"
 msgid "Chapters"
 msgstr "Kapittel totalt"
 
+# Må omformulera for å unngå krasj med «chapter».
 #: src/core/tags/frame.cpp:351
 msgctxt "@default|"
 msgid "Chapters (Nero)"
-msgstr ""
+msgstr "Kapitlar (Nero)"
 
+# Må omformulera for å unngå krasj med «chapter».
 #: src/core/tags/frame.cpp:352
 msgctxt "@default|"
 msgid "Chapters (QT)"
-msgstr ""
+msgstr "Kapitlar (Qt)"
 
 #: src/core/tags/frame.cpp:353
 msgctxt "@default|"
@@ -4145,7 +4147,7 @@ msgstr "Namn på &biletfelt:"
 #: src/gui/dialogs/configdialogpages.cpp:275
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
-msgstr ""
+msgstr "Matroska"
 
 #: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
@@ -4155,12 +4157,12 @@ msgstr ""
 #: src/gui/dialogs/configdialogpages.cpp:278
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
-msgstr ""
+msgstr "Kompakt"
 
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
-msgstr ""
+msgstr "Ikkje krymp"
 
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
