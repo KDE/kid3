@@ -356,6 +356,7 @@
           <li xml:lang="ko">Matroska와 WebM 파일을 지원합니다.</li>
           <li xml:lang="nl">Ondersteuning voor Matroska en WebM bestanden.</li>
           <li xml:lang="pt-BR">Suporte para arquivos Matroska e WebM.</li>
+          <li xml:lang="ru">Поддержка файлов Matroska и WebM.</li>
           <li xml:lang="sk">Podpora súborov Matroska a WebM.</li>
           <li xml:lang="sl">Podpora za datoteke Matroska in WebM.</li>
           <li xml:lang="tr">Matroska ve WebM dosyaları desteği</li>
@@ -372,6 +373,7 @@
           <li xml:lang="ko">MP4: QuickTime과 Nero 챕터를 지원하며, TagLib를 사용합니다.</li>
           <li xml:lang="nl">MP4: Ondersteuning voor zowel QuickTime als Nero hoofdstukken, ook met TagLib.</li>
           <li xml:lang="pt-BR">MP4: Suporte ao QuickTime e Nero Chapters, inclusive com TagLib.</li>
+          <li xml:lang="ru">MP4: поддержка глав QuickTime и Nero, также с TagLib.</li>
           <li xml:lang="sk">MP4: Podpora kapitol QuickTime aj Nero, aj s TagLib.</li>
           <li xml:lang="sl">MP4: Podpira poglavja QuickTime in Nero, tudi s TagLib.</li>
           <li xml:lang="tr">MP4: Hem QuickTime hem de TagLib ile Nero fasılları desteği</li>
@@ -388,6 +390,7 @@
           <li xml:lang="ko">MP4: STEM을 지원합니다.</li>
           <li xml:lang="nl">MP4: ondersteunt STEM.</li>
           <li xml:lang="pt-BR">MP4: Suporte ao STEM.</li>
+          <li xml:lang="ru">MP4: Поддержка STEM.</li>
           <li xml:lang="sk">MP4: Podpora STEM.</li>
           <li xml:lang="sl">MP4: Podpira STEM.</li>
           <li xml:lang="tr">MP4: STEM desteği</li>
@@ -403,6 +406,7 @@
           <li xml:lang="ka">WAV, FLAC: iXML და BEXT ფრაგმენტების მხარდაჭრეა.</li>
           <li xml:lang="nl">WAV, FLAC: ondersteunt iXML en BEXT gedeelten.</li>
           <li xml:lang="pt-BR">WAV, FLAC: Suporte a blocos iXML e BEXT.</li>
+          <li xml:lang="ru">WAV, FLAC: Поддержка чанков iXML и BEXT.</li>
           <li xml:lang="sk">WAV, FLAC: Podpora blokov iXML a BEXT.</li>
           <li xml:lang="sl">WAV, FLAC: Podpira bloke iXML in BEXT.</li>
           <li xml:lang="tr">WAV, FLAC: iXML ve BEXT parçaları desteği</li>
@@ -418,6 +422,7 @@
           <li xml:lang="ka">Android: ყველა კადრის მონიშვნა/მონიშვნის გაუქმება.</li>
           <li xml:lang="nl">Android: selecteer alle/deselecteer alle frames.</li>
           <li xml:lang="pt-BR">Android: Selecionar tudo/desmarcar todos os quadros.</li>
+          <li xml:lang="ru">Android: выделить/снять выделение со всех фреймов.</li>
           <li xml:lang="sk">Android: Vybrať všetky/zrušiť výber všetkých snímok.</li>
           <li xml:lang="sl">Android: Izberi vse/prekliči izbiro vseh okvirjev.</li>
           <li xml:lang="tr">Android: Tüm kareler artık seçilip seçimleri kaldırılabiliyor.</li>
@@ -433,6 +438,7 @@
           <li xml:lang="ka">Android: თავებისა და სინქრონიზებული ლირიკის შემოტანა/გატანა LRC ფაილების სახით.</li>
           <li xml:lang="nl">Android: importeer/exporteer hoofdstukken en gesynchroniseerde liedteksten als LRC-bestanden.</li>
           <li xml:lang="pt-BR">Android: Importar/Exportar capítulos e letras sincronizadas como arquivos LRC.</li>
+          <li xml:lang="ru">Android: импорт/экспорт глав и синхронизированных текстов в виде файлов LRC;</li>
           <li xml:lang="sk">Android: Import/export kapitol a synchronizovaných textov piesní ako súborov LRC.</li>
           <li xml:lang="sl">Android: Uvoz/izvoz poglavij in sinhroniziranih besedil kot datotek LRC.</li>
           <li xml:lang="tr">Android: Fasıllar ve eşzamanlı şarkı sözleri artık LRC dosyaları olarak dışa aktarılabiliyor.</li>
@@ -468,6 +474,7 @@
           <li xml:lang="ka">გაუმჯობესდა შენახვის წარმადობა.</li>
           <li xml:lang="nl">Verbeterde prestaties voor opslag.</li>
           <li xml:lang="pt-BR">Melhoria do desempenho ao salvar.</li>
+          <li xml:lang="ru">Улучшена производительность сохранения.</li>
           <li xml:lang="sk">Zlepšený výkon ukladania.</li>
           <li xml:lang="sl">Izboljšana zmogljivost shranjevanja.</li>
           <li xml:lang="tr">İyileştirilmiş kaydetme başarımı</li>
@@ -483,6 +490,7 @@
           <li xml:lang="ka">macOS: უცვლელი ხატულების ნაკრები მუქ რეჟიმში.</li>
           <li xml:lang="nl">macOS: consistente pictogram set met donkere modus.</li>
           <li xml:lang="pt-BR">macOS: Conjunto de ícones consistente com modo escuro.</li>
+          <li xml:lang="ru">macOS: единый набор значков для тёмного режима.</li>
           <li xml:lang="sk">macOS: Konzistentná sada ikon s tmavým režimom.</li>
           <li xml:lang="sl">macOS: Dosleden nabor ikon s temnim načinom.</li>
           <li xml:lang="tr">macOS: Koyu kip ile uyumlu simge kümesi</li>
@@ -498,6 +506,7 @@
           <li xml:lang="ka">CSV-ის და JSON-ის გატანა: მხოლოდ, მონიშნული საქაღალდეების გატანა.</li>
           <li xml:lang="nl">Exporteer CSV, JSON: exporteer alleen geselecteerde mappen.</li>
           <li xml:lang="pt-BR">Exportar CSV, JSON: Exportar apenas as pastas selecionadas.</li>
+          <li xml:lang="ru">Экспорт CSV, JSON: экспортировать только выбранные папки.</li>
           <li xml:lang="sk">Export CSV, JSON: Exportovať iba vybraté priečinky.</li>
           <li xml:lang="sl">Izvoz CSV, JSON: Izvoz samo izbranih map.</li>
           <li xml:lang="tr">CSV, JSON dışa aktarma: Yalnızca seçili klasörler dışa aktarılabiliyor.</li>
@@ -536,6 +545,7 @@
           <li xml:lang="ka">გასწორდა Discogs-ის შემოტანა.</li>
           <li xml:lang="nl">Los Discogs importeren op.</li>
           <li xml:lang="pt-BR">Corrigida importação do Discogs.</li>
+          <li xml:lang="ru">Исправлен импорт из Discogs.</li>
           <li xml:lang="sk">Oprava importu Discogs.</li>
           <li xml:lang="sl">Popravljen uvoz iz Discogsa.</li>
           <li xml:lang="tr">Discogs içe aktarma desteği onarıldı.</li>
@@ -551,6 +561,7 @@
           <li xml:lang="ka">მორგებული ენის გათვალისწინება სახელმძღვანელოსთვის.</li>
           <li xml:lang="nl">Overweeg de geconfigureerde taal voor het handboek.</li>
           <li xml:lang="pt-BR">Considera o idioma configurado para o manual.</li>
+          <li xml:lang="ru">Учитывается настроенный язык руководства</li>
           <li xml:lang="sk">Zohľadnenie nastaveného jazyka pre príručku.</li>
           <li xml:lang="sl">Upošteva konfiguriran jezik za priročnik.</li>
           <li xml:lang="tr">El kitabı için yapılandırılmış dil dikkate alınıyor.</li>
@@ -566,6 +577,7 @@
           <li xml:lang="ka">გასწორდა: LRC ფაილების (სინქრონიზებული ლირიკების და თავების) შემოტანა საათის მნიშვნელობებით.</li>
           <li xml:lang="nl">Oplossen: importeren van LRC-bestanden (gesynchroniseerde liedteksten, hoofdstukken) met uur waarden.</li>
           <li xml:lang="pt-BR">Correção: Importação de arquivos LRC (letras sincronizadas, capítulos) com valores de hora.</li>
+          <li xml:lang="ru">Исправлен импорт файлов LRC (синхронизированный текст, главы) со значениями времени в часах.</li>
           <li xml:lang="sk">Oprava: Import súborov LRC (synchronizované texty piesní, kapitoly) s hodnotami hodín.</li>
           <li xml:lang="sl">Popravek: Uvoz datotek LRC (sinhronizirana besedila, poglavja) z urnimi vrednostmi.</li>
           <li xml:lang="tr">Düzeltme: Saat değerleriyle birlikte (şarkı sözleri, fasıllar) LRC dosyalarını içe aktarma onarıldı.</li>
@@ -581,6 +593,7 @@
           <li xml:lang="ka">გასწორდა გაფუჭებული ფაილების სიის ქცევა ერთზე მეტი ფაილის სახელის გადარქმევისას და სია დალაგებულია დაღმავალი მიმდევრობით.</li>
           <li xml:lang="nl">Los gebroken bestandslijstgedrag op bij hernoemen van vele bestanden en de lijst is gesorteerd in aflopende volgorde.</li>
           <li xml:lang="pt-BR">Corrigido o comportamento incorreto da lista de arquivos ao renomear vários arquivos e a lista estar classificada em ordem decrescente.</li>
+          <li xml:lang="ru">Исправлено некорректное поведение списка файлов при переименовании большого количества файлов, когда список отсортирован по убыванию.</li>
           <li xml:lang="sk">Oprava nefunkčného správania zoznamu súborov pri premenovaní mnohých súborov, keď je zoznam zoradený zostupne.</li>
           <li xml:lang="sl">Odpravljeno je pokvarjeno delovanje seznama datotek pri preimenovanju več datotek, seznam pa je razvrščen v padajočem vrstnem redu.</li>
           <li xml:lang="tr">Liste azalan sırada sıralandığında ve birden çok dosya yeniden adlandırılırken dosya listesi davranışı onarıldı.</li>
@@ -596,6 +609,7 @@
           <li xml:lang="ka">გასწორდა მიმდინარეობს ანგარიში ფაილების შენახვისას.</li>
           <li xml:lang="nl">Los rapporteren van voorgang op wanneer bestanden opgeslagen worden.</li>
           <li xml:lang="pt-BR">Corrigido o relatório de progresso ao salvar arquivos.</li>
+          <li xml:lang="ru">Исправлено отображение прогресса при сохранении файлов.</li>
           <li xml:lang="sk">Oprava hlásenia priebehu pri ukladaní súborov.</li>
           <li xml:lang="sl">Popravljeno je poročanje o napredku pri shranjevanju datotek.</li>
           <li xml:lang="tr">Dosyalar kaydedildiğinde ilerleme bildirimi artık düzgün çalışıyor.</li>
@@ -611,6 +625,7 @@
           <li xml:lang="ka">ID3v2: ერთზე მეტი სტრიქონის შემცველი მნიშვნელობების მხარდაჭერა TXXX კადრებში.</li>
           <li xml:lang="nl">ID3v2: ondersteun waarden met meerdere tekenreeksen in TXXX-frames.</li>
           <li xml:lang="pt-BR">ID3v2: Suporte a valores com múltiplas strings em quadros TXXX.</li>
+          <li xml:lang="ru">ID3v2: поддержка значений с несколькими строками в кадрах TXXX.</li>
           <li xml:lang="sk">ID3v2: Podpora hodnôt s viacerými reťazcami v rámcoch TXXX.</li>
           <li xml:lang="sl">ID3v2: Podpora za vrednosti z več nizi v okvirjih TXXX.</li>
           <li xml:lang="tr">ID3v2: TXXX karelerinde birden çok dizi içeren değerler destekleniyor.</li>
@@ -626,6 +641,7 @@
           <li xml:lang="ka">Windows: MP4-ის 64-ბიტიანი ატომების მხარდაჭერა Windows-ზე.</li>
           <li xml:lang="nl">Windows: ondersteun MP4 64-bit atoms in Windows.</li>
           <li xml:lang="pt-BR">Windows: Suporte para arquivos MP4 de 64 bits no Windows.</li>
+          <li xml:lang="ru">Windows: поддержка 64-битных атомов MP4;</li>
           <li xml:lang="sk">Windows: Podpora 64-bitových atómov MP4 v systéme Windows.</li>
           <li xml:lang="sl">Windows: Podpora za 64-bitne atome MP4 na sistemu Windows.</li>
           <li xml:lang="tr">Windows: 64 bit MP4 atomları desteği</li>
