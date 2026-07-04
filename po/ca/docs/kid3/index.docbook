@@ -49,7 +49,7 @@
 
 <copyright>
 <year
->2025</year>
+>2026</year>
 <holder
 >Urs Fleisch</holder>
 </copyright>
@@ -57,9 +57,9 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2025-07-24</date>
+>6 de juny de 2026</date>
 <releaseinfo
->3.9.7</releaseinfo>
+>3.10.0</releaseinfo>
 
 <abstract>
 <para
@@ -2857,17 +2857,11 @@ end manpage include-->
 >Capítols en els fitxers MP4</title>
 
 <para
->MP4 audiobooks typically have a <filename class="extension"
+>Els audiollibres MP4 normalment solen tenir una extensió <filename class="extension"
 >.m4b</filename
-> extension and are rather large because they contain all chapters in a single file. To navigate in such files, they can contain chapter marks, which can be edited in &kid3; in a pseudo "Chapters" frame using the same editor which is used for <link linkend="synchronized-lyrics"
->synchronized lyrics</link
->. Note, however, that this feature is only available with the <guilabel
->Mp4v2Metadata</guilabel
-> plugin, so make sure that it is activated and above the <guilabel
->TaglibMetadata</guilabel
-> plugin in the <guilabel
->Plugins</guilabel
-> tab of the settings if you have to edit MP4 chapters. </para>
+> i són bastant grans perquè contenen tots els capítols en un sol fitxer. Per a navegar en aquests fitxers, poden contenir marques de capítols, que es poden editar en el &kid3; en un pseudomarc de «Capítols» utilitzant el mateix editor que s'utilitza per a les <link linkend="synchronized-lyrics"
+>lletres sincronitzades</link
+>. Hi ha dos tipus de capítols en els fitxers MP4: «Nero» i «QuickTime (QT)». </para>
 <para
 >La informació del capítol en els audiollibres MP3 s'emmagatzema en marcs múltiples «Chapter» (CHAP) als quals es fa referència amb un marc «Taula de continguts» (CTOC), i aquests marcs tenen submarcs incrustats. Per a editar aquesta informació en un sol lloc, també es pot utilitzar un pseudo marc «Chapters» per a etiquetes ID3v2. El seu contingut s'utilitza per a crear el capítol real, la taula de continguts i els marcs incrustats: la <guilabel
 >Descripció</guilabel
@@ -4761,6 +4755,30 @@ end manpage include-->
 >». El primer és l'estàndard oficial i utilitza el mateix format que les imatges en les etiquetes FLAC. La «<literal
 >COVERART</literal
 >» és una forma no oficial anterior d'incloure imatges en els comentaris de Vorbis. Es pot emprar per a compatibilitat amb els reproductors heretats. </para>
+<para
+>Es pot seleccionar el mode utilitzat en desar els fitxers <guilabel
+>Matroska</guilabel
+> amb el <guilabel
+>Mode d'escriptura</guilabel
+>. Controla la solució de compromís entre la mida del fitxer i la velocitat d'escriptura en desar etiquetes, adjunts i capítols al fitxer. Per a fitxers molt grans o sistemes de fitxers lents (xarxa), l'ús d'<guilabel
+>Evita la inserció</guilabel
+> reduirà significativament el temps d'escriptura. Hi ha tres modes possibles: </para>
+<itemizedlist>
+<listitem
+><para
+>Compacta: escriu etiquetes, adjunts i capítols el més compacte possible. Aquest és el mode predeterminat.</para
+></listitem>
+<listitem
+><para
+>No encongeixis: no encongeix els blocs en escriure, afegeix farciment quan el contingut és més petit. Permet les insercions quan el contingut és més gran. </para
+></listitem>
+<listitem
+><para
+>Evita la inserció: Igual que <guilabel
+>No encongeixis</guilabel
+> però també evita les insercions als blocs que no estan al final del fitxer: reemplaça un bloc creixent que no estigui al final amb farciment de la mida antiga i afegint un bloc nou al final del fitxer.</para
+></listitem>
+</itemizedlist>
 <para
 >Si la casella de selecció <guilabel
 >Marca si és més gran que (bytes):</guilabel

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2026-06-27 11:49+0200\n"
+"PO-Revision-Date: 2026-07-03 19:48+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@nuug.no>\n"
 "Language: nn\n"
@@ -2730,27 +2730,29 @@ msgstr "Akkord"
 #: src/core/tags/frame.cpp:105
 msgctxt "@default|"
 msgid "Trivia/pop up"
-msgstr "Trivia / sprettopp"
+msgstr "Trivia/sprettopp"
 
 #: src/core/tags/frame.cpp:110
 msgctxt "@default|"
 msgid "None"
 msgstr "Ingen"
 
+# Sjå 5.1.8.1.1.1.  TargetTypeValue Element i https://datatracker.ietf.org/doc/rfc9559/
 #: src/core/tags/frame.cpp:111
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "Skot"
 
+# Sjå 5.1.8.1.1.1.  TargetTypeValue Element i https://datatracker.ietf.org/doc/rfc9559/
 #: src/core/tags/frame.cpp:112
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr ""
+msgstr "Delspor"
 
 #: src/core/tags/frame.cpp:114
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "Del"
 
 #: src/core/tags/frame.cpp:116
 msgctxt "@default|"
@@ -3363,15 +3365,16 @@ msgctxt "@default|"
 msgid "Summary"
 msgstr "Samandrag"
 
+# Må ha anna omsetjing enn «Summary» har.
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "Oversikt"
 
 #: src/core/tags/frame.cpp:306
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr ""
+msgstr "Delar totalt"
 
 #: src/core/tags/frame.cpp:309
 msgctxt "@default|"
@@ -4152,7 +4155,7 @@ msgstr "Matroska"
 #: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
-msgstr ""
+msgstr "&Skrivemodus:"
 
 #: src/gui/dialogs/configdialogpages.cpp:278
 msgctxt "ConfigDialogPages|"
@@ -4167,7 +4170,7 @@ msgstr "Ikkje krymp"
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
-msgstr ""
+msgstr "Unngå innsetjing"
 
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
@@ -7409,9 +7412,9 @@ msgstr "Fjern"
 #: src/qml/app/TagCollapsible.qml:116
 msgctxt "TagCollapsible|"
 msgid "Select All"
-msgstr ""
+msgstr "Merk alle"
 
 #: src/qml/app/TagCollapsible.qml:120
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
-msgstr ""
+msgstr "Fjern all merking"
