@@ -355,6 +355,7 @@
           <li xml:lang="ka">Matroska და WebM ფაილების მხარდაჭერა.</li>
           <li xml:lang="ko">Matroska와 WebM 파일을 지원합니다.</li>
           <li xml:lang="nl">Ondersteuning voor Matroska en WebM bestanden.</li>
+          <li xml:lang="nn">Støtte for Matroska- WebM-filer.</li>
           <li xml:lang="pt-BR">Suporte para arquivos Matroska e WebM.</li>
           <li xml:lang="ru">Поддержка файлов Matroska и WebM.</li>
           <li xml:lang="sk">Podpora súborov Matroska a WebM.</li>
@@ -372,6 +373,7 @@
           <li xml:lang="ka">MP4: ორივე, QuickTime და Nero თავების მხარდაჭერა TagLib-ითაც.</li>
           <li xml:lang="ko">MP4: QuickTime과 Nero 챕터를 지원하며, TagLib를 사용합니다.</li>
           <li xml:lang="nl">MP4: Ondersteuning voor zowel QuickTime als Nero hoofdstukken, ook met TagLib.</li>
+          <li xml:lang="nn">MP4: Støtte for både QuickTime- og Nero-kapitlar, òg med TagLib.</li>
           <li xml:lang="pt-BR">MP4: Suporte ao QuickTime e Nero Chapters, inclusive com TagLib.</li>
           <li xml:lang="ru">MP4: поддержка глав QuickTime и Nero, также с TagLib.</li>
           <li xml:lang="sk">MP4: Podpora kapitol QuickTime aj Nero, aj s TagLib.</li>
@@ -389,6 +391,7 @@
           <li xml:lang="ka">MP4: STEM-ის მხარდაჭერა.</li>
           <li xml:lang="ko">MP4: STEM을 지원합니다.</li>
           <li xml:lang="nl">MP4: ondersteunt STEM.</li>
+          <li xml:lang="nn">MP4: Støtte for STEM.</li>
           <li xml:lang="pt-BR">MP4: Suporte ao STEM.</li>
           <li xml:lang="ru">MP4: Поддержка STEM.</li>
           <li xml:lang="sk">MP4: Podpora STEM.</li>
@@ -405,6 +408,7 @@
           <li xml:lang="it">WAV, FLAC: Supporto per i blocchi iXML e BEXT.</li>
           <li xml:lang="ka">WAV, FLAC: iXML და BEXT ფრაგმენტების მხარდაჭრეა.</li>
           <li xml:lang="nl">WAV, FLAC: ondersteunt iXML en BEXT gedeelten.</li>
+          <li xml:lang="nn">WAV, FLAC: Støtte for iXML- og BEXT-blokker.</li>
           <li xml:lang="pt-BR">WAV, FLAC: Suporte a blocos iXML e BEXT.</li>
           <li xml:lang="ru">WAV, FLAC: Поддержка чанков iXML и BEXT.</li>
           <li xml:lang="sk">WAV, FLAC: Podpora blokov iXML a BEXT.</li>
