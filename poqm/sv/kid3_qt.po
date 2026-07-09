@@ -1,8 +1,8 @@
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024 Stefan Asserhäll <stefan.asserhall@gmail.com>
+# SPDX-FileCopyrightText: 2020-2024, 2026 Stefan Asserhäll <stefan.asserhall@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"PO-Revision-Date: 2024-08-25 07:34+0200\n"
+"PO-Revision-Date: 2026-07-08 15:19+0200\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
 "Language: sv\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.05.2\n"
+"X-Generator: Lokalize 26.04.3\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -2619,49 +2619,34 @@ msgid "Seller"
 msgstr "Säljare"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "Innehållstyp"
+msgstr "Måltyp"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "Återställ förval"
+msgstr "Förval"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "Spår"
+msgstr "Spår-id"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "Redigera"
+msgstr "Utgåve-id"
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "Kapitel"
+msgstr "Kapitel-id"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "Bilaga-id"
 
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"
@@ -2716,9 +2701,6 @@ msgid "Trivia/pop up"
 msgstr "Trivia/pop"
 
 #: src/core/tags/frame.cpp:110
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
 msgstr "Ingen"
@@ -2726,36 +2708,27 @@ msgstr "Ingen"
 #: src/core/tags/frame.cpp:111
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "Tagning"
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "Numrera spår"
+msgstr "Delspår"
 
 #: src/core/tags/frame.cpp:114
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "Del"
 
 #: src/core/tags/frame.cpp:116
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "Redigera"
+msgstr "Utgåva"
 
 #: src/core/tags/frame.cpp:117
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "Markering"
+msgstr "Samling"
 
 #: src/core/tags/frame.cpp:142
 msgctxt "@default|"
@@ -3336,38 +3309,29 @@ msgid "Volume"
 msgstr "Volym"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "Katalognamn"
+msgstr "Regissör"
 
 #: src/core/tags/frame.cpp:303
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
-msgstr "Varaktighet"
+msgstr "Längd"
 
 #: src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "Sammanfattning"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "Översikt"
 
 #: src/core/tags/frame.cpp:306
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "Totalt antal spår"
+msgstr "Totalt antal delar"
 
 #: src/core/tags/frame.cpp:309
 msgctxt "@default|"
@@ -3520,20 +3484,14 @@ msgid "Chapters"
 msgstr "Kapitel"
 
 #: src/core/tags/frame.cpp:351
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (Nero)"
-msgstr "Kapitel"
+msgstr "Kapitel (Nero)"
 
 #: src/core/tags/frame.cpp:352
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (QT)"
-msgstr "Kapitel"
+msgstr "Kapitel (QT)"
 
 #: src/core/tags/frame.cpp:353
 msgctxt "@default|"
@@ -4135,30 +4093,27 @@ msgstr "&Bildfältnamn:"
 #: src/gui/dialogs/configdialogpages.cpp:275
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
-msgstr ""
+msgstr "Matroska"
 
 #: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
-msgstr ""
+msgstr "Skri&vläge:"
 
 #: src/gui/dialogs/configdialogpages.cpp:278
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Computer"
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
-msgstr "Dator"
+msgstr "Kompakt"
 
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
-msgstr ""
+msgstr "Krymp inte"
 
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
-msgstr ""
+msgstr "Undvik infoga"
 
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
@@ -7396,20 +7351,14 @@ msgid "Remove"
 msgstr "Ta bort"
 
 #: src/qml/app/TagCollapsible.qml:116
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Select &All"
 msgctxt "TagCollapsible|"
 msgid "Select All"
-msgstr "Markera &alla"
+msgstr "Markera alla"
 
 #: src/qml/app/TagCollapsible.qml:120
-#, fuzzy
-#| msgctxt "FrameTable|"
-#| msgid "&Deselect all"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
-msgstr "A&vmarkera alla"
+msgstr "Avmarkera alla"
 
 #~ msgctxt "ConfigDialogPages|"
 #~ msgid "Custom &Genres"
