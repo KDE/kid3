@@ -339,6 +339,7 @@
         <p xml:lang="ru">Новшества</p>
         <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
+        <p xml:lang="sv">Ny</p>
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
@@ -464,6 +465,7 @@
         <p xml:lang="ru">Улучшения</p>
         <p xml:lang="sk">Vylepšené</p>
         <p xml:lang="sl">Izboljšano</p>
+        <p xml:lang="sv">Förbättringar</p>
         <p xml:lang="tr">İyileştirildi</p>
         <p xml:lang="uk">Удосконалення</p>
         <ul>
@@ -481,6 +483,7 @@
           <li xml:lang="ru">Улучшена производительность сохранения.</li>
           <li xml:lang="sk">Zlepšený výkon ukladania.</li>
           <li xml:lang="sl">Izboljšana zmogljivost shranjevanja.</li>
+          <li xml:lang="sv">Förbättrad prestanda för spara.</li>
           <li xml:lang="tr">İyileştirilmiş kaydetme başarımı</li>
           <li xml:lang="uk">Удосконалено швидкодію програми при збереженні.</li>
           <li>macOS: Consistent icon set with dark mode.</li>
@@ -533,6 +536,7 @@
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="sv">Rättningar</p>
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
@@ -672,6 +676,7 @@
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="sv">Rättningar</p>
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
@@ -847,6 +852,7 @@
         <p xml:lang="ru">Новшества</p>
         <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
+        <p xml:lang="sv">Ny</p>
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
@@ -916,6 +922,7 @@
         <p xml:lang="ru">Улучшения</p>
         <p xml:lang="sk">Vylepšené</p>
         <p xml:lang="sl">Izboljšano</p>
+        <p xml:lang="sv">Förbättringar</p>
         <p xml:lang="tr">İyileştirildi</p>
         <p xml:lang="uk">Удосконалення</p>
         <ul>
@@ -953,6 +960,7 @@
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="sv">Rättningar</p>
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
@@ -1092,6 +1100,7 @@
         <p xml:lang="ru">Новшества</p>
         <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
+        <p xml:lang="sv">Ny</p>
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
@@ -1161,6 +1170,7 @@
         <p xml:lang="ru">Улучшения</p>
         <p xml:lang="sk">Vylepšené</p>
         <p xml:lang="sl">Izboljšano</p>
+        <p xml:lang="sv">Förbättringar</p>
         <p xml:lang="tr">İyileştirildi</p>
         <p xml:lang="uk">Удосконалення</p>
         <ul>
@@ -1214,6 +1224,7 @@
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="sv">Rättningar</p>
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
@@ -1305,6 +1316,7 @@
         <p xml:lang="ru">Новшества</p>
         <p xml:lang="sk">Nové</p>
         <p xml:lang="sl">Novo</p>
+        <p xml:lang="sv">Ny</p>
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
@@ -1358,6 +1370,7 @@
         <p xml:lang="ru">Улучшения</p>
         <p xml:lang="sk">Vylepšené</p>
         <p xml:lang="sl">Izboljšano</p>
+        <p xml:lang="sv">Förbättringar</p>
         <p xml:lang="tr">İyileştirildi</p>
         <p xml:lang="uk">Удосконалення</p>
         <ul>
@@ -1443,6 +1456,7 @@
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
         <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="sv">Rättningar</p>
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
