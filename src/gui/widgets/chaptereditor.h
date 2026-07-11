@@ -28,7 +28,6 @@
 
 #include <QWidget>
 
-class QTimeEdit;
 class QLineEdit;
 
 /**
@@ -74,8 +73,8 @@ public:
                  quint32& startOffset, quint32& endOffset) const;
 
 private:
-  QTimeEdit* m_startTimeEdit;
-  QTimeEdit* m_endTimeEdit;
+  QLineEdit* m_startTimeEdit;
+  QLineEdit* m_endTimeEdit;
   QLineEdit* m_startOffsetEdit;
   QLineEdit* m_endOffsetEdit;
 };

@@ -98,7 +98,7 @@ bool TimeEventModel::setData(const QModelIndex& index,
     return false;
   TimeEvent& timeEvent = m_timeEvents[index.row()]; // clazy:exclude=detaching-member
   if (index.column() == CI_Time) {
-    timeEvent.time = value.toTime();
+    timeEvent.time = value;
   } else {
     timeEvent.data = value;
   }
@@ -165,7 +165,7 @@ bool TimeEventModel::insertRows(int row, int count,
   if (count > 0) {
     beginInsertRows(QModelIndex(), row, row + count - 1);
     for (int i = 0; i < count; ++i)
-      m_timeEvents.insert(row, TimeEvent(QTime(), QVariant()));
+      m_timeEvents.insert(row, TimeEvent());
     endInsertRows();
   }
   return true;
@@ -269,10 +269,14 @@ void TimeEventModel::fromSyltFrame(const Frame::FieldList& fields)
       str.prepend(QLatin1Char('_'));
     }
 
-    QVariant timeStamp = unitIsFrames
-        ? QVariant(milliseconds)
-        : QVariant(QTime(0, 0).addMSecs(milliseconds));
-    timeEvents.append(TimeEvent(timeStamp, str));
+    TimeEvent timeEvent;
+    if (unitIsFrames) {
+      timeEvent.setTimeInFrames(milliseconds);
+    } else {
+      timeEvent.setTimeInMs(milliseconds);
+    }
+    timeEvent.data = str;
+    timeEvents.append(timeEvent);
   }
   setTimeEvents(timeEvents);
 }
@@ -314,15 +318,11 @@ void TimeEventModel::toSyltFrame(Frame::FieldList& fields) const
       }
 
       quint32 milliseconds;
-#if QT_VERSION >= 0x060000
-      if (timeEvent.time.typeId() == QMetaType::QTime) {
-#else
-      if (timeEvent.time.type() == QVariant::Time) {
-#endif
+      if (!timeEvent.isTimeInFrames()) {
         hasMsTimeStamps = true;
-        milliseconds = QTime(0, 0).msecsTo(timeEvent.time.toTime());
+        milliseconds = timeEvent.timeInMs();
       } else {
-        milliseconds = timeEvent.data.toUInt();
+        milliseconds = timeEvent.timeInFrames();
       }
       synchedData.append(milliseconds);
       synchedData.append(str);
@@ -366,10 +366,14 @@ void TimeEventModel::fromEtcoFrame(const Frame::FieldList& fields)
       break;
 
     int code = it.next().toInt();
-    QVariant timeStamp = unitIsFrames
-        ? QVariant(milliseconds)
-        : QVariant(QTime(0, 0).addMSecs(milliseconds));
-    timeEvents.append(TimeEvent(timeStamp, code));
+    TimeEvent timeEvent;
+    if (unitIsFrames) {
+      timeEvent.setTimeInFrames(milliseconds);
+    } else {
+      timeEvent.setTimeInMs(milliseconds);
+    }
+    timeEvent.data = code;
+    timeEvents.append(timeEvent);
   }
   setTimeEvents(timeEvents);
 }
@@ -402,15 +406,11 @@ void TimeEventModel::toEtcoFrame(Frame::FieldList& fields) const
       int code = timeEvent.data.toInt();
 
       quint32 milliseconds;
-#if QT_VERSION >= 0x060000
-      if (timeEvent.time.typeId() == QMetaType::QTime) {
-#else
-      if (timeEvent.time.type() == QVariant::Time) {
-#endif
+      if (!timeEvent.isTimeInFrames()) {
         hasMsTimeStamps = true;
-        milliseconds = QTime(0, 0).msecsTo(timeEvent.time.toTime());
+        milliseconds = timeEvent.timeInMs();
       } else {
-        milliseconds = timeEvent.data.toUInt();
+        milliseconds = timeEvent.timeInFrames();
       }
       synchedData.append(milliseconds);
       synchedData.append(code);
@@ -428,21 +428,22 @@ void TimeEventModel::toEtcoFrame(Frame::FieldList& fields) const
 /**
  * Mark row for a time stamp.
  * Marks the first row with time >= @a timeStamp.
- * @param timeStamp time
+ * @param timeStamp time in ms
  * @see getMarkedRow()
  */
-void TimeEventModel::markRowForTimeStamp(const QTime& timeStamp)
+void TimeEventModel::markRowForTimeStamp(qint64 timeStamp)
 {
   int row = 0, oldRow = m_markedRow, newRow = -1;
   for (auto it = m_timeEvents.constBegin(); it != m_timeEvents.constEnd(); ++it) {
     const TimeEvent& timeEvent = *it;
-    if (QTime time = timeEvent.time.toTime();
-        time.isValid() && time >= timeStamp) {
-      if (timeStamp.msecsTo(time) > 1000 && row > 0) {
+    if (quint32 timeMs;
+        timeEvent.time.isValid() && !timeEvent.isTimeInFrames() &&
+        (timeMs = timeEvent.timeInMs()) >= timeStamp) {
+      if (timeMs - timeStamp > 1000 && row > 0) {
         --row;
       }
-      if (row == 0 && timeStamp == QTime(0, 0) &&
-          m_timeEvents.at(0).time.toTime() != timeStamp) {
+      if (row == 0 && timeStamp == 0 &&
+          m_timeEvents.at(0).timeInMs() != timeStamp) {
         row = -1;
       }
       newRow = row;
@@ -506,7 +507,7 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
       }
     }
 
-    QList<QTime> emptyEvents;
+    QList<TimeEvent> emptyEvents;
     char firstChar = '\0';
     auto it = timeStampRe.globalMatch(line);
     while (it.hasNext()) {
@@ -519,10 +520,11 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
       } else if (millisecondsStr.length() == 1) {
         milliseconds *= 100;
       }
-      QTime timeStamp(match.captured(2).toInt(),
-                      match.captured(3).toInt(),
-                      match.captured(4).toInt(),
-                      milliseconds);
+      const int hours = match.captured(2).toInt();
+      const int minutes = match.captured(3).toInt();
+      const int seconds = match.captured(4).toInt();
+      TimeEvent timeEvent;
+      timeEvent.setTimeInMs(((hours * 60U + minutes) * 60 + seconds) * 1000 + milliseconds);
       int pos = match.capturedStart();
       int textBegin = pos + match.capturedLength();
       int textLen = -1;
@@ -537,7 +539,8 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
         if (EventTimeCode etc =
               EventTimeCode::fromString(str.toLatin1().constData());
             etc.isValid()) {
-          timeEvents.append(TimeEvent(timeStamp, etc.getCode()));
+          timeEvent.data = etc.getCode();
+          timeEvents.append(timeEvent);
         }
       } else {
         if (firstChar != '\0') {
@@ -564,15 +567,16 @@ void TimeEventModel::fromLrcFile(QTextStream& stream)
           }
           if (str.isEmpty()) {
             // The next time stamp follows immediately with a common text.
-            emptyEvents.append(timeStamp);
+            emptyEvents.append(timeEvent);
             continue;
           }
         }
         const auto times = emptyEvents;
-        for (const QTime& time : times) {
-          timeEvents.append(TimeEvent(time, str));
+        for (const auto& emptyEvent : times) {
+          timeEvents.append(emptyEvent);
         }
-        timeEvents.append(TimeEvent(timeStamp, str));
+        timeEvent.data = str;
+        timeEvents.append(timeEvent);
       }
     }
   }
@@ -592,7 +596,7 @@ void TimeEventModel::fromTextFile(QTextStream& stream)
     if (line.isNull())
       break;
 
-    timeEvents.append(TimeEvent(QTime(), line));
+    timeEvents.append(TimeEvent(QVariant(), line));
   }
   setTimeEvents(timeEvents);
 }
@@ -622,7 +626,7 @@ void TimeEventModel::toLrcFile(QTextStream& stream, const QString& title,
   }
   const auto timeEvents = m_timeEvents;
   for (const TimeEvent& timeEvent : timeEvents) {
-    if (QTime time = timeEvent.time.toTime(); time.isValid()) {
+    if (timeEvent.time.isValid()) {
       char firstChar = '\0';
       bool newLine = true;
       QString str;
@@ -643,17 +647,18 @@ void TimeEventModel::toLrcFile(QTextStream& stream, const QString& title,
         }
       }
 
+      const QString timeStampStr = timeStampDataToString(timeEvent.time);
       if (newLine) {
         if (!atBegin) {
           stream << QLatin1String("\r\n");
         }
-        stream << QLatin1Char('[') << timeStampToString(time).toLatin1()
+        stream << QLatin1Char('[') << timeStampStr.toLatin1()
                << QLatin1Char(']') << str.toLatin1();
       } else {
         if (firstChar != '\0') {
           stream << firstChar;
         }
-        stream << QLatin1Char('<') << timeStampToString(time).toLatin1()
+        stream << QLatin1Char('<') << timeStampStr.toLatin1()
                << QLatin1Char('>') << str.toLatin1();
       }
       atBegin = false;
@@ -666,25 +671,114 @@ void TimeEventModel::toLrcFile(QTextStream& stream, const QString& title,
 
 /**
  * Format a time suitable for a time stamp.
- * @param time time stamp
- * @return string of the format "mm:ss.zz"
+ * @param timeMs time stamp in milliseconds
+ * @return string of the format "hh:mm:ss.zzz"
  */
-QString TimeEventModel::timeStampToString(const QTime& time)
+QString TimeEventModel::timeStampToString(unsigned int timeMs)
 {
-  int hour = time.hour();
-  int min = time.minute();
-  int sec = time.second();
-  int msec = time.msec();
-  if (hour < 0) hour = 0;
-  if (min < 0)  min = 0;
-  if (sec < 0)  sec = 0;
-  if (msec < 0) msec = 0;
-  QString text = QString(QLatin1String("%1:%2.%3"))
-      .arg(min, 2, 10, QLatin1Char('0'))
-      .arg(sec, 2, 10, QLatin1Char('0'))
-      .arg(msec / 10, 2, 10, QLatin1Char('0'));
-  if (hour != 0) {
-    text.prepend(QString::number(hour) + QLatin1Char(':'));
+  const int hours = timeMs / 3600000;
+  const int minutes = (timeMs % 3600000) / 60000;
+  const int seconds = (timeMs % 60000) / 1000;
+  const int milliseconds = timeMs % 1000;
+
+  return QString(QLatin1String("%1:%2:%3.%4"))
+      .arg(hours, 2, 10, QLatin1Char('0'))
+      .arg(minutes, 2, 10, QLatin1Char('0'))
+      .arg(seconds, 2, 10, QLatin1Char('0'))
+      .arg(milliseconds, 3, 10, QLatin1Char('0'));
+}
+
+/**
+ * Convert the string representation of a time stamp to milliseconds.
+ * @param timeStr time stamp in the format "hh:mm:ss.zzz"
+ * @return time stamp as milliseconds.
+ */
+unsigned int TimeEventModel::timeStampFromString(const QString& timeStr)
+{
+  if (timeStr.isEmpty()) {
+    return 0;
   }
-  return text;
+
+  const int dotPos = timeStr.indexOf(QLatin1Char('.'));
+  const QString timePart = dotPos != -1 ? timeStr.left(dotPos) : timeStr;
+  const QString millisPart = dotPos != -1 ? timeStr.mid(dotPos + 1) : QString();
+
+  int milliseconds = 0;
+  if (!millisPart.isEmpty()) {
+    bool ok;
+    if (millisPart.length() < 1 || millisPart.length() > 3) {
+      return 0;
+    }
+    for (QChar ch : millisPart) {
+      if (!ch.isDigit()) return 0;
+    }
+    milliseconds = millisPart.toInt(&ok);
+    if (!ok || milliseconds < 0) return 0;
+    if (millisPart.length() == 1) {
+      milliseconds *= 100;
+    } else if (millisPart.length() == 2) {
+      milliseconds *= 10;
+    }
+    if (milliseconds > 999) return 0;
+  }
+
+  const int firstColonPos = timePart.indexOf(QLatin1Char(':'));
+  const int secondColonPos = timePart.indexOf(QLatin1Char(':'), firstColonPos + 1);
+
+  bool ok;
+  int hours = 0, minutes = 0, seconds = 0;
+
+  if (firstColonPos == -1) {
+    // Format: "ss"
+    seconds = timePart.toInt(&ok);
+    if (!ok || seconds < 0 || seconds > 59) return 0;
+  } else if (secondColonPos == -1) {
+    // Format: "mm:ss"
+    const QString minutesStr = timePart.left(firstColonPos);
+    const QString secondsStr = timePart.mid(firstColonPos + 1);
+
+    minutes = minutesStr.toInt(&ok);
+    if (!ok || minutes < 0 || minutes > 59) return 0;
+
+    seconds = secondsStr.toInt(&ok);
+    if (!ok || seconds < 0 || seconds > 59) return 0;
+  } else {
+    // Format: "hh:mm:ss"
+    const QString hoursStr = timePart.left(firstColonPos);
+    const QString minutesStr = timePart.mid(firstColonPos + 1, secondColonPos - firstColonPos - 1);
+    const QString secondsStr = timePart.mid(secondColonPos + 1);
+
+    hours = hoursStr.toInt(&ok);
+    if (!ok || hours < 0) return 0;
+
+    minutes = minutesStr.toInt(&ok);
+    if (!ok || minutes < 0 || minutes > 59) return 0;
+
+    seconds = secondsStr.toInt(&ok);
+    if (!ok || seconds < 0 || seconds > 59) return 0;
+  }
+
+  return static_cast<unsigned int>(
+    hours * 3600000 +
+    minutes * 60000 +
+    seconds * 1000 +
+    milliseconds
+  );
+}
+
+QString TimeEventModel::timeStampDataToString(const QVariant& timeData)
+{
+  if (!timeData.isValid()) {
+    return QString();
+  }
+  if (isTimeEventInFrames(timeData)) {
+    return timeData.toString();
+  }
+  return timeStampToString(timeData.toULongLong());
+}
+
+
+QVariant TimeEventModel::timeStampDataFromString(const QString& timeStr)
+{
+  return QVariant::fromValue(static_cast<qulonglong>(timeStampFromString(timeStr)));
 }

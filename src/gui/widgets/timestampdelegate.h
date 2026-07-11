@@ -65,6 +65,22 @@ public:
   void paint(QPainter* painter, const QStyleOptionViewItem& option,
              const QModelIndex& index) const override;
 
+  /**
+   * Set data to be edited by the editor.
+   * @param editor editor widget
+   * @param index  index of item
+   */
+  void setEditorData(QWidget* editor, const QModelIndex& index) const override;
+
+  /**
+   * Set model data supplied by editor.
+   * @param editor editor widget
+   * @param model  model
+   * @param index  index of item
+   */
+  void setModelData(
+    QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const override;
+
 private slots:
   void commitAndCloseEditor();
 };

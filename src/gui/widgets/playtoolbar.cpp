@@ -178,7 +178,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   m_timeLcd->setSegmentStyle(QLCDNumber::Flat);
   m_timeLcd->setFrameStyle(QFrame::NoFrame);
   m_timeLcd->display(zeroTime);
-  m_timeLcd->setDigitCount(7);
+  m_timeLcd->setDigitCount(8);
   m_timeLcd->installEventFilter(new TimeLcdClickHandler(this));
 
   addAction(m_playOrPauseAction);

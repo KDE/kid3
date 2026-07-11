@@ -27,7 +27,6 @@
 #pragma once
 
 #include <QAbstractTableModel>
-#include <QTime>
 #include "frame.h"
 #include "kid3api.h"
 
@@ -56,8 +55,15 @@ public:
   /** Time and data. */
   struct TimeEvent {
     /** Constructor. */
+    TimeEvent() = default;
+    /** Constructor. */
     TimeEvent(const QVariant& t, const QVariant& d) : time(t), data(d) {}
-    QVariant time; /**< Time from the beginning of the file or frame integer. */
+    /**
+     * Time from the beginning of the file (ms, stored as qulonglong) or
+     * frame integer (number, stored as uint). The exact QVariant type
+     * determines the time stamp format, as it is used in SYLT frames.
+     */
+    QVariant time;
     QVariant data; /**< String (lyrics) or integer (event codes) */
 
     /**
@@ -66,8 +72,21 @@ public:
      * @return true if this < rhs.
      */
     bool operator<(const TimeEvent& rhs) const {
-      return time.toTime() < rhs.time.toTime();
+      return time.toULongLong() < rhs.time.toULongLong();
     }
+
+    bool isTimeInFrames() const
+    {
+#if QT_VERSION >= 0x060000
+      return time.typeId() == QMetaType::UInt;
+#else
+      return time.type() == QVariant::UInt;
+#endif
+    }
+    quint32 timeInMs() const { return static_cast<quint32>(time.toULongLong()); }
+    void setTimeInMs(quint32 ms) { time.setValue(static_cast<qulonglong>(ms)); }
+    uint timeInFrames() const { return time.toUInt(); }
+    void setTimeInFrames(uint frames) { time.setValue(frames); }
   };
 
   /**
@@ -197,10 +216,10 @@ public:
   /**
    * Mark row for a time stamp.
    * Marks the first row with time >= @a timeStamp.
-   * @param timeStamp time
+   * @param timeStamp time in ms
    * @see getMarkedRow()
    */
-  void markRowForTimeStamp(const QTime& timeStamp);
+  void markRowForTimeStamp(qint64 timeStamp);
 
   /**
    * Clear the marked row.
@@ -251,10 +270,45 @@ public:
 
   /**
    * Format a time suitable for a time stamp.
-   * @param time time stamp
-   * @return string of the format "mm:ss.zz"
+   * @param timeMs time stamp in milliseconds
+   * @return string of the format "hh:mm:ss.zzz"
    */
-  static QString timeStampToString(const QTime& time);
+  static QString timeStampToString(unsigned int timeMs);
+
+  /**
+   * Convert the string representation of a time stamp to milliseconds.
+   * @param timeStr time stamp in the format "hh:mm:ss.zzz"
+   * @return time stamp as milliseconds.
+   */
+  static unsigned int timeStampFromString(const QString& timeStr);
+
+  /**
+   * Format a time suitable for a time stamp.
+   * @param timeData time stamp in milliseconds in a QVariant
+   * @return string of the format "hh:mm:ss.zzz"
+   */
+  static QString timeStampDataToString(const QVariant& timeData);
+
+  /**
+   * Convert the string representation of a time stamp to milliseconds.
+   * @param timeStr time stamp in the format "hh:mm:ss.zzz"
+   * @return time stamp as milliseconds in a QVariant.
+   */
+  static QVariant timeStampDataFromString(const QString& timeStr);
+
+  /**
+   * Check if a time event time value has frames as unit.
+   * @param time TimeEvent time value
+   * @return true if value is frame number, else time stamp in ns.
+   */
+  static bool isTimeEventInFrames(const QVariant& time)
+  {
+#if QT_VERSION >= 0x060000
+    return time.typeId() == QMetaType::UInt;
+#else
+    return time.type() == QVariant::UInt;
+#endif
+  }
 
 private:
   /**

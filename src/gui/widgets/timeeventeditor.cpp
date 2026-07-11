@@ -227,7 +227,7 @@ void TimeEventEditor::addItem()
   preparePlayer();
   if (auto player =
       qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
-    QTime timeStamp = QTime(0, 0).addMSecs(player->getCurrentPosition());
+    quint64 timeStamp = player->getCurrentPosition();
     if (m_model) {
       // If the current row is empty, set the time stamp there, else insert a new
       // row sorted by time stamps or use the first empty row.
@@ -238,12 +238,11 @@ void TimeEventEditor::addItem()
         int row = 0;
         bool insertRow = true;
         while (row < m_model->rowCount()) {
-          if (QTime time = m_model->index(row, TimeEventModel::CI_Time)
-                                  .data().toTime();
-              time.isNull()) {
+          if (QVariant timeVar = m_model->index(row, TimeEventModel::CI_Time).data();
+              !timeVar.isValid()) {
             insertRow = false;
             break;
-          } else if (time > timeStamp) {
+          } else if (quint64 time = timeVar.toULongLong(); time > timeStamp) {
             break;
           }
           ++row;
@@ -403,11 +402,11 @@ void TimeEventEditor::clearCells()
 #if QT_VERSION >= 0x060000
   QVariant emptyData(m_model->getType() == TimeEventModel::EventTimingCodes
                      ? QMetaType(QMetaType::Int) : QMetaType(QMetaType::QString));
-  QVariant emptyTime((QMetaType(QMetaType::QTime)));
+  QVariant emptyTime((QMetaType(QMetaType::ULongLong)));
 #else
   QVariant emptyData(m_model->getType() == TimeEventModel::EventTimingCodes
                      ? QVariant::Int : QVariant::String);
-  QVariant emptyTime(QVariant::Time);
+  QVariant emptyTime(QVariant::ULongLong);
 #endif
   if (QItemSelectionModel* selModel = m_tableView->selectionModel()) {
     const auto indexes = selModel->selectedIndexes();
@@ -445,12 +444,13 @@ void TimeEventEditor::seekPosition()
 #ifdef HAVE_QTMULTIMEDIA
   if (QModelIndex index = m_tableView->currentIndex();
       index.isValid() && m_fileIsPlayed) {
-    if (QTime timeStamp =
-          index.sibling(index.row(), TimeEventModel::CI_Time).data().toTime();
-        timeStamp.isValid()) {
+    if (QVariant timeStampVar =
+          index.sibling(index.row(), TimeEventModel::CI_Time).data();
+        timeStampVar.isValid()) {
+      quint64 timeStamp = timeStampVar.toULongLong();
       if (auto player =
           qobject_cast<AudioPlayer*>(m_app->getAudioPlayer())) {
-        player->setCurrentPosition(QTime(0, 0).msecsTo(timeStamp));
+        player->setCurrentPosition(timeStamp);
       }
     }
   }
@@ -503,7 +503,7 @@ void TimeEventEditor::onPositionChanged(qint64 position)
     return;
 
   int oldRow = m_model->getMarkedRow();
-  m_model->markRowForTimeStamp(QTime(0, 0).addMSecs(position));
+  m_model->markRowForTimeStamp(position);
   if (int row = m_model->getMarkedRow(); row != oldRow && row != -1) {
     m_tableView->scrollTo(m_model->index(row, TimeEventModel::CI_Time),
                           QAbstractItemView::PositionAtCenter);

@@ -27,8 +27,7 @@
 #include "chaptereditor.h"
 #include <QFormLayout>
 #include <QLineEdit>
-#include <QTimeEdit>
-#include <QTime>
+#include "timeeventmodel.h"
 
 /**
  * Constructor.
@@ -41,12 +40,9 @@ ChapterEditor::ChapterEditor(QWidget* parent)
   setObjectName(QLatin1String("ChapterEditor"));
   auto formatLayout = new QFormLayout(this);
   formatLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
-  QString timeFormat(QLatin1String("hh:mm:ss.zzz"));
   QString inputMask(QLatin1String("HHHHHHHH"));
-  m_startTimeEdit = new QTimeEdit;
-  m_startTimeEdit->setDisplayFormat(timeFormat);
-  m_endTimeEdit = new QTimeEdit;
-  m_endTimeEdit->setDisplayFormat(timeFormat);
+  m_startTimeEdit = new QLineEdit;
+  m_endTimeEdit = new QLineEdit;
   m_startOffsetEdit = new QLineEdit;
   m_startOffsetEdit->setInputMask(inputMask);
   m_endOffsetEdit = new QLineEdit;
@@ -69,11 +65,8 @@ ChapterEditor::ChapterEditor(QWidget* parent)
 void ChapterEditor::setValues(quint32 startTimeMs, quint32 endTimeMs,
                               quint32 startOffset, quint32 endOffset)
 {
-  const QTime zeroTime(0, 0);
-  QTime startTime = zeroTime.addMSecs(startTimeMs);
-  m_startTimeEdit->setTime(startTime);
-  QTime endTime = zeroTime.addMSecs(endTimeMs);
-  m_endTimeEdit->setTime(endTime);
+  m_startTimeEdit->setText(TimeEventModel::timeStampToString(startTimeMs));
+  m_endTimeEdit->setText(TimeEventModel::timeStampToString(endTimeMs));
   m_startOffsetEdit->setText(QString::number(startOffset, 16).toUpper());
   m_endOffsetEdit->setText(QString::number(endOffset, 16).toUpper());
 }
@@ -90,9 +83,8 @@ void ChapterEditor::setValues(quint32 startTimeMs, quint32 endTimeMs,
 void ChapterEditor::getValues(quint32& startTimeMs, quint32& endTimeMs,
                               quint32& startOffset, quint32& endOffset) const
 {
-  const QTime zeroTime(0, 0);
-  startTimeMs = zeroTime.msecsTo(m_startTimeEdit->time());
-  endTimeMs = zeroTime.msecsTo(m_endTimeEdit->time());
+  startTimeMs = TimeEventModel::timeStampFromString(m_startTimeEdit->text());
+  endTimeMs = TimeEventModel::timeStampFromString(m_endTimeEdit->text());
   bool ok;
   startOffset = m_startOffsetEdit->text().toUInt(&ok, 16);
   if (!ok) {

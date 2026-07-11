@@ -25,8 +25,7 @@
  */
 
 #include "timestampdelegate.h"
-#include <QTime>
-#include <QTimeEdit>
+#include <QLineEdit>
 #include "timeeventmodel.h"
 
 /**
@@ -45,15 +44,12 @@ TimeStampDelegate::TimeStampDelegate(QObject* parent) : QItemDelegate(parent)
  * @return combo box editor widget.
  */
 QWidget* TimeStampDelegate::createEditor(
-  QWidget* parent, const QStyleOptionViewItem&, const QModelIndex& index) const
+  QWidget* parent, const QStyleOptionViewItem&, const QModelIndex&) const
 {
-  QTime time = index.data().toTime();
-  auto timeEdit = new QTimeEdit(parent);
-  timeEdit->setDisplayFormat(time.hour() == 0 ? QLatin1String("mm:ss.zzz")
-                                              : QLatin1String("hh:mm:ss.zzz"));
-  connect(timeEdit, &QAbstractSpinBox::editingFinished,
+  auto lineEdit = new QLineEdit(parent);
+  connect(lineEdit, &QLineEdit::editingFinished,
           this, &TimeStampDelegate::commitAndCloseEditor);
-  return timeEdit;
+  return lineEdit;
 }
 
 /**
@@ -61,9 +57,9 @@ QWidget* TimeStampDelegate::createEditor(
  */
 void TimeStampDelegate::commitAndCloseEditor()
 {
-  if (auto editor = qobject_cast<QTimeEdit*>(sender())) {
-    emit commitData(editor);
-    emit closeEditor(editor);
+  if (auto lineEdit = qobject_cast<QLineEdit*>(sender())) {
+    emit commitData(lineEdit);
+    emit closeEditor(lineEdit);
   }
 }
 
@@ -77,10 +73,40 @@ void TimeStampDelegate::paint(QPainter* painter,
                               const QStyleOptionViewItem& option,
                               const QModelIndex& index) const
 {
-  QTime time = index.data().toTime();
-  QString text = TimeEventModel::timeStampToString(time);
+  QString text = TimeEventModel::timeStampDataToString(index.data());
   QStyleOptionViewItem opt = option;
   opt.displayAlignment = Qt::AlignRight | Qt::AlignVCenter;
   drawDisplay(painter, opt, opt.rect, text);
   drawFocus(painter, opt, opt.rect);
+}
+
+/**
+ * Set data to be edited by the editor.
+ * @param editor editor widget
+ * @param index  index of item
+ */
+void TimeStampDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
+{
+  if (QLineEdit* lineEdit = qobject_cast<QLineEdit*>(editor)) {
+    const QString timeString = TimeEventModel::timeStampDataToString(index.data(Qt::EditRole));
+    lineEdit->setText(timeString);
+    return;
+  }
+  QItemDelegate::setEditorData(editor, index);
+}
+
+/**
+ * Set model data supplied by editor.
+ * @param editor editor widget
+ * @param model  model
+ * @param index  index of item
+ */
+void TimeStampDelegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
+{
+  if (QLineEdit* lineEdit = qobject_cast<QLineEdit*>(editor)) {
+    const QString text = lineEdit->text().trimmed();
+    model->setData(index, TimeEventModel::timeStampDataFromString(text), Qt::EditRole);
+    return;
+  }
+  QItemDelegate::setModelData(editor, model, index);
 }
