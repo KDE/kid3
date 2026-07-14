@@ -1,8 +1,17 @@
-kid3 (3.10.0-0) unstable; urgency=low
+kid3 (3.10.1-0) unstable; urgency=low
 
   * New upstream release.
 
- -- Urs Fleisch <ufleisch@users.sourceforge.net>  Sat, 06 Jun 2026 14:28:35 +0200
+ -- Urs Fleisch <ufleisch@users.sourceforge.net>  Tue, 24 Jul 2026 20:50:34 +0200
+
+kid3 (3.10.0-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Bump Standards-Version to 4.7.3 (Remove priority field).
+  * Remove Rules-Requires-Root control field.
+  * Update debian/watch to version 5.
+
+ -- Patrick Matthäi <pmatthaei@debian.org>  Tue, 09 Jun 2026 16:42:04 +0200
 
 kid3 (3.9.7-1) unstable; urgency=medium
 

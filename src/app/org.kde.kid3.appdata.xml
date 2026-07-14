@@ -319,6 +319,17 @@
   <update_contact>ufleisch@users.sourceforge.net</update_contact>
   <translation type="qt">kid3/translations/kid3</translation>
   <releases>
+    <release version="3.10.1" date="2026-07-24">
+      <description>
+        <p>Fixed</p>
+        <ul>
+          <li>MP4: Fix adding atom creates atom with wrong uppercased name.</li>
+          <li>Support timestamps larger than 24h for chapters and synchronized lyrics.</li>
+          <li>Android: Build for F-Droid.</li>
+          <li>Windows: Cross building on Linux.</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.10.0" date="2026-06-06">
       <description>
         <p>New</p>
