@@ -322,6 +322,26 @@
     <release version="3.10.1" date="2026-07-24">
       <description>
         <p>Fixed</p>
+        <p xml:lang="ar">أُصلح</p>
+        <p xml:lang="ca">Corregit</p>
+        <p xml:lang="ca-valencia">Corregit</p>
+        <p xml:lang="cs">Opraveno</p>
+        <p xml:lang="de">Behoben</p>
+        <p xml:lang="es">Correcciones</p>
+        <p xml:lang="fr">Corrigé</p>
+        <p xml:lang="is">Lagfært</p>
+        <p xml:lang="it">Corretti</p>
+        <p xml:lang="ka">გასწორდა</p>
+        <p xml:lang="ko">수정됨</p>
+        <p xml:lang="nl">Vast</p>
+        <p xml:lang="pt-BR">Corrigido</p>
+        <p xml:lang="ru">Исправления:</p>
+        <p xml:lang="sk">Opravené</p>
+        <p xml:lang="sl">Popravljeno</p>
+        <p xml:lang="sv">Rättningar</p>
+        <p xml:lang="tr">Onarıldı</p>
+        <p xml:lang="ug">مۇقىم</p>
+        <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>MP4: Fix adding atom creates atom with wrong uppercased name.</li>
           <li>Support timestamps larger than 24h for chapters and synchronized lyrics.</li>
