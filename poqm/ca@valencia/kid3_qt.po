@@ -2681,7 +2681,7 @@ msgid "Milliseconds as unit"
 msgstr "Mil·lisegons com a una unitat"
 
 #: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
-#: src/gui/widgets/timeeventeditor.cpp:349
+#: src/gui/widgets/timeeventeditor.cpp:348
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Lletra"
@@ -4383,7 +4383,7 @@ msgid "Images"
 msgstr "Imatges"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:802
-#: src/gui/widgets/timeeventeditor.cpp:350
+#: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "All Files"
 msgstr "Tots els fitxers"
@@ -5630,22 +5630,22 @@ msgctxt "AbstractListEdit|"
 msgid "&Remove"
 msgstr "&Elimina"
 
-#: src/gui/widgets/chaptereditor.cpp:54
+#: src/gui/widgets/chaptereditor.cpp:50
 msgctxt "ChapterEditor|"
 msgid "Start time"
 msgstr "Temps d'inici"
 
-#: src/gui/widgets/chaptereditor.cpp:55
+#: src/gui/widgets/chaptereditor.cpp:51
 msgctxt "ChapterEditor|"
 msgid "End time"
 msgstr "Temps de finalització"
 
-#: src/gui/widgets/chaptereditor.cpp:56
+#: src/gui/widgets/chaptereditor.cpp:52
 msgctxt "ChapterEditor|"
 msgid "Start offset"
 msgstr "Desplaçament inicial"
 
-#: src/gui/widgets/chaptereditor.cpp:57
+#: src/gui/widgets/chaptereditor.cpp:53
 msgctxt "ChapterEditor|"
 msgid "End offset"
 msgstr "Desplaçament final"
@@ -5912,12 +5912,12 @@ msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "Lletra"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "Desplaçament"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
 msgstr "Mil·lisegons"

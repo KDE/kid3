@@ -2693,7 +2693,7 @@ msgid "Milliseconds as unit"
 msgstr "Milisekundy jako jednostka"
 
 #: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
-#: src/gui/widgets/timeeventeditor.cpp:349
+#: src/gui/widgets/timeeventeditor.cpp:348
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Słowa"
@@ -4420,7 +4420,7 @@ msgid "Images"
 msgstr "Obrazy"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:802
-#: src/gui/widgets/timeeventeditor.cpp:350
+#: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "All Files"
 msgstr "Wszystkie pliki"
@@ -5668,22 +5668,22 @@ msgctxt "AbstractListEdit|"
 msgid "&Remove"
 msgstr "&Usuń"
 
-#: src/gui/widgets/chaptereditor.cpp:54
+#: src/gui/widgets/chaptereditor.cpp:50
 msgctxt "ChapterEditor|"
 msgid "Start time"
 msgstr "Czas początku"
 
-#: src/gui/widgets/chaptereditor.cpp:55
+#: src/gui/widgets/chaptereditor.cpp:51
 msgctxt "ChapterEditor|"
 msgid "End time"
 msgstr "Czas zakończenia"
 
-#: src/gui/widgets/chaptereditor.cpp:56
+#: src/gui/widgets/chaptereditor.cpp:52
 msgctxt "ChapterEditor|"
 msgid "Start offset"
 msgstr "Przesunięcie początku"
 
-#: src/gui/widgets/chaptereditor.cpp:57
+#: src/gui/widgets/chaptereditor.cpp:53
 msgctxt "ChapterEditor|"
 msgid "End offset"
 msgstr "Przesunięcie końca"
@@ -5950,12 +5950,12 @@ msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "Tekst"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "Przesunięcie"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
 msgstr "Milisekundy"

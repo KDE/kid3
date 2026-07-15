@@ -2696,7 +2696,7 @@ msgid "Milliseconds as unit"
 msgstr "以毫秒為單位"
 
 #: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
-#: src/gui/widgets/timeeventeditor.cpp:349
+#: src/gui/widgets/timeeventeditor.cpp:348
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "歌詞"
@@ -4421,7 +4421,7 @@ msgid "Images"
 msgstr "圖片"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:802
-#: src/gui/widgets/timeeventeditor.cpp:350
+#: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "All Files"
 msgstr "所有檔案"
@@ -5661,22 +5661,22 @@ msgctxt "AbstractListEdit|"
 msgid "&Remove"
 msgstr "移除(&R)"
 
-#: src/gui/widgets/chaptereditor.cpp:54
+#: src/gui/widgets/chaptereditor.cpp:50
 msgctxt "ChapterEditor|"
 msgid "Start time"
 msgstr "開始時間"
 
-#: src/gui/widgets/chaptereditor.cpp:55
+#: src/gui/widgets/chaptereditor.cpp:51
 msgctxt "ChapterEditor|"
 msgid "End time"
 msgstr "結束時間"
 
-#: src/gui/widgets/chaptereditor.cpp:56
+#: src/gui/widgets/chaptereditor.cpp:52
 msgctxt "ChapterEditor|"
 msgid "Start offset"
 msgstr "起始偏移量"
 
-#: src/gui/widgets/chaptereditor.cpp:57
+#: src/gui/widgets/chaptereditor.cpp:53
 msgctxt "ChapterEditor|"
 msgid "End offset"
 msgstr "末尾偏移量"
@@ -5949,12 +5949,12 @@ msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "Lyrics"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "偏移"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
 msgstr "毫秒"

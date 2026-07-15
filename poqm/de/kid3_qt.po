@@ -2679,7 +2679,7 @@ msgid "Milliseconds as unit"
 msgstr "Millisekunden als Einheit"
 
 #: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
-#: src/gui/widgets/timeeventeditor.cpp:349
+#: src/gui/widgets/timeeventeditor.cpp:348
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Liedtext"
@@ -4382,7 +4382,7 @@ msgid "Images"
 msgstr "Bilder"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:802
-#: src/gui/widgets/timeeventeditor.cpp:350
+#: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "All Files"
 msgstr "Alle Dateien"
@@ -5628,22 +5628,22 @@ msgctxt "AbstractListEdit|"
 msgid "&Remove"
 msgstr "&Entfernen"
 
-#: src/gui/widgets/chaptereditor.cpp:54
+#: src/gui/widgets/chaptereditor.cpp:50
 msgctxt "ChapterEditor|"
 msgid "Start time"
 msgstr "Startzeit"
 
-#: src/gui/widgets/chaptereditor.cpp:55
+#: src/gui/widgets/chaptereditor.cpp:51
 msgctxt "ChapterEditor|"
 msgid "End time"
 msgstr "Endzeit"
 
-#: src/gui/widgets/chaptereditor.cpp:56
+#: src/gui/widgets/chaptereditor.cpp:52
 msgctxt "ChapterEditor|"
 msgid "Start offset"
 msgstr "Start-Offset"
 
-#: src/gui/widgets/chaptereditor.cpp:57
+#: src/gui/widgets/chaptereditor.cpp:53
 msgctxt "ChapterEditor|"
 msgid "End offset"
 msgstr "Ende-Offset"
@@ -5910,12 +5910,12 @@ msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "Liedtext"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "Zeitabstand"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
 msgstr "Millisekunden"

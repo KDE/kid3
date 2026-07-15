@@ -2679,7 +2679,7 @@ msgid "Milliseconds as unit"
 msgstr "MBirim olarak milisaniye"
 
 #: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
-#: src/gui/widgets/timeeventeditor.cpp:349
+#: src/gui/widgets/timeeventeditor.cpp:348
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Şarkı Sözleri"
@@ -4376,7 +4376,7 @@ msgid "Images"
 msgstr "Görseller"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:802
-#: src/gui/widgets/timeeventeditor.cpp:350
+#: src/gui/widgets/timeeventeditor.cpp:349
 msgctxt "@default|"
 msgid "All Files"
 msgstr "Tüm Dosyalar"
@@ -5619,22 +5619,22 @@ msgctxt "AbstractListEdit|"
 msgid "&Remove"
 msgstr "Ka&ldır"
 
-#: src/gui/widgets/chaptereditor.cpp:54
+#: src/gui/widgets/chaptereditor.cpp:50
 msgctxt "ChapterEditor|"
 msgid "Start time"
 msgstr "Başlama zamanı"
 
-#: src/gui/widgets/chaptereditor.cpp:55
+#: src/gui/widgets/chaptereditor.cpp:51
 msgctxt "ChapterEditor|"
 msgid "End time"
 msgstr "Bitiş zamanı"
 
-#: src/gui/widgets/chaptereditor.cpp:56
+#: src/gui/widgets/chaptereditor.cpp:52
 msgctxt "ChapterEditor|"
 msgid "Start offset"
 msgstr "Ofseti başlat"
 
-#: src/gui/widgets/chaptereditor.cpp:57
+#: src/gui/widgets/chaptereditor.cpp:53
 msgctxt "ChapterEditor|"
 msgid "End offset"
 msgstr "Bitiş Konumu"
@@ -5901,12 +5901,12 @@ msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "Şarkı Sözleri"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "Konum"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
 msgstr "Milisaniye"

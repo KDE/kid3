@@ -2692,7 +2692,7 @@ msgid "Milliseconds as unit"
 msgstr "Milisegundoak unitate gisa"
 
 #: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
-#: src/gui/widgets/timeeventeditor.cpp:349
+#: src/gui/widgets/timeeventeditor.cpp:348
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Hitzak"
@@ -4472,7 +4472,7 @@ msgid "Images"
 msgstr "Irudiak"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:802
-#: src/gui/widgets/timeeventeditor.cpp:350
+#: src/gui/widgets/timeeventeditor.cpp:349
 #, fuzzy
 msgctxt "@default|"
 msgid "All Files"
@@ -5917,25 +5917,25 @@ msgctxt "AbstractListEdit|"
 msgid "&Remove"
 msgstr "&Kendu"
 
-#: src/gui/widgets/chaptereditor.cpp:54
+#: src/gui/widgets/chaptereditor.cpp:50
 #, fuzzy
 msgctxt "ChapterEditor|"
 msgid "Start time"
 msgstr "Hasierako ordua"
 
-#: src/gui/widgets/chaptereditor.cpp:55
+#: src/gui/widgets/chaptereditor.cpp:51
 #, fuzzy
 msgctxt "ChapterEditor|"
 msgid "End time"
 msgstr "Bukaerako ordua"
 
-#: src/gui/widgets/chaptereditor.cpp:56
+#: src/gui/widgets/chaptereditor.cpp:52
 #, fuzzy
 msgctxt "ChapterEditor|"
 msgid "Start offset"
 msgstr "Jatorri-aldaketaren hasera:"
 
-#: src/gui/widgets/chaptereditor.cpp:57
+#: src/gui/widgets/chaptereditor.cpp:53
 #, fuzzy
 msgctxt "ChapterEditor|"
 msgid "End offset"
@@ -6243,13 +6243,13 @@ msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "Hitzak"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "Desplazamendua"
 
-#: src/gui/widgets/timeeventeditor.cpp:429
+#: src/gui/widgets/timeeventeditor.cpp:428
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
