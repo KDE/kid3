@@ -392,6 +392,7 @@
           <li xml:lang="ru">Поддержка файлов Matroska и WebM.</li>
           <li xml:lang="sk">Podpora súborov Matroska a WebM.</li>
           <li xml:lang="sl">Podpora za datoteke Matroska in WebM.</li>
+          <li xml:lang="sv">Stöd för Matroska- och WebM-filer.</li>
           <li xml:lang="tr">Matroska ve WebM dosyaları desteği</li>
           <li xml:lang="uk">Підтримка файлів Matroska і WebM.</li>
           <li>MP4: Support both QuickTime and Nero Chapters, also with TagLib.</li>
@@ -410,6 +411,7 @@
           <li xml:lang="ru">MP4: поддержка глав QuickTime и Nero, также с TagLib.</li>
           <li xml:lang="sk">MP4: Podpora kapitol QuickTime aj Nero, aj s TagLib.</li>
           <li xml:lang="sl">MP4: Podpira poglavja QuickTime in Nero, tudi s TagLib.</li>
+          <li xml:lang="sv">MP4: Stöd både QuickTime- och Nero-kapitel, också med TagLib.</li>
           <li xml:lang="tr">MP4: Hem QuickTime hem de TagLib ile Nero fasılları desteği</li>
           <li xml:lang="uk">MP4: реалізовано підтримку глав QuickTime і Nero, також із TagLib.</li>
           <li>MP4: Support STEM.</li>
@@ -428,6 +430,7 @@
           <li xml:lang="ru">MP4: Поддержка STEM.</li>
           <li xml:lang="sk">MP4: Podpora STEM.</li>
           <li xml:lang="sl">MP4: Podpira STEM.</li>
+          <li xml:lang="sv">MP4: Stöd STEM.</li>
           <li xml:lang="tr">MP4: STEM desteği</li>
           <li xml:lang="uk">MP4: реалізовано підтримку STEM.</li>
           <li>WAV, FLAC: Support iXML and BEXT chunks.</li>
@@ -445,6 +448,7 @@
           <li xml:lang="ru">WAV, FLAC: Поддержка чанков iXML и BEXT.</li>
           <li xml:lang="sk">WAV, FLAC: Podpora blokov iXML a BEXT.</li>
           <li xml:lang="sl">WAV, FLAC: Podpira bloke iXML in BEXT.</li>
+          <li xml:lang="sv">WAV, FLAC: Stöd iXML- och BEXT-stycken.</li>
           <li xml:lang="tr">WAV, FLAC: iXML ve BEXT parçaları desteği</li>
           <li xml:lang="uk">WAV, FLAC: реалізовано підтримку фрагментів iXML і BEXT.</li>
           <li>Android: Select all/deselect all frames.</li>
@@ -461,6 +465,7 @@
           <li xml:lang="ru">Android: выделить/снять выделение со всех фреймов.</li>
           <li xml:lang="sk">Android: Vybrať všetky/zrušiť výber všetkých snímok.</li>
           <li xml:lang="sl">Android: Izberi vse/prekliči izbiro vseh okvirjev.</li>
+          <li xml:lang="sv">Android: Markera/avmarkera alla bildrutor.</li>
           <li xml:lang="tr">Android: Tüm kareler artık seçilip seçimleri kaldırılabiliyor.</li>
           <li xml:lang="uk">Android: реалізовано підтримку позначення усіх і зняття позначення з усіх фреймів.</li>
           <li>Android: Import/Export of chapters and synchronized lyrics as LRC files.</li>
@@ -477,6 +482,7 @@
           <li xml:lang="ru">Android: импорт/экспорт глав и синхронизированных текстов в виде файлов LRC;</li>
           <li xml:lang="sk">Android: Import/export kapitol a synchronizovaných textov piesní ako súborov LRC.</li>
           <li xml:lang="sl">Android: Uvoz/izvoz poglavij in sinhroniziranih besedil kot datotek LRC.</li>
+          <li xml:lang="sv">Android: Importera/exportera kapitel och synkronisera sångtexter som LRC-filer.</li>
           <li xml:lang="tr">Android: Fasıllar ve eşzamanlı şarkı sözleri artık LRC dosyaları olarak dışa aktarılabiliyor.</li>
           <li xml:lang="uk">Android: імпортування/експортування глав і синхронізованих текстів як файлів LRC.</li>
         </ul>
@@ -531,6 +537,7 @@
           <li xml:lang="ru">macOS: единый набор значков для тёмного режима.</li>
           <li xml:lang="sk">macOS: Konzistentná sada ikon s tmavým režimom.</li>
           <li xml:lang="sl">macOS: Dosleden nabor ikon s temnim načinom.</li>
+          <li xml:lang="sv">macOS: Konsekvent ikonuppsättning med mörkt läge.</li>
           <li xml:lang="tr">macOS: Koyu kip ile uyumlu simge kümesi</li>
           <li xml:lang="uk">macOS: сумісний з темним режимом набір піктограм.</li>
           <li>Export CSV, JSON: Only export selected folders.</li>
@@ -547,6 +554,7 @@
           <li xml:lang="ru">Экспорт CSV, JSON: экспортировать только выбранные папки.</li>
           <li xml:lang="sk">Export CSV, JSON: Exportovať iba vybraté priečinky.</li>
           <li xml:lang="sl">Izvoz CSV, JSON: Izvoz samo izbranih map.</li>
+          <li xml:lang="sv">Exportera CSV, JSON: Exportera bara markerade kataloger.</li>
           <li xml:lang="tr">CSV, JSON dışa aktarma: Yalnızca seçili klasörler dışa aktarılabiliyor.</li>
           <li xml:lang="uk">Експорт CSV, JSON: реалізовано експортування лише позначених тек.</li>
         </ul>
@@ -587,6 +595,7 @@
           <li xml:lang="ru">Исправлен импорт из Discogs.</li>
           <li xml:lang="sk">Oprava importu Discogs.</li>
           <li xml:lang="sl">Popravljen uvoz iz Discogsa.</li>
+          <li xml:lang="sv">Rätta import av Discogs.</li>
           <li xml:lang="tr">Discogs içe aktarma desteği onarıldı.</li>
           <li xml:lang="uk">Виправлено імпортування Discogs.</li>
           <li>Consider the configured language for the handbook.</li>
@@ -603,6 +612,7 @@
           <li xml:lang="ru">Учитывается настроенный язык руководства</li>
           <li xml:lang="sk">Zohľadnenie nastaveného jazyka pre príručku.</li>
           <li xml:lang="sl">Upošteva konfiguriran jezik za priročnik.</li>
+          <li xml:lang="sv">Ta hänsyn till det inställda språket för handboken.</li>
           <li xml:lang="tr">El kitabı için yapılandırılmış dil dikkate alınıyor.</li>
           <li xml:lang="uk">Використання налаштованої мови інтерфейсу для підручника.</li>
           <li>Fix: Import of LRC files (synchronized lyrics, chapters) with hour values.</li>
