@@ -344,9 +344,53 @@
         <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>MP4: Fix adding atom creates atom with wrong uppercased name.</li>
+          <li xml:lang="ar">MP4: إصلاح مشكلة إضافة «atom» التي تؤدي إلى إنشاء «atom» باسم غير صحيح مكتوب بأحرف كبيرة.</li>
+          <li xml:lang="ca">MP4: corregeix l'addició d'àtom que crea un àtom amb un nom en majúscules incorrecte.</li>
+          <li xml:lang="cs">MP4: Opravena chyba, při které se při přidávání atomu vytvořil atom s nesprávným názvem psaným velkými písmeny.</li>
+          <li xml:lang="it">MP4: corretto l'errore che causava l'aggiunta di un atomo con un nome in maiuscolo errato.</li>
+          <li xml:lang="ka">MP4: გასწორდა ატომის დამატება ქმნიდა ატომს არასწორი დიდასოებიანი სახელით.</li>
+          <li xml:lang="nl">MP4: Bij het toevoegen van een atom werd een atom met een onjuiste, in hoofdletters geschreven naam aangemaakt; dit is verholpen.</li>
+          <li xml:lang="pt-BR">MP4: Correção da adição de um atom que criava um atom com o nome incorreto em letras maiúsculas.</li>
+          <li xml:lang="sl">MP4: Popravljena napaka pri dodajanju atoma, ki ustvari atom z napačnim imenom napisanim z velikimi črkami.</li>
+          <li xml:lang="sv">MP4: Rätta att tillägg av en atom skapar en atom som har felaktigt namn med stora bokstäver.</li>
+          <li xml:lang="tr">MP4: Yanlış BÜYÜK harf ile atom eklemeyi düzelt</li>
+          <li xml:lang="uk">MP4: виправлено помилку, пов'язану із тим, що додавання атому створювало атом із помилковою назвою верхнім регістром символів.</li>
           <li>Support timestamps larger than 24h for chapters and synchronized lyrics.</li>
+          <li xml:lang="ar">دعم الطوابع الزمنية التي تتجاوز 24 ساعة للفصول وكلمات الأغاني المتزامنة.</li>
+          <li xml:lang="ca">Admet marques de temps més grans de 24 h per a capítols i lletres sincronitzades.</li>
+          <li xml:lang="cs">Podpora časových značek delších než 24 hodin pro kapitoly a synchronizované texty písní.</li>
+          <li xml:lang="it">Supporta le marche temporali superiori a 24 ore per capitoli e testi sincronizzati.</li>
+          <li xml:lang="ka">24 საათზე დიდი თავებისა და სინქრონიზებული ლირიკისთვის დროის შტამპების მხარდაჭერა.</li>
+          <li xml:lang="nl">Ondersteuning voor tijdstempels van meer dan 24 uur voor hoofdstukken en gesynchroniseerde songteksten.</li>
+          <li xml:lang="pt-BR">Suporte a carimbos de tempo superiores a 24 horas para capítulos e letras sincronizadas.</li>
+          <li xml:lang="sl">Podpira časovne žige, daljše od 24 ur, za poglavja in sinhronizirana besedila.</li>
+          <li xml:lang="sv">Stöd tidsstämplar större än 24 timmar för kapitel och synkroniserad sångtext.</li>
+          <li xml:lang="tr">Fasıllar ve eşzamanlı şarkı sözleri için 24 saatten daha büyük zaman damgalarını destekle</li>
+          <li xml:lang="uk">Реалізовано підтримку часових позначок, більших за 24 години для глав і синхронізованих слів пісень.</li>
           <li>Android: Build for F-Droid.</li>
+          <li xml:lang="ar">أندرويد: إصدار مخصص لـ F-Droid.</li>
+          <li xml:lang="ca">Android: construcció per a F-Droid.</li>
+          <li xml:lang="cs">Android: Sestavení pro F-Droid.</li>
+          <li xml:lang="it">Android: versione per F-Droid.</li>
+          <li xml:lang="ka">Android: აგება F-Droid-ისთვის.</li>
+          <li xml:lang="nl">Android: gebouwd voor F-Droid.</li>
+          <li xml:lang="pt-BR">Android: Compilação para o F-Droid.</li>
+          <li xml:lang="sl">Android: Izgradnja za F-Droid.</li>
+          <li xml:lang="sv">Android: Bygg för F-Droid.</li>
+          <li xml:lang="tr">Android: F-Droid için yap</li>
+          <li xml:lang="uk">Android: збірка для F-Droid.</li>
           <li>Windows: Cross building on Linux.</li>
+          <li xml:lang="ar">ويندوز: تجميع وبناء التطبيق لويندوز على لينكس.</li>
+          <li xml:lang="ca">Windows: construcció creuada al Linux.</li>
+          <li xml:lang="cs">Windows: Křížová kompilace na Linuxu.</li>
+          <li xml:lang="it">Windows: compilazione incrociata su Linux.</li>
+          <li xml:lang="ka">Windows: ჯვარედინი აგება Linux-ზე.</li>
+          <li xml:lang="nl">Windows: cross-compilatie op Linux.</li>
+          <li xml:lang="pt-BR">Windows: Compilação cruzada no Linux.</li>
+          <li xml:lang="sl">Windows: Navzkrižna gradnja na Linuxu.</li>
+          <li xml:lang="sv">Windows: Korsbygge för Linux.</li>
+          <li xml:lang="tr">Windows: Linux üzerinde çapraz yapı</li>
+          <li xml:lang="uk">Windows: перехресне збирання на Linux.</li>
         </ul>
       </description>
     </release>
