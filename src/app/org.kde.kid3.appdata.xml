@@ -346,7 +346,9 @@
           <li>MP4: Fix adding atom creates atom with wrong uppercased name.</li>
           <li xml:lang="ar">MP4: إصلاح مشكلة إضافة «atom» التي تؤدي إلى إنشاء «atom» باسم غير صحيح مكتوب بأحرف كبيرة.</li>
           <li xml:lang="ca">MP4: corregeix l'addició d'àtom que crea un àtom amb un nom en majúscules incorrecte.</li>
+          <li xml:lang="ca-valencia">MP4: corregix l'addició d'àtom que crea un àtom amb un nom en majúscules incorrecte.</li>
           <li xml:lang="cs">MP4: Opravena chyba, při které se při přidávání atomu vytvořil atom s nesprávným názvem psaným velkými písmeny.</li>
+          <li xml:lang="es">MP4: Se ha corregido el error que crea un átomo con un nombre incorrecto en mayúsculas al añadirlo.</li>
           <li xml:lang="it">MP4: corretto l'errore che causava l'aggiunta di un atomo con un nome in maiuscolo errato.</li>
           <li xml:lang="ka">MP4: გასწორდა ატომის დამატება ქმნიდა ატომს არასწორი დიდასოებიანი სახელით.</li>
           <li xml:lang="nl">MP4: Bij het toevoegen van een atom werd een atom met een onjuiste, in hoofdletters geschreven naam aangemaakt; dit is verholpen.</li>
@@ -358,7 +360,9 @@
           <li>Support timestamps larger than 24h for chapters and synchronized lyrics.</li>
           <li xml:lang="ar">دعم الطوابع الزمنية التي تتجاوز 24 ساعة للفصول وكلمات الأغاني المتزامنة.</li>
           <li xml:lang="ca">Admet marques de temps més grans de 24 h per a capítols i lletres sincronitzades.</li>
+          <li xml:lang="ca-valencia">Admet marques de temps més grans de 24 h per a capítols i lletres sincronitzades.</li>
           <li xml:lang="cs">Podpora časových značek delších než 24 hodin pro kapitoly a synchronizované texty písní.</li>
+          <li xml:lang="es">Compatibilidad con marcas de tiempo superiores a 24 horas para capítulos y letras sincronizadas.</li>
           <li xml:lang="it">Supporta le marche temporali superiori a 24 ore per capitoli e testi sincronizzati.</li>
           <li xml:lang="ka">24 საათზე დიდი თავებისა და სინქრონიზებული ლირიკისთვის დროის შტამპების მხარდაჭერა.</li>
           <li xml:lang="nl">Ondersteuning voor tijdstempels van meer dan 24 uur voor hoofdstukken en gesynchroniseerde songteksten.</li>
@@ -370,7 +374,9 @@
           <li>Android: Build for F-Droid.</li>
           <li xml:lang="ar">أندرويد: إصدار مخصص لـ F-Droid.</li>
           <li xml:lang="ca">Android: construcció per a F-Droid.</li>
+          <li xml:lang="ca-valencia">Android: construcció per a F-Droid.</li>
           <li xml:lang="cs">Android: Sestavení pro F-Droid.</li>
+          <li xml:lang="es">Android: Compilación para F-Droid.</li>
           <li xml:lang="it">Android: versione per F-Droid.</li>
           <li xml:lang="ka">Android: აგება F-Droid-ისთვის.</li>
           <li xml:lang="nl">Android: gebouwd voor F-Droid.</li>
@@ -382,7 +388,9 @@
           <li>Windows: Cross building on Linux.</li>
           <li xml:lang="ar">ويندوز: تجميع وبناء التطبيق لويندوز على لينكس.</li>
           <li xml:lang="ca">Windows: construcció creuada al Linux.</li>
+          <li xml:lang="ca-valencia">Windows: construcció creuada a Linux.</li>
           <li xml:lang="cs">Windows: Křížová kompilace na Linuxu.</li>
+          <li xml:lang="es">Windows: Compilación cruzada en Linux.</li>
           <li xml:lang="it">Windows: compilazione incrociata su Linux.</li>
           <li xml:lang="ka">Windows: ჯვარედინი აგება Linux-ზე.</li>
           <li xml:lang="nl">Windows: cross-compilatie op Linux.</li>
