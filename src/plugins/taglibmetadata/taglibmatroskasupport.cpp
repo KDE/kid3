@@ -718,6 +718,7 @@ bool TagLibMatroskaSupport::deleteFrame(TagLibFile& f, Frame::TagNumber tagNr,
         index >= 0 && index < static_cast<int>(mkaTag->simpleTagsList().size())) {
       mkaTag->removeSimpleTag(index);
       f.markTagChanged(tagNr, frame.getExtendedType());
+      return true;
     }
   }
   return false;
