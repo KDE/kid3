@@ -681,6 +681,7 @@
           <li xml:lang="ru">Исправлен импорт файлов LRC (синхронизированный текст, главы) со значениями времени в часах.</li>
           <li xml:lang="sk">Oprava: Import súborov LRC (synchronizované texty piesní, kapitoly) s hodnotami hodín.</li>
           <li xml:lang="sl">Popravek: Uvoz datotek LRC (sinhronizirana besedila, poglavja) z urnimi vrednostmi.</li>
+          <li xml:lang="sv">Rättning: Import av LRC-filer (synkroniserade sångtexter, kapitel) med timvärden.</li>
           <li xml:lang="tr">Düzeltme: Saat değerleriyle birlikte (şarkı sözleri, fasıllar) LRC dosyalarını içe aktarma onarıldı.</li>
           <li xml:lang="uk">Виправлення: імпортування файлів LRC (синхронізовані тексти, глави) зі значеннями для годин.</li>
           <li>Fix broken file list behavior when renaming many files and the list is sorted in descending order.</li>
@@ -697,6 +698,7 @@
           <li xml:lang="ru">Исправлено некорректное поведение списка файлов при переименовании большого количества файлов, когда список отсортирован по убыванию.</li>
           <li xml:lang="sk">Oprava nefunkčného správania zoznamu súborov pri premenovaní mnohých súborov, keď je zoznam zoradený zostupne.</li>
           <li xml:lang="sl">Odpravljeno je pokvarjeno delovanje seznama datotek pri preimenovanju več datotek, seznam pa je razvrščen v padajočem vrstnem redu.</li>
+          <li xml:lang="sv">Rätta felet i fillistan när man byter namn på många filer och listan sorteras i fallande ordning.</li>
           <li xml:lang="tr">Liste azalan sırada sıralandığında ve birden çok dosya yeniden adlandırılırken dosya listesi davranışı onarıldı.</li>
           <li xml:lang="uk">Виправлено помилкову поведінку при обробці списків файлів при перейменуванні багатьох файлів і упорядковуванні списку за спаданням.</li>
           <li>Fix progress reporting when files are saved.</li>
@@ -713,6 +715,7 @@
           <li xml:lang="ru">Исправлено отображение прогресса при сохранении файлов.</li>
           <li xml:lang="sk">Oprava hlásenia priebehu pri ukladaní súborov.</li>
           <li xml:lang="sl">Popravljeno je poročanje o napredku pri shranjevanju datotek.</li>
+          <li xml:lang="sv">Rätta förloppsrapportering när filer sparas.</li>
           <li xml:lang="tr">Dosyalar kaydedildiğinde ilerleme bildirimi artık düzgün çalışıyor.</li>
           <li xml:lang="uk">Виправлено звітування щодо поступу при збереженні файлів.</li>
           <li>ID3v2: Support values with multiple strings in TXXX frames.</li>
@@ -729,6 +732,7 @@
           <li xml:lang="ru">ID3v2: поддержка значений с несколькими строками в кадрах TXXX.</li>
           <li xml:lang="sk">ID3v2: Podpora hodnôt s viacerými reťazcami v rámcoch TXXX.</li>
           <li xml:lang="sl">ID3v2: Podpora za vrednosti z več nizi v okvirjih TXXX.</li>
+          <li xml:lang="sv">ID3v2: Stöd värden med flera strängar i TXXX-ramar.</li>
           <li xml:lang="tr">ID3v2: TXXX karelerinde birden çok dizi içeren değerler destekleniyor.</li>
           <li xml:lang="uk">ID3v2: реалізовано підтримку значень із декількома рядками у фреймах TXXX.</li>
           <li>Windows: Support MP4 64-bit atoms on Windows.</li>
@@ -745,6 +749,7 @@
           <li xml:lang="ru">Windows: поддержка 64-битных атомов MP4;</li>
           <li xml:lang="sk">Windows: Podpora 64-bitových atómov MP4 v systéme Windows.</li>
           <li xml:lang="sl">Windows: Podpora za 64-bitne atome MP4 na sistemu Windows.</li>
+          <li xml:lang="sv">Windows: Stöd MP4 64-bitars atomer på Windows.</li>
           <li xml:lang="tr">Windows: 64 bit MP4 atomları desteği</li>
           <li xml:lang="uk">Windows: реалізовано підтримку 64-бітових атомів MP4 у Windows.</li>
         </ul>
@@ -789,6 +794,7 @@
           <li xml:lang="ru">KDE: исправлено чрезмерное увеличение ширины диалога файлов;</li>
           <li xml:lang="sk">KDE: Zabránenie nadmernej šírke dialógového okna súborov.</li>
           <li xml:lang="sl">KDE: Izogibanje preveliki širini pogovornega okna datoteke.</li>
+          <li xml:lang="sv">KDE: Undvik överdriven bredd på fildialogrutan.</li>
           <li xml:lang="tr">KDE: Dosya iletişim kutusu için normal boyutlar</li>
           <li xml:lang="uk">KDE: запобігання надмірній ширині діалогового вікна вибору файлів.</li>
           <li>Make Chapters frames accessible via kid3-cli.</li>
@@ -806,6 +812,7 @@
           <li xml:lang="ru">Фреймы глав доступны через kid3-cli;</li>
           <li xml:lang="sk">Sprístupnenie rámcov kapitol cez kid3-cli.</li>
           <li xml:lang="sl">Omogočen dostop do okvirjev poglavij prek kid3-cli.</li>
+          <li xml:lang="sv">Gör kapitelramar tillgängliga via kid3-cli.</li>
           <li xml:lang="tr">Fasıl karelerine kid3-cli ile erişim desteği</li>
           <li xml:lang="uk">Відкрито доступ до кадрів глав за допомогою kid3-cli.</li>
           <li>Superfluous imported tracks can be deleted before import.</li>
@@ -823,6 +830,7 @@
           <li xml:lang="ru">Лишние импортированные дорожки можно удалить перед импортом;</li>
           <li xml:lang="sk">Nadbytočné importované stopy je možné odstrániť pred importom.</li>
           <li xml:lang="sl">Odvečne uvožene skladbe je mogoče pred uvozom izbrisati.</li>
+          <li xml:lang="sv">Överflödiga importerade spår kan raderas före import.</li>
           <li xml:lang="tr">Parça olmayan parçalar artık içe aktarma öncesinde silinebiliyor.</li>
           <li xml:lang="uk">Надмірні імпортовані композиції може бути вилучено до імпортування.</li>
           <li>Fix creation of wrong editor in frame table after selection change.</li>
@@ -840,6 +848,7 @@
           <li xml:lang="ru">Исправлено создание неправильного редактора в таблице кадров после изменения выделения;</li>
           <li xml:lang="sk">Oprava vytvorenia nesprávneho editora v tabuľke rámcov po zmene výberu.</li>
           <li xml:lang="sl">Odpravljeno ustvarjanje napačnega urejevalnika v tabeli okvirjev po spremembi izbire.</li>
+          <li xml:lang="sv">Rättade skapandet av felaktig editor i ramtabellen efter ändring av markering.</li>
           <li xml:lang="tr">Seçim değişikliği sonrası kare tablosunda yanlış düzenleyicinin oluşturulması önleniyor.</li>
           <li xml:lang="uk">Виправлено помилкове створення редактора у таблиці кадрів після зміни позначення.</li>
           <li>Completions with different values when selecting multiple files now also support genre.</li>
@@ -856,6 +865,7 @@
           <li xml:lang="ru">Автозавершение с различными значениями при выделении нескольких файлов теперь также поддерживает жанр;</li>
           <li xml:lang="sk">Doplnenia s rôznymi hodnotami pri výbere viacerých súborov teraz podporujú aj žáner.</li>
           <li xml:lang="sl">Dopolnjevanja z različnimi vrednostmi pri izbiri več datotek zdaj podpirajo tudi žanr.</li>
+          <li xml:lang="sv">Kompletteringar med olika värden när man väljer flera filer stöder nu även genre.</li>
           <li xml:lang="tr">Birden çok dosyayı seçerken tamamlamalar artık şarkı tarzını/türünü de destekliyor.</li>
           <li xml:lang="uk">У доповненнях з різними значеннями при позначенні декількох файлів передбачено підтримку жанру.</li>
           <li>Do not leave temporary cover art files on the system.</li>
@@ -872,6 +882,7 @@
           <li xml:lang="ru">Не оставлять временные файлы обложек в системе;</li>
           <li xml:lang="sk">Neponechávať dočasné súbory obalov albumu v systéme.</li>
           <li xml:lang="sl">Ne puščaj začasnih datotek z naslovnicami v sistemu.</li>
+          <li xml:lang="sv">Lämna inte tillfälliga omslagsbilder på systemet.</li>
           <li xml:lang="tr">Geçici kapak görseli dosyalarını sistemde bırakma</li>
           <li xml:lang="uk">Усунено зберігання тимчасових файлів із зображеннями обкладинки у системі.</li>
           <li>EmbedLyrics.qml: Remove illegal characters for query parameters.</li>
@@ -888,6 +899,7 @@
           <li xml:lang="ru">EmbedLyrics.qml: удалены недопустимые символы из параметров запроса;</li>
           <li xml:lang="sk">EmbedLyrics.qml: Odstránenie neplatných znakov z parametrov vyhľadávania.</li>
           <li xml:lang="sl">EmbedLyrics.qml: Odstrani nedovoljene znake za parametre poizvedbe.</li>
+          <li xml:lang="sv">EmbedLyrics.qml: Ta bort ogiltiga tecken från frågeparametrar.</li>
           <li xml:lang="tr">EmbedLyrics.qml: Sorgu parametrelerindeki izin verilmeyen karakterleri kaldır</li>
           <li xml:lang="uk">EmbedLyrics.qml: реалізовано вилучення некоректних символів для параметрів запиту.</li>
           <li>Scripting: Fix crash if execute @qml is used from kid3-cli, fix isStandalone() when running non-interactively with kid3-cli, add new script SelectChapterTags.qml.</li>
@@ -904,6 +916,7 @@
           <li xml:lang="ru">Сценарии: исправлено аварийное завершение при использовании @qml execute из kid3-cli, исправлена работа isStandalone() при неинтерактивном запуске с kid3-cli, добавлен новый сценарий SelectChapterTags.qml;</li>
           <li xml:lang="sk">Skriptovanie: Oprava pádu pri použití execute @qml z kid3-cli, oprava isStandalone() pri neinteraktívnom spustení s kid3-cli, pridanie nového skriptu SelectChapterTags.qml.</li>
           <li xml:lang="sl">Skriptiranje: Odpravljeno sesutje, če se iz kid3-cli uporablja execute @qml, popravljena je isStandalone() pri neinteraktivnem izvajanju s kid3-cli, dodana je nova skripta SelectChapterTags.qml.</li>
+          <li xml:lang="sv">Skript: Rätta krasch om körning av @qml används från kid3-cli, rätta isStandalone() när den körs icke-interaktivt med kid3-cli, lägg till nytt skript SelectChapterTags.qml.</li>
           <li xml:lang="tr">Betik yazımı: @qml yürütmesi kid3-cli üzerinden kullanılırken çökmeyi onar; kid3-cli ile etkileşimsiz olarak çalıştırılırken isStandalone() ögesini onar; SelectChapterTags.qml betiğini ekle</li>
           <li xml:lang="uk">Скрипти: усунено аварійне завершення роботи, якщо execute @qml використовується з kid3-cli, виправлено isStandalone() під час неінтерактивного виконання з kid3-cli, додано новий скрипт SelectChapterTags.qml.</li>
           <li>Build system: Don't hardcode WITH_DATAROOTDIR_DEFAULT path, support CMake option BUILD_WITH_QT5 to force using Qt5, support Qt 6/KDE 6 on Debian, add various new CI/CD targets, improve Snap support.</li>
@@ -920,6 +933,7 @@
           <li xml:lang="ru">Система сборки: не жёстко кодировать путь WITH_DATAROOTDIR_DEFAULT, поддержка параметра CMake BUILD_WITH_QT5 для принудительного использования Qt5, поддержка Qt 6/KDE 6 в Debian, добавлены различные новые цели CI/CD, улучшена поддержка Snap;</li>
           <li xml:lang="sk">Zostavovací systém: Nepoužívať pevne zadanú cestu WITH_DATAROOTDIR_DEFAULT, podpora voľby CMake BUILD_WITH_QT5 na vynútenie Qt5, podpora Qt 6/KDE 6 na Debiane, pridanie rôznych nových cieľov CI/CD, vylepšenie podpory Snap.</li>
           <li xml:lang="sl">Sistem za gradnjo: Pot WITH_DATAROOTDIR_DEFAULT ni trajno kodirana, podpora možnosti CMake BUILD_WITH_QT5 za vsiljeno uporabo Qt5, podpora Qt 6/KDE 6 na Debianu, dodani različni novi cilji CI/CD, izboljšana podpora za Snap.</li>
+          <li xml:lang="sv">Byggsystem: Hårdkoda inte WITH_DATAROOTDIR_DEFAULT sökväg, stöd CMake-alternativet BUILD_WITH_QT5 för att tvinga användning av Qt5, stöd Qt 6/KDE 6 på Debian, lägg till diverse nya CI/CD mål, förbättra stöd för Snap.</li>
           <li xml:lang="tr">Yapı sistemi: WITH_DATAROOTDIR_DEFAULT yolunu mutlak olarak kodlama, Qt5 kullanmayı zorlamak için BUILD_WITH_QT5 CMake seçeneği, Debian üzerinde Qt6/KDE6 desteği, birçok yeni CI/CD desteği, iyileştirilmiş Snap desteği</li>
           <li xml:lang="uk">Система збирання: усунено жорстко прописаний шлях WITH_DATAROOTDIR_DEFAULT, реалізовано підтримку параметра CMake BUILD_WITH_QT5 для примусового використання Qt5, реалізовано підтримку Qt 6/KDE 6 на Debian, додано різні нові цільові об'єкти CI/CD, покращено підтримку Snap.</li>
         </ul>
@@ -964,6 +978,7 @@
           <li xml:lang="ru">Предпросмотр для нескольких встроенных изображений;</li>
           <li xml:lang="sk">Zobrazenie náhľadu pre viacero vložených obrázkov.</li>
           <li xml:lang="sl">Prikaži predogled za več vdelanih slik.</li>
+          <li xml:lang="sv">Visa förhandsgranskning för flera inbäddade bilder.</li>
           <li xml:lang="tr">Birden çok gömülü resim için önizlemeyi destekle</li>
           <li xml:lang="uk">Реалізовано перегляд для декількох вбудованих зображень.</li>
           <li>Simplified editing of MP3 audiobooks in a "Chapters" frame edit dialog.</li>
@@ -980,6 +995,7 @@
           <li xml:lang="ru">Упрощённое редактирование MP3-аудиокниг в диалоге редактирования кадра «Главы»;</li>
           <li xml:lang="sk">Zjednodušená úprava audiokníh MP3 v dialógovom okne úpravy rámca "Kapitoly".</li>
           <li xml:lang="sl">Poenostavljeno urejanje zvočnih knjig MP3 v pogovornem oknu za urejanje okvirja »Poglavja«.</li>
+          <li xml:lang="sv">Förenklad redigering av MP3-ljudböcker i en redigeringsdialogruta med "Kapitel".</li>
           <li xml:lang="tr">“Fasıllar” kare düzenleme iletişim kutusunda MP3 ses kitaplarını daha iyi düzenleme desteği</li>
           <li xml:lang="uk">Спрощено редагування звукових книг MP3 у вікні редагування кадрів «Глави».</li>
           <li>Arabic, Esperanto, Galician and Georgian translations.</li>
@@ -996,6 +1012,7 @@
           <li xml:lang="ru">Переводы на арабский, эсперанто, галисийский и грузинский языки.</li>
           <li xml:lang="sk">Arabské, esperantské, galícijské a gruzínske preklady.</li>
           <li xml:lang="sl">Prevodi v arabščino, esperanto, galicijo in gruzijščino.</li>
+          <li xml:lang="sv">Översättningar till arabiska, esperanto, galiciska och georgiska.</li>
           <li xml:lang="tr">Arapça, Esperanto, Galiççe ve Gürcüce çeviriler</li>
           <li xml:lang="uk">Переклади арабською, есперанто, галісійською та грузинською.</li>
         </ul>
@@ -1033,6 +1050,7 @@
           <li xml:lang="ru">macOS: сборка, подписание и нотаризация пакетов;</li>
           <li xml:lang="sk">macOS: Zostavovanie, podpisovanie a notarizácia balíkov.</li>
           <li xml:lang="sl">macOS: Gradnja, podpisovanje in overjanje paketov.</li>
+          <li xml:lang="sv">macOS: Bygga, signera och notariebekräfta paket.</li>
           <li xml:lang="tr">macOS: Paketlerin noterli olarak yapımı ve imzalanması</li>
           <li xml:lang="uk">macOS: збирання, підписування та засвідчення пакунків.</li>
         </ul>
@@ -1072,6 +1090,7 @@
           <li xml:lang="ru">Действие «Встроить текст песни»;</li>
           <li xml:lang="sk">Akcia vloženia textu piesne.</li>
           <li xml:lang="sl">Vdelava besedila pesmi.</li>
+          <li xml:lang="sv">Inbäddade sångtextåtgärder.</li>
           <li xml:lang="tr">Şarkı sözü eylemleri artık gömülüyor.</li>
           <li xml:lang="uk">Дія з вбудовування слів пісні.</li>
           <li>gnudb.org import, a registered e-mail address can be set in the "Token" UI control.</li>
@@ -1088,6 +1107,7 @@
           <li xml:lang="ru">Импорт из gnudb.org: зарегистрированный адрес электронной почты можно задать в элементе управления интерфейса «Токен».</li>
           <li xml:lang="sk">Import z gnudb.org, registrovanú e-mailovú adresu je možné nastaviť v ovládacom prvku "Žetón".</li>
           <li xml:lang="sl">gnudb.org juvoz registriran e-poštni naslov je mogoče nastaviti v kontrolniku uporabniškega vmesnika "Žeton".</li>
+          <li xml:lang="sv">gnudb.org import, en registrerad e-postadress kan anges i användargränssnittskontrollen "Symbol".</li>
           <li xml:lang="tr">gnudb.org içe aktarma desteği, artık “Jeton” araç takımında kayıtlı bir e-posta adresi ayarlanabiliyor.</li>
           <li xml:lang="uk">Імпортування з gnudb.org, зареєстровану адресу електронної пошти можна встановити у пункті «Жетон».</li>
           <li>KDE 6: Install directory for kid3ui.rc.</li>
@@ -1104,6 +1124,7 @@
           <li xml:lang="ru">KDE 6: каталог установки для kid3ui.rc;</li>
           <li xml:lang="sk">KDE 6: Inštalačný adresár pre kid3ui.rc.</li>
           <li xml:lang="sl">KDE 6: Namestitveni imenik za kid3ui.rc.</li>
+          <li xml:lang="sv">KDE 6: Installationskatalog för kid3ui.rc.</li>
           <li xml:lang="tr">KDE 6: kid3ui.rc için kurulum dizini</li>
           <li xml:lang="uk">KDE 6: встановлення каталогу для kid3ui.rc.</li>
           <li>Android: Building with arm64-v8a and x86_64 architectures.</li>
@@ -1120,6 +1141,7 @@
           <li xml:lang="ru">Android: сборка для архитектур arm64-v8a и x86_64;</li>
           <li xml:lang="sk">Android: Zostavovanie s architektúrami arm64-v8a a x86_64.</li>
           <li xml:lang="sl">Android: Gradnja z arhitekturama arm64-v8a in x86_64.</li>
+          <li xml:lang="sv">Android: Bygg med arkitekturerna arm64-v8a och x86_64.</li>
           <li xml:lang="tr">Android: arm64-v8a ve x86_64 mimarîleri için yapı desteği</li>
           <li xml:lang="uk">Android: збирання з архітектурами arm64-v8a і x86_64.</li>
           <li>Android: Use MANAGE_EXTERNAL_STORAGE permission to manage all files on a storage device.</li>
@@ -1136,6 +1158,7 @@
           <li xml:lang="ru">Android: для управления всеми файлами на устройстве хранения используется разрешение MANAGE_EXTERNAL_STORAGE;</li>
           <li xml:lang="sk">Android: Použitie oprávnenia MANAGE_EXTERNAL_STORAGE na správu všetkých súborov na úložnom zariadení.</li>
           <li xml:lang="sl">Android: Za upravljanje vseh datotek v napravi za shranjevanje uporabite dovoljenje MANAGE_EXTERNAL_STORAGE.</li>
+          <li xml:lang="sv">Android: Använd behörigheten MANAGE_EXTERNAL_STORAGE för att hantera alla filer på en lagringsenhet.</li>
           <li xml:lang="tr">Android: Depolama aygıtındaki tüm dosyaları yönetmek için artık MANAGE_EXTERNAL_STORAGE izni kullanılıyor.</li>
           <li xml:lang="uk">Android: реалізовано використання прав доступу MANAGE_EXTERNAL_STORAGE для керування усіма файлами на пристрої зберігання даних.</li>
           <li>Android: Saving picture tags.</li>
@@ -1152,6 +1175,7 @@
           <li xml:lang="ru">Android: сохранение меток изображений;</li>
           <li xml:lang="sk">Android: Ukladanie obrázkových značiek.</li>
           <li xml:lang="sl">Android: Shranjevanje oznak slik.</li>
+          <li xml:lang="sv">Android: Sparar bildetiketter.</li>
           <li xml:lang="tr">Android: Resim künyeleri artık kaydediliyor.</li>
           <li xml:lang="uk">Android: реалізовано мітки зображення.</li>
           <li>Haiku: Installation paths.</li>
@@ -1168,6 +1192,7 @@
           <li xml:lang="ru">Haiku: пути установки;</li>
           <li xml:lang="sk">Haiku: Inštalačné cesty.</li>
           <li xml:lang="sl">Haiku: Namestitvene poti.</li>
+          <li xml:lang="sv">Haiku: Installationssökvägar.</li>
           <li xml:lang="tr">Haiku: Kurulum yolları eklendi.</li>
           <li xml:lang="uk">Haiku: шляхи для встановлення.</li>
         </ul>
@@ -1212,6 +1237,7 @@
           <li xml:lang="ru">Комбинации клавиш для панели воспроизведения;</li>
           <li xml:lang="sk">Klávesové skratky pre panel nástrojov prehrávania.</li>
           <li xml:lang="sl">Bližnjice na tipkovnici za orodno vrstico predvajanja.</li>
+          <li xml:lang="sv">Snabbtangenter för uppspelningsverktygsraden.</li>
           <li xml:lang="tr">Çalma araç çubuğu için klavye kısayolları</li>
           <li xml:lang="uk">Клавіатурні скорочення для панелі інструментів відтворення.</li>
           <li>Option "Audio output" in "User Actions" settings tab.</li>
@@ -1228,6 +1254,7 @@
           <li xml:lang="ru">Параметр «Аудиовыход» на вкладке настроек «Действия пользователя»;</li>
           <li xml:lang="sk">Možnosť "Zvukový výstup" na karte nastavení "Používateľské akcie".</li>
           <li xml:lang="sl">Možnost »Zvočni izhod« na zavihku z nastavitvami »Dejanja uporabnika«.</li>
+          <li xml:lang="sv">Alternativet "Ljudutmatning" under inställningsfliken "Användaråtgärder".</li>
           <li xml:lang="tr">“Kullanıcı Eylemleri” sekmesinde “Ses Çıkışı” seçeneği</li>
           <li xml:lang="uk">Пункт «Виведення звуку» на вкладці параметрів «Дії користувача».</li>
           <li>Support WebP format for pictures.</li>
@@ -1244,6 +1271,7 @@
           <li xml:lang="ru">Поддержка формата WebP для изображений;</li>
           <li xml:lang="sk">Podpora formátu WebP pre obrázky.</li>
           <li xml:lang="sl">Podpora za format slik WebP.</li>
+          <li xml:lang="sv">Stöd WebP-format för bilder.</li>
           <li xml:lang="tr">Resimler için WebP biçimini destekle</li>
           <li xml:lang="uk">Реалізовано підтримку формату WebP для зображень.</li>
         </ul>
@@ -1281,6 +1309,7 @@
           <li xml:lang="ru">Повторный щелчок по 1 звезде убирает оценку;</li>
           <li xml:lang="sk">Opätovné kliknutie na 1 hviezdičku spôsobí zmiznutie hviezdičkového hodnotenia.</li>
           <li xml:lang="sl">Če ponovno kliknete na 1 zvezdico, ocena z zvezdicami izgine.</li>
+          <li xml:lang="sv">Klicka igen på 1 stjärna gör att stjärnbetyget försvinner.</li>
           <li xml:lang="tr">1 yıldızlı derecelendirmeye bir kez daha tıklamak onu kaldırır.</li>
           <li xml:lang="uk">Реалізовано вилучення оцінки у відповідь на повторне клацання на перші зірочці.</li>
           <li>Support '\|' to escape string list separators.</li>
@@ -1297,6 +1326,7 @@
           <li xml:lang="ru">Поддержка «\|» для экранирования разделителей в списках строк;</li>
           <li xml:lang="sk">Podpora '\|' na escapovanie oddeľovačov zoznamu reťazcov.</li>
           <li xml:lang="sl">Podpora za '\|' za ubežni niz seznama ločil.</li>
+          <li xml:lang="sv">Stöd '\|' för att undanta strängars listseparator.</li>
           <li xml:lang="tr">Dizi listesi ayırıcılarını kaçırırken “\|” desteği</li>
           <li xml:lang="uk">Реалізовано підтримку «\|» для екранування роздільників списку рядків.</li>
         </ul>
@@ -1336,6 +1366,7 @@
           <li xml:lang="ru">Поддержка нескольких значений в текстовых элементах APE;</li>
           <li xml:lang="sk">Podpora viacerých hodnôt v textových položkách APE.</li>
           <li xml:lang="sl">Podpora za več vrednosti v besedilnih elementih APE.</li>
+          <li xml:lang="sv">Stöd flera värden i APE-textobjekt.</li>
           <li xml:lang="tr">APE metin ögelerinde birden çok öge desteği</li>
           <li xml:lang="uk">Реалізовано підтримку декількох значень у текстових записах APE.</li>
           <li>Building with TagLib 2.0.</li>
@@ -1352,6 +1383,7 @@
           <li xml:lang="ru">Сборка с TagLib 2.0;</li>
           <li xml:lang="sk">Zostavovanie s TagLib 2.0.</li>
           <li xml:lang="sl">Gradnja s TagLib 2.0.</li>
+          <li xml:lang="sv">Bygger med TagLib 2.0.</li>
           <li xml:lang="tr">TagLib 2.0 ile yapı</li>
           <li xml:lang="uk">Реалізовано збирання з TagLib 2.0.</li>
           <li>Building from macOS with arm64.</li>
@@ -1368,6 +1400,7 @@
           <li xml:lang="ru">Сборка в macOS на архитектуре arm64;</li>
           <li xml:lang="sk">Zostavovanie z macOS s arm64.</li>
           <li xml:lang="sl">Gradnja iz macOS-a z arm64.</li>
+          <li xml:lang="sv">Bygger från macOS med arm64.</li>
           <li xml:lang="tr">macOS üzerinde ARM64 ile yapı desteği</li>
           <li xml:lang="uk">Реалізовано збирання у macOS для arm64.</li>
           <li>Building snap packages.</li>
@@ -1384,6 +1417,7 @@
           <li xml:lang="ru">Сборка пакетов snap;</li>
           <li xml:lang="sk">Zostavovanie snap balíkov.</li>
           <li xml:lang="sl">Gradnja paketov snap.</li>
+          <li xml:lang="sv">Bygger snap-paket.</li>
           <li xml:lang="tr">Snap paketleri desteği</li>
           <li xml:lang="uk">Реалізовано збирання пакунків snap.</li>
         </ul>
@@ -1428,6 +1462,7 @@
           <li xml:lang="ru">Все официальные двоичные файлы собраны с использованием Qt 6. Для macOS файл Darwin-amd64.dmg теперь является версией для Qt 6, тогда как для систем старше Mojave требуется пакет Darwin-Qt5.dmg. Настройки замены строк, сохранённые Qt 6, несовместимы с Qt 5 из-за использования другой кодировки.</li>
           <li xml:lang="sk">Všetky oficiálne binárne súbory sú zostavené s Qt 6. Pre macOS je súbor Darwin-amd64.dmg teraz verzia Qt 6, zatiaľ čo systémy staršie ako Mojave potrebujú balík Darwin-Qt5.dmg. Nastavenia nahrádzania reťazcov uložené Qt 6 nie sú kompatibilné s Qt 5, pretože sa používa iné kódovanie.</li>
           <li xml:lang="sl">Vse uradne binarne datoteke so zgrajene s Qt 6. Za macOS je datoteka Darwin-amd64.dmg zdaj različica za Qt 6, medtem ko sistemi, starejši od Mojave, potrebujejo paket Darwin-Qt5.dmg. Nastavitve zamenjave nizov, ki jih shrani Qt 6, niso združljive s Qt 5, ker uporabljajo drugo kodiranje.</li>
+          <li xml:lang="sv">Alla officiella binärfiler byggs med Qt 6. För macOS är Darwin-amd64.dmg-filen nu Qt 6-versionen, medan system äldre än Mojave behöver paketet Darwin-Qt5.dmg. Strängersättningsinställningarna som lagras av Qt 6 är inte kompatibla med Qt 5 eftersom en annan kodning används.</li>
           <li xml:lang="tr">Tüm resmî ikililer artık Qt6 ile yapılıyor. macOS için Darwin-amd64 kullanılıyor. DMG dosyasında artık Qt6 sürümü var; Mojave’den eski sürümler için Darwin-Qt5.dmg kullanılabilir. Qt6’nın kullandığı dizi değiştirme ayarları, farklı bir kodlama kullanıldığından dolayın Qt5 ile uyumlu değil.</li>
           <li xml:lang="uk">Усі офіційні бінарні файли зібрані з використанням Qt 6. Для macOS файл Darwin-amd64.dmg тепер є версією на основі Qt 6, тоді як для систем, старіших за Mojave, потрібен пакет Darwin-Qt5.dmg. Параметри заміни рядків, що зберігаються Qt 6, несумісні з Qt 5, оскільки використовується інше кодування.</li>
           <li>Option "Select file on play" in "User Actions" settings tab.</li>
@@ -1444,6 +1479,7 @@
           <li xml:lang="ru">Параметр «Выделять файл при воспроизведении» на вкладке настроек «Действия пользователя»;</li>
           <li xml:lang="sk">Možnosť "Vybrať súbor pri prehrávaní" na karte nastavení "Používateľské akcie".</li>
           <li xml:lang="sl">Možnost "Izberi datoteko ob predvajanju" na zavihku z nastavitvami "Dejanja uporabnika".</li>
+          <li xml:lang="sv">Alternativet "Välj fil vid spela" under inställningsfliken "Användaråtgärder".</li>
           <li xml:lang="tr">Option "Select file on play" in "User Actions" settings tab.</li>
           <li xml:lang="uk">Реалізовано пункт «Вибрати файл для відтворення» на вкладці параметр «Дії користувача».</li>
         </ul>
@@ -1481,6 +1517,7 @@
           <li xml:lang="ru">Щелчок по времени на панели инструментов воспроизведения переключает между прошедшим и оставшимся временем;</li>
           <li xml:lang="sk">Kliknutie na čas v paneli nástrojov prehrávania prepína medzi uplynulým a zostávajúcim časom.</li>
           <li xml:lang="sl">S klikom na orodno vrstico predvajanja preklapljate med pretečenim in preostalim časom.</li>
+          <li xml:lang="sv">Klicka på uppspelningsverktygsradens tid byter mellan förfluten och återstående tid.</li>
           <li xml:lang="tr">Click on play tool bar time toggles between elapsed and remaining time.</li>
           <li xml:lang="uk">Реалізовано перемикання між використаним та залишковим часом клацанням на панелі інструментів відтворення.</li>
           <li>The visibility and docked area of the play tool bar are restored.</li>
@@ -1497,6 +1534,7 @@
           <li xml:lang="ru">Восстанавливается видимость и область закрепления панели воспроизведения;</li>
           <li xml:lang="sk">Viditeľnosť a ukotvená oblasť panela nástrojov prehrávania sú obnovené.</li>
           <li xml:lang="sl">Vidnost in zasidrano območje orodne vrstice za predvajanje sta obnovljena.</li>
+          <li xml:lang="sv">Uppspelningsverktygsradens synlighet och dockat område återställs.</li>
           <li xml:lang="tr">The visibility and docked area of the play tool bar are restored.</li>
           <li xml:lang="uk">Відновлено видимість та швартовані області панелі інструментів відтворення.</li>
           <li>ID3v1: When setting multiple genres, use first supported element.</li>
@@ -1513,6 +1551,7 @@
           <li xml:lang="ru">ID3v1: при задании нескольких жанров используется первый поддерживаемый элемент;</li>
           <li xml:lang="sk">ID3v1: Pri nastavení viacerých žánrov sa použije prvý podporovaný prvok.</li>
           <li xml:lang="sl">ID3v1: Pri nastavljanju več žanrov uporabi prvi podprti element.</li>
+          <li xml:lang="sv">ID3v1: När flera genrer anges, använd det första elementet som stöds.</li>
           <li xml:lang="tr">ID3v1: When setting multiple genres, use first supported element.</li>
           <li xml:lang="uk">ID3v1: реалізовано використання першого підтримуваного елемента при встановленні декількох жанрів.</li>
           <li>Qt6: Use SVG icons for better performance in file list and dialog.</li>
@@ -1529,6 +1568,7 @@
           <li xml:lang="ru">Qt6: для повышения производительности в списке файлов и диалогах используются значки в формате SVG;</li>
           <li xml:lang="sk">Qt6: Použitie SVG ikon pre lepší výkon v zozname súborov a dialógovom okne.</li>
           <li xml:lang="sl">Qt6: Za boljše delovanje v seznamu datotek in pogovornih oknih uporabi ikone SVG.</li>
+          <li xml:lang="sv">Qt6: Använd SVG-ikoner för bättre prestanda i fillista och dialogrutor.</li>
           <li xml:lang="tr">Qt6: Use SVG icons for better performance in file list and dialog.</li>
           <li xml:lang="uk">Qt6: реалізовано використання піктограм SVG у списку і вікні роботи з файлами для пришвидшення обробки.</li>
         </ul>
@@ -1568,6 +1608,7 @@
           <li xml:lang="ru">Не помечать все несвязанные фреймы как изменённые при изменении любого из них.</li>
           <li xml:lang="sk">Neoznačovať všetky nezjednotené rámce ako zmenené, ak sa zmení akýkoľvek nezjednotený rámec.</li>
           <li xml:lang="sl">Ne označi vseh nepoenotenih okvirjev kot spremenjenih, če se kateri koli nepoenoten okvir spremeni.</li>
+          <li xml:lang="sv">Markera inte alla icke-enhetliga ramar som modifierade om någon icke-enhetlig ram har ändrats.</li>
           <li xml:lang="tr">Do not mark all non-unified frames as modified if any non-unified frame is changed.</li>
           <li xml:lang="uk">Усунено позначення усіх неуніфікованих кадрів як змінених, якщо змінено будь-який неуніфікованих кадр.</li>
           <li>Crash in Id3libMetadata when clicking Edit on unsupported frame.</li>
@@ -1584,6 +1625,7 @@
           <li xml:lang="ru">Аварийное завершение в Id3libMetadata при щелчке по «Правка» для неподдерживаемой метки;</li>
           <li xml:lang="sk">Pád v Id3libMetadata pri kliknutí na Upraviť na nepodporovanom rámci.</li>
           <li xml:lang="sl">Sesutje v Id3libMetadata pri kliku na Uredi na nepodprtem okvirju.</li>
+          <li xml:lang="sv">Krasch i Id3libMetadata när Redigera klickas på en ram som inte stöds.</li>
           <li xml:lang="tr">Crash in Id3libMetadata when clicking Edit on unsupported frame.</li>
           <li xml:lang="uk">Усунено аварійне завершення роботи у Id3libMetadata при виборі «Редагувати» на непідтримуваному кадрі.</li>
           <li>Setting text encoding on TXXX frames with TaglibMetadata.</li>
@@ -1600,6 +1642,7 @@
           <li xml:lang="ru">Настройка кодировки текста в кадрах TXXX с помощью TaglibMetadata;</li>
           <li xml:lang="sk">Nastavenie kódovania textu v rámcoch TXXX s TaglibMetadata.</li>
           <li xml:lang="sl">Nastavitev kodiranja besedila v okvirjih TXXX s TaglibMetadata.</li>
+          <li xml:lang="sv">Inställning av textkodning för TXXX-ramar med TaglibMetadata.</li>
           <li xml:lang="tr">Setting text encoding on TXXX frames with TaglibMetadata.</li>
           <li xml:lang="uk">Реалізовано встановлення кодування тексту для кадрів TXXX з використанням TaglibMetadata.</li>
           <li>Skip non letter characters for first letter uppercase format.</li>
@@ -1616,6 +1659,7 @@
           <li xml:lang="ru">Пропуск небуквенных символов для формата с заглавной первой буквой;</li>
           <li xml:lang="sk">Preskočenie nepísmenových znakov pre formát s veľkým prvým písmenom.</li>
           <li xml:lang="sl">Preskoči nečrkovne znake za prvo črko z veliko začetnico.</li>
+          <li xml:lang="sv">Hoppa över tecken som inte är bokstäver för att använda stor bokstav som första bokstav.</li>
           <li xml:lang="tr">Skip non letter characters for first letter uppercase format.</li>
           <li xml:lang="uk">Реалізовано пропускання нелітерних символів для формату великих перших літер.</li>
           <li>Discogs import: Fix values in Artist, Arranger and Performer frames, use "genres" if "styles" is empty, fetch correct cover art, support vinyl track numbers like A1.</li>
@@ -1632,6 +1676,7 @@
           <li xml:lang="ru">Импорт из Discogs: исправлены значения в полях «Исполнитель», «Аранжировщик» и «Исполнитель»; если «стили» пусты, используются «жанры»; загружается правильная обложка; поддерживаются номера дорожек на виниле, такие как A1;</li>
           <li xml:lang="sk">Import z Discogs: Oprava hodnôt v rámcoch Interpret, Aranžér a Umelec, použitie "žánrov" ak sú "štýly" prázdne, stiahnutie správneho obalu, podpora vinylových čísel stôp ako A1.</li>
           <li xml:lang="sl">Uvoz iz Discogs: Popravljene vrednosti v okvirjih Izvajalec, Aranžer in Izvajalec, uporaba »žanrov«, če je polje »stili« prazno, pridobivanje pravilnih naslovnic, podpora številkam vinilnih skladb, kot je A1.</li>
+          <li xml:lang="sv">Discogs-import: Rätta värden i ramar för Artist, Arrangör och Utövare, använd "genrer" om "stilar" är tomt, hämta korrekt omslagsbild, stöd för spårnummer för vinylskivor såsom A1.</li>
           <li xml:lang="tr">Discogs import: Fix values in Artist, Arranger and Performer frames, use "genres" if "styles" is empty, fetch correct cover art, support vinyl track numbers like A1.</li>
           <li xml:lang="uk">Імпорт з Discogs: виправлення значень у кадрах «Артист», «Аранжувальник» та «Виконавець», використання «жанрів», якщо «стилів» немає, отримання правильних обкладинок, підтримка номерів вінілових треків, таких як A1.</li>
           <li>Qt6: Crash when adding item to config table.</li>
@@ -1648,6 +1693,7 @@
           <li xml:lang="ru">Qt6: аварийное завершение при добавлении элемента в таблицу настроек;</li>
           <li xml:lang="sk">Qt6: Pád pri pridávaní položky do konfiguračnej tabuľky.</li>
           <li xml:lang="sl">Qt6: Sesutje pri dodajanju elementa v konfiguracijsko tabelo.</li>
+          <li xml:lang="sv">Qt6: Krasch när objekt läggs till i inställningstabell.</li>
           <li xml:lang="tr">Qt6: Crash when adding item to config table.</li>
           <li xml:lang="uk">Qt6: усунено аварійне завершення роботи при додавання запису до таблиці налаштувань.</li>
           <li>Qt6: Larger media player slider, do not repeat when last song has been played.</li>
@@ -1664,6 +1710,7 @@
           <li xml:lang="ru">Qt6: увеличенный ползунок медиаплеера; не повторять после воспроизведения последней песни.</li>
           <li xml:lang="sk">Qt6: Väčší posuvník prehrávača médií, neopakovať po prehratí poslednej skladby.</li>
           <li xml:lang="sl">Qt6: Večji drsnik predvajalnika medijev, ne ponovi se po predvajanju zadnje skladbe.</li>
+          <li xml:lang="sv">Qt6: Större reglage för mediaspelaren, upprepa inte när sista låten har spelats.</li>
           <li xml:lang="tr">Qt6: Larger media player slider, do not repeat when last song has been played.</li>
           <li xml:lang="uk">Qt6: збільшено повзунок програвача, усунено повторення після відтворення останньої композиції.</li>
           <li>Windows, TaglibMetadata: Support files larger than 2 GB.</li>
@@ -1680,6 +1727,7 @@
           <li xml:lang="ru">Windows, TaglibMetadata: поддержка файлов размером более 2 ГБ;</li>
           <li xml:lang="sk">Windows, TaglibMetadata: Podpora súborov väčších ako 2 GB.</li>
           <li xml:lang="sl">Windows, TaglibMetadata: Podpora za datoteke, večje od 2 GB.</li>
+          <li xml:lang="sv">Windows, TaglibMetadata: Stöd filer större än 2 GB.</li>
           <li xml:lang="tr">Windows, TaglibMetadata: Support files larger than 2 GB.</li>
           <li xml:lang="uk">Windows, TaglibMetadata: реалізовано підтримку файлів, розмір яких перевищує 2 ГБ.</li>
           <li>Windows, OggFlacMetadata: Build without libssp-0.dll.</li>
@@ -1696,6 +1744,7 @@
           <li xml:lang="ru">Windows, OggFlacMetadata: сборка без libssp-0.dll.</li>
           <li xml:lang="sk">Windows, OggFlacMetadata: Zostavenie bez libssp-0.dll.</li>
           <li xml:lang="sl">Windows, OggFlacMetadata: Izgradi brez datoteke libssp-0.dll.</li>
+          <li xml:lang="sv">Windows, OggFlacMetadata: Bygg utan libssp-0.dll.</li>
           <li xml:lang="tr">Windows, OggFlacMetadata: Build without libssp-0.dll.</li>
           <li xml:lang="uk">Windows, OggFlacMetadata: реалізовано збирання без libssp-0.dll.</li>
           <li>Windows, Mp4v2Metadata: Fix saving with file names containing non ASCII characters.</li>
@@ -1712,6 +1761,7 @@
           <li xml:lang="ru">Windows, Mp4v2Metadata: исправлено сохранение файлов с именами, содержащими не-ASCII символы.</li>
           <li xml:lang="sk">Windows, Mp4v2Metadata: Oprava ukladania s názvami súborov obsahujúcimi znaky mimo ASCII.</li>
           <li xml:lang="sl">Windows, Mp4v2Metadata: Popravljeno shranjevanje z imeni datotek, ki vsebujejo znake, ki niso ASCII.</li>
+          <li xml:lang="sv">Windows, Mp4v2Metadata: Rätta spara med filnamn som inte innehåller ASCII-tecken.</li>
           <li xml:lang="tr">Windows, Mp4v2Metadata: Fix saving with file names containing non ASCII characters.</li>
           <li xml:lang="uk">Windows, Mp4v2Metadata: виправлено збереження файлів із назвами, що містять символи поза ASCII.</li>
         </ul>
