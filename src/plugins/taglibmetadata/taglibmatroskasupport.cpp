@@ -271,7 +271,7 @@ void matroskaChapterEditionToFrame(
   const QString description = toSimpleTextOrJson(editionMap);
   frame.setExtendedType(
     Frame::ExtendedType(Frame::FT_Other, QLatin1String("Chapters")));
-  frame.setValue(description);
+  frame.setValue(description.isNull() ? QLatin1String("") : description);
 
   TagLib::String language;
   QVariantList synchedData;
@@ -337,7 +337,7 @@ TagLib::Matroska::ChapterEdition frameToMatroskaChapterEdition(const Frame& fram
   QListIterator it(synchedData);
   while (it.hasNext()) {
     auto time = static_cast<unsigned long long>(it.next().toDouble() * 1E6);
-    auto text = it.next().toString();
+    auto text = it.next().toString().trimmed();
     if (chapterDataIndex >= 0 && !chapterData[chapterDataIndex].timeEnd) {
       chapterData[chapterDataIndex].timeEnd = time;
       if (text.isEmpty()) {

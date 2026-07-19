@@ -979,7 +979,7 @@ QString getFieldsFromEtcoFrame(
   field.m_value = synchedData;
   fields.push_back(field);
 
-  return QString();
+  return QString(QLatin1String(""));
 }
 
 /**
