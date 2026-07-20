@@ -384,7 +384,6 @@ if(NOT QT_MAJOR_VERSION)
 endif()
 
 if(LINUX_SELF_CONTAINED)
-  set(CPACK_INSTALL_PREFIX "")
   # Avoid GLIBC_2.14 not found errors on older systems like Debian Wheezy.
   # https://stackoverflow.com/questions/8823267/linking-against-older-symbol-version-in-a-so-file
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -include ${CMAKE_CURRENT_SOURCE_DIR}/linux/glibc_version_nightmare.h")
@@ -552,6 +551,27 @@ if(APPLE AND CMAKE_STRIP)
   set(CMAKE_STRIP "${CMAKE_CURRENT_BINARY_DIR}/strip_silent.sh")
 endif()
 
+# CMake 4.x errors on file(INSTALL DESTINATION "") when prefix is empty.
+# Override an empty CMAKE_INSTALL_PREFIX temporarily, then restore it
+# again with restore_install_prefix().
+macro(replace_empty_install_prefix)
+  install(CODE [[
+    set(_saved_install_prefix "${CMAKE_INSTALL_PREFIX}")
+    if(CMAKE_INSTALL_PREFIX STREQUAL "")
+      set(CMAKE_INSTALL_PREFIX "/.")
+    endif()
+  ]])
+endmacro()
+
+# Restore temporary replacement of CMAKE_INSTALL_PREFIX made by
+# replace_empty_install_prefix().
+macro(restore_install_prefix)
+  install(CODE [[
+    set(CMAKE_INSTALL_PREFIX "${_saved_install_prefix}")
+    unset(_saved_install_prefix)
+  ]])
+endmacro()
+
 add_subdirectory(src)
 
 if(WITH_DOC)
@@ -577,6 +597,7 @@ endif()
 
 # To create a package, run cpack
 if(APPLE)
+  set(CPACK_INSTALL_PREFIX "")
   if(CMAKE_HOST_APPLE)
     install(SCRIPT ${CMAKE_SOURCE_DIR}/macosx/mac-codesign.cmake)
     # KDE's appleutils.getDmgApplicationId() searches for the Info.plist file
@@ -587,8 +608,10 @@ if(APPLE)
   set(CPACK_BINARY_DRAGNDROP ON)
   set(CPACK_GENERATOR DragNDrop)
 elseif(WIN32)
+  set(CPACK_INSTALL_PREFIX "")
   set(CPACK_GENERATOR ZIP)
 elseif(LINUX_SELF_CONTAINED)
+  set(CPACK_INSTALL_PREFIX "")
   set(CPACK_GENERATOR TGZ)
 else()
   set(CPACK_GENERATOR DEB)

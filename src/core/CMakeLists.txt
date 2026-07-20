@@ -195,9 +195,13 @@ if(ANDROID AND QT_VERSION_MAJOR LESS 6)
 endif()
 
 if(BUILD_SHARED_LIBS)
+  replace_empty_install_prefix()
+
   install(TARGETS kid3-core
     LIBRARY DESTINATION ${WITH_LIBDIR}
     RUNTIME DESTINATION ${WITH_BINDIR})
+
+  restore_install_prefix()
 endif()
 
 if(BUILD_KDE_APP)

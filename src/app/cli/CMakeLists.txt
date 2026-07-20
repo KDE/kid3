@@ -75,9 +75,13 @@ else()
   set(cli_BINDIR ${WITH_BINDIR})
 endif()
 
+replace_empty_install_prefix()
+
 install(TARGETS kid3-cli
   BUNDLE DESTINATION .
   RUNTIME DESTINATION ${cli_BINDIR})
+
+restore_install_prefix()
 
 if(LINUX_SELF_CONTAINED)
   set_target_properties(kid3-cli PROPERTIES INSTALL_RPATH "\$ORIGIN")

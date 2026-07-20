@@ -132,9 +132,13 @@ if(APPLE)
   endif()
 endif()
 
+replace_empty_install_prefix()
+
 install(TARGETS ${KID3_EXECUTABLE}
   BUNDLE DESTINATION .
   RUNTIME DESTINATION ${WITH_BINDIR})
+
+restore_install_prefix()
 
 if(LINUX_SELF_CONTAINED)
   # Change RPATH/RUNPATH of executable/library.
@@ -177,6 +181,8 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
       "${destdir_prefix}/${WITH_BINDIR}/kid3.exe")
   endif()
   string(REPLACE "/./" "/" bundle_app ${bundle_app})
+
+  replace_empty_install_prefix()
 
   # Install Qt JPEG, WebP and SVG icon plugins
   install(DIRECTORY "${QT_PLUGINS_DIR}/imageformats"
@@ -301,6 +307,8 @@ if(APPLE OR WIN32 OR LINUX_SELF_CONTAINED)
     CHANGE_RPATH("\$ORIGIN/.." "${plugin_dest_dir}/xcbglintegrations/libqxcb-glx-integration${CMAKE_SHARED_LIBRARY_SUFFIX}")
   endif()
 
+  restore_install_prefix()
+
   if(CMAKE_CROSSCOMPILING AND NOT APPLE)
     # Avoid error "/usr/bin/ldd failed: 1" from GetPrerequisites.cmake:800
     # when cross-packaging, this does not seem to be supported.
@@ -382,6 +390,8 @@ if(APPLE AND REMOVE_ARCH)
 endif()
 
 if(WIN32)
+  replace_empty_install_prefix()
+
   # Use reduced size ICU libraries, QTBUG-29828, QTBUG-38259.
   # A folder with reduced ICU libraries can be copied to the Qt bin directory.
   get_target_property(_qtBinDir Qt${QT_VERSION_MAJOR}::Core LOCATION)
@@ -410,6 +420,8 @@ if(WIN32)
     install(FILES "${_qtBinDir}/Qt${QT_VERSION_MAJOR}QmlMeta.dll"
             DESTINATION ${WITH_BINDIR})
   endif()
+
+  restore_install_prefix()
 endif()
 
 if(LINUX_SELF_CONTAINED)
@@ -428,6 +440,7 @@ if(LINUX_SELF_CONTAINED)
       endif()
     endif()
   ")
+  replace_empty_install_prefix()
   install(DIRECTORY "${_qtLibDir}/icu_reduced/"
           DESTINATION ${WITH_BINDIR} OPTIONAL)
   # Qt searches for OpenSSL 1.0, which is not found on distributions
@@ -435,4 +448,5 @@ if(LINUX_SELF_CONTAINED)
   install(FILES "${CMAKE_BINARY_DIR}/../buildroot/usr/local/ssl/libssl.so"
                 "${CMAKE_BINARY_DIR}/../buildroot/usr/local/ssl/libcrypto.so"
           DESTINATION ${WITH_BINDIR})
+  restore_install_prefix()
 endif()

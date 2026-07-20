@@ -2067,8 +2067,12 @@ EOF
       _instdir=kid3-$_version-win32
     fi
     test -d $_instdir && rm -rf $_instdir
-    mkdir -p $_instdir
-    DESTDIR=$(pwd)/$_instdir ninja install/strip
+    rm -f *.zip
+    ninja package
+    _zip=(kid3-*win*.zip)
+    7z x "$_zip" -aoa
+    mv ${_zip%.zip} $_instdir
+    rm -f "$_zip"
 
     _plugin_qt_version=$(grep "Created by.*Qt" src/plugins/musicbrainzimport/moc_musicbrainzimportplugin.cpp)
     _plugin_qt_version=${_plugin_qt_version##* \(Qt }

@@ -128,7 +128,11 @@ if(HAVE_QTMULTIMEDIA)
 endif()
 
 if(BUILD_SHARED_LIBS)
+  replace_empty_install_prefix()
+
   install(TARGETS kid3-gui
     LIBRARY DESTINATION ${WITH_LIBDIR}
     RUNTIME DESTINATION ${WITH_BINDIR})
+
+  restore_install_prefix()
 endif()

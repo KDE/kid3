@@ -167,6 +167,8 @@ foreach(_lang ${_languages})
     set(_dir ${_po_dir}/${_lang}/docs/kid3)
   endif()
 
+  replace_empty_install_prefix()
+
   if(BUILD_KDE_APP)
     kf5_create_handbook(${_dir}/index.docbook ${_lang})
   endif()
@@ -178,4 +180,6 @@ foreach(_lang ${_languages})
   if(UNIX)
     kid3_create_manpage(${_dir}/index.docbook ${_lang})
   endif()
+
+  restore_install_prefix()
 endforeach()
