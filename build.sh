@@ -1954,7 +1954,7 @@ EOF
       if test "$compiler" = "cross-mingw"; then
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
+cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_ID3LIB=OFF -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test "$compiler" = "cross-macos"; then
         cat >kid3/run-cmake.sh <<EOF
