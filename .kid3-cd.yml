@@ -154,9 +154,10 @@ kid3_windows_amd64:
   rules:
     - when: manual
       allow_failure: true
-  image: invent-registry.kde.org/sysadmin/ci-images/windows-msvc2022:latest
+  image: storage.kde.org/vm-images/windows-msvc2022-qt611
   tags:
-    - Windows
+    - VM
+    - amd64
   variables:
     GIT_STRATEGY: none
     KID3_CI_PLATFORM: windows
@@ -181,10 +182,10 @@ kid3_windows_amd64:
     - Set-Location build-$env:KID3_CI_PLATFORM
     - $env:CHERE_INVOKING='enabled_from_arguments'
     - $env:MSYSTEM='MINGW64'
-    - C:/Msys2/usr/bin/bash -l -c 'pacman -S --noconfirm
+    - C:/Msys2/usr/bin/bash -l -c 'pacman -S --noconfirm --needed --disable-download-timeout
       git patch autoconf automake make docbook-xsl mingw-w64-x86_64-make
       mingw-w64-x86_64-ninja mingw-w64-x86_64-nasm mingw-w64-x86_64-libtool
-      mingw-w64-x86_64-libxslt mingw-w64-x86_64-cmake p7zip;
+      mingw-w64-x86_64-libxslt mingw-w64-x86_64-cmake p7zip perl;
       ../kid3/build.sh getqt;
       PATH=$(pwd)/qt-6.5.3/Tools/mingw1120_64/bin:$(pwd)/qt-6.5.3/Tools/mingw1120_64/opt/bin:$(pwd)/qt-6.5.3/6.5.3/mingw_64/bin:$PATH;
       ../kid3/build.sh'
