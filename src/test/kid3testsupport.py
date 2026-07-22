@@ -12,7 +12,10 @@ class Kid3ConfigFile:
     """Temporary file context manager with INI file contents."""
     def __init__(self, contents):
         self._contents = contents
-        self._file = tempfile.NamedTemporaryFile('w+')
+        if sys.platform == 'win32':
+            self._file = open('kid3test.ini', 'w')
+        else:
+            self._file = tempfile.NamedTemporaryFile('w+')
 
     def __enter__(self):
         result = self._file.__enter__()
@@ -93,8 +96,11 @@ def kid3_cli_path():
 def call_kid3_cli(args):
     if isinstance(args, str):
         args = [args]
-    if sys.platform == 'win32':
-        args.insert(0, '--portable')
+    if sys.platform == 'win32' and not os.environ['KID3_CONFIG_FILE']:
+        # An empty name for the config file does not work on Windows
+        os.environ['KID3_CONFIG_FILE'] = 'kid3test.ini'
+        with open('kid3test.ini', 'w'):
+            pass # just truncate to empty file
     out = subprocess.check_output([kid3_cli_path()] + args)
     try:
         s = out.decode()

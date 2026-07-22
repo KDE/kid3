@@ -84,25 +84,31 @@ class CliFunctionsTestCase(unittest.TestCase):
             'TagFormat\n')
         self.assertEqual(call_kid3_cli(
             ['-c', 'config Tag.id3v2Version',
-             '-c', 'config Tag.id3v2Version 3',
-             '-c', 'config Tag.id3v2Version']),
+             '-c', 'config Tag.id3v2Version ID3v2_4_0',
+             '-c', 'config Tag.id3v2Version',
+             '-c', 'config Tag.id3v2Version ID3v2_3_0']),
             'ID3v2_3_0\n'
-            '3\n'
-            '3\n')
+            'ID3v2_4_0\n'
+            'ID3v2_4_0\n'
+            'ID3v2_3_0\n')
         self.assertEqual(call_kid3_cli(
             ['-c', 'config TagFormat.caseConversion',
              '-c', 'config TagFormat.caseConversion NoChanges',
-             '-c', 'config TagFormat.caseConversion']),
+             '-c', 'config TagFormat.caseConversion',
+             '-c', 'config TagFormat.caseConversion AllFirstLettersUppercase']),
             'AllFirstLettersUppercase\n'
             'NoChanges\n'
-            'NoChanges\n')
+            'NoChanges\n'
+            'AllFirstLettersUppercase\n')
         self.assertEqual(call_kid3_cli(
             ['-c', 'config NumberTracks.numberTracksDestination',
-             '-c', 'config NumberTracks.numberTracksDestination 12',
-             '-c', 'config NumberTracks.numberTracksDestination']),
+             '-c', 'config NumberTracks.numberTracksDestination 21',
+             '-c', 'config NumberTracks.numberTracksDestination',
+             '-c', 'config NumberTracks.numberTracksDestination 1']),
             '1\n'
             '21\n'
-            '21\n')
+            '21\n'
+            '1\n')
 
     def test_config_invalid(self):
         p = subprocess.Popen([kid3_cli_path(), '-c', 'config NoSuchGroup.foo'],
@@ -134,7 +140,7 @@ class CliFunctionsTestCase(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmpdir:
             lines = call_kid3_cli(['-c', 'pwd', '-c', 'cd "%s"' % tmpdir, '-c', 'pwd']).splitlines()
             self.assertTrue(lines)
-            self.assertEqual(lines[-1], tmpdir)
+            self.assertIn(lines[-1], (tmpdir, tmpdir.replace('\\', '/')))
 
             p = subprocess.Popen([kid3_cli_path(), '-c', 'cd %s/no_such_dir' % tmpdir],
                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -1778,11 +1784,13 @@ class CliFunctionsJsonTestCase(unittest.TestCase):
             '"RenameFolder","Tag","TagFormat"]}\n')
         self.assertEqual(call_kid3_cli(
             ['-c', '{"method":"config","params":["Tag.id3v2Version"]}',
-             '-c', '{"method":"config","params":["Tag.id3v2Version","4"]}',
-             '-c', '{"method":"config","params":["Tag.id3v2Version"]}']),
+             '-c', '{"method":"config","params":["Tag.id3v2Version","ID3v2_4_0"]}',
+             '-c', '{"method":"config","params":["Tag.id3v2Version"]}',
+             '-c', '{"method":"config","params":["Tag.id3v2Version","ID3v2_3_0"]}']),
             '{"result":"ID3v2_3_0"}\n'
-            '{"result":"4"}\n'
-            '{"result":"4"}\n')
+            '{"result":"ID3v2_4_0"}\n'
+            '{"result":"ID3v2_4_0"}\n'
+            '{"result":"ID3v2_3_0"}\n')
 
         p = subprocess.Popen([kid3_cli_path(), '-c',
                               '{"method":"config","params":["Tag.textEncoding","UTF8"]}'],
