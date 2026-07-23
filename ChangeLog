@@ -4,9 +4,12 @@ Tue Jul 24 20:50:34 CEST 2026  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Fixed:
       + MP4: Fix adding atom creates atom with wrong uppercased name.
+      + Matroska: Fix deleting frames.
+      + Make Chapters and Event Timing Codes visible in kid3-cli.
       + Support timestamps larger than 24h for chapters and synchronized lyrics.
       + Android: Build for F-Droid.
       + Windows: Cross building on Linux.
+      + Fix building self-contained packages with CMake 4.4.
 
 Sat Jun  6 14:28:35 CEST 2026  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
