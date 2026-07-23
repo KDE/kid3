@@ -24,10 +24,13 @@
     ],
     "cleanup": [
         "/man",
+        "/share/doc",
         "/share/man",
         "/include",
         "/lib/*.a",
         "/lib/*.la",
+        "/lib/cmake",
+        "/lib/pkgconfig",
         "/share/**/*-qt.*",
         "/share/icons/**/**/**/*-qt.*"
     ],
@@ -154,6 +157,9 @@
                 "-DDOCBOOK_XSL_DIR=/usr/share/xml/docbook/xml/xsl-stylesheets",
                 "-DKDE_SKIP_TEST_SETTINGS=ON",
                 "-DBUILD_WITH_QT6=ON"
+            ],
+            "post-install": [
+                "gunzip -S z /app/share/icons/hicolor/scalable/apps/kid3.svgz"
             ],
             "sources": [
                 {
