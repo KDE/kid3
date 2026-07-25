@@ -154,7 +154,7 @@ kid3_windows_amd64:
   rules:
     - when: manual
       allow_failure: true
-  image: storage.kde.org/vm-images/windows-msvc2022-qt611
+  image: storage.kde.org/vm-images/windows-msvc2026-qt611
   tags:
     - VM
     - amd64
@@ -188,7 +188,7 @@ kid3_windows_amd64:
       mingw-w64-x86_64-libxslt mingw-w64-x86_64-cmake p7zip perl;
       ../kid3/build.sh getqt;
       PATH=$(pwd)/qt-6.5.3/Tools/mingw1120_64/bin:$(pwd)/qt-6.5.3/Tools/mingw1120_64/opt/bin:$(pwd)/qt-6.5.3/6.5.3/mingw_64/bin:$PATH;
-      ../kid3/build.sh'
+      QTPREFIX=$(pwd)/qt-6.5.3/6.5.3/mingw_64 ../kid3/build.sh'
     - Set-Location ..
     - if (!(Test-Path .kde-ci-packages)) { New-Item -ItemType Directory .kde-ci-packages }
     - Copy-Item -Force build-$env:KID3_CI_PLATFORM/kid3/$env:KID3_CI_SRC_PKG .kde-ci-packages/$env:KID3_CI_DST_PKG
