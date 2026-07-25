@@ -136,7 +136,7 @@ download_and_extract_qt() {
       _qtarch=gcc_64
     elif test $kernel = "Darwin"; then
       _qtarch=macos
-    elif test $kernel = "MINGW"; then
+    elif test $kernel = "MINGW" -o ${kernel:0:7} = "MSYS_NT"; then
       _qtarch=mingw_64
     fi
   fi
@@ -626,14 +626,14 @@ fi
 
 if test "$1" = "getqt"; then
   if which wget >/dev/null; then
-    DOWNLOAD=wget
+    DOWNLOAD="wget -q"
   else
     DOWNLOAD="curl -skfLO"
   fi
   if which bsdtar >/dev/null; then
     EXTRACT7Z="bsdtar xf"
   else
-    EXTRACT7Z="7za x"
+    EXTRACT7Z="7za x -bsp0 -bso0"
   fi
   compiler=${COMPILER:-gcc}
   download_and_extract_qt
@@ -802,7 +802,7 @@ if ! which cmake >/dev/null; then
   exit 1
 fi
 
-if test $kernel = "MSYS_NT-6.1"; then
+if test ${kernel:0:7} = "MSYS_NT"; then
   kernel="MINGW"
   CONFIGURE_OPTIONS="--build=x86_64-w64-mingw32 --target=i686-w64-mingw32"
 fi
@@ -896,7 +896,7 @@ if test $kernel = "Darwin"; then
 fi # Darwin
 
 if which wget >/dev/null; then
-  DOWNLOAD=wget
+  DOWNLOAD="wget -q"
 else
   DOWNLOAD="curl -skfLO"
 fi
@@ -905,7 +905,7 @@ if which bsdtar >/dev/null; then
   EXTRACT7Z="bsdtar xf"
 else
   # 7za does not extract symlinks to symlinks
-  EXTRACT7Z="7za x"
+  EXTRACT7Z="7za x -bsp0 -bso0"
 fi
 
 test -d buildroot || mkdir buildroot
@@ -936,6 +936,12 @@ fixcmakeinst() {
       rm -rf usr
       mv MSys2/usr .
       rmdir MSys2
+    elif ! test -d usr; then
+      _usr_dir=$(find . -type d -name usr)
+      if test -n "$_usr_dir"; then
+        mv "$_usr_dir" .
+        rmdir -p $(dirname "$_usr_dir") || true
+      fi
     fi
     cd ..
   fi
@@ -1563,7 +1569,7 @@ else #  cross-android
     echo "### Building OpenSSL"
 
     cd openssl-${openssl_version}
-    if test "$cross_host" = "x86_64-w64-mingw32" || [[ $(uname) =~ ^MINGW64 ]]; then
+    if test "$cross_host" = "x86_64-w64-mingw32" || [[ $(uname) =~ ^MINGW64 ]] || test $(uname -m) = "x86_64"; then
       _target=mingw64
     else
       _target=mingw
@@ -1664,7 +1670,7 @@ else #  cross-android
   fi
   extract_binary_archive $BIN_ARCHIVE_DIR/flac-${libflac_version}.tgz
 
-  if test ! -f $BIN_ARCHIVE_DIR/id3lib-${id3lib_version}.tgz && ! test $kernel = "Darwin" -a $(uname -m) = "arm64"; then
+  if test ! -f $BIN_ARCHIVE_DIR/id3lib-${id3lib_version}.tgz && ! test $kernel = "Darwin" -a $(uname -m) = "arm64" && ! test $kernel = "MINGW"; then
     download_id3lib
     extract_id3lib
     echo "### Building id3lib"
@@ -1750,12 +1756,12 @@ else #  cross-android
     elif test $kernel = "MINGW"; then
       # mkstemp is not available when building with mingw from Qt
       sed -i 's/check_func  mkstemp/disable  mkstemp/' ./configure
-      if ! [[ $(uname) =~ ^MINGW64 ]]; then
+      if ! [[ $(uname) =~ ^MINGW64 ]] && ! test $(uname -m) = "x86_64"; then
         AV_CONFIGURE_OPTIONS="--extra-cflags=-march=i486"
       else
         AV_CONFIGURE_OPTIONS="--extra-ldflags=-lbcrypt"
       fi
-      if test $(uname) = "MSYS_NT-6.1"; then
+      if [[ $(uname) =~ ^MSYS_NT ]]; then
         AV_CONFIGURE_OPTIONS="$AV_CONFIGURE_OPTIONS --target-os=mingw32"
       fi
     elif test "$compiler" = "cross-macos"; then
@@ -2001,7 +2007,7 @@ EOF
         _qtToolsMingw=$(realpath $_qtToolsMingw)
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
         _qtPrefixWin=${QTPREFIX//\//\\}
         _qtPrefixWin=${_qtPrefixWin/\\c/C:}
@@ -2070,7 +2076,7 @@ EOF
     rm -f *.zip
     ninja package
     _zip=(kid3-*win*.zip)
-    7z x "$_zip" -aoa
+    7z x -aoa -bsp0 -bso0 "$_zip"
     mv ${_zip%.zip} $_instdir
     rm -f "$_zip"
 
@@ -2099,7 +2105,7 @@ EOF
     done
 
     rm -f $_instdir.zip
-    7z a $_instdir.zip $_instdir
+    7z a -bsp0 -bso0 $_instdir.zip $_instdir
   elif test "$compiler" = "cross-macos"; then
     test -z ${PATH##$osxprefix/*} || PATH=$osxprefix/bin:$osxsdk/usr/bin:$PATH
     rm -rf inst
