@@ -66,13 +66,13 @@ kid3_macos_amd64:
 
 .kid3_android_base:
   extends: .kid3_build_job
-  image: invent-registry.kde.org/sysadmin/ci-images/android-qt69-ci:latest
+  image: invent-registry.kde.org/sysadmin/ci-images/android-qt611-ci:latest
   tags:
     - Linux
   variables:
-    KDECI_CACHE_PATH: /mnt/artifacts/android-qt6.7/
+    KDECI_CACHE_PATH: /mnt/android-qt6.11/artifacts/
     KDECI_GITLAB_SERVER: https://invent.kde.org/
-    KDECI_PACKAGE_PROJECT: teams/ci-artifacts/android-qt6.7
+    KDECI_PACKAGE_PROJECT: teams/ci-artifacts/android-qt6.11
     KDECI_SIGNAPK_CONFIG: $CI_PROJECT_DIR/ci-utilities/signing/signapk.ini
     KDECI_PUBLISHONFDROID_CONFIG: $CI_PROJECT_DIR/ci-utilities/signing/publishonfdroid.ini
     KID3_CI_PLATFORM: android_$ARCH
@@ -81,11 +81,27 @@ kid3_macos_amd64:
     QTPREFIX: $CI_PROJECT_DIR/build-${KID3_CI_PLATFORM}/qt-6.5.3/6.5.3/${KID3_CI_PLATFORM}
     QTBINARYDIR: $CI_PROJECT_DIR/build-${KID3_CI_PLATFORM}/qt-6.5.3/6.5.3/gcc_64/bin
     COMPILER: cross-android
+  before_script:
+    # The Android Gradle Plugin (AGP) used by Qt 6.5 requires Java 17.
+    - test $(java --version | head -1 | cut -d' ' -f2 | cut -d. -f1) = 17
+    # We need an Android SDK and NDK compatible with Qt 6.5 or the APK build stage will fail
+    # with aapt2 "RES_TABLE_TYPE_TYPE entry offsets overlap actual entry data" because
+    # the older Android Gradle Plugin (AGP) cannot parse the resource format used in the
+    # Android 15 (API 35) platform package.
+    - sdkmanager --uninstall 'build-tools;36.0.0' 'ndk;28.2.13676358' 'platforms;android-36'
+    - sdkmanager 'platforms;android-33' 'build-tools;33.0.0' 'ndk;23.1.7779620'
+    - !reference [ .kid3_build_job, before_script ]
   script:
     - mkdir -p pkg &&
       (cd pkg && apt-get download docbook-xsl) &&
       find pkg -name '*.deb' -exec sh -c 'ar x {} --output=pkg; tar xf pkg/data.tar.*; rm pkg/*.tar.* pkg/debian-binary' \;
     - export DOCBOOK_XSL_DIR=$(pwd)/usr/share/xml/docbook/stylesheet/docbook-xsl
+    - export ANDROID_SDK_ROOT=/opt/android-sdk 
+      ANDROID_API_VERSION=android-33
+      ANDROID_BUILD_TOOLS_REVISION=33.0.0
+      ANDROID_NDK_PLATFORM=android-23
+      ANDROID_NDK=/opt/android-sdk/ndk/23.1.7779620
+      ANDROID_NDK_ROOT=/opt/android-sdk/ndk/23.1.7779620
     - !reference [.kid3_build_job, script]
     - python3 ci-notary-service/signapk.py -v --config $KDECI_SIGNAPK_CONFIG $CI_PROJECT_DIR/kde-ci-packages/*.apk
     - python3 ci-notary-service/publishonfdroid.py -v --config $KDECI_PUBLISHONFDROID_CONFIG --fastlane $CI_PROJECT_DIR/kde-ci-packages/fastlane-*.zip $CI_PROJECT_DIR/kde-ci-packages/*.apk
