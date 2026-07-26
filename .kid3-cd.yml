@@ -103,8 +103,8 @@ kid3_macos_amd64:
       ANDROID_NDK=/opt/android-sdk/ndk/23.1.7779620
       ANDROID_NDK_ROOT=/opt/android-sdk/ndk/23.1.7779620
     - !reference [.kid3_build_job, script]
-    - python3 ci-notary-service/signapk.py -v --config $KDECI_SIGNAPK_CONFIG $CI_PROJECT_DIR/kde-ci-packages/*.apk
-    - python3 ci-notary-service/publishonfdroid.py -v --config $KDECI_PUBLISHONFDROID_CONFIG --fastlane $CI_PROJECT_DIR/kde-ci-packages/fastlane-*.zip $CI_PROJECT_DIR/kde-ci-packages/*.apk
+    - python3 ci-notary-service/signapk.py -v --config $KDECI_SIGNAPK_CONFIG $CI_PROJECT_DIR/.kde-ci-packages/*.apk
+    - python3 ci-notary-service/publishonfdroid.py -v --config $KDECI_PUBLISHONFDROID_CONFIG --fastlane $CI_PROJECT_DIR/.kde-ci-packages/fastlane-*.zip $CI_PROJECT_DIR/.kde-ci-packages/*.apk
 
 kid3_android_arm32:
   extends: .kid3_android_base
