@@ -24,7 +24,6 @@ include:
     - mkdir .kde-ci-packages/
     - cp -vf build-${KID3_CI_PLATFORM}/kid3/${KID3_CI_SRC_PKG} .kde-ci-packages/${KID3_CI_DST_PKG}
   after_script:
-    #- (cd build-${KID3_CI_PLATFORM} && ../kid3/build.sh clean)
     - rm -rf build-${KID3_CI_PLATFORM} kid3 ci-utilities ci-notary-service
   artifacts:
     expire_in: 3 days
@@ -92,11 +91,15 @@ kid3_macos_amd64:
     - sdkmanager 'platforms;android-33' 'build-tools;33.0.0' 'ndk;23.1.7779620'
     - !reference [ .kid3_build_job, before_script ]
   script:
+    # When built on the KDE CI, change the package name from "net.sourceforge.kid3" to "org.kde.kid3"
+    # so that it matches the "applicationid" in KDE's signing configuration.
+    - sed -i 's,net\.sourceforge\.kid3,org.kde.kid3,; s,net/sourceforge/kid3,org/kde/kid3,'
+      kid3/android/AndroidManifest*.in kid3/android/CMakeLists.txt kid3/android/Kid3Activity.java kid3/src/qml/app/Main.qml
     - mkdir -p pkg &&
       (cd pkg && apt-get download docbook-xsl) &&
       find pkg -name '*.deb' -exec sh -c 'ar x {} --output=pkg; tar xf pkg/data.tar.*; rm pkg/*.tar.* pkg/debian-binary' \;
     - export DOCBOOK_XSL_DIR=$(pwd)/usr/share/xml/docbook/stylesheet/docbook-xsl
-    - export ANDROID_SDK_ROOT=/opt/android-sdk 
+    - export ANDROID_SDK_ROOT=/opt/android-sdk
       ANDROID_API_VERSION=android-33
       ANDROID_BUILD_TOOLS_REVISION=33.0.0
       ANDROID_NDK_PLATFORM=android-23
