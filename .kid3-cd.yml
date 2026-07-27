@@ -108,7 +108,7 @@ kid3_macos_amd64:
     - !reference [.kid3_build_job, script]
     - python3 kid3/android/fdroid2fastlane.py --fdroidyaml kid3/packaging/f-droid/net.sourceforge.kid3.yml --summary
       'Edit audio file metadata' --icon kid3/src/app/128-apps-kid3.png --screenshot
-      https://kid3.kde.org/images/ss_android_app.png --fastlanezip $CI_PROJECT_DIR/.kde-ci-packages/fastlane-kid3.zip
+      https://kid3.kde.org/images/ss_android_app.png --fastlanezip $CI_PROJECT_DIR/.kde-ci-packages/fastlane-org.kde.kid3.zip
     - python3 ci-notary-service/signapk.py -v --config $KDECI_SIGNAPK_CONFIG $CI_PROJECT_DIR/.kde-ci-packages/*.apk
     - python3 ci-notary-service/publishonfdroid.py -v --config $KDECI_PUBLISHONFDROID_CONFIG --fastlane $CI_PROJECT_DIR/.kde-ci-packages/fastlane-*.zip $CI_PROJECT_DIR/.kde-ci-packages/*.apk
 
