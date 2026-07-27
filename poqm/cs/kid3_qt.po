@@ -10,15 +10,15 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-05-19 21:40+0200\n"
+"PO-Revision-Date: 2026-07-26 11:55+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 26.04.1\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Poedit 3.9\n"
 "X-Language: cs\n"
 "X-Source-Language: en\n"
 "X-Qt-Contexts: true\n"
@@ -777,7 +777,7 @@ msgstr "F&iltrovat..."
 #: src/app/kde/kdemainwindow.cpp:300
 msgctxt "KdeMainWindow|"
 msgid "Filter"
-msgstr "Filtr..."
+msgstr "Filtr"
 
 #: src/app/kde/kdemainwindow.cpp:305
 msgctxt "KdeMainWindow|"
@@ -4044,7 +4044,7 @@ msgstr "Kódování t&extu:"
 #: src/gui/dialogs/configdialogpages.cpp:196
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
-msgstr " ID3v2"
+msgstr "ID3v2"
 
 #: src/gui/dialogs/configdialogpages.cpp:199
 msgctxt "ConfigDialogPages|"
@@ -4441,7 +4441,7 @@ msgstr "Sklad&by:"
 #: src/gui/dialogs/exportdialog.cpp:83
 msgctxt "ExportDialog|"
 msgid "F&ooter:"
-msgstr "Záp&atí"
+msgstr "Záp&atí:"
 
 #: src/gui/dialogs/exportdialog.cpp:91
 msgctxt "ExportDialog|"
@@ -4819,7 +4819,7 @@ msgstr "Obsah seznamu skladeb"
 #: src/gui/dialogs/playlistdialog.cpp:167
 msgctxt "PlaylistDialog|"
 msgid "For&mat:"
-msgstr "For&mát"
+msgstr "For&mát:"
 
 #: src/gui/dialogs/playlistdialog.cpp:171
 msgctxt "PlaylistDialog|"
