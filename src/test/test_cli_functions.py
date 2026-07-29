@@ -188,6 +188,10 @@ class CliFunctionsTestCase(unittest.TestCase):
             self._run_id3v1_tests()
 
     def test_id3v1_id3lib(self):
+        if sys.byteorder == 'big':
+            self.skipTest(
+                'id3lib MPEG header parsing is broken on big-endian '
+                'architectures (audio properties decoded incorrectly)')
         with Kid3ConfigFileUsingOnlyId3lib():
             self._run_id3v1_tests()
 
@@ -406,6 +410,10 @@ class CliFunctionsTestCase(unittest.TestCase):
                     self.assertEqual(ba, lrc_bytes)
 
     def test_id3v2_id3lib(self):
+        if sys.byteorder == 'big':
+            self.skipTest(
+                'id3lib MPEG header parsing is broken on big-endian '
+                'architectures (audio properties decoded incorrectly)')
         with Kid3ConfigFileUsingOnlyId3lib():
             self._run_id3v2_tests()
 
