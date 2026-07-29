@@ -154,15 +154,25 @@ void extractFileFieldIndex(
   dataFileName.clear();
   fieldName.clear();
   index = 0;
-  if (int colonIndex = frameName.indexOf(QLatin1Char(':')); colonIndex != -1) {
+  // On Windows, the probability of a dataFileName containing a ':' is high
+  // because of drive letters, so we keep using the first colon as the
+  // separator. On other systems, the last colon is used to make it possible to
+  // use colons inside the frame name by having a dummy colon at the end.
+  if (
+#ifdef Q_OS_WIN32
+    int colonIndex = frameName.indexOf(QLatin1Char(':'));
+#else
+    int colonIndex = frameName.lastIndexOf(QLatin1Char(':'));
+#endif
+    colonIndex != -1) {
     dataFileName = frameName.mid(colonIndex + 1);
     frameName.truncate(colonIndex);
   }
-  if (int dotIndex = frameName.indexOf(QLatin1Char('.')); dotIndex != -1) {
+  if (int dotIndex = frameName.lastIndexOf(QLatin1Char('.')); dotIndex != -1) {
     fieldName = frameName.mid(dotIndex + 1);
     frameName.truncate(dotIndex);
   }
-  if (int bracketIndex = frameName.indexOf(QLatin1Char('[')); bracketIndex != -1) {
+  if (int bracketIndex = frameName.lastIndexOf(QLatin1Char('[')); bracketIndex != -1) {
     if (const int closingBracketIndex =
           frameName.indexOf(QLatin1Char(']'), bracketIndex + 1);
         closingBracketIndex > bracketIndex) {
