@@ -1146,7 +1146,7 @@
           <li xml:lang="sk">Android: Zostavovanie s architektúrami arm64-v8a a x86_64.</li>
           <li xml:lang="sl">Android: Gradnja z arhitekturama arm64-v8a in x86_64.</li>
           <li xml:lang="sv">Android: Bygg med arkitekturerna arm64-v8a och x86_64.</li>
-          <li xml:lang="tr">Android: arm64-v8a ve x86_64 mimarîleri için yapı desteği</li>
+          <li xml:lang="tr">Android: arm64-v8a ve x86_64 mimârileri için yapı desteği</li>
           <li xml:lang="uk">Android: збирання з архітектурами arm64-v8a і x86_64.</li>
           <li>Android: Use MANAGE_EXTERNAL_STORAGE permission to manage all files on a storage device.</li>
           <li xml:lang="ar">أندرويد: استخدام إذن MANAGE_EXTERNAL_STORAGE لإدارة جميع الملفات على جهاز التخزين.</li>
