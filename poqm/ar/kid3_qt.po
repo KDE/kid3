@@ -99,7 +99,7 @@ msgstr "لم يُعثر على %1."
 #: src/app/cli/clicommand.cpp:582
 msgctxt "TagCommand|"
 msgid "Select tag"
-msgstr "اختر وسماً"
+msgstr "اختر وسمًا"
 
 #: src/app/cli/clicommand.cpp:599
 msgctxt "GetCommand|"
@@ -616,12 +616,12 @@ msgstr "حواري التفضيلات"
 #: src/app/kde/kdemainwindow.cpp:191
 msgctxt "KdeMainWindow|"
 msgid "O&pen Folder..."
-msgstr "ا&فتح مجلّداً..."
+msgstr "ا&فتح مجلّدًا..."
 
 #: src/app/kde/kdemainwindow.cpp:192
 msgctxt "KdeMainWindow|"
 msgid "Opens a folder"
-msgstr "يفتح مجلداً"
+msgstr "يفتح مجلدًا"
 
 #: src/app/kde/kdemainwindow.cpp:199
 msgctxt "KdeMainWindow|"
@@ -631,7 +631,7 @@ msgstr "أ&عد التحميل"
 #: src/app/kde/kdemainwindow.cpp:200
 msgctxt "KdeMainWindow|"
 msgid "Reload folder"
-msgstr "أعد تحميل مجلداً"
+msgstr "أعد تحميل مجلدًا"
 
 #: src/app/kde/kdemainwindow.cpp:211
 msgctxt "KdeMainWindow|"
@@ -1098,7 +1098,7 @@ msgstr "أل&غِ"
 #, qt-format
 msgctxt "ConfigDialog|"
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "عُين اختصار لوحة المفاتيح '%1' إلى '%2' فعلاً."
+msgstr "عُين اختصار لوحة المفاتيح '%1' إلى '%2' فعلًا."
 
 #: src/app/qt/kid3mainwindow.cpp:109
 msgctxt "Kid3MainWindow|"
@@ -1118,7 +1118,7 @@ msgstr "ا&فتح..."
 #: src/app/qt/kid3mainwindow.cpp:134
 msgctxt "Kid3MainWindow|"
 msgid "Opens a recently used folder"
-msgstr "تفتح المجلد المستخدم مؤخراً"
+msgstr "تفتح المجلد المستخدم مؤخرًا"
 
 #: src/app/qt/kid3mainwindow.cpp:135
 msgctxt "Kid3MainWindow|"
@@ -1128,17 +1128,17 @@ msgstr "افتح ال&حديثة"
 #: src/app/qt/kid3mainwindow.cpp:148
 msgctxt "Kid3MainWindow|"
 msgid "Opens a folder"
-msgstr "يفتح مجلداً"
+msgstr "يفتح مجلدًا"
 
 #: src/app/qt/kid3mainwindow.cpp:149
 msgctxt "Kid3MainWindow|"
 msgid "O&pen Folder..."
-msgstr "اف&تح مجلّداً..."
+msgstr "اف&تح مجلّدًا..."
 
 #: src/app/qt/kid3mainwindow.cpp:166
 msgctxt "Kid3MainWindow|"
 msgid "Reload folder"
-msgstr "أعد تحميل مجلداً"
+msgstr "أعد تحميل مجلدًا"
 
 #: src/app/qt/kid3mainwindow.cpp:167
 msgctxt "Kid3MainWindow|"
@@ -4049,7 +4049,7 @@ msgstr "أ&رقام رقم المقطوعة:"
 #: src/gui/dialogs/configdialogpages.cpp:206
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
-msgstr "ا&ستخدم النوع كنص بدلاً من سلسلة رقمية"
+msgstr "ا&ستخدم النوع كنص بدلًا من سلسلة رقمية"
 
 #: src/gui/dialogs/configdialogpages.cpp:208
 msgctxt "ConfigDialogPages|"
@@ -5359,7 +5359,7 @@ msgstr "انقل إلى المهملات"
 #: src/gui/forms/basemainwindow.cpp:1656
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
-msgstr "المجلد يجب أن يكون فارغاً.\n"
+msgstr "المجلد يجب أن يكون فارغًا.\n"
 
 #: src/gui/forms/basemainwindow.cpp:1657
 msgctxt "BaseMainWindowImpl|"
@@ -5651,7 +5651,7 @@ msgstr "أ&ضف"
 #: src/gui/widgets/configtable.cpp:141
 msgctxt "ConfigTable|"
 msgid "&Insert row"
-msgstr "أدرِج &صفاً"
+msgstr "أدرِج &صفًا"
 
 #: src/gui/widgets/configtable.cpp:145
 msgctxt "ConfigTable|"
@@ -5918,7 +5918,7 @@ msgstr "ملي ثانية"
 #: src/gui/widgets/timeeventeditor.cpp:468
 msgctxt "TimeEventEditor|"
 msgid "&Insert row"
-msgstr "أدرِج &صفاً"
+msgstr "أدرِج &صفًا"
 
 #: src/gui/widgets/timeeventeditor.cpp:471
 msgctxt "TimeEventEditor|"
@@ -7143,7 +7143,7 @@ msgstr "استخدم تنسيق رقم المسار/العدد الإجمالي 
 #: src/qml/app/SettingsPage.qml:70
 msgctxt "SettingsPage|"
 msgid "Genre as text instead of numeric string"
-msgstr "استخدم النوع كنص بدلاً من سلسلة رقمية"
+msgstr "استخدم النوع كنص بدلًا من سلسلة رقمية"
 
 #: src/qml/app/SettingsPage.qml:75
 msgctxt "SettingsPage|"
