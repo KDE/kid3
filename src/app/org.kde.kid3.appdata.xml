@@ -234,7 +234,7 @@
       Kid3 uses the KDE Frameworks. Users of other desktop environments may
       prefer Kid3-qt instead, which is without KDE dependencies.
     </p>
-    <p xml:lang="ar">يستخدم كيد3 أطر عمل كيدي. قد يفضل مستخدمو بيئات سطح المكتب الأخرى استخدام كيد3-كيو تي بدلاً من ذلك، والذي لا يعتمد على كيدي.</p>
+    <p xml:lang="ar">يستخدم كيد3 أطر عمل كيدي. قد يفضل مستخدمو بيئات سطح المكتب الأخرى استخدام كيد3-كيو تي بدلًا من ذلك، والذي لا يعتمد على كيدي.</p>
     <p xml:lang="ca">El Kid3 utilitza els Frameworks de KDE. Els usuaris d'altres entorns d'escriptori poden preferir el Kid3-qt, que no té dependències de KDE.</p>
     <p xml:lang="ca-valencia">Kid3 utilitza els Frameworks de KDE. Els usuaris d'altres entorns d'escriptori poden preferir Kid3-qt, el qual no té dependències de KDE.</p>
     <p xml:lang="cs">Kid3 využívá knihovny KDE Frameworks. Uživatelé jiných grafických prostředí mohou dát přednost verzi Kid3-qt, která není závislá na KDE.</p>
@@ -452,7 +452,7 @@
           <li xml:lang="tr">Matroska ve WebM dosyaları desteği</li>
           <li xml:lang="uk">Підтримка файлів Matroska і WebM.</li>
           <li>MP4: Support both QuickTime and Nero Chapters, also with TagLib.</li>
-          <li xml:lang="ar">MP4: ادعم كلاً من QuickTime وفصول Nero، بالإضافة إلى TagLib.</li>
+          <li xml:lang="ar">MP4: ادعم كلًا من QuickTime وفصول Nero، بالإضافة إلى TagLib.</li>
           <li xml:lang="ca">MP4: permet tant capítols QuickTime com Nero, també amb TagLib.</li>
           <li xml:lang="ca-valencia">MP4: permet tant capítols QuickTime com Nero, també amb TagLib.</li>
           <li xml:lang="cs">MP4: Podporuje kapitoly QuickTime i Nero, a to i s TagLib.</li>
