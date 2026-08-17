@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-05-09 14:35+0200\n"
+"PO-Revision-Date: 2026-08-14 18:47+0200\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 25.12.3\n"
+"X-Generator: Lokalize 26.04.3\n"
 "X-Qt-Contexts: true\n"
 
 #: src/app/cli/clicommand.cpp:345
@@ -60,7 +60,7 @@ msgstr "Der aktuelle Ordner wurde verändert."
 #: src/app/cli/clicommand.cpp:452
 msgctxt "QuitCommand|"
 msgid "Type 'exit force' to quit."
-msgstr "Geben Sie 'exit force' ein, um das Programm zu beenden."
+msgstr "Geben Sie „exit force“ ein, um das Programm zu beenden."
 
 #: src/app/cli/clicommand.cpp:468
 msgctxt "CdCommand|"
@@ -365,7 +365,7 @@ msgstr "Konnte nicht ausführen "
 #, qt-format
 msgctxt "JsonCliFormatter|"
 msgid "Unknown command '%1'"
-msgstr "Unbekannter Befehl '%1'"
+msgstr "Unbekannter Befehl „%1“"
 
 #: src/app/cli/jsoncliformatter.cpp:207
 msgctxt "JsonCliFormatter|"
@@ -437,13 +437,13 @@ msgstr "Fehler während des Schreibens in Datei:\n"
 #, qt-format
 msgctxt "Kid3Cli|"
 msgid "Unknown command '%1', -h for help."
-msgstr "Unbekannter Befehl '%1', -h für Hilfe."
+msgstr "Unbekannter Befehl „%1“, -h für Hilfe."
 
 #: src/app/cli/textcliformatter.cpp:181 src/app/cli/textcliformatter.cpp:184
 #, qt-format
 msgctxt "TextCliFormatter|"
 msgid "Unknown command '%1'. Type 'help' for help."
-msgstr "Unbekannter Befehl '%1'. Geben Sie 'help' ein für Hilfe."
+msgstr "Unbekannter Befehl „%1“. Geben Sie „help“ ein, um Hilfe zu erhalten."
 
 #: src/app/cli/textcliformatter.cpp:204
 msgctxt "TextCliFormatter|"
@@ -1106,7 +1106,7 @@ msgstr "&Abbrechen"
 #, qt-format
 msgctxt "ConfigDialog|"
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
-msgstr "Die Tastaturbelegung '%1' ist bereits vergeben für '%2'."
+msgstr "Der Kurzbefehl „%1“ ist bereits vergeben für „%2“."
 
 #: src/app/qt/kid3mainwindow.cpp:109
 msgctxt "Kid3MainWindow|"
@@ -3293,7 +3293,7 @@ msgstr "Organisation"
 #: src/core/tags/frame.cpp:289
 msgctxt "@default|"
 msgid "Part Number"
-msgstr "Artikelnummer"
+msgstr "Teilnummer"
 
 #: src/core/tags/frame.cpp:290
 msgctxt "@default|"
@@ -3341,12 +3341,9 @@ msgid "Synopsis"
 msgstr "Übersicht"
 
 #: src/core/tags/frame.cpp:306
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "Anzahl Stücke"
+msgstr "Gesamtzahl Teile"
 
 #: src/core/tags/frame.cpp:309
 msgctxt "@default|"
@@ -3671,7 +3668,7 @@ msgstr "Muss eine ISRC Kennung sein, 12 Zeichen"
 #: src/core/tags/framenotice.cpp:201
 msgctxt "@default|"
 msgid "Must be list of strings separated by '|'"
-msgstr "Muss eine Liste von Zeichenfolgen sein, getrennt durch '|'"
+msgstr "Muss eine Liste von Zeichenfolgen sein, getrennt durch „|“"
 
 #: src/core/tags/framenotice.cpp:202
 msgctxt "@default|"
@@ -4123,7 +4120,7 @@ msgstr "Kompakt"
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
-msgstr ""
+msgstr "Nicht schrumpfen"
 
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
