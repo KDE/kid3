@@ -697,6 +697,47 @@ bool parseJsonAlbumResults(const QJsonObject& map,
   return titleFound;
 }
 
+/**
+ * Extract a JSON object from a string in an HTML script element.
+ *
+ * @param data HTML data
+ * @param key name of object key which must be contained in JSON
+ * @return JSON document if found, else null.
+ */
+QJsonDocument extractJsonFromScriptElement(const QByteArray& data, const QByteArray& key)
+{
+  // All quotes and backslashes inside the string are escaped.
+  QByteArray escapedStart = QByteArray(R"(\")") + key + R"(\":{)";
+  if (auto jsonStart = data.indexOf(escapedStart);
+      jsonStart > 0 &&
+      (jsonStart = data.lastIndexOf('{', jsonStart - 1)) >= 0) {
+    auto pos = jsonStart;
+    while ((pos = data.indexOf('"', pos + 1)) > 0 && data.at(pos - 1) == '\\') {}
+    if (pos > jsonStart) {
+      // pos is at the end of the string, jsonStr is the unescaped JSON string
+      // containing the key to the end of the string, therefore containing
+      // garbage after the end of the JSON object.
+      auto jsonStr = data.mid(jsonStart, pos)
+        .replace("\\\"", "\"")
+        .replace("\\\\", "\\");
+      pos = jsonStr.length();
+      while ((pos = jsonStr.lastIndexOf('}', pos - 1)) > 0) {
+        QJsonParseError err;
+        if (auto doc = QJsonDocument::fromJson(jsonStr.left(pos + 1), &err);
+            !doc.isNull() && doc.isObject()) {
+          return doc;
+        }
+        // The garbage at end error contains the exact end position, so we
+        // only need another round to parse the correct JSON object.
+        if (err.error == QJsonParseError::GarbageAtEnd && err.offset > 0 && err.offset < pos) {
+          pos = err.offset;
+        }
+      }
+    }
+  }
+  return {};
+}
+
 }
 
 
@@ -771,72 +812,62 @@ DiscogsImporter::HtmlImpl::~HtmlImpl()
 
 void DiscogsImporter::HtmlImpl::parseFindResults(const QByteArray& searchStr)
 {
-  if (auto jsonStart = searchStr.indexOf(R"({\"searchResults\":{)");
-      jsonStart >= 0) {
-    if (auto jsonEnd = searchStr.indexOf("</script>", jsonStart);
-        (jsonEnd = searchStr.lastIndexOf("}],", jsonEnd)) > jsonStart) {
-      ++jsonEnd;
-      // We have JSON data inside the HTML output, if it is usable, we do not
-      // have to parse the HTML output.
-      QByteArray jsonStr = searchStr.mid(jsonStart, jsonEnd - jsonStart)
-        .replace("\\\"", "\"")
-        .replace("\\\\", "\\");
-      QJsonParseError err;
-      if (auto doc = QJsonDocument::fromJson(jsonStr, &err);
-          !doc.isNull() && doc.isObject()) {
-        albumListModel()->clear();
-        if (const auto searchResultsValue = doc.object().value(QLatin1String("searchResults"));
-            searchResultsValue.isObject()) {
-          const auto searchResults = searchResultsValue.toObject();
-          if (const auto resultsValue = searchResults.value(QLatin1String("results"));
-              resultsValue.isArray()) {
-            const auto results = resultsValue.toArray();
-            for (const auto& resultValue : results) {
-              const auto result = resultValue.toObject().value(QLatin1String("result")).toObject();
-              if (QString title = fixUpArtist(result.value(QLatin1String("title")).toString());
-                  !title.isEmpty()) {
-                if (QString released = result.value(QLatin1String("released")).toString().trimmed();
-                    !released.isEmpty()) {
-                  title += QLatin1String(" (") + released + QLatin1Char(')');
+  QJsonDocument doc = extractJsonFromScriptElement(searchStr, "searchResults");
+  if (!doc.isNull()) {
+    albumListModel()->clear();
+    if (const auto searchResultsValue = doc.object().value(QLatin1String("searchResults"));
+        searchResultsValue.isObject()) {
+      const auto searchResults = searchResultsValue.toObject();
+      if (const auto resultsValue = searchResults.value(QLatin1String("results"));
+          resultsValue.isArray()) {
+        const auto results = resultsValue.toArray();
+        for (const auto& resultValue : results) {
+          const auto result = resultValue.toObject().value(QLatin1String("result")).toObject();
+          if (QString title = fixUpArtist(result.value(QLatin1String("title")).toString());
+              !title.isEmpty()) {
+            if (QString released = result.value(QLatin1String("released")).toString().trimmed();
+                !released.isEmpty()) {
+              title += QLatin1String(" (") + released + QLatin1Char(')');
+            }
+            if (const auto fmts = result.value(QLatin1String("formats")).toArray();
+                !fmts.isEmpty()) {
+              QStringList formats;
+              for (const auto fmt : fmts) {
+                if (const auto formatName =
+                      fmt.toObject().value(QLatin1String("name")).toString();
+                    !formatName.isEmpty()) {
+                  formats.append(formatName);
                 }
-                if (const auto fmts = result.value(QLatin1String("formats")).toArray();
-                    !fmts.isEmpty()) {
-                  QStringList formats;
-                  for (const auto fmt : fmts) {
-                    if (const auto formatName =
-                          fmt.toObject().value(QLatin1String("name")).toString();
-                        !formatName.isEmpty()) {
-                      formats.append(formatName);
-                    }
-                  }
-                  if (!formats.isEmpty()) {
-                    title += QLatin1String(" [") +
-                        formats.join(QLatin1String(", ")) +
-                        QLatin1Char(']');
-                  }
-                }
-                if (QString siteUrl = result.value(QLatin1String("siteUrl")).toString().trimmed();
-                    !siteUrl.isEmpty()) {
-                  // siteUrl has the format "/release/9731183-Amon-Amarth-The-Avenger"
-                  if (const auto siteUrlParts = siteUrl.split(QLatin1Char('/'));
-                      siteUrlParts.size() >= 3) {
-                    albumListModel()->appendItem(
-                      title,
-                      siteUrlParts.at(1),
-                      siteUrlParts.at(2));
-                  }
-                }
+              }
+              if (!formats.isEmpty()) {
+                title += QLatin1String(" [") +
+                    formats.join(QLatin1String(", ")) +
+                    QLatin1Char(']');
+              }
+            }
+            if (const auto artists = result.value(QLatin1String("primaryArtists")).toArray();
+                !artists.isEmpty()) {
+              if (const auto artist = fixUpArtist(artists.first().toObject().value(QLatin1String("displayName")).toString());
+                  !artist.isEmpty()) {
+                title.prepend(artist + QLatin1String(" - "));
+              }
+            }
+            if (QString siteUrl = result.value(QLatin1String("siteUrl")).toString().trimmed();
+                !siteUrl.isEmpty()) {
+              // siteUrl has the format "/release/9731183-Amon-Amarth-The-Avenger"
+              if (const auto siteUrlParts = siteUrl.split(QLatin1Char('/'));
+                  siteUrlParts.size() >= 3) {
+                albumListModel()->appendItem(
+                  title,
+                  siteUrlParts.at(1),
+                  siteUrlParts.at(2));
               }
             }
           }
         }
-        return;
       }
-      qDebug("Error parsing JSON: %s", qPrintable(err.errorString()));
-      qDebug("...%s***%s...",
-        jsonStr.mid(err.offset - 50, 50).constData(),
-        jsonStr.mid(err.offset, 50).constData());
     }
+    return;
   }
 
   QString str = QString::fromUtf8(searchStr);
