@@ -35,8 +35,9 @@
 <abstract>
 <para>
 &kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
-an efficient way. Also tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
-TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules (MOD, S3M, IT, XM) are supported.
+an efficient way. Also tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC,
+MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and tracker
+modules (MOD, S3M, IT, XM) are supported.
 It is easy to set tags of multiple files to the same
 values (<abbrev>e.g.</abbrev> album, artist, year and genre in all files of the same album) and
 generate the tags from the file name or vice versa.
@@ -71,6 +72,8 @@ generate the tags from the file name or vice versa.
 <keyword>XM</keyword>
 <keyword>Opus</keyword>
 <keyword>DSF</keyword>
+<keyword>Matroska</keyword>
+<keyword>WebM</keyword>
 </keywordset>
 
 </bookinfo>
@@ -209,7 +212,7 @@ commands.</para></listitem>
 &kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in
 an efficient way. These tags can be edited by most MP3 players, but not in
 a very comfortable and efficient way. Moreover the tags in Ogg/Vorbis, Opus, DSF, FLAC,
-MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and
+MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and
 tracker modules (MOD, S3M, IT, XM) are supported too.
 </para>
 <para>
@@ -254,8 +257,8 @@ Please report any problems or feature requests to the author.
 <listitem><para>Edit all ID3v2.3 and ID3v2.4 frames</para></listitem>
 <listitem><para>Edit tags of multiple files</para></listitem>
 <listitem><para>Convert between ID3v1 and ID3v2 tags</para></listitem>
-<listitem><para>Edit MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex,
-TrueAudio, WavPack, WMA, WAV and AIFF tags</para></listitem>
+<listitem><para>Edit MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2,
+Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV and AIFF tags</para></listitem>
 <listitem><para>Generate tags from filename</para></listitem>
 <listitem><para>Generate tags from the contents of tag fields</para></listitem>
 <listitem><para>Generate filename from tags</para></listitem>
@@ -373,8 +376,10 @@ other tag
 <para>
 The file list contains the names of all the files in the opened
 folder which match the selected file name filter (typically
-<filename class="extension">*.mp3 *.ogg *.opus *.dsf *.flac *.mpc *.aac *.m4a
-*.m4b *.m4p *.mp4 *.mp2 *.spx *.tta *.wv *.wma *.wav *.aiff *.ape</filename>).
+<filename class="extension">*.3g2 *.aac *.afc *.aif *.aifc *.aiff *.ape *.asf
+*.dff *.dsdiff *.dff *.flac *.it *.m4a *.m4b *.m4p *.m4r *.m4v *.mka *.mkv *.mod
+*.module *.mp2 *.mp3 *.mp4 *.mp4v *.mpc *.nst *.oga *.ogg *.opus *.s3n *.shn
+*.spx *.tta *.wav *.webm *.wma *.wmv *.wow *.wv *.xm</filename>).
 A single or multiple files can be selected. To select no file, click into the
 empty area after the listbox entries. The selection determines the files which
 are affected by the operations which are available by using the buttons described
@@ -510,7 +515,8 @@ section about the <link linkend="file-list">file list</link>.
 
 <para>
 Shows information about the encoding
-(MP3, Ogg, Opus, DSF, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF),
+(MP3, Ogg, Opus, DSF, DFF, FLAC, MPC, APE, Matroska, Webm, MP2, MP4, AAC, Speex,
+TrueAudio, WavPack, ASF, WAV, AIFF, IT, Mod, S3M, XM, SHN),
 bit rate, sample rate, channels and the length of the file.
 </para>
 <para>
@@ -3519,8 +3525,8 @@ required, for FLAC files <ulink url="http://flac.sourceforge.net">libFLAC++
 and libFLAC</ulink>.
 These formats are also supported by
 <ulink url="http://taglib.github.io/">TagLib</ulink>,
-which can also handle Opus, MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF
-files and tracker modules.
+which can also handle Opus, MPC, APE, MP2, MP3, MP4, AAC, Speex, TrueAudio,
+WavPack, WMA, WAV, AIFF, Matroska/WebM, SHN, DSF, DFF files and tracker modules.
 To import from acoustic fingerprints,
 <ulink url="http://acoustid.org/chromaprint">Chromaprint</ulink>
 and <ulink url="http://libav.org/">libav</ulink> are used.
