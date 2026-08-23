@@ -2399,17 +2399,17 @@ msgctxt "FrameTableModel|"
 msgid "Data"
 msgstr "Data"
 
-#: src/core/model/kid3application.cpp:1053
+#: src/core/model/kid3application.cpp:1063
 msgctxt "Kid3Application|"
 msgid "Saving folder..."
 msgstr "Saving folder..."
 
-#: src/core/model/kid3application.cpp:1259
+#: src/core/model/kid3application.cpp:1269
 msgctxt "Kid3Application|"
 msgid "Selection"
 msgstr "Selection"
 
-#: src/core/model/kid3application.cpp:3471
+#: src/core/model/kid3application.cpp:3481
 msgctxt "Kid3Application|"
 msgid "All Files"
 msgstr "All Files"
@@ -6017,7 +6017,7 @@ msgctxt "@default|"
 msgid "Amazon"
 msgstr "Amazon"
 
-#: src/plugins/discogsimport/discogsimporter.cpp:1529
+#: src/plugins/discogsimport/discogsimporter.cpp:1560
 msgctxt "@default|"
 msgid "Discogs"
 msgstr "Discogs"
