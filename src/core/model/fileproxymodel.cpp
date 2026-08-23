@@ -642,83 +642,6 @@ QString FileProxyModel::getPathIfIndexOfDir(const QModelIndex& index) {
 }
 
 /**
- * Read tagged file with ID3v2.4.0.
- *
- * @param taggedFile tagged file
- *
- * @return tagged file (can be newly created tagged file).
- */
-TaggedFile* FileProxyModel::readWithId3V24(TaggedFile* taggedFile)
-{
-  const QPersistentModelIndex& index = taggedFile->getIndex();
-  if (TaggedFile* tagLibFile = TaggedFileSystemModel::createTaggedFile(
-          TaggedFile::TF_ID3v24, taggedFile->getFilename(), index)) {
-    if (index.isValid()) {
-      QVariant data;
-      data.setValue(tagLibFile);
-      // setData() will not invalidate the model, so this should be safe.
-      if (auto setDataModel = const_cast<QAbstractItemModel*>(
-            index.model())) {
-        setDataModel->setData(index, data, TaggedFileSystemModel::TaggedFileRole);
-      }
-    }
-    taggedFile = tagLibFile;
-    taggedFile->readTags(false);
-  }
-  return taggedFile;
-}
-/**
- * Read tagged file with ID3v2.3.0.
- *
- * @param taggedFile tagged file
- *
- * @return tagged file (can be newly created tagged file).
- */
-TaggedFile* FileProxyModel::readWithId3V23(TaggedFile* taggedFile)
-{
-  const QPersistentModelIndex& index = taggedFile->getIndex();
-  if (TaggedFile* id3libFile = TaggedFileSystemModel::createTaggedFile(
-          TaggedFile::TF_ID3v23, taggedFile->getFilename(), index)) {
-    if (index.isValid()) {
-      QVariant data;
-      data.setValue(id3libFile);
-      // setData() will not invalidate the model, so this should be safe.
-      if (auto setDataModel = const_cast<QAbstractItemModel*>(index.model())) {
-        setDataModel->setData(index, data, TaggedFileSystemModel::TaggedFileRole);
-      }
-    }
-    taggedFile = id3libFile;
-    taggedFile->readTags(false);
-  }
-  return taggedFile;
-}
-
-/**
- * Read file with ID3v2.4 if it has an ID3v2.4 or ID3v2.2 tag.
- * ID3v2.2 files are also read with ID3v2.4 because id3lib corrupts
- * images in ID3v2.2 tags.
- *
- * @param taggedFile tagged file
- *
- * @return tagged file (can be new TagLibFile).
- */
-TaggedFile* FileProxyModel::readWithId3V24IfId3V24(TaggedFile* taggedFile)
-{
-  if (taggedFile &&
-      (taggedFile->taggedFileFeatures() &
-       (TaggedFile::TF_ID3v23 | TaggedFile::TF_ID3v24)) ==
-        TaggedFile::TF_ID3v23 &&
-      !taggedFile->isChanged() &&
-      taggedFile->isTagInformationRead() && taggedFile->hasTag(Frame::Tag_Id3v2)) {
-    if (QString id3v2Version = taggedFile->getTagFormat(Frame::Tag_Id3v2);
-        id3v2Version.isNull() || id3v2Version == QLatin1String("ID3v2.2.0")) {
-      taggedFile = readWithId3V24(taggedFile);
-    }
-  }
-  return taggedFile;
-}
-
-/**
  * Read tagged file with Ogg FLAC.
  *
  * @param taggedFile tagged file
@@ -780,7 +703,6 @@ TaggedFile* FileProxyModel::readWithOggFlacIfInvalidOgg(TaggedFile* taggedFile)
 TaggedFile* FileProxyModel::readTagsFromTaggedFile(TaggedFile* taggedFile)
 {
   taggedFile->readTags(false);
-  taggedFile = readWithId3V24IfId3V24(taggedFile);
   taggedFile = readWithOggFlacIfInvalidOgg(taggedFile);
   return taggedFile;
 }

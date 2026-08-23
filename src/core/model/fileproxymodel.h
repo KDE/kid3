@@ -261,35 +261,6 @@ public:
   static QString getPathIfIndexOfDir(const QModelIndex& index);
 
   /**
-   * Read tagged file with ID3v2.4.0.
-   *
-   * @param taggedFile tagged file
-   *
-   * @return tagged file (can be newly created tagged file).
-   */
-  static TaggedFile* readWithId3V24(TaggedFile* taggedFile);
-
-  /**
-   * Read tagged file with ID3v2.3.0.
-   *
-   * @param taggedFile tagged file
-   *
-   * @return tagged file (can be newly created tagged file).
-   */
-  static TaggedFile* readWithId3V23(TaggedFile* taggedFile);
-
-  /**
-   * Read file with ID3v2.4 if it has an ID3v2.4 or ID3v2.2 tag.
-   * ID3v2.2 files are also read with ID3v2.4 because id3lib corrupts
-   * images in ID3v2.2 tags.
-   *
-   * @param taggedFile tagged file
-   *
-   * @return tagged file (can be new TagLibFile).
-   */
-  static TaggedFile* readWithId3V24IfId3V24(TaggedFile* taggedFile);
-
-  /**
    * Read tagged file with Ogg FLAC.
    *
    * @param taggedFile tagged file

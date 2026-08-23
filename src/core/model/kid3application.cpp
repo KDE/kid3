@@ -3511,25 +3511,6 @@ void Kid3Application::convertToId3v24()
       if (QString tagFmt = taggedFile->getTagFormat(Frame::Tag_Id3v2);
           tagFmt.length() >= 7 && tagFmt.startsWith(QLatin1String("ID3v2.")) &&
           tagFmt[6] < QLatin1Char('4')) {
-        if ((taggedFile->taggedFileFeatures() &
-             (TaggedFile::TF_ID3v23 | TaggedFile::TF_ID3v24)) ==
-              TaggedFile::TF_ID3v23) {
-          FrameCollection frames;
-          taggedFile->getAllFrames(Frame::Tag_Id3v2, frames);
-          FrameFilter flt;
-          flt.enableAll();
-          taggedFile->deleteFrames(Frame::Tag_Id3v2, flt);
-
-          // The file has to be reread to write ID3v2.4 tags
-          taggedFile = FileProxyModel::readWithId3V24(taggedFile);
-
-          // Restore the frames
-          FrameFilter frameFlt;
-          frameFlt.enableAll();
-          taggedFile->setFrames(Frame::Tag_Id3v2,
-                                frames.copyEnabledFrames(frameFlt), false);
-        }
-
         // Write the file with ID3v2.4 tags
         bool renamed;
         int storedFeatures = taggedFile->activeTaggedFileFeatures();
@@ -3564,23 +3545,6 @@ void Kid3Application::convertToId3v23()
           (ext == QLatin1String(".mp3") || ext == QLatin1String(".mp2") ||
            ext == QLatin1String(".aac") || ext == QLatin1String(".wav") ||
            ext == QLatin1String(".dsf") || ext == QLatin1String(".dff"))) {
-        if (!(taggedFile->taggedFileFeatures() & TaggedFile::TF_ID3v23)) {
-          FrameCollection frames;
-          taggedFile->getAllFrames(Frame::Tag_Id3v2, frames);
-          FrameFilter flt;
-          flt.enableAll();
-          taggedFile->deleteFrames(Frame::Tag_Id3v2, flt);
-
-          // The file has to be reread to write ID3v2.3 tags
-          taggedFile = FileProxyModel::readWithId3V23(taggedFile);
-
-          // Restore the frames
-          FrameFilter frameFlt;
-          frameFlt.enableAll();
-          taggedFile->setFrames(Frame::Tag_Id3v2,
-                                frames.copyEnabledFrames(frameFlt), false);
-        }
-
         // Write the file with ID3v2.3 tags
         bool renamed;
         int storedFeatures = taggedFile->activeTaggedFileFeatures();
