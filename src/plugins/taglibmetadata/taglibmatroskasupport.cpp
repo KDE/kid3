@@ -198,7 +198,7 @@ void matroskaPictureToFrame(
   const QString& fileName = toQString(attachedFile.fileName());
   const QString& uid = QString::number(attachedFile.uid());
   PictureFrame::setFields(
-    frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), mediaType,
+    frame, Frame::TE_ISO8859_1, mediaType,
     PictureFrame::PT_CoverFront, description, data);
   frame.fieldList().append({Frame::ID_Filename, fileName});
   frame.fieldList().append({Frame::ID_AttachmentId, uid});
@@ -209,8 +209,8 @@ TagLib::Matroska::AttachedFile frameToMatroskaPicture(const Frame& frame)
   Frame::TextEncoding enc;
   PictureFrame::PictureType pictureType;
   QByteArray data;
-  QString imgFormat, mimeType, description;
-  PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
+  QString mimeType, description;
+  PictureFrame::getFields(frame, enc, mimeType, pictureType,
                           description, data);
   const QString fileName = Frame::getField(frame, Frame::ID_Filename).toString();
   const qulonglong uid = Frame::getField(frame, Frame::ID_AttachmentId).toULongLong();

@@ -58,7 +58,7 @@ void flacPictureToFrame(const TagLib::FLAC::Picture* pic, Frame& frame)
         pic->width(), pic->height(), pic->colorDepth(),
         pic->numColors(), ba);
   PictureFrame::setFields(
-    frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), toQString(pic->mimeType()),
+    frame, Frame::TE_ISO8859_1, toQString(pic->mimeType()),
     static_cast<PictureFrame::PictureType>(pic->type()),
     toQString(pic->description()),
     ba, &imgProps);
@@ -73,13 +73,12 @@ void flacPictureToFrame(const TagLib::FLAC::Picture* pic, Frame& frame)
 void frameToFlacPicture(const Frame& frame, TagLib::FLAC::Picture* pic)
 {
   Frame::TextEncoding enc;
-  QString imgFormat;
   QString mimeType;
   PictureFrame::PictureType pictureType;
   QString description;
   QByteArray data;
   PictureFrame::ImageProperties imgProps;
-  PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
+  PictureFrame::getFields(frame, enc, mimeType, pictureType,
                           description, data, &imgProps);
   pic->setType(static_cast<TagLib::FLAC::Picture::Type>(pictureType));
   pic->setMimeType(toTString(mimeType));
@@ -456,7 +455,7 @@ bool TagLibVorbisSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame&
     if (frame.getType() == Frame::FT_Picture) {
       if (frame.getFieldList().empty()) {
         PictureFrame::setFields(
-          frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), QLatin1String("image/jpeg"),
+          frame, Frame::TE_ISO8859_1, QLatin1String("image/jpeg"),
           PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
       }
       if (f.m_extraFrames[tagNr].isRead()) {

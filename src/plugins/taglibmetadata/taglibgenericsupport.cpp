@@ -154,7 +154,7 @@ void propertyPictureToFrame(const TagLib::VariantMap& property, Frame& frame)
       ba)
     : PictureFrame::ImageProperties();
   PictureFrame::setFields(
-    frame, Frame::TE_ISO8859_1, QLatin1String("JPG"), toQString(mimeType),
+    frame, Frame::TE_ISO8859_1, toQString(mimeType),
     PictureFrame::getPictureTypeFromString(pictureType.toCString()),
     toQString(description), ba, hasImgProps ? &imgProps : nullptr);
 }
@@ -162,13 +162,12 @@ void propertyPictureToFrame(const TagLib::VariantMap& property, Frame& frame)
 void frameToPropertyPicture(const Frame& frame, TagLib::VariantMap* property)
 {
   Frame::TextEncoding enc;
-  QString imgFormat;
   QString mimeType;
   PictureFrame::PictureType pictureType;
   QString description;
   QByteArray data;
   PictureFrame::ImageProperties imgProps;
-  PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
+  PictureFrame::getFields(frame, enc, mimeType, pictureType,
                           description, data, &imgProps);
   property->insert("mimeType", toTString(mimeType));
   property->insert("pictureType",
@@ -316,7 +315,7 @@ bool TagLibGenericSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame
       if (f.m_extraFrames[tagNr].isRead()) {
         if (frame.getFieldList().isEmpty()) {
           PictureFrame::setFields(
-            frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
+            frame, Frame::TE_ISO8859_1,
             QLatin1String("image/jpeg"), PictureFrame::PT_CoverFront, QLatin1String(""),
             QByteArray());
         }

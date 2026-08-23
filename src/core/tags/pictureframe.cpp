@@ -189,18 +189,16 @@ bool PictureFrame::ImageProperties::loadFromData(const QByteArray& data)
  * @param pictureType picture type
  * @param mimeType    MIME type
  * @param enc         text encoding
- * @param imgFormat   image format
  */
 PictureFrame::PictureFrame(
   const QByteArray& data,
   const QString& description,
   PictureType pictureType,
   const QString& mimeType,
-  TextEncoding enc,
-  const QString& imgFormat)
+  TextEncoding enc)
 {
   setType(FT_Picture);
-  setFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
+  setFields(*this, enc, mimeType, pictureType, description, data);
 }
 
 /**
@@ -216,10 +214,10 @@ PictureFrame::PictureFrame(const Frame& frame)
   // Make sure all fields are available in the correct order
   TextEncoding enc = TE_ISO8859_1;
   PictureType pictureType = PT_CoverFront;
-  QString imgFormat(QLatin1String("JPG")), mimeType(QLatin1String("image/jpeg")), description;
+  QString mimeType(QLatin1String("image/jpeg")), description;
   QByteArray data;
-  getFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
-  setFields(*this, enc, imgFormat, mimeType, pictureType, description, data);
+  getFields(*this, enc, mimeType, pictureType, description, data);
+  setFields(*this, enc, mimeType, pictureType, description, data);
 }
 
 /**
@@ -227,7 +225,6 @@ PictureFrame::PictureFrame(const Frame& frame)
  *
  * @param frame       frame to set
  * @param enc         text encoding
- * @param imgFormat   image format
  * @param mimeType    MIME type
  * @param pictureType picture type
  * @param description description
@@ -235,7 +232,7 @@ PictureFrame::PictureFrame(const Frame& frame)
  * @param imgProps    optional METADATA_BLOCK_PICTURE image properties
  */
 void PictureFrame::setFields(Frame& frame,
-                             TextEncoding enc, const QString& imgFormat,
+                             TextEncoding enc,
                              const QString& mimeType, PictureType pictureType,
                              const QString& description, const QByteArray& data,
                              const ImageProperties* imgProps)
@@ -246,10 +243,6 @@ void PictureFrame::setFields(Frame& frame,
 
   field.m_id = ID_TextEnc;
   field.m_value = enc;
-  fields.push_back(field);
-
-  field.m_id = ID_ImageFormat;
-  field.m_value = imgFormat;
   fields.push_back(field);
 
   field.m_id = ID_MimeType;
@@ -324,7 +317,6 @@ void PictureFrame::setGeobFields(
  *
  * @param frame       frame to get
  * @param enc         text encoding
- * @param imgFormat   image format
  * @param mimeType    MIME type
  * @param pictureType picture type
  * @param description description
@@ -332,7 +324,7 @@ void PictureFrame::setGeobFields(
  * @param imgProps    optional METADATA_BLOCK_PICTURE image properties
  */
 void PictureFrame::getFields(const Frame& frame,
-                             TextEncoding& enc, QString& imgFormat,
+                             TextEncoding& enc,
                              QString& mimeType, PictureType& pictureType,
                              QString& description, QByteArray& data,
                              ImageProperties* imgProps)
@@ -343,9 +335,6 @@ void PictureFrame::getFields(const Frame& frame,
     switch (it->m_id) {
       case ID_TextEnc:
         enc = static_cast<TextEncoding>(it->m_value.toInt());
-        break;
-      case ID_ImageFormat:
-        imgFormat = it->m_value.toString();
         break;
       case ID_MimeType:
         mimeType = it->m_value.toString();
@@ -379,16 +368,15 @@ void PictureFrame::getFields(const Frame& frame,
 bool PictureFrame::areFieldsEqual(const Frame& f1, const Frame& f2)
 {
   TextEncoding enc1, enc2;
-  QString imgFormat1, imgFormat2;
   QString mimeType1, mimeType2;
   PictureType pictureType1, pictureType2;
   QString description1, description2;
   QByteArray data1, data2;
-  getFields(f1, enc1, imgFormat1, mimeType1, pictureType1, description1, data1);
-  getFields(f2, enc2, imgFormat2, mimeType2, pictureType2, description2, data2);
+  getFields(f1, enc1, mimeType1, pictureType1, description1, data1);
+  getFields(f2, enc2, mimeType2, pictureType2, description2, data2);
   return data1 == data2 && description1 == description2 &&
          mimeType1 == mimeType2 && pictureType1 == pictureType2 &&
-         imgFormat1 == imgFormat2 && enc1 == enc2;
+         enc1 == enc2;
 }
 
 /**
@@ -416,36 +404,6 @@ bool PictureFrame::getTextEncoding(const Frame& frame, TextEncoding& enc)
 {
   if (QVariant var(getField(frame, ID_TextEnc)); var.isValid()) {
     enc = static_cast<TextEncoding>(var.toInt());
-    return true;
-  }
-  return false;
-}
-
-/**
- * Set image format.
- *
- * @param frame     frame to set
- * @param imgFormat image format
- *
- * @return true if field found and set.
- */
-bool PictureFrame::setImageFormat(Frame& frame, const QString& imgFormat)
-{
-  return setField(frame, ID_ImageFormat, imgFormat);
-}
-
-/**
- * Get image format.
- *
- * @param frame     frame to get
- * @param imgFormat the image format is returned here
- *
- * @return true if field found.
- */
-bool PictureFrame::getImageFormat(const Frame& frame, QString& imgFormat)
-{
-  if (QVariant var(getField(frame, ID_ImageFormat)); var.isValid()) {
-    imgFormat = var.toString();
     return true;
   }
   return false;
@@ -622,27 +580,16 @@ bool PictureFrame::writeDataToFile(const Frame& frame, const QString& fileName)
 }
 
 /**
- * Get the MIME type and image format from a file.
+ * Get the MIME type from a file.
  *
  * @param fileName name of data file
- * @param imgFormat if not null, the ID3v2.2 PIC image format ("JGP" or "PNG")
- * is set here
  *
  * @return mime type of file, null if not recognized.
  */
-QString PictureFrame::getMimeTypeForFile(const QString& fileName,
-                                         QString* imgFormat)
+QString PictureFrame::getMimeTypeForFile(const QString& fileName)
 {
   QMimeDatabase mimeDb;
-  QString mimeType = mimeDb.mimeTypeForFile(fileName).name();
-  if (imgFormat) {
-    if (mimeType == QLatin1String("image/jpeg")) {
-      *imgFormat = QLatin1String("JPG");
-    } else if (mimeType == QLatin1String("image/png")) {
-      *imgFormat = QLatin1String("PNG");
-    }
-  }
-  return mimeType;
+  return mimeDb.mimeTypeForFile(fileName).name();
 }
 
 /**
@@ -655,10 +602,9 @@ QString PictureFrame::getMimeTypeForFile(const QString& fileName,
  */
 bool PictureFrame::setMimeTypeFromFileName(Frame& frame, const QString& fileName)
 {
-  QString imgFormat;
-  if (QString mimeType = getMimeTypeForFile(fileName, &imgFormat);
+  if (QString mimeType = getMimeTypeForFile(fileName);
       !mimeType.isEmpty()) {
-    return setMimeType(frame, mimeType) && setImageFormat(frame, imgFormat);
+    return setMimeType(frame, mimeType);
   }
   return false;
 }
@@ -764,7 +710,7 @@ void PictureFrame::setFieldsFromBase64(Frame& frame, const QString& base64Value)
     imgProps = ImageProperties(width, height, depth, numColors, ba);
   }
   PictureFrame::setFields(
-    frame, TE_UTF8, QLatin1String(""), mimeType,
+    frame, TE_UTF8, mimeType,
     pictureType, description, ba, &imgProps);
 }
 
@@ -778,10 +724,10 @@ void PictureFrame::getFieldsToBase64(const Frame& frame, QString& base64Value)
 {
   TextEncoding enc;
   PictureFrame::PictureType pictureType = PictureFrame::PT_CoverFront;
-  QString imgFormat, mimeType, description;
+  QString mimeType, description;
   QByteArray pic;
   ImageProperties imgProps;
-  PictureFrame::getFields(frame, enc, imgFormat, mimeType,
+  PictureFrame::getFields(frame, enc, mimeType,
                           pictureType, description, pic, &imgProps);
   if (frame.getInternalName() == QLatin1String("METADATA_BLOCK_PICTURE")) {
     QByteArray mimeStr = mimeType.toLatin1();

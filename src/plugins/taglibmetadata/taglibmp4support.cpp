@@ -529,30 +529,26 @@ void TagLibMp4Support::putPicturesAndChaptersInExtraFrames(
       int i = 0;
       for (const auto& coverArt : pics) {
         TagLib::ByteVector bv = coverArt.data();
-        QString mimeType, imgFormat;
+        QString mimeType;
         switch (coverArt.format()) {
         case TagLib::MP4::CoverArt::PNG:
           mimeType = QLatin1String("image/png");
-          imgFormat = QLatin1String("PNG");
           break;
         case TagLib::MP4::CoverArt::BMP:
           mimeType = QLatin1String("image/bmp");
-          imgFormat = QLatin1String("BMP");
           break;
         case TagLib::MP4::CoverArt::GIF:
           mimeType = QLatin1String("image/gif");
-          imgFormat = QLatin1String("GIF");
           break;
         case TagLib::MP4::CoverArt::JPEG:
         case TagLib::MP4::CoverArt::Unknown:
         default:
           mimeType = QLatin1String("image/jpeg");
-          imgFormat = QLatin1String("JPG");
         }
         PictureFrame frame(
           QByteArray(bv.data(), static_cast<int>(bv.size())),
           QLatin1String(""), PictureFrame::PT_CoverFront, mimeType,
-          Frame::TE_ISO8859_1, imgFormat);
+          Frame::TE_ISO8859_1);
         frame.setIndex(Frame::toNegativeIndex(i++));
         frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture,
                                                   QLatin1String("covr")));

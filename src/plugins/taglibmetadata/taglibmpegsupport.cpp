@@ -687,11 +687,6 @@ QString getFieldsFromApicFrame(
   field.m_value = apicFrame->textEncoding();
   fields.push_back(field);
 
-  // for compatibility with ID3v2.3 id3lib
-  field.m_id = Frame::ID_ImageFormat;
-  field.m_value = QString(QLatin1String(""));
-  fields.push_back(field);
-
   field.m_id = Frame::ID_MimeType;
   field.m_value = toQString(apicFrame->mimeType());
   fields.push_back(field);

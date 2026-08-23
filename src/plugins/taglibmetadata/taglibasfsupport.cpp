@@ -214,7 +214,7 @@ bool parseAsfPicture(const TagLib::ASF::Picture& picture, Frame& frame)
 
   TagLib::ByteVector data = picture.picture();
   QString description(toQString(picture.description()));
-  PictureFrame::setFields(frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
+  PictureFrame::setFields(frame, Frame::TE_ISO8859_1,
                           toQString(picture.mimeType()),
                           static_cast<PictureFrame::PictureType>(picture.type()),
                           description,
@@ -234,8 +234,8 @@ void renderAsfPicture(const Frame& frame, TagLib::ASF::Picture& picture)
   Frame::TextEncoding enc;
   PictureFrame::PictureType pictureType;
   QByteArray data;
-  QString imgFormat, mimeType, description;
-  PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
+  QString mimeType, description;
+  PictureFrame::getFields(frame, enc, mimeType, pictureType,
                           description, data);
 
   if (frame.isValueChanged()) {

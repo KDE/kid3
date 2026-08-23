@@ -112,15 +112,13 @@ public:
    * @param pictureType picture type
    * @param mimeType    MIME type
    * @param enc         text encoding
-   * @param imgFormat   image format
    */
   explicit PictureFrame(
     const QByteArray& data = QByteArray(),
     const QString& description = QLatin1String(""),
     PictureType pictureType = PT_CoverFront,
     const QString& mimeType = QLatin1String("image/jpeg"),
-    TextEncoding enc = TE_ISO8859_1,
-    const QString& imgFormat = QLatin1String("JPG"));
+    TextEncoding enc = TE_ISO8859_1);
 
   /**
    * Constructor.
@@ -134,7 +132,6 @@ public:
    *
    * @param frame       frame to set
    * @param enc         text encoding
-   * @param imgFormat   image format
    * @param mimeType    MIME type
    * @param pictureType picture type
    * @param description description
@@ -143,7 +140,7 @@ public:
    */
   static void setFields(
     Frame& frame,
-    TextEncoding enc = TE_ISO8859_1, const QString& imgFormat = QLatin1String("JPG"),
+    TextEncoding enc = TE_ISO8859_1,
     const QString& mimeType = QLatin1String("image/jpeg"), PictureType pictureType = PT_CoverFront,
     const QString& description = QLatin1String(""), const QByteArray& data = QByteArray(),
     const ImageProperties* imgProps = nullptr);
@@ -171,7 +168,6 @@ public:
    *
    * @param frame       frame to get
    * @param enc         text encoding
-   * @param imgFormat   image format
    * @param mimeType    MIME type
    * @param pictureType picture type
    * @param description description
@@ -179,7 +175,7 @@ public:
    * @param imgProps    optional METADATA_BLOCK_PICTURE image properties
    */
   static void getFields(const Frame& frame,
-                        TextEncoding& enc, QString& imgFormat,
+                        TextEncoding& enc,
                         QString& mimeType, PictureType& pictureType,
                         QString& description, QByteArray& data,
                         ImageProperties* imgProps = nullptr);
@@ -211,26 +207,6 @@ public:
    * @return true if field found.
    */
   static bool getTextEncoding(const Frame& frame, TextEncoding& enc);
-
-  /**
-   * Set image format.
-   *
-   * @param frame     frame to set
-   * @param imgFormat image format
-   *
-   * @return true if field found and set.
-   */
-  static bool setImageFormat(Frame& frame, const QString& imgFormat);
-
-  /**
-   * Get image format.
-   *
-   * @param frame     frame to get
-   * @param imgFormat the image format is returned here
-   *
-   * @return true if field found.
-   */
-  static bool getImageFormat(const Frame& frame, QString& imgFormat);
 
   /**
    * Set MIME type.
@@ -333,16 +309,13 @@ public:
   static bool writeDataToFile(const Frame& frame, const QString& fileName);
 
   /**
-   * Get the MIME type and image format from a file.
+   * Get the MIME type from a file.
    *
    * @param fileName name of data file
-   * @param imgFormat if not null, the ID3v2.2 PIC image format ("JGP" or "PNG")
-   * is set here
    *
    * @return mime type of file, null if not recognized.
    */
-  static QString getMimeTypeForFile(const QString& fileName,
-                                    QString* imgFormat = nullptr);
+  static QString getMimeTypeForFile(const QString& fileName);
 
   /**
    * Set the MIME type and image format from a file.

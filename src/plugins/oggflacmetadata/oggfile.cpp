@@ -750,7 +750,7 @@ bool OggFile::addFrame(Frame::TagNumber tagNr, Frame& frame)
     if (frame.getType() == Frame::FT_Picture) {
       if (frame.getFieldList().empty()) {
         PictureFrame::setFields(
-          frame, Frame::TE_ISO8859_1, QLatin1String(""), QLatin1String("image/jpeg"),
+          frame, Frame::TE_ISO8859_1, QLatin1String("image/jpeg"),
           PictureFrame::PT_CoverFront, QLatin1String(""), QByteArray());
       }
       frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture, name));

@@ -567,29 +567,25 @@ void M4aFile::readTags(bool force)
               for (i = 0, element = item.dataList.elements;
                    i < static_cast<int>(item.dataList.size);
                    ++i, ++element) {
-                QString mimeType, imgFormat;
+                QString mimeType;
                 switch (element->typeCode) {
                 case MP4_ITMF_BT_PNG:
                   mimeType = QLatin1String("image/png");
-                  imgFormat = QLatin1String("PNG");
                   break;
                 case MP4_ITMF_BT_BMP:
                   mimeType = QLatin1String("image/bmp");
-                  imgFormat = QLatin1String("BMP");
                   break;
                 case MP4_ITMF_BT_GIF:
                   mimeType = QLatin1String("image/gif");
-                  imgFormat = QLatin1String("GIF");
                   break;
                 case MP4_ITMF_BT_JPEG:
                 default:
                   mimeType = QLatin1String("image/jpeg");
-                  imgFormat = QLatin1String("JPG");
                 }
                 PictureFrame frame(
                       getValueByteArray(key, element->value, element->valueSize),
                       QLatin1String(""), PictureFrame::PT_CoverFront, mimeType,
-                      Frame::TE_ISO8859_1, imgFormat);
+                      Frame::TE_ISO8859_1);
                 frame.setIndex(Frame::toNegativeIndex(i));
                 frame.setExtendedType(Frame::ExtendedType(Frame::FT_Picture,
                                                           QLatin1String(key)));

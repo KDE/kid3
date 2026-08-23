@@ -73,7 +73,7 @@ void parseApePicture(const QString& name,
     pictureType = PictureFrame::getPictureTypeFromString(typeStr.toLatin1());
   }
   PictureFrame::setFields(
-        frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
+        frame, Frame::TE_ISO8859_1,
         QLatin1String("image/jpeg"), pictureType,
         toQString(description), picture);
 }
@@ -89,8 +89,8 @@ void renderApePicture(const Frame& frame, TagLib::ByteVector& data)
   Frame::TextEncoding enc;
   PictureFrame::PictureType pictureType;
   QByteArray picture;
-  QString imgFormat, mimeType, description;
-  PictureFrame::getFields(frame, enc, imgFormat, mimeType, pictureType,
+  QString mimeType, description;
+  PictureFrame::getFields(frame, enc, mimeType, pictureType,
                           description, picture);
   if (frame.isValueChanged()) {
     description = frame.getValue();
@@ -435,7 +435,7 @@ bool TagLibApeSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr,
         }
       }
       PictureFrame::setFields(
-            frame, Frame::TE_ISO8859_1, QLatin1String("JPG"),
+            frame, Frame::TE_ISO8859_1,
             QLatin1String("image/jpeg"), pictureType);
     }
     QString name(getApeName(frame));
