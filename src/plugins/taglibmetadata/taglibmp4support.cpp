@@ -676,8 +676,28 @@ bool TagLibMp4Support::readAudioProperties(
     case TagLib::MP4::Properties::ALAC:
       f.m_detailInfo.format += QLatin1String(" ALAC");
       break;
+#if TAGLIB_VERSION >= 0x020302
+    case TagLib::MP4::Properties::AC3:
+      f.m_detailInfo.format += QLatin1String(" AC3");
+      break;
+    case TagLib::MP4::Properties::EAC3:
+      f.m_detailInfo.format += QLatin1String(" EAC3");
+      break;
+    case TagLib::MP4::Properties::FLAC:
+      f.m_detailInfo.format += QLatin1String(" FLAC");
+      break;
+    case TagLib::MP4::Properties::DTS:
+      f.m_detailInfo.format += QLatin1String(" DTS");
+      break;
+    case TagLib::MP4::Properties::Opus:
+      f.m_detailInfo.format += QLatin1String(" Opus");
+      break;
+    case TagLib::MP4::Properties::Unknown:
+      f.m_detailInfo.format += QLatin1Char(' ') + toQString(mp4Properties->codecId());
+#else
     case TagLib::MP4::Properties::Unknown:
       ;
+#endif
     }
     if (int bits = mp4Properties->bitsPerSample(); bits > 0) {
       f.m_detailInfo.format += QLatin1Char(' ');
