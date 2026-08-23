@@ -1,7 +1,7 @@
 * TO INSTALL
 ** Requirements
 
-Qt, optional KDE, id3lib, TagLib, libogg, libvorbis, libvorbisfile, libFLAC++,
+Qt, optional KDE, TagLib, libogg, libvorbis, libvorbisfile, libFLAC++,
 libFLAC, Chromaprint, mp4v2.
 
 ** Linux
@@ -29,7 +29,6 @@ feature:
 
 BUILD_SHARED_LIBS: build with shared libraries
 WITH_TAGLIB: build with TagLib
-WITH_ID3LIB: build with id3lib
 WITH_VORBIS: build with Ogg/Vorbis
 WITH_FLAC: build with FLAC
 WITH_CHROMAPRINT: build with Chromaprint

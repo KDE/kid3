@@ -134,7 +134,7 @@ public:
   }
 
   /**
-   * Types of fields in a frame, must be the same as id3lib's ID3_FieldID.
+   * Types of fields in a frame.
    **/
   enum FieldId {
     ID_NoField,

@@ -43,7 +43,6 @@ class Package(CMakePackageBase):
         super().__init__(**kwargs)
         self.subinfo.options.configure.args += [
             "-DBUILD_WITH_QT6=ON",
-            "-DWITH_ID3LIB=OFF",
             "-DWITH_VORBIS=OFF",
             "-DWITH_FLAC=OFF",
             "-DWITH_MP4V2=OFF",

@@ -249,8 +249,7 @@ TagConfig::TagConfig()
     m_genreNotNumeric(true),
     m_lowercaseId3RiffChunk(false)
 {
-  m_disabledPlugins << QLatin1String("Id3libMetadata")
-                    << QLatin1String("Mp4v2Metadata");
+  m_disabledPlugins << QLatin1String("Mp4v2Metadata");
 }
 
 /**
@@ -403,7 +402,6 @@ void TagConfig::setDefaultPluginOrder()
 {
   /** Default to filename format list */
   static const char* const defaultPluginOrder[] = {
-    "Id3libMetadata",
     "OggFlacMetadata",
     "Mp4v2Metadata",
     "TaglibMetadata",

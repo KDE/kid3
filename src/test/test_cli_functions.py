@@ -8,7 +8,7 @@ import tempfile
 import platform
 import json
 from kid3testsupport import kid3_cli_path, call_kid3_cli, create_test_file, ignore_audio_properties, \
-    Kid3ConfigFileUsingOnlyTagLib, Kid3ConfigFileUsingOnlyId3lib, Kid3ConfigFileUsingOnlyOggFlac, \
+    Kid3ConfigFileUsingOnlyTagLib, Kid3ConfigFileUsingOnlyOggFlac, \
     Kid3ConfigFileUsingOnlyMp4v2
 
 
@@ -183,27 +183,12 @@ class CliFunctionsTestCase(unittest.TestCase):
             create_test_file(os.path.join(tmpdir, 'test.mp3'))
             self.assertEqual(call_kid3_cli(['-c', 'ls', tmpdir]), '  --- test.mp3\n')
 
-    def test_id3v1_taglib(self):
-        with Kid3ConfigFileUsingOnlyTagLib():
-            self._run_id3v1_tests()
-
-    def test_id3v1_id3lib(self):
-        if sys.byteorder == 'big':
-            self.skipTest(
-                'id3lib MPEG header parsing is broken on big-endian '
-                'architectures (audio properties decoded incorrectly)')
-        with Kid3ConfigFileUsingOnlyId3lib():
-            self._run_id3v1_tests()
-
-    def _run_id3v1_tests(self):
+    def test_id3v1(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             mp3path = os.path.join(tmpdir, 'test.mp3')
             create_test_file(mp3path)
             actual = call_kid3_cli(
                 ['-c', 'get all 1', mp3path])
-            if not actual:
-                # Do not fail if Id3libMetadata plugin is not present
-                return
             self.assertEqual(actual,
                 'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                 '  Name: test.mp3\n')
@@ -293,139 +278,21 @@ class CliFunctionsTestCase(unittest.TestCase):
                 ba = mp3fh.read()
                 self.assertEqual(ba, empty_mp3_bytes)
 
-    def test_id3v2_taglib(self):
-        with Kid3ConfigFileUsingOnlyTagLib():
-            self._run_id3v2_tests()
-            with tempfile.TemporaryDirectory() as tmpdir:
-                mp3path = os.path.join(tmpdir, 'test.mp3')
-                lrcpath = os.path.join(tmpdir, 'test.lrc')
-                eventspath = os.path.join(tmpdir, 'events.lrc')
-                syltpath = os.path.join(tmpdir, 'sylt.lrc')
-                etcopath = os.path.join(tmpdir, 'etco.lrc')
-                chappath = os.path.join(tmpdir, 'chap.lrc')
-                create_test_file(mp3path)
-                create_test_file(lrcpath)
-                etco_bytes = (
-                        b'[ti:Title]\r\n'
-                        b'\r\n'
-                        b'[00:00:00.000]intro start\r\n'
-                        b'[00:01:02.003]refrain start\r\n'
-                        b'[24:25:26.270]outro end\r\n')
-                with open(eventspath, 'wb') as lrcfh:
-                    lrcfh.write(etco_bytes)
-                with open(lrcpath, 'rb') as lrcfh:
-                    lrc_bytes = lrcfh.read()
-                actual = call_kid3_cli(
-                    ['-c', 'set artist "Artist" 2',
-                     '-c', 'set album "Album" 2',
-                     '-c', 'save',
-                     '-c', 'to24',
-                     '-c', 'get all 2',
-                     '-c', 'to23',
-                     '-c', 'get all 2',
-                     '-c', 'remove 2', mp3path])
-                expected = ('File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
-                            '  Name: test.mp3\n'
-                            'Tag 2: ID3v2.4.0\n'
-                            '  Artist  Artist\n'
-                            '  Album   Album\n'
-                            'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
-                            '  Name: test.mp3\n'
-                            'Tag 2: ID3v2.3.0\n'
-                            '  Artist  Artist\n'
-                            '  Album   Album\n')
-                self.assertEqual(actual, expected)
-                self.assertEqual(call_kid3_cli(
-                    ['-c', 'set POPM 5',
-                     '-c', 'get all 2',
-                     '-c', 'get POPM.Email',
-                     '-c', 'get POPM.Rating',
-                     '-c', 'get POPM.Counter',
-                     '-c', 'set POPM.Email ufleisch@users.sourceforge.net',
-                     '-c', 'set POPM.Rating 4',
-                     '-c', 'set POPM.Counter 3',
-                     '-c', 'get all 2',
-                     '-c', 'get POPM.Email',
-                     '-c', 'get POPM.Rating',
-                     '-c', 'get POPM.Counter',
-                     '-c', 'get POPM', mp3path]),
-                     'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
-                     '  Name: test.mp3\n'
-                     'Tag 2: ID3v2.3.0\n'
-                     '* Rating  5\n'
-                     '\n'
-                     '5\n'
-                     '0\n'
-                     'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
-                     '  Name: test.mp3\n'
-                     'Tag 2: ID3v2.3.0\n'
-                     '* Rating  4\n'
-                     'ufleisch@users.sourceforge.net\n'
-                     '4\n'
-                     '3\n'
-                     '4\n')
-                call_kid3_cli(
-                    ['-c', 'remove',
-                     '-c', 'set title Title',
-                     '-c', 'set UFID.Owner http://www.id3.org/test/ufid.html',
-                     '-c', 'set UFID.Identifier 54455354',
-                     '-c', 'set "SYLT:%s" ""' % lrcpath,
-                     '-c', 'set "ETCO:%s" ""' % eventspath,
-                     '-c', 'set "Chapters:%s" ""' % lrcpath,
-                     mp3path])
-                actual = call_kid3_cli(
-                    ['-c', 'get all',
-                     '-c', 'get UFID.Owner',
-                     '-c', 'get UFID.Identifier',
-                     '-c', 'get "SYLT:%s"' % syltpath,
-                     '-c', 'get "ETCO:%s"' % etcopath,
-                     '-c', 'get "Chapters:%s"' % chappath,
-                     mp3path])
-                expected = ('File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
-                            '  Name: test.mp3\n'
-                            'Tag 2: ID3v2.3.0\n'
-                            '  Title                Title\n'
-                            '  Chapter              chp01\n'
-                            '  Chapter              chp02\n'
-                            '  Chapter              chp03\n'
-                            '  Table of Contents    toc01\n'
-                            '  Chapters             \n'
-                            '  Event Timing Codes   \n'
-                            '  Synchronized Lyrics  \n'
-                            '  File ID: ufid        54455354\n'
-                            'http://www.id3.org/test/ufid.html\n'
-                            '54455354\n'
-                            '\n'
-                            '\n'
-                            '\n')
-                self.assertEqual(actual, expected)
-                with open(syltpath, 'rb') as lrcfh:
-                    ba = lrcfh.read()
-                    self.assertEqual(ba, lrc_bytes)
-                with open(etcopath, 'rb') as lrcfh:
-                    ba = lrcfh.read()
-                    self.assertEqual(ba, etco_bytes)
-                with open(chappath, 'rb') as lrcfh:
-                    ba = lrcfh.read()
-                    self.assertEqual(ba, lrc_bytes)
-
-    def test_id3v2_id3lib(self):
-        if sys.byteorder == 'big':
-            self.skipTest(
-                'id3lib MPEG header parsing is broken on big-endian '
-                'architectures (audio properties decoded incorrectly)')
-        with Kid3ConfigFileUsingOnlyId3lib():
-            self._run_id3v2_tests()
-
-    def _run_id3v2_tests(self):
+    def test_id3v2(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             mp3path = os.path.join(tmpdir, 'test.mp3')
             jpgpath = os.path.join(tmpdir, 'test.jpg')
             picpath = os.path.join(tmpdir, 'folder.jpg')
             lyricspath = os.path.join(tmpdir, 'lyrics.txt')
             usltpath = os.path.join(tmpdir, 'uslt.txt')
+            lrcpath = os.path.join(tmpdir, 'test.lrc')
+            eventspath = os.path.join(tmpdir, 'events.lrc')
+            syltpath = os.path.join(tmpdir, 'sylt.lrc')
+            etcopath = os.path.join(tmpdir, 'etco.lrc')
+            chappath = os.path.join(tmpdir, 'chap.lrc')
             create_test_file(mp3path)
             create_test_file(jpgpath)
+            create_test_file(lrcpath)
             uslt_bytes = 'Schön\nsind die Lyrics.\n'.encode()
             with open(lyricspath, 'wb') as txtfh:
                 txtfh.write(uslt_bytes)
@@ -433,12 +300,19 @@ class CliFunctionsTestCase(unittest.TestCase):
                 empty_mp3_bytes = mp3fh.read()
             with open(jpgpath, 'rb') as jpgfh:
                 jpg_bytes = jpgfh.read()
+            etco_bytes = (
+                    b'[ti:Title]\r\n'
+                    b'\r\n'
+                    b'[00:00:00.000]intro start\r\n'
+                    b'[00:01:02.003]refrain start\r\n'
+                    b'[24:25:26.270]outro end\r\n')
+            with open(eventspath, 'wb') as lrcfh:
+                lrcfh.write(etco_bytes)
+            with open(lrcpath, 'rb') as lrcfh:
+                lrc_bytes = lrcfh.read()
             actual = call_kid3_cli(
                 ['-c', 'get title 2',
                  '-c', 'get all 2', mp3path])
-            if not actual:
-                # Do not fail if Id3libMetadata plugin is not present
-                return
             expected = ('File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
                         '  Name: test.mp3\n')
             self.assertEqual(actual, expected)
@@ -570,6 +444,100 @@ class CliFunctionsTestCase(unittest.TestCase):
             with open(usltpath, 'rb') as txtfh:
                 ba = txtfh.read()
                 self.assertEqual(ba, uslt_bytes)
+            call_kid3_cli(['-c', 'remove 2', mp3path])
+            actual = call_kid3_cli(
+                ['-c', 'set artist "Artist" 2',
+                    '-c', 'set album "Album" 2',
+                    '-c', 'save',
+                    '-c', 'to24',
+                    '-c', 'get all 2',
+                    '-c', 'to23',
+                    '-c', 'get all 2',
+                    '-c', 'remove 2', mp3path])
+            expected = ('File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                        '  Name: test.mp3\n'
+                        'Tag 2: ID3v2.4.0\n'
+                        '  Artist  Artist\n'
+                        '  Album   Album\n'
+                        'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                        '  Name: test.mp3\n'
+                        'Tag 2: ID3v2.3.0\n'
+                        '  Artist  Artist\n'
+                        '  Album   Album\n')
+            self.assertEqual(actual, expected)
+            self.assertEqual(call_kid3_cli(
+                ['-c', 'set POPM 5',
+                    '-c', 'get all 2',
+                    '-c', 'get POPM.Email',
+                    '-c', 'get POPM.Rating',
+                    '-c', 'get POPM.Counter',
+                    '-c', 'set POPM.Email ufleisch@users.sourceforge.net',
+                    '-c', 'set POPM.Rating 4',
+                    '-c', 'set POPM.Counter 3',
+                    '-c', 'get all 2',
+                    '-c', 'get POPM.Email',
+                    '-c', 'get POPM.Rating',
+                    '-c', 'get POPM.Counter',
+                    '-c', 'get POPM', mp3path]),
+                    'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                    '  Name: test.mp3\n'
+                    'Tag 2: ID3v2.3.0\n'
+                    '* Rating  5\n'
+                    '\n'
+                    '5\n'
+                    '0\n'
+                    'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                    '  Name: test.mp3\n'
+                    'Tag 2: ID3v2.3.0\n'
+                    '* Rating  4\n'
+                    'ufleisch@users.sourceforge.net\n'
+                    '4\n'
+                    '3\n'
+                    '4\n')
+            call_kid3_cli(
+                ['-c', 'remove',
+                    '-c', 'set title Title',
+                    '-c', 'set UFID.Owner http://www.id3.org/test/ufid.html',
+                    '-c', 'set UFID.Identifier 54455354',
+                    '-c', 'set "SYLT:%s" ""' % lrcpath,
+                    '-c', 'set "ETCO:%s" ""' % eventspath,
+                    '-c', 'set "Chapters:%s" ""' % lrcpath,
+                    mp3path])
+            actual = call_kid3_cli(
+                ['-c', 'get all',
+                    '-c', 'get UFID.Owner',
+                    '-c', 'get UFID.Identifier',
+                    '-c', 'get "SYLT:%s"' % syltpath,
+                    '-c', 'get "ETCO:%s"' % etcopath,
+                    '-c', 'get "Chapters:%s"' % chappath,
+                    mp3path])
+            expected = ('File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                        '  Name: test.mp3\n'
+                        'Tag 2: ID3v2.3.0\n'
+                        '  Title                Title\n'
+                        '  Chapter              chp01\n'
+                        '  Chapter              chp02\n'
+                        '  Chapter              chp03\n'
+                        '  Table of Contents    toc01\n'
+                        '  Chapters             \n'
+                        '  Event Timing Codes   \n'
+                        '  Synchronized Lyrics  \n'
+                        '  File ID: ufid        54455354\n'
+                        'http://www.id3.org/test/ufid.html\n'
+                        '54455354\n'
+                        '\n'
+                        '\n'
+                        '\n')
+            self.assertEqual(actual, expected)
+            with open(syltpath, 'rb') as lrcfh:
+                ba = lrcfh.read()
+                self.assertEqual(ba, lrc_bytes)
+            with open(etcopath, 'rb') as lrcfh:
+                ba = lrcfh.read()
+                self.assertEqual(ba, etco_bytes)
+            with open(chappath, 'rb') as lrcfh:
+                ba = lrcfh.read()
+                self.assertEqual(ba, lrc_bytes)
 
     def test_flac_taglib(self):
         with Kid3ConfigFileUsingOnlyTagLib():

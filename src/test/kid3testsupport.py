@@ -35,25 +35,19 @@ class Kid3ConfigFile:
 class Kid3ConfigFileUsingOnlyTagLib(Kid3ConfigFile):
     """Context for configuration using only the TaglibMetadata plugin."""
     def __init__(self):
-        super().__init__('[Tags]\nDisabledPlugins=Id3libMetadata, OggFlacMetadata, Mp4v2Metadata\n')
-
-
-class Kid3ConfigFileUsingOnlyId3lib(Kid3ConfigFile):
-    """Context for configuration using only the Id3libMetadata plugin."""
-    def __init__(self):
-        super().__init__('[Tags]\nDisabledPlugins=TaglibMetadata, OggFlacMetadata, Mp4v2Metadata\n')
+        super().__init__('[Tags]\nDisabledPlugins=OggFlacMetadata, Mp4v2Metadata\n')
 
 
 class Kid3ConfigFileUsingOnlyOggFlac(Kid3ConfigFile):
     """Context for configuration using only the OggFlacMetadata plugin."""
     def __init__(self):
-        super().__init__('[Tags]\nDisabledPlugins=TaglibMetadata, Id3libMetadata, Mp4v2Metadata\n')
+        super().__init__('[Tags]\nDisabledPlugins=TaglibMetadata, Mp4v2Metadata\n')
 
 
 class Kid3ConfigFileUsingOnlyMp4v2(Kid3ConfigFile):
     """Context for configuration using only the Mp4v2Metadata plugin."""
     def __init__(self):
-        super().__init__('[Tags]\nDisabledPlugins=TaglibMetadata, Id3libMetadata, OggFlacMetadata\n')
+        super().__init__('[Tags]\nDisabledPlugins=TaglibMetadata, OggFlacMetadata\n')
 
 
 _kid3_cli_path = ''

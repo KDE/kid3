@@ -1600,8 +1600,6 @@ existing)</para></listitem>
 <listitem><para>%o %{tag2} The format of tag 2 (ID3v2.3.0, ID3v2.4.0,
 ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, ASF, or empty if not existing)</para></listitem>
 <listitem><para>%b %{bitrate} Bit rate in kbit/s</para></listitem>
-<listitem><para>%v %{vbr} VBR or empty (only for ID3v2.3 with
-id3lib)</para></listitem>
 <listitem><para>%r %{samplerate} Sample rate in Hz</para></listitem>
 <listitem><para>%m %{mode} Channel mode (Stereo or Joint Stereo)</para></listitem>
 <listitem><para>%h %{channels} Number of channels (1 or 2)</para></listitem>
@@ -1976,8 +1974,6 @@ existing)</para></listitem>
 <listitem><para>%o %{tag2} The format of tag 2 (ID3v2.3.0, ID3v2.4.0,
 ID3v2.2.0, ID3v2.2.1, Vorbis, APE, MP4, ASF, or empty if not existing)</para></listitem>
 <listitem><para>%b %{bitrate} Bit rate in kbit/s</para></listitem>
-<listitem><para>%v %{vbr} VBR or empty (only for ID3v2.3 with
-id3lib)</para></listitem>
 <listitem><para>%r %{samplerate} Sample rate in Hz</para></listitem>
 <listitem><para>%m %{mode} Channel mode (Stereo or Joint Stereo)</para></listitem>
 <listitem><para>%h %{channels} Number of channels (1 or 2)</para></listitem>
@@ -2638,10 +2634,6 @@ plugin for a file format, make sure that it is listed before the
 and why you may want to use them instead of TagLib are listed below.
 </para>
 <itemizedlist>
-<listitem><para><guilabel>Id3libMetadata</guilabel>:
-Uses <ulink url="http://id3lib.sourceforge.net">id3lib</ulink> for ID3v1.1
-and ID3v2.3 tags in MP3, MP2, AAC files. Supports a few more frame types
-than TagLib.</para></listitem>
 <listitem><para><guilabel>OggFlacMetadata</guilabel>:
 Uses <ulink url="http://xiph.org/ogg/">libogg</ulink>,
 <ulink url="http://xiph.org/vorbis/">libvorbis, libvorbisfile</ulink> for Ogg
@@ -3528,9 +3520,7 @@ files, <ulink url="http://xiph.org/ogg/">libogg</ulink>,
 <ulink url="http://xiph.org/vorbis/">libvorbis and libvorbisfile</ulink> are
 required, for FLAC files <ulink url="http://flac.sourceforge.net">libFLAC++
 and libFLAC</ulink>.
-<ulink url="http://id3lib.sourceforge.net">id3lib</ulink> is used for MP3
- files.
-These four formats are also supported by
+These formats are also supported by
 <ulink url="http://taglib.github.io/">TagLib</ulink>,
 which can also handle Opus, MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF
 files and tracker modules.
@@ -3570,7 +3560,7 @@ If not all libraries are present, &kid3; is built with reduced functionality.
 So you should take care to have all desired development packages installed.
 On the other side, <userinput>cmake</userinput>-options control which
 libraries are compiled in. The default is
-<userinput>-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_ID3LIB:BOOL=ON
+<userinput>-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF
 -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON
 </userinput>. These options can be disabled using
 <userinput>OFF</userinput>.

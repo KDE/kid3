@@ -447,7 +447,7 @@ bool setId3v2Unicode(TagLib::ID3v2::Tag* id3v2Tag,
 }
 
 
-/** Types and descriptions for id3lib frame IDs */
+/** Types and descriptions for frame IDs */
 const struct TypeStrOfId {
   const char* str;
   Frame::Type type;

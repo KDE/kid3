@@ -65,7 +65,7 @@
 # it should still work.
 #
 # build.sh will download, build and install zlib, libogg, libvorbis,
-# flac, id3lib, taglib, ffmpeg, chromaprint, mp4v2. When the libraries
+# flac, taglib, ffmpeg, chromaprint, mp4v2. When the libraries
 # are built, the Kid3 package is built. It is also possible to build only
 # the libraries or only the Kid3 package.
 #
@@ -98,8 +98,6 @@ ffmpeg_version=7.1.5
 ffmpeg_patchlevel=0+deb13u1
 libflac_version=1.5.0+ds
 libflac_patchlevel=5
-id3lib_version=3.8.3
-id3lib_patchlevel=24
 taglib_version=2.3.1
 chromaprint_version=1.6.0
 chromaprint_patchlevel=3
@@ -618,7 +616,7 @@ fi
 if test "$1" = "clean"; then
   rm -rf zlib-${zlib_version}.dfsg libogg-${libogg_version} \
          libvorbis-${libvorbis_version} flac-${libflac_version%+ds*} \
-         id3lib-${id3lib_version} taglib-${taglib_version} \
+         taglib-${taglib_version} \
          ffmpeg-${ffmpeg_version} chromaprint-${chromaprint_version} \
          mp4v2-${mp4v2_version} utfcpp-${utfcpp_version} openssl-*
   exit 0
@@ -777,7 +775,6 @@ if test "$compiler" = "gcc-debug"; then
   export CFLAGS="-fPIC"
   export CXXFLAGS="-fPIC"
   FLAC_BUILD_OPTION="--enable-debug=yes"
-  ID3LIB_BUILD_OPTION="--enable-debug=minimum"
   AV_BUILD_OPTION="--enable-debug=3 --enable-pic --extra-ldexeflags=-pie"
   CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=Debug"
 elif test "$compiler" = "gcc-self-contained"; then
@@ -786,12 +783,10 @@ elif test "$compiler" = "gcc-self-contained"; then
   export CFLAGS="-O2 -fPIC"
   export CXXFLAGS="-O2 -fPIC"
   FLAC_BUILD_OPTION="--enable-debug=info CFLAGS=-O2 CXXFLAGS=-O2"
-  ID3LIB_BUILD_OPTION="--enable-debug=minimum"
   AV_BUILD_OPTION="--enable-debug=1 --enable-pic --extra-ldexeflags=-pie"
   CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=RelWithDebInfo"
 else
   FLAC_BUILD_OPTION="--enable-debug=info CFLAGS=-O2 CXXFLAGS=-O2"
-  ID3LIB_BUILD_OPTION="--enable-debug=minimum"
   AV_BUILD_OPTION="--enable-debug=1"
   CMAKE_BUILD_OPTION="-DCMAKE_BUILD_TYPE=RelWithDebInfo"
 fi
@@ -1193,15 +1188,6 @@ download_libflac() {
   cd -
 }
 
-download_id3lib() {
-  cd $SRC_ARCHIVE_DIR
-  test -f id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
-  test -f id3lib3.8.3_${id3lib_version}.orig.tar.gz ||
-    $DOWNLOAD http://ftp.de.debian.org/debian/pool/main/i/id3lib3.8.3/id3lib3.8.3_${id3lib_version}.orig.tar.gz
-  cd -
-}
-
 download_libogg() {
   cd $SRC_ARCHIVE_DIR
   test -f libogg_${libogg_version}-${libogg_patchlevel}.diff.gz ||
@@ -1356,24 +1342,6 @@ extract_libflac() {
       for f in $(cat debian/patches/series); do patch -p1 <debian/patches/$f; done
     fi
     patch -p1 <$srcdir/packaging/patches/flac-1.2.1-00-size_t_max.patch
-    cd ..
-  fi
-}
-
-extract_id3lib() {
-  if ! test -d id3lib-${id3lib_version}; then
-    echo "### Extracting id3lib"
-
-    tar xzf $SRC_ARCHIVE_DIR/id3lib3.8.3_${id3lib_version}.orig.tar.gz
-    cd id3lib-${id3lib_version}/
-    tar xJf $SRC_ARCHIVE_DIR/id3lib3.8.3_${id3lib_version}-${id3lib_patchlevel}.debian.tar.xz
-    if test -f debian/patches/series; then
-      for f in $(cat debian/patches/series); do patch --binary -p1 <debian/patches/$f; done
-    fi
-    patch -p1 <$srcdir/packaging/patches/id3lib-3.8.3-win00-mingw.patch
-    patch -p1 <$srcdir/packaging/patches/id3lib-3.8.3-win01-tempfile.patch
-    test -f makefile.win32.orig || mv makefile.win32 makefile.win32.orig
-    sed 's/-W3 -WX -GX/-W3 -EHsc/; s/-MD -D "WIN32" -D "_DEBUG"/-MDd -D "WIN32" -D "_DEBUG"/' makefile.win32.orig >makefile.win32
     cd ..
   fi
 }
@@ -1670,30 +1638,6 @@ else #  cross-android
   fi
   extract_binary_archive $BIN_ARCHIVE_DIR/flac-${libflac_version}.tgz
 
-  if test ! -f $BIN_ARCHIVE_DIR/id3lib-${id3lib_version}.tgz && ! test $kernel = "Darwin" -a $(uname -m) = "arm64" && ! test $kernel = "MINGW"; then
-    download_id3lib
-    extract_id3lib
-    echo "### Building id3lib"
-
-    cd id3lib-${id3lib_version}/
-    if test $kernel = "MINGW" || test "$compiler" = "cross-mingw"; then
-      sed -i 's/^@ID3_NEEDDEBUG_TRUE@ID3_DEBUG_LIBS = -lcwd -lbfd -liberty$/@ID3_NEEDDEBUG_TRUE@ID3_DEBUG_LIBS =/' examples/Makefile.in
-    fi
-    autoconf
-    configure_args="--enable-shared=no --enable-static=yes $ID3LIB_BUILD_OPTION $CONFIGURE_OPTIONS"
-    if test $kernel = "MINGW"; then
-      configure_args="$configure_args --build=mingw32"
-    fi
-    test -f Makefile || CPPFLAGS=-I/usr/local/include LDFLAGS="$LDFLAGS -L/usr/local/lib" ./configure $configure_args
-    SED=sed make
-    mkdir -p inst
-    make -j install DESTDIR=`pwd`/inst
-    cd inst
-    create_binary_archive $BIN_ARCHIVE_DIR/id3lib-${id3lib_version}.tgz usr
-    cd ../..
-  fi
-  extract_binary_archive $BIN_ARCHIVE_DIR/id3lib-${id3lib_version}.tgz
-
   if test ! -f $BIN_ARCHIVE_DIR/utfcpp-${utfcpp_version}.tgz; then
     download_utfcpp
     extract_utfcpp
@@ -1960,7 +1904,7 @@ EOF
       if test "$compiler" = "cross-mingw"; then
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_ID3LIB=OFF -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
+cmake -GNinja $CMAKE_BUILD_OPTION -DCMAKE_TOOLCHAIN_FILE=$thisdir/mingw.cmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DDOCBOOK_XSL_DIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test "$compiler" = "cross-macos"; then
         cat >kid3/run-cmake.sh <<EOF
@@ -1994,7 +1938,7 @@ EOF
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DCMAKE_APPLE_SILICON_PROCESSOR=$ARCH -DREMOVE_ARCH=$_other_arch -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake $CMAKE_BUILD_OPTION $CMAKE_OPTIONS -DCMAKE_APPLE_SILICON_PROCESSOR=$ARCH -DREMOVE_ARCH=$_other_arch -DQT_QMAKE_EXECUTABLE=${_qt_prefix}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       elif test $kernel = "Darwin"; then
         _qt_prefix=${QTPREFIX:-/usr/local/Trolltech/Qt${qt_version}/${qt_version}/clang_64}
@@ -2007,7 +1951,7 @@ EOF
         _qtToolsMingw=$(realpath $_qtToolsMingw)
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
-INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_ID3LIB=OFF -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+INCLUDE=../buildroot/usr/local/include LIB=../buildroot/usr/local/lib cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DQT_QMAKE_EXECUTABLE=${QTPREFIX}/bin/qmake -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=$thisdir/buildroot/usr/local -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
         _qtPrefixWin=${QTPREFIX//\//\\}
         _qtPrefixWin=${_qtPrefixWin/\\c/C:}
@@ -2020,7 +1964,7 @@ echo ;%PATH%; | find /C /I ";$_qtPrefixWin\bin;"
 if errorlevel 1 (
 path $_qtPrefixWin\bin;$_qtToolsMingwWin\bin;$_qtToolsMingwWin\opt\bin;C:\msys64\mingw64\bin;%PATH%
 )
-cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=%cd%/../buildroot/usr/local -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR="C:\msys64\usr\share\xml\docbook\xsl-stylesheets-1.79.2" -DXSLTPROC=C:/msys64/usr/bin/xsltproc.exe ../../kid3
+cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX= -DCMAKE_PREFIX_PATH=%cd%/../buildroot/usr/local -DCMAKE_CXX_FLAGS="-g -O2 -DMP4V2_USE_STATIC_LIB -DFLAC__NO_DLL -DTAGLIB_STATIC" -DWITH_FFMPEG=ON -DWITH_MP4V2=ON -DWITH_DOCBOOKDIR="C:\msys64\usr\share\xml\docbook\xsl-stylesheets-1.79.2" -DXSLTPROC=C:/msys64/usr/bin/xsltproc.exe ../../kid3
 cmake --build .
 EOF
     cat >kid3/run.bat <<EOF
@@ -2041,14 +1985,14 @@ EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-cmake -GNinja -DQT_QMAKE_EXECUTABLE=${QTPREFIX:-$QT_PREFIX}/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+cmake -GNinja -DQT_QMAKE_EXECUTABLE=${QTPREFIX:-$QT_PREFIX}/bin/qmake -DLINUX_SELF_CONTAINED=ON -DWITH_READLINE=OFF -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DMP4V2_USE_STATIC_LIB -DFLAC__NO_DLL -DTAGLIB_STATIC" -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       else
         cat >kid3/run-cmake.sh <<EOF
 #!/bin/bash
 BUILDPREFIX=\$(cd ..; pwd)/buildroot/usr/local
 export PKG_CONFIG_PATH=\$BUILDPREFIX/lib/pkgconfig
-cmake -GNinja -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DMP4V2_USE_STATIC_LIB -DID3LIB_LINKOPTION=1 -DFLAC__NO_DLL -DTAGLIB_STATIC" -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
+cmake -GNinja -DLINUX_SELF_CONTAINED=ON -DWITH_QML=ON -DCMAKE_CXX_FLAGS_DEBUG:STRING="-g -DMP4V2_USE_STATIC_LIB -DFLAC__NO_DLL -DTAGLIB_STATIC" -DCMAKE_PREFIX_PATH=\$BUILDPREFIX -DWITH_FFMPEG=ON -DFFMPEG_ROOT=\$BUILDPREFIX -DWITH_MP4V2=ON $CMAKE_BUILD_OPTION -DWITH_APPS="Qt;CLI" -DCMAKE_INSTALL_PREFIX= -DWITH_BINDIR=. -DWITH_DATAROOTDIR=. -DWITH_DOCDIR=. -DWITH_TRANSLATIONSDIR=. -DWITH_LIBDIR=. -DWITH_PLUGINSDIR=./plugins -DWITH_DOCBOOKDIR=${_docbook_xsl_dir} ../../kid3
 EOF
       fi
       chmod +x kid3/run-cmake.sh

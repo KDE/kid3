@@ -13,7 +13,6 @@ $env:PATH += ";$env:VCPKG_ROOT"
 cmake -B $kid3DstDir -S $kid3SrcDir -DCMAKE_BUILD_TYPE=Release `
   -DVCPKG_MANIFEST_DIR="$kid3WinDir" `
   -DCMAKE_TOOLCHAIN_FILE="$env:VCPKG_ROOT/scripts/buildsystems/vcpkg.cmake" `
-  -DWITH_ID3LIB=OFF  `
   -DWITH_DOCBOOKDIR="C:/msys64/usr/share/xml/docbook/xsl-stylesheets-1.79.2"  `
   -DXSLTPROC="C:/msys64/usr/bin/xsltproc.exe" `
   -G "Visual Studio 17 2022"

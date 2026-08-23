@@ -14,7 +14,6 @@ BuildRequires:  kf5-rpm-macros
 BuildRequires:  extra-cmake-modules
 BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  cmake
-BuildRequires:  id3lib-devel
 BuildRequires:  taglib-devel >= 1.4
 BuildRequires:  flac-devel
 BuildRequires:  libvorbis-devel
