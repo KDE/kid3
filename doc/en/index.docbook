@@ -521,10 +521,7 @@ be renamed when the Save command is used.
 <para>
 The <guilabel>Format</guilabel> combo box and line edit contains the format
 to be used when the filename is generated from the first or the second tag.
-The filename can contain arbitrary characters, even a folder part separated
-by a slash from the file name, but that folder must already exist for the
-renaming to succeed. The following special codes are used to insert tag values
-into the filename:
+The following special codes are used to insert tag values into the filename:
 </para>
 
 <itemizedlist>
