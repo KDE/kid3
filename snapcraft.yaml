@@ -44,7 +44,6 @@ parts:
       - usr/share/metainfo/org.kde.kid3.appdata.xml
     plugin: cmake
     build-packages:
-      - libid3-3.8.3-dev
       - libflac++-dev
       - libvorbis-dev
       - libtag1-dev
@@ -59,7 +58,6 @@ parts:
       - ffmpeg-2404-sdk
     stage-packages:
       - libxinerama1
-      - libid3-3.8.3v5
       - libflac++10
       - libxkbcommon0
       - libpulse0

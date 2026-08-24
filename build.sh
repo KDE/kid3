@@ -524,7 +524,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 devscripts build-essential lintian debhelper extra-cmake-modules \
 libkf5kio-dev libkf5doctools-dev qtmultimedia5-dev qtdeclarative5-dev \
 qttools5-dev qttools5-dev-tools qtdeclarative5-dev-tools \
-qml-module-qtquick2 cmake python3 libid3-3.8.3-dev libflac++-dev \
+qml-module-qtquick2 cmake python3 libflac++-dev \
 libvorbis-dev libtag1-dev libchromaprint-dev libavformat-dev \
 libavcodec-dev docbook-xsl pkg-config libreadline-dev xsltproc \
 debian-keyring dput-ng python3-distro-info sudo curl less \
