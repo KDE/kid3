@@ -1729,17 +1729,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "이름"
 
-#: src/core/config/tagconfig.cpp:751 src/core/tags/frame.cpp:84
+#: src/core/config/tagconfig.cpp:749 src/core/tags/frame.cpp:84
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:752 src/core/tags/frame.cpp:85
+#: src/core/config/tagconfig.cpp:750 src/core/tags/frame.cpp:85
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:753 src/core/tags/frame.cpp:87
+#: src/core/config/tagconfig.cpp:751 src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -2299,12 +2299,12 @@ msgctxt "@default|"
 msgid "Logical negation"
 msgstr "논리 부정"
 
-#: src/core/model/fileproxymodel.cpp:876
+#: src/core/model/fileproxymodel.cpp:798
 msgctxt "FileProxyModel|"
 msgid "All Supported Files"
 msgstr "모든 지원하는 파일"
 
-#: src/core/model/fileproxymodel.cpp:878
+#: src/core/model/fileproxymodel.cpp:800
 msgctxt "FileProxyModel|"
 msgid "All Files"
 msgstr "모든 파일"
@@ -5979,441 +5979,6 @@ msgctxt "@default|"
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:907
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:456
-msgctxt "@default|"
-msgid "AENC - Audio encryption"
-msgstr "AENC - 오디오 암호화"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:908
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:457
-msgctxt "@default|"
-msgid "APIC - Attached picture"
-msgstr "APIC - 첨부된 그림"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:910
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:462
-msgctxt "@default|"
-msgid "COMM - Comments"
-msgstr "COMM - 설명"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:911
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:463
-msgctxt "@default|"
-msgid "COMR - Commercial"
-msgstr "COMR - 광고"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:912
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:467
-msgctxt "@default|"
-msgid "ENCR - Encryption method registration"
-msgstr "ENCR - 암호화 방법 등록"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:914
-msgctxt "@default|"
-msgid "EQUA - Equalization"
-msgstr "EQUA - 평준화"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:915
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:469
-msgctxt "@default|"
-msgid "ETCO - Event timing codes"
-msgstr "ETCO - 이벤트 타이밍 코드"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:916
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:470
-msgctxt "@default|"
-msgid "GEOB - General encapsulated object"
-msgstr "GEOB - 일반 캡슐화된 객체"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:917
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:471
-msgctxt "@default|"
-msgid "GRID - Group identification registration"
-msgstr "GRID - 그룹 식별자 등록"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:918
-msgctxt "@default|"
-msgid "IPLS - Involved people list"
-msgstr "IPLS - 참여한 사람 목록"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:919
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:475
-msgctxt "@default|"
-msgid "LINK - Linked information"
-msgstr "LINK - 연결된 정보"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:920
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:476
-msgctxt "@default|"
-msgid "MCDI - Music CD identifier"
-msgstr "MCDI - 음악 CD 식별자"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:921
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:477
-msgctxt "@default|"
-msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - MPEG 위치 찾아보기 테이블"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:922
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:482
-msgctxt "@default|"
-msgid "OWNE - Ownership frame"
-msgstr "OWNE - 소유자 프레임"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:923
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:483
-msgctxt "@default|"
-msgid "PRIV - Private frame"
-msgstr "PRIV - 사용자 정의 프레임"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:924
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:484
-msgctxt "@default|"
-msgid "PCNT - Play counter"
-msgstr "PCNT - 재생 횟수"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:925
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:488
-msgctxt "@default|"
-msgid "POPM - Popularimeter"
-msgstr "POPM - 인기도 미터"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:926
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:489
-msgctxt "@default|"
-msgid "POSS - Position synchronisation frame"
-msgstr "POSS - 위치 동기화 프레임"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:927
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:490
-msgctxt "@default|"
-msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - 추천하는 버퍼 크기"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:929
-msgctxt "@default|"
-msgid "RVAD - Relative volume adjustment"
-msgstr "RVAD - 상대적 음량 조절"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:930
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:492
-msgctxt "@default|"
-msgid "RVRB - Reverb"
-msgstr "RVRB - 리버브"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:933
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:495
-msgctxt "@default|"
-msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT - 동기화된 가사/텍스트"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:934
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:496
-msgctxt "@default|"
-msgid "SYTC - Synchronized tempo codes"
-msgstr "SYTC - 동기화된 템포 코드"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:935
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:497
-msgctxt "@default|"
-msgid "TALB - Album/Movie/Show title"
-msgstr "TALB - 앨범/영화/쇼 제목"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:936
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:498
-msgctxt "@default|"
-msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM - BPM(분당 비트 수)"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:937
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:503
-msgctxt "@default|"
-msgid "TCOM - Composer"
-msgstr "TCOM - 작곡가"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:938
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:504
-msgctxt "@default|"
-msgid "TCON - Content type"
-msgstr "TCON - 콘텐츠 형식"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:939
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:505
-msgctxt "@default|"
-msgid "TCOP - Copyright message"
-msgstr "TCOP - 저작권 메시지"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:940
-msgctxt "@default|"
-msgid "TDAT - Date"
-msgstr "TDAT - 날짜"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:942
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:510
-msgctxt "@default|"
-msgid "TDLY - Playlist delay"
-msgstr "TDLY - 재생 목록 지연"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:948
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:515
-msgctxt "@default|"
-msgid "TENC - Encoded by"
-msgstr "TENC - 인코딩 도구"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:949
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:516
-msgctxt "@default|"
-msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - 작사자/텍스트 작성자"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:950
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:517
-msgctxt "@default|"
-msgid "TFLT - File type"
-msgstr "TFLT - 파일 형식"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:951
-msgctxt "@default|"
-msgid "TIME - Time"
-msgstr "TIME - 시간"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:952
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:522
-msgctxt "@default|"
-msgid "TIT1 - Content group description"
-msgstr "TIT1 - 콘텐츠 그룹 설명"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:953
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:523
-msgctxt "@default|"
-msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - 제목/노래 이름/내용 설명"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:954
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:524
-msgctxt "@default|"
-msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 - 부제목/내용 보충"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:955
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:525
-msgctxt "@default|"
-msgid "TKEY - Initial key"
-msgstr "TKEY - 초기 키"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:956
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:529
-msgctxt "@default|"
-msgid "TLAN - Language(s)"
-msgstr "TLAN - 언어"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:957
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:530
-msgctxt "@default|"
-msgid "TLEN - Length"
-msgstr "TLEN - 길이"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:959
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:532
-msgctxt "@default|"
-msgid "TMED - Media type"
-msgstr "TMED - 미디어 형식"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:961
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:534
-msgctxt "@default|"
-msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - 원래 앨범/영화/쇼 제목"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:962
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:535
-msgctxt "@default|"
-msgid "TOFN - Original filename"
-msgstr "TOFN - 원래 파일 이름"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:963
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:536
-msgctxt "@default|"
-msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - 원래 작사자/텍스트 작성자"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:964
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:537
-msgctxt "@default|"
-msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - 원래 아티스트/연주가"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:965
-msgctxt "@default|"
-msgid "TORY - Original release year"
-msgstr "TORY - 원래 출시한 연도"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:966
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:538
-msgctxt "@default|"
-msgid "TOWN - File owner/licensee"
-msgstr "TOWN - 파일 소유자/라이선스"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:967
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:539
-msgctxt "@default|"
-msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - 리드 음악가/솔로"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:968
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:540
-msgctxt "@default|"
-msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 - 밴드/오케스트라/추가 인원"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:969
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:541
-msgctxt "@default|"
-msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 - 지휘자/연주가 보충"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:970
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:542
-msgctxt "@default|"
-msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr "TPE4 - 해석, 리믹스, 수정한 사람"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:971
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:543
-msgctxt "@default|"
-msgid "TPOS - Part of a set"
-msgstr "TPOS - 집합의 일부"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:973
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:545
-msgctxt "@default|"
-msgid "TPUB - Publisher"
-msgstr "TPUB - 출판사"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:974
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:546
-msgctxt "@default|"
-msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - 트랙 번호/집합 내 위치"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:975
-msgctxt "@default|"
-msgid "TRDA - Recording dates"
-msgstr "TRDA - 녹음한 날짜"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:976
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:547
-msgctxt "@default|"
-msgid "TRSN - Internet radio station name"
-msgstr "TRSN - 인터넷 방송국 이름"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:977
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:548
-msgctxt "@default|"
-msgid "TRSO - Internet radio station owner"
-msgstr "TRSO - 인터넷 방송국 소유자"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:978
-msgctxt "@default|"
-msgid "TSIZ - Size"
-msgstr "TSIZ - 크기"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:982
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:554
-msgctxt "@default|"
-msgid "TSRC - ISRC (international standard recording code)"
-msgstr "TSRC - 국제 표준 녹음 코드(ISRC)"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:983
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:555
-msgctxt "@default|"
-msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - 인코딩에 사용한 소프트웨어/하드웨어 설정"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:985
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:557
-msgctxt "@default|"
-msgid "TXXX - User defined text information"
-msgstr "TXXX - 사용자 정의 텍스트 정보"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:986
-msgctxt "@default|"
-msgid "TYER - Year"
-msgstr "TYER - 연도"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:987
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:558
-msgctxt "@default|"
-msgid "UFID - Unique file identifier"
-msgstr "UFID - 고유 파일 식별자"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:988
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:559
-msgctxt "@default|"
-msgid "USER - Terms of use"
-msgstr "USER - 이용 약관"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:989
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:560
-msgctxt "@default|"
-msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr "USLT - 동기화되지 않은 가사/텍스트"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:990
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:561
-msgctxt "@default|"
-msgid "WCOM - Commercial information"
-msgstr "WCOM - 상업적 정보"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:991
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:562
-msgctxt "@default|"
-msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - 저작권/법적 정보"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:992
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:566
-msgctxt "@default|"
-msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - 공식 오디오 파일 웹 페이지"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:993
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:567
-msgctxt "@default|"
-msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - 공식 아티스트/연주가 웹 페이지"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:994
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:568
-msgctxt "@default|"
-msgid "WOAS - Official audio source webpage"
-msgstr "WOAS - 공식 오디오 원본 웹 페이지"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:995
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:569
-msgctxt "@default|"
-msgid "WORS - Official internet radio station homepage"
-msgstr "WORS - 공식 인터넷 라디오 방송국 홈페이지"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:996
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:570
-msgctxt "@default|"
-msgid "WPAY - Payment"
-msgstr "WPAY - 지불 정보"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:997
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:571
-msgctxt "@default|"
-msgid "WPUB - Official publisher webpage"
-msgstr "WPUB - 공식 출판사 웹 페이지"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:998
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:572
-msgctxt "@default|"
-msgid "WXXX - User defined URL link"
-msgstr "WXXX - 사용자 정의 URL 링크"
-
 #: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
 msgctxt "@default|"
 msgid "MusicBrainz Release"
@@ -6423,6 +5988,16 @@ msgstr "MusicBrainz 릴리스"
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "등급 정보"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:456
+msgctxt "@default|"
+msgid "AENC - Audio encryption"
+msgstr "AENC - 오디오 암호화"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:457
+msgctxt "@default|"
+msgid "APIC - Attached picture"
+msgstr "APIC - 첨부된 그림"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:458
 msgctxt "@default|"
@@ -6434,20 +6009,65 @@ msgctxt "@default|"
 msgid "CHAP - Chapter"
 msgstr "CHAP - 챕터"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:462
+msgctxt "@default|"
+msgid "COMM - Comments"
+msgstr "COMM - 설명"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:463
+msgctxt "@default|"
+msgid "COMR - Commercial"
+msgstr "COMR - 광고"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:465
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
 msgstr "CTOC - 목차"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:467
+msgctxt "@default|"
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - 암호화 방법 등록"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:468
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - 평준화(2)"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:469
+msgctxt "@default|"
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - 이벤트 타이밍 코드"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:470
+msgctxt "@default|"
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - 일반 캡슐화된 객체"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:471
+msgctxt "@default|"
+msgid "GRID - Group identification registration"
+msgstr "GRID - 그룹 식별자 등록"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:473
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
 msgstr "GRP1 - 그룹화"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:475
+msgctxt "@default|"
+msgid "LINK - Linked information"
+msgstr "LINK - 연결된 정보"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:476
+msgctxt "@default|"
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - 음악 CD 식별자"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:477
+msgctxt "@default|"
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - MPEG 위치 찾아보기 테이블"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:479
 msgctxt "@default|"
@@ -6459,15 +6079,50 @@ msgctxt "@default|"
 msgid "MVNM - Movement Name"
 msgstr "MVNM - 악장 이름"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:482
+msgctxt "@default|"
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - 소유자 프레임"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:483
+msgctxt "@default|"
+msgid "PRIV - Private frame"
+msgstr "PRIV - 사용자 정의 프레임"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:484
+msgctxt "@default|"
+msgid "PCNT - Play counter"
+msgstr "PCNT - 재생 횟수"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:486
 msgctxt "@default|"
 msgid "PCST - Podcast"
 msgstr "PCST - 팟캐스트"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:488
+msgctxt "@default|"
+msgid "POPM - Popularimeter"
+msgstr "POPM - 인기도 미터"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:489
+msgctxt "@default|"
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - 위치 동기화 프레임"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:490
+msgctxt "@default|"
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - 추천하는 버퍼 크기"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:491
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - 상대적 음량 조절(2)"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:492
+msgctxt "@default|"
+msgid "RVRB - Reverb"
+msgstr "RVRB - 리버브"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:493
 msgctxt "@default|"
@@ -6479,6 +6134,26 @@ msgctxt "@default|"
 msgid "SIGN - Signature frame"
 msgstr "SIGN - 서명 프레임"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:495
+msgctxt "@default|"
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - 동기화된 가사/텍스트"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:496
+msgctxt "@default|"
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - 동기화된 템포 코드"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:497
+msgctxt "@default|"
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - 앨범/영화/쇼 제목"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:498
+msgctxt "@default|"
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM(분당 비트 수)"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:500
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
@@ -6489,6 +6164,21 @@ msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - iTunes 모음집 플래그"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:503
+msgctxt "@default|"
+msgid "TCOM - Composer"
+msgstr "TCOM - 작곡가"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:504
+msgctxt "@default|"
+msgid "TCON - Content type"
+msgstr "TCON - 콘텐츠 형식"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:505
+msgctxt "@default|"
+msgid "TCOP - Copyright message"
+msgstr "TCOP - 저작권 메시지"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:506
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
@@ -6498,6 +6188,11 @@ msgstr "TDEN - 인코딩한 시간"
 msgctxt "@default|"
 msgid "TDES - Podcast description"
 msgstr "TDES - 팟캐스트 설명"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:510
+msgctxt "@default|"
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - 재생 목록 지연"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:511
 msgctxt "@default|"
@@ -6519,6 +6214,21 @@ msgctxt "@default|"
 msgid "TDTG - Tagging time"
 msgstr "TDTG - 태그한 시간"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:515
+msgctxt "@default|"
+msgid "TENC - Encoded by"
+msgstr "TENC - 인코딩 도구"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:516
+msgctxt "@default|"
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - 작사자/텍스트 작성자"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:517
+msgctxt "@default|"
+msgid "TFLT - File type"
+msgstr "TFLT - 파일 형식"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:519
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
@@ -6529,25 +6239,130 @@ msgctxt "@default|"
 msgid "TIPL - Involved people list"
 msgstr "TIPL - 참여한 사람 목록"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:522
+msgctxt "@default|"
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - 콘텐츠 그룹 설명"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:523
+msgctxt "@default|"
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - 제목/노래 이름/내용 설명"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:524
+msgctxt "@default|"
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - 부제목/내용 보충"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:525
+msgctxt "@default|"
+msgid "TKEY - Initial key"
+msgstr "TKEY - 초기 키"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:527
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
 msgstr "TKWD - 팟캐스트 키워드"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:529
+msgctxt "@default|"
+msgid "TLAN - Language(s)"
+msgstr "TLAN - 언어"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:530
+msgctxt "@default|"
+msgid "TLEN - Length"
+msgstr "TLEN - 길이"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:531
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - 음악가 크레딧 목록"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:532
+msgctxt "@default|"
+msgid "TMED - Media type"
+msgstr "TMED - 미디어 형식"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:533
 msgctxt "@default|"
 msgid "TMOO - Mood"
 msgstr "TMOD - 분위기"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:534
+msgctxt "@default|"
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - 원래 앨범/영화/쇼 제목"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:535
+msgctxt "@default|"
+msgid "TOFN - Original filename"
+msgstr "TOFN - 원래 파일 이름"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:536
+msgctxt "@default|"
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - 원래 작사자/텍스트 작성자"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:537
+msgctxt "@default|"
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - 원래 아티스트/연주가"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:538
+msgctxt "@default|"
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - 파일 소유자/라이선스"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:539
+msgctxt "@default|"
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - 리드 음악가/솔로"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:540
+msgctxt "@default|"
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - 밴드/오케스트라/추가 인원"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:541
+msgctxt "@default|"
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - 지휘자/연주가 보충"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:542
+msgctxt "@default|"
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - 해석, 리믹스, 수정한 사람"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:543
+msgctxt "@default|"
+msgid "TPOS - Part of a set"
+msgstr "TPOS - 집합의 일부"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:544
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
 msgstr "TPRO - 생성된 공지"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:545
+msgctxt "@default|"
+msgid "TPUB - Publisher"
+msgstr "TPUB - 출판사"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:546
+msgctxt "@default|"
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - 트랙 번호/집합 내 위치"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:547
+msgctxt "@default|"
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - 인터넷 방송국 이름"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:548
+msgctxt "@default|"
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - 인터넷 방송국 소유자"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:549
 msgctxt "@default|"
@@ -6574,15 +6389,90 @@ msgctxt "@default|"
 msgid "TSOT - Title sort order"
 msgstr "TSOT - 제목 정렬 순서"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:554
+msgctxt "@default|"
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - 국제 표준 녹음 코드(ISRC)"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:555
+msgctxt "@default|"
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - 인코딩에 사용한 소프트웨어/하드웨어 설정"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:556
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
 msgstr "TSST - 집합 자막"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:557
+msgctxt "@default|"
+msgid "TXXX - User defined text information"
+msgstr "TXXX - 사용자 정의 텍스트 정보"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:558
+msgctxt "@default|"
+msgid "UFID - Unique file identifier"
+msgstr "UFID - 고유 파일 식별자"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:559
+msgctxt "@default|"
+msgid "USER - Terms of use"
+msgstr "USER - 이용 약관"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:560
+msgctxt "@default|"
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - 동기화되지 않은 가사/텍스트"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:561
+msgctxt "@default|"
+msgid "WCOM - Commercial information"
+msgstr "WCOM - 상업적 정보"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:562
+msgctxt "@default|"
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - 저작권/법적 정보"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:564
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - 팟캐스트 피드"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:566
+msgctxt "@default|"
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - 공식 오디오 파일 웹 페이지"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:567
+msgctxt "@default|"
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - 공식 아티스트/연주가 웹 페이지"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:568
+msgctxt "@default|"
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - 공식 오디오 원본 웹 페이지"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:569
+msgctxt "@default|"
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - 공식 인터넷 라디오 방송국 홈페이지"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:570
+msgctxt "@default|"
+msgid "WPAY - Payment"
+msgstr "WPAY - 지불 정보"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:571
+msgctxt "@default|"
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - 공식 출판사 웹 페이지"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:572
+msgctxt "@default|"
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - 사용자 정의 URL 링크"
 
 #: src/qml/app/AboutDialog.qml:29
 msgctxt "AboutDialog|"
@@ -7357,6 +7247,42 @@ msgstr "모두 선택"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
 msgstr "모두 선택 해제"
+
+#~ msgctxt "@default|"
+#~ msgid "EQUA - Equalization"
+#~ msgstr "EQUA - 평준화"
+
+#~ msgctxt "@default|"
+#~ msgid "IPLS - Involved people list"
+#~ msgstr "IPLS - 참여한 사람 목록"
+
+#~ msgctxt "@default|"
+#~ msgid "RVAD - Relative volume adjustment"
+#~ msgstr "RVAD - 상대적 음량 조절"
+
+#~ msgctxt "@default|"
+#~ msgid "TDAT - Date"
+#~ msgstr "TDAT - 날짜"
+
+#~ msgctxt "@default|"
+#~ msgid "TIME - Time"
+#~ msgstr "TIME - 시간"
+
+#~ msgctxt "@default|"
+#~ msgid "TORY - Original release year"
+#~ msgstr "TORY - 원래 출시한 연도"
+
+#~ msgctxt "@default|"
+#~ msgid "TRDA - Recording dates"
+#~ msgstr "TRDA - 녹음한 날짜"
+
+#~ msgctxt "@default|"
+#~ msgid "TSIZ - Size"
+#~ msgstr "TSIZ - 크기"
+
+#~ msgctxt "@default|"
+#~ msgid "TYER - Year"
+#~ msgstr "TYER - 연도"
 
 #~ msgctxt "ConfigDialogPages|"
 #~ msgid "Custom &Genres"

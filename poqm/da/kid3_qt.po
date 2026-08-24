@@ -1748,17 +1748,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "Navn"
 
-#: src/core/config/tagconfig.cpp:751 src/core/tags/frame.cpp:84
+#: src/core/config/tagconfig.cpp:749 src/core/tags/frame.cpp:84
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:752 src/core/tags/frame.cpp:85
+#: src/core/config/tagconfig.cpp:750 src/core/tags/frame.cpp:85
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:753 src/core/tags/frame.cpp:87
+#: src/core/config/tagconfig.cpp:751 src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -2318,12 +2318,12 @@ msgctxt "@default|"
 msgid "Logical negation"
 msgstr "Logiske NEGATION"
 
-#: src/core/model/fileproxymodel.cpp:876
+#: src/core/model/fileproxymodel.cpp:798
 msgctxt "FileProxyModel|"
 msgid "All Supported Files"
 msgstr "Alle supporterede filer"
 
-#: src/core/model/fileproxymodel.cpp:878
+#: src/core/model/fileproxymodel.cpp:800
 msgctxt "FileProxyModel|"
 msgid "All Files"
 msgstr "Alle filer"
@@ -6072,441 +6072,6 @@ msgctxt "@default|"
 msgid "gnudb.org"
 msgstr "gnudb.org"
 
-#: src/plugins/id3libmetadata/mp3file.cpp:907
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:456
-msgctxt "@default|"
-msgid "AENC - Audio encryption"
-msgstr "AENC - Audio kryptering"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:908
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:457
-msgctxt "@default|"
-msgid "APIC - Attached picture"
-msgstr "APIC - Vedhæftet billede"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:910
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:462
-msgctxt "@default|"
-msgid "COMM - Comments"
-msgstr "COMM - Kommentarer"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:911
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:463
-msgctxt "@default|"
-msgid "COMR - Commercial"
-msgstr "COMR - Commercial"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:912
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:467
-msgctxt "@default|"
-msgid "ENCR - Encryption method registration"
-msgstr "ENCR - Krypteringsmetode"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:914
-msgctxt "@default|"
-msgid "EQUA - Equalization"
-msgstr "EQUA - Udligning"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:915
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:469
-msgctxt "@default|"
-msgid "ETCO - Event timing codes"
-msgstr "ETCO - Tidskoder for hændelser"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:916
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:470
-msgctxt "@default|"
-msgid "GEOB - General encapsulated object"
-msgstr "GEOB - Generelt indkapslet objekt"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:917
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:471
-msgctxt "@default|"
-msgid "GRID - Group identification registration"
-msgstr "GRID - Gruppe identifikation registrering"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:918
-msgctxt "@default|"
-msgid "IPLS - Involved people list"
-msgstr "IPLS - Involved people list"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:919
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:475
-msgctxt "@default|"
-msgid "LINK - Linked information"
-msgstr "LINK - Linket information"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:920
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:476
-msgctxt "@default|"
-msgid "MCDI - Music CD identifier"
-msgstr "MCDI - Musik-cd-identifikation"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:921
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:477
-msgctxt "@default|"
-msgid "MLLT - MPEG location lookup table"
-msgstr "MLLT - MPEG-position - Opslagstabel"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:922
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:482
-msgctxt "@default|"
-msgid "OWNE - Ownership frame"
-msgstr "OWNE - Ejerskab"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:923
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:483
-msgctxt "@default|"
-msgid "PRIV - Private frame"
-msgstr "PRIV - Privat"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:924
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:484
-msgctxt "@default|"
-msgid "PCNT - Play counter"
-msgstr "PCNT - Afspilningstæller"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:925
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:488
-msgctxt "@default|"
-msgid "POPM - Popularimeter"
-msgstr "POPM - Popularitetsmåling"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:926
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:489
-msgctxt "@default|"
-msgid "POSS - Position synchronisation frame"
-msgstr "POSS - Positionssynkronisering"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:927
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:490
-msgctxt "@default|"
-msgid "RBUF - Recommended buffer size"
-msgstr "RBUF - Anbefalet buffer størrelse"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:929
-msgctxt "@default|"
-msgid "RVAD - Relative volume adjustment"
-msgstr "RVAD - Relativ lydstyrketilpasning"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:930
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:492
-msgctxt "@default|"
-msgid "RVRB - Reverb"
-msgstr "RVRB - Efterklang"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:933
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:495
-msgctxt "@default|"
-msgid "SYLT - Synchronized lyric/text"
-msgstr "SYLT - Synchronized lyric/text"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:934
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:496
-msgctxt "@default|"
-msgid "SYTC - Synchronized tempo codes"
-msgstr "SYTC - Synchronized tempo codes"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:935
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:497
-msgctxt "@default|"
-msgid "TALB - Album/Movie/Show title"
-msgstr "TALB - Album-/Film-/Showtitel"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:936
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:498
-msgctxt "@default|"
-msgid "TBPM - BPM (beats per minute)"
-msgstr "TBPM - BPM (beats pr. minut)"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:937
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:503
-msgctxt "@default|"
-msgid "TCOM - Composer"
-msgstr "TCOM - Komponist"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:938
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:504
-msgctxt "@default|"
-msgid "TCON - Content type"
-msgstr "TCON - Indholdstype"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:939
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:505
-msgctxt "@default|"
-msgid "TCOP - Copyright message"
-msgstr "TCOP - Ophavsret-Information"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:940
-msgctxt "@default|"
-msgid "TDAT - Date"
-msgstr "TDAT - Dato"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:942
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:510
-msgctxt "@default|"
-msgid "TDLY - Playlist delay"
-msgstr "TDLY - Afspilningsliste forsinkelse"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:948
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:515
-msgctxt "@default|"
-msgid "TENC - Encoded by"
-msgstr "TENC - Indkodet af"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:949
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:516
-msgctxt "@default|"
-msgid "TEXT - Lyricist/Text writer"
-msgstr "TEXT - Lyriker/sangskriver"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:950
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:517
-msgctxt "@default|"
-msgid "TFLT - File type"
-msgstr "TFLT - Filtype"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:951
-msgctxt "@default|"
-msgid "TIME - Time"
-msgstr "TIME - Tidspunkt"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:952
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:522
-msgctxt "@default|"
-msgid "TIT1 - Content group description"
-msgstr "TIT1 - Indholds gruppebeskrivelse"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:953
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:523
-msgctxt "@default|"
-msgid "TIT2 - Title/songname/content description"
-msgstr "TIT2 - Titel/Navn/Indholds beskrivelse"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:954
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:524
-msgctxt "@default|"
-msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 - Undertitel / Præciseret beskrivelse"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:955
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:525
-msgctxt "@default|"
-msgid "TKEY - Initial key"
-msgstr "TKEY - Anfangstoneart"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:956
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:529
-msgctxt "@default|"
-msgid "TLAN - Language(s)"
-msgstr "TLAN - Sprog"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:957
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:530
-msgctxt "@default|"
-msgid "TLEN - Length"
-msgstr "TLEN - Længde"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:959
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:532
-msgctxt "@default|"
-msgid "TMED - Media type"
-msgstr "TMED - Medie type"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:961
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:534
-msgctxt "@default|"
-msgid "TOAL - Original album/movie/show title"
-msgstr "TOAL - Original album/film/show titel"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:962
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:535
-msgctxt "@default|"
-msgid "TOFN - Original filename"
-msgstr "TOFN - Originalt filnavn"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:963
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:536
-msgctxt "@default|"
-msgid "TOLY - Original lyricist(s)/text writer(s)"
-msgstr "TOLY - Original lyriker/sangskriver"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:964
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:537
-msgctxt "@default|"
-msgid "TOPE - Original artist(s)/performer(s)"
-msgstr "TOPE - Originalr kunstner/performer"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:965
-msgctxt "@default|"
-msgid "TORY - Original release year"
-msgstr "TORY - Originalt udgivelsesår"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:966
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:538
-msgctxt "@default|"
-msgid "TOWN - File owner/licensee"
-msgstr "TOWN - Fil-ejer/licens"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:967
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:539
-msgctxt "@default|"
-msgid "TPE1 - Lead performer(s)/Soloist(s)"
-msgstr "TPE1 - Lead performer /-solist"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:968
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:540
-msgctxt "@default|"
-msgid "TPE2 - Band/orchestra/accompaniment"
-msgstr "TPE2 - Gruppe/Orkester/Akkompagnement"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:969
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:541
-msgctxt "@default|"
-msgid "TPE3 - Conductor/performer refinement"
-msgstr "TPE3 - Dirigent/performer forfining"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:970
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:542
-msgctxt "@default|"
-msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
-msgstr "TPE4 - Fortolket, remixet eller på anden måde modificeret af"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:971
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:543
-msgctxt "@default|"
-msgid "TPOS - Part of a set"
-msgstr "TPOS - Del af et sæt"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:973
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:545
-msgctxt "@default|"
-msgid "TPUB - Publisher"
-msgstr "TPUB - Udgiver"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:974
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:546
-msgctxt "@default|"
-msgid "TRCK - Track number/Position in set"
-msgstr "TRCK - Spornummer/Positionen i sæt"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:975
-msgctxt "@default|"
-msgid "TRDA - Recording dates"
-msgstr "TRDA - Recording dates"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:976
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:547
-msgctxt "@default|"
-msgid "TRSN - Internet radio station name"
-msgstr "TRSN - Transmission radio station name"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:977
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:548
-msgctxt "@default|"
-msgid "TRSO - Internet radio station owner"
-msgstr "TRSO - Ejer af internet radio station"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:978
-msgctxt "@default|"
-msgid "TSIZ - Size"
-msgstr "TSIZ - Størrelse"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:982
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:554
-msgctxt "@default|"
-msgid "TSRC - ISRC (international standard recording code)"
-msgstr "TSRC - ISRC (International standard recording code)"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:983
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:555
-msgctxt "@default|"
-msgid "TSSE - Software/Hardware and settings used for encoding"
-msgstr "TSSE - Software/Hardware og indstillinger anvendt til encoding"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:985
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:557
-msgctxt "@default|"
-msgid "TXXX - User defined text information"
-msgstr "TXXX - Brugerdefineret tekstinformation"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:986
-msgctxt "@default|"
-msgid "TYER - Year"
-msgstr "TYER - År"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:987
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:558
-msgctxt "@default|"
-msgid "UFID - Unique file identifier"
-msgstr "UFID - Unik fil identifikation"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:988
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:559
-msgctxt "@default|"
-msgid "USER - Terms of use"
-msgstr "USER - Betingelser for brug"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:989
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:560
-msgctxt "@default|"
-msgid "USLT - Unsynchronized lyric/text transcription"
-msgstr "USLT - Usynkroniseret tekst / tekst afskrift"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:990
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:561
-msgctxt "@default|"
-msgid "WCOM - Commercial information"
-msgstr "WCOM - Kommerciel information"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:991
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:562
-msgctxt "@default|"
-msgid "WCOP - Copyright/Legal information"
-msgstr "WCOP - Ophavsret / Juridisk information"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:992
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:566
-msgctxt "@default|"
-msgid "WOAF - Official audio file webpage"
-msgstr "WOAF - Officiel audio fil websted"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:993
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:567
-msgctxt "@default|"
-msgid "WOAR - Official artist/performer webpage"
-msgstr "WOAR - Officiel kunstner / performer webside"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:994
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:568
-msgctxt "@default|"
-msgid "WOAS - Official audio source webpage"
-msgstr "WOAS - Officielt websted for audio kilde"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:995
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:569
-msgctxt "@default|"
-msgid "WORS - Official internet radio station homepage"
-msgstr "WORS - Officiel internet radiostation hjemmeside"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:996
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:570
-msgctxt "@default|"
-msgid "WPAY - Payment"
-msgstr "WPAY - Betaling"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:997
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:571
-msgctxt "@default|"
-msgid "WPUB - Official publisher webpage"
-msgstr "WPUB - Udgivers officielle webside"
-
-#: src/plugins/id3libmetadata/mp3file.cpp:998
-#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:572
-msgctxt "@default|"
-msgid "WXXX - User defined URL link"
-msgstr "WXXX - Brugerdefineret URL"
-
 #: src/plugins/musicbrainzimport/musicbrainzimporter.cpp:55
 msgctxt "@default|"
 msgid "MusicBrainz Release"
@@ -6516,6 +6081,16 @@ msgstr "MusicBrainz-udgivelse"
 msgctxt "@default|"
 msgid "Rating Information"
 msgstr "Vurdering information"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:456
+msgctxt "@default|"
+msgid "AENC - Audio encryption"
+msgstr "AENC - Audio kryptering"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:457
+msgctxt "@default|"
+msgid "APIC - Attached picture"
+msgstr "APIC - Vedhæftet billede"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:458
 msgctxt "@default|"
@@ -6527,20 +6102,65 @@ msgctxt "@default|"
 msgid "CHAP - Chapter"
 msgstr "CHAP - Kapitel"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:462
+msgctxt "@default|"
+msgid "COMM - Comments"
+msgstr "COMM - Kommentarer"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:463
+msgctxt "@default|"
+msgid "COMR - Commercial"
+msgstr "COMR - Commercial"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:465
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
 msgstr "CTOC - Indholdsfortegnelse"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:467
+msgctxt "@default|"
+msgid "ENCR - Encryption method registration"
+msgstr "ENCR - Krypteringsmetode"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:468
 msgctxt "@default|"
 msgid "EQU2 - Equalisation (2)"
 msgstr "EQU2 - Udligning (2)"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:469
+msgctxt "@default|"
+msgid "ETCO - Event timing codes"
+msgstr "ETCO - Tidskoder for hændelser"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:470
+msgctxt "@default|"
+msgid "GEOB - General encapsulated object"
+msgstr "GEOB - Generelt indkapslet objekt"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:471
+msgctxt "@default|"
+msgid "GRID - Group identification registration"
+msgstr "GRID - Gruppe identifikation registrering"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:473
 msgctxt "@default|"
 msgid "GRP1 - Grouping"
 msgstr "GRP1 - Gruppering"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:475
+msgctxt "@default|"
+msgid "LINK - Linked information"
+msgstr "LINK - Linket information"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:476
+msgctxt "@default|"
+msgid "MCDI - Music CD identifier"
+msgstr "MCDI - Musik-cd-identifikation"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:477
+msgctxt "@default|"
+msgid "MLLT - MPEG location lookup table"
+msgstr "MLLT - MPEG-position - Opslagstabel"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:479
 msgctxt "@default|"
@@ -6552,15 +6172,50 @@ msgctxt "@default|"
 msgid "MVNM - Movement Name"
 msgstr "MVNM - Sats navn"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:482
+msgctxt "@default|"
+msgid "OWNE - Ownership frame"
+msgstr "OWNE - Ejerskab"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:483
+msgctxt "@default|"
+msgid "PRIV - Private frame"
+msgstr "PRIV - Privat"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:484
+msgctxt "@default|"
+msgid "PCNT - Play counter"
+msgstr "PCNT - Afspilningstæller"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:486
 msgctxt "@default|"
 msgid "PCST - Podcast"
 msgstr "PCST - Podcast"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:488
+msgctxt "@default|"
+msgid "POPM - Popularimeter"
+msgstr "POPM - Popularitetsmåling"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:489
+msgctxt "@default|"
+msgid "POSS - Position synchronisation frame"
+msgstr "POSS - Positionssynkronisering"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:490
+msgctxt "@default|"
+msgid "RBUF - Recommended buffer size"
+msgstr "RBUF - Anbefalet buffer størrelse"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:491
 msgctxt "@default|"
 msgid "RVA2 - Relative volume adjustment (2)"
 msgstr "RVA2 - Relativ lydstyrketilpasning (2)"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:492
+msgctxt "@default|"
+msgid "RVRB - Reverb"
+msgstr "RVRB - Efterklang"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:493
 msgctxt "@default|"
@@ -6572,6 +6227,26 @@ msgctxt "@default|"
 msgid "SIGN - Signature frame"
 msgstr "SIGN - Signatur"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:495
+msgctxt "@default|"
+msgid "SYLT - Synchronized lyric/text"
+msgstr "SYLT - Synchronized lyric/text"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:496
+msgctxt "@default|"
+msgid "SYTC - Synchronized tempo codes"
+msgstr "SYTC - Synchronized tempo codes"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:497
+msgctxt "@default|"
+msgid "TALB - Album/Movie/Show title"
+msgstr "TALB - Album-/Film-/Showtitel"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:498
+msgctxt "@default|"
+msgid "TBPM - BPM (beats per minute)"
+msgstr "TBPM - BPM (beats pr. minut)"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:500
 msgctxt "@default|"
 msgid "TCAT - Podcast category"
@@ -6582,6 +6257,21 @@ msgctxt "@default|"
 msgid "TCMP - iTunes compilation flag"
 msgstr "TCMP - iTunes kompilering"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:503
+msgctxt "@default|"
+msgid "TCOM - Composer"
+msgstr "TCOM - Komponist"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:504
+msgctxt "@default|"
+msgid "TCON - Content type"
+msgstr "TCON - Indholdstype"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:505
+msgctxt "@default|"
+msgid "TCOP - Copyright message"
+msgstr "TCOP - Ophavsret-Information"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:506
 msgctxt "@default|"
 msgid "TDEN - Encoding time"
@@ -6591,6 +6281,11 @@ msgstr "TDEN - Encoding tidspunkt"
 msgctxt "@default|"
 msgid "TDES - Podcast description"
 msgstr "TDES - Podcast beskrivelse"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:510
+msgctxt "@default|"
+msgid "TDLY - Playlist delay"
+msgstr "TDLY - Afspilningsliste forsinkelse"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:511
 msgctxt "@default|"
@@ -6612,6 +6307,21 @@ msgctxt "@default|"
 msgid "TDTG - Tagging time"
 msgstr "TDTG - Mærkningstidspunkt"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:515
+msgctxt "@default|"
+msgid "TENC - Encoded by"
+msgstr "TENC - Indkodet af"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:516
+msgctxt "@default|"
+msgid "TEXT - Lyricist/Text writer"
+msgstr "TEXT - Lyriker/sangskriver"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:517
+msgctxt "@default|"
+msgid "TFLT - File type"
+msgstr "TFLT - Filtype"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:519
 msgctxt "@default|"
 msgid "TGID - Podcast identifier"
@@ -6622,25 +6332,130 @@ msgctxt "@default|"
 msgid "TIPL - Involved people list"
 msgstr "TIPL - Liste over involverede personer"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:522
+msgctxt "@default|"
+msgid "TIT1 - Content group description"
+msgstr "TIT1 - Indholds gruppebeskrivelse"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:523
+msgctxt "@default|"
+msgid "TIT2 - Title/songname/content description"
+msgstr "TIT2 - Titel/Navn/Indholds beskrivelse"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:524
+msgctxt "@default|"
+msgid "TIT3 - Subtitle/Description refinement"
+msgstr "TIT3 - Undertitel / Præciseret beskrivelse"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:525
+msgctxt "@default|"
+msgid "TKEY - Initial key"
+msgstr "TKEY - Anfangstoneart"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:527
 msgctxt "@default|"
 msgid "TKWD - Podcast keywords"
 msgstr "TKWD - Podcast-nøgleord"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:529
+msgctxt "@default|"
+msgid "TLAN - Language(s)"
+msgstr "TLAN - Sprog"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:530
+msgctxt "@default|"
+msgid "TLEN - Length"
+msgstr "TLEN - Længde"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:531
 msgctxt "@default|"
 msgid "TMCL - Musician credits list"
 msgstr "TMCL - Musiker kreditliste"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:532
+msgctxt "@default|"
+msgid "TMED - Media type"
+msgstr "TMED - Medie type"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:533
 msgctxt "@default|"
 msgid "TMOO - Mood"
 msgstr "TMOO - Stemning"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:534
+msgctxt "@default|"
+msgid "TOAL - Original album/movie/show title"
+msgstr "TOAL - Original album/film/show titel"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:535
+msgctxt "@default|"
+msgid "TOFN - Original filename"
+msgstr "TOFN - Originalt filnavn"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:536
+msgctxt "@default|"
+msgid "TOLY - Original lyricist(s)/text writer(s)"
+msgstr "TOLY - Original lyriker/sangskriver"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:537
+msgctxt "@default|"
+msgid "TOPE - Original artist(s)/performer(s)"
+msgstr "TOPE - Originalr kunstner/performer"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:538
+msgctxt "@default|"
+msgid "TOWN - File owner/licensee"
+msgstr "TOWN - Fil-ejer/licens"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:539
+msgctxt "@default|"
+msgid "TPE1 - Lead performer(s)/Soloist(s)"
+msgstr "TPE1 - Lead performer /-solist"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:540
+msgctxt "@default|"
+msgid "TPE2 - Band/orchestra/accompaniment"
+msgstr "TPE2 - Gruppe/Orkester/Akkompagnement"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:541
+msgctxt "@default|"
+msgid "TPE3 - Conductor/performer refinement"
+msgstr "TPE3 - Dirigent/performer forfining"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:542
+msgctxt "@default|"
+msgid "TPE4 - Interpreted, remixed, or otherwise modified by"
+msgstr "TPE4 - Fortolket, remixet eller på anden måde modificeret af"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:543
+msgctxt "@default|"
+msgid "TPOS - Part of a set"
+msgstr "TPOS - Del af et sæt"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:544
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
 msgstr "TPRO - Produktions-bekendtgørelse"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:545
+msgctxt "@default|"
+msgid "TPUB - Publisher"
+msgstr "TPUB - Udgiver"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:546
+msgctxt "@default|"
+msgid "TRCK - Track number/Position in set"
+msgstr "TRCK - Spornummer/Positionen i sæt"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:547
+msgctxt "@default|"
+msgid "TRSN - Internet radio station name"
+msgstr "TRSN - Transmission radio station name"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:548
+msgctxt "@default|"
+msgid "TRSO - Internet radio station owner"
+msgstr "TRSO - Ejer af internet radio station"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:549
 msgctxt "@default|"
@@ -6667,15 +6482,90 @@ msgctxt "@default|"
 msgid "TSOT - Title sort order"
 msgstr "TSOT - Titel sorteringsrækkefølge"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:554
+msgctxt "@default|"
+msgid "TSRC - ISRC (international standard recording code)"
+msgstr "TSRC - ISRC (International standard recording code)"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:555
+msgctxt "@default|"
+msgid "TSSE - Software/Hardware and settings used for encoding"
+msgstr "TSSE - Software/Hardware og indstillinger anvendt til encoding"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:556
 msgctxt "@default|"
 msgid "TSST - Set subtitle"
 msgstr "TSST - Sæt undertitel"
 
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:557
+msgctxt "@default|"
+msgid "TXXX - User defined text information"
+msgstr "TXXX - Brugerdefineret tekstinformation"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:558
+msgctxt "@default|"
+msgid "UFID - Unique file identifier"
+msgstr "UFID - Unik fil identifikation"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:559
+msgctxt "@default|"
+msgid "USER - Terms of use"
+msgstr "USER - Betingelser for brug"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:560
+msgctxt "@default|"
+msgid "USLT - Unsynchronized lyric/text transcription"
+msgstr "USLT - Usynkroniseret tekst / tekst afskrift"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:561
+msgctxt "@default|"
+msgid "WCOM - Commercial information"
+msgstr "WCOM - Kommerciel information"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:562
+msgctxt "@default|"
+msgid "WCOP - Copyright/Legal information"
+msgstr "WCOP - Ophavsret / Juridisk information"
+
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:564
 msgctxt "@default|"
 msgid "WFED - Podcast feed"
 msgstr "WFED - Podcast Feed"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:566
+msgctxt "@default|"
+msgid "WOAF - Official audio file webpage"
+msgstr "WOAF - Officiel audio fil websted"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:567
+msgctxt "@default|"
+msgid "WOAR - Official artist/performer webpage"
+msgstr "WOAR - Officiel kunstner / performer webside"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:568
+msgctxt "@default|"
+msgid "WOAS - Official audio source webpage"
+msgstr "WOAS - Officielt websted for audio kilde"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:569
+msgctxt "@default|"
+msgid "WORS - Official internet radio station homepage"
+msgstr "WORS - Officiel internet radiostation hjemmeside"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:570
+msgctxt "@default|"
+msgid "WPAY - Payment"
+msgstr "WPAY - Betaling"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:571
+msgctxt "@default|"
+msgid "WPUB - Official publisher webpage"
+msgstr "WPUB - Udgivers officielle webside"
+
+#: src/plugins/taglibmetadata/taglibmpegsupport.cpp:572
+msgctxt "@default|"
+msgid "WXXX - User defined URL link"
+msgstr "WXXX - Brugerdefineret URL"
 
 #: src/qml/app/AboutDialog.qml:29
 msgctxt "AboutDialog|"
@@ -7488,6 +7378,42 @@ msgstr "Vælg a&lle"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
 msgstr "Fra&vælg alle"
+
+#~ msgctxt "@default|"
+#~ msgid "EQUA - Equalization"
+#~ msgstr "EQUA - Udligning"
+
+#~ msgctxt "@default|"
+#~ msgid "IPLS - Involved people list"
+#~ msgstr "IPLS - Involved people list"
+
+#~ msgctxt "@default|"
+#~ msgid "RVAD - Relative volume adjustment"
+#~ msgstr "RVAD - Relativ lydstyrketilpasning"
+
+#~ msgctxt "@default|"
+#~ msgid "TDAT - Date"
+#~ msgstr "TDAT - Dato"
+
+#~ msgctxt "@default|"
+#~ msgid "TIME - Time"
+#~ msgstr "TIME - Tidspunkt"
+
+#~ msgctxt "@default|"
+#~ msgid "TORY - Original release year"
+#~ msgstr "TORY - Originalt udgivelsesår"
+
+#~ msgctxt "@default|"
+#~ msgid "TRDA - Recording dates"
+#~ msgstr "TRDA - Recording dates"
+
+#~ msgctxt "@default|"
+#~ msgid "TSIZ - Size"
+#~ msgstr "TSIZ - Størrelse"
+
+#~ msgctxt "@default|"
+#~ msgid "TYER - Year"
+#~ msgstr "TYER - År"
 
 #~ msgctxt "ConfigDialogPages|"
 #~ msgid "Custom &Genres"
