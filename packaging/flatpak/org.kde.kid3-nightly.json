@@ -42,8 +42,8 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "https://github.com/acoustid/chromaprint/archive/v1.6.0.tar.gz",
-                    "sha256": "65bfce4a35b2e673dbcda917b6aa577e2f145cf805243d19e6a50fea2a520c2a",
+                    "url": "https://github.com/acoustid/chromaprint/archive/v1.6.1.tar.gz",
+                    "sha256": "7065ec9db48ac1fa929ec6c42afcd966605b1bfe48b6d5e64c25378a05f4fb02",
                     "x-checker-data": {
                         "type": "anitya",
                         "project-id": 286,
