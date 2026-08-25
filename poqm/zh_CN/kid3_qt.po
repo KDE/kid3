@@ -7248,39 +7248,3 @@ msgstr ""
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
 msgstr ""
-
-#~ msgctxt "@default|"
-#~ msgid "EQUA - Equalization"
-#~ msgstr "EQUA - 均衡"
-
-#~ msgctxt "@default|"
-#~ msgid "IPLS - Involved people list"
-#~ msgstr "IPLS - 涉及人员名单"
-
-#~ msgctxt "@default|"
-#~ msgid "RVAD - Relative volume adjustment"
-#~ msgstr "RVAD - 相对音量调节"
-
-#~ msgctxt "@default|"
-#~ msgid "TDAT - Date"
-#~ msgstr "TDAT - 日期"
-
-#~ msgctxt "@default|"
-#~ msgid "TIME - Time"
-#~ msgstr "TIME - 时间"
-
-#~ msgctxt "@default|"
-#~ msgid "TORY - Original release year"
-#~ msgstr "TORY - 原发行年份"
-
-#~ msgctxt "@default|"
-#~ msgid "TRDA - Recording dates"
-#~ msgstr "TRDA - 录制日期"
-
-#~ msgctxt "@default|"
-#~ msgid "TSIZ - Size"
-#~ msgstr "TSIZ - 大小"
-
-#~ msgctxt "@default|"
-#~ msgid "TYER - Year"
-#~ msgstr "TYER - 年份"

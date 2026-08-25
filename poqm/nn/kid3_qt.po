@@ -7309,39 +7309,3 @@ msgstr "Merk alle"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
 msgstr "Fjern all merking"
-
-#~ msgctxt "@default|"
-#~ msgid "EQUA - Equalization"
-#~ msgstr "EQUA – tonekontroll"
-
-#~ msgctxt "@default|"
-#~ msgid "IPLS - Involved people list"
-#~ msgstr "IPLS – liste over involverte personar"
-
-#~ msgctxt "@default|"
-#~ msgid "RVAD - Relative volume adjustment"
-#~ msgstr "RVAD – relativ lydstyrke-justering"
-
-#~ msgctxt "@default|"
-#~ msgid "TDAT - Date"
-#~ msgstr "TDAT – dato"
-
-#~ msgctxt "@default|"
-#~ msgid "TIME - Time"
-#~ msgstr "TIME – tid"
-
-#~ msgctxt "@default|"
-#~ msgid "TORY - Original release year"
-#~ msgstr "TORY – opphavleg utgjevingsår"
-
-#~ msgctxt "@default|"
-#~ msgid "TRDA - Recording dates"
-#~ msgstr "TRDA – opptaksdatoar"
-
-#~ msgctxt "@default|"
-#~ msgid "TSIZ - Size"
-#~ msgstr "TSIZ – storleik"
-
-#~ msgctxt "@default|"
-#~ msgid "TYER - Year"
-#~ msgstr "TYER – År"

@@ -1,7 +1,7 @@
 # Kid3 Finnish Translation.
 # This file is put in the public domain.
 #
-# SPDX-FileCopyrightText: 2009, 2020, 2021, 2022, 2023, 2024 Tommi Nieminen <translator@legisign.org>
+# SPDX-FileCopyrightText: 2009, 2020, 2021, 2022, 2023, 2024, 2026 Tommi Nieminen <translator@legisign.org>
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010.
 # Ville Skyttä <ville.skytta@iki.fi>, 2010, 2011.
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2024-10-21 16:36+0300\n"
+"PO-Revision-Date: 2026-03-05 20:37+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 25.04.0\n"
 "X-Qt-Contexts: true\n"
 
 #: src/app/cli/clicommand.cpp:345
@@ -2080,12 +2080,12 @@ msgstr "pääosan alku"
 #: src/core/model/eventtimingcode.cpp:41
 msgctxt "@default|"
 msgid "outro start"
-msgstr ""
+msgstr "outron alku"
 
 #: src/core/model/eventtimingcode.cpp:42
 msgctxt "@default|"
 msgid "outro end"
-msgstr ""
+msgstr "outron loppu"
 
 #: src/core/model/eventtimingcode.cpp:43
 msgctxt "@default|"
@@ -2176,82 +2176,82 @@ msgstr "hävyttömyydet loppuvat"
 #: src/core/model/eventtimingcode.cpp:60
 msgctxt "@default|"
 msgid "not predefined synch 0"
-msgstr ""
+msgstr "ei esimääritelty tahdistus 0"
 
 #: src/core/model/eventtimingcode.cpp:61
 msgctxt "@default|"
 msgid "not predefined synch 1"
-msgstr ""
+msgstr "ei esimääritelty tahdistus 1"
 
 #: src/core/model/eventtimingcode.cpp:62
 msgctxt "@default|"
 msgid "not predefined synch 2"
-msgstr ""
+msgstr "ei esimääritelty tahdistus 2"
 
 #: src/core/model/eventtimingcode.cpp:63
 msgctxt "@default|"
 msgid "not predefined synch 3"
-msgstr ""
+msgstr "ei esimääritelty tahdistus 3"
 
 #: src/core/model/eventtimingcode.cpp:64
 msgctxt "@default|"
 msgid "not predefined synch 4"
-msgstr ""
+msgstr "ei esimääritelty tahdistus 4"
 
 #: src/core/model/eventtimingcode.cpp:65
 msgctxt "@default|"
 msgid "not predefined synch 5"
-msgstr ""
+msgstr "ei esimääritelty tahdistus 5"
 
 #: src/core/model/eventtimingcode.cpp:66
 msgctxt "@default|"
 msgid "not predefined synch 6"
-msgstr ""
+msgstr "ei esimääritelty tahdistus 6"
 
 #: src/core/model/eventtimingcode.cpp:67
 msgctxt "@default|"
 msgid "not predefined synch 7"
-msgstr ""
+msgstr "ei esimääritelty tahdistus 7"
 
 #: src/core/model/eventtimingcode.cpp:68
 msgctxt "@default|"
 msgid "not predefined synch 8"
-msgstr ""
+msgstr "ei esimääritelty tahdistus 8"
 
 #: src/core/model/eventtimingcode.cpp:69
 msgctxt "@default|"
 msgid "not predefined synch 9"
-msgstr ""
+msgstr "ei esimääritelty tahdistus 9"
 
 #: src/core/model/eventtimingcode.cpp:70
 msgctxt "@default|"
 msgid "not predefined synch A"
-msgstr ""
+msgstr "ei esimääritelty tahdistus A"
 
 #: src/core/model/eventtimingcode.cpp:71
 msgctxt "@default|"
 msgid "not predefined synch B"
-msgstr ""
+msgstr "ei esimääritelty tahdistus B"
 
 #: src/core/model/eventtimingcode.cpp:72
 msgctxt "@default|"
 msgid "not predefined synch C"
-msgstr ""
+msgstr "ei esimääritelty tahdistus C"
 
 #: src/core/model/eventtimingcode.cpp:73
 msgctxt "@default|"
 msgid "not predefined synch D"
-msgstr ""
+msgstr "ei esimääritelty tahdistus D"
 
 #: src/core/model/eventtimingcode.cpp:74
 msgctxt "@default|"
 msgid "not predefined synch E"
-msgstr ""
+msgstr "ei esimääritelty tahdistus E"
 
 #: src/core/model/eventtimingcode.cpp:75
 msgctxt "@default|"
 msgid "not predefined synch F"
-msgstr ""
+msgstr "ei esimääritelty tahdistus F"
 
 #: src/core/model/eventtimingcode.cpp:76
 msgctxt "@default|"
@@ -2630,20 +2630,14 @@ msgid "Seller"
 msgstr "Myyjä"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "Sisällön tyyppi"
+msgstr "Kohteen tyyppi"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "Palauta oletukset"
+msgstr "Oletus"
 
 #: src/core/tags/frame.cpp:76
 #, fuzzy
@@ -2727,46 +2721,35 @@ msgid "Trivia/pop up"
 msgstr "Nippelitietoa"
 
 #: src/core/tags/frame.cpp:110
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
 msgstr "Ei mitään"
 
+# Taatusti väärin :)
 #: src/core/tags/frame.cpp:111
 msgctxt "@default|"
 msgid "Shot"
-msgstr ""
+msgstr "Laukaus"
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "Numeroi raidat"
+msgstr "Aliraita"
 
 #: src/core/tags/frame.cpp:114
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "Osa"
 
 #: src/core/tags/frame.cpp:116
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "Muokkaa"
+msgstr "Laitos"
 
 #: src/core/tags/frame.cpp:117
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "Valinta"
+msgstr "Kokoelma"
 
 #: src/core/tags/frame.cpp:142
 msgctxt "@default|"
@@ -3347,17 +3330,11 @@ msgid "Volume"
 msgstr "Äänenvoimakkuus"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "Kansion nimi"
+msgstr "Ohjaaja"
 
 #: src/core/tags/frame.cpp:303
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
 msgstr "Kesto"
@@ -3365,20 +3342,17 @@ msgstr "Kesto"
 #: src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "Yhteenveto"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "Tiivistelmä"
 
 #: src/core/tags/frame.cpp:306
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "Raitoja"
+msgstr "Osia kaikkiaan"
 
 #: src/core/tags/frame.cpp:309
 msgctxt "@default|"
@@ -4202,10 +4176,9 @@ msgid "Use drag and drop to reorder the items"
 msgstr "Järjestä vetämällä ja pudottamalla"
 
 #: src/gui/dialogs/configdialogpages.cpp:346
-#, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
-msgstr "Tunniste&oikopolut"
+msgstr "&Pikasaantikehykset"
 
 #: src/gui/dialogs/configdialogpages.cpp:353
 msgctxt "ConfigDialogPages|"
@@ -7161,10 +7134,9 @@ msgid "Custom Frames"
 msgstr "Mukautetut kehykset"
 
 #: src/qml/app/SettingsPage.qml:189
-#, fuzzy
 msgctxt "SettingsPage|"
 msgid "Quick access frames"
-msgstr "Tunnisteoikopolut"
+msgstr "Pikasaantikehykset"
 
 #: src/qml/app/SettingsPage.qml:208
 msgctxt "SettingsPage|"
@@ -7247,10 +7219,9 @@ msgid "Theme"
 msgstr "Teema"
 
 #: src/qml/app/SettingsPage.qml:435
-#, fuzzy
 msgctxt "SettingsPage|"
 msgid "Quick Access Frames"
-msgstr "Tunnisteoikopolut"
+msgstr "Pikasaantikehykset"
 
 #: src/qml/app/StringListEditPage.qml:85
 msgctxt "StringListEditPage|"

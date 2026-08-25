@@ -63,7 +63,7 @@
 
 <abstract>
 <para
->&kid3; — програма для ефективного редагування міток ID3v1 і ID3v2 у файлах MP3. Крім того, передбачено можливість редагування міток у файла Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF і модулях tracker (MOD, S3M, IT, XM). За допомогою програми дуже просто можна встановити однакові мітки для декількох файлів (наприклад, встановити запис альбому, виконавця, рік і жанр для усіх файлів одного альбому) і створити мітки на основі назв файлів, і навпаки. </para>
+>&kid3; — програма для ефективного редагування міток ID3v1 і ID3v2 у файлах MP3. Крім того, передбачено можливість редагування міток у файла Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF і модулях tracker (MOD, S3M, IT, XM). За допомогою програми дуже просто можна встановити однакові мітки для декількох файлів (наприклад, встановити запис альбому, виконавця, рік і жанр для усіх файлів одного альбому) і створити мітки на основі назв файлів, і навпаки. </para>
 </abstract>
 
 <keywordset>
@@ -121,6 +121,10 @@
 >Opus</keyword>
 <keyword
 >DSF</keyword>
+<keyword
+>Matroska</keyword>
+<keyword
+>WebM</keyword>
 </keywordset>
 
 </bookinfo>
@@ -403,7 +407,7 @@ end manpage include-->
 >Вступ</title>
 
 <para
->&kid3; — програма для ефективного редагування міток ID3v1 і ID3v2 у файлах MP3. Ці мітки можна редагування у більшості з програм для відтворення MP3, але у не дуже ефективний спосіб. Крім того, передбачено можливість редагування міток у файла Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF і модулях tracker (MOD, S3M, IT, XM). </para>
+>&kid3; — програма для ефективного редагування міток ID3v1 і ID3v2 у файлах MP3. Ці мітки можна редагування у більшості з програм для відтворення MP3, але у не дуже ефективний спосіб. Крім того, передбачено можливість редагування міток у файла Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF і модулях tracker (MOD, S3M, IT, XM). </para>
 <para
 >&kid3; не створює і не кодує файли у форматі MP3. Програму призначено для ефективного редагування міток ID3 усіх файлів в альбомі. Для цього достатньо декількох клацань кнопкою миші або натискань комбінацій клавіш. Там, де більшість інших програм можуть редагувати або мітки ID3v1, або мітки ID3v2, &kid3; надає вам повний доступ до редагування обох версій, перетворення міток у цих двох форматах та доступ до усіх міток ID3v2. Можна встановлювати однакове значення для міток у декількох файлах одночасно, наприклад, вказати однакове значення для записів виконавця, альбому, року та жанру для усіх файлів у альбомі. Якщо дані для міток містяться у назвах файлів, можна автоматично встановити мітки на основі назви файла. Передбачено можливість визначення назви файла за будь-якими мітками, які у ньому зберігаються. </para>
 <para
@@ -448,7 +452,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->Редагування міток MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV і AIFF</para
+>Редагування міток MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV і AIFF</para
 ></listitem>
 <listitem
 ><para
@@ -660,8 +664,8 @@ end manpage include-->
 >Список файлів</title>
 
 <para
->Список файлів складається із назв усіх тих файлів у відкритій теці, які відповідають вибраному фільтру назв файлів (typically <filename class="extension"
->*.mp3 *.ogg *.opus *.dsf *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx *.tta *.wv *.wma *.wav *.aiff *.ape</filename
+>Список файлів складається із назв усіх тих файлів у відкритій теці, які відповідають вибраному фільтру назв файлів (типово <filename class="extension"
+>*.3g2 *.aac *.afc *.aif *.aifc *.aiff *.ape *.asf *.dff *.dsdiff *.dff *.flac *.it *.m4a *.m4b *.m4p *.m4r *.m4v *.mka *.mkv *.mod *.module *.mp2 *.mp3 *.mp4 *.mp4v *.mpc *.nst *.oga *.ogg *.opus *.s3n *.shn *.spx *.tta *.wav *.webm *.wma *.wmv *.wow *.wv *.xm</filename
 >). Можна позначати один або декілька файлів. Щоб зняти позначення з усіх файлів, клацніть у довільному порожньому місці під пунктами у списку. Позначення визначає файли, над якими виконуватимуться дії унаслідок натискання кнопок, опис яких наведено нижче. </para>
 <para
 >Окрім стовпчика <guilabel
@@ -804,7 +808,7 @@ end manpage include-->
 >Файл</title>
 
 <para
->Показує дані щодо кодування (MP3, Ogg, Opus, DSF, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF), бітової швидкості, частоти дискретизації, кількості каналів та тривалості відтворення файла. </para>
+>Показує дані щодо кодування (MP3, Ogg, Opus, DSF, DFF, FLAC, MPC, APE, Matroska, Webm, MP2, MP4, AAC, Speex, TrueAudio, WavPack, ASF, WAV, AIFF, IT, Mod, S3M, XM, SHN), бітової швидкості, частоти дискретизації, кількості каналів та тривалості відтворення файла. </para>
 <para
 >У полі для редагування <guilabel
 >Назва</guilabel
@@ -812,7 +816,7 @@ end manpage include-->
 <para
 >У спадному списку та рядку для редагування тексту <guilabel
 >Формат</guilabel
-> міститься запис формату, який буде використано при створенні назви файла із першої або другої мітки. Назва файла може містити довільні символи, навіть назву теки, яку слід відокремити від назви файла символом похилої риски, але щоб перейменування можна було виконати, відповідна тека вже має існувати. Для вставляння значень міток до назви файла можна скористатися такими спеціальними кодами: </para>
+> міститься запис формату, який буде використано при створенні назви файла із першої або другої мітки. Для вставляння значень міток до назви файла можна скористатися такими спеціальними кодами: </para>
 
 <itemizedlist>
 <listitem
@@ -3530,10 +3534,6 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%v %{vbr} VBR або порожнє значення (лише для ID3v2.3 з id3lib)</para
-></listitem>
-<listitem
-><para
 >%r %{samplerate} Частота дискретизації у Гц</para
 ></listitem>
 <listitem
@@ -4131,10 +4131,6 @@ end manpage include-->
 <listitem
 ><para
 >%b %{bitrate} Бітова швидкість у кбіт/с</para
-></listitem>
-<listitem
-><para
->%v %{vbr} VBR або порожнє значення (лише для ID3v2.3 з id3lib)</para
 ></listitem>
 <listitem
 ><para
@@ -5080,14 +5076,6 @@ end manpage include-->
 >TaglibMetadata</guilabel
 > у списку. Подробиці щодо додатків метаданих та відомості щодо того, чому варто використовувати той чи інший додаток замість TagLib наведено нижче. </para>
 <itemizedlist>
-<listitem
-><para
-><guilabel
->Id3libMetadata</guilabel
->: використовує <ulink url="http://id3lib.sourceforge.net"
->id3lib</ulink
-> для міток ID3v1.1 і ID3v2.3 у файлах MP3, MP2, AAC. Має дещо ширший спектр підтримуваних типів файлів за TagLib.</para
-></listitem>
 <listitem
 ><para
 ><guilabel
@@ -6425,11 +6413,9 @@ if __name__ == '__main__':
 >libvorbis і libvorbisfile</ulink
 >. Для роботи з файлами FLAC — <ulink url="http://flac.sourceforge.net"
 >libFLAC++ і libFLAC</ulink
->. Для роботи з файлами MP3 програма використовує <ulink url="http://id3lib.sourceforge.net"
->id3lib</ulink
->. Підтримку цих чотирьох форматів передбачено також у бібліотеці <ulink url="http://taglib.github.io/"
+>. Підтримку цих форматів передбачено також у бібліотеці <ulink url="http://taglib.github.io/"
 >TagLib</ulink
->. Ця бібліотека може працювати із файлами Opus, MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF та модулями tracker. Для імпортування акустичних відбитків у програмі використовуються <ulink url="http://acoustid.org/chromaprint"
+>. Ця бібліотека може працювати із файлами Opus, MPC, APE, MP2, MP3, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF, Matroska/WebM, SHN, DSF, DFF та модулями tracker. Для імпортування акустичних відбитків у програмі використовуються <ulink url="http://acoustid.org/chromaprint"
 >Chromaprint</ulink
 > і <ulink url="http://libav.org/"
 >libav</ulink
@@ -6472,7 +6458,7 @@ if __name__ == '__main__':
 >Якщо у системі встановлено не усі бібліотеки, &kid3; буде зібрано із обмеженими функціональними можливостями. Тому перед збиранням слід подбати про встановлення усіх потрібних пакунків для розробки. З іншого боку, керувати переліком бібліотек, які буде використано, можна за допомогою параметрів <userinput
 >cmake</userinput
 >. Типовим набором параметрів є <userinput
->-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_ID3LIB:BOOL=ON -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON </userinput
+>-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON </userinput
 >. Вимкнути збирання компонентів можна за допомогою визначення для параметрів значення <userinput
 >OFF</userinput
 >. </para>

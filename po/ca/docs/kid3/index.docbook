@@ -63,7 +63,7 @@
 
 <abstract>
 <para
->El &kid3; és una aplicació per a editar les etiquetes ID3 versió 1 i 2 en els fitxers MP3 de manera eficient. També s'admeten les etiquetes a fitxers Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls del seguidor de peces (MOD, S3M, IT i XM). És fàcil establir etiquetes a múltiples fitxers amb els mateixos valors (p. ex., àlbum, artista, any i gènere en tots els fitxers del mateix àlbum) i generar les etiquetes a partir del nom del fitxer o viceversa. </para>
+>El &kid3; és una aplicació per a editar les etiquetes ID3 versió 1 i 2 en els fitxers MP3 de manera eficient. També s'admeten les etiquetes a fitxers Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls del seguidor de peces (MOD, S3M, IT i XM). És fàcil establir etiquetes a múltiples fitxers amb els mateixos valors (p. ex., àlbum, artista, any i gènere en tots els fitxers del mateix àlbum) i generar les etiquetes a partir del nom del fitxer o viceversa. </para>
 </abstract>
 
 <keywordset>
@@ -121,6 +121,10 @@
 >Opus</keyword>
 <keyword
 >DSF</keyword>
+<keyword
+>Matroska</keyword>
+<keyword
+>WebM</keyword>
 </keywordset>
 
 </bookinfo>
@@ -403,7 +407,7 @@ end manpage include-->
 >Introducció</title>
 
 <para
->El &kid3; és una aplicació per a editar les etiquetes ID3 versió 1 i 2 en els fitxers MP3 de manera eficient. La majoria dels reproductors d'MP3 poden editar aquestes etiquetes, però no d'una manera molt còmoda i eficient. A més, també s'admeten les etiquetes als fitxers Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls del seguidor de peces (MOD, S3M, IT i XM). </para>
+>El &kid3; és una aplicació per a editar les etiquetes ID3 versió 1 i 2 en els fitxers MP3 de manera eficient. La majoria dels reproductors d'MP3 poden editar aquestes etiquetes, però no d'una manera molt còmoda i eficient. A més, també s'admeten les etiquetes als fitxers Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls del seguidor de peces (MOD, S3M, IT i XM). </para>
 <para
 >El &kid3; no enregistra ni codifica els fitxers MP3, però està dirigit a editar les etiquetes ID3 de tots els fitxers d'un àlbum de manera eficient, és a dir, amb el menor nombre de clics i pulsacions de tecles possibles. On la majoria dels altres programes poden editar etiquetes ID3 versió 1 o 2, el &kid3; té un control total sobre ambdues versions, pot convertir les etiquetes entre els dos formats i té accés a totes les etiquetes ID3 versió 2. Es poden establir les etiquetes de múltiples fitxers amb el mateix valor, p. ex., l'artista, àlbum, any i gènere de tots els fitxers d'un àlbum que generalment tenen els mateixos valors i es poden configurar junts. Si la informació de les etiquetes està continguda en el nom del fitxer, les etiquetes es podran establir automàticament a partir del nom del fitxer. També és possible establir el nom del fitxer a partir de les etiquetes trobades en el fitxer en formats arbitraris. </para>
 <para
@@ -448,7 +452,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->Edita les etiquetes dels MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV i AIFF</para
+>Edita les etiquetes dels MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV i AIFF</para
 ></listitem>
 <listitem
 ><para
@@ -596,7 +600,7 @@ end manpage include-->
 >&Alt;<keycap
 >Fletxa dreta</keycap
 ></keycombo
->: Va a la següent selecció (<keycombo
+>: Va a la selecció següent (<keycombo
 ><keycap
 >Ordre</keycap
 ><keycap
@@ -673,7 +677,7 @@ end manpage include-->
 
 <para
 >La llista de fitxers conté els noms de tots els fitxers a la carpeta oberta que coincideixen amb el filtre de nom de fitxer seleccionat (generalment <filename class="extension"
->*.mp3 *.ogg *.opus *.dsf *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx *.tta *.wv *.wma *.wav *.aiff *.ape</filename
+>*.3g2 *.aac *.afc *.aif *.aifc *.aiff *.ape *.asf *.dff *.dsdiff *.dff *.flac *.it *.m4a *.m4b *.m4p *.m4r *.m4v *.mka *.mkv *.mod *.module *.mp2 *.mp3 *.mp4 *.mp4v *.mpc *.nst *.oga *.ogg *.opus *.s3n *.shn *.spx *.tta *.wav *.webm *.wma *.wmv *.wow *.wv *.xm</filename
 >). Es poden seleccionar un o múltiples fitxers. Per no seleccionar cap fitxer, feu clic a l'àrea buida després de les entrades del quadre de llista. La selecció determinarà els fitxers afectats per les operacions que hi hagi disponibles mitjançant l'ús dels botons que es descriuen a continuació. </para>
 <para
 >A més del <guilabel
@@ -694,7 +698,7 @@ end manpage include-->
 <para
 >En fer clic amb el botó <mousebutton
 >dret</mousebutton
-> del ratolí dins de la llista de fitxers, s'obrirà un menú contextual amb les següents ordres: <itemizedlist>
+> del ratolí dins de la llista de fitxers, s'obrirà un menú contextual amb les ordres següents: <itemizedlist>
 <listitem
 ><para
 ><guimenuitem
@@ -828,7 +832,7 @@ end manpage include-->
 >Fitxer</title>
 
 <para
->Mostra informació sobre la codificació (MP3, Ogg, Opus, DSF, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV i AIFF), velocitat de bits, freqüència de mostreig, canals i la longitud del fitxer. </para>
+>Mostra informació sobre la codificació (MP3, Ogg, Opus, DSF, DFF, FLAC, MPC, APE, Matroska, Webm, MP2, MP4, AAC, Speex, TrueAudio, WavPack, ASF, WAV, AIFF, IT, Mod, S3M, XM, SHN), velocitat de bits, freqüència de mostreig, canals i la longitud del fitxer. </para>
 <para
 >La línia d'edició <guilabel
 >Nom:</guilabel
@@ -836,7 +840,7 @@ end manpage include-->
 <para
 >El quadre combinat <guilabel
 >Format:</guilabel
-> i la línia d'edició conté el format que s'utilitzarà quan es generi el nom del fitxer a partir de la primera o la segona etiqueta. El nom del fitxer podrà contenir caràcters arbitraris, fins i tot una part de la carpeta separada del nom del fitxer per una barra diagonal, però aquesta carpeta ja haurà d'existir perquè el canvi de nom tingui èxit. S'empren els següents codis especials per a inserir valors d'etiqueta en el nom del fitxer: </para>
+> i la línia d'edició conté el format que s'utilitzarà quan es generi el nom del fitxer a partir de la primera o la segona etiqueta. S'empren els codis especials següents per a inserir valors d'etiqueta en el nom del fitxer: </para>
 
 <itemizedlist>
 <listitem
@@ -948,7 +952,7 @@ end manpage include-->
 >Etiqueta 2</guibutton
 >: les etiquetes s'estableixen a partir del nom de fitxer. Primer, s'utilitza el format especificat a <guilabel
 >Format:</guilabel
->. Si el nom de fitxer existent no coincideix amb aquest format, s'intentarà amb els següents formats: </para>
+>. Si el nom de fitxer existent no coincideix amb aquest format, s'intentarà amb els formats següents: </para>
 <itemizedlist>
 <listitem
 ><para
@@ -1107,7 +1111,7 @@ end manpage include-->
 >Etiqueta 3</title>
 
 <para
->Alguns fitxers poden tenir més de dues etiquetes, i serà visible una tercera secció d'etiquetes. Els següents tipus de fitxer poden contenir una secció Etiqueta 3: </para>
+>Alguns fitxers poden tenir més de dues etiquetes, i serà visible una tercera secció d'etiquetes. Els tipus de fitxer següents poden contenir una secció Etiqueta 3: </para>
 <itemizedlist>
 <listitem
 ><para
@@ -2830,7 +2834,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->Quan aparegui la següent línia de la lletra amb una marca de temps no vàlida, feu clic a <guibutton
+>Quan aparegui la línia de la lletra següents amb una marca de temps no vàlida, feu clic a <guibutton
 >Afegeix</guibutton
 > o premeu <keycombo
 >&Alt;<keycap
@@ -3093,7 +3097,7 @@ end manpage include-->
 > obrirà un subdiàleg, on hi haurà disponibles diversos formats d'importació preconfigurats. Els dos primers, «CSV sense cometes» i «CSV amb cometes» es poden fer servir per a importar les dades que s'han exportat mitjançant el diàleg Exporta. Les dades CSV es podran editar amb un full de càlcul i s'escriuran emprant tabulacions com a delimitadors. La importació hauria de ser possible utilitzant «CSV amb cometes», el qual és més flexible que el «CSV sense cometes». No obstant això, els seus camps no poden contenir cometes dobles. Si només exporteu des del &kid3; i importeu més tard, es pot utilitzar el «CSV sense cometes» com un format senzill per a aquesta finalitat. Recordeu que també hi ha les ordres «Exporta a CSV» i «Importa des de CSV» al menú contextual de la llista de fitxers, les quals utilitzen scripts per a exportar i importar les dades CSV d'una manera més completa, potent i flexible. </para>
 
 <para
->El següent format, «Text &HTML; de freedb», es pot utilitzar per a copiar la informació des d'una pàgina &HTML; de <ulink url="http://freedb.org"
+>El format següent, «Text &HTML; de freedb», es pot utilitzar per a copiar la informació des d'una pàgina &HTML; de <ulink url="http://freedb.org"
 >freedb.org</ulink
 >. Cerqueu un àlbum a freedb i si la informació desitjada es mostra en el navegador web, copieu el contingut al porta-retalls. Després feu clic al botó <guibutton
 >Des del porta-retalls</guibutton
@@ -3107,7 +3111,7 @@ end manpage include-->
 >Etiqueta 1 i Etiqueta 2</guilabel
 >) es pot seleccionar amb un quadre combinat. Els fitxers a la carpeta actual hauran d'estar en l'ordre de peces correcte per a assignar les seves etiquetes. Aquest serà el cas si estan numerades. </para>
 <para
->Si les dades estan disponibles com un document &HTML;, es podrà utilitzar el següent format d'importació preconfigurat, «Font &HTML; des de freedb». La importació és possible utilitzant el botó <guibutton
+>Si les dades estan disponibles com un document &HTML;, es podrà utilitzar el format d'importació preconfigurat següent, «Font &HTML; des de freedb». La importació és possible utilitzant el botó <guibutton
 >Des del fitxer...</guibutton
 >, el qual obrirà un selector de fitxers, o copiant el seu contingut des d'un editor i després important des del porta-retalls. Aquest format pot ser útil per a la importació sense connexió, tot i que el document &HTML; també podria obrir-se en un navegador i després importar-se en el primer format mitjançant el porta-retalls. </para>
 <para
@@ -3185,7 +3189,7 @@ end manpage include-->
 >Títol</guibutton
 >, la qual reordenarà les peces d'acord amb el camp corresponent. Per a corregir les assignacions manualment, es pot arrossegar una peça amb el botó <mousebutton
 >esquerre</mousebutton
-> del ratolí i mantenint premuda la tecla &Ctrl;, i després deixar-la anar a la nova ubicació. </para>
+> del ratolí i mantenint premuda la tecla &Ctrl;, i després deixar-la anar a la ubicació nova. </para>
 <para
 >Si hi ha més pistes importades que fitxers, per exemple, si la carpeta actual conté només el segon disc d'un àlbum de dos discos però s'importen les pistes d'ambdós discos, és possible eliminar les pistes del primer disc seleccionant-les fent clic a l'etiqueta de fila de la primera pista, després fent clic a l'etiqueta de fila de l'última pista del primer disc mentre es manté premuda la tecla <keycap
 >Maj</keycap
@@ -3216,7 +3220,7 @@ end manpage include-->
 >Importa des del fitxer/porta-retalls</link
 >, hi ha formats lliurement configurables per a realitzar diferents operacions. Són formats que ja estan preconfigurats per a copiar el valor de l'Àlbum a l'Artista, Compositor o Director de l'àlbum, i per a extreure el número de la peça dels camps Títol que contenen un número. També hi ha un format per a extreure un subtítol des d'un camp Títol. </para>
 <para
->El següent exemple explica com afegir un format personalitzat, el qual estableix la informació del camp Subtítol també en el camp Comentari. Creeu un format nou amb el botó <guibutton
+>L'exemple següent explica com afegir un format personalitzat, el qual estableix la informació del camp Subtítol també en el camp Comentari. Creeu un format nou amb el botó <guibutton
 >Afegeix</guibutton
 > i establiu un nom nou, p. ex., «Comentari per al subtítol». Després introduïu «<userinput
 >%{subtitle}</userinput
@@ -3399,7 +3403,7 @@ end manpage include-->
 >Perfil:</guilabel
 >. </para>
 <para
->La següent taula mostra els servidors que s'utilitzaran en importar la informació de l'àlbum utilitzant el perfil seleccionat. El procés d'importació per a un àlbum finalitzarà si s'ha trobat tota la informació requerida, per la qual cosa l'ordre de les files a la taula és important. Es pot canviar amb els botons <guibutton
+>La taula següent mostra els servidors que s'utilitzaran en importar la informació de l'àlbum utilitzant el perfil seleccionat. El procés d'importació per a un àlbum finalitzarà si s'ha trobat tota la informació requerida, per la qual cosa l'ordre de les files a la taula és important. Es pot canviar amb els botons <guibutton
 >Mou amunt</guibutton
 > i <guibutton
 >Mou avall</guibutton
@@ -3415,7 +3419,7 @@ end manpage include-->
 >Caràtula</guilabel
 > determinen la informació que s'obtindrà del servidor. Finalment, la <guilabel
 >Precisió</guilabel
-> és la precisió mínima que s'haurà d'aconseguir per a acceptar les dades importades. Si la precisió és insuficient, es provarà el següent servidor de la llista. El mateix diàleg que conté les propietats del servidor apareixerà quan feu clic a <guibutton
+> és la precisió mínima que s'haurà d'aconseguir per a acceptar les dades importades. Si la precisió és insuficient, es provarà el servidor següent de la llista. El mateix diàleg que conté les propietats del servidor apareixerà quan feu clic a <guibutton
 >Afegeix...</guibutton
 > per a afegir una entrada nova de servidor. Les entrades existents es poden eliminar utilitzant <guibutton
 >Elimina</guibutton
@@ -3582,10 +3586,6 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%v %{vbr} VBR o buida (només per a l'ID3 versió 2.3 amb la id3lib)</para
-></listitem>
-<listitem
-><para
 >%r %{samplerate} Freqüència de mostreig en Hz</para
 ></listitem>
 <listitem
@@ -3657,7 +3657,7 @@ end manpage include-->
 > a la <link linkend="configure-kid3"
 >configuració</link
 >. <guibutton
->Crea una nova llista de reproducció buida:</guibutton
+>Crea una llista de reproducció nova buida:</guibutton
 > crearà una llista de reproducció buida amb el nom indicat. L'extensió dependrà del format de la llista de reproducció. </para>
 <para
 >La ubicació de la llista de reproducció generada estarà determinada per la selecció del quadre combinat <guilabel
@@ -4003,7 +4003,7 @@ end manpage include-->
 ><para
 >Aquest diàleg ofereix la possibilitat de canviar automàticament el nom de la carpeta actualment oberta d'acord amb les etiquetes en els fitxers. Hi ha preconfigurats diversos formats per a incloure la informació sobre l'artista, l'àlbum i l'any en el nom de la carpeta. També és possible establir un format personalitzat i fer <guibutton
 >Edita</guibutton
-> sobre la llista de formats disponibles. S'utilitzaran els següents codis especials per a inserir valors d'etiqueta en el nom de la carpeta: </para>
+> sobre la llista de formats disponibles. S'utilitzaran els codis especials següents per a inserir valors d'etiqueta en el nom de la carpeta: </para>
 
 <itemizedlist>
 <listitem
@@ -4190,10 +4190,6 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%v %{vbr} VBR o buida (només per a l'ID3 versió 2.3 amb la id3lib)</para
-></listitem>
-<listitem
-><para
 >%r %{samplerate} Freqüència de mostreig en Hz</para
 ></listitem>
 <listitem
@@ -4223,7 +4219,7 @@ end manpage include-->
 </itemizedlist>
 
 <para
->Aquests codis se substituiran amb els valors del fitxer, i les cadenes resultants es podran comparar amb les següents operacions: </para>
+>Aquests codis se substituiran amb els valors del fitxer, i les cadenes resultants es podran comparar amb les operacions següents: </para>
 <itemizedlist>
 <listitem
 ><para
@@ -4390,7 +4386,7 @@ end manpage include-->
 <para
 >Per a afegir el vostre propi filtre, seleccioneu aquesta entrada. Per exemple, si voleu tenir un filtre per a artistes que comencin amb «El», substituïu «Filtre personalitzat» amb el nom «La banda» i premeu <keysym
 >Retorn</keysym
->. Després inseriu la següent expressió a la línia d'edició: </para>
+>. Després inseriu l'expressió següent a la línia d'edició: </para>
 <para
 ><userinput
 >%{artist} coincideix amb "El.*" </userinput
@@ -5003,7 +4999,7 @@ end manpage include-->
 >Nom</guilabel
 > és el nom que es mostra en el menú contextual. L'<guilabel
 >Ordre</guilabel
-> és la línia d'ordres que s'executarà. Es poden passar els arguments utilitzant els següents codis: </para>
+> és la línia d'ordres que s'executarà. Es poden passar els arguments utilitzant els codis següents: </para>
 
 <itemizedlist>
 <listitem
@@ -5144,14 +5140,6 @@ end manpage include-->
 >TaglibMetadata</guilabel
 > admet la majoria dels formats, si es troba a la part superior de la llista, obrirà la majoria dels fitxers. Si voleu utilitzar un connector diferent per a un format de fitxer, comproveu que aparegui abans d'aquest. Els detalls sobre el connector de metadades i perquè és possible que vulgueu utilitzar-los en lloc de la TagLib es llisten a continuació. </para>
 <itemizedlist>
-<listitem
-><para
-><guilabel
->Id3libMetadata</guilabel
->: utilitza la <ulink url="http://id3lib.sourceforge.net"
->id3lib</ulink
-> per a les etiquetes ID3 versió 1.1 i 2.3 en els fitxers MP3, MP2 i AAC. Admet alguns tipus de marcs més que la TagLib.</para
-></listitem>
 <listitem
 ><para
 ><guilabel
@@ -5302,7 +5290,7 @@ end manpage include-->
 >-c</option
 >. Si es passen múltiples ordres, s'executaran en l'ordre indicat. Si les ordres modifiquen els fitxers, es desaran en finalitzar. Si no passen opcions d'ordre, el <command
 >kid3-cli</command
-> s'iniciarà en el mode interactiu. Es poden introduir ordres i operaran sobre la selecció actual. Les següents seccions llisten totes les ordres disponibles. </para>
+> s'iniciarà en el mode interactiu. Es poden introduir ordres i operaran sobre la selecció actual. Les seccions següents llisten totes les ordres disponibles. </para>
 
 <sect2 id="cli-help">
 <title
@@ -6268,9 +6256,9 @@ Finished</computeroutput>
 >OPCIÓ</replaceable
 > consta d'un nom de grup i un nom de propietat separats per un punt. Quan no es dona cap <replaceable
 >OPCIÓ</replaceable
->, es mostraran tots els grups disponibles. Si només es proporciona un nom de grup, es mostraran totes les propietats disponibles del grup. Per a un grup i propietat determinats, es mostrarà el valor configurat actualment. Per a canviar l'opció de configuració, el nou valor es pot passar com a un segon argument. </para>
+>, es mostraran tots els grups disponibles. Si només es proporciona un nom de grup, es mostraran totes les propietats disponibles del grup. Per a un grup i propietat determinats, es mostrarà el valor configurat actualment. Per a canviar l'opció de configuració, el valor nou es pot passar com a un segon argument. </para>
 <para
->Si el valor d'una opció de configuració és una llista, tots els elements de la llista s'hauran de proporcionar com a arguments. Això vol dir que per a afegir un element a una llista existent d'elements, tots els elements existents s'hauran de passar seguits de l'element nou. En aquesta situació, és més fàcil utilitzar el mode &JSON;, on la llista actual es pot copiar amb el nou element afegit. </para>
+>Si el valor d'una opció de configuració és una llista, tots els elements de la llista s'hauran de proporcionar com a arguments. Això vol dir que per a afegir un element a una llista existent d'elements, tots els elements existents s'hauran de passar seguits de l'element nou. En aquesta situació, és més fàcil utilitzar el mode &JSON;, on la llista actual es pot copiar amb l'element afegit nou. </para>
 </sect2>
 
 <sect2 id="cli-execute">
@@ -6332,7 +6320,7 @@ Finished</computeroutput>
 >kid3-cli</command
 > amb <parameter
 >-c</parameter
-> hauran d'estar entre cometes si no consisteixen només d'una sola paraula. Si aquesta ordre en si té un argument que conté espais, aquest argument també ha d'anar entre cometes. En els intèrprets d'ordres d'&UNIX; es poden utilitzar cometes simples o dobles, però a l'indicador d'ordres de Windows, és important que les cometes externes es realitzin amb cometes dobles i dintre d'aquestes cometes, s'utilitzaran cometes simples. Si el text dins de les cometes simples conté una cometa simple, s'haurà d'escapar utilitzant un caràcter de barra inversa, com es mostra en el següent exemple:</para>
+> hauran d'estar entre cometes si no consisteixen només d'una sola paraula. Si aquesta ordre en si té un argument que conté espais, aquest argument també ha d'anar entre cometes. En els intèrprets d'ordres d'&UNIX; es poden utilitzar cometes simples o dobles, però a l'indicador d'ordres de Windows, és important que les cometes externes es realitzin amb cometes dobles i dintre d'aquestes cometes, s'utilitzaran cometes simples. Si el text dins de les cometes simples conté una cometa simple, s'haurà d'escapar utilitzant un caràcter de barra inversa, com es mostra en l'exemple següent:</para>
 <screen width="65"
 ><userinput
 >kid3-cli -c "set title 'I\'ll be there for you'" /camí/a/carpeta</userinput
@@ -6499,7 +6487,7 @@ if __name__ == '__main__':
 >id3lib</ulink
 > s'utilitza per als fitxers MP3. Aquests quatre formats també són admesos per la <ulink url="http://taglib.github.io/"
 >TagLib</ulink
->, la qual també pot manejar els fitxers Opus, MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF i els mòduls dels seguidors de peces. Per a importar a partir d'empremtes digitals acústiques, s'utilitzen les <ulink url="http://acoustid.org/chromaprint"
+>, la qual també pot manejar els fitxers Opus, MPC, APE, MP2, MP3, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF, Matroska/WebM, SHN, DSF, DFF i els mòduls dels seguidors de peces. Per a importar a partir d'empremtes digitals acústiques, s'utilitzen les <ulink url="http://acoustid.org/chromaprint"
 >Chromaprint</ulink
 > i <ulink url="http://libav.org/"
 >libav</ulink
@@ -6542,7 +6530,7 @@ if __name__ == '__main__':
 >Si no estan presents totes les biblioteques, el &kid3; es construirà amb una funcionalitat reduïda. Per tant, haureu de tenir cura de tenir instal·lats tots els paquets de desenvolupament desitjats. D'altra banda, les opcions del <userinput
 >cmake</userinput
 > controlen quines biblioteques es compilaran. De manera predeterminada són <userinput
->-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_ID3LIB:BOOL=ON -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON </userinput
+>-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON </userinput
 >. Aquestes opcions es poden inhabilitar emprant <userinput
 >OFF</userinput
 >. </para>
@@ -6609,7 +6597,7 @@ if __name__ == '__main__':
 > per a ampliar la funcionalitat del &kid3;. </para>
 
 <para
->Es pot establir l'artista a l'etiqueta 2 del fitxer actual amb el valor «One Hit Wonder» amb el següent codi: </para>
+>Es pot establir l'artista a l'etiqueta 2 del fitxer actual amb el valor «One Hit Wonder» amb el codi següent: </para>
 
 <variablelist>
 <varlistentry
@@ -6670,7 +6658,7 @@ $kid3->setFrame(2, "Artist", "Lluís Llach");
 <para
 >L'API de &DBus; s'especifica a <filename
 >org.kde.Kid3.xml</filename
->. La interfície del &kid3; disposa dels següents mètodes: </para>
+>. La interfície del &kid3; disposa dels mètodes següents: </para>
 
 <sect2 id="dbus-openDirectory">
 <title
@@ -7261,7 +7249,7 @@ $kid3->setFrame(2, "Artist", "Lluís Llach");
 
 <sect2 id="dbus-nextFile">
 <title
->Establir el següent fitxer com a fitxer actual</title>
+>Establir el fitxer següent com a fitxer actual</title>
 <funcsynopsis>
 <funcprototype>
   <funcdef
@@ -7309,7 +7297,7 @@ $kid3->setFrame(2, "Artist", "Lluís Llach");
 
 <sect2 id="dbus-selectNextFile">
 <title
->Seleccionar el següent fitxer</title>
+>Seleccionar el fitxer següent</title>
 <funcsynopsis>
 <funcprototype>
   <funcdef
@@ -8081,7 +8069,7 @@ Kid3Script {
 </para>
 
 <para
->Per a llistar els títols a les etiquetes 2 de tots els fitxers en la carpeta actual, es podria emprar el següent script: </para>
+>Per a llistar els títols a les etiquetes 2 de tots els fitxers en la carpeta actual, es podria emprar l'script següent: </para>
 
 <programlisting
 >import Kid3 1.0
@@ -8099,7 +8087,7 @@ Kid3Script {
 </programlisting>
 
 <para
->Si la carpeta conté molts fitxers, aquest script podria bloquejar la interfície d'usuari durant algun temps. Per a operacions més llargues, aquest hauria de disposar d'un descans de tant en tant. La següent implementació alternativa té la feina per a un sol fitxer mogut a una funció. Aquesta funció s'invoca amb un temps d'espera d'1 ms al final, atès que s'han de processar més fitxers. Això assegurarà que la <acronym
+>Si la carpeta conté molts fitxers, aquest script podria bloquejar la interfície d'usuari durant algun temps. Per a operacions més llargues, aquest hauria de disposar d'un descans de tant en tant. La implementació alternativa següent té la feina per a un sol fitxer mogut a una funció. Aquesta funció s'invoca amb un temps d'espera d'1 ms al final, atès que s'han de processar més fitxers. Això assegurarà que la <acronym
 >IGU</acronym
 > segueixi responent mentre s'executa l'script. </para>
 
@@ -8136,7 +8124,7 @@ Kid3Script {
 >NextFile()</command
 > en el seu lloc, aquestes són funcions convenients del component <classname
 >Kid3Script</classname
->. El següent exemple és un script que només copia els marcs de número del disc i drets d'autor del fitxer seleccionat. </para>
+>. L'exemple següent és un script que només copia els marcs de número del disc i drets d'autor del fitxer seleccionat. </para>
 
 <programlisting
 >import Kid3 1.1
@@ -8317,7 +8305,7 @@ getArguments(): llista d'arguments de l'script
 isStandalone(): cert si l'script no es va iniciar des del Kid3
 setTimeout (crida de retorn, retard): inicia la crida de retorn després del retard en ms
 firstFile(): al primer fitxer seleccionat
-NextFile(): al següent fitxer seleccionat
+NextFile(): al fitxer seleccionat següent
 </programlisting>
 
 </para>
@@ -8391,7 +8379,7 @@ app.setPlaylistItems(camí, elements): estableix els elements d'una llista de re
 app.selectAllFiles(): ho selecciona tot
 app.deselectAllFiles(): desselecciona
 app.firstFile([select], [onlyTaggedFiles]): al primer fitxer
-app.nextFile([select], [onlyTaggedFiles]): al següent fitxer
+app.nextFile([select], [onlyTaggedFiles]): al fitxer següent
 app.previousFile([select], [onlyTaggedFiles]): al fitxer anterior
 app.selectCurrentFile([select]): selecciona el fitxer actual
 app.selectFile(camí, [select]): selecciona un fitxer específic
