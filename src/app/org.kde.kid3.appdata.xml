@@ -328,6 +328,7 @@
         <p xml:lang="cs">Opraveno</p>
         <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
+        <p xml:lang="fi">Korjattu</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
         <p xml:lang="it">Corretti</p>
@@ -419,6 +420,7 @@
         <p xml:lang="cs">Nové</p>
         <p xml:lang="de">Neu</p>
         <p xml:lang="es">Novedades</p>
+        <p xml:lang="fi">Uutta</p>
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
         <p xml:lang="it">Nuovi</p>
@@ -553,6 +555,7 @@
         <p xml:lang="cs">Vylepšeno</p>
         <p xml:lang="de">Verbessert</p>
         <p xml:lang="es">Mejoras</p>
+        <p xml:lang="fi">Parannuksia</p>
         <p xml:lang="fr">Amélioré</p>
         <p xml:lang="is">Endurbætt</p>
         <p xml:lang="it">Migliorati</p>
@@ -627,6 +630,7 @@
         <p xml:lang="cs">Opraveno</p>
         <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
+        <p xml:lang="fi">Korjattu</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
         <p xml:lang="it">Corretti</p>
@@ -774,6 +778,7 @@
         <p xml:lang="cs">Opraveno</p>
         <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
+        <p xml:lang="fi">Korjattu</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
         <p xml:lang="it">Corretti</p>
@@ -795,6 +800,7 @@
           <li xml:lang="ca-valencia">KDE: Evita l'amplària excessiva del diàleg de fitxers.</li>
           <li xml:lang="cs">KDE: Zabráněno nadměrné šířce dialogového okna pro výběr souboru.</li>
           <li xml:lang="es">KDE: Evitar excesiva anchura del diálogo de archivos.</li>
+          <li xml:lang="fi">KDE: vältetään tiedostonvalintaikkunan liiallista leveyttä</li>
           <li xml:lang="fr">KDE : bloquer une largeur excessive de la boîte de dialogue de fichiers.</li>
           <li xml:lang="it">KDE: evita una larghezza eccessiva della finestra dei file.</li>
           <li xml:lang="ka">KDE: ფაილის დიალოგის გადაჭარბებული სიგანის თავიდან აცილება.</li>
@@ -813,6 +819,7 @@
           <li xml:lang="ca-valencia">Fa accessibles els marcs dels capítols a través de kid3-cli.</li>
           <li xml:lang="cs">Zpřístupněny rámce kapitol pomocí kid3-cli.</li>
           <li xml:lang="es">Hacer accesible la estructura Chapters mediante kid3-cli.</li>
+          <li xml:lang="fi">tehty lukuruudut kid3-cli:llä käytettäviksi</li>
           <li xml:lang="fr">Rendre les trames des chapitres accessibles grâce à kid3-cli.</li>
           <li xml:lang="it">Rende accessibili i frame dei capitoli tramite kid3-cli.</li>
           <li xml:lang="ka">თავის კადრები ხელმისაწვდომია kid3-cli-დან.</li>
@@ -831,6 +838,7 @@
           <li xml:lang="ca-valencia">Les pistes importades supèrflues es poden suprimir abans d'importar.</li>
           <li xml:lang="cs">Nadbytečné stopy lze před importem smazat.</li>
           <li xml:lang="es">Las pistas superfluas importadas se pueden borrar antes de la importación.</li>
+          <li xml:lang="fi">ylimääräiset raidat voi poistaa ennen tuontia</li>
           <li xml:lang="fr">Les pistes importées superflues peuvent être supprimées avant l'importation.</li>
           <li xml:lang="it">Le tracce importate superflue possono essere eliminate prima dell'importazione.</li>
           <li xml:lang="ka">ზედმეტი შემოტანილი ტრეკების წაშლა შემოტანამდე შეიძლება.</li>
@@ -849,6 +857,7 @@
           <li xml:lang="ca-valencia">Corregix la creació d'un editor incorrecte a la taula de marcs després del canvi de selecció.</li>
           <li xml:lang="cs">Opravena chyba, kdy se po změně výběru v tabulce rámců zobrazoval nesprávný editor.</li>
           <li xml:lang="es">Se ha corregido la creación de un editor incorrecto en la tabla de estructuras después del cambio de selección.</li>
+          <li xml:lang="fi">korjattu väärän muokkaimen luominen kehystaulukkoon valinnan muututtua</li>
           <li xml:lang="fr">Correction de la création de l'éditeur incorrect dans la table des trames après la modification de sélection.</li>
           <li xml:lang="it">Correzione della creazione di un editor errato nella tabella dei frame dopo la modifica della selezione.</li>
           <li xml:lang="ka">გასწორდა არასწორი რედაქტორის შექმნა კადრების ცხრილში მონიშვნის ცვლილების შემდეგ.</li>
@@ -867,6 +876,7 @@
           <li xml:lang="ca-valencia">Les complecions amb valors diferents en seleccionar diversos fitxers ara també admeten el gènere.</li>
           <li xml:lang="cs">Při výběru více souborů se nyní v nabídce s různými hodnotami zobrazuje také žánr.</li>
           <li xml:lang="es">Las terminaciones con diferentes valores al seleccionar varios archivos ahora también admiten género.</li>
+          <li xml:lang="fi">useita tiedostoja valittaessa täydennykset, joilla on eri arvo, tukevat nyt myös tyylilajia</li>
           <li xml:lang="fr">Les complètement avec des valeurs différentes lors de la sélection de plusieurs fichiers prennent désormais également en charge le genre.</li>
           <li xml:lang="it">I completamenti con valori diversi quando si selezionano più file ora supportano anche il genere.</li>
           <li xml:lang="ka">განსხვავებული მნიშვნელობებით დასრულებას ერთზე მეტი ფაილის მონიშვნისას ახლა ჟანრის მხარდაჭერაც აქვს.</li>
@@ -884,6 +894,7 @@
           <li xml:lang="ca-valencia">No deixa fitxers temporals de caràtula al sistema.</li>
           <li xml:lang="cs">V systému již nezůstávají dočasné soubory s obálkami alba.</li>
           <li xml:lang="es">No dejar archivos de carátulas temporales en el sistema.</li>
+          <li xml:lang="fi">ei jätetä järjestelmään väliaikaisia kansikuvatiedostoja</li>
           <li xml:lang="fr">Ne pas laisser de fichiers temporaires d'illustration de couverture sur le système.</li>
           <li xml:lang="it">Non lascia file temporanei di copertine nel sistema.</li>
           <li xml:lang="ka">დროებითი ყდის სურათების სისტემაში დატოვებული არ იქნება.</li>
@@ -901,6 +912,7 @@
           <li xml:lang="ca-valencia">EmbedLyrics.qml: elimina caràcters il·legals als paràmetres de consulta.</li>
           <li xml:lang="cs">EmbedLyrics.qml: Odstraňování nepřípustných znaků z parametrů dotazu.</li>
           <li xml:lang="es">EmbedLyrics.qml: Eliminar caracteres ilegales en los parámetros de consulta.</li>
+          <li xml:lang="fi">EmbedLyrics.qml: poistetaan kyselyparametreista virheelliset merkit</li>
           <li xml:lang="fr">EmbedLyrics.qml : suppression des caractères illégaux des paramètres de requête.</li>
           <li xml:lang="it">EmbedLyrics.qml: rimuove i caratteri non validi per i parametri di query.</li>
           <li xml:lang="ka">EmbedLyrics.qml: მოცილებულია დაუშვებელი სიმბოლოები მოთხოვნის პარამეტრებისთვის.</li>
@@ -918,6 +930,7 @@
           <li xml:lang="ca-valencia">Creació de scripts: corregix una fallada si s'utilitza @qml d'execució des de kid3-cli, corregix «isStandalone()» quan s'executa de manera no interactiva amb kid3-cli, afig un script nou SelectChapterTags.qml.</li>
           <li xml:lang="cs">Skripty: Oprava pádu při použití příkazu `execute @qml` z příkazového řádku `kid3-cli`, oprava funkce `isStandalone()` při neinteraktivním spuštění pomocí `kid3-cli`, přidání nového skriptu `SelectChapterTags.qml`.</li>
           <li xml:lang="es">Guiones: Se ha corregido un fallo de la aplicación cuando se usa «execute @gml» en kid3-cli; se ha corregido isStandalone() cuando se ejecuta de forma no interactiva con kid3-cli; se ha añadido el nuevo guion SelectChapterTags.qml.</li>
+          <li xml:lang="fi">skriptaus: korjattu kaatuminen suoritettaessa @qml:ää kid3-cli:stä, korjattu isStandalone() toimittaessa ei-vuorovaikutteisesti kid3-cli:stä, lisätty uusi skripti SelectChapterTags.qml</li>
           <li xml:lang="fr">Langage de scripts : correction du plantage si « execute @qml » est utilisé depuis kid3-cli. Correction de « isStandalone() » lors d'une exécution non interactive avec kid3-cli. Ajout d'un nouveau script « SelectChapterTags.qml ».</li>
           <li xml:lang="it">Scripting: correzione dell'arresto anomalo se execute @qml viene utilizzato da kid3-cli, correzione di isStandalone() quando eseguito in modo non interattivo con kid3-cli, aggiunta del nuovo script SelectChapterTags.qml.</li>
           <li xml:lang="ka">სკრიპტინგი: გასწორდა ავარია, თუ @qml-ის შესრულება kid3-cli-დან ხდება. გასწორდა isStandalone(), როცა გაშვებულია არაინტერაქტიულ რეჟიმში kid3-cli-ით და დაემატა ახალი სკრიპტი SelectChapterTags.qml.</li>
@@ -935,6 +948,7 @@
           <li xml:lang="ca-valencia">Sistema de construcció: no escriu al codi font el camí WITH_DATAROOTDIR_DEFAULT, permet l'opció BUILD_WITH_QT5 de CMake per a forçar l'ús de les Qt5, permet les Qt 6/KDE 6 a Debian, afig diversos objectius CI/CD nous, millora la implementació de Snap.</li>
           <li xml:lang="cs">Systém sestavení: Cesta WITH_DATAROOTDIR_DEFAULT se nezadává pevně, přidána podpora pro volbu CMake BUILD_WITH_QT5 k vynucení použití Qt5, přidána podpora pro Qt 6/KDE 6 v Debianu, přidány různé nové cíle CI/CD, vylepšena podpora pro Snap.</li>
           <li xml:lang="es">Sistema de compilación: No usar la ruta WITH_DATAROOTDIR_DEFAULT directamente en el código; permitir la opción BUILD_WITH_QT5 en CMake para forzar el uso de Qt5; permitir Qt 6/KDE 6 en Debian; se han añadido varios objetivos CI/CD nuevos; se ha mejorado la compatibilidad con Snap.</li>
+          <li xml:lang="fi">koostamisjärjestelmä: ei kovakoodata WITH_DATAROOTDIR_DEFAULT-polkua, tuketaan CMake-valintaa BUILD_WITH_QT5 pakottamaan Qt5:n käyttö, tuetaan Qt6/KDE6:ta Debianissa, lisätty eri CI/CD-kohteita, parannettu Snap-tukea</li>
           <li xml:lang="fr">Système de compilation : ne pas coder en dur le chemin « WITH_DATAROOTDIR_DEFAULT ». Prise en charge de l'option « CMake BUILD_WITH_QT5 » pour forcer l'utilisation de Qt5. Prise en charge de Qt 6 / KDE 6 sous Debian. Ajout de diverses nouvelles cibles « CI / CD ». Amélioration de la prise en charge de Snap.</li>
           <li xml:lang="it">Sistema di compilazione: non codifica il percorso WITH_DATAROOTDIR_DEFAULT, supporta l'opzione CMake BUILD_WITH_QT5 per forzare l'uso di Qt5, supporta Qt 6/KDE 6 su Debian, aggiunge vari nuovi target CI/CD, migliora il supporto Snap.</li>
           <li xml:lang="ka">აგების სისტემა: არ მოხდება WITH_DATAROOTDIR_DEFAULT ბილიკის ჩაშენება. CMake-ის პარამეტრის BUILD_WITH_QT5 მხარდაჭერა Qt5-ის გამოყენების იძულებისთვის. Qt 6/KDE 6-ის მხარდაჭერა Debian-ზე. დაემატა სხვადასხვა ახალი CI/CD-ის სამიზნეები. გაუმჯობესდა Snap-ის მხარდაჭერა.</li>
@@ -958,6 +972,7 @@
         <p xml:lang="cs">Nové</p>
         <p xml:lang="de">Neu</p>
         <p xml:lang="es">Novedades</p>
+        <p xml:lang="fi">Uutta</p>
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
         <p xml:lang="it">Nuovi</p>
@@ -980,6 +995,7 @@
           <li xml:lang="ca-valencia">Mostra la vista prèvia de múltiples imatges incrustades.</li>
           <li xml:lang="cs">Zobrazení náhledu u několika vložených obrázků.</li>
           <li xml:lang="es">Mostrar vistas previas para múltiples imágenes integradas.</li>
+          <li xml:lang="fi">näytetään esikatselu useammilla upotetuilla kuvilla</li>
           <li xml:lang="fr">Afficher l'aperçu de plusieurs images intégrées.</li>
           <li xml:lang="it">Mostra l'anteprima per più immagini incorporate.</li>
           <li xml:lang="ka">მინიატურის ჩვენება ერთზე მეტი ჩაშენებული სურათისთვის.</li>
@@ -997,6 +1013,7 @@
           <li xml:lang="ca-valencia">Edició simplificada d'audiollibres MP3 en un diàleg d'edició de marcs «Capítols».</li>
           <li xml:lang="cs">Zjednodušené úpravy MP3 audioknih v dialogovém okně "Kapitoly" pro úpravy.</li>
           <li xml:lang="es">Edición simplificada de audiolibros MP3 en el diálogo de edición de la estructura «Chapters».</li>
+          <li xml:lang="fi">yksinkertaistettu MP3-äänikirjamuokkaus ”Luvut”-kehyksen muokkausikkunassa</li>
           <li xml:lang="fr">Édition simplifiée des livres audio « MP3 » dans une boîte de dialogue d'édition de trames nommée « Chapitres ».</li>
           <li xml:lang="it">Modifica semplificata degli audiolibri MP3 in una finestra di modifica del riquadro «Capitoli».</li>
           <li xml:lang="ka">გამარტივდა MP3 აუდიოწიგნების ჩასწორება "თავების" კადრის ჩასწორების დიალოგში.</li>
@@ -1014,6 +1031,7 @@
           <li xml:lang="ca-valencia">Traduccions a l'àrab, esperanto, gallec i georgià.</li>
           <li xml:lang="cs">Překlady do arabštiny, esperanta, galicijštiny a gruzínštiny.</li>
           <li xml:lang="es">Traducciones al árabe, esperanto, gallego y georgiano.</li>
+          <li xml:lang="fi">arabian-, esperanton-, galician- ja georgiankieliset käännökset</li>
           <li xml:lang="fr">Traductions en Arabe, Espéranto, Galicien et Géorgien.</li>
           <li xml:lang="it">Traduzioni in arabo, esperanto, galiziano e georgiano.</li>
           <li xml:lang="ka">არაბული, ესპერანტო, გალისიური და ქართული თარგმანები.</li>
@@ -1033,6 +1051,7 @@
         <p xml:lang="cs">Vylepšeno</p>
         <p xml:lang="de">Verbessert</p>
         <p xml:lang="es">Mejoras</p>
+        <p xml:lang="fi">Parannuksia</p>
         <p xml:lang="fr">Amélioré</p>
         <p xml:lang="is">Endurbætt</p>
         <p xml:lang="it">Migliorati</p>
@@ -1053,6 +1072,7 @@
           <li xml:lang="ca-valencia">macOS: construcció, signatura i notaria de paquets.</li>
           <li xml:lang="cs">macOS: Kompilace, podepisování a ověřování balíčků.</li>
           <li xml:lang="es">macOS: Compilación, firma y notarización de paquetes.</li>
+          <li xml:lang="fi">macOS: pakettien koostaminen, allekirjoittaminen ja notarisoiminen</li>
           <li xml:lang="fr">macOS : Compilation, signature et notarisation des paquetages.</li>
           <li xml:lang="it">macOS: compilazione, firma e autenticazione dei pacchetti.</li>
           <li xml:lang="ka">macOS: პაკეტების აგება, ხელმოწერა და დამოწმება.</li>
@@ -1072,6 +1092,7 @@
         <p xml:lang="cs">Opraveno</p>
         <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
+        <p xml:lang="fi">Korjattu</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
         <p xml:lang="it">Corretti</p>
@@ -1093,6 +1114,7 @@
           <li xml:lang="ca-valencia">Incrusta l'acció de lletres.</li>
           <li xml:lang="cs">Akce pro vložení textu skladby.</li>
           <li xml:lang="es">Acción para insertar letras de canciones.</li>
+          <li xml:lang="fi">upotettu sanoitustoiminto</li>
           <li xml:lang="fr">Intégrer l'action sur les paroles.</li>
           <li xml:lang="it">Azione per incorporare i testi.</li>
           <li xml:lang="ka">ლირიკის ჩაშენების ქმედება.</li>
@@ -1110,6 +1132,7 @@
           <li xml:lang="ca-valencia">Importació de gnudb.org, es pot establir una adreça de correu electrònic registrada al control de la interfície d'usuari «Testimoni».</li>
           <li xml:lang="cs">Při importu z gnudb.org lze v ovládacím prvku „Token“ zadat registrovanou e-mailovou adresu.</li>
           <li xml:lang="es">Importación de gnudb.org; una dirección de correo electrónico registrada se puede definir en el control de la interfaz «Token».</li>
+          <li xml:lang="fi">gnudb.org-tuonti; rekisteröidyn sähköpostiosoitteen voi asettaa ”Pääsymerkki”-käyttöliittymässä</li>
           <li xml:lang="fr">Importation du site « gnudb.org ». une adresse de courriel enregistrée peut être définie dans le contrôle d'interface « Jeton ».</li>
           <li xml:lang="it">Importazione da gnudb.org: è possibile impostare un indirizzo email registrato nel controllo dell'interfaccia utente «Token».</li>
           <li xml:lang="ka">gnudb.org-დან შემოტანა. რეგისტრირებული ელფოსტის მისამართის დაყენება "ტოკენის" UI კონტროლის ელემენტიდან შეგიძლიათ.</li>
@@ -1127,6 +1150,7 @@
           <li xml:lang="ca-valencia">KDE 6: directori d'instal·lació del kid3ui.rc.</li>
           <li xml:lang="cs">KDE 6: Instalační adresář pro soubor kid3ui.rc.</li>
           <li xml:lang="es">KDE 6: Directorio de instalación para kid3ui.rc.</li>
+          <li xml:lang="fi">KDE 6: asennuskansio kid3ui.rc:lle</li>
           <li xml:lang="fr">KDE 6 : répertoire d'installation pour kid3ui.rc.</li>
           <li xml:lang="it">KDE 6: cartella di installazione per kid3ui.rc.</li>
           <li xml:lang="ka">KDE 6: დაყენების საქაღალდე ფაილისთვის kid3ui.rc.</li>
@@ -1144,6 +1168,7 @@
           <li xml:lang="ca-valencia">Android: construcció amb arquitectures arm64-v8a i x86_64.</li>
           <li xml:lang="cs">Android: Kompilace pro architektury arm64-v8a a x86_64.</li>
           <li xml:lang="es">Android: Compilación con las arquitecturas arm64-v8a y x86_64.</li>
+          <li xml:lang="fi">Android: koostaminen arm64-v8a- ja x86_64-arkkitehtuureille</li>
           <li xml:lang="fr">Android : compilation pour les architectures « arm64-v8a » et « x86_64 ».</li>
           <li xml:lang="it">Android: compilazione con architetture arm64-v8a e x86_64.</li>
           <li xml:lang="ka">Android: აგება არქიტექტურებზე arm64-v8a და x86_64.</li>
@@ -1161,6 +1186,7 @@
           <li xml:lang="ca-valencia">Android: utilitza el permís de MANAGE_EXTERNAL_STORAGE per a gestionar tots els fitxers d'un dispositiu d'emmagatzematge.</li>
           <li xml:lang="cs">Android: Pomocí oprávnění MANAGE_EXTERNAL_STORAGE můžete spravovat všechny soubory na úložném zařízení.</li>
           <li xml:lang="es">Android: Usar el permiso MANAGE_EXTERNAL_STORAGE para la gestión de todos los archivos de un dispositivo de almacenamiento.</li>
+          <li xml:lang="fi">Android: käytetään MANAGE_EXTERNAL_STORAGE-käyttöoikeutta hallinnoimaan kaikkia talletustilalaitteen tiedostoja</li>
           <li xml:lang="fr">Android : utilisation de l'autorisation « MANAGE_EXTERNAL_STORAGE » pour gérer tous les fichiers d'un périphérique d'enregistrement.</li>
           <li xml:lang="it">Android: utilizzare l'autorizzazione MANAGE_EXTERNAL_STORAGE per gestire tutti i file su un dispositivo di archiviazione.</li>
           <li xml:lang="ka">Android: MANAGE_EXTERNAL_STORAGE წვდომის გამოყენება საცავის მოწყობილობაზე ყველა ფაილის სამართავად.</li>
@@ -1178,6 +1204,7 @@
           <li xml:lang="ca-valencia">Android: guardada d'etiquetes d'imatge.</li>
           <li xml:lang="cs">Android: Ukládání obrázkových značek.</li>
           <li xml:lang="es">Android: Guardar etiquetas de imágenes.</li>
+          <li xml:lang="fi">Android: kuvaluokitusten tallentaminen</li>
           <li xml:lang="fr">Android : enregistrement des étiquettes d'images.</li>
           <li xml:lang="it">Android: salvataggio dei tag delle immagini.</li>
           <li xml:lang="ka">Android: სურათის ჭდეების შენახვა.</li>
@@ -1195,6 +1222,7 @@
           <li xml:lang="ca-valencia">Haiku: camins d'instal·lació.</li>
           <li xml:lang="cs">Haiku: Instalační cesty.</li>
           <li xml:lang="es">Haiku: Rutas de instalación.</li>
+          <li xml:lang="fi">Haiku: asennuspolut</li>
           <li xml:lang="fr">Haïku : emplacements d'installation.</li>
           <li xml:lang="it">Haiku: percorsi di installazione.</li>
           <li xml:lang="ka">Haiku: დაყენების ბილიკები.</li>
@@ -1218,6 +1246,7 @@
         <p xml:lang="cs">Nové</p>
         <p xml:lang="de">Neu</p>
         <p xml:lang="es">Novedades</p>
+        <p xml:lang="fi">Uutta</p>
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
         <p xml:lang="it">Nuovi</p>
@@ -1240,6 +1269,7 @@
           <li xml:lang="ca-valencia">Dreceres de teclat per a la barra d'eines de reproducció.</li>
           <li xml:lang="cs">Klávesové zkratky pro panel přehrávání.</li>
           <li xml:lang="es">Atajos de teclado para la barra de herramientas de reproducción.</li>
+          <li xml:lang="fi">lisätty toistotyökaluriville pikanäppäimet</li>
           <li xml:lang="fr">Raccourcis clavier pour la barre d'outils de lecture.</li>
           <li xml:lang="it">Scorciatoie da tastiera per la barra degli strumenti di riproduzione.</li>
           <li xml:lang="ka">კლავიატურის მალსახმობები დაკვრის პანელისთვის.</li>
@@ -1257,6 +1287,7 @@
           <li xml:lang="ca-valencia">Opció «Eixida d'àudio» a la pestanya de configuració «Accions d'usuari».</li>
           <li xml:lang="cs">Možnost "Audio výstup" na záložce nastavení "Uživatelské akce".</li>
           <li xml:lang="es">Opción «Salida de sonido» en la pestaña de preferencias «Acciones del usuario».</li>
+          <li xml:lang="fi">lisätty ”Käyttäjän toiminnot” -asetuslehdelle valinta ”Äänen ulostulo”</li>
           <li xml:lang="fr">Option « Sortie audio » dans l’onglet de configuration « Actions utilisateur ».</li>
           <li xml:lang="it">Opzione «Uscita audio» nella scheda delle impostazioni «Azioni utente».</li>
           <li xml:lang="ka">პარამეტრი "აუდიოს გამოტანა" მორგების ჩანართში "მომხმარებლის ქმედებები".</li>
@@ -1274,6 +1305,7 @@
           <li xml:lang="ca-valencia">Permet el format WebP per a imatges.</li>
           <li xml:lang="cs">Podpora formátu WebP pro obrázky.</li>
           <li xml:lang="es">Permitir el formato WebP para las imágenes.</li>
+          <li xml:lang="fi">kuvien WebP-muodon tuki</li>
           <li xml:lang="fr">Prise en charge du format « WebP » pour les images.</li>
           <li xml:lang="it">Supporta il formato WebP per le immagini.</li>
           <li xml:lang="ka">WebP ფორმატის მხარდაჭერა სურათებისთვის.</li>
@@ -1293,6 +1325,7 @@
         <p xml:lang="cs">Vylepšeno</p>
         <p xml:lang="de">Verbessert</p>
         <p xml:lang="es">Mejoras</p>
+        <p xml:lang="fi">Parannuksia</p>
         <p xml:lang="fr">Amélioré</p>
         <p xml:lang="is">Endurbætt</p>
         <p xml:lang="it">Migliorati</p>
@@ -1313,6 +1346,7 @@
           <li xml:lang="ca-valencia">Quan es clique de nou a 1 estrela fa que la puntuació d'estreles desaparega.</li>
           <li xml:lang="cs">Dalším kliknutím na 1 hvězdičku se hodnocení hvězdičkami skryje.</li>
           <li xml:lang="es">Volver a hacer clic en 1 estrella hace que desaparezca la valoración.</li>
+          <li xml:lang="fi">uusi 1 tähden napsautus saa arvostelun katoamaan</li>
           <li xml:lang="fr">La réalisation d'un nouveau clic sur une étoile fait disparaître la notation par étoiles.</li>
           <li xml:lang="it">Facendo clic nuovamente su 1 stella, la valutazione a stelle scompare.</li>
           <li xml:lang="ka">1 ვარსკვლავზე კიდევ ერთხელ დაწკაპუნება რეიტინგის ვარსკვლავებს გააქრობს.</li>
@@ -1330,6 +1364,7 @@
           <li xml:lang="ca-valencia">Permet «\|» per a escapar els separadors d'una llista de cadenes.</li>
           <li xml:lang="cs">Podpora znaku „\|“ pro únik z oddělovačů v seznamu řetězců.</li>
           <li xml:lang="es">Permitir «\|» para escapar separadores de listas de cadenas.</li>
+          <li xml:lang="fi">tuki merkkijonolistaerotinten ”\|”-lainauksille</li>
           <li xml:lang="fr">Prise en charge de « '\|' » comme caractères d'échappement pour les séparateurs de liste de chaînes.</li>
           <li xml:lang="it">Supporta '\|' per eseguire l'escape dei separatori degli elenchi di stringhe.</li>
           <li xml:lang="ka">სტრიქონების სიის გამყოფად '\|'-ის მხარდაჭერა.</li>
@@ -1349,6 +1384,7 @@
         <p xml:lang="cs">Opraveno</p>
         <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
+        <p xml:lang="fi">Korjattu</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
         <p xml:lang="it">Corretti</p>
@@ -1370,6 +1406,7 @@
           <li xml:lang="ca-valencia">Permet valors diversos en els elements de text APE.</li>
           <li xml:lang="cs">Podpora více hodnot v textových polích APE.</li>
           <li xml:lang="es">Permitir múltiples valores en los elementos de texto de APE.</li>
+          <li xml:lang="fi">useiden arvojen tuki APE-tekstitietueissa</li>
           <li xml:lang="fr">Prise en charge de plusieurs valeurs dans les éléments de texte « APE ».</li>
           <li xml:lang="it">Supporta più valori negli elementi di testo APE.</li>
           <li xml:lang="ka">ერთზე მეტი მნიშვნელობის მხარდაჭერა APE ტექსტის ელემენტებში.</li>
@@ -1387,6 +1424,7 @@
           <li xml:lang="ca-valencia">Construcció amb la TagLib 2.0.</li>
           <li xml:lang="cs">Sestavení pomocí TagLib 2.0.</li>
           <li xml:lang="es">Compilación con TagLib 2.0.</li>
+          <li xml:lang="fi">koostaminen TagLib 2.0:lla</li>
           <li xml:lang="fr">Compilation avec TagLib 2.0.</li>
           <li xml:lang="it">Compilazione con TagLib 2.0.</li>
           <li xml:lang="ka">აგება TagLib 2.0-ით.</li>
@@ -1404,6 +1442,7 @@
           <li xml:lang="ca-valencia">Construcció a partir de macOS amb arm64.</li>
           <li xml:lang="cs">Kompilace z macOS s architekturou arm64.</li>
           <li xml:lang="es">Compilación arm64 en macOS.</li>
+          <li xml:lang="fi">macOSista koostaminen arm64:llä</li>
           <li xml:lang="fr">Compilation à partir de macOS pour processeur « arm64 ».</li>
           <li xml:lang="it">Compilazione da macOS con arm64.</li>
           <li xml:lang="ka">აგება macOS-დან arm64-ზე.</li>
@@ -1421,6 +1460,7 @@
           <li xml:lang="ca-valencia">Construcció de paquets Snap.</li>
           <li xml:lang="cs">Vytváření balíčků Snap.</li>
           <li xml:lang="es">Creación de paquetes Snap.</li>
+          <li xml:lang="fi">Snap-pakettien koostaminen</li>
           <li xml:lang="fr">Construction des paquets « snap ».</li>
           <li xml:lang="it">Compilazione dei pacchetti snap.</li>
           <li xml:lang="ka">Snap-ის პაკეტების აგება.</li>
@@ -1444,6 +1484,7 @@
         <p xml:lang="cs">Nové</p>
         <p xml:lang="de">Neu</p>
         <p xml:lang="es">Novedades</p>
+        <p xml:lang="fi">Uutta</p>
         <p xml:lang="fr">Nouveau</p>
         <p xml:lang="is">Nýtt</p>
         <p xml:lang="it">Nuovi</p>
@@ -1466,6 +1507,7 @@
           <li xml:lang="ca-valencia">Tots els binaris oficials estan construïts amb les Qt 6. Per a macOS, el fitxer Darwin-amd64.dmg és ara la versió de les Qt 6, mentre que els sistemes més antics que Mojave necessiten el paquet Darwin-Qt5.dmg. La configuració de reemplaçament de cadena emmagatzemada per les Qt 6 no és compatible amb les Qt 5 perquè s'utilitza una codificació diferent.</li>
           <li xml:lang="cs">Všechny oficiální binární soubory jsou sestaveny s použitím Qt 6. Pro macOS je soubor Darwin-amd64.dmg nyní ve verzi Qt 6, zatímco systémy starší než Mojave vyžadují balíček Darwin-Qt5.dmg. Nastavení nahrazování řetězců uložených v Qt 6 nejsou kompatibilní s Qt 5, protože se používá odlišné kódování.</li>
           <li xml:lang="es">Todos los binarios oficiales están compilados con Qt 6. En macOS, el archivo Darwin-amd64.dmg contiene ahora la versión de Qt 6, por lo que los sistemas anteriores a Mojave necesitan el paquete Darwin-Qt5.dmg. Las preferencias de sustitución de cadenas guardadas por Qt 6 no son compatibles con Qt 5 porque usan una codificación diferente.</li>
+          <li xml:lang="fi">Kaikki viralliset ohjelmatiedostot koostetaan Qt 6:lla. macOsille Darwin-amd64.dmg-tiedosto on nyt Qt 6 -versiota, kun taas Mojavea vanhemmat järjestelmät tarvitsevat Darwin-Qt5.dmg:n. Qt 6:n tallettamat merkkijononkorvausasetukset eivät sovi yhteen Qt 5:n kanssa, koska käytetään eri merkistökoodausta.</li>
           <li xml:lang="fr">Tous les binaires officiels sont construits avec Qt 6. Pour macOS, le fichier « Darwin-amd64.dmg » est désormais la version Qt 6, tandis que les systèmes plus anciens que Mojave nécessitent le paquet « Darwin-Qt5.dmg ». Les paramètres de remplacement de chaînes enregistrés par Qt 6 sont incompatibles avec Qt 5 car un encodage différent est utilisé.</li>
           <li xml:lang="it">Tutti i binari ufficiali sono compilati con Qt 6. Per macOS, il file Darwin-amd64.dmg è ora la versione Qt 6, mentre i sistemi precedenti a Mojave necessitano del pacchetto Darwin-Qt5.dmg. Le impostazioni di sostituzione delle stringhe memorizzate da Qt 6 non sono compatibili con Qt 5 perché viene utilizzata una codifica diversa.</li>
           <li xml:lang="ka">ყველა ოფიციალური ბინარული ფაილის აგება Qt6-ით ხდება. macOS-ისთვის ფაილი Darwin-amd64.dmg ახლა Qt6 ვერსიითაა. Mojave-ზე ძველ სისტემებს კი Darwin-Qt5.dmg ფაილი სჭირდება. სტრიქონის ჩანაცვლების პარამეტრები, შენახული Qt6-ის მიერ Qt5-თან თავსებადი არაა, რადგან ისინი განსხვავებულ კოდირებას იყენებენ.</li>
@@ -1483,6 +1525,7 @@
           <li xml:lang="ca-valencia">Opció «Tria el fitxer en reproducció» a la pestanya de configuració «Accions d'usuari».</li>
           <li xml:lang="cs">Možnost "Vybrat soubor při přehrávání" na záložce nastavení "Uživatelské akce".</li>
           <li xml:lang="es">Opción «Seleccionar archivo al reproducir» en la pestaña de preferencias «Acciones del usuario».</li>
+          <li xml:lang="fi">lisätty ”Käyttäjän toiminnot” -asetuslehdelle valinta ”Valitse tiedosto toistettaessa”</li>
           <li xml:lang="fr">Option « Sélectionner un fichier lors de la lecture » dans l'onglet de configuration « Actions utilisateur ».</li>
           <li xml:lang="it">Opzione «Seleziona file durante la riproduzione» nella scheda delle impostazioni «Azioni utente».</li>
           <li xml:lang="ka">პარამეტრი "ფაილის არჩევა დაკვრისას" მორგების ჩანართში "მომხმარებლის ქმედებები".</li>
@@ -1502,6 +1545,7 @@
         <p xml:lang="cs">Vylepšeno</p>
         <p xml:lang="de">Verbessert</p>
         <p xml:lang="es">Mejoras</p>
+        <p xml:lang="fi">Parannuksia</p>
         <p xml:lang="fr">Amélioré</p>
         <p xml:lang="is">Endurbætt</p>
         <p xml:lang="it">Migliorati</p>
@@ -1522,6 +1566,7 @@
           <li xml:lang="ca-valencia">Un clic damunt de l'hora de la barra d'eines de reproducció canvia el temps transcorregut i el temps restant.</li>
           <li xml:lang="cs">Kliknutím na tlačítko přehrávání na panelu nástrojů přepnete mezi uplynulým a zbývajícím časem.</li>
           <li xml:lang="es">Hacer clic en el tiempo de la barra de la herramienta de reproducción conmuta entre el tiempo transcurrido y el restante.</li>
+          <li xml:lang="fi">soittotyökalurivin napsautus vaihtaa kuluneen ja jäljellä olevan ajan välillä</li>
           <li xml:lang="fr">Un clic sur la barre d'outils de lecture permet le basculement entre le temps écoulé et le temps restant.</li>
           <li xml:lang="it">Facendo clic sulla barra degli strumenti di riproduzione si alterna tra tempo trascorso e tempo rimanente.</li>
           <li xml:lang="ka">დაკვრის ზოლზე დაწკაპუნება გადართავს გასულსა და დარჩენილ დროს შორის.</li>
@@ -1539,6 +1584,7 @@
           <li xml:lang="ca-valencia">Es restaura la visibilitat i l'àrea acoblada de la barra d'eines de reproducció.</li>
           <li xml:lang="cs">Viditelnost a zakotvená oblast panelu přehrávání jsou obnoveny.</li>
           <li xml:lang="es">Se han restaurado la visibilidad y el área de paneles de la barra de herramientas de reproducción.</li>
+          <li xml:lang="fi">palautetaan soittotyökalurivin näkyvyys ja telakoitu alue</li>
           <li xml:lang="fr">La visibilité et la zone ancrée de la barre d’outils de lecture sont restaurées.</li>
           <li xml:lang="it">La visibilità e l'area ancorata della barra degli strumenti di gioco vengono ripristinate.</li>
           <li xml:lang="ka">მოხდება დაკვრის ხელსაწყოს ხილვადობისა და მიმაგრების ადგილის აღდგენა.</li>
@@ -1556,6 +1602,7 @@
           <li xml:lang="ca-valencia">ID3v1: en establir diversos gèneres, utilitza el primer element admés.</li>
           <li xml:lang="cs">ID3v1: Při zadávání více žánrů použit první podporovaný prvek.</li>
           <li xml:lang="es">ID3v1: Cuando se definen múltiples géneros, usar el primer elemento admitido.</li>
+          <li xml:lang="fi">ID3v1: asetettaessa useita tyylilajeja käytetään ensimmäistä tuettua vaihtoehtoa</li>
           <li xml:lang="fr">ID3v1 : lors de la définition de plusieurs genres, veuillez utiliser le premier élément pris en charge.</li>
           <li xml:lang="it">ID3v1: quando si impostano più generi, utilizza il primo elemento supportato.</li>
           <li xml:lang="ka">ID3v1: ერთზე მეტი ჟანრის დაყენებისას პირველი მხარდაჭერილი ელემენტის გამოყენება.</li>
@@ -1573,6 +1620,7 @@
           <li xml:lang="ca-valencia">Qt6: utilitza les icones SVG per a un rendiment millor a la llista de fitxers i al diàleg.</li>
           <li xml:lang="cs">Qt6: Použití ikon SVG pro lepší výkon v seznamu souborů a v dialogových oknech.</li>
           <li xml:lang="es">Qt6: Usar iconos SVG para un mejor rendimiento de la lista de archivos y de los diálogos.</li>
+          <li xml:lang="fi">Qt6: käytetään tiedostoluettelossa ja tiedostonvalintaikkunassa paremman suorituskyvyn SVG-kuvakkeita</li>
           <li xml:lang="fr">Qt6 : utilisation d'icônes « SVG » pour de meilleures performances dans la liste de fichiers et les boîtes de dialogue.</li>
           <li xml:lang="it">Qt6: utilizza le icone SVG per prestazioni migliori nell'elenco dei file e nella finestra di dialogo.</li>
           <li xml:lang="ka">Qt6: SVG ხატულების გამოყენება უკეთესი წარმადობისთვის ფაილების სიაში და დიალოგში.</li>
@@ -1592,6 +1640,7 @@
         <p xml:lang="cs">Opraveno</p>
         <p xml:lang="de">Behoben</p>
         <p xml:lang="es">Correcciones</p>
+        <p xml:lang="fi">Korjattu</p>
         <p xml:lang="fr">Corrigé</p>
         <p xml:lang="is">Lagfært</p>
         <p xml:lang="it">Corretti</p>
@@ -1613,6 +1662,7 @@
           <li xml:lang="ca-valencia">No marca tots els marcs no unificats com a modificats si es canvia qualsevol marc no unificat.</li>
           <li xml:lang="cs">Pokud dojde ke změně jakéhokoli nesjednoceného rámce, neoznačují se všechny nesjednocené rámce jako změněné.</li>
           <li xml:lang="es">No marcar todas las estructuras sin unificar como modificadas si se modifica alguna de ellas.</li>
+          <li xml:lang="fi">ei merkitä kaikkia ei-yhtenäistettyjä kehyksiä muokatuiksi, kun jotakin ei-yhtenäistettyä kehystä on muutettu</li>
           <li xml:lang="fr">Ne pas marquer pas toutes les trames non unifiées comme modifiées si l'une est modifiée.</li>
           <li xml:lang="it">Non contrassegna tutti i frame non unificati come modificati se uno qualsiasi di essi viene modificato.</li>
           <li xml:lang="ka">გაუერთიანებელი კადრები არ მოინიშნება შეცვლილად, თუ შეიცვლება ნებისმიერი გაუერთიანებელი კადრი.</li>
@@ -1630,6 +1680,7 @@
           <li xml:lang="ca-valencia">Falla a Id3libMetadata quan es clique damunt «Edita» en un marc no admés.</li>
           <li xml:lang="cs">Selhání Id3libMetadata při kliknutí na tlačítko Upravit u nepodporovaného rámce.</li>
           <li xml:lang="es">Fallo de la aplicación en Id3libMetadata cuando se pulsa «Editar» en una estructura no reconocida.</li>
+          <li xml:lang="fi">korjattu kaatuminen Id3libMetadatassa napsautettaessa Muokkaa ei-tuetussa kehyksessä</li>
           <li xml:lang="fr">Plantage dans Id3libMetadata lors d'un clic sur « Modifier » pour une trame non prise en charge.</li>
           <li xml:lang="it">Arresto anomalo di Id3libMetadata quando si fa clic su Modifica su un frame non supportato.</li>
           <li xml:lang="ka">გასწორდა ავარია Id3libMetadata-ში მხარდაუჭერელ კადრზე 'ჩასწორებაზე' დაწკაპუნებისას.</li>
@@ -1647,6 +1698,7 @@
           <li xml:lang="ca-valencia">Configureu la codificació de text en marcs TXXX amb TaglibMetadata.</li>
           <li xml:lang="cs">Nastavení kódování textu v rámcích TXXX pomocí TaglibMetadata.</li>
           <li xml:lang="es">Definir la codificación del texto en las estructuras TXXX con TaglibMetadata.</li>
+          <li xml:lang="fi">asetetaan TXXX-kehysten tekstin koodaus TagLibMetadatassa</li>
           <li xml:lang="fr">Définition de l'encodage du texte sur les trames « » TXXX avec TaglibMetadata.</li>
           <li xml:lang="it">Impostazione della codifica del testo sui frame TXXX con TaglibMetadata.</li>
           <li xml:lang="ka">ტექსტის კოდირების დაყენება TXXX კადრებზე TaglibMetadata-ით.</li>
@@ -1664,6 +1716,7 @@
           <li xml:lang="ca-valencia">Omet caràcters no lletres per al format en majúscula de primera lletra.</li>
           <li xml:lang="cs">Při formátování s velkým počátečním písmenem přeskočeny znaky, které nejsou písmeny.</li>
           <li xml:lang="es">Omitir caracteres que no sen letras en el formato de usar mayúsculas para el primer carácter.</li>
+          <li xml:lang="fi">sivuutetaan alun ei-kirjaimet muutettaessa alkukirjainta suuraakkosiin</li>
           <li xml:lang="fr">Ignorer les caractères non alphabétiques pour le format au début en majuscule.</li>
           <li xml:lang="it">Salta i caratteri non alfabetici per il formato della prima lettera in maiuscolo.</li>
           <li xml:lang="ka">არა-ასოების სიმბოლოების გამოტოვება, როცა ფორმატში პირველი ასო დიდია.</li>
@@ -1681,6 +1734,7 @@
           <li xml:lang="ca-valencia">Importació de Discogs: corregix els valors en els marcs Artista, Configuracions i Intèrpret, utilitza «gèneres» si «estils» està buit, recupera l'art correcte de caràtula, admet números de les pistes de vinil com A1.</li>
           <li xml:lang="cs">Import z Discogs: Oprava hodnot v polích „Umělec“, „Aranžér“ a „Interpret“, použití „žánrů“, pokud je pole „styly“ prázdné, načtení správného obalu, podpora číslování skladeb na vinylu (např. A1).</li>
           <li xml:lang="es">Importación de Discogs: Se han corregido los valores de las estructuras Artist, Arranger y Performer; usar «géneros» si «estilos» está vacío; obtener las portadas correctas; compatibilidad con números de pistas de vinilo, como A1.</li>
+          <li xml:lang="fi">Discogs-tuonti: korjattu arvot artisti-, sovittaja- ja esittäjäkehyksissä, käytetään ”tyylilajeja” jos ”tyylit” on tyhjä, noudetaan oikea kansikuva, tuki vinyyliraitanumeroille kuten A1</li>
           <li xml:lang="fr">Importation à partir de Discogs : correction des valeurs dans les champs « Artiste », « Arrangement » et « Interprète ». Veuillez utiliser « genres » si « styles » est vide, charger l'illustration correcte de couverture, prendre en charge les numéros de piste vinyle comme A1.</li>
           <li xml:lang="it">Importazione Discogs: corregge i valori nei riquadri Artista, Arrangiatore ed Esecutore, usa «generi» se «stili» è vuoto, recupera la copertina corretta, supporta i numeri di traccia in vinile come A1.</li>
           <li xml:lang="ka">Discogs-ის შემოტანა: გასწორდა მნიშვნელობები კადრებში Artist, Arranger და performer. "ჟანრების" გამოყენება, ტუ "სტილები" ცარიელია. გასწორდა ყდის სურათების გამოთხოვა, A1-ის მსგავსი ვინილის ტრეკის დანომვრის მხარდაჭერა.</li>
@@ -1698,6 +1752,7 @@
           <li xml:lang="ca-valencia">Qt6: falla en afegir un element a la taula de configuració.</li>
           <li xml:lang="cs">Qt6: Pád při přidávání položky do konfigurační tabulky.</li>
           <li xml:lang="es">Qt6: Fallo de la aplicación cuando se añade un elemento a la tabla de configuración.</li>
+          <li xml:lang="fi">Qt6: korjattu kaatuminen lisättäessä tietuetta asetustaulukkoon</li>
           <li xml:lang="fr">Qt6 : Plantage lors de l'ajout d'un élément au tableau de configuration.</li>
           <li xml:lang="it">Qt6: arresto anomalo durante l'aggiunta di un elemento alla tabella di configurazione.</li>
           <li xml:lang="ka">Qt6: ავარია კონფიგურაციის ცხრილში ელემენტების ჩამატებისას.</li>
@@ -1715,6 +1770,7 @@
           <li xml:lang="ca-valencia">Qt6: control lliscant del reproductor multimèdia més gran, no repetix quan s'haja reproduït l'última cançó.</li>
           <li xml:lang="cs">Qt6: Větší posuvník přehrávače médií, neopakování po přehrání poslední skladby.</li>
           <li xml:lang="es">Qt6: Deslizador más grande en el reproductor multimedia; no repetir cuando se ha reproducido la última canción.</li>
+          <li xml:lang="fi">Qt6: suurempi mediasoitinliukusäädin; ei toisteta, kun viimeinen kappale on soitettu</li>
           <li xml:lang="fr">Qt6 : curseur plus grand du lecteur multimédia. Ne pas répéter après la lecture de la dernière chanson.</li>
           <li xml:lang="it">Qt6: cursore del lettore multimediale più grande, non ripete quando l'ultimo brano è stato riprodotto.</li>
           <li xml:lang="ka">Qt6: უფრო დიდი მედიის დამკვრელის სლაიდერი. არ გამეორდება, როცა მოხდება ბოლო სიმღერის დაკვრა.</li>
@@ -1732,6 +1788,7 @@
           <li xml:lang="ca-valencia">Windows, TaglibMetadata: permet fitxers més grans de 2 GB.</li>
           <li xml:lang="cs">Windows, TaglibMetadata: Podpora souborů větších než 2 GB.</li>
           <li xml:lang="es">Windows, TaglibMetadata: Permitir archivos de más de 2 GB.</li>
+          <li xml:lang="fi">Windows, TagLibMetadata: tuki yli 2 Gt tiedostoille</li>
           <li xml:lang="fr">Windows, TaglibMetadata : prise en charge des fichiers de taille supérieure à 2 Go.</li>
           <li xml:lang="it">Windows, TaglibMetadata: supporta file più grandi di 2 GB.</li>
           <li xml:lang="ka">Windows, TaglibMetadata: 2 გბ-ზე დიდი ფაილების მხარდაჭერა.</li>
@@ -1749,6 +1806,7 @@
           <li xml:lang="ca-valencia">Windows, OggFlacMetadata: construïx sense libssp-0.dll.</li>
           <li xml:lang="cs">Windows, OggFlacMetadata: Sestavení bez souboru libssp-0.dll.</li>
           <li xml:lang="es">Windows, OggFlacMetadata: Compilar sin libssp-0.dll.</li>
+          <li xml:lang="fi">Windows, OggFlacMetadata: koostaminen ilman libssp-0.dll:ää</li>
           <li xml:lang="fr">Windows, OggFlacMetadata : compilation sans la bibliothèque « libssp-0.dll ».</li>
           <li xml:lang="it">Windows, OggFlacMetadata: compila senza libssp-0.dll.</li>
           <li xml:lang="ka">Windows, OggFlacMetadata: აგება libssp-0.dll-ის გარეშე.</li>
@@ -1766,6 +1824,7 @@
           <li xml:lang="ca-valencia">Windows, Mp4v2Metadata: corregix la guardada amb noms de fitxer que contenen caràcters no ASCII.</li>
           <li xml:lang="cs">Windows, Mp4v2Metadata: Oprava ukládání souborů s názvy obsahujícími znaky mimo znakovou sadu ASCII.</li>
           <li xml:lang="es">Windows, Mp4v2Metadata: Permitir que se puedan guardar archivos cuyo nombre contenga caracteres que no sean ASCII.</li>
+          <li xml:lang="fi">Windows, Mp4v2Metadata: korjattu ei-ASCII-merkkejä sisältävien tiedostonimien tallennus</li>
           <li xml:lang="fr">Windows, Mp4v2Metadata : correction de l'enregistrement pour les noms de fichiers contenant des caractères non ASCII.</li>
           <li xml:lang="it">Windows, Mp4v2Metadata: correzione del salvataggio con nomi di file contenenti caratteri non ASCII.</li>
           <li xml:lang="ka">Windows, Mp4v2Metadata: გასწორდა შენახვა ფაილის სახელებით, რომლებიც არა-ASCII სიმბოლოებს შეიცავს.</li>
