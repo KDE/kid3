@@ -319,6 +319,17 @@
   <update_contact>ufleisch@users.sourceforge.net</update_contact>
   <translation type="qt">kid3/translations/kid3</translation>
   <releases>
+    <release version="3.10.2" date="2026-09-30">
+      <description>
+        <p>Fixed</p>
+        <ul>
+          <li>Discogs import.</li>
+          <li>Remove id3lib metadata plugin.</li>
+          <li>Support frame names containing dots in kid3-cli.</li>
+          <li>CI builds for Windows and Android.</li>
+        </ul>
+      </description>
+    </release>
     <release version="3.10.1" date="2026-07-24">
       <description>
         <p>Fixed</p>

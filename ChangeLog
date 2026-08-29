@@ -1,3 +1,13 @@
+Wed Sep 30 11:45:03 CEST 2026  Urs Fleisch  <ufleisch@users.sourceforge.net>
+
+	* Release 3.10.2
+
+	* Fixed:
+	  + Discogs import.
+	  + Remove id3lib metadata plugin.
+	  + Support frame names containing dots in kid3-cli.
+	  + CI builds for Windows and Android.
+
 Tue Jul 24 20:50:34 CEST 2026  Urs Fleisch  <ufleisch@users.sourceforge.net>
 
 	* Release 3.10.1
