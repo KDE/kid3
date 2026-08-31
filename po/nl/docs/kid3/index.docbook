@@ -43,13 +43,13 @@
 >&FDLNotice;</legalnotice>
 
 <date
->2026-07-24</date>
+>2026-09-30</date>
 <releaseinfo
->3.10.1</releaseinfo>
+>3.10.2</releaseinfo>
 
 <abstract>
 <para
->&kid3; is een toepassing om de ID3v1 en ID3v2 tags in MP3 bestanden op een efficiënte manier te bewerken. Ook tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF bestanden en trackermodules (MOD, S3M, IT, XM) worden ondersteund. Het is gemakkelijk om tags van meerdere bestanden in te stellen op dezelfde waarden (&eg; album, artiest, jaar en genre in alle bestanden van hetzelfde album) en de tags te genereren uit de bestandsnaam of vice versa. </para>
+>&kid3; is een toepassing om de ID3v1 en ID3v2 tags in MP3 bestanden op een efficiënte manier te bewerken. Ook tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF bestanden en trackermodules (MOD, S3M, IT, XM) worden ondersteund. Het is gemakkelijk om tags van meerdere bestanden in te stellen op dezelfde waarden (&eg; album, artiest, jaar en genre in alle bestanden van hetzelfde album) en de tags te genereren uit de bestandsnaam of vice versa. </para>
 </abstract>
 
 <keywordset>
@@ -107,6 +107,10 @@
 >Opus</keyword>
 <keyword
 >DSF</keyword>
+<keyword
+>Matroska</keyword>
+<keyword
+>WebM</keyword>
 </keywordset>
 
 </bookinfo>
@@ -389,7 +393,7 @@ end manpage include-->
 >Inleiding</title>
 
 <para
->&kid3; is een toepassing om de ID3v1 en ID3v2 tags in MP3-bestanden te bewerken op een efficiënte manier. Deze tags kunnen bewerkt worden door de meeste MP3-spelers, maar niet op een erg comfortabele en efficiënte manier. Bovendien wordendhe tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF bestanden en trackermodules (MOD, S3M, IT, XM) ook ondersteund. </para>
+>&kid3; is een toepassing om de ID3v1 en ID3v2 tags in MP3-bestanden te bewerken op een efficiënte manier. Deze tags kunnen bewerkt worden door de meeste MP3-spelers, maar niet op een erg comfortabele en efficiënte manier. Bovendien worden de tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF bestanden en trackermodules (MOD, S3M, IT, XM) ook ondersteund. </para>
 <para
 >&kid3; pakt of codeert geen MP3-bestanden, maar is gericht op het bewerken van de ID3 tags van alle bestanden van een album op een efficiënte manier, &ie; met zo weinig muisklikken en toetsaanslagen als mogelijk. Waar de meeste andere programma's ofwel ID3v1 of ID3v2 tags kunnen bewerken,heeft &kid3; volledige controle over beide versies, kan tags converteren tussen de twee formaten en heeft toegang tot alle ID3v2 tags. Tags van meerdere bestanden kunnen ingesteld worden op dezelfde waarde, &eg; de artiest, album, jaar en genre van alle bestanden van een album hebben typisch dezelfde waarden en kunnen samen ingesteld worden. Als de informatie voor de tags in de bestandsnaam zit, kunnen de tags automatisch ingesteld worden uit de bestandsnaam. Het is ook mogelijk om de bestandsnaam in te stellen volgens de tags gevonden in het bestand in willekeurige formaten. </para>
 <para
@@ -434,7 +438,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV en AIFF tags bewerken</para
+>MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, Matroska/WebM, TrueAudio, WavPack, WMA, WAV en AIFF tags bewerken</para
 ></listitem>
 <listitem
 ><para
@@ -653,7 +657,8 @@ end manpage include-->
 
 <para
 >De lijst met bestanden bevat de namen van alle bestanden in de geopende map die overeenkomt met het geselecteerde filter voor bestandsnamen (typisch <filename class="extension"
->*.mp3 *.ogg *.opus *.dsf *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx *.tta *.wv *.wma *.wav *.aiff *.ape</filename
+>*.3g2 *.aac *.afc *.aif *.aifc *.aiff *.ape *.asf *.dff *.dsdiff *.dff *.flac *.it *.m4a *.m4b *.m4p *.m4r *.m4v *.mka *.mkv *.mod *.module *.mp2 *.mp3 *.mp4 *.mp4v *.mpc *.nst *.oga *.ogg *.opus *.s3n *.shn *.spx *.tta *.wav *.webm *.wma *.wmv *.wow *.wv *.xm
+></filename
 >). Een enkele of meerdere bestanden kunnen geselecteerd worden. Om geen bestand te selecteren, klik in het lege gebied na de items in het vak met de lijst. De selectie bepaalt de bestanden die worden beïnvloed door de bewerkingen die beschikbaar zijn door de onderstaand beschreven knoppen te gebruiken. </para>
 <para
 >Naast <guilabel
@@ -794,7 +799,7 @@ end manpage include-->
 >Bestand</title>
 
 <para
->Toont informatie over de codering (MP3, Ogg, Opus, DSF, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF), bitsnelheid, samplesnelheid, kanalen en de lengte van het bestand. </para>
+>Toont informatie over de codering (MP3, Ogg, Opus, DSF, DFF, FLAC, MPC, APE, Matroska, Webm, MP2, MP4, AAC, Speex, TrueAudio, WavPack, ASF, WAV, AIFF, IT, Mod, S3M, XM, SHN), bitsnelheid, samplesnelheid, kanalen en de lengte van het bestand. </para>
 <para
 >De regelbewerking <guilabel
 >Naam</guilabel
@@ -802,7 +807,7 @@ end manpage include-->
 <para
 >De keuzelijst <guilabel
 >Formaat</guilabel
-> en regelbewerken bevat het te gebruiken formaat wanneer de bestandsnaam wordt gegenereerd uit de eerste of de tweede tag. De bestandsnaam kan willekeurige tekens bevatten, zelfs een mapgedeelte gescheiden door een slash uit de bestandsnaam, maar die map moet al bestaan om het hernoemen te laten slagen. De volgende speciale codes worden gebruikt om tagwaarden in de bestandsnaam in te voegen: </para>
+> en regelbewerken bevat het te gebruiken formaat wanneer de bestandsnaam wordt gegenereerd uit de eerste of de tweede tag. De volgende speciale codes worden gebruikt om tagwaarden in de bestandsnaam in te voegen: </para>
 
 <itemizedlist>
 <listitem
@@ -3558,10 +3563,6 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%v %{vbr} VBR of leeg (alleen voor ID3v2.3 met id3lib)</para
-></listitem>
-<listitem
-><para
 >%r %{samplerate} Samplesnelheid in Hz</para
 ></listitem>
 <listitem
@@ -4171,10 +4172,6 @@ end manpage include-->
 <listitem
 ><para
 >%b %{bitrate} Bitsnelheid in kbit/s</para
-></listitem>
-<listitem
-><para
->%v %{vbr} VBR of leeg (alleen voor ID3v2.3 met id3lib)</para
 ></listitem>
 <listitem
 ><para
@@ -5140,14 +5137,6 @@ end manpage include-->
 >TaglibMetadata</guilabel
 >. Details over de metagegevensplug-in en waarom u deze zou willen gebruiken in plaats van TagLib staan hieronder. </para>
 <itemizedlist>
-<listitem
-><para
-><guilabel
->Id3libMetadata</guilabel
->: gebruikt <ulink url="http://id3lib.sourceforge.net"
->id3lib</ulink
-> voor ID3v1.1 en ID3v2.3 tags in MP3, MP2, AAC files. Ondersteunt enkele frametypen meer dan TagLib.</para
-></listitem>
 <listitem
 ><para
 ><guilabel
@@ -6499,11 +6488,9 @@ if __name__ == '__main__':
 >libvorbis en libvorbisfile</ulink
 > vereist, voor FLAC bestanden <ulink url="http://flac.sourceforge.net"
 >libFLAC++ en libFLAC</ulink
->. <ulink url="http://id3lib.sourceforge.net"
->id3lib</ulink
-> worden gebruikt voor MP3 bestanden. Deze vier formaten worden ook onderrteund door <ulink url="http://taglib.github.io/"
+>. Deze formaten worden ook ondersteund door <ulink url="http://taglib.github.io/"
 >TagLib</ulink
->, die ook Opus, MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF bestanden en tracker-modules behandelen. Om te importeren uit "acoustic fingerprints", worden <ulink url="http://acoustid.org/chromaprint"
+>, die ook Opus, MPC, APE, MP2, MP3, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF, Matroska/WebM, SHN, DSF, DFF bestanden en tracker-modules behandelen. Om te importeren uit "acoustic fingerprints", worden <ulink url="http://acoustid.org/chromaprint"
 >Chromaprint</ulink
 > en <ulink url="http://libav.org/"
 >libav</ulink
@@ -6543,10 +6530,10 @@ if __name__ == '__main__':
 >cmake</userinput
 >-opties in. </para>
 <para
->Als niet alle bibliotheken aanwezig zijn wordt &kid3; gebouwd met verminderde functionaliteit. U zult er dus op moeten letten dat alle gewenste ontwikkelpakketten ge|ïnstalleerd zijn. Aan de andere kant bestuurt <userinput
+>Als niet alle bibliotheken aanwezig zijn wordt &kid3; gebouwd met verminderde functionaliteit. U zult er dus op moeten letten dat alle gewenste ontwikkelpakketten geïnstalleerd zijn. Aan de andere kant bestuurt <userinput
 >cmake</userinput
 >-options welke bibliotheken mee gecompileerd worden. De standaard is <userinput
->-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_ID3LIB:BOOL=ON -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON </userinput
+>-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON </userinput
 >. Deze opties kunnen uitgeschakeld worden met <userinput
 >OFF</userinput
 >. </para>
