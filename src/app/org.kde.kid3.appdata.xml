@@ -345,9 +345,57 @@
         <p xml:lang="uk">Виправлено</p>
         <ul>
           <li>Discogs import.</li>
+          <li xml:lang="ar">استيراد ديسكوجز.</li>
+          <li xml:lang="ca">Importació de Discogs.</li>
+          <li xml:lang="ca-valencia">Importació de Discogs.</li>
+          <li xml:lang="cs">Import z Discogs.</li>
+          <li xml:lang="es">Importación de Discogs.</li>
+          <li xml:lang="it">Importazione da Discogs.</li>
+          <li xml:lang="ka">Discogs-დან შემოტანა.</li>
+          <li xml:lang="nl">Discogs import.</li>
+          <li xml:lang="pt-BR">Importação do Discogs.</li>
+          <li xml:lang="sl">Uvoz iz Discogsa.</li>
+          <li xml:lang="tr">Discogs içe aktarma desteği</li>
+          <li xml:lang="uk">Імпортування з Discogs.</li>
           <li>Remove id3lib metadata plugin.</li>
+          <li xml:lang="ar">إزالة الملحق id3lib للبيانات الوصفية.</li>
+          <li xml:lang="ca">Elimina el connector de metadades «id3lib».</li>
+          <li xml:lang="ca-valencia">Elimina el connector de metadades «id3lib».</li>
+          <li xml:lang="cs">Odstraněn modul pro metadata id3lib.</li>
+          <li xml:lang="es">Eliminar el complemento de metadatos de id3lib.</li>
+          <li xml:lang="it">Rimuove l'estensione per i metadati id3lib.</li>
+          <li xml:lang="ka">მოცილდა მეტამონაცემების დამატება id3lib.</li>
+          <li xml:lang="nl">Verwijder de id3lib-metagegevensplug-in.</li>
+          <li xml:lang="pt-BR">Remoção do plugin de metadados id3lib.</li>
+          <li xml:lang="sl">Odstrani vtičnik metapodatkov id3lib.</li>
+          <li xml:lang="tr">idlib3 üst veri eklentisini kaldır</li>
+          <li xml:lang="uk">Вилучено додаток метаданих id3lib.</li>
           <li>Support frame names containing dots in kid3-cli.</li>
+          <li xml:lang="ar">دعم أسماء الإطارات التي تحتوي على نقاط في kid3-cli.</li>
+          <li xml:lang="ca">Admet noms de marc que continguin punts al kid3-cli.</li>
+          <li xml:lang="ca-valencia">Admet noms de marc que continguen punts al kid3-cli.</li>
+          <li xml:lang="cs">Podpora názvů rámců obsahujících tečky v kid3-cli.</li>
+          <li xml:lang="es">Permitir nombres de estructuras que contengan puntos en kid3-cli.</li>
+          <li xml:lang="it">Supporto dei nomi dei frame che contengono punti in kid3-cli.</li>
+          <li xml:lang="ka">წერტილების შემცველი კადრის სახელების მხარდაჭერა kid3-cli-ში.</li>
+          <li xml:lang="nl">Ondersteuning voor framenamen met punten in kid3-cli.</li>
+          <li xml:lang="pt-BR">Suporte a nomes de quadros contendo pontos no kid3-cli.</li>
+          <li xml:lang="sl">Podpora imen okvirjev, ki vsebujejo pike v kid3-cli.</li>
+          <li xml:lang="tr">kid3-cli içinde nokta içeren kare adlarını destekle</li>
+          <li xml:lang="uk">Реалізовано підтримку назв кадрів, що місять крапки у kid3-cli.</li>
           <li>CI builds for Windows and Android.</li>
+          <li xml:lang="ar">إصدارات CI لنظامي التشغيل ويندوز وأندرويد.</li>
+          <li xml:lang="ca">Construccions de CI per al Windows i l'Android.</li>
+          <li xml:lang="ca-valencia">Construccions de CI per a Windows i Android.</li>
+          <li xml:lang="cs">Sestavení CI pro Windows a Android.</li>
+          <li xml:lang="es">Compilaciones CI para Windows y Android.</li>
+          <li xml:lang="it">Versioni CI per Windows e Android.</li>
+          <li xml:lang="ka">CI აგება Windows-ისთვის და Android-ისთვის.</li>
+          <li xml:lang="nl">CI-builds voor Windows en Android.</li>
+          <li xml:lang="pt-BR">Compilações de CI para Windows e Android.</li>
+          <li xml:lang="sl">CI izgradnja za Windows in Android.</li>
+          <li xml:lang="tr">Windows ve Android için CI yapıları</li>
+          <li xml:lang="uk">Збірки неперервної інтеграції для Windows і Android.</li>
         </ul>
       </description>
     </release>
