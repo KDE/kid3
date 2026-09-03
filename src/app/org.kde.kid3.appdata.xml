@@ -350,6 +350,7 @@
           <li xml:lang="ca-valencia">Importació de Discogs.</li>
           <li xml:lang="cs">Import z Discogs.</li>
           <li xml:lang="es">Importación de Discogs.</li>
+          <li xml:lang="fr">Importation pour Discogs.</li>
           <li xml:lang="it">Importazione da Discogs.</li>
           <li xml:lang="ka">Discogs-დან შემოტანა.</li>
           <li xml:lang="nl">Discogs import.</li>
@@ -364,6 +365,7 @@
           <li xml:lang="ca-valencia">Elimina el connector de metadades «id3lib».</li>
           <li xml:lang="cs">Odstraněn modul pro metadata id3lib.</li>
           <li xml:lang="es">Eliminar el complemento de metadatos de id3lib.</li>
+          <li xml:lang="fr">Supprimez le module externe de métadonnées id3lib.</li>
           <li xml:lang="it">Rimuove l'estensione per i metadati id3lib.</li>
           <li xml:lang="ka">მოცილდა მეტამონაცემების დამატება id3lib.</li>
           <li xml:lang="nl">Verwijder de id3lib-metagegevensplug-in.</li>
@@ -378,6 +380,7 @@
           <li xml:lang="ca-valencia">Admet noms de marc que continguen punts al kid3-cli.</li>
           <li xml:lang="cs">Podpora názvů rámců obsahujících tečky v kid3-cli.</li>
           <li xml:lang="es">Permitir nombres de estructuras que contengan puntos en kid3-cli.</li>
+          <li xml:lang="fr">Prendre en charge des noms de cadres contenant des points dans kid3-cli.</li>
           <li xml:lang="it">Supporto dei nomi dei frame che contengono punti in kid3-cli.</li>
           <li xml:lang="ka">წერტილების შემცველი კადრის სახელების მხარდაჭერა kid3-cli-ში.</li>
           <li xml:lang="nl">Ondersteuning voor framenamen met punten in kid3-cli.</li>
@@ -392,6 +395,7 @@
           <li xml:lang="ca-valencia">Construccions de CI per a Windows i Android.</li>
           <li xml:lang="cs">Sestavení CI pro Windows a Android.</li>
           <li xml:lang="es">Compilaciones CI para Windows y Android.</li>
+          <li xml:lang="fr">Versions d'intégration continue pour Windows et Android.</li>
           <li xml:lang="it">Versioni CI per Windows e Android.</li>
           <li xml:lang="ka">CI აგება Windows-ისთვის და Android-ისთვის.</li>
           <li xml:lang="nl">CI-builds voor Windows en Android.</li>
