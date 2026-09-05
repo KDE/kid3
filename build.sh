@@ -324,7 +324,7 @@ if test -n "$KID3_HOMEBREW_PKGS"; then
   export HOMEBREW_NO_INSTALL_UPGRADE=1
   if ! brew install $KID3_HOMEBREW_PKGS; then
     mkdir -p tools/Homebrew
-    curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C tools/Homebrew
+    curl -L https://github.com/Homebrew/brew/tarball/main | tar xz --strip 1 -C tools/Homebrew
     eval "$(tools/Homebrew/bin/brew shellenv)"
     brew install $KID3_HOMEBREW_PKGS
   fi
