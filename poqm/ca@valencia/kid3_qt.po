@@ -3,8 +3,8 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# SPDX-FileCopyrightText: 2020, 2021 Antoni Bella Pérez <antonibella5@yahoo.com>
-# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2026 Josep M. Ferrer <txemaq@gmail.com>
+# SPDX-FileCopyrightText: 2020-2021 Antoni Bella Pérez <antonibella5@yahoo.com>
+# SPDX-FileCopyrightText: 2020-2024, 2026 Josep M. Ferrer <txemaq@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3\n"
@@ -7272,39 +7272,3 @@ msgstr "Selecciona-ho tot"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
 msgstr "Desselecciona-ho tot"
-
-#~ msgctxt "@default|"
-#~ msgid "EQUA - Equalization"
-#~ msgstr "EQUA – Equalització"
-
-#~ msgctxt "@default|"
-#~ msgid "IPLS - Involved people list"
-#~ msgstr "IPLS – Llista de les persones implicades"
-
-#~ msgctxt "@default|"
-#~ msgid "RVAD - Relative volume adjustment"
-#~ msgstr "RVAD – Ajust relatiu del volum"
-
-#~ msgctxt "@default|"
-#~ msgid "TDAT - Date"
-#~ msgstr "TDAT – Data"
-
-#~ msgctxt "@default|"
-#~ msgid "TIME - Time"
-#~ msgstr "TIME – Temps"
-
-#~ msgctxt "@default|"
-#~ msgid "TORY - Original release year"
-#~ msgstr "TORY – Any del llançament original"
-
-#~ msgctxt "@default|"
-#~ msgid "TRDA - Recording dates"
-#~ msgstr "TRDA – Dates de la gravació"
-
-#~ msgctxt "@default|"
-#~ msgid "TSIZ - Size"
-#~ msgstr "TSIZ – Mida"
-
-#~ msgctxt "@default|"
-#~ msgid "TYER - Year"
-#~ msgstr "TYER – Any"
