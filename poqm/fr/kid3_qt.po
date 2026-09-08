@@ -620,7 +620,7 @@ msgstr "Activer/désactiver la barre d'état"
 #: src/app/kde/kdemainwindow.cpp:188
 msgctxt "KdeMainWindow|"
 msgid "Preferences dialog"
-msgstr "Boîte de dialogue des préférences"
+msgstr "Boite de dialogue des préférences"
 
 #: src/app/kde/kdemainwindow.cpp:191
 msgctxt "KdeMainWindow|"
