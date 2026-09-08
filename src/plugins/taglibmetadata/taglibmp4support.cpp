@@ -108,7 +108,7 @@ const Mp4NameTypeValue mp4NameTypeValues[] = {
   { "apID", Frame::FT_Other, MVT_String },
   { "akID", Frame::FT_Other, MVT_Byte },
   { "sfID", Frame::FT_Other, MVT_UInt },
-  { "cnID", Frame::FT_Other, MVT_UInt },
+  { "cnID", Frame::FT_Other, MVT_LongLong },
   { "atID", Frame::FT_Other, MVT_UInt },
   { "plID", Frame::FT_Other, MVT_LongLong },
   { "geID", Frame::FT_Other, MVT_UInt },
