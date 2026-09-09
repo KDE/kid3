@@ -889,7 +889,7 @@
           <li xml:lang="cs">KDE: Zabráněno nadměrné šířce dialogového okna pro výběr souboru.</li>
           <li xml:lang="es">KDE: Evitar excesiva anchura del diálogo de archivos.</li>
           <li xml:lang="fi">KDE: vältetään tiedostonvalintaikkunan liiallista leveyttä</li>
-          <li xml:lang="fr">KDE : bloquer une largeur excessive de la boîte de dialogue de fichiers.</li>
+          <li xml:lang="fr">KDE : bloquer une largeur excessive de la boite de dialogue de fichiers.</li>
           <li xml:lang="it">KDE: evita una larghezza eccessiva della finestra dei file.</li>
           <li xml:lang="ka">KDE: ფაილის დიალოგის გადაჭარბებული სიგანის თავიდან აცილება.</li>
           <li xml:lang="ko">KDE: 파일 대화 상자 폭이 너무 크게 늘어나는 것을 방지했습니다.</li>
@@ -1102,7 +1102,7 @@
           <li xml:lang="cs">Zjednodušené úpravy MP3 audioknih v dialogovém okně "Kapitoly" pro úpravy.</li>
           <li xml:lang="es">Edición simplificada de audiolibros MP3 en el diálogo de edición de la estructura «Chapters».</li>
           <li xml:lang="fi">yksinkertaistettu MP3-äänikirjamuokkaus ”Luvut”-kehyksen muokkausikkunassa</li>
-          <li xml:lang="fr">Édition simplifiée des livres audio « MP3 » dans une boîte de dialogue d'édition de trames nommée « Chapitres ».</li>
+          <li xml:lang="fr">Édition simplifiée des livres audio « MP3 » dans une boite de dialogue d'édition de trames nommée « Chapitres ».</li>
           <li xml:lang="it">Modifica semplificata degli audiolibri MP3 in una finestra di modifica del riquadro «Capitoli».</li>
           <li xml:lang="ka">გამარტივდა MP3 აუდიოწიგნების ჩასწორება "თავების" კადრის ჩასწორების დიალოგში.</li>
           <li xml:lang="nl">Vereenvoudigde bewerking van MP3-audioboeken in een bewerkingsdialoog met de titel "Hoofdstukken".</li>
@@ -1709,7 +1709,7 @@
           <li xml:lang="cs">Qt6: Použití ikon SVG pro lepší výkon v seznamu souborů a v dialogových oknech.</li>
           <li xml:lang="es">Qt6: Usar iconos SVG para un mejor rendimiento de la lista de archivos y de los diálogos.</li>
           <li xml:lang="fi">Qt6: käytetään tiedostoluettelossa ja tiedostonvalintaikkunassa paremman suorituskyvyn SVG-kuvakkeita</li>
-          <li xml:lang="fr">Qt6 : utilisation d'icônes « SVG » pour de meilleures performances dans la liste de fichiers et les boîtes de dialogue.</li>
+          <li xml:lang="fr">Qt6 : utilisation d'icônes « SVG » pour de meilleures performances dans la liste de fichiers et les boites de dialogue.</li>
           <li xml:lang="it">Qt6: utilizza le icone SVG per prestazioni migliori nell'elenco dei file e nella finestra di dialogo.</li>
           <li xml:lang="ka">Qt6: SVG ხატულების გამოყენება უკეთესი წარმადობისთვის ფაილების სიაში და დიალოგში.</li>
           <li xml:lang="nl">Qt6: gebruik SVG-pictogrammen voor betere prestaties in bestandenlijst en dialoog.</li>
