@@ -826,7 +826,7 @@
           <li xml:lang="ca-valencia">ID3v2: permet valors amb diverses cadenes en els marcs TXXX.</li>
           <li xml:lang="cs">ID3v2: Podpora hodnot s více řetězci v rámcích TXXX.</li>
           <li xml:lang="es">ID3v2: Compatibilidad con valores con múltiples cadenas en fotogramas TXXX.</li>
-          <li xml:lang="fr">ID3v2 : prise en charge des valeurs avec plusieurs chaînes dans les trames « TXXX ».</li>
+          <li xml:lang="fr">ID3v2 : prise en charge des valeurs avec plusieurs chaines dans les trames « TXXX ».</li>
           <li xml:lang="it">ID3v2: supporta i valori con stringhe multiple nei frame TXXX.</li>
           <li xml:lang="ka">ID3v2: ერთზე მეტი სტრიქონის შემცველი მნიშვნელობების მხარდაჭერა TXXX კადრებში.</li>
           <li xml:lang="nl">ID3v2: ondersteun waarden met meerdere tekenreeksen in TXXX-frames.</li>
@@ -1453,7 +1453,7 @@
           <li xml:lang="cs">Podpora znaku „\|“ pro únik z oddělovačů v seznamu řetězců.</li>
           <li xml:lang="es">Permitir «\|» para escapar separadores de listas de cadenas.</li>
           <li xml:lang="fi">tuki merkkijonolistaerotinten ”\|”-lainauksille</li>
-          <li xml:lang="fr">Prise en charge de « '\|' » comme caractères d'échappement pour les séparateurs de liste de chaînes.</li>
+          <li xml:lang="fr">Prise en charge de « '\|' » comme caractères d'échappement pour les séparateurs de liste de chaines.</li>
           <li xml:lang="it">Supporta '\|' per eseguire l'escape dei separatori degli elenchi di stringhe.</li>
           <li xml:lang="ka">სტრიქონების სიის გამყოფად '\|'-ის მხარდაჭერა.</li>
           <li xml:lang="nl">Ondersteun '\|' voor escape van scheidingstekens in lijst met tekenreeksen.</li>
@@ -1596,7 +1596,7 @@
           <li xml:lang="cs">Všechny oficiální binární soubory jsou sestaveny s použitím Qt 6. Pro macOS je soubor Darwin-amd64.dmg nyní ve verzi Qt 6, zatímco systémy starší než Mojave vyžadují balíček Darwin-Qt5.dmg. Nastavení nahrazování řetězců uložených v Qt 6 nejsou kompatibilní s Qt 5, protože se používá odlišné kódování.</li>
           <li xml:lang="es">Todos los binarios oficiales están compilados con Qt 6. En macOS, el archivo Darwin-amd64.dmg contiene ahora la versión de Qt 6, por lo que los sistemas anteriores a Mojave necesitan el paquete Darwin-Qt5.dmg. Las preferencias de sustitución de cadenas guardadas por Qt 6 no son compatibles con Qt 5 porque usan una codificación diferente.</li>
           <li xml:lang="fi">Kaikki viralliset ohjelmatiedostot koostetaan Qt 6:lla. macOsille Darwin-amd64.dmg-tiedosto on nyt Qt 6 -versiota, kun taas Mojavea vanhemmat järjestelmät tarvitsevat Darwin-Qt5.dmg:n. Qt 6:n tallettamat merkkijononkorvausasetukset eivät sovi yhteen Qt 5:n kanssa, koska käytetään eri merkistökoodausta.</li>
-          <li xml:lang="fr">Tous les binaires officiels sont construits avec Qt 6. Pour macOS, le fichier « Darwin-amd64.dmg » est désormais la version Qt 6, tandis que les systèmes plus anciens que Mojave nécessitent le paquet « Darwin-Qt5.dmg ». Les paramètres de remplacement de chaînes enregistrés par Qt 6 sont incompatibles avec Qt 5 car un encodage différent est utilisé.</li>
+          <li xml:lang="fr">Tous les binaires officiels sont construits avec Qt 6. Pour macOS, le fichier « Darwin-amd64.dmg » est désormais la version Qt 6, tandis que les systèmes plus anciens que Mojave nécessitent le paquet « Darwin-Qt5.dmg ». Les paramètres de remplacement de chaines enregistrés par Qt 6 sont incompatibles avec Qt 5 car un encodage différent est utilisé.</li>
           <li xml:lang="it">Tutti i binari ufficiali sono compilati con Qt 6. Per macOS, il file Darwin-amd64.dmg è ora la versione Qt 6, mentre i sistemi precedenti a Mojave necessitano del pacchetto Darwin-Qt5.dmg. Le impostazioni di sostituzione delle stringhe memorizzate da Qt 6 non sono compatibili con Qt 5 perché viene utilizzata una codifica diversa.</li>
           <li xml:lang="ka">ყველა ოფიციალური ბინარული ფაილის აგება Qt6-ით ხდება. macOS-ისთვის ფაილი Darwin-amd64.dmg ახლა Qt6 ვერსიითაა. Mojave-ზე ძველ სისტემებს კი Darwin-Qt5.dmg ფაილი სჭირდება. სტრიქონის ჩანაცვლების პარამეტრები, შენახული Qt6-ის მიერ Qt5-თან თავსებადი არაა, რადგან ისინი განსხვავებულ კოდირებას იყენებენ.</li>
           <li xml:lang="nl">Alle officiële binaire bestanden zijn met Qt 6 gebouwd. Voor MacOS, het bestand Darwin-amd64.dmg is nu de Qt 6 versie, terwijl systemen ouder dan Mojave het pakket Darwin-Qt5.dmg nodig hebben. De vervangingsinstellingen voor tekenreeksen opgeslagen door Qt 6 zijn niet compatibel met Qt 5 omdat een andere codering is gebruikt.</li>
