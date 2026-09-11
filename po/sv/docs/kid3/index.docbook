@@ -63,7 +63,9 @@
 
 <abstract>
 <para
->&kid3; är ett program för att redigera ID3v1 och ID3v2 taggar i MP3-filer på ett effektivt sätt. Taggar i Ogg/Vorbis-, Opus-, DSF-, FLAC-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF-filer och spårningsmoduler (MOD, S3M, IT, XM) stöds också. Det är enkelt att tilldela taggar i fler filer till samma värden (t.ex. album, artist, år och genre i alla filer för samma album) och generera taggar från filnamn eller vice versa. </para>
+>&kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in an efficient way. Also tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules (MOD, S3M, IT, XM) are supported. It is easy to set tags of multiple files to the same values (<abbrev
+>e.g.</abbrev
+> album, artist, year and genre in all files of the same album) and generate the tags from the file name or vice versa. </para>
 </abstract>
 
 <keywordset>
@@ -403,7 +405,7 @@ end manpage include-->
 >Inledning</title>
 
 <para
->&kid3; är ett program för att redigera ID3v1 och ID3v2 taggar i MP3 filer på ett effektivt sätt. Taggarna kan redigeras i de flesta MP3-spelare, men inte på ett särskilt bekvämt och effektiv sätt. Dessutom stöds också taggar i Ogg/Vorbis-, Opus-, DSF-, FLAC-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF-filer och spårningsmoduler (MOD, S3M, IT, XM). </para>
+>&kid3; is an application to edit the ID3v1 and ID3v2 tags in MP3 files in an efficient way. These tags can be edited by most MP3 players, but not in a very comfortable and efficient way. Moreover the tags in Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules (MOD, S3M, IT, XM) are supported too. </para>
 <para
 >&kid3; griper eller kodar inte MP3-filer, men har som mål att redigera ID3-taggarna i alla filer i ett album på ett effektivt sätt, dvs. med så få musklick och tangentnedtryckningar som möjligt. Även om de flesta program kan redigera antingen ID3v1 eller ID3v2 taggar, har &kid3; fullständig kontroll över båda versionerna, kan konvertera taggar mellan de två formaten och kan komma åt alla ID3v2-taggar. Taggar i flera filer kan tilldelas samma värde, t.ex. artist, album, år och genre i alla filer i ett album har ofta samma värden och kan tilldelas tillsammans. Om informationen för taggarna ingår i filnamnet kan taggarna automatiskt tilldelas från filnamnet. Det är också möjligt att ändra filnamnet enligt taggarna som hittas i filen med godtyckliga format. </para>
 <para
@@ -448,7 +450,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->Redigera MP3-, Ogg/Vorbis-, Opus-, DSF-, FLAC-, MPC-, APE-, MP4/AAC-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV- och AIFF-taggar</para
+>Edit MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV and AIFF tags</para
 ></listitem>
 <listitem
 ><para
@@ -666,9 +668,9 @@ end manpage include-->
 >Fillista</title>
 
 <para
->Fillistan innehåller namnen på alla filerna i de öppnade katalogerna som motsvarar det valda filnamnsfiltret (oftast <filename class="extension"
+>The file list contains the names of all the files in the opened folder which match the selected file name filter (typically <filename class="extension"
 >*.mp3 *.ogg *.opus *.dsf *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx *.tta *.wv *.wma *.wav *.aiff *.ape</filename
->). En enda eller flera filer kan markeras. För att inte markera någon fil, klicka på det tomma utrymmet efter listrutans poster. Markeringen bestämmer filerna som påverkas av de tillgängliga åtgärderna genom att använda knapparna som beskrivs nedan. </para>
+>). A single or multiple files can be selected. To select no file, click into the empty area after the listbox entries. The selection determines the files which are affected by the operations which are available by using the buttons described below. </para>
 <para
 >Förutom <guilabel
 >Namn</guilabel
@@ -814,15 +816,15 @@ end manpage include-->
 >Fil</title>
 
 <para
->Visar information om kodningen (MP3, Ogg, Opus, DSF, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF), bithastighet, samplingsfrekvens, kanaler och filens längd. </para>
+>Shows information about the encoding (MP3, Ogg, Opus, DSF, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF), bit rate, sample rate, channels and the length of the file. </para>
 <para
 >Redigeringsraden <guilabel
 >Namn</guilabel
 > innehåller filens namn (om bara en enda fil är markerad). Om namnet ändras, ändras också filens namn när kommandot Spara används. </para>
 <para
->Kombinationsrutan <guilabel
+>The <guilabel
 >Format</guilabel
-> och redigeringsraden innehåller formatet som ska användas när filnamnet genereras från den första eller andra taggen. Filnamnet kan använda godtyckliga tecken, till och med en katalogdel åtskild med ett snedstreck från filnamnet, men katalogen måste redan finnas för att namnbytet ska lyckas. Följande specialkoder används för att infoga taggvärden i filnamnet: </para>
+> combo box and line edit contains the format to be used when the filename is generated from the first or the second tag. The filename can contain arbitrary characters, even a folder part separated by a slash from the file name, but that folder must already exist for the renaming to succeed. The following special codes are used to insert tag values into the filename: </para>
 
 <itemizedlist>
 <listitem
@@ -3572,7 +3574,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%v %{vbr} VBR eller tom (bara för ID3v2.3 med id3lib)</para
+>%v %{vbr} VBR or empty (only for ID3v2.3 with id3lib)</para
 ></listitem>
 <listitem
 ><para
@@ -4192,7 +4194,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%v %{vbr} VBR eller tom (bara för ID3v2.3 med id3lib)</para
+>%v %{vbr} VBR or empty (only for ID3v2.3 with id3lib)</para
 ></listitem>
 <listitem
 ><para
@@ -5138,9 +5140,9 @@ end manpage include-->
 ><para
 ><guilabel
 >Id3libMetadata</guilabel
->: Använder <ulink url="http://id3lib.sourceforge.net"
+>: Uses <ulink url="http://id3lib.sourceforge.net"
 >id3lib</ulink
-> för ID3v1.1 och ID3v2.3 taggar i MP3-, MP2-, AAC-filer. Stöder några få fler ramtyper än TagLib.</para
+> for ID3v1.1 and ID3v2.3 tags in MP3, MP2, AAC files. Supports a few more frame types than TagLib.</para
 ></listitem>
 <listitem
 ><para
@@ -6485,27 +6487,27 @@ if __name__ == '__main__':
 >Krav</title>
 
 <para
->&kid3; behöver <ulink url="https://www.qt.io"
+>&kid3; needs <ulink url="https://www.qt.io"
 >&Qt;</ulink
->, <ulink url="http://www.kde.org"
+>. <ulink url="http://www.kde.org"
 >&kde;</ulink
-> rekommenderas men är inte nödvändigt, eftersom &kid3; också kan kompileras som ett &Qt;-program. &kid3; kan kompileras för system där dessa bibliotek är tillgängliga, <abbrev
->t.ex.</abbrev
-> för GNU/&Linux;, &Windows; och &macOS;. För att hantera Ogg/Vorbis-filer, behövs <ulink url="http://xiph.org/ogg/"
+> is recommended but not necessary, as &kid3; can also be compiled as a &Qt; application. &kid3; can be compiled for systems where these libraries are available, <abbrev
+>e.g.</abbrev
+> for GNU/&Linux;, &Windows; and &macOS;. To tag Ogg/Vorbis files, <ulink url="http://xiph.org/ogg/"
 >libogg</ulink
 >, <ulink url="http://xiph.org/vorbis/"
->libvorbis och libvorbisfile</ulink
->, för FLAC-filer behövs <ulink url="http://flac.sourceforge.net"
->libFLAC++ och libFLAC</ulink
->, <ulink url="http://id3lib.sourceforge.net"
+>libvorbis and libvorbisfile</ulink
+> are required, for FLAC files <ulink url="http://flac.sourceforge.net"
+>libFLAC++ and libFLAC</ulink
+>. <ulink url="http://id3lib.sourceforge.net"
 >id3lib</ulink
-> används för MP3-filer. Dessa fyra format stöds också av <ulink url="http://taglib.github.io/"
+> is used for MP3 files. These four formats are also supported by <ulink url="http://taglib.github.io/"
 >TagLib</ulink
->, som också kan hantera Opus-, MPC-, APE-, MP2-, Speex-, TrueAudio-, WavPack-, WMA-, WAV-, AIFF-filer och tracker-moduler. För att importera från akustiska fingeravtryck används <ulink url="http://acoustid.org/chromaprint"
+>, which can also handle Opus, MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF files and tracker modules. To import from acoustic fingerprints, <ulink url="http://acoustid.org/chromaprint"
 >Chromaprint</ulink
-> och <ulink url="http://libav.org/"
+> and <ulink url="http://libav.org/"
 >libav</ulink
->. </para>
+> are used. </para>
 <para
 >&kid3; är tillgängligt för de flesta &Linux;-distributioner, &Windows; och &macOS;. Länkar finns på <ulink url="https://kid3.kde.org"
 > https://kid3.kde.org</ulink
@@ -6541,11 +6543,11 @@ if __name__ == '__main__':
 >cmake</userinput
 > för att kompilera för andra versioner av &Qt; eller &kde;. </para>
 <para
->Om alla bibliotek inte är närvarande, byggs &kid3; med reducerad funktionalitet. Så du bör vara noga med att alla önskade utvecklingspaket är installerade. Å andra sidan, styr <userinput
+>If not all libraries are present, &kid3; is built with reduced functionality. So you should take care to have all desired development packages installed. On the other side, <userinput
 >cmake</userinput
->-alternativ vilka bibliotek som kompileras med. Förval är <userinput
+>-options control which libraries are compiled in. The default is <userinput
 >-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_ID3LIB:BOOL=ON -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON </userinput
->. Alternativen kan inaktiveras genom att använda <userinput
+>. These options can be disabled using <userinput
 >OFF</userinput
 >. </para>
 <para
