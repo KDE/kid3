@@ -1068,7 +1068,7 @@ end manpage include-->
 >Elimina</guibutton
 >: establirà tots els controls de la <acronym
 >IGU</acronym
-> amb els seus valors buits, el qual resultarà en l'eliminació de tots els valors. El fitxer desat no contindrà l'etiqueta 1. </para>
+> amb els seus valors buits, el qual causarà l'eliminació de tots els valors. El fitxer desat no contindrà l'etiqueta 1. </para>
 </sect2>
 
 <sect2 id="tag2">
@@ -2834,7 +2834,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->Quan aparegui la línia de la lletra següents amb una marca de temps no vàlida, feu clic a <guibutton
+>Quan aparegui la línia de la lletra següent amb una marca de temps no vàlida, feu clic a <guibutton
 >Afegeix</guibutton
 > o premeu <keycombo
 >&Alt;<keycap
@@ -4098,7 +4098,7 @@ end manpage include-->
 ><para
 >Si els números de peça a les etiquetes no estan establerts o tenen valors incorrectes, aquesta funció podrà donar número automàticament a les peces en ordre ascendent. El número d'inici es podrà establir en el diàleg. Si només s'han de numerar part de les peces, s'hauran de seleccionar. </para
 ><para
->Quan es marca <guilabel
+>Si es marca <guilabel
 >Nombre total de peces:</guilabel
 >, també s'establirà en les etiquetes el nombre de peces. </para
 ><para
