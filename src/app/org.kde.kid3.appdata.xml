@@ -355,6 +355,7 @@
           <li xml:lang="ka">Discogs-დან შემოტანა.</li>
           <li xml:lang="nl">Discogs import.</li>
           <li xml:lang="pt-BR">Importação do Discogs.</li>
+          <li xml:lang="sk">Import Discogs.</li>
           <li xml:lang="sl">Uvoz iz Discogsa.</li>
           <li xml:lang="sv">Import av Discogs.</li>
           <li xml:lang="tr">Discogs içe aktarma desteği</li>
@@ -370,6 +371,7 @@
           <li xml:lang="ka">მოცილდა მეტამონაცემების დამატება id3lib.</li>
           <li xml:lang="nl">Verwijder de id3lib-metagegevensplug-in.</li>
           <li xml:lang="pt-BR">Remoção do plugin de metadados id3lib.</li>
+          <li xml:lang="sk">Odstránenie metadátového pluginu id3lib.</li>
           <li xml:lang="sl">Odstrani vtičnik metapodatkov id3lib.</li>
           <li xml:lang="sv">Ta bort id3lib metadatainsticksprogram.</li>
           <li xml:lang="tr">idlib3 üst veri eklentisini kaldır</li>
@@ -385,6 +387,7 @@
           <li xml:lang="ka">წერტილების შემცველი კადრის სახელების მხარდაჭერა kid3-cli-ში.</li>
           <li xml:lang="nl">Ondersteuning voor framenamen met punten in kid3-cli.</li>
           <li xml:lang="pt-BR">Suporte a nomes de quadros contendo pontos no kid3-cli.</li>
+          <li xml:lang="sk">Podpora názvov rámcov obsahujúcich bodky v kid3-cli.</li>
           <li xml:lang="sl">Podpora imen okvirjev, ki vsebujejo pike v kid3-cli.</li>
           <li xml:lang="sv">Stöd ramnamn som innehåller punkter i kid3-cli.</li>
           <li xml:lang="tr">kid3-cli içinde nokta içeren kare adlarını destekle</li>
@@ -400,6 +403,7 @@
           <li xml:lang="ka">CI აგება Windows-ისთვის და Android-ისთვის.</li>
           <li xml:lang="nl">CI-builds voor Windows en Android.</li>
           <li xml:lang="pt-BR">Compilações de CI para Windows e Android.</li>
+          <li xml:lang="sk">Buildy CI pre Windows a Android.</li>
           <li xml:lang="sl">CI izgradnja za Windows in Android.</li>
           <li xml:lang="sv">CI-byggen för Windows och Android.</li>
           <li xml:lang="tr">Windows ve Android için CI yapıları</li>
