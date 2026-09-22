@@ -1705,7 +1705,7 @@ msgstr ""
 #: src/core/config/formatconfig.cpp:504
 msgctxt "@default|"
 msgid "First letter uppercase"
-msgstr ""
+msgstr "تۇنجى ئۆسۈم"
 
 #: src/core/config/formatconfig.cpp:505
 msgctxt "@default|"
@@ -6570,7 +6570,7 @@ msgstr "بارلىق بەلگە"
 #: src/qml/app/BatchImportPage.qml:153
 msgctxt "BatchImportPage|"
 msgid "Profile:"
-msgstr ""
+msgstr "سەپلىمە ھۆججەت:"
 
 #: src/qml/app/FileCollapsible.qml:32
 msgctxt "FileCollapsible|"
