@@ -355,6 +355,7 @@
           <li xml:lang="ka">Discogs-დან შემოტანა.</li>
           <li xml:lang="nl">Discogs import.</li>
           <li xml:lang="pt-BR">Importação do Discogs.</li>
+          <li xml:lang="ru">Импорт из Discogs.</li>
           <li xml:lang="sk">Import Discogs.</li>
           <li xml:lang="sl">Uvoz iz Discogsa.</li>
           <li xml:lang="sv">Import av Discogs.</li>
@@ -371,6 +372,7 @@
           <li xml:lang="ka">მოცილდა მეტამონაცემების დამატება id3lib.</li>
           <li xml:lang="nl">Verwijder de id3lib-metagegevensplug-in.</li>
           <li xml:lang="pt-BR">Remoção do plugin de metadados id3lib.</li>
+          <li xml:lang="ru">Удалён модуль метаданных id3lib.</li>
           <li xml:lang="sk">Odstránenie metadátového pluginu id3lib.</li>
           <li xml:lang="sl">Odstrani vtičnik metapodatkov id3lib.</li>
           <li xml:lang="sv">Ta bort id3lib metadatainsticksprogram.</li>
@@ -387,6 +389,7 @@
           <li xml:lang="ka">წერტილების შემცველი კადრის სახელების მხარდაჭერა kid3-cli-ში.</li>
           <li xml:lang="nl">Ondersteuning voor framenamen met punten in kid3-cli.</li>
           <li xml:lang="pt-BR">Suporte a nomes de quadros contendo pontos no kid3-cli.</li>
+          <li xml:lang="ru">Поддержка имён фреймов с точками в kid3-cli.</li>
           <li xml:lang="sk">Podpora názvov rámcov obsahujúcich bodky v kid3-cli.</li>
           <li xml:lang="sl">Podpora imen okvirjev, ki vsebujejo pike v kid3-cli.</li>
           <li xml:lang="sv">Stöd ramnamn som innehåller punkter i kid3-cli.</li>
@@ -403,6 +406,7 @@
           <li xml:lang="ka">CI აგება Windows-ისთვის და Android-ისთვის.</li>
           <li xml:lang="nl">CI-builds voor Windows en Android.</li>
           <li xml:lang="pt-BR">Compilações de CI para Windows e Android.</li>
+          <li xml:lang="ru">Сборки CI для Windows и Android.</li>
           <li xml:lang="sk">Buildy CI pre Windows a Android.</li>
           <li xml:lang="sl">CI izgradnja za Windows in Android.</li>
           <li xml:lang="sv">CI-byggen för Windows och Android.</li>
@@ -447,6 +451,7 @@
           <li xml:lang="ka">MP4: გასწორდა ატომის დამატება ქმნიდა ატომს არასწორი დიდასოებიანი სახელით.</li>
           <li xml:lang="nl">MP4: Bij het toevoegen van een atom werd een atom met een onjuiste, in hoofdletters geschreven naam aangemaakt; dit is verholpen.</li>
           <li xml:lang="pt-BR">MP4: Correção da adição de um atom que criava um atom com o nome incorreto em letras maiúsculas.</li>
+          <li xml:lang="ru">MP4: исправлено создание атома с ошибочным именем в верхнем регистре при добавлении.</li>
           <li xml:lang="sk">MP4: Oprava pridávania atómu, ktoré vytváralo atóm s nesprávne veľkými písmenami.</li>
           <li xml:lang="sl">MP4: Popravljena napaka pri dodajanju atoma, ki ustvari atom z napačnim imenom napisanim z velikimi črkami.</li>
           <li xml:lang="sv">MP4: Rätta att tillägg av en atom skapar en atom som har felaktigt namn med stora bokstäver.</li>
@@ -463,6 +468,7 @@
           <li xml:lang="ka">24 საათზე დიდი თავებისა და სინქრონიზებული ლირიკისთვის დროის შტამპების მხარდაჭერა.</li>
           <li xml:lang="nl">Ondersteuning voor tijdstempels van meer dan 24 uur voor hoofdstukken en gesynchroniseerde songteksten.</li>
           <li xml:lang="pt-BR">Suporte a carimbos de tempo superiores a 24 horas para capítulos e letras sincronizadas.</li>
+          <li xml:lang="ru">Поддержка меток времени свыше 24 часов для глав и синхронизированного текста песен.</li>
           <li xml:lang="sk">Podpora časových značiek dlhších ako 24 hodín pre kapitoly a synchronizované texty piesní.</li>
           <li xml:lang="sl">Podpira časovne žige, daljše od 24 ur, za poglavja in sinhronizirana besedila.</li>
           <li xml:lang="sv">Stöd tidsstämplar större än 24 timmar för kapitel och synkroniserad sångtext.</li>
@@ -479,6 +485,7 @@
           <li xml:lang="ka">Android: აგება F-Droid-ისთვის.</li>
           <li xml:lang="nl">Android: gebouwd voor F-Droid.</li>
           <li xml:lang="pt-BR">Android: Compilação para o F-Droid.</li>
+          <li xml:lang="ru">Android: сборка для F-Droid.</li>
           <li xml:lang="sk">Android: Zostavenie pre F-Droid.</li>
           <li xml:lang="sl">Android: Izgradnja za F-Droid.</li>
           <li xml:lang="sv">Android: Bygg för F-Droid.</li>
@@ -495,6 +502,7 @@
           <li xml:lang="ka">Windows: ჯვარედინი აგება Linux-ზე.</li>
           <li xml:lang="nl">Windows: cross-compilatie op Linux.</li>
           <li xml:lang="pt-BR">Windows: Compilação cruzada no Linux.</li>
+          <li xml:lang="ru">Windows: кросс-сборка в Linux.</li>
           <li xml:lang="sk">Windows: Krížové zostavovanie na Linuxe.</li>
           <li xml:lang="sl">Windows: Navzkrižna gradnja na Linuxu.</li>
           <li xml:lang="sv">Windows: Korsbygge för Linux.</li>
