@@ -49,7 +49,7 @@
 
 <copyright>
 <year
->2021</year>
+>2026</year>
 <holder
 >Urs Fleisch</holder>
 </copyright>
@@ -57,13 +57,15 @@
 >&FDLNotice;</legalnotice>
 
 <date
->18 марта 2021</date>
+>30 сентября 2026</date>
 <releaseinfo
->3.8.6</releaseinfo>
+>3.10.2</releaseinfo>
 
 <abstract>
 <para
->&kid3; — это приложение для эффективного редактирования тегов ID3v1 и ID3v2 в MP3-файлах, поддерживающее также теги файлов Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF и модулей трекеров (MOD, S3M, IT, XM). Приложение позволяет легко указывать значения для тегов в разных файлах (например, название альбома, исполнителя, год и жанр во всех файлах внутри одного альбома) и создавать теги из имён файлов и наоборот. </para>
+>&kid3; — это приложение для эффективного редактирования тегов ID3v1 и ID3v2 в MP3-файлах, поддерживающее также теги файлов Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF и модулей трекеров (MOD, S3M, IT, XM). Приложение позволяет легко указывать значения для тегов в разных файлах (<abbrev
+>например</abbrev
+>, название альбома, исполнителя, год и жанр во всех файлах внутри одного альбома) и создавать теги из имён файлов и наоборот. </para>
 </abstract>
 
 <keywordset>
@@ -121,6 +123,10 @@
 >Opus</keyword>
 <keyword
 >DSF</keyword>
+<keyword
+>Matroska</keyword>
+<keyword
+>WebM</keyword>
 </keywordset>
 
 </bookinfo>
@@ -403,7 +409,7 @@ end manpage include-->
 >Введение</title>
 
 <para
->&kid3; — это приложение для эффективного редактирования тегов ID3v1 и ID3v2 в MP3-файлах. Большинство MP3-проигрывателей позволяют редактировать эти теги, но не настолько комфортным и простым способом. Более того, приложение поддерживает теги в файлах Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF и модулях трекеров (MOD, S3M, IT, XM). </para>
+>&kid3; — это приложение для эффективного редактирования тегов ID3v1 и ID3v2 в MP3-файлах. Большинство MP3-проигрывателей позволяют редактировать эти теги, но не очень удобным и эффективным способом. Более того, приложение поддерживает теги в файлах Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF и модулях трекеров (MOD, S3M, IT, XM). </para>
 <para
 >&kid3; не создаёт и не кодирует файлы в формате MP3, это приложение предназначено для редактирования тегов ID3 во всех файлах в альбоме с помощью нескольких щелчков кнопкой мыши или нажатий комбинаций клавиш. Большинство других программ позволяют редактировать теги только одного типа (либо ID3v1, либо ID3v2), в то время как &kid3; предоставляет возможность свободного редактирования и преобразования тегов обоих типов, а также позволяет получить доступ ко всем тегам ID3v2. Возможно установить одинаковые значения для тегов сразу в нескольких файлах, например, указать одинаковые значения для записей исполнителя, альбома, года и жанра для всех файлов в альбоме. Если информация для тегов содержится в имени файла, теги могут быть автоматически установлены на основе имени файла. Также возможно установить имя файла в соответствии с любыми тегами, найденными в этом файле. </para>
 <para
@@ -448,7 +454,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->Редактирование тегов MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV и AIFF</para
+>Редактирование тегов MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV и AIFF</para
 ></listitem>
 <listitem
 ><para
@@ -669,7 +675,7 @@ end manpage include-->
 
 <para
 >Список файлов содержит имена всех файлов в открытом каталоге, которые соответствуют выбранному фильтру имён (обычно это <filename class="extension"
->*.mp3 *.ogg *.opus *.dsf *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx *.tta *.wv *.wma *.wav *.aiff *.ape</filename
+>*.3g2 *.aac *.afc *.aif *.aifc *.aiff *.ape *.asf *.dff *.dsdiff *.dff *.flac *.it *.m4a *.m4b *.m4p *.m4r *.m4v *.mka *.mkv *.mod *.module *.mp2 *.mp3 *.mp4 *.mp4v *.mpc *.nst *.oga *.ogg *.opus *.s3n *.shn *.spx *.tta *.wav *.webm *.wma *.wmv *.wow *.wv *.xm</filename
 >). Возможно выбрать один или несколько файлов. Чтобы снять выделение, щёлкните левой кнопкой мыши в пустом месте под пунктами списка. Выделение определяет файлы, над которыми будут выполняться действия после нажатия кнопок, описание которых приводится далее. </para>
 <para
 >Параметры файла отображаются не только в столбце <guilabel
@@ -681,6 +687,8 @@ end manpage include-->
 >, <guilabel
 >Дата изменения</guilabel
 >. Чтобы скрыть эти столбцы, снимите флажок в соответствующем пункте контекстного меню строки заголовков списка. Чтобы изменить порядок столбцов, воспользуйтесь функцией перетаскивания. Порядок сортировки файлов переключается щелчком левой кнопкой мыши по заголовку столбца. </para>
+<para
+>Значения стандартных тегов также можно показывать и редактировать в столбцах списка файлов. </para>
 <para
 >Слева от названий может отображаться значок дискеты, указывающий на наличие изменений в файле, либо значок, отображающий информацию о том, какие теги используются (V1, V2, V1V2 или NO TAG; значок не будет отображаться, если чтение данных из файла ещё не было произведено). </para>
 <para
@@ -738,6 +746,10 @@ end manpage include-->
 > диалогового окна <link linkend="configure-kid3"
 >настройки &kid3;</link
 >. В этом же разделе находится функция воспроизведения по двойному щелчку. </para
+><para
+>Если установлен флажок <guilabel
+>Выбрать воспроизводимый файл</guilabel
+>, текущая воспроизводимая дорожка автоматически выделяется в списке файлов. </para
 ></listitem>
 </itemizedlist>
 </para>
@@ -818,7 +830,7 @@ end manpage include-->
 >Файл</title>
 
 <para
->Отображает информацию о кодировке (MP3, Ogg, Opus, DSF, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF), скорости передачи, частоте дискретизации, каналах и длине файла. </para>
+>Показывает информацию о кодировке (MP3, Ogg, Opus, DSF, DFF, FLAC, MPC, APE, Matroska, Webm, MP2, MP4, AAC, Speex, TrueAudio, WavPack, ASF, WAV, AIFF, IT, Mod, S3M, XM, SHN), скорости передачи, частоте дискретизации, каналах и длительности файла. </para>
 <para
 >Поле для редактирования <guilabel
 >Имя</guilabel
@@ -826,7 +838,7 @@ end manpage include-->
 <para
 >Раскрывающийся список <guilabel
 >Формат</guilabel
-> и поле для редактирования содержат информацию о формате, который будет использоваться при создании имени файла из первого или второго тега. Имя файла может содержать произвольные символы, даже часть каталога, отделённую от имени файла косой чертой (но переименование будет успешно выполнено только в том случае, если эта папка уже существует). Следующие специальные коды используются для вставки значений тегов в имя файла: </para>
+> и поле для редактирования содержат формат, который будет использоваться при создании имени файла из первого или второго тега. Следующие специальные коды используются для вставки значений тегов в имя файла: </para>
 
 <itemizedlist>
 <listitem
@@ -1145,16 +1157,18 @@ end manpage include-->
 >Унифицированное имя</entry
 >           <entry
 >ID3v2.3</entry
-> <entry
+>                    <entry
 >ID3v2.4</entry
-> <entry
+>                    <entry
 >MP4</entry
->            <entry
+>                               <entry
 >ASF</entry
->                        <entry
+>                                           <entry
 >Vorbis</entry
->                 <entry
+>                                    <entry
 >RIFF</entry
+>                                               <entry
+>Matroska</entry
 ></row>
      </thead>
      <tbody>
@@ -1185,6 +1199,10 @@ end manpage include-->
 ><literal
 >INAM</literal
 ></entry
+>                            <entry
+><literal
+>TITLE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1212,6 +1230,10 @@ end manpage include-->
 >                 <entry
 ><literal
 >IART</literal
+></entry
+>                            <entry
+><literal
+>ARTIST</literal
 ></entry
 ></row>
        <row
@@ -1241,6 +1263,10 @@ end manpage include-->
 ><literal
 >IPRD</literal
 ></entry
+>                            <entry
+><literal
+>TITLE/50</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1269,6 +1295,10 @@ end manpage include-->
 ><literal
 >ICMT</literal
 ></entry
+>                            <entry
+><literal
+>COMMENT</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1296,6 +1326,10 @@ end manpage include-->
 >                   <entry
 ><literal
 >ICRD</literal
+></entry
+>                            <entry
+><literal
+>DATE_RECORDED</literal
 ></entry
 ></row>
        <row
@@ -1327,6 +1361,10 @@ end manpage include-->
 > или <literal
 >ITRK</literal
 ></entry
+> <entry
+><literal
+>PART_NUMBER</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1355,6 +1393,10 @@ end manpage include-->
 ><literal
 >IGNR</literal
 ></entry
+>                            <entry
+><literal
+>GENRE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1380,6 +1422,10 @@ end manpage include-->
 >ALBUMARTIST</literal
 ></entry
 >            <entry
+></entry
+>                                                   <entry
+><literal
+>ARTIST/50</literal
 ></entry
 ></row>
        <row
@@ -1409,6 +1455,10 @@ end manpage include-->
 ><literal
 >IENG</literal
 ></entry
+>                            <entry
+><literal
+>ARRANGER</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1432,6 +1482,10 @@ end manpage include-->
 >AUTHOR</literal
 ></entry
 >                 <entry
+></entry
+>                                                   <entry
+><literal
+>WRITTEN_BY</literal
 ></entry
 ></row>
        <row
@@ -1461,6 +1515,10 @@ end manpage include-->
 ><literal
 >IBPM</literal
 ></entry
+>                            <entry
+><literal
+>BPM</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1482,6 +1540,10 @@ end manpage include-->
 >CATALOGNUMBER</literal
 ></entry
 >          <entry
+></entry
+>                                                   <entry
+><literal
+>CATALOG_NUMBER</literal
 ></entry
 ></row>
        <row
@@ -1506,6 +1568,10 @@ end manpage include-->
 >COMPILATION</literal
 ></entry
 >            <entry
+></entry
+>                                                   <entry
+><literal
+>COMPILATION</literal
 ></entry
 ></row>
        <row
@@ -1535,6 +1601,10 @@ end manpage include-->
 ><literal
 >IMUS</literal
 ></entry
+>                            <entry
+><literal
+>COMPOSER</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1560,6 +1630,10 @@ end manpage include-->
 >CONDUCTOR</literal
 ></entry
 >              <entry
+></entry
+>                                                   <entry
+><literal
+>CONDUCTOR</literal
 ></entry
 ></row>
        <row
@@ -1589,6 +1663,10 @@ end manpage include-->
 ><literal
 >ICOP</literal
 ></entry
+>                            <entry
+><literal
+>COPYRIGHT</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1615,6 +1693,10 @@ end manpage include-->
 ></entry
 >            <entry
 ></entry
+>                                                   <entry
+><literal
+>DESCRIPTION</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1640,6 +1722,10 @@ end manpage include-->
 >DISCNUMBER</literal
 ></entry
 >             <entry
+></entry
+>                                                   <entry
+><literal
+>PART_NUMBER/50</literal
 ></entry
 ></row>
        <row
@@ -1669,6 +1755,10 @@ end manpage include-->
 ><literal
 >ITCH</literal
 ></entry
+>                            <entry
+><literal
+>ENCODER</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1697,6 +1787,10 @@ end manpage include-->
 ><literal
 >ISFT</literal
 ></entry
+>                            <entry
+><literal
+>ENCODER_SETTINGS</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1720,6 +1814,10 @@ end manpage include-->
 >           <entry
 ><literal
 >IDIT</literal
+></entry
+>                            <entry
+><literal
+>DATE_ENCODED</literal
 ></entry
 ></row>
        <row
@@ -1745,6 +1843,10 @@ end manpage include-->
 ></entry
 >               <entry
 ></entry
+>                                                   <entry
+><literal
+>GROUPING</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1768,6 +1870,10 @@ end manpage include-->
 >INITIALKEY</literal
 ></entry
 >             <entry
+></entry
+>                                                   <entry
+><literal
+>INITIAL_KEY</literal
 ></entry
 ></row>
        <row
@@ -1794,6 +1900,10 @@ end manpage include-->
 >ISRC</literal
 ></entry
 >                   <entry
+><literal
+>ISRC</literal
+></entry
+>                            <entry
 ><literal
 >ISRC</literal
 ></entry
@@ -1825,6 +1935,10 @@ end manpage include-->
 ><literal
 >ILNG</literal
 ></entry
+>                            <entry
+><literal
+>LANGUAGE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1853,6 +1967,10 @@ end manpage include-->
 ><literal
 >IWRI</literal
 ></entry
+>                            <entry
+><literal
+>LYRICIST</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1878,6 +1996,10 @@ end manpage include-->
 >LYRICS</literal
 ></entry
 >                 <entry
+></entry
+>                                                   <entry
+><literal
+>LYRICS</literal
 ></entry
 ></row>
        <row
@@ -1905,6 +2027,10 @@ end manpage include-->
 ><literal
 >IMED</literal
 ></entry
+>                            <entry
+><literal
+>ORIGINAL_MEDIA_TYPE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1926,6 +2052,10 @@ end manpage include-->
 >MOOD</literal
 ></entry
 >                   <entry
+></entry
+>                                                   <entry
+><literal
+>MOOD</literal
 ></entry
 ></row>
        <row
@@ -1953,6 +2083,10 @@ end manpage include-->
 ></entry
 >          <entry
 ></entry
+>                                                   <entry
+><literal
+>ORIGINALALBUM</literal
+></entry
 ></row>
        <row
 ><entry
@@ -1978,6 +2112,10 @@ end manpage include-->
 >ORIGINALARTIST</literal
 ></entry
 >         <entry
+></entry
+>                                                   <entry
+><literal
+>ORIGINALARTIST</literal
 ></entry
 ></row>
        <row
@@ -2005,6 +2143,10 @@ end manpage include-->
 ></entry
 >           <entry
 ></entry
+>                                                   <entry
+><literal
+>ORIGINALDATE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2030,6 +2172,10 @@ end manpage include-->
 >              <entry
 ><literal
 >ISTR</literal
+></entry
+>                            <entry
+><literal
+>PERFORMER</literal
 ></entry
 ></row>
        <row
@@ -2057,6 +2203,8 @@ end manpage include-->
 ></entry
 > <entry
 ></entry
+>                                                   <entry
+>Вложение</entry
 ></row>
        <row
 ><entry
@@ -2084,6 +2232,10 @@ end manpage include-->
 >              <entry
 ><literal
 >IPUB</literal
+></entry
+>                            <entry
+><literal
+>LABEL_CODE</literal
 ></entry
 ></row>
        <row
@@ -2113,6 +2265,10 @@ end manpage include-->
 ><literal
 >IRTD</literal
 ></entry
+>                            <entry
+><literal
+>RATING</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2137,6 +2293,10 @@ end manpage include-->
 ><literal
 >ICNT</literal
 ></entry
+>                            <entry
+><literal
+>RELEASECOUNTRY</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2158,6 +2318,10 @@ end manpage include-->
 >RELEASEDATE</literal
 ></entry
 >            <entry
+></entry
+>                                                   <entry
+><literal
+>DATE_RELEASED/50</literal
 ></entry
 ></row>
        <row
@@ -2187,6 +2351,10 @@ end manpage include-->
 ><literal
 >IEDT</literal
 ></entry
+>                            <entry
+><literal
+>REMIXED_BY</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2213,6 +2381,10 @@ end manpage include-->
 ></entry
 >              <entry
 ></entry
+>                                                   <entry
+><literal
+>TITLESORT/50</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2236,6 +2408,10 @@ end manpage include-->
 >ALBUMARTISTSORT</literal
 ></entry
 >        <entry
+></entry
+>                                                   <entry
+><literal
+>ARTISTSORT/50</literal
 ></entry
 ></row>
        <row
@@ -2263,6 +2439,10 @@ end manpage include-->
 ></entry
 >             <entry
 ></entry
+>                                                   <entry
+><literal
+>ARTISTSORT</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2286,6 +2466,10 @@ end manpage include-->
 >COMPOSERSORT</literal
 ></entry
 >           <entry
+></entry
+>                                                   <entry
+><literal
+>COMPOSERSORT</literal
 ></entry
 ></row>
        <row
@@ -2313,6 +2497,10 @@ end manpage include-->
 ></entry
 >              <entry
 ></entry
+>                                                   <entry
+><literal
+>TITLESORT</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2338,6 +2526,10 @@ end manpage include-->
 >               <entry
 ><literal
 >PRT1</literal
+></entry
+>                            <entry
+><literal
+>SUBTITLE</literal
 ></entry
 ></row>
        <row
@@ -2367,6 +2559,10 @@ end manpage include-->
 ><literal
 >IBSU</literal
 ></entry
+>                            <entry
+><literal
+>WEBSITE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2393,6 +2589,10 @@ end manpage include-->
 ></entry
 >                   <entry
 ></entry
+>                                                   <entry
+><literal
+>WORK</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2417,6 +2617,10 @@ end manpage include-->
 ></entry
 >           <entry
 ></entry
+>                                                   <entry
+><literal
+>WWWAUDIOFILE</literal
+></entry
 ></row>
        <row
 ><entry
@@ -2440,6 +2644,10 @@ end manpage include-->
 >WWWAUDIOSOURCE</literal
 ></entry
 >         <entry
+></entry
+>                                                   <entry
+><literal
+>WWWAUDIOSOURCE</literal
 ></entry
 ></row>
      </tbody>
@@ -2466,6 +2674,10 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
+>Для Matroska указывается целевой уровень, например /50 для альбома, если только это не значение по умолчанию /30 для дорожки. Чтобы создать простой тег Matroska с двоичным содержимым, при добавлении фрейма допишите « - binary». Обратите внимание, что такие теги используются редко, а обложки хранятся в виде присоединённого файла. </para
+></listitem>
+<listitem
+><para
 >Чтобы явно использовать конкретное название фрейма, которое конфликтует с унифицированным названием, добавьте перед самим названием восклицательный знак. Например, добавление к комментарию Vorbis фрейма «<replaceable
 >Media</replaceable
 >» приведёт к созданию фрейма под названием «<literal
@@ -2477,6 +2689,18 @@ end manpage include-->
 >»), следует указать «<literal
 >!MEDIA</literal
 >»; это позволит принудительно задать именно такое название фрейма. </para
+></listitem>
+<listitem
+><para
+>Если нужного фрейма нет в этом списке, произвольные названия можно ввести с помощью кнопки <guibutton
+>Добавить</guibutton
+>. Часто используемые названия фреймов можно добавить в раздел <guilabel
+>Пользовательские фреймы</guilabel
+> в параметрах <guilabel
+>Теги</guilabel
+>, после чего они станут доступны в разделе <guilabel
+>Фреймы быстрого доступа</guilabel
+>. </para
 ></listitem>
 </itemizedlist>
 </para>
@@ -2579,7 +2803,7 @@ end manpage include-->
 >, <guilabel
 >Синхронизированный текст</guilabel
 >, <guibutton
->OK</guibutton
+>ОК</guibutton
 >), затем нажмите кнопку <guibutton
 >Из буфера обмена</guibutton
 >.</para
@@ -2616,6 +2840,30 @@ end manpage include-->
 ></listitem>
 </itemizedlist>
 </para>
+</sect2>
+
+<sect2 id="mp4-chapters">
+<title
+>Главы в MP4-файлах</title>
+
+<para
+>Аудиокниги в формате MP4 обычно имеют расширение <filename class="extension"
+>.m4b</filename
+> и довольно большой размер, так как содержат все главы в одном файле. Для навигации по таким файлам они могут содержать метки глав, которые можно изменить в &kid3; в псевдофрейме «Chapters» с помощью того же редактора, который используется для <link linkend="synchronized-lyrics"
+>синхронизированного текста</link
+>. В файлах MP4 существуют два типа глав: «Nero» и «QuickTime (QT)». </para>
+<para
+>Информация о главах в MP3-аудиокнигах хранится в нескольких фреймах «Chapter» (CHAP), на которые ссылается фрейм «Table of Contents» (CTOC), причём эти фреймы содержат вложенные подфреймы. Чтобы изменять эту информацию в одном месте, для тегов ID3v2 можно также использовать псевдофрейм «Chapters». Его содержимое используется для создания настоящих фреймов главы, оглавления и вложенных фреймов: <guilabel
+>Описание</guilabel
+> используется как заголовок оглавления, столбец <guilabel
+>Текст</guilabel
+> содержит заголовки глав, а соответствующее значение <guilabel
+>Время</guilabel
+> задаёт время начала главы и время окончания предыдущей главы. Время окончания последней главы определяется значением <guilabel
+>Время</guilabel
+> последней строки, если её <guilabel
+>Текст</guilabel
+> пуст. </para>
 </sect2>
 
 </sect1>
@@ -2774,7 +3022,15 @@ end manpage include-->
 > и получения результатов с сайта <ulink url="http://www.gnudb.org"
 >www.gnudb.org</ulink
 >. Импорт данных дорожек для альбома выполняется двойным щелчком левой кнопкой мыши по альбому в списке. Для импорта данных возможно выбрать как сервер freedb.org, так и путь CGI. Импортированные данные будут отображаться в таблице предварительного просмотра диалога импорта. Если отображаемые результаты удовлетворяют требованиям, запустите процесс импорта, закрыв диалоговое окно с помощью кнопки <guibutton
->OK</guibutton
+>ОК</guibutton
+>. </para>
+<para
+>Если результат поиска уже открыт в браузере, можно ввести URL-адрес в первое поле поиска. Результат появится в списке альбомов, и его можно напрямую импортировать в &kid3;. </para>
+<para
+>В поле <guilabel
+>Ключевая строка</guilabel
+> можно ввести адрес электронной почты, зарегистрированный на сайте <ulink url="https://gnudb.org/info.php"
+> gnudb.org</ulink
 >. </para>
 <para id="import-discogs"
 >Чтобы выполнить поиск на сервере Discogs, выберите в раскрывающемся списке вариант <guibutton
@@ -2782,7 +3038,7 @@ end manpage include-->
 >. Как и в диалоге поиска <guibutton
 >gnudb.org</guibutton
 >, следует указать исполнителя и название альбома, а затем выбрать нужный вариант из списка альбомов. Возможно ввести <guilabel
->Токен</guilabel
+>Ключевая строка</guilabel
 >, чтобы использовать программный интерфейс RESTful Discogs API вместо веб-интерфейса, который часто меняется, тем самым нарушая работу анализатора импорта. Потребуется создать учётную запись на сайте <ulink url="https://www.discogs.com/"
 >Discogs</ulink
 >, затем там же сгенерировать токен (Настройки/Разработчикам, Сгенерировать токен). Не забудьте нажать кнопку <guibutton
@@ -2792,7 +3048,7 @@ end manpage include-->
 >, будет импортирована стандартная информация, например, об исполнителе, альбоме и названиях дорожек. Если установлен флажок <guilabel
 >Дополнительные теги</guilabel
 >, будет также импортирована доступная дополнительная информация, например, об аккомпанементе, аранжировщиках или издателе. Если установлен флажок <guilabel
->Обложка</guilabel
+>Обложки</guilabel
 >, также будет загружено изображение обложки альбома (если оно доступно). </para>
 <para id="import-amazon"
 >Чтобы выполнить поиск на Amazon, выберите в раскрывающемся списке вариант <guibutton
@@ -2814,7 +3070,7 @@ end manpage include-->
 >Чтобы импортировать данные с сервера MusicBrainz, воспользуйтесь диалогом, который появляется при выборе в меню варианта <guibutton
 >MusicBrainz (отпечаток)</guibutton
 >. Выбор сервера аналогичен выбору в диалоге импорта из freedb. Ниже располагается таблица, отображающая импортированные данные дорожек. Правый столбец содержит состояние запроса MusicBrainz (при первом открытии диалога — «В ожидании»). Производится поиск отпечатка, и, если результата не будет, приложение попробует провести другой поиск с использованием тегов файла. Таким образом, для успешного поиска в MusicBrainz желательно сохранить имеющиеся данные (например, данные об исполнителе и альбоме) в метках перед импортом. Если соответствующая запросу запись была найдено, поиск завершится с состоянием «Распознано». Если же найти такую запись не удастся, будет показано уведомление об отсутствии результатов или несколько неточных соответствий, из которых пользователю потребуется выбрать нужный вариант. Кнопки <guibutton
->OK</guibutton
+>ОК</guibutton
 > и <guibutton
 >Применить</guibutton
 > позволяют использовать импортированные данные, а кнопка <guibutton
@@ -2832,7 +3088,7 @@ end manpage include-->
 >. Найдите альбом во freedb и, если нужная информация отобразится в браузере, скопируйте содержимое в буфер обмена. Затем нажмите кнопку <guibutton
 >Из буфера обмена</guibutton
 >, и в таблице предварительного просмотра в верхней части диалога будут отображены импортированные дорожки. Если импортированные данные соответствуют ожидаемому результату, закройте диалог с помощью кнопки <guibutton
->OK</guibutton
+>ОК</guibutton
 >, что позволит вставить данные в теги в текущем каталоге. Место назначения (<guilabel
 >Тег 1</guilabel
 >, <guilabel
@@ -2920,6 +3176,12 @@ end manpage include-->
 >. Эти кнопки позволяют переупорядочить дорожки в соответствии с нужным полем. Чтобы отредактировать порядок дорожек вручную, перетащите дорожку на новое место с помощью <mousebutton
 >левой</mousebutton
 > кнопки мыши в сочетании с клавишей &Ctrl;. </para>
+<para
+>Если импортированных дорожек больше, чем файлов, например, если текущая папка содержит только второй диск альбома из двух дисков, а импортированы дорожки с обоих дисков, можно удалить дорожки первого диска: выделить их щелчком по метке строки первой дорожки, затем, удерживая клавишу <keycap
+>Shift</keycap
+>, щёлкнуть по метке строки последней дорожки первого диска и, наконец, нажать клавишу <keycap
+>Delete</keycap
+>. </para>
 <para
 >Открытый диалог импорта содержит данные тегов. Тип тега («Тег 1», «Тег 2», «Тег 1 и тег 2») выбирается в раскрывающемся списке <guilabel
 >Место назначения</guilabel
@@ -3310,15 +3572,11 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%v %{vbr} Переменная скорость или пустое значение (только для ID3v2.3 с id3lib)</para
-></listitem>
-<listitem
-><para
 >%r %{samplerate} Частота дискретизации в Гц</para
 ></listitem>
 <listitem
 ><para
->%m %{mode} Режим каналов (cтерео или объединённое стерео)</para
+>%m %{mode} Режим каналов (стерео или объединённое стерео)</para
 ></listitem>
 <listitem
 ><para
@@ -3340,17 +3598,17 @@ end manpage include-->
 > тегов для создания экспортируемых данных (<guilabel
 >Тег 1</guilabel
 > или <guilabel
->Tег 2</guilabel
+>Тег 2</guilabel
 >) выбирается в раскрывающемся списке. Кнопки <guibutton
 >В файл...</guibutton
 > или <guibutton
 >В буфер обмена</guibutton
 > позволяют поместить данные в файл или буфер обмена. Кнопки <guibutton
->OK</guibutton
+>ОК</guibutton
 > и <guibutton
 >Отмена</guibutton
 > закрывают диалог, при этом кнопка <guibutton
->OK</guibutton
+>ОК</guibutton
 > позволяет сохранить текущие параметры диалога. </para
 ></listitem>
 </varlistentry>
@@ -3374,11 +3632,19 @@ end manpage include-->
 >Совпадает с именем каталога</guibutton
 > или <guibutton
 >Формат</guibutton
-> со значениями из тегов, например, «<userinput
+> со значениями из тегов, <abbrev
+>например</abbrev
+>, «<userinput
 >%{artist} - %{album}</userinput
 >» (в этом случае название списка воспроизведения будет складываться из имени исполнителя и названия альбома). Коды формата аналогичны кодам для <link linkend="export"
 >экспорта</link
->. Кнопка-переключатель <guibutton
+>. Список доступных форматов возможно изменить в разделе <guilabel
+>Формат</guilabel
+> вкладки <guilabel
+>Файлы</guilabel
+> в <link linkend="configure-kid3"
+>параметрах</link
+>. Кнопка <guibutton
 >Создать список воспроизведения</guibutton
 > позволяет создать пустой список воспроизведения с заданным названием. Расширение зависит от указанного формата списка воспроизведения. </para>
 <para
@@ -3914,15 +4180,11 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%v %{vbr} Переменная скорость или пустое значение (только для ID3v2.3 с id3lib)</para
-></listitem>
-<listitem
-><para
 >%r %{samplerate} Частота дискретизации в Гц</para
 ></listitem>
 <listitem
 ><para
->%m %{mode} Режим каналов (cтерео или объединённое стерео)</para
+>%m %{mode} Режим каналов (стерео или объединённое стерео)</para
 ></listitem>
 <listitem
 ><para
@@ -4188,6 +4450,8 @@ end manpage include-->
 >, <guibutton
 >Закрыть</guibutton
 >), ползунки для регулирования позиции и громкости, а также индикатор текущей позиции. Если выбрано несколько файлов, будут воспроизводиться выбранные дорожки. Если же ничего не выбрано, будут воспроизводиться все файлы. </para
+><para
+>Чтобы переключить показываемое время между прошедшим и оставшимся, щёлкните по индикатору. </para
 ></listitem>
 </varlistentry>
 
@@ -4476,6 +4740,30 @@ end manpage include-->
 >COVERART</literal
 >» — это более ранний неофициальный способ включения изображений в комментарии Vorbis. Он позволяет обеспечивать совместимость с устаревшими проигрывателями. </para>
 <para
+>Режим, используемый при сохранении файлов <guilabel
+>Matroska</guilabel
+>, можно выбрать с помощью параметра <guilabel
+>Режим записи</guilabel
+>. Он определяет соотношение между размером файла и скоростью записи при сохранении тегов, вложений и глав в файл. Для очень больших файлов и (или) медленных (сетевых) файловых систем использование параметра <guilabel
+>Избегать вставки</guilabel
+> позволит значительно сократить время записи. Возможны три режима: </para>
+<itemizedlist>
+<listitem
+><para
+>Компактный: записывать теги, вложения и главы максимально компактно. Это режим по умолчанию.</para
+></listitem>
+<listitem
+><para
+>Не уменьшать: не уменьшать блоки при записи, добавлять заполнение при уменьшении содержимого и разрешать вставки при его увеличении. </para
+></listitem>
+<listitem
+><para
+>Избегать вставки: как и <guilabel
+>Не уменьшать</guilabel
+>, но также избегать вставок для блоков, которые не находятся в конце файла: заменить увеличивающийся блок, не являющийся последним, заполнением прежнего размера и добавить новый блок в конец файла.</para
+></listitem>
+</itemizedlist>
+<para
 >Если установлен флажок <guilabel
 >Отмечать, если размер больше, чем (в байтах)</guilabel
 >, файлы, содержащие встроенную обложку, размер которых превышает указанное значение в байтах, будут отмечены красным. Эта функция позволяет найти файлы, содержащие слишком большие изображения, которые могут не поддерживаться некоторыми приложениями или проигрывателями. Значение по умолчанию — 131072 байта (128 КБ). </para>
@@ -4499,6 +4787,10 @@ end manpage include-->
 > будет содержать только эти четыре жанра, и искать их в полном списке не понадобится. В таком примере в списке жанров тега 1 будут отображаться только «Metal» и «Hard Rock», потому что эти два пользовательских жанра являются стандартными жанрами. Если флажок <guilabel
 >Показывать только пользовательские жанры</guilabel
 > не установлен, пользовательские жанры будут расположены в конце списка жанров. </para>
+<para
+>В разделе <guilabel
+>Пользовательские фреймы</guilabel
+> можно определить до восьми имён пользовательских фреймов, которые затем используются так же, как унифицированные фреймы, например, в качестве фреймов быстрого доступа. </para>
 <para
 >Раздел <guilabel
 >Фреймы быстрого доступа</guilabel
@@ -4559,7 +4851,7 @@ end manpage include-->
 >1</guilabel
 > до <guilabel
 >5</guilabel
-> для значений параметров, которые будут записаны в тег, если дорожке будет назначена соответствующая оценка в звёздах. И наоборот, эти значения определяют количество звёзд, которые будут отображаться для значения, хранящегося во фрейме. Например, строка таблицы ниже содержит значения 1, 64, 128, 196, 255. Пороговые значения количества звёзд, которые будут показаны для оценок, лежащих между этими значениями, совместимы с используемыми в  &Windows; Explorer. </para>
+> для значений параметров, которые будут записаны в тег, если дорожке будет назначена соответствующая оценка в звёздах. И наоборот, эти значения определяют количество звёзд, которые будут отображаться для значения, хранящегося во фрейме. Например, строка таблицы ниже содержит значения 1, 64, 128, 196, 255. Пороговые значения количества звёзд, которые будут показаны для оценок, лежащих между этими значениями, совместимы с используемыми в &Windows; Explorer. </para>
 
 <table id="table-rating">
   <title
@@ -4661,11 +4953,23 @@ end manpage include-->
 >«Файл»</link
 > главного окна. </para>
 <para
+>Кнопка <guibutton
+>Список воспроизведения</guibutton
+> позволяет изменить форматы имён файлов, доступные в диалоге <link linkend="create-playlist"
+>Создать список воспроизведения</link
+>. </para>
+<para
 ><guilabel
 >Формат имени файла</guilabel
 > содержит параметры формата имён файлов. Доступны те же параметры, что и в разделе <guilabel
 >Формат тега</guilabel
 >. </para>
+<para
+>Дополнительно можно задать <guilabel
+>Максимальная длина</guilabel
+> имён файлов. Большинство современных файловых систем имеют ограничение в 255 символов, но если файлы требуется записать на компакт-диск, ограничение следует задать равным 64. Если установлен флажок <guilabel
+>Использовать в списке воспроизведения и названиях папок</guilabel
+>, формат имени файла также используется при создании списков воспроизведения и переименовании каталогов. </para>
 <para
 >Вкладка <guilabel
 >Команды пользователя</guilabel
@@ -4747,7 +5051,7 @@ end manpage include-->
 </itemizedlist>
 
 <para
->Cпециальный код, <command
+>Специальный код, <command
 >@separator</command
 >, возможно использовать в качестве команды, добавляющей разделитель в контекстное меню команд пользователя. Чтобы добавить пункты меню как вложенное меню, перед ними следует указать команду <command
 >@beginmenu</command
@@ -4776,7 +5080,7 @@ end manpage include-->
 >@qmlview</command
 >. Дополнительные параметры передаются в сценарий QML, где они будут доступны с помощью функции <function
 >getArguments()</function
->. Обзор некоторых функций и свойств, доступных в QML, доступен в приложении  <link linkend="qml-interface"
+>. Обзор некоторых функций и свойств, доступных в QML, доступен в приложении <link linkend="qml-interface"
 >Интерфейс QML</link
 >. </para>
 
@@ -4821,14 +5125,6 @@ end manpage include-->
 <listitem
 ><para
 ><guilabel
->Id3libMetadata</guilabel
->: использует библиотеку <ulink url="http://id3lib.sourceforge.net"
->id3lib</ulink
-> для тегов ID3v1.1 и ID3v2.3 в файлах MP3, MP2, AAC. Поддерживает чуть больше типов фреймов, чем TagLib.</para
-></listitem>
-<listitem
-><para
-><guilabel
 >OggFlacMetadata</guilabel
 >: использует <ulink url="http://xiph.org/ogg/"
 >libogg</ulink
@@ -4850,9 +5146,9 @@ end manpage include-->
 ><para
 ><guilabel
 >Mp4v2Metadata</guilabel
->: библиотека <ulink url="http://code.google.com/p/mp4v2"
+>: библиотека <ulink url="https://mp4v2.org/"
 >mp4v2</ulink
-> изначально использовалась в &kid3; для поддержки файлов M4A. Может быть использован, если возникают проблемы с поддержкойформата M4A модулем TagLib. </para
+> изначально использовалась в &kid3; для поддержки файлов M4A. Может быть использована, если возникают проблемы с поддержкой формата M4A модулем TagLib. </para
 ></listitem>
 </itemizedlist>
 <para
@@ -5332,6 +5628,8 @@ Intro</computeroutput
 >, если фрейм исполнителя выделен, либо <computeroutput
 >0</computeroutput
 >, если фрейм не выделен. </para>
+<para
+>Псевдоним фрейма «ratingstars» позволяет получить значение фрейма «rating» в виде специфичного для формата значения, соответствующего количеству звёзд (от 0 до 5). При использовании «rating» возвращается внутреннее значение. </para>
 </sect2>
 
 <sect2 id="cli-set">
@@ -5421,6 +5719,14 @@ Intro</computeroutput
 >set '*.selected' 0</userinput
 >, а затем, например, для выделения фрейма исполнителя, командой <userinput
 >set artist.selected 1</userinput
+>. </para>
+<para
+>Псевдоимя фрейма «ratingstars» позволяет задать значение фрейма «rating» в виде специфичного для формата значения, соответствующего количеству звёзд (от 0 до 5). Имя фрейма «rating» позволяет задать внутреннее значение. </para>
+<para
+>Установка «ratingstars» для нескольких файлов с разными форматами тегов не сработает, потому что фрейм со значением, полученным из количества звёзд, создаётся для первого файла, а затем используется для всех файлов. Поэтому вместо команды <userinput
+>kid3-cli -c "set ratingstars 2" *</userinput
+> следует использовать <userinput
+>for f in *; do kid3-cli -c "set ratingstars 2" "$f"; done</userinput
 >. </para>
 </sect2>
 
@@ -5931,6 +6237,55 @@ http://www.amazon.com/Versus-World-Amon-Amarth/dp/B000078DOC</userinput
 >Если значение параметра представлено в виде списка, все элементы списка должны быть указаны как аргументы. Это значит, что для добавления элемента к существующему списку элементов необходимо передать все существующие элементы, указав после них новый элемент. В таком случае лучше использовать режим JSON; это позволит скопировать текущий список и добавить новый элемент. </para>
 </sect2>
 
+<sect2 id="cli-execute">
+<title
+>Выполнение программы или сценария QML</title>
+<cmdsynopsis
+><command
+>execute</command
+> <arg choice="opt"
+>@qml</arg
+> <arg choice="req"
+><replaceable
+>ФАЙЛ</replaceable
+></arg
+> <arg choice="opt"
+><replaceable
+>АРГУМЕНТЫ</replaceable
+></arg
+> </cmdsynopsis>
+<para
+>Выполнение сценария QML или исполняемого файла. </para>
+<para
+>Без <option
+>@qml</option
+> выполняется программа с аргументами. Если <option
+>@qml</option
+> указан в качестве первого аргумента, следующие аргументы — это сценарий QML и его аргументы. Например, теги папки возможно экспортировать в файл <filename
+>export.csv</filename
+> с помощью следующей команды. </para>
+<screen width="65"
+><userinput
+>kid3-cli -c "execute @qml
+/usr/share/kid3/qml/script/ExportCsv.qml export.csv"
+/путь/к/каталогу/</userinput
+></screen>
+<para
+>Здесь <option
+>export.csv</option
+> — аргумент сценария <filename
+>ExportCsv.qml</filename
+>, а <option
+>/путь/к/каталогу/</option
+> — аргумент <option
+><replaceable
+>ФАЙЛ</replaceable
+></option
+> команды <command
+>kid3-cli</command
+>. </para>
+</sect2>
+
 </sect1>
 
 <sect1 id="kid3-cli-examples">
@@ -6102,17 +6457,17 @@ if __name__ == '__main__':
 >&Qt;</ulink
 >. Рекомендуется использовать <ulink url="http://www.kde.org"
 >&kde;</ulink
->, но это не обязательно, так как &kid3; возможно собрать как программу, которая зависит только от &Qt;. &kid3; возможно собрать для систем, где доступны эти библиотеки, например, для GNU/&Linux;, &Windows; и &macOS;. Чтобы присваивать теги файлам Ogg/Vorbis, требуются библиотеки <ulink url="http://xiph.org/ogg/"
+>, но это не обязательно, так как &kid3; возможно собрать как программу, которая зависит только от &Qt;. &kid3; возможно собрать для систем, где доступны эти библиотеки, <abbrev
+>например</abbrev
+>, для GNU/&Linux;, &Windows; и &macOS;. Чтобы присваивать теги файлам Ogg/Vorbis, требуются библиотеки <ulink url="http://xiph.org/ogg/"
 >libogg</ulink
 >, <ulink url="http://xiph.org/vorbis/"
 >libvorbis и libvorbisfile</ulink
 >, для работы с файлами FLAC — <ulink url="http://flac.sourceforge.net"
 >libFLAC++ и libFLAC</ulink
->. Библиотека <ulink url="http://id3lib.sourceforge.net"
->id3lib</ulink
-> используется для работы с файлами MP3. Эти четыре формата также поддерживаются библиотекой <ulink url="http://taglib.github.io/"
+>. Эти форматы также поддерживаются библиотекой <ulink url="http://taglib.github.io/"
 >TagLib</ulink
->, которая может обрабатывать файлы Opus, MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF и модули трекеров. Для импорта акустических отпечатков используются <ulink url="http://acoustid.org/chromaprint"
+>, которая может обрабатывать файлы Opus, MPC, APE, MP2, MP3, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF, Matroska/WebM, SHN, DSF, DFF и модули трекеров. Для импорта акустических отпечатков используются <ulink url="http://acoustid.org/chromaprint"
 >Chromaprint</ulink
 > и <ulink url="http://libav.org/"
 >libav</ulink
@@ -6152,11 +6507,11 @@ if __name__ == '__main__':
 >cmake</userinput
 >. </para>
 <para
->Если доступны не все библиотеки, программа &kid3; будет собрана с ограниченными функциональными возможностями, поэтому рекомендуется установить все необходимые пакеты перед сборкой. С другой стороны, с помощью параметров <userinput
+>Если доступны не все библиотеки, программа &kid3; будет собрана с ограниченными функциональными возможностями, поэтому следует установить все необходимые пакеты для разработки. С другой стороны, с помощью параметров <userinput
 >cmake</userinput
 > возможно управлять перечнем библиотек, которые будут использованы при сборке. По умолчанию это: <userinput
->-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_ID3LIB:BOOL=ON -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON</userinput
->. Чтобы отключить эти опции, установите параметры в значение <userinput
+>-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON </userinput
+>. Эти параметры можно отключить, установив для них значение <userinput
 >OFF</userinput
 >. </para>
 <para
@@ -6174,14 +6529,14 @@ if __name__ == '__main__':
 <para
 >Создание пакетов RPM поддерживается файлом <filename
 >kid3.spec</filename
->, для пакетов &Debian; доступен сценарий <filename
->build-deb.sh</filename
+>, для пакетов &Debian; выполните <userinput
+>build.sh deb</userinput
 >. </para>
 
 <para
->Приложение &Qt; также возможно скомпилировать для &Windows; или &macOS;. Для загрузки и сборки всех необходимых библиотек и последующего создания пакета &kid3; предназначен сценарий <filename
->buildlibs.sh</filename
->. </para>
+>Приложение &Qt; также возможно скомпилировать для &Windows; и &macOS;. Сценарий <filename
+>build.sh</filename
+> можно использовать для загрузки и сборки всех необходимых библиотек и создания пакета &kid3;. </para>
 
 </sect1>
 
@@ -6190,11 +6545,13 @@ if __name__ == '__main__':
 >Настройка</title>
 
 <para
->В версии для &kde; параметры программы будут храниться в файле <filename
+>В версии для &kde; параметры хранятся в файле <filename
 >.config/kid3rc</filename
->. Если программа собрана как приложение &Qt;, параметры будут храниться в файле <filename
+>, а состояние приложения — в файле <filename
+>.local/share/kid3/kid3staterc</filename
+>. Если программа собрана как приложение &Qt;, параметры хранятся в файле <filename
 >.config/Kid3/Kid3.conf</filename
->. В операционной системе &Windows; конфигурация будет храниться в реестре, а в системе &macOS; — в файле plist. </para>
+>. В операционной системе &Windows; параметры хранятся в реестре, а в системе &macOS; — в файле plist. </para>
 <para
 >Переменная среды <varname
 >KID3_CONFIG_FILE</varname
@@ -6277,7 +6634,7 @@ $kid3->setFrame(2, "Artist", "One Hit Wonder");
 <para
 >Программный интерфейс &DBus; определён в файле <filename
 >org.kde.Kid3.xml</filename
->.  В интерфейсе &kid3; предусмотрены следующие методы: </para>
+>. В интерфейсе &kid3; предусмотрены следующие методы: </para>
 
 <sect2 id="dbus-openDirectory">
 <title
@@ -7664,15 +8021,20 @@ Kid3Script {
 >. Вывод будет показан в окне программы. </para>
 
 <para
->Помимо этого, сценарий также возможно запустить независимо от &kid3; с помощью инструментов QML. <screen width="80">
-qml -apptype widget -I /usr/lib/kid3/plugins/imports /путь/к/Example.qml
-</screen
-> или <screen width="80">
-qmlscene -I /usr/lib/kid3/plugins/imports /путь/к/Example.qml
-</screen
-> В операционных системах &Windows; и &macOS; путь для импорта должен быть изменён таким образом, чтобы он относился к папке <filename class="directory"
->imports</filename
->, расположенной в каталоге с установленной программой. Сценарии, запущенные вне &kid3;, будут использовать текущий каталог, поэтому путь следует изменить заранее. </para>
+>К сожалению, запуск сценариев QML с помощью <command
+>qml</command
+> (например, <command
+>qml -apptype widget -I /usr/lib/kid3/plugins/imports /path/to/Example.qml</command
+>) не работает в последних версиях Qt. Однако <command
+>kid3-cli</command
+> предлагает альтернативный способ запуска сценария QML из командной строки с помощью команды <link linkend="cli-execute"
+><command
+>execute</command
+></link
+>. <screen width="80"
+>kid3-cli -c "execute @qml /path/to/Example.qml"
+</screen>
+</para>
 
 <para
 >Чтобы получить список заголовков тегов 2 из всех файлов в текущем каталоге, воспользуйтесь следующим сценарием: </para>
@@ -7836,6 +8198,30 @@ Kid3Script {
 > (<filename
 >ExportCsv.qml</filename
 >): рекурсивно экспортирует все теги во всех файлах в файл CSV. </para
+></listitem>
+<listitem
+><para
+><guilabel
+>Import CSV</guilabel
+> (<filename
+>ImportCsv.qml</filename
+>): рекурсивно импортирует все теги во всех файлах из файла CSV. </para
+></listitem>
+<listitem
+><para
+><guilabel
+>Export JSON</guilabel
+> (<filename
+>ExportJson.qml</filename
+>): рекурсивно экспортирует все теги во всех файлах в файл JSON. </para
+></listitem>
+<listitem
+><para
+><guilabel
+>Import JSON</guilabel
+> (<filename
+>ImportJson.qml</filename
+>): рекурсивно импортирует все теги во всех файлах из файла JSON. </para
 ></listitem>
 <listitem
 ><para
