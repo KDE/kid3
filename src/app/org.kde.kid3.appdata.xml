@@ -335,6 +335,7 @@
         <p xml:lang="ka">გასწორდა</p>
         <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
+        <p xml:lang="nn">Fiksa</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
@@ -354,6 +355,7 @@
           <li xml:lang="it">Importazione da Discogs.</li>
           <li xml:lang="ka">Discogs-დან შემოტანა.</li>
           <li xml:lang="nl">Discogs import.</li>
+          <li xml:lang="nn">Discogs-import.</li>
           <li xml:lang="pt-BR">Importação do Discogs.</li>
           <li xml:lang="ru">Импорт из Discogs.</li>
           <li xml:lang="sk">Import Discogs.</li>
@@ -431,6 +433,7 @@
         <p xml:lang="ka">გასწორდა</p>
         <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
+        <p xml:lang="nn">Fiksa</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
@@ -737,6 +740,7 @@
         <p xml:lang="ka">გასწორდა</p>
         <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
+        <p xml:lang="nn">Fiksa</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
@@ -885,6 +889,7 @@
         <p xml:lang="ka">გასწორდა</p>
         <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
+        <p xml:lang="nn">Fiksa</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
@@ -1199,6 +1204,7 @@
         <p xml:lang="ka">გასწორდა</p>
         <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
+        <p xml:lang="nn">Fiksa</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
@@ -1491,6 +1497,7 @@
         <p xml:lang="ka">გასწორდა</p>
         <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
+        <p xml:lang="nn">Fiksa</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
@@ -1747,6 +1754,7 @@
         <p xml:lang="ka">გასწორდა</p>
         <p xml:lang="ko">수정됨</p>
         <p xml:lang="nl">Vast</p>
+        <p xml:lang="nn">Fiksa</p>
         <p xml:lang="pt-BR">Corrigido</p>
         <p xml:lang="ru">Исправления:</p>
         <p xml:lang="sk">Opravené</p>
