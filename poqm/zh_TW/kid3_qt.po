@@ -4,13 +4,13 @@
 # ChungYu, Hsu <chungyu.hsu@gmail.com>, 2010.
 # Urs Fleisch <ufleisch@users.sourceforge.net>, 2010, 2011.
 # BrLi <brli@chakralinux.org>, 2021.
-# SPDX-FileCopyrightText: 2023, 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
+# SPDX-FileCopyrightText: 2023-2024, 2026 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: Kid3 3.8.7\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2024-05-09 07:36+0900\n"
+"PO-Revision-Date: 2026-10-01 04:33+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: zh_TW\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Lokalize 24.04.70\n"
+"X-Generator: Lokalize 26.11.70\n"
 "X-Language: zh_TW\n"
 "X-Source-Language: en\n"
 "X-Qt-Contexts: true\n"
@@ -2102,12 +2102,12 @@ msgstr "副歌開始"
 #: src/core/model/eventtimingcode.cpp:45
 msgctxt "@default|"
 msgid "interlude start"
-msgstr ""
+msgstr "間奏開始"
 
 #: src/core/model/eventtimingcode.cpp:46
 msgctxt "@default|"
 msgid "theme start"
-msgstr ""
+msgstr "主題開始"
 
 #: src/core/model/eventtimingcode.cpp:47
 msgctxt "@default|"
@@ -2122,22 +2122,22 @@ msgstr "變調"
 #: src/core/model/eventtimingcode.cpp:49
 msgctxt "@default|"
 msgid "time change"
-msgstr ""
+msgstr "變拍子"
 
 #: src/core/model/eventtimingcode.cpp:50
 msgctxt "@default|"
 msgid "momentary unwanted noise (Snap, Crackle & Pop)"
-msgstr ""
+msgstr "一瞬間的雜訊（snap、crackle、pop）"
 
 #: src/core/model/eventtimingcode.cpp:51
 msgctxt "@default|"
 msgid "sustained noise"
-msgstr ""
+msgstr "持續的雜訊"
 
 #: src/core/model/eventtimingcode.cpp:52
 msgctxt "@default|"
 msgid "sustained noise end"
-msgstr ""
+msgstr "持續雜訊的結束"
 
 #: src/core/model/eventtimingcode.cpp:53
 msgctxt "@default|"
@@ -2162,17 +2162,17 @@ msgstr "副歌結束"
 #: src/core/model/eventtimingcode.cpp:57
 msgctxt "@default|"
 msgid "theme end"
-msgstr ""
+msgstr "主題結束"
 
 #: src/core/model/eventtimingcode.cpp:58
 msgctxt "@default|"
 msgid "profanity"
-msgstr ""
+msgstr "粗俗用語"
 
 #: src/core/model/eventtimingcode.cpp:59
 msgctxt "@default|"
 msgid "profanity end"
-msgstr ""
+msgstr "粗俗用語結束"
 
 #: src/core/model/eventtimingcode.cpp:60
 msgctxt "@default|"
@@ -2630,49 +2630,34 @@ msgid "Seller"
 msgstr "商家"
 
 #: src/core/tags/frame.cpp:74
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Content Type"
 msgctxt "@default|"
 msgid "Target Type"
-msgstr "內容類型"
+msgstr "目標類型"
 
 #: src/core/tags/frame.cpp:75
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Restore Defaults"
 msgctxt "@default|"
 msgid "Default"
-msgstr "回復預設值"
+msgstr "預設"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "音軌"
+msgstr "音軌 ID"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "編輯"
+msgstr ""
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "章節"
+msgstr "章節 ID"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "附件 ID"
 
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"
@@ -2727,9 +2712,6 @@ msgid "Trivia/pop up"
 msgstr ""
 
 #: src/core/tags/frame.cpp:110
-#, fuzzy
-#| msgctxt "FormatConfig|"
-#| msgid "None"
 msgctxt "@default|"
 msgid "None"
 msgstr "無"
@@ -2740,33 +2722,24 @@ msgid "Shot"
 msgstr ""
 
 #: src/core/tags/frame.cpp:112
-#, fuzzy
-#| msgctxt "NumberTracksCommand|"
-#| msgid "Number tracks"
 msgctxt "@default|"
 msgid "Subtrack"
-msgstr "編號音軌"
+msgstr "子音軌"
 
 #: src/core/tags/frame.cpp:114
 msgctxt "@default|"
 msgid "Part"
-msgstr ""
+msgstr "部分"
 
 #: src/core/tags/frame.cpp:116
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition"
-msgstr "編輯"
+msgstr ""
 
 #: src/core/tags/frame.cpp:117
-#, fuzzy
-#| msgctxt "Kid3Application|"
-#| msgid "Selection"
 msgctxt "@default|"
 msgid "Collection"
-msgstr "選擇區"
+msgstr "收藏"
 
 #: src/core/tags/frame.cpp:142
 msgctxt "@default|"
@@ -3058,7 +3031,7 @@ msgstr "Podcast"
 #: src/core/tags/frame.cpp:226
 msgctxt "@default|"
 msgid "Popularimeter"
-msgstr ""
+msgstr "人氣度"
 
 #: src/core/tags/frame.cpp:227
 msgctxt "@default|"
@@ -3168,7 +3141,7 @@ msgstr "檔案擁有者"
 #: src/core/tags/frame.cpp:253
 msgctxt "@default|"
 msgid "Produced Notice"
-msgstr ""
+msgstr "製作通知"
 
 #: src/core/tags/frame.cpp:254 src/core/tags/frame.cpp:292
 msgctxt "@default|"
@@ -3347,17 +3320,11 @@ msgid "Volume"
 msgstr "音量"
 
 #: src/core/tags/frame.cpp:302
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Directory name"
 msgctxt "@default|"
 msgid "Director"
-msgstr "資料夾名稱"
+msgstr "導演"
 
 #: src/core/tags/frame.cpp:303
-#, fuzzy
-#| msgctxt "TrackDataModel|"
-#| msgid "Duration"
 msgctxt "@default|"
 msgid "Duration"
 msgstr "時長"
@@ -3365,20 +3332,17 @@ msgstr "時長"
 #: src/core/tags/frame.cpp:304
 msgctxt "@default|"
 msgid "Summary"
-msgstr ""
+msgstr "摘要"
 
 #: src/core/tags/frame.cpp:305
 msgctxt "@default|"
 msgid "Synopsis"
-msgstr ""
+msgstr "大綱"
 
 #: src/core/tags/frame.cpp:306
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Total Tracks"
 msgctxt "@default|"
 msgid "Total Parts"
-msgstr "音軌總數"
+msgstr "總計部分數"
 
 #: src/core/tags/frame.cpp:309
 msgctxt "@default|"
@@ -3531,20 +3495,14 @@ msgid "Chapters"
 msgstr "章節"
 
 #: src/core/tags/frame.cpp:351
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (Nero)"
-msgstr "章節"
+msgstr "章節 (Nero)"
 
 #: src/core/tags/frame.cpp:352
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (QT)"
-msgstr "章節"
+msgstr "章節 (QT)"
 
 #: src/core/tags/frame.cpp:353
 msgctxt "@default|"
@@ -3554,12 +3512,12 @@ msgstr "封存位置"
 #: src/core/tags/frame.cpp:354
 msgctxt "@default|"
 msgid "Commissioned"
-msgstr ""
+msgstr "委託製作"
 
 #: src/core/tags/frame.cpp:355
 msgctxt "@default|"
 msgid "Cropped"
-msgstr ""
+msgstr "已裁剪"
 
 #: src/core/tags/frame.cpp:356
 msgctxt "@default|"
@@ -3599,7 +3557,7 @@ msgstr "銳利度"
 #: src/core/tags/frame.cpp:363
 msgctxt "@default|"
 msgid "Source Form"
-msgstr ""
+msgstr "來源形式"
 
 #: src/core/tags/frame.cpp:1276
 #, qt-format
@@ -4144,30 +4102,27 @@ msgstr "圖片欄位名稱(&P)："
 #: src/gui/dialogs/configdialogpages.cpp:275
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
-msgstr ""
+msgstr "Matroska"
 
 #: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
-msgstr ""
+msgstr "寫入模式(&W)："
 
 #: src/gui/dialogs/configdialogpages.cpp:278
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Computer"
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
-msgstr "電腦"
+msgstr "簡潔"
 
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
-msgstr ""
+msgstr "不要縮小"
 
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
-msgstr ""
+msgstr "避免插入"
 
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
@@ -5782,17 +5737,11 @@ msgid "&Close"
 msgstr "關閉(&C)"
 
 #: src/gui/widgets/picturelabel.cpp:92
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Previous"
 msgctxt "PictureLabel|"
 msgid "Previous"
 msgstr "上一個"
 
 #: src/gui/widgets/picturelabel.cpp:111
-#, fuzzy
-#| msgctxt "SectionActions|"
-#| msgid "Next"
 msgctxt "PictureLabel|"
 msgid "Next"
 msgstr "下一個"
@@ -6142,7 +6091,7 @@ msgstr "MVNM - 樂章名稱"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:482
 msgctxt "@default|"
 msgid "OWNE - Ownership frame"
-msgstr ""
+msgstr "OWNE - 所有權訊框"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:483
 msgctxt "@default|"
@@ -6162,7 +6111,7 @@ msgstr "PCST - Podcast"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:488
 msgctxt "@default|"
 msgid "POPM - Popularimeter"
-msgstr ""
+msgstr "POPM - 人氣度"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:489
 msgctxt "@default|"
@@ -6352,7 +6301,7 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:534
 msgctxt "@default|"
 msgid "TOAL - Original album/movie/show title"
-msgstr ""
+msgstr "TOAL - 原始專輯/電影/電視標題"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:535
 msgctxt "@default|"
@@ -6397,12 +6346,12 @@ msgstr ""
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:543
 msgctxt "@default|"
 msgid "TPOS - Part of a set"
-msgstr ""
+msgstr "TPOS - 集合的一部分"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:544
 msgctxt "@default|"
 msgid "TPRO - Produced notice"
-msgstr ""
+msgstr "TPRO - 製作通知"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:545
 msgctxt "@default|"
@@ -7298,20 +7247,14 @@ msgid "Remove"
 msgstr "移除"
 
 #: src/qml/app/TagCollapsible.qml:116
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Select &All"
 msgctxt "TagCollapsible|"
 msgid "Select All"
-msgstr "全選(&A)"
+msgstr "全部選取"
 
 #: src/qml/app/TagCollapsible.qml:120
-#, fuzzy
-#| msgctxt "FrameTable|"
-#| msgid "&Deselect all"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
-msgstr "取消選擇(&D)"
+msgstr "全部取消選取"
 
 #~ msgctxt "@default|"
 #~ msgid "EQUA - Equalization"
