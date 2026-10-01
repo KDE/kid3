@@ -259,6 +259,7 @@
     <p xml:lang="tr">Kid3, KDE Frameworks kullanır. Başka masaüstü ortamlarının kullanıcıları, KDE bağımlılıklarını içermeyen Kid3-qt sürümünü tercih etmek isteyebilirler.</p>
     <p xml:lang="uk">Kid3 використовує KDE Frameworks. Користувачі інших стільничних середовищ можуть надати перевагу Kid3-qt, версії, де не використано залежності KDE.</p>
     <p xml:lang="zh-CN">Kid3 使用了 KDE 框架。其他桌面环境的用户可能倾向使用 Kid3-qt，此软件包不需要 KDE 依赖。</p>
+    <p xml:lang="zh-TW">Kid3 使用 KDE Frameworks。其他桌面環境的使用者可能會希望使用不包含 KDE 相依性的 Kid3-qt。</p>
   </description>
   <screenshots>
     <screenshot type="default" width="1290" height="916">
@@ -344,6 +345,7 @@
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
+        <p xml:lang="zh-TW">修正</p>
         <ul>
           <li>Discogs import.</li>
           <li xml:lang="ar">استيراد ديسكوجز.</li>
@@ -363,6 +365,7 @@
           <li xml:lang="sv">Import av Discogs.</li>
           <li xml:lang="tr">Discogs içe aktarma desteği</li>
           <li xml:lang="uk">Імпортування з Discogs.</li>
+          <li xml:lang="zh-TW">Discogs 匯入。</li>
           <li>Remove id3lib metadata plugin.</li>
           <li xml:lang="ar">إزالة الملحق id3lib للبيانات الوصفية.</li>
           <li xml:lang="ca">Elimina el connector de metadades «id3lib».</li>
@@ -380,6 +383,7 @@
           <li xml:lang="sv">Ta bort id3lib metadatainsticksprogram.</li>
           <li xml:lang="tr">idlib3 üst veri eklentisini kaldır</li>
           <li xml:lang="uk">Вилучено додаток метаданих id3lib.</li>
+          <li xml:lang="zh-TW">移除 id3lib 中繼資料外掛程式。</li>
           <li>Support frame names containing dots in kid3-cli.</li>
           <li xml:lang="ar">دعم أسماء الإطارات التي تحتوي على نقاط في kid3-cli.</li>
           <li xml:lang="ca">Admet noms de marc que continguin punts al kid3-cli.</li>
@@ -397,6 +401,7 @@
           <li xml:lang="sv">Stöd ramnamn som innehåller punkter i kid3-cli.</li>
           <li xml:lang="tr">kid3-cli içinde nokta içeren kare adlarını destekle</li>
           <li xml:lang="uk">Реалізовано підтримку назв кадрів, що місять крапки у kid3-cli.</li>
+          <li xml:lang="zh-TW">在 kid3-cli 中支援包含 "." 的音框名稱</li>
           <li>CI builds for Windows and Android.</li>
           <li xml:lang="ar">إصدارات CI لنظامي التشغيل ويندوز وأندرويد.</li>
           <li xml:lang="ca">Construccions de CI per al Windows i l'Android.</li>
@@ -414,6 +419,7 @@
           <li xml:lang="sv">CI-byggen för Windows och Android.</li>
           <li xml:lang="tr">Windows ve Android için CI yapıları</li>
           <li xml:lang="uk">Збірки неперервної інтеграції для Windows і Android.</li>
+          <li xml:lang="zh-TW">Windows 及 Android 的 CI 建置。</li>
         </ul>
       </description>
     </release>
@@ -442,6 +448,7 @@
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
+        <p xml:lang="zh-TW">修正</p>
         <ul>
           <li>MP4: Fix adding atom creates atom with wrong uppercased name.</li>
           <li xml:lang="ar">MP4: إصلاح مشكلة إضافة «atom» التي تؤدي إلى إنشاء «atom» باسم غير صحيح مكتوب بأحرف كبيرة.</li>
@@ -494,6 +501,7 @@
           <li xml:lang="sv">Android: Bygg för F-Droid.</li>
           <li xml:lang="tr">Android: F-Droid için yap</li>
           <li xml:lang="uk">Android: збірка для F-Droid.</li>
+          <li xml:lang="zh-TW">Android：為 F-Droid 編譯。</li>
           <li>Windows: Cross building on Linux.</li>
           <li xml:lang="ar">ويندوز: تجميع وبناء التطبيق لويندوز على لينكس.</li>
           <li xml:lang="ca">Windows: construcció creuada al Linux.</li>
@@ -511,6 +519,7 @@
           <li xml:lang="sv">Windows: Korsbygge för Linux.</li>
           <li xml:lang="tr">Windows: Linux üzerinde çapraz yapı</li>
           <li xml:lang="uk">Windows: перехресне збирання на Linux.</li>
+          <li xml:lang="zh-TW">Windows：從 Linux 進行跨平台編譯。</li>
         </ul>
       </description>
     </release>
@@ -539,6 +548,7 @@
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
+        <p xml:lang="zh-TW">新增</p>
         <ul>
           <li>Support for Matroska and WebM files.</li>
           <li xml:lang="ar">دعم ملفات Matroska وWebM.</li>
@@ -560,6 +570,7 @@
           <li xml:lang="sv">Stöd för Matroska- och WebM-filer.</li>
           <li xml:lang="tr">Matroska ve WebM dosyaları desteği</li>
           <li xml:lang="uk">Підтримка файлів Matroska і WebM.</li>
+          <li xml:lang="zh-TW">支援 Matroska 及 WebM 檔案。</li>
           <li>MP4: Support both QuickTime and Nero Chapters, also with TagLib.</li>
           <li xml:lang="ar">MP4: ادعم كلًا من QuickTime وفصول Nero، بالإضافة إلى TagLib.</li>
           <li xml:lang="ca">MP4: permet tant capítols QuickTime com Nero, també amb TagLib.</li>
@@ -598,6 +609,7 @@
           <li xml:lang="sv">MP4: Stöd STEM.</li>
           <li xml:lang="tr">MP4: STEM desteği</li>
           <li xml:lang="uk">MP4: реалізовано підтримку STEM.</li>
+          <li xml:lang="zh-TW">MP4：支援 STEM。</li>
           <li>WAV, FLAC: Support iXML and BEXT chunks.</li>
           <li xml:lang="ar">WAV، FLAC: دعم مقاطع iXML وBEXT.</li>
           <li xml:lang="ca">WAV, FLAC: implementa fragments iXML i BEXT.</li>
@@ -616,6 +628,7 @@
           <li xml:lang="sv">WAV, FLAC: Stöd iXML- och BEXT-stycken.</li>
           <li xml:lang="tr">WAV, FLAC: iXML ve BEXT parçaları desteği</li>
           <li xml:lang="uk">WAV, FLAC: реалізовано підтримку фрагментів iXML і BEXT.</li>
+          <li xml:lang="zh-TW">WAV、FLAC：支援 iXML 與 BEXT 區塊。</li>
           <li>Android: Select all/deselect all frames.</li>
           <li xml:lang="ar">أندرويد: اختر كل الإطارات/ألغِ اختيار كل الإطارات.</li>
           <li xml:lang="ca">Android: selecciona tot/desselecciona tots els marcs.</li>
@@ -633,6 +646,7 @@
           <li xml:lang="sv">Android: Markera/avmarkera alla bildrutor.</li>
           <li xml:lang="tr">Android: Tüm kareler artık seçilip seçimleri kaldırılabiliyor.</li>
           <li xml:lang="uk">Android: реалізовано підтримку позначення усіх і зняття позначення з усіх фреймів.</li>
+          <li xml:lang="zh-TW">Android：選取全部/取消選取全部音框。</li>
           <li>Android: Import/Export of chapters and synchronized lyrics as LRC files.</li>
           <li xml:lang="ar">أندرويد: استيراد/تصدير الفصول والكلمات المتزامنة كملفات LRC.</li>
           <li xml:lang="ca">Android: importa/exporta capítols i lletres sincronitzades com a fitxers LRC.</li>
@@ -650,6 +664,7 @@
           <li xml:lang="sv">Android: Importera/exportera kapitel och synkronisera sångtexter som LRC-filer.</li>
           <li xml:lang="tr">Android: Fasıllar ve eşzamanlı şarkı sözleri artık LRC dosyaları olarak dışa aktarılabiliyor.</li>
           <li xml:lang="uk">Android: імпортування/експортування глав і синхронізованих текстів як файлів LRC.</li>
+          <li xml:lang="zh-TW">Android：匯入/匯出章節或同步歌詞（作為 LRC 檔案）。</li>
         </ul>
         <p>Improved</p>
         <p xml:lang="ar">مُحسّن</p>
@@ -672,6 +687,7 @@
         <p xml:lang="sv">Förbättringar</p>
         <p xml:lang="tr">İyileştirildi</p>
         <p xml:lang="uk">Удосконалення</p>
+        <p xml:lang="zh-TW">改善</p>
         <ul>
           <li>Improved save performance.</li>
           <li xml:lang="ar">تحسين أداء الحفظ.</li>
@@ -691,6 +707,7 @@
           <li xml:lang="sv">Förbättrad prestanda för spara.</li>
           <li xml:lang="tr">İyileştirilmiş kaydetme başarımı</li>
           <li xml:lang="uk">Удосконалено швидкодію програми при збереженні.</li>
+          <li xml:lang="zh-TW">改善儲存效能。</li>
           <li>macOS: Consistent icon set with dark mode.</li>
           <li xml:lang="ar">ماك أو إس: مجموعة أيقونات متناسقة مع الوضع الداكن.</li>
           <li xml:lang="ca">macOS: joc d'icones coherents amb el mode fosc.</li>
@@ -708,6 +725,7 @@
           <li xml:lang="sv">macOS: Konsekvent ikonuppsättning med mörkt läge.</li>
           <li xml:lang="tr">macOS: Koyu kip ile uyumlu simge kümesi</li>
           <li xml:lang="uk">macOS: сумісний з темним режимом набір піктограм.</li>
+          <li xml:lang="zh-TW">macOS：深色模式使用一致的圖示集。</li>
           <li>Export CSV, JSON: Only export selected folders.</li>
           <li xml:lang="ar">تصدير CSV، JSON: تصدير المجلدات المحددة فقط.</li>
           <li xml:lang="ca">Exportació a CSV, JSON: només exporta les carpetes seleccionades.</li>
@@ -725,6 +743,7 @@
           <li xml:lang="sv">Exportera CSV, JSON: Exportera bara markerade kataloger.</li>
           <li xml:lang="tr">CSV, JSON dışa aktarma: Yalnızca seçili klasörler dışa aktarılabiliyor.</li>
           <li xml:lang="uk">Експорт CSV, JSON: реалізовано експортування лише позначених тек.</li>
+          <li xml:lang="zh-TW">匯出 CSV、JSON：只匯出已選的資料夾。</li>
         </ul>
         <p>Fixed</p>
         <p xml:lang="ar">أُصلح</p>
@@ -749,6 +768,7 @@
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
+        <p xml:lang="zh-TW">修正</p>
         <ul>
           <li>Fix Discogs import.</li>
           <li xml:lang="ar">إصلاح استيراد ديسكوجز.</li>
@@ -768,6 +788,7 @@
           <li xml:lang="sv">Rätta import av Discogs.</li>
           <li xml:lang="tr">Discogs içe aktarma desteği onarıldı.</li>
           <li xml:lang="uk">Виправлено імпортування Discogs.</li>
+          <li xml:lang="zh-TW">修正 Discogs 匯入。</li>
           <li>Consider the configured language for the handbook.</li>
           <li xml:lang="ar">ضع في اعتبارك اللغة المضبوطة للدليل.</li>
           <li xml:lang="ca">Té en compte l'idioma configurat al manual.</li>
@@ -898,6 +919,7 @@
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
+        <p xml:lang="zh-TW">修正</p>
         <ul>
           <li>KDE: Avoid excessive width of file dialog.</li>
           <li xml:lang="ar">كيدي: تجنب العرض المفرط لمربع حوار الملف.</li>
@@ -1093,6 +1115,7 @@
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
+        <p xml:lang="zh-TW">新增</p>
         <ul>
           <li>Show preview for multiple embedded pictures.</li>
           <li xml:lang="ar">إظهار معاينة للصور المضمنة المتعددة.</li>
@@ -1170,6 +1193,7 @@
         <p xml:lang="sv">Förbättringar</p>
         <p xml:lang="tr">İyileştirildi</p>
         <p xml:lang="uk">Удосконалення</p>
+        <p xml:lang="zh-TW">改善</p>
         <ul>
           <li>macOS: Building, signing and notarizing packages.</li>
           <li xml:lang="ar">ماك أو إس: بناء الحزم وتوقيعها وتوثيقها.</li>
@@ -1213,6 +1237,7 @@
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
+        <p xml:lang="zh-TW">修正</p>
         <ul>
           <li>Embed lyrics action.</li>
           <li xml:lang="ar">إجراء تضمين كلمات الأغاني.</li>
@@ -1322,6 +1347,7 @@
           <li xml:lang="sv">Android: Sparar bildetiketter.</li>
           <li xml:lang="tr">Android: Resim künyeleri artık kaydediliyor.</li>
           <li xml:lang="uk">Android: реалізовано мітки зображення.</li>
+          <li xml:lang="zh-TW">Android：圖片標籤的儲存。</li>
           <li>Haiku: Installation paths.</li>
           <li xml:lang="ar">هايكو: مسارات التثبيت.</li>
           <li xml:lang="ca">Haiku: camins d'instal·lació.</li>
@@ -1340,6 +1366,7 @@
           <li xml:lang="sv">Haiku: Installationssökvägar.</li>
           <li xml:lang="tr">Haiku: Kurulum yolları eklendi.</li>
           <li xml:lang="uk">Haiku: шляхи для встановлення.</li>
+          <li xml:lang="zh-TW">Haiku：安裝路徑。</li>
         </ul>
       </description>
     </release>
@@ -1368,6 +1395,7 @@
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
+        <p xml:lang="zh-TW">新增</p>
         <ul>
           <li>Keyboard shortcuts for play toolbar.</li>
           <li xml:lang="ar">اختصارات لوحة المفاتيح لشريط أدوات التشغيل.</li>
@@ -1445,6 +1473,7 @@
         <p xml:lang="sv">Förbättringar</p>
         <p xml:lang="tr">İyileştirildi</p>
         <p xml:lang="uk">Удосконалення</p>
+        <p xml:lang="zh-TW">改善</p>
         <ul>
           <li>Clicking again on 1 star makes star rating disappear.</li>
           <li xml:lang="ar">النقر مرة أخرى على نجمة واحدة يؤدي لإخفاء تقييم النجوم.</li>
@@ -1506,6 +1535,7 @@
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
+        <p xml:lang="zh-TW">修正</p>
         <ul>
           <li>Support multiple values in APE text items.</li>
           <li xml:lang="ar">دعم قيم متعددة في عناصر نص APE.</li>
@@ -1543,6 +1573,7 @@
           <li xml:lang="sv">Bygger med TagLib 2.0.</li>
           <li xml:lang="tr">TagLib 2.0 ile yapı</li>
           <li xml:lang="uk">Реалізовано збирання з TagLib 2.0.</li>
+          <li xml:lang="zh-TW">用 TagLib 2.0 編譯。</li>
           <li>Building from macOS with arm64.</li>
           <li xml:lang="ar">البناء من ماك أو إس بمعمارية arm64.</li>
           <li xml:lang="ca">Construcció a partir de macOS amb arm64.</li>
@@ -1561,6 +1592,7 @@
           <li xml:lang="sv">Bygger från macOS med arm64.</li>
           <li xml:lang="tr">macOS üzerinde ARM64 ile yapı desteği</li>
           <li xml:lang="uk">Реалізовано збирання у macOS для arm64.</li>
+          <li xml:lang="zh-TW">從 macOS 用 arm64 架構編譯。</li>
           <li>Building snap packages.</li>
           <li xml:lang="ar">بناء حزم سناب (Snap).</li>
           <li xml:lang="ca">Construcció de paquets Snap.</li>
@@ -1579,6 +1611,7 @@
           <li xml:lang="sv">Bygger snap-paket.</li>
           <li xml:lang="tr">Snap paketleri desteği</li>
           <li xml:lang="uk">Реалізовано збирання пакунків snap.</li>
+          <li xml:lang="zh-TW">編譯 snap 軟體包。</li>
         </ul>
       </description>
     </release>
@@ -1607,6 +1640,7 @@
         <p xml:lang="tr">Yeni</p>
         <p xml:lang="ug">يېڭى</p>
         <p xml:lang="uk">Нове</p>
+        <p xml:lang="zh-TW">新增</p>
         <ul>
           <li>All the official binaries are built with Qt 6. For macOS, the Darwin-amd64.dmg file is now the Qt 6 version, whereas systems older than Mojave need the package Darwin-Qt5.dmg. The string replacement settings stored by Qt 6 are not compatible with Qt 5 because a different encoding is used.</li>
           <li xml:lang="ar">بُنيت جميع الملفات التنفيذية الرسمية باستخدام Qt 6. بالنسبة لماك أو إس، أصبح ملف Darwin-amd64.dmg الآن هو نسخة Qt 6، بينما تحتاج الأنظمة الأقدم من Mojave إلى حزمة Darwin-Qt5.dmg. لا تتوافق إعدادات استبدال السلاسل النصية المخزنة بواسطة Qt 6 مع Qt 5 بسبب استخدام ترميز مختلف.</li>
@@ -1666,6 +1700,7 @@
         <p xml:lang="sv">Förbättringar</p>
         <p xml:lang="tr">İyileştirildi</p>
         <p xml:lang="uk">Удосконалення</p>
+        <p xml:lang="zh-TW">改善</p>
         <ul>
           <li>Click on play tool bar time toggles between elapsed and remaining time.</li>
           <li xml:lang="ar">النقر على وقت شريط أدوات التشغيل يبدل بين الوقت المنقضي والمتبقي.</li>
@@ -1763,6 +1798,7 @@
         <p xml:lang="tr">Onarıldı</p>
         <p xml:lang="ug">مۇقىم</p>
         <p xml:lang="uk">Виправлено</p>
+        <p xml:lang="zh-TW">修正</p>
         <ul>
           <li>Do not mark all non-unified frames as modified if any non-unified frame is changed.</li>
           <li xml:lang="ar">عدم تعليم جميع الأطر غير الموحدة كمعدلة عند تغيير أي إطار غير موحد.</li>
