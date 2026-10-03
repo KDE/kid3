@@ -7,7 +7,8 @@ import subprocess
 import tempfile
 import platform
 import json
-from kid3testsupport import kid3_cli_path, call_kid3_cli, create_test_file, ignore_audio_properties, \
+import datetime
+from kid3testsupport import kid3_cli_path, kid3_script_dir, call_kid3_cli, create_test_file, ignore_audio_properties, \
     Kid3ConfigFileUsingOnlyTagLib, Kid3ConfigFileUsingOnlyOggFlac, \
     Kid3ConfigFileUsingOnlyMp4v2
 
@@ -1386,6 +1387,25 @@ class CliFunctionsTestCase(unittest.TestCase):
                 '08 Hail And Kill.wav\n'
                 '09 The Warriors Prayer.aif\n'
                 '10 Blood Of The Kings.wma\n')
+            newer_dirname = 'Manowar - Kings Of Metal'
+            newer_dirpath = os.path.join(tmpdir, newer_dirname)
+            expected = 'Rename folder  ' + new_dirpath + '\n  ' + newer_dirpath + '\n'
+            if sys.platform == 'win32':
+                expected = expected.replace('\\', '/')
+            actual = call_kid3_cli(
+                ['-c', 'renamedir "%{artist} - %{album}" "dryrun"',
+                 new_dirpath])
+            self.assertEqual(actual, expected)
+            self.assertTrue(os.path.exists(new_dirpath))
+            self.assertFalse(os.path.exists(newer_dirpath))
+            if sys.platform == 'win32':
+                return # Rename does not work on Windows when directory is open
+            actual = call_kid3_cli(
+                ['-c', 'renamedir "%{artist} - %{album}" "rename"',
+                 new_dirpath])
+            self.assertEqual(actual, expected)
+            self.assertFalse(os.path.exists(new_dirpath))
+            self.assertTrue(os.path.exists(newer_dirpath))
 
     def test_ape_picture_and_custom_frame(self):
         with tempfile.TemporaryDirectory() as tmpdir:
@@ -1691,6 +1711,100 @@ class CliFunctionsTestCase(unittest.TestCase):
             self.assertEqual(call_kid3_cli(
                 ['-c', 'get', os.path.join(albumdir, '*.mp3')]),
                 expected)
+            expected = (
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                '  Name: 01 Schoen.mp3\n'
+                'Tag 2: ID3v2.3.0\n'
+                '  Title         Schön\n'
+                '  Artist        An Artist\n'
+                '  Album         An Album\n'
+                '  Date          2016\n'
+                '  Track Number  1\n'
+                '* Album Artist  An Artist\n'
+                'Schön_An Artist_An Album_2016_001\n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                '  Name: 01 Schoen.mp3\n'
+                'Tag 2: ID3v2.3.0\n'
+                '  Title         Schön\n'
+                '  Artist        An Artist\n'
+                '  Album         An Album\n'
+                '  Date          2016\n'
+                '  Track Number  1\n'
+                '* Album Artist  An Artist\n'
+                '01 Schoen.mp3_An Artist - 2016 - An Album_0:00_0_1_.mp3_64__44100__1_MPEG 1 Layer 3_\n'
+            )
+            actual = call_kid3_cli(
+                ['-c', 'select first',
+                 '-c', 'import tags "%{artist}" "%{albumartist}(.+)" 2',
+                 '-c', 'get',
+                 '-c', 'import tagsel "%{title}_%{artist}_%{album}_%{date}_%{track.3}"'
+                 ' "%{__return}(.+)"',
+                 '-c', 'get',
+                 '-c', 'import tagsel "%{file}_%{dirname}_%{duration}_%{seconds}_%{tracks}_%{extension}_%{bitrate}_%{vbr}_%{samplerate}_%{mode}_%{channels}_%{codec}_%{marked}" "%{__return}(.+)"',
+                 '-c', 'import tagsel "%{url};%{filepath};%{modificationdate};%{creationdate}" "%{__return}(.+)"',
+                 albumdir])
+            url_pos = actual.index('file:')
+            last_line_fields = actual[url_pos:].strip().split(';')
+            actual = actual[:url_pos]
+            self.assertEqual(actual, expected)
+            self.assertEqual(len(last_line_fields), 4)
+            if sys.platform == 'win32':
+                self.assertEqual(last_line_fields[0], 'file:' + albumdir.replace('\\', '/') + '/01 Schoen.mp3')
+                self.assertEqual(last_line_fields[1], os.path.join(albumdir, '01 Schoen.mp3').replace('\\', '/'))
+            else:
+                self.assertEqual(last_line_fields[0], 'file://' + albumdir + '/01 Schoen.mp3')
+                self.assertEqual(last_line_fields[1], os.path.join(albumdir, '01 Schoen.mp3'))
+            modification_date = datetime.datetime.fromisoformat(last_line_fields[2])
+            creation_date = datetime.datetime.fromisoformat(last_line_fields[3])
+            now = datetime.datetime.now()
+            self.assertGreaterEqual(modification_date, creation_date)
+            self.assertGreaterEqual(now, modification_date)
+            self.assertEqual(now.date(), creation_date.date())
+
+    def test_execute(self):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            path = os.path.join(tmpdir, 'test.mp3')
+            create_test_file(path)
+            if sys.platform == 'win32':
+                self.assertEqual(call_kid3_cli(
+                    ['-c', 'execute cmd /c cd',
+                    tmpdir]).strip(),
+                    tmpdir)
+            else:
+                self.assertEqual(call_kid3_cli(
+                    ['-c', 'execute pwd',
+                    tmpdir]).strip(),
+                    os.path.realpath(tmpdir))
+            script_dir = kid3_script_dir()
+            if not script_dir:
+                print('Could not find script dir', file=sys.stderr)
+                return
+            script_path = os.path.join(script_dir, 'Tag1ToAscii.qml')
+            if sys.platform == 'win32':
+                script_path = script_path.replace('\\', '/')
+            expected = (
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                '  Name: test.mp3\n'
+                'Tag 1: ID3v1.1\n'
+                '  Title  Schön\n'
+                'Tag 2: ID3v2.3.0\n'
+                '  Title  Schön\n'
+                'File: MPEG 1 Layer 3 64 kbps 44100 Hz 1 Channels\n'
+                '  Name: test.mp3\n'
+                'Tag 1: ID3v1.1\n'
+                '* Title  Schoen\n'
+                'Tag 2: ID3v2.3.0\n'
+                '  Title  Schön\n'
+            )
+            actual = call_kid3_cli(
+                ['-c', 'set title Schön 1',
+                 '-c', 'set title Schön 2',
+                 '-c', 'save',
+                 '-c', 'get all 12',
+                 '-c', 'execute @qml ' + script_path,
+                 '-c', 'get all 12',
+                 path])
+            self.assertEqual(actual, expected)
 
 
 class CliFunctionsJsonTestCase(unittest.TestCase):

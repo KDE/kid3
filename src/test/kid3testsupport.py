@@ -51,6 +51,7 @@ class Kid3ConfigFileUsingOnlyMp4v2(Kid3ConfigFile):
 
 
 _kid3_cli_path = ''
+_kid3_script_dir = None
 
 
 def kid3_cli_path():
@@ -85,6 +86,19 @@ def kid3_cli_path():
                 raise FileNotFoundError(cli_exe)
             curdir = parentdir
     return _kid3_cli_path
+
+
+def kid3_script_dir():
+    global _kid3_script_dir
+    if _kid3_script_dir is None:
+        _kid3_script_dir = ''
+        curdir = os.getcwd()
+        for base in ('../kid3/src', '../../kid3/src', 'src', '../src', '../Resources', '.'):
+            candidate = os.path.join(curdir, base, 'qml', 'script')
+            if os.path.exists(candidate):
+                _kid3_script_dir = candidate
+                break
+    return _kid3_script_dir
 
 
 def call_kid3_cli(args):
