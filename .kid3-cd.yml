@@ -176,7 +176,7 @@ kid3_windows_amd64:
   rules:
     - when: manual
       allow_failure: true
-  image: storage.kde.org/vm-images/windows-msvc2026-qt611
+  image: storage.kde.org/vm-images/windows-msvc2022-qt611
   tags:
     - VM
     - amd64
