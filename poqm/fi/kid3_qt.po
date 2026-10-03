@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-03-05 20:37+0200\n"
+"PO-Revision-Date: 2026-09-09 15:44+0300\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
 "Language: fi\n"
@@ -2640,33 +2640,24 @@ msgid "Default"
 msgstr "Oletus"
 
 #: src/core/tags/frame.cpp:76
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Track"
 msgctxt "@default|"
 msgid "Track ID"
-msgstr "Raita"
+msgstr "Raidan tunniste"
 
 #: src/core/tags/frame.cpp:77
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "Edit"
 msgctxt "@default|"
 msgid "Edition ID"
-msgstr "Muokkaa"
+msgstr "Laitoksen tunniste"
 
 #: src/core/tags/frame.cpp:78
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapter"
 msgctxt "@default|"
 msgid "Chapter ID"
-msgstr "Luku"
+msgstr "Luvun tunniste"
 
 #: src/core/tags/frame.cpp:79
 msgctxt "@default|"
 msgid "Attachment ID"
-msgstr ""
+msgstr "Liitteen tunniste"
 
 #: src/core/tags/frame.cpp:86
 msgctxt "@default|"
@@ -3505,20 +3496,14 @@ msgid "Chapters"
 msgstr "Luvut"
 
 #: src/core/tags/frame.cpp:351
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (Nero)"
-msgstr "Luvut"
+msgstr "Luvut (Nero)"
 
 #: src/core/tags/frame.cpp:352
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Chapters"
 msgctxt "@default|"
 msgid "Chapters (QT)"
-msgstr "Luvut"
+msgstr "Luvut (Qt)"
 
 #: src/core/tags/frame.cpp:353
 msgctxt "@default|"
@@ -4120,30 +4105,27 @@ msgstr "&Kuvakentän nimi:"
 #: src/gui/dialogs/configdialogpages.cpp:275
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
-msgstr ""
+msgstr "Matroska"
 
 #: src/gui/dialogs/configdialogpages.cpp:276
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
-msgstr ""
+msgstr "&Kirjoitustapa:"
 
 #: src/gui/dialogs/configdialogpages.cpp:278
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Computer"
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
-msgstr "Tietokone"
+msgstr "Tiivis"
 
 #: src/gui/dialogs/configdialogpages.cpp:279
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
-msgstr ""
+msgstr "Älä kutista"
 
 #: src/gui/dialogs/configdialogpages.cpp:280
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
-msgstr ""
+msgstr "Vältä lisäämistä"
 
 #: src/gui/dialogs/configdialogpages.cpp:292
 msgctxt "ConfigDialogPages|"
@@ -7272,20 +7254,14 @@ msgid "Remove"
 msgstr "Poista"
 
 #: src/qml/app/TagCollapsible.qml:116
-#, fuzzy
-#| msgctxt "Kid3MainWindow|"
-#| msgid "Select &All"
 msgctxt "TagCollapsible|"
 msgid "Select All"
-msgstr "V&alitse kaikki"
+msgstr "Valitse kaikki"
 
 #: src/qml/app/TagCollapsible.qml:120
-#, fuzzy
-#| msgctxt "FrameTable|"
-#| msgid "&Deselect all"
 msgctxt "TagCollapsible|"
 msgid "Deselect All"
-msgstr "P&oista kaikki valinnat"
+msgstr "Poista kaikki valinnat"
 
 #~ msgctxt "@default|"
 #~ msgid "EQUA - Equalization"
