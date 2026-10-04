@@ -456,6 +456,7 @@
           <li xml:lang="ca-valencia">MP4: corregix l'addició d'àtom que crea un àtom amb un nom en majúscules incorrecte.</li>
           <li xml:lang="cs">MP4: Opravena chyba, při které se při přidávání atomu vytvořil atom s nesprávným názvem psaným velkými písmeny.</li>
           <li xml:lang="es">MP4: Se ha corregido el error que crea un átomo con un nombre incorrecto en mayúsculas al añadirlo.</li>
+          <li xml:lang="fi">MP4: korjattu se, että atomin lisääminen luo atomin, jolla on suuraakkostettu nimi.</li>
           <li xml:lang="fr">MP4 : correction de l'ajout d'un atome, le créant avec un mauvais nom en majuscule.</li>
           <li xml:lang="it">MP4: corretto l'errore che causava l'aggiunta di un atomo con un nome in maiuscolo errato.</li>
           <li xml:lang="ka">MP4: გასწორდა ატომის დამატება ქმნიდა ატომს არასწორი დიდასოებიანი სახელით.</li>
@@ -473,6 +474,7 @@
           <li xml:lang="ca-valencia">Admet marques de temps més grans de 24 h per a capítols i lletres sincronitzades.</li>
           <li xml:lang="cs">Podpora časových značek delších než 24 hodin pro kapitoly a synchronizované texty písní.</li>
           <li xml:lang="es">Compatibilidad con marcas de tiempo superiores a 24 horas para capítulos y letras sincronizadas.</li>
+          <li xml:lang="fi">Tuetaan yli 24 t aikaleimoja luvuille ja tahdistetuille sanoituksille.</li>
           <li xml:lang="fr">Prise en charge des horodatages supérieurs à 24 heures pour les chapitres et les paroles synchronisées.</li>
           <li xml:lang="it">Supporta le marche temporali superiori a 24 ore per capitoli e testi sincronizzati.</li>
           <li xml:lang="ka">24 საათზე დიდი თავებისა და სინქრონიზებული ლირიკისთვის დროის შტამპების მხარდაჭერა.</li>
@@ -490,6 +492,7 @@
           <li xml:lang="ca-valencia">Android: construcció per a F-Droid.</li>
           <li xml:lang="cs">Android: Sestavení pro F-Droid.</li>
           <li xml:lang="es">Android: Compilación para F-Droid.</li>
+          <li xml:lang="fi">Android: kooste F-Droidille.</li>
           <li xml:lang="fr">Android : compilation pour F-Droid.</li>
           <li xml:lang="it">Android: versione per F-Droid.</li>
           <li xml:lang="ka">Android: აგება F-Droid-ისთვის.</li>
@@ -508,6 +511,7 @@
           <li xml:lang="ca-valencia">Windows: construcció creuada a Linux.</li>
           <li xml:lang="cs">Windows: Křížová kompilace na Linuxu.</li>
           <li xml:lang="es">Windows: Compilación cruzada en Linux.</li>
+          <li xml:lang="fi">Windows: ristiinkoostaminen Linuxissa.</li>
           <li xml:lang="fr">Windows : compilation croisée sous Linux.</li>
           <li xml:lang="it">Windows: compilazione incrociata su Linux.</li>
           <li xml:lang="ka">Windows: ჯვარედინი აგება Linux-ზე.</li>
@@ -556,6 +560,7 @@
           <li xml:lang="ca-valencia">Implementació de fitxers Matroska i WebM.</li>
           <li xml:lang="cs">Podpora souborů ve formátech Matroska a WebM.</li>
           <li xml:lang="es">Compatibilidad con archivos Matroska y WebM.</li>
+          <li xml:lang="fi">Matroska- ja WebM-tiedostojen tuki.</li>
           <li xml:lang="fr">Prise en charge des fichiers « Matroska » et « WebM ».</li>
           <li xml:lang="is">Bætt við stuðningi við Matroska og WebM-skrár.</li>
           <li xml:lang="it">Supporto per file Matroska e WebM.</li>
@@ -577,6 +582,7 @@
           <li xml:lang="ca-valencia">MP4: permet tant capítols QuickTime com Nero, també amb TagLib.</li>
           <li xml:lang="cs">MP4: Podporuje kapitoly QuickTime i Nero, a to i s TagLib.</li>
           <li xml:lang="es">MP4: Compatibilidad con capítulos de QuickTime y Nero, y con TagLib.</li>
+          <li xml:lang="fi">MP4: tuki sekä QuickTime- että Nero-luvuille, myös TagLibillä.</li>
           <li xml:lang="fr">MP4 : prise en charge à la fois les chapitres  »« QuickTime » et « Nero, également avec TagLib.</li>
           <li xml:lang="it">MP4: supporta sia QuickTime che Nero Chapters, oltre a TagLib.</li>
           <li xml:lang="ka">MP4: ორივე, QuickTime და Nero თავების მხარდაჭერა TagLib-ითაც.</li>
@@ -596,6 +602,7 @@
           <li xml:lang="ca-valencia">MP4: implementa STEM.</li>
           <li xml:lang="cs">MP4: Podpora STEM.</li>
           <li xml:lang="es">MP4: Compatibilidad con STEM.</li>
+          <li xml:lang="fi">MP4: STEM-tuki.</li>
           <li xml:lang="fr">MP4 : prise en charge de STEM.</li>
           <li xml:lang="it">MP4: supporto STEM.</li>
           <li xml:lang="ka">MP4: STEM-ის მხარდაჭერა.</li>
@@ -616,6 +623,7 @@
           <li xml:lang="ca-valencia">WAV, FLAC: implementa fragments iXML i BEXT.</li>
           <li xml:lang="cs">WAV, FLAC: Podpora segmentů iXML a BEXT.</li>
           <li xml:lang="es">WAV, FLAC: Compatibilidad con trozos de iXML y BEXT.</li>
+          <li xml:lang="fi">WAV, FLAC: iXML- ja BEXT-lohkotuki.</li>
           <li xml:lang="fr">WAV, FLAC : prise en charge des blocs « iXML » et « BEXT ».</li>
           <li xml:lang="it">WAV, FLAC: Supporto per i blocchi iXML e BEXT.</li>
           <li xml:lang="ka">WAV, FLAC: iXML და BEXT ფრაგმენტების მხარდაჭრეა.</li>
@@ -635,6 +643,7 @@
           <li xml:lang="ca-valencia">Android: selecciona tot/desselecciona tots els marcs.</li>
           <li xml:lang="cs">Android: Vybrat vše/zrušit výběr všech snímků.</li>
           <li xml:lang="es">Android: Seleccionar/deseleccionar todos los fotogramas.</li>
+          <li xml:lang="fi">Android: kaikkien kehysten valinta/valinnan poisto.</li>
           <li xml:lang="fr">Android : tout sélectionner / désélectionner toutes les trames.</li>
           <li xml:lang="it">Android: seleziona tutti i frame/deseleziona tutti i frame.</li>
           <li xml:lang="ka">Android: ყველა კადრის მონიშვნა/მონიშვნის გაუქმება.</li>
@@ -653,6 +662,7 @@
           <li xml:lang="ca-valencia">Android: importa/exporta capítols i lletres sincronitzades com a fitxers LRC.</li>
           <li xml:lang="cs">Android: Import/export kapitol a synchronizovaných textů písní ve formátu LRC.</li>
           <li xml:lang="es">Android: Importación/exportación de capítulos y letras sincronizadas como archivos LRC.</li>
+          <li xml:lang="fi">Android: lukujen ja tahdistettujen sanoitusten tuonti ja vienti LRC-tiedostoista/tiedostoihin.</li>
           <li xml:lang="fr">Android : importation / exportation de chapitres et paroles synchronisées dans le format de fichiers « LRC ».</li>
           <li xml:lang="it">Android: importazione/esportazione di capitoli e testi sincronizzati come file LRC.</li>
           <li xml:lang="ka">Android: თავებისა და სინქრონიზებული ლირიკის შემოტანა/გატანა LRC ფაილების სახით.</li>
@@ -695,6 +705,7 @@
           <li xml:lang="ca-valencia">Ha millorat el rendiment en guardar.</li>
           <li xml:lang="cs">Zlepšený výkon při ukládání.</li>
           <li xml:lang="es">Mejora de rendimiento al guardar.</li>
+          <li xml:lang="fi">Parannettu tallennussuorituskyky.</li>
           <li xml:lang="fr">Amélioration des performances d'enregistrement.</li>
           <li xml:lang="it">Prestazioni di salvataggio migliorate.</li>
           <li xml:lang="ka">გაუმჯობესდა შენახვის წარმადობა.</li>
@@ -714,6 +725,7 @@
           <li xml:lang="ca-valencia">macOS: joc d'icones coherents amb el mode fosc.</li>
           <li xml:lang="cs">macOS: Sada ikon přizpůsobená tmavému režimu.</li>
           <li xml:lang="es">macOS: Conjunto de iconos consistente con el modo oscuro.</li>
+          <li xml:lang="fi">macOS: yhdenmukainen kuvakkeisto tummassa tilassa.</li>
           <li xml:lang="fr">macOS : ensemble d'icônes cohérent avec le mode sombre.</li>
           <li xml:lang="it">macOS: insieme di icone coerente con la modalità scura.</li>
           <li xml:lang="ka">macOS: უცვლელი ხატულების ნაკრები მუქ რეჟიმში.</li>
@@ -732,6 +744,7 @@
           <li xml:lang="ca-valencia">Exporteu cap a CSV, JSON: exporta només les carpetes seleccionades.</li>
           <li xml:lang="cs">Export do CSV, JSON: Exportovat pouze vybrané složky.</li>
           <li xml:lang="es">Exportación CSV, JSON: Exportar solo las carpetas seleccionadas.</li>
+          <li xml:lang="fi">CSV-, JSON-vienti: viedään vain valitut kansiot.</li>
           <li xml:lang="fr">Exportation « CSV », « JSON » : exportation que des dossiers sélectionnés.</li>
           <li xml:lang="it">Esporta in formato CSV e JSON: esporta solo le cartelle selezionate.</li>
           <li xml:lang="ka">CSV-ის და JSON-ის გატანა: მხოლოდ, მონიშნული საქაღალდეების გატანა.</li>
@@ -777,6 +790,7 @@
           <li xml:lang="cs">Opraven import z Discogs.</li>
           <li xml:lang="de">Fehler beim Importieren von Discogs behoben.</li>
           <li xml:lang="es">Se ha corregido la importación de Discogs.</li>
+          <li xml:lang="fi">Korjattu Discogs-tuonti.</li>
           <li xml:lang="fr">Correction de l'importation pour Discogs.</li>
           <li xml:lang="it">Risolto il problema di importazione da Discogs.</li>
           <li xml:lang="ka">გასწორდა Discogs-ის შემოტანა.</li>
@@ -795,6 +809,7 @@
           <li xml:lang="ca-valencia">Té en compte l'idioma configurat al manual.</li>
           <li xml:lang="cs">Zohledněn jazyk, ve kterém je příručka nastavena.</li>
           <li xml:lang="es">Tener en cuenta el idioma configurado para el manual.</li>
+          <li xml:lang="fi">Harkitaan käsikirjaan asetettu kieltä.</li>
           <li xml:lang="fr">Prendre en compte la langue configurée pour le manuel.</li>
           <li xml:lang="it">Considera la lingua configurata per il manuale.</li>
           <li xml:lang="ka">მორგებული ენის გათვალისწინება სახელმძღვანელოსთვის.</li>
@@ -812,6 +827,7 @@
           <li xml:lang="ca-valencia">Correcció: importació de fitxers LRC (lletres sincronitzades, capítols) amb valors prompte.</li>
           <li xml:lang="cs">Oprava: Import souborů LRC (synchronizované texty písní, kapitoly) s časovými hodnotami.</li>
           <li xml:lang="es">Corrección: Importación de archivos LRC (letras sincronizadas, capítulos) con valores horarios.</li>
+          <li xml:lang="fi">Korjaus: tuntiarvollisten LRC-tiedostojen tuonti (tahdistetut sanoitukset, luvut).</li>
           <li xml:lang="fr">Correction : importation de fichiers « LRC » (Paroles synchronisées, chapitres) avec des valeurs horaires.</li>
           <li xml:lang="it">Correzione: Importazione dei file LRC (testi sincronizzati, capitoli) con valori orari.</li>
           <li xml:lang="ka">გასწორდა: LRC ფაილების (სინქრონიზებული ლირიკების და თავების) შემოტანა საათის მნიშვნელობებით.</li>
@@ -829,6 +845,7 @@
           <li xml:lang="ca-valencia">Corregix el comportament incorrecte de la llista de fitxers quan es canvien els noms de molts fitxers i la llista està ordenada en ordre descendent.</li>
           <li xml:lang="cs">Opraveno nesprávné chování seznamu souborů při přejmenovávání většího počtu souborů, pokud je seznam seřazen sestupně.</li>
           <li xml:lang="es">Se ha corregido el comportamiento de la lista de archivos incompletos cuando se cambia el nombre de muchos archivos y la lista se ordena de forma descendente.</li>
+          <li xml:lang="fi">Korjattu viallinen tiedostoluettelotoiminta muutettaessa usean tiedoston nimiä lajittelun ollessa laskeva.</li>
           <li xml:lang="fr">Correction du comportement erroné de la liste de fichiers lors du renommage de nombreux fichiers lorsque la liste est triée par ordre décroissant.</li>
           <li xml:lang="it">Risolto il problema di visualizzazione dell'elenco dei file quando si rinominano più file; l'elenco è ordinato in ordine decrescente.</li>
           <li xml:lang="ka">გასწორდა გაფუჭებული ფაილების სიის ქცევა ერთზე მეტი ფაილის სახელის გადარქმევისას და სია დალაგებულია დაღმავალი მიმდევრობით.</li>
@@ -846,6 +863,7 @@
           <li xml:lang="ca-valencia">Corregix la informació de progrés en guardar els fitxers.</li>
           <li xml:lang="cs">Opraveno hlášení o průběhu při ukládání souborů.</li>
           <li xml:lang="es">Se ha corregido la información de avance al guardar archivos.</li>
+          <li xml:lang="fi">Korjattu etenemistieto tiedostoja tallennettaessa.</li>
           <li xml:lang="fr">Correction du rapport d'avancement lors de l'enregistrement de fichiers.</li>
           <li xml:lang="it">Corregge il messaggio di avanzamento del salvataggio dei file.</li>
           <li xml:lang="ka">გასწორდა მიმდინარეობს ანგარიში ფაილების შენახვისას.</li>
@@ -863,6 +881,7 @@
           <li xml:lang="ca-valencia">ID3v2: permet valors amb diverses cadenes en els marcs TXXX.</li>
           <li xml:lang="cs">ID3v2: Podpora hodnot s více řetězci v rámcích TXXX.</li>
           <li xml:lang="es">ID3v2: Compatibilidad con valores con múltiples cadenas en fotogramas TXXX.</li>
+          <li xml:lang="fi">ID3v2: useampimerkkijonoisten arvojen tuki TXXX-kehyksissä.</li>
           <li xml:lang="fr">ID3v2 : prise en charge des valeurs avec plusieurs chaines dans les trames « TXXX ».</li>
           <li xml:lang="it">ID3v2: supporta i valori con stringhe multiple nei frame TXXX.</li>
           <li xml:lang="ka">ID3v2: ერთზე მეტი სტრიქონის შემცველი მნიშვნელობების მხარდაჭერა TXXX კადრებში.</li>
@@ -880,6 +899,7 @@
           <li xml:lang="ca-valencia">Windows: permet àtoms de 64 bits de MP4 a Windows.</li>
           <li xml:lang="cs">Windows: Podpora 64bitových atomů MP4 ve Windows.</li>
           <li xml:lang="es">Windows: Compatibilidad con átomos MP4 de 64 bits en Windows.</li>
+          <li xml:lang="fi">Windows: 64-bittinen MP4-atomituki Windowsissa.</li>
           <li xml:lang="fr">Windows : prise en charge des atomes « MP4 » 64 bits sous Windows.</li>
           <li xml:lang="it">Windows: supporto per MP4 a 64 bit su Windows.</li>
           <li xml:lang="ka">Windows: MP4-ის 64-ბიტიანი ატომების მხარდაჭერა Windows-ზე.</li>
