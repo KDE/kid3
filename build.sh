@@ -213,7 +213,7 @@ download_and_extract_qt() {
           done
           ;;
       esac
-      for fn in *.7z; do 7za x $fn; done
+      for fn in *.7z; do $EXTRACT7Z $fn; done
       rm -f *.7z
     elif test $qt_version = "6.11.1"; then
       case "$_qtarch" in
