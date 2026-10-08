@@ -320,7 +320,7 @@
   <update_contact>ufleisch@users.sourceforge.net</update_contact>
   <translation type="qt">kid3/translations/kid3</translation>
   <releases>
-    <release version="3.10.2" date="2026-09-30">
+    <release version="3.10.2" date="2026-10-08">
       <description>
         <p>Fixed</p>
         <p xml:lang="ar">أُصلح</p>
