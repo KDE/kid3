@@ -311,6 +311,22 @@ download_and_extract_qt() {
           done
           ;;
       esac
+    elif test $qt_version = "6.12.0"; then
+      case "$_qtarch" in
+        macos)
+          for m in qttranslations qttools qtsvg qtdeclarative qtbase; do
+            fn=6.12.0-0-202609280346${m}-MacOS-MacOS_26-Clang-MacOS-MacOS_26-X86_64-ARM64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_6120/qt6_6120/qt.qt6.6120.clang_64/$fn
+          done
+          for m in qtmultimedia qtimageformats; do
+            fn=qt.qt6.6120.addons.${m}.clang_64/6.12.0-0-202609280346${m}-MacOS-MacOS_26-Clang-MacOS-MacOS_26-X86_64-ARM64.7z
+            $DOWNLOAD https://download.qt.io/online/qtsdkrepository/mac_x64/desktop/qt6_6120/qt6_6120/$fn
+          done
+          mkdir -p 6.12.0/macos
+          (cd 6.12.0/macos && for fn in ../../*.7z; do $EXTRACT7Z $fn; done)
+          rm -f *.7z
+          ;;
+      esac
     fi
     cd -
   fi
