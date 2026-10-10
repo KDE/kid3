@@ -30,6 +30,8 @@
 #include <QLineEdit>
 #include <QPainter>
 #include <QMouseEvent>
+#include <QKeyEvent>
+#include <QTableView>
 #include "frametablemodel.h"
 #include "genremodel.h"
 #include "formatconfig.h"
@@ -565,4 +567,75 @@ void FrameItemDelegate::commitAndCloseEditor()
     emit commitData(editor);
     emit closeEditor(editor);
   }
+}
+
+/**
+ * Event filter function, lose focus when pressing TAB in first or last cell.
+ *
+ * @param obj watched object
+ * @param event event for object
+ *
+ * @return true if event is filtered.
+ */
+bool FrameItemDelegate::eventFilter(QObject* obj, QEvent* event)
+{
+  if (event->type() == QEvent::KeyPress) {
+    const auto keyEvent = static_cast<QKeyEvent*>(event);
+    if (const auto editorWidget = qobject_cast<QWidget*>(obj)) {
+      // The parent of the editor is the view's viewport.
+      // The parent of the viewport is the actual QAbstractItemView.
+      const QWidget* viewport = editorWidget->parentWidget();
+      QAbstractItemView* itemView = viewport
+        ? qobject_cast<QAbstractItemView*>(viewport->parentWidget()) : nullptr;
+      if (itemView && itemView->model()) {
+        const QAbstractItemModel* model = itemView->model();
+        const QModelIndex current = itemView->currentIndex();
+
+        int lastRow = model->rowCount() - 1;
+        int lastCol = model->columnCount() - 1;
+
+        // This handles the case of TAB pressed in an open editor in the last
+        // cell, which will move to the first cell and vice versa.
+        // The case without open editor widgets is handled in
+        // FrameTable::keyPressEvent().
+        if (keyEvent->key() == Qt::Key_Tab && keyEvent->modifiers() == Qt::NoModifier) {
+          if (current.row() == lastRow && current.column() == lastCol) {
+            // Safe data flush back to Kid3's configuration structure
+            emit commitData(editorWidget);
+            emit closeEditor(editorWidget, QAbstractItemDelegate::NoHint);
+
+            // Traverse the true top-level window focus chain past the table view
+            QWidget* nextWidget = itemView->nextInFocusChain();
+            while (nextWidget && (nextWidget == itemView ||
+                   nextWidget == viewport || !nextWidget->isEnabled() ||
+                   nextWidget->focusPolicy() == Qt::NoFocus)) {
+              nextWidget = nextWidget->nextInFocusChain();
+            }
+            if (nextWidget) {
+              nextWidget->setFocus(Qt::TabFocusReason);
+              return true; // Halt execution
+            }
+          }
+        } else if (keyEvent->key() == Qt::Key_Backtab) {
+          if (current.row() == 0 && current.column() == 0) {
+            emit commitData(editorWidget);
+            emit closeEditor(editorWidget, QAbstractItemDelegate::NoHint);
+
+            // Traverse the top-level window focus chain backward before the table view
+            QWidget* prevWidget = itemView->previousInFocusChain();
+            while (prevWidget && (prevWidget == itemView ||
+                   prevWidget == viewport || !prevWidget->isEnabled() ||
+                   prevWidget->focusPolicy() == Qt::NoFocus)) {
+              prevWidget = prevWidget->previousInFocusChain();
+            }
+            if (prevWidget) {
+              prevWidget->setFocus(Qt::TabFocusReason);
+              return true; // Halt execution
+            }
+          }
+        }
+      }
+    }
+  }
+  return QItemDelegate::eventFilter(obj, event);
 }

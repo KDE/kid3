@@ -30,6 +30,7 @@
 #include <QHeaderView>
 #include <QMenu>
 #include <QChildEvent>
+#include <QKeyEvent>
 #include <QLineEdit>
 #include "frametablemodel.h"
 #include "frameitemdelegate.h"
@@ -115,6 +116,56 @@ bool FrameTable::eventFilter(QObject* watched, QEvent* event)
     }
   }
   return QTableView::eventFilter(watched, event);
+}
+
+/**
+ * Handle key events, lose focus when pressing TAB in first or last cell.
+ * @param event key event
+ */
+void FrameTable::keyPressEvent(QKeyEvent* event)
+{
+  const QModelIndex current = currentIndex();
+  if (const QAbstractItemModel* tableModel = model();
+      current.isValid() && tableModel) {
+    int lastRow = tableModel->rowCount() - 1;
+    int lastCol = tableModel->columnCount() - 1;
+
+    // Avoid being caught in the table because pressing TAB in the last cell
+    // moves to the first cell and vice versa. Catch tab key events in this case
+    // and prevent further processing.
+    // This does not work if an editor is open in the cell, which is the normal
+    // case in the last frame table cell. Then the table does not receive the
+    // key press event. It has to be handled before in
+    // FrameItemDelegate::eventFilter().
+    if (event->key() == Qt::Key_Tab && event->modifiers() == Qt::NoModifier) {
+      if (current.row() == lastRow && current.column() == lastCol) {
+        QWidget *nextWidget = this->nextInFocusChain();
+        while (nextWidget && (nextWidget == this || !nextWidget->isEnabled() ||
+               nextWidget->focusPolicy() == Qt::NoFocus)) {
+          nextWidget = nextWidget->nextInFocusChain();
+        }
+        if (nextWidget) {
+          nextWidget->setFocus(Qt::TabFocusReason);
+          event->accept();
+          return;
+        }
+      }
+    } else if (event->key() == Qt::Key_Backtab) {
+      if (current.row() == 0 && current.column() == 0) {
+        QWidget *prevWidget = this->previousInFocusChain();
+        while (prevWidget && (prevWidget == this || !prevWidget->isEnabled() ||
+               prevWidget->focusPolicy() == Qt::NoFocus)) {
+          prevWidget = prevWidget->previousInFocusChain();
+        }
+        if (prevWidget) {
+          prevWidget->setFocus(Qt::TabFocusReason);
+          event->accept();
+          return;
+        }
+      }
+    }
+  }
+  QTableView::keyPressEvent(event);
 }
 
 /**

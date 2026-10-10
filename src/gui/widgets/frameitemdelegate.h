@@ -93,6 +93,17 @@ public:
   void setModelData(
     QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const override;
 
+protected:
+  /**
+   * Event filter function, lose focus when pressing TAB in first or last cell.
+   *
+   * @param obj watched object
+   * @param event event for object
+   *
+   * @return true if event is filtered.
+   */
+  bool eventFilter(QObject* obj, QEvent* event) override;
+
 private slots:
   /**
    * Format text if enabled.

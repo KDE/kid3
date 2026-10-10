@@ -88,6 +88,13 @@ public:
    */
   void setValueSelection(int row, int start, int length);
 
+protected:
+  /**
+   * Handle key events, lose focus when pressing TAB in first or last cell.
+   * @param event key event
+   */
+  void keyPressEvent(QKeyEvent* event) override;
+
 private slots:
   /**
    * Display context menu.
