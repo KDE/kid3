@@ -385,7 +385,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   fileLayout->addWidget(m_formatComboBox, 1, 1);
 
   setTabOrder(m_fileListBox, m_dirListBox);
-  setTabOrder(m_dirListBox, m_nameLineEdit);
+  setTabOrder(m_dirListBox, m_fileButton);
+  setTabOrder(m_fileButton, m_nameLineEdit);
   setTabOrder(m_nameLineEdit, m_formatComboBox);
   setTabOrder(m_formatComboBox, m_formatFromFilenameComboBox);
 
@@ -450,6 +451,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     tagButtonLayout->addWidget(m_tagButton[tagNr]);
     tagButtonLayout->addWidget(m_tagLabel[tagNr]);
     rightHalfLayout->addLayout(tagButtonLayout);
+    setTabOrder(tabWidget, m_tagButton[tagNr]);
 
     m_tagWidget[tagNr] = new QWidget(m_rightHalfVBox);
     if (tagNr == Frame::Tag_Id3v1) {
@@ -465,6 +467,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     m_frameTable[tagNr]->setSelectionModel(m_app->getFramesSelectionModel(tagNr));
     idHBoxLayout->addWidget(m_frameTable[tagNr], tagNr == Frame::Tag_Id3v1 ? 100 : 0);
     m_tagLabel[tagNr]->setBuddy(m_frameTable[tagNr]);
+    setTabOrder(m_tagButton[tagNr], m_frameTable[tagNr]);
+    tabWidget = m_frameTable[tagNr];
 
     auto buttonsVBoxLayout = new QVBoxLayout;
     idHBoxLayout->addLayout(buttonsVBoxLayout);
@@ -481,6 +485,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::copyToOtherTag);
       buttonsVBoxLayout->addWidget(m_id3PushButton[tagNr]);
       setTabOrder(tabWidget, m_id3PushButton[tagNr]);
+      tabWidget = m_id3PushButton[tagNr];
 
       auto copyPushButton = new QPushButton(tr("Copy"),
                                             m_tagWidget[tagNr]);
@@ -592,11 +597,6 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   }
 
   rightHalfLayout->insertStretch(-1);
-
-  FOR_ALL_TAGS(tagNr) {
-    setTabOrder(tabWidget, m_frameTable[tagNr]);
-    tabWidget = m_frameTable[tagNr];
-  }
 
   auto sectionActions = new SectionActions(SectionActions::Navigation,
                                            m_fileListBox);

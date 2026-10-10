@@ -1572,10 +1572,9 @@ void EditFrameFieldsDialog::setFrame(const Frame& frame,
     m_valueField.m_value = QString();
   }
 
-  QListIterator it(m_fieldcontrols);
-  it.toBack();
-  while (it.hasPrevious()) {
-    m_vlayout->insertWidget(0, it.previous()->createWidget(this));
+  int idx = 0;
+  for (auto ctl : m_fieldcontrols) {
+    m_vlayout->insertWidget(idx++, ctl->createWidget(this));
   }
 }
 

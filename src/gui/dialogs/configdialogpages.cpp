@@ -198,25 +198,21 @@ QWidget* ConfigDialogPages::createTagsPage()
   m_totalNumTracksCheckBox = new QCheckBox(
         tr("Use &track/total number of tracks format"), v2GroupBox);
   v2GroupBoxLayout->addWidget(m_totalNumTracksCheckBox, 0, 0, 1, 2);
-  auto trackNumberDigitsLabel = new QLabel(
-        tr("Track number &digits:"), v2GroupBox);
-  m_trackNumberDigitsSpinBox = new QSpinBox(v2GroupBox);
-  m_trackNumberDigitsSpinBox->setMaximum(5);
   m_genreNotNumericCheckBox = new QCheckBox(
         tr("&Genre as text instead of numeric string"), v2GroupBox);
   m_lowercaseId3ChunkCheckBox = new QCheckBox(
         tr("&WAV files with lowercase id3 chunk"), v2GroupBox);
   m_markStandardViolationsCheckBox =
       new QCheckBox(tr("Mar&k standard violations"));
+  v2GroupBoxLayout->addWidget(m_genreNotNumericCheckBox, 1, 0, 1, 2);
+  v2GroupBoxLayout->addWidget(m_lowercaseId3ChunkCheckBox, 2, 0, 1, 2);
+  v2GroupBoxLayout->addWidget(m_markStandardViolationsCheckBox, 3, 0, 1, 2);
   auto textEncodingLabel = new QLabel(tr("Text &encoding:"), v2GroupBox);
   m_textEncodingComboBox = new QComboBox(v2GroupBox);
   m_textEncodingComboBox->addItems(TagConfig::getTextEncodingNames());
   m_textEncodingComboBox->setSizePolicy(
         QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
   textEncodingLabel->setBuddy(m_textEncodingComboBox);
-  v2GroupBoxLayout->addWidget(m_genreNotNumericCheckBox, 1, 0, 1, 2);
-  v2GroupBoxLayout->addWidget(m_lowercaseId3ChunkCheckBox, 2, 0, 1, 2);
-  v2GroupBoxLayout->addWidget(m_markStandardViolationsCheckBox, 3, 0, 1, 2);
   v2GroupBoxLayout->addWidget(textEncodingLabel, 4, 0);
   v2GroupBoxLayout->addWidget(m_textEncodingComboBox, 4, 1);
   const TagConfig& tagCfg = TagConfig::instance();
@@ -242,6 +238,10 @@ QWidget* ConfigDialogPages::createTagsPage()
     id3v2VersionLabel->hide();
     m_id3v2VersionComboBox->hide();
   }
+  auto trackNumberDigitsLabel = new QLabel(
+        tr("Track number &digits:"), v2GroupBox);
+  m_trackNumberDigitsSpinBox = new QSpinBox(v2GroupBox);
+  m_trackNumberDigitsSpinBox->setMaximum(5);
   trackNumberDigitsLabel->setBuddy(m_trackNumberDigitsSpinBox);
   v2GroupBoxLayout->addWidget(trackNumberDigitsLabel, 6, 0);
   v2GroupBoxLayout->addWidget(m_trackNumberDigitsSpinBox, 6, 1);
