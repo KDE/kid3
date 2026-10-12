@@ -152,6 +152,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   m_seekSlider = new QSlider(Qt::Horizontal, splitter);
   m_seekSlider->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
   m_seekSlider->setMinimum(0);
+  m_seekSlider->setAccessibleName(tr("Seek to position"));
   m_duration = mediaPlayer->duration();
   // Setting a maximum of 0 crashes with Qt 5.4.0 on Mac OS X.
   if (int maximum = m_duration / 1000; maximum > 0) {
@@ -190,6 +191,14 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   addWidget(m_volumeSlider);
   addWidget(m_timeLcd);
   addAction(closeAction);
+
+  // Make the actions accessible
+  for (auto action : {m_playOrPauseAction, m_stopAction, m_previousAction,
+                      m_nextAction, m_muteAction, closeAction}) {
+    if (auto widget = widgetForAction(action)) {
+      widget->setFocusPolicy(Qt::StrongFocus);
+    }
+  }
 
 #if QT_VERSION >= 0x060200
   connect(mediaPlayer, &QMediaPlayer::playbackStateChanged,

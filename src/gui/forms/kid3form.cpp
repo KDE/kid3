@@ -266,6 +266,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     m_iconProvider(new WidgetFileDecorationProvider)
 {
   setObjectName(QLatin1String("Kid3Form"));
+  setAccessibleName(tr("Main Form"));
 
   FOR_ALL_TAGS(tagNr) {
     m_tagContext[tagNr] = new Kid3FormTagContext(this, tagNr);
@@ -310,6 +311,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_dirListBox->setModel(m_app->getDirProxyModel());
   m_dirListBox->setSelectionModel(m_app->getDirSelectionModel());
   m_dirListBox->setMaxNumColumns(TaggedFileSystemModel::NUM_FILESYSTEM_COLUMNS);
+  m_fileListBox->setAccessibleName(tr("File list"));
+  m_dirListBox->setAccessibleName(tr("Folder list"));
   connect(m_fileListBox, &QAbstractItemView::activated,
           this, &Kid3Form::fileActivated);
   connect(m_dirListBox, &QAbstractItemView::activated, this,
@@ -336,6 +339,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_fileButton = new QToolButton(m_rightHalfVBox);
   m_fileButton->setIcon(*s_collapsePixmap);
   m_fileButton->setAutoRaise(true);
+  m_fileButton->setAccessibleName(tr("Collapse or expand section 'File'"));
 #ifdef Q_OS_MAC
   m_fileButton->setStyleSheet(QLatin1String("border: 0;"));
 #endif
@@ -370,6 +374,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
         QComboBox::AdjustToMinimumContentsLengthWithIcon);
   m_formatComboBox->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
   m_formatComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
+  m_formatComboBox->setAccessibleName(tr("To filename format"));
   connect(m_formatComboBox, &QComboBox::editTextChanged,
           this, &Kid3Form::onFormatEditTextChanged);
   m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
@@ -379,11 +384,14 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_formatFromFilenameComboBox->setSizePolicy(
         QSizePolicy::Expanding, QSizePolicy::Fixed);
   m_formatFromFilenameComboBox->setToolTip(FrameFormatReplacer::getToolTip());
+  m_formatFromFilenameComboBox->setAccessibleName(tr("From filename format"));
   connect(m_formatFromFilenameComboBox, &QComboBox::editTextChanged,
           this, &Kid3Form::onFormatFromFilenameEditTextChanged);
 
   fileLayout->addWidget(m_formatComboBox, 1, 1);
+  formatLabel->setBuddy(m_formatComboBox);
 
+  m_fileListBox->setFocus(Qt::ActiveWindowFocusReason);
   setTabOrder(m_fileListBox, m_dirListBox);
   setTabOrder(m_dirListBox, m_fileButton);
   setTabOrder(m_fileButton, m_nameLineEdit);
@@ -400,7 +408,9 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       QString tagStr = Frame::tagNumberToString(tagNr);
       m_fnButton[tagNr] = new QPushButton(tr("Tag %1").arg(tagStr),
                                           m_fileWidget);
-      m_fnButton[tagNr]->setToolTip(tr("Filename from Tag %1").arg(tagStr));
+      const QString toolTip = tr("Filename from Tag %1").arg(tagStr);
+      m_fnButton[tagNr]->setToolTip(toolTip);
+      m_fnButton[tagNr]->setAccessibleName(toolTip);
       connect(m_fnButton[tagNr], &QAbstractButton::clicked,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::getFilenameFromTags);
       fileLayout->addWidget(m_fnButton[tagNr], 1, column++);
@@ -416,6 +426,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   fileLayout->addWidget(formatFromFilenameLabel, 2, 0);
 
   fileLayout->addWidget(m_formatFromFilenameComboBox, 2, 1);
+  formatFromFilenameLabel->setBuddy(m_formatFromFilenameComboBox);
 
   auto toTagLabel = new QLabel(tr("To:"), m_fileWidget);
   fileLayout->addWidget(toTagLabel, 2, 2);
@@ -425,7 +436,9 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       QString tagStr = Frame::tagNumberToString(tagNr);
       m_toTagButton[tagNr] =
         new QPushButton(tr("Tag %1").arg(tagStr), m_fileWidget);
-      m_toTagButton[tagNr]->setToolTip(tr("Tag %1 from Filename").arg(tagStr));
+      const QString toolTip = tr("Tag %1 from Filename").arg(tagStr);
+      m_toTagButton[tagNr]->setToolTip(toolTip);
+      m_toTagButton[tagNr]->setAccessibleName(toolTip);
       connect(m_toTagButton[tagNr], &QAbstractButton::clicked,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::getTagsFromFilename);
       fileLayout->addWidget(m_toTagButton[tagNr], 2, column++);
@@ -437,16 +450,18 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   }
 
   FOR_ALL_TAGS(tagNr) {
+    QString tagStr = Frame::tagNumberToString(tagNr);
     m_tagButton[tagNr] = new QToolButton(m_rightHalfVBox);
     m_tagButton[tagNr]->setIcon(*s_collapsePixmap);
     m_tagButton[tagNr]->setAutoRaise(true);
+    m_tagButton[tagNr]->setAccessibleName(tr("Collapse or expand section 'Tag %1'").arg(tagStr));
 #ifdef Q_OS_MAC
     m_tagButton[tagNr]->setStyleSheet(QLatin1String("border: 0;"));
 #endif
     connect(m_tagButton[tagNr], &QAbstractButton::clicked,
             tag(tagNr), &Kid3FormTagContext::showHideTag);
     m_tagLabel[tagNr] = new QLabel(
-          tr("Tag &%1").arg(Frame::tagNumberToString(tagNr)), m_rightHalfVBox);
+          tr("Tag &%1").arg(tagStr), m_rightHalfVBox);
     auto tagButtonLayout = new QHBoxLayout;
     tagButtonLayout->addWidget(m_tagButton[tagNr]);
     tagButtonLayout->addWidget(m_tagLabel[tagNr]);
@@ -465,6 +480,8 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     m_frameTable[tagNr] = new FrameTable(
           frameModel, m_app->genreModel(tagNr), m_tagWidget[tagNr]);
     m_frameTable[tagNr]->setSelectionModel(m_app->getFramesSelectionModel(tagNr));
+    m_frameTable[tagNr]->setAccessibleName(
+          tr("Tag %1").arg(tagStr));
     idHBoxLayout->addWidget(m_frameTable[tagNr], tagNr == Frame::Tag_Id3v1 ? 100 : 0);
     m_tagLabel[tagNr]->setBuddy(m_frameTable[tagNr]);
     setTabOrder(m_tagButton[tagNr], m_frameTable[tagNr]);
@@ -485,7 +502,6 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::copyToOtherTag);
       buttonsVBoxLayout->addWidget(m_id3PushButton[tagNr]);
       setTabOrder(tabWidget, m_id3PushButton[tagNr]);
-      tabWidget = m_id3PushButton[tagNr];
 
       auto copyPushButton = new QPushButton(tr("Copy"),
                                             m_tagWidget[tagNr]);

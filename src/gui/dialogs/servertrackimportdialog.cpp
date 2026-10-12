@@ -100,7 +100,7 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   m_albumTable = new QTableView(this);
   m_albumTable->setModel(m_albumTableModel);
   m_albumTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
-  m_albumTable->setSelectionMode(QAbstractItemView::NoSelection);
+  m_albumTable->setSelectionMode(QAbstractItemView::SingleSelection);
   m_albumTable->resizeColumnsToContents();
   m_albumTable->setItemDelegateForColumn(0, new ComboBoxDelegate(this));
   if (QAccessible::isActive()) {

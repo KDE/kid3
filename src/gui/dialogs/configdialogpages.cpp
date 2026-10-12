@@ -660,7 +660,7 @@ QWidget* ConfigDialogPages::createPluginsPage()
   auto pluginsGroupBox = new QGroupBox(tr("A&vailable Plugins"));
   auto pluginsLayout = new QVBoxLayout(pluginsGroupBox);
   auto pluginsListView = new QListView;
-  pluginsListView->setSelectionMode(QAbstractItemView::NoSelection);
+  pluginsListView->setAccessibleName(tr("Available Plugins"));
   m_enabledPluginsModel = new CheckableStringListModel(pluginsGroupBox);
   pluginsListView->setModel(m_enabledPluginsModel);
   pluginsLayout->addWidget(pluginsListView);

@@ -96,6 +96,13 @@ QVariant ShortcutsModel::data(const QModelIndex& index, int role) const
             if (role == Qt::DisplayRole) {
               return shortcutItem.actionText();
             }
+            if (role == Qt::AccessibleDescriptionRole) {
+              const QString keyText = QKeySequence::fromString(
+                    shortcutItem.activeShortcut(), QKeySequence::PortableText)
+                  .toString(QKeySequence::NativeText);
+              return tr("Shortcut: %1. Press Return or F2 to edit.")
+                  .arg(keyText.isEmpty() ? tr("none") : keyText);
+            }
             if (role == Qt::FontRole) {
               if (shortcutItem.isCustomShortcutActive()) {
                 QFont font;
@@ -111,6 +118,9 @@ QVariant ShortcutsModel::data(const QModelIndex& index, int role) const
             }
             if (role == Qt::ToolTipRole) {
               return tr("Press F2 or double click to edit cell contents.");
+            }
+            if (role == Qt::AccessibleDescriptionRole) {
+              return tr("Press Return or F2 to edit.");
             }
           }
         }

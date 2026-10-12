@@ -512,6 +512,11 @@ QWidget* FrameItemDelegate::createEditor(
 void FrameItemDelegate::setEditorData(
   QWidget* editor, const QModelIndex& index) const
 {
+  if (editor && editor->accessibleName().isEmpty() &&
+      index.column() == FrameTableModel::CI_Value) {
+    editor->setAccessibleName(
+          index.data(FrameTableModel::NameRole).toString());
+  }
   if (index.row() >= 0 && index.column() == FrameTableModel::CI_Value &&
       index.data(FrameTableModel::FrameTypeRole).toInt() == Frame::FT_Rating) {
     if (auto starEditor = qobject_cast<StarEditor*>(editor)) {

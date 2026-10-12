@@ -27,10 +27,12 @@
 #include "shortcutsdelegate.h"
 
 #include <QToolButton>
+#include <QApplication>
 #include <QLineEdit>
 #include <QHBoxLayout>
 #include <QKeyEvent>
 #include <QKeySequenceEdit>
+#include <QAbstractItemView>
 
 /**
  * Constructor.
@@ -58,8 +60,6 @@ QWidget* ShortcutsDelegate::createEditor(
     editor = shortcutsEditor;
     connect(shortcutsEditor, &ShortcutsDelegateEditor::clearClicked,
             this, &ShortcutsDelegate::clearAndCloseEditor);
-    connect(shortcutsEditor, &ShortcutsDelegateEditor::clearClicked,
-            this, &ShortcutsDelegate::clearAndCloseEditor);
     connect(shortcutsEditor, &ShortcutsDelegateEditor::resetClicked,
             this, &ShortcutsDelegate::resetToDefault);
     connect(shortcutsEditor, &ShortcutsDelegateEditor::valueEntered,
@@ -77,7 +77,7 @@ void ShortcutsDelegate::resetToDefault()
       qobject_cast<ShortcutsDelegateEditor*>(sender())) {
     m_resetFlag = true;
     emit commitData(editor);
-    emit closeEditor(editor);
+    closeEditorKeepingFocus(editor);
   }
 }
 
@@ -89,7 +89,7 @@ void ShortcutsDelegate::commitAndCloseEditor()
   if (auto editor =
       qobject_cast<ShortcutsDelegateEditor*>(sender())) {
     emit commitData(editor);
-    emit closeEditor(editor);
+    closeEditorKeepingFocus(editor);
   }
 }
 
@@ -102,8 +102,30 @@ void ShortcutsDelegate::clearAndCloseEditor()
       qobject_cast<ShortcutsDelegateEditor*>(sender())) {
     editor->getEditor()->clear();
     emit commitData(editor);
-    emit closeEditor(editor);
+    closeEditorKeepingFocus(editor);
   }
+}
+
+/**
+ * Close editor, keeping the focus on the item view.
+ * @param editor editor widget
+ */
+void ShortcutsDelegate::closeEditorKeepingFocus(ShortcutsDelegateEditor* editor)
+{
+  // The view only takes the focus back if the key edit has the focus.
+  // If a button has it, the focus would move to the next widget when the
+  // editor is hidden.
+  if (QWidget* fw = QApplication::focusWidget();
+      fw && fw != editor->getEditor() && editor->isAncestorOf(fw)) {
+    QWidget* view = editor->parentWidget();
+    while (view && !qobject_cast<QAbstractItemView*>(view)) {
+      view = view->parentWidget();
+    }
+    if (view) {
+      view->setFocus(Qt::OtherFocusReason);
+    }
+  }
+  emit closeEditor(editor);
 }
 
 /**
@@ -116,6 +138,12 @@ void ShortcutsDelegate::setEditorData(
 {
   if (auto compoundWidget =
       qobject_cast<ShortcutsDelegateEditor*>(editor)) {
+    const QString name = index.sibling(index.row(), 0).data().toString();
+    compoundWidget->setAccessibleName(name);
+    compoundWidget->getEditor()->setAccessibleName(name);
+    if (auto lineEdit = compoundWidget->getEditor()->findChild<QLineEdit*>()) {
+      lineEdit->setAccessibleName(name);
+    }
     QItemDelegate::setEditorData(compoundWidget->getEditor(), index);
   }
 }
@@ -181,18 +209,74 @@ ShortcutsDelegateEditor::ShortcutsDelegateEditor(
   hlayout->setContentsMargins(0, 0, 0, 0);
   delete lineEdit;
   m_editor = new QKeySequenceEdit(parent);
-  connect(m_editor, &QKeySequenceEdit::editingFinished,
-          this, &ShortcutsDelegateEditor::valueEntered);
+  connect(m_editor, &QKeySequenceEdit::editingFinished, this, [this] {
+    // The key edit also finishes when it loses focus to one of the buttons.
+    if (QWidget* fw = QApplication::focusWidget();
+        fw && fw != m_editor && isAncestorOf(fw)) {
+      return;
+    }
+    emit valueEntered();
+  });
+  m_editor->installEventFilter(this);
+  m_editor->setAccessibleDescription(
+        tr("Press the new key combination. Press Tab to go to the Clear and "
+           "Reset buttons."));
   setFocusProxy(m_editor);
   hlayout->addWidget(m_editor, 0, Qt::AlignLeft);
-  auto clearButton = new QToolButton(this);
-  clearButton->setText(tr("Clear"));
-  connect(clearButton, &QAbstractButton::clicked,
+  m_clearButton = new QToolButton(this);
+  m_clearButton->setText(tr("Clear"));
+  m_clearButton->setAccessibleDescription(tr("Remove the keyboard shortcut"));
+  // Tool buttons are skipped by Tab on macOS without full keyboard access.
+  m_clearButton->setFocusPolicy(Qt::StrongFocus);
+  connect(m_clearButton, &QAbstractButton::clicked,
           this, &ShortcutsDelegateEditor::clearClicked);
-  hlayout->addWidget(clearButton);
-  auto resetButton = new QToolButton(this);
-  resetButton->setText(tr("Reset"));
-  connect(resetButton, &QAbstractButton::clicked,
+  hlayout->addWidget(m_clearButton);
+  m_resetButton = new QToolButton(this);
+  m_resetButton->setText(tr("Reset"));
+  m_resetButton->setAccessibleDescription(
+        tr("Restore the default keyboard shortcut"));
+  m_resetButton->setFocusPolicy(Qt::StrongFocus);
+  m_clearButton->installEventFilter(this);
+  m_resetButton->installEventFilter(this);
+  connect(m_resetButton, &QAbstractButton::clicked,
           this, &ShortcutsDelegateEditor::resetClicked);
-  hlayout->addWidget(resetButton);
+  hlayout->addWidget(m_resetButton);
+}
+
+bool ShortcutsDelegateEditor::eventFilter(QObject* watched, QEvent* event)
+{
+  if (event->type() == QEvent::FocusIn &&
+      (watched == m_editor || watched == m_clearButton ||
+       watched == m_resetButton)) {
+    // The table reports its current cell as focused instead of the editor.
+    auto widget = static_cast<QWidget*>(watched);
+    QString name = widget->accessibleName();
+    if (auto button = qobject_cast<QAbstractButton*>(widget)) {
+      name = button->text();
+    }
+    AccessibilityHelper::announce(
+          widget, name + QLatin1String(", ") + widget->accessibleDescription());
+  }
+  if (watched == m_editor && event->type() == QEvent::KeyPress) {
+    const auto keyEvent = static_cast<QKeyEvent*>(event);
+    if (keyEvent->key() == Qt::Key_Tab &&
+        keyEvent->modifiers() == Qt::NoModifier) {
+      m_clearButton->setFocus(Qt::TabFocusReason);
+      return true;
+    }
+    if (keyEvent->key() == Qt::Key_Backtab) {
+      m_resetButton->setFocus(Qt::BacktabFocusReason);
+      return true;
+    }
+  } else if ((watched == m_clearButton || watched == m_resetButton) &&
+             event->type() == QEvent::KeyPress) {
+    // Leaving the editor with the keyboard accepts it.
+    const int key = static_cast<QKeyEvent*>(event)->key();
+    if (key == Qt::Key_Escape ||
+        (key == Qt::Key_Tab && watched == m_resetButton)) {
+      emit valueEntered();
+      return true;
+    }
+  }
+  return QFrame::eventFilter(watched, event);
 }

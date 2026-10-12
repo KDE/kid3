@@ -71,6 +71,15 @@ public:
    */
   void getConfig() const;
 
+protected:
+  /**
+   * Start editing the shortcut of the current item with Return or F2.
+   * @param watched watched object
+   * @param event event
+   * @return true to filter event out.
+   */
+  bool eventFilter(QObject* watched, QEvent* event) override;
+
 protected slots:
   /**
    * Show help.

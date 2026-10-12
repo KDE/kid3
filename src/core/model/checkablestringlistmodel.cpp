@@ -85,6 +85,7 @@ bool CheckableStringListModel::setData(const QModelIndex& index,
     } else if (value == Qt::Unchecked) {
       m_bitMask &= ~mask;
     }
+    emit dataChanged(index, index, {Qt::CheckStateRole});
     return true;
   }
   return QStringListModel::setData(index, value, role);

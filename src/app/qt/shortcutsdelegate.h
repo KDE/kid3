@@ -29,6 +29,8 @@
 #include <QItemDelegate>
 
 class QKeySequenceEdit;
+class QToolButton;
+class ShortcutsDelegateEditor;
 
 /**
  * Item delegate to edit and reset keyboard shortcuts.
@@ -91,6 +93,8 @@ private slots:
   void commitAndCloseEditor();
 
 private:
+  void closeEditorKeepingFocus(ShortcutsDelegateEditor* editor);
+
   mutable bool m_resetFlag;
 };
 
@@ -123,6 +127,15 @@ public:
    */
   QKeySequenceEdit* getEditor() { return m_editor; }
 
+protected:
+  /**
+   * Move to the buttons with Tab, which would be recorded as shortcut otherwise.
+   * @param watched watched object
+   * @param event event
+   * @return true to filter event out.
+   */
+  bool eventFilter(QObject* watched, QEvent* event) override;
+
 signals:
   /**
    * Emitted when a shortcut has been entered.
@@ -141,4 +154,6 @@ signals:
 
 private:
   QKeySequenceEdit* m_editor;
+  QToolButton* m_clearButton;
+  QToolButton* m_resetButton;
 };

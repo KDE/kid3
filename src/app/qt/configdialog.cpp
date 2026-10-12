@@ -40,6 +40,7 @@
 #include <QTreeView>
 #include <QAction>
 #include <QHeaderView>
+#include <QKeyEvent>
 #include "shortcutsmodel.h"
 #include "shortcutsdelegate.h"
 #include "contexthelp.h"
@@ -77,7 +78,7 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     auto shortcutsPage = new QWidget;
     auto vlayout = new QVBoxLayout(shortcutsPage);
     m_shortcutsTreeView = new QTreeView;
-    m_shortcutsTreeView->setSelectionMode(QAbstractItemView::NoSelection);
+    m_shortcutsTreeView->setSelectionMode(QAbstractItemView::SingleSelection);
     m_shortcutsTreeView->setItemDelegateForColumn(
           ShortcutsModel::ShortcutColumn, new ShortcutsDelegate(this));
     vlayout->addWidget(m_shortcutsTreeView);
@@ -96,6 +97,8 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     connect(this, &QDialog::rejected,
             m_shortcutsModel, &ShortcutsModel::discardChangedShortcuts);
     m_shortcutsTreeView->setModel(m_shortcutsModel);
+    m_shortcutsTreeView->setAccessibleName(tr("Keyboard Shortcuts"));
+    m_shortcutsTreeView->installEventFilter(this);
     m_shortcutsTreeView->expandAll();
     m_shortcutsTreeView->resizeColumnToContents(ShortcutsModel::ActionColumn);
 #ifdef Q_OS_MAC
@@ -289,6 +292,31 @@ void ConfigDialog::warnAboutAlreadyUsedShortcut(
 void ConfigDialog::clearAlreadyUsedShortcutWarning()
 {
   m_shortcutAlreadyUsedLabel->clear();
+}
+
+/**
+ * Start editing the shortcut of the current item with Return or F2.
+ * @param watched watched object
+ * @param event event
+ * @return true to filter event out.
+ */
+bool ConfigDialog::eventFilter(QObject* watched, QEvent* event)
+{
+  if (watched == m_shortcutsTreeView && event->type() == QEvent::KeyPress &&
+      m_shortcutsTreeView->hasFocus()) {
+    const int key = static_cast<QKeyEvent*>(event)->key();
+    if (key == Qt::Key_Return || key == Qt::Key_Enter || key == Qt::Key_F2) {
+      // The current item is usually the action, but the shortcut is edited.
+      if (QModelIndex index = m_shortcutsTreeView->currentIndex();
+          index.isValid() && index.parent().isValid()) {
+        index = index.sibling(index.row(), ShortcutsModel::ShortcutColumn);
+        m_shortcutsTreeView->setCurrentIndex(index);
+        m_shortcutsTreeView->edit(index);
+      }
+      return true;
+    }
+  }
+  return QDialog::eventFilter(watched, event);
 }
 
 /**

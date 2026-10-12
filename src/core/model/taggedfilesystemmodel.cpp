@@ -115,6 +115,16 @@ QVariant TaggedFileSystemModel::data(const QModelIndex& index, int role) const
            taggedFile->isMarked());
     } else if (role == IsDirRole && index.column() == 0) {
       return isDir(index);
+    } else if (role == Qt::AccessibleDescriptionRole && index.column() == 0) {
+      // Make states which are otherwise only visible by icons accessible.
+      if (isDir(index)) {
+        return tr("Folder");
+      }
+      if (TaggedFile* taggedFile = m_taggedFiles.value(index, nullptr);
+          taggedFile && taggedFile->isChanged()) {
+        return tr("Modified");
+      }
+      return QString();
     } else if ((role == Qt::DisplayRole || role == Qt::EditRole) &&
                index.column() >= NUM_FILESYSTEM_COLUMNS &&
                index.column() <
