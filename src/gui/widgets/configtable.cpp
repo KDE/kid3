@@ -27,6 +27,7 @@
 #include "configtable.h"
 #include <QToolTip>
 #include <QMenu>
+#include <QAccessible>
 #include "modelsectionresizemode.h"
 
 /**
@@ -42,6 +43,9 @@ ConfigTable::ConfigTable(QAbstractItemModel* model, QWidget* parent)
   setAddButtonText(tr("&Add"));
   hideEditButton();
   m_tableView->setContextMenuPolicy(Qt::CustomContextMenu);
+  if (QAccessible::isActive()) {
+    m_tableView->setTabKeyNavigation(false);
+  }
   connect(m_tableView, &QWidget::customContextMenuRequested,
       this, &ConfigTable::customContextMenu);
 }

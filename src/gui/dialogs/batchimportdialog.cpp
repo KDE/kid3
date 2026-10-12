@@ -35,6 +35,7 @@
 #include <QString>
 #include <QTableView>
 #include <QHeaderView>
+#include <QAccessible>
 #include "batchimporter.h"
 #include "batchimportsourcedialog.h"
 #include "batchimportconfig.h"
@@ -103,6 +104,9 @@ BatchImportSourceListEdit::BatchImportSourceListEdit(
   m_tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
   m_tableView->horizontalHeader()->setSectionResizeMode(
         QHeaderView::ResizeToContents);
+  if (QAccessible::isActive()) {
+    m_tableView->setTabKeyNavigation(false);
+  }
 }
 
 /**

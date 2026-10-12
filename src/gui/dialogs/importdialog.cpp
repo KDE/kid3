@@ -46,6 +46,7 @@
 #include <QDir>
 #include <QMenu>
 #include <QCoreApplication>
+#include <QAccessible>
 #include "config.h"
 #include "importconfig.h"
 #include "genres.h"
@@ -117,6 +118,9 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   m_trackDataTable->horizontalHeader()->setSectionsMovable(true);
   m_trackDataTable->horizontalHeader()->setContextMenuPolicy(
         Qt::CustomContextMenu);
+  if (QAccessible::isActive()) {
+    m_trackDataTable->setTabKeyNavigation(false);
+  }
   connect(m_trackDataTable->verticalHeader(), &QHeaderView::sectionMoved,
           this, &ImportDialog::moveTableRow);
   connect(m_trackDataTable->horizontalHeader(),
@@ -228,8 +232,10 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
           this, &ImportDialog::fromTags);
   connect(serverButton, &QAbstractButton::clicked,
           this, &ImportDialog::fromServer);
-  connect(m_serverComboBox, static_cast<void (QComboBox::*)(int)>(
-            &QComboBox::activated), this, &ImportDialog::fromServer);
+  if (!QAccessible::isActive()) {
+    connect(m_serverComboBox, static_cast<void (QComboBox::*)(int)>(
+              &QComboBox::activated), this, &ImportDialog::fromServer);
+  }
   connect(lengthButton, &QAbstractButton::clicked,
           this, &ImportDialog::matchWithLength);
   connect(trackButton, &QAbstractButton::clicked,

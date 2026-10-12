@@ -41,6 +41,7 @@
 #include <QMessageBox>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QAccessible>
 #include "taggedfile.h"
 #include "genres.h"
 #include "exportconfig.h"
@@ -75,6 +76,9 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
 
   m_table = new QTableView(this);
   m_table->setModel(m_textTableModel);
+  if (QAccessible::isActive()) {
+    m_table->setTabKeyNavigation(false);
+  }
   m_table->hide();
   vlayout->addWidget(m_table);
 

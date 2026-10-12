@@ -37,6 +37,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QCoreApplication>
+#include <QAccessible>
 #include "serverimporterconfig.h"
 #include "contexthelp.h"
 #include "servertrackimporter.h"
@@ -102,6 +103,9 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   m_albumTable->setSelectionMode(QAbstractItemView::NoSelection);
   m_albumTable->resizeColumnsToContents();
   m_albumTable->setItemDelegateForColumn(0, new ComboBoxDelegate(this));
+  if (QAccessible::isActive()) {
+    m_albumTable->setTabKeyNavigation(false);
+  }
   m_albumTableModel->setHorizontalHeaderLabels({
     tr("Track Title/Artist - Album"),
     tr("State")
