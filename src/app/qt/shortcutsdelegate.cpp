@@ -33,6 +33,9 @@
 #include <QKeyEvent>
 #include <QKeySequenceEdit>
 #include <QAbstractItemView>
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -245,6 +248,7 @@ ShortcutsDelegateEditor::ShortcutsDelegateEditor(
 
 bool ShortcutsDelegateEditor::eventFilter(QObject* watched, QEvent* event)
 {
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   if (event->type() == QEvent::FocusIn &&
       (watched == m_editor || watched == m_clearButton ||
        watched == m_resetButton)) {
@@ -257,6 +261,7 @@ bool ShortcutsDelegateEditor::eventFilter(QObject* watched, QEvent* event)
     AccessibilityHelper::announce(
           widget, name + QLatin1String(", ") + widget->accessibleDescription());
   }
+#endif
   if (watched == m_editor && event->type() == QEvent::KeyPress) {
     const auto keyEvent = static_cast<QKeyEvent*>(event);
     if (keyEvent->key() == Qt::Key_Tab &&

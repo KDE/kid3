@@ -51,6 +51,9 @@
 #include "texttablemodel.h"
 #include "formatlistedit.h"
 #include "iplatformtools.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -76,6 +79,9 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
 
   m_table = new QTableView(this);
   m_table->setModel(m_textTableModel);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupItemView(m_table);
+#endif
   if (QAccessible::isActive()) {
     m_table->setTabKeyNavigation(false);
   }
@@ -109,6 +115,9 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   auto srcLabel = new QLabel(tr("&Source:"), this);
   butlayout->addWidget(srcLabel);
   m_srcComboBox = new QComboBox(this);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupComboBox(m_srcComboBox);
+#endif
   m_srcComboBox->setEditable(false);
   FOR_ALL_TAGS(tagNr) {
     m_srcComboBox->addItem(tr("Tag %1").arg(Frame::tagNumberToString(tagNr)),

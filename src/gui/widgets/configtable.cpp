@@ -29,6 +29,9 @@
 #include <QMenu>
 #include <QAccessible>
 #include "modelsectionresizemode.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -153,6 +156,9 @@ void ConfigTable::contextMenu(int row, int /* col */, const QPoint& pos)
   }
   connect(&menu, &QMenu::triggered, this, &ConfigTable::executeAction);
   menu.setMouseTracking(true);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupMenu(&menu);
+#endif
   menu.exec(pos);
 }
 

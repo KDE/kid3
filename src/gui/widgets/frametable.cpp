@@ -34,6 +34,9 @@
 #include <QLineEdit>
 #include "frametablemodel.h"
 #include "frameitemdelegate.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -213,6 +216,9 @@ void FrameTable::contextMenu(int row, int col, const QPoint& pos)
     action = menu.addAction(tr("&Deselect all"));
     connect(action, &QAction::triggered, ftModel, &FrameTableModel::deselectAllFrames);
     menu.setMouseTracking(true);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+    AccessibilityHelper::setupMenu(&menu);
+#endif
     menu.exec(pos);
   }
 }

@@ -93,6 +93,10 @@
 #include "audioplayer.h"
 #include "playtoolbar.h"
 #endif
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include <QComboBox>
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -1388,10 +1392,19 @@ void BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
   if (taggedFile && frame) {
     QStringList frameIds = taggedFile->getFrameIds(m_editFrameTagNr);
     QMap<QString, QString> nameMap = Frame::getDisplayNameMap(frameIds);
-    QString displayName = QInputDialog::getItem(
-      m_w, tr("Add Frame"),
-      tr("Select the frame ID"), nameMap.keys(), 0, true, &ok);
+    const QStringList displayNames = nameMap.keys();
+    QInputDialog dialog(m_w);
+    dialog.setWindowTitle(tr("Add Frame"));
+    dialog.setLabelText(tr("Select the frame ID"));
+    dialog.setComboBoxItems(displayNames);
+    dialog.setTextValue(displayNames.value(0));
+    dialog.setComboBoxEditable(true);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+    AccessibilityHelper::setupComboBox(dialog.findChild<QComboBox*>());
+#endif
+    ok = dialog.exec() == QDialog::Accepted;
     if (ok) {
+      QString displayName = dialog.textValue();
       if (displayName.startsWith(QLatin1Char('!'))) {
         QString name = displayName.mid(1);
         Frame::ExtendedType type(Frame::FT_Other, name);

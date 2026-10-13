@@ -44,6 +44,9 @@
 #include "comboboxdelegate.h"
 #include "trackdatamodel.h"
 #include "standardtablemodel.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 namespace {
 
@@ -83,6 +86,9 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   auto serverLayout = new QHBoxLayout;
   m_serverLabel = new QLabel(tr("&Server:"), this);
   m_serverComboBox = new QComboBox(this);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupComboBox(m_serverComboBox);
+#endif
   m_serverComboBox->setEditable(true);
   m_serverComboBox->setSizePolicy(
     QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum));
@@ -99,6 +105,9 @@ ServerTrackImportDialog::ServerTrackImportDialog(QWidget* parent,
   });
   m_albumTable = new QTableView(this);
   m_albumTable->setModel(m_albumTableModel);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupItemView(m_albumTable);
+#endif
   m_albumTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
   m_albumTable->setSelectionMode(QAbstractItemView::SingleSelection);
   m_albumTable->resizeColumnsToContents();

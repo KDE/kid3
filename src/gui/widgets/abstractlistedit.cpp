@@ -28,6 +28,9 @@
 #include <QPushButton>
 #include <QLayout>
 #include <QAbstractItemView>
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -70,6 +73,9 @@ AbstractListEdit::AbstractListEdit(QAbstractItemView* itemView,
 
   setButtonEnableState();
   hlayout->addLayout(vlayout);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupItemView(m_itemView);
+#endif
 }
 
 /**

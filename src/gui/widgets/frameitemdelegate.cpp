@@ -38,6 +38,9 @@
 #include "tagconfig.h"
 #include "tracknumbervalidator.h"
 #include "framenotice.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 namespace {
 
@@ -444,6 +447,9 @@ QWidget* FrameItemDelegate::createEditor(
 
     if (type == Frame::FT_Genre) {
       auto cb = new QComboBox(parent);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+      AccessibilityHelper::setupComboBox(cb);
+#endif
       if (!id3v1) {
         cb->setEditable(true);
         cb->setDuplicatesEnabled(false);
@@ -466,6 +472,9 @@ QWidget* FrameItemDelegate::createEditor(
     }
     if (!completionValues.isEmpty()) {
       auto cb = new QComboBox(parent);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+      AccessibilityHelper::setupComboBox(cb);
+#endif
       cb->setEditable(true);
       cb->setDuplicatesEnabled(false);
       cb->addItems(completionValues);

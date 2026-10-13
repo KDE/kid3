@@ -54,6 +54,9 @@
 #include "tableofcontentseditor.h"
 #include "subframeseditor.h"
 #include "pictureframe.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /** Base class for field controls */
 class FieldControl : public QObject {
@@ -295,6 +298,9 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
   auto layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_combo = new QComboBox(this);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupComboBox(m_combo);
+#endif
   layout->setContentsMargins(0, 0, 0, 0);
   QStringList strList;
   while (*strlst) {

@@ -42,6 +42,9 @@
 #include "trackdatamodel.h"
 #include "findreplaceconfig.h"
 #include "contexthelp.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -58,6 +61,9 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   auto findReplaceLayout = new QGridLayout;
   auto findLabel = new QLabel(tr("F&ind:"));
   m_findEdit = new QComboBox;
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupComboBox(m_findEdit);
+#endif
   m_findEdit->setEditable(true);
   m_findEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
   connect(m_findEdit->lineEdit(), &QLineEdit::returnPressed,
@@ -68,6 +74,9 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   connect(m_findButton, &QAbstractButton::clicked, this, &FindReplaceDialog::find);
   m_replaceLabel = new QLabel(tr("Re&place:"));
   m_replaceEdit = new QComboBox;
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupComboBox(m_replaceEdit);
+#endif
   m_replaceEdit->setEditable(true);
   m_replaceEdit->completer()->setCaseSensitivity(Qt::CaseSensitive);
   connect(m_replaceEdit->lineEdit(), &QLineEdit::returnPressed,
@@ -124,6 +133,9 @@ FindReplaceDialog::FindReplaceDialog(QWidget* parent) : QDialog(parent)
   }
   m_tagsModel->setStringList(unifiedFrameNames);
   tagsListView->setModel(m_tagsModel);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupItemView(tagsListView);
+#endif
   tagsLayout->addWidget(tagsListView);
   optionsTagsLayout->addWidget(tagsGroupBox);
   vlayout->addLayout(optionsTagsLayout);

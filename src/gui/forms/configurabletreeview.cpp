@@ -31,6 +31,9 @@
 #include <QActionGroup>
 #include <QKeyEvent>
 #include <climits>
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -190,6 +193,9 @@ void ConfigurableTreeView::showHeaderContextMenu(const QPoint& pos)
   menu.addAction(m_customColumnAction);
 
   menu.setMouseTracking(true);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupMenu(&menu);
+#endif
   menu.exec(headerView->mapToGlobal(pos));
 }
 

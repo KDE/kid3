@@ -37,6 +37,9 @@
 #include "taggedfile.h"
 #include "editframefieldsdialog.h"
 #include "iplatformtools.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -62,6 +65,9 @@ SubframesEditor::SubframesEditor(IPlatformTools* platformTools,
         false, platformTools->iconProvider(), this);
   m_frameTable = new FrameTable(m_frameTableModel, new GenreModel(false, this),
                                 this);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupItemView(m_frameTable);
+#endif
   layout->addWidget(m_frameTable);
   auto buttonLayout = new QVBoxLayout;
   m_editButton = new QPushButton(tr("Edit..."));

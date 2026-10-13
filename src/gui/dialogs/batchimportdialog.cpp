@@ -43,6 +43,9 @@
 #include "serverimporter.h"
 #include "contexthelp.h"
 #include "abstractlistedit.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 namespace {
 
@@ -182,6 +185,9 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   auto destLabel = new QLabel(tr("D&estination:"));
   destLayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupComboBox(m_destComboBox);
+#endif
   m_destComboBox->setEditable(false);
   const QList<QPair<Frame::TagVersion, QString> > tagVersions =
       Frame::availableTagVersions();
@@ -197,6 +203,9 @@ BatchImportDialog::BatchImportDialog(const QList<ServerImporter*>& importers,
   auto profileLabel = new QLabel(tr("&Profile:"));
   nameLayout->addWidget(profileLabel);
   m_profileComboBox = new QComboBox;
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupComboBox(m_profileComboBox);
+#endif
   m_profileComboBox->setEditable(true);
   connect(m_profileComboBox, static_cast<void (QComboBox::*)(int)>(
             &QComboBox::activated),

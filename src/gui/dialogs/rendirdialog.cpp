@@ -42,6 +42,9 @@
 #include "rendirconfig.h"
 #include "dirrenamer.h"
 #include "stringlisteditdialog.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -97,6 +100,10 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   actionLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   m_actionComboBox = new QComboBox(page);
   m_tagversionComboBox = new QComboBox(page);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupComboBox(m_actionComboBox);
+  AccessibilityHelper::setupComboBox(m_tagversionComboBox);
+#endif
   m_actionComboBox->insertItem(ActionRename, tr("Rename Folder"));
   m_actionComboBox->insertItem(ActionCreate, tr("Create Folder"));
   actionLayout->addRow(tr("&Action:"), m_actionComboBox);
@@ -113,6 +120,9 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
 
   auto formatLayout = new QHBoxLayout;
   m_formatComboBox = new QComboBox(page);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::setupComboBox(m_formatComboBox);
+#endif
   m_formatComboBox->setEditable(true);
   const RenDirConfig& renDirCfg = RenDirConfig::instance();
   m_formats = renDirCfg.dirFormats();

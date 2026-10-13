@@ -46,6 +46,9 @@
 #include "contexthelp.h"
 #include "mainwindowconfig.h"
 #include "configdialogpages.h"
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -98,6 +101,9 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
             m_shortcutsModel, &ShortcutsModel::discardChangedShortcuts);
     m_shortcutsTreeView->setModel(m_shortcutsModel);
     m_shortcutsTreeView->setAccessibleName(tr("Keyboard Shortcuts"));
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+    AccessibilityHelper::setupItemView(m_shortcutsTreeView);
+#endif
     m_shortcutsTreeView->installEventFilter(this);
     m_shortcutsTreeView->expandAll();
     m_shortcutsTreeView->resizeColumnToContents(ShortcutsModel::ActionColumn);
@@ -113,6 +119,9 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
 
     auto languageLabel = new QLabel(tr("&Language"), appearancePage);
     m_languageComboBox = new QComboBox(appearancePage);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+    AccessibilityHelper::setupComboBox(m_languageComboBox);
+#endif
     m_languageComboBox->addItem(tr("System"));
     const auto languages = MainWindowConfig::instance().availableLanguages();
     for (const auto& language : languages) {
@@ -128,6 +137,9 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     m_useApplicationStyleCheckBox =
         new QCheckBox(tr("Use custom application &style"), appearancePage);
     m_applicationStyleComboBox = new QComboBox(appearancePage);
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+    AccessibilityHelper::setupComboBox(m_applicationStyleComboBox);
+#endif
     fontStyleLayout->addWidget(m_useApplicationFontCheckBox, 1, 0);
     fontStyleLayout->addWidget(m_applicationFontButton, 1, 1);
     fontStyleLayout->addWidget(m_useApplicationStyleCheckBox, 2, 0);
@@ -284,6 +296,10 @@ void ConfigDialog::warnAboutAlreadyUsedShortcut(
              context + QLatin1Char('/') +
             (action ? action->text().remove(QLatin1Char('&'))
                     : QLatin1String("?"))));
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+  AccessibilityHelper::announce(m_shortcutAlreadyUsedLabel,
+                                m_shortcutAlreadyUsedLabel->text());
+#endif
 }
 
 /**

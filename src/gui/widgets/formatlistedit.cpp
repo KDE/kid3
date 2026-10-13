@@ -31,6 +31,9 @@
 #include <QLayout>
 #include <QFormLayout>
 #include <QSizePolicy>
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#include "accessibilityhelper.h"
+#endif
 
 /**
  * Constructor.
@@ -55,6 +58,9 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
     const QString& toolTip = tooltips.at(i);
     if (!comboBoxCreated) {
       m_formatComboBox = new QComboBox;
+#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+      AccessibilityHelper::setupComboBox(m_formatComboBox);
+#endif
       m_formatComboBox->setEditable(true);
       m_formatComboBox->setInsertPolicy(QComboBox::NoInsert);
       connect(m_formatComboBox, static_cast<void (QComboBox::*)(int)>(
