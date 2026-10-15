@@ -53,7 +53,7 @@
 #endif
 #include "contexthelp.h"
 #include "iplatformtools.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -197,7 +197,7 @@ void TimeEventEditor::setModel(TimeEventModel* model)
     m_tableView->setItemDelegateForColumn(1, nullptr);
   }
   m_tableView->setModel(m_model);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupItemView(m_tableView);
 #endif
 }
@@ -484,7 +484,7 @@ void TimeEventEditor::customContextMenu(const QPoint& pos)
     connect(action, &QAction::triggered, this, &TimeEventEditor::seekPosition);
   }
   menu.setMouseTracking(true);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupMenu(&menu);
 #endif
   menu.exec(m_tableView->mapToGlobal(pos));

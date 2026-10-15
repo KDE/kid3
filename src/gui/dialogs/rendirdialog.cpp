@@ -42,7 +42,7 @@
 #include "rendirconfig.h"
 #include "dirrenamer.h"
 #include "stringlisteditdialog.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -100,7 +100,7 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
   actionLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   m_actionComboBox = new QComboBox(page);
   m_tagversionComboBox = new QComboBox(page);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_actionComboBox);
   AccessibilityHelper::setupComboBox(m_tagversionComboBox);
 #endif
@@ -120,7 +120,7 @@ void RenDirDialog::setupMainPage(QWidget* page, QVBoxLayout* vlayout)
 
   auto formatLayout = new QHBoxLayout;
   m_formatComboBox = new QComboBox(page);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_formatComboBox);
 #endif
   m_formatComboBox->setEditable(true);

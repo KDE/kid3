@@ -33,7 +33,7 @@
 #include <QKeyEvent>
 #include <QKeySequenceEdit>
 #include <QAbstractItemView>
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -248,7 +248,7 @@ ShortcutsDelegateEditor::ShortcutsDelegateEditor(
 
 bool ShortcutsDelegateEditor::eventFilter(QObject* watched, QEvent* event)
 {
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   if (event->type() == QEvent::FocusIn &&
       (watched == m_editor || watched == m_clearButton ||
        watched == m_resetButton)) {

@@ -36,7 +36,7 @@
 #include <QHBoxLayout>
 #include "numbertracksconfig.h"
 #include "contexthelp.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -69,7 +69,7 @@ NumberTracksDialog::NumberTracksDialog(QWidget* parent)
 
   auto destLabel = new QLabel(tr("&Destination:"), this);
   m_destComboBox = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_destComboBox);
 #endif
   m_destComboBox->setEditable(false);

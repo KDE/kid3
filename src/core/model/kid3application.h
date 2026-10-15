@@ -117,7 +117,6 @@ class KID3_CORE_EXPORT Kid3Application : public QObject {
   Q_PROPERTY(BatchImporter* batchImporter READ getBatchImporter CONSTANT)
   /** Download client */
   Q_PROPERTY(DownloadClient* downloadClient READ getDownloadClient CONSTANT)
-  Q_FLAGS(NumberTrackOption NumberTrackOptions)
 public:
   /** Destination for downloadImage(). */
   enum DownloadImageDestination {
@@ -132,6 +131,7 @@ public:
     NumberTracksResetCounterForEachDirectory = 2 /**< Reset counter */
   };
   Q_DECLARE_FLAGS(NumberTrackOptions, NumberTrackOption)
+  Q_FLAG(NumberTrackOptions)
 
   /**
    * Constructor.

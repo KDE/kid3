@@ -42,7 +42,7 @@
 #if QT_VERSION >= 0x050c00
 #include <QScopeGuard>
 #endif
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #include <CoreFoundation/CFURL.h>
 #endif
 #ifdef Q_OS_ANDROID
@@ -109,7 +109,7 @@ QString pluginFileName(const QString& pluginName)
 #else
   fileName = QLatin1String("lib") + fileName + QLatin1String(".dll");
 #endif
-#elif defined Q_OS_MAC
+#elif defined Q_OS_MACOS
   fileName = QLatin1String("lib") + fileName + QLatin1String(".dylib");
 #else
   fileName = QLatin1String("lib") + fileName + QLatin1String(".so");
@@ -369,7 +369,7 @@ Kid3Application::Kid3Application(ICorePlatformTools* platformTools,
  */
 Kid3Application::~Kid3Application()
 {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   // If a song is played, then stopped and Kid3 is terminated, it will crash in
   // the QMediaPlayer destructor (Dispatch queue: com.apple.main-thread,
   // objc_msgSend() selector name: setRate). Avoid calling the destructor by
@@ -490,7 +490,7 @@ bool Kid3Application::findPluginsDirectory(QDir& pluginsDir) {
       : dirName == QLatin1String("test")
         ? "../plugins"
         : CFG_PLUGINSDIR));
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   if (!pluginsDirFound) {
     pluginsDirFound = pluginsDir.cd(QLatin1String("../../../../../plugins"));
   }
@@ -2486,7 +2486,7 @@ void Kid3Application::openDrop(const QStringList& paths)
 bool Kid3Application::dropUrls(const QList<QUrl>& urlList, bool isInternal)
 {
   QList urls(urlList);
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   // workaround for https://bugreports.qt-project.org/browse/QTBUG-40449
   for (auto it = urls.begin(); it != urls.end(); ++it) {
     if (it->host().isEmpty() &&

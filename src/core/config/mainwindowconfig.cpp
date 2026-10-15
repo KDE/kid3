@@ -40,7 +40,7 @@ MainWindowConfig::MainWindowConfig()
     m_hideToolBar(false),
     m_hideStatusBar(false),
     m_dontUseNativeDialogs(
-#if defined Q_OS_WIN32 || defined Q_OS_MAC
+#if defined Q_OS_WIN32 || defined Q_OS_MACOS
       false
 #else
       true

@@ -53,7 +53,7 @@
 #include <QBuffer>
 #include "filesystemmodel.h"
 #include "frametable.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 #include "frametablemodel.h"
@@ -74,7 +74,7 @@
 #include "icoreplatformtools.h"
 #include "kid3application.h"
 #include "sectionactions.h"
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #include <CoreFoundation/CFURL.h>
 #endif
 
@@ -316,7 +316,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_dirListBox->setMaxNumColumns(TaggedFileSystemModel::NUM_FILESYSTEM_COLUMNS);
   m_fileListBox->setAccessibleName(tr("File list"));
   m_dirListBox->setAccessibleName(tr("Folder list"));
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupItemView(m_fileListBox);
   AccessibilityHelper::setupItemView(m_dirListBox);
 #endif
@@ -347,7 +347,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   m_fileButton->setIcon(*s_collapsePixmap);
   m_fileButton->setAutoRaise(true);
   m_fileButton->setAccessibleName(tr("Collapse or expand section 'File'"));
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   m_fileButton->setStyleSheet(QLatin1String("border: 0;"));
 #endif
   connect(m_fileButton, &QAbstractButton::clicked, this, &Kid3Form::showHideFile);
@@ -376,7 +376,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   fileLayout->addWidget(formatLabel, 1, 0);
 
   m_formatComboBox = new QComboBox(m_fileWidget);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_formatComboBox);
 #endif
   m_formatComboBox->setEditable(true);
@@ -388,7 +388,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
   connect(m_formatComboBox, &QComboBox::editTextChanged,
           this, &Kid3Form::onFormatEditTextChanged);
   m_formatFromFilenameComboBox = new QComboBox(m_fileWidget);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_formatFromFilenameComboBox);
 #endif
   m_formatFromFilenameComboBox->setEditable(true);
@@ -468,7 +468,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     m_tagButton[tagNr]->setIcon(*s_collapsePixmap);
     m_tagButton[tagNr]->setAutoRaise(true);
     m_tagButton[tagNr]->setAccessibleName(tr("Collapse or expand section 'Tag %1'").arg(tagStr));
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     m_tagButton[tagNr]->setStyleSheet(QLatin1String("border: 0;"));
 #endif
     connect(m_tagButton[tagNr], &QAbstractButton::clicked,
@@ -495,7 +495,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
     m_frameTable[tagNr]->setSelectionModel(m_app->getFramesSelectionModel(tagNr));
     m_frameTable[tagNr]->setAccessibleName(
           tr("Tag %1").arg(tagStr));
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
     AccessibilityHelper::setupItemView(m_frameTable[tagNr]);
 #endif
     idHBoxLayout->addWidget(m_frameTable[tagNr], tagNr == Frame::Tag_Id3v1 ? 100 : 0);
@@ -555,7 +555,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       connect(action, &QAction::triggered,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::pasteTags);
       m_id3PushButton[tagNr]->setMenu(menu);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
       AccessibilityHelper::setupMenu(menu);
 #endif
       buttonsVBoxLayout->addWidget(m_id3PushButton[tagNr]);
@@ -582,7 +582,7 @@ Kid3Form::Kid3Form(Kid3Application* app, BaseMainWindowImpl* mainWin,
       connect(action, &QAction::triggered,
               m_app->tag(tagNr), &Kid3ApplicationTagContext::copyTags);
       toButton->setMenu(menu);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
       AccessibilityHelper::setupMenu(menu);
 #endif
       buttonsVBoxLayout->addWidget(toButton);

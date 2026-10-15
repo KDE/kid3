@@ -42,7 +42,7 @@
 #include "playlistconfig.h"
 #include "contexthelp.h"
 #include "trackdata.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -67,7 +67,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   auto fileNameFormatLayout = new QHBoxLayout;
   m_fileNameFormatButton = new QRadioButton(this);
   m_fileNameFormatComboBox = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_fileNameFormatComboBox);
 #endif
   m_fileNameFormatComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
@@ -85,7 +85,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   auto locationLayout = new QHBoxLayout;
   auto locationLabel = new QLabel(this);
   m_locationComboBox = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_locationComboBox);
 #endif
   locationLayout->addWidget(locationLabel);
@@ -98,7 +98,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   auto formatLayout = new QHBoxLayout;
   auto formatLabel = new QLabel(this);
   m_formatComboBox = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_formatComboBox);
 #endif
   formatLayout->addWidget(formatLabel);
@@ -117,7 +117,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   auto sortTagFieldLayout = new QHBoxLayout;
   m_sortTagFieldButton = new QRadioButton(this);
   m_sortTagFieldComboBox = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_sortTagFieldComboBox);
 #endif
   m_sortTagFieldComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());
@@ -149,7 +149,7 @@ PlaylistDialog::PlaylistDialog(QWidget* parent)
   auto writeInfoLayout = new QHBoxLayout;
   m_writeInfoButton = new QRadioButton(this);
   m_writeInfoComboBox = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_writeInfoComboBox);
 #endif
   m_writeInfoComboBox->setToolTip(TrackDataFormatReplacer::getToolTip());

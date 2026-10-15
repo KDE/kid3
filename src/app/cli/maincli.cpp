@@ -58,7 +58,7 @@ int main(int argc, char* argv[])
   QCoreApplication::setOrganizationDomain(QLatin1String("kde.org"));
   ISettings::migrateComKid3Kid3ToOrgKdeKid3Settings();
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   QDir dir(QCoreApplication::applicationDirPath());
   dir.cdUp();
   dir.cd(QLatin1String("PlugIns"));

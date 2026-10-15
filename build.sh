@@ -842,7 +842,9 @@ if test "$compiler" = "cross-mingw"; then
     export CXX=${_crossprefix}g++${_crosssuffix}
   fi
 elif test "$compiler" = "cross-macos"; then
-  if test "$qt_nr" -ge 61000; then
+  if test "$qt_nr" -ge 61200; then
+    _macosx_version_min=14.4
+  elif test "$qt_nr" -ge 61000; then
     _macosx_version_min=13.0
   elif test "$qt_nr" -ge 60500; then
     _macosx_version_min=11.0

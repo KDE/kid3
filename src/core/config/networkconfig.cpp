@@ -31,7 +31,7 @@
 namespace {
 
 /** Default value for web browser */
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 const char* const defaultBrowser = "open";
 #else
 const char* const defaultBrowser = "xdg-open";

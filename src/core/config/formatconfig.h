@@ -68,7 +68,6 @@ class KID3_CORE_EXPORT FormatConfig : public GeneralConfig {
   /** true to use format for playlist and folder names */
   Q_PROPERTY(bool useForOtherFileNames READ useForOtherFileNames
              WRITE setUseForOtherFileNames NOTIFY useForOtherFileNamesChanged)
-  Q_ENUMS(CaseConversion)
 public:
   /** Case conversion options. */
   enum CaseConversion {
@@ -79,6 +78,7 @@ public:
       AllFirstLettersUppercase,
       NumCaseConversions
   };
+  Q_ENUM(CaseConversion)
 
   /**
    * Constructor.

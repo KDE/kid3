@@ -26,7 +26,7 @@
 
 #include "comboboxdelegate.h"
 #include <QComboBox>
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -60,7 +60,7 @@ QWidget* ComboBoxDelegate::createEditor(
     QStringList items(itemsData.toStringList());
     int itemIndex = items.indexOf(index.data(Qt::EditRole).toString());
     auto cb = new QComboBox(parent);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
     AccessibilityHelper::setupComboBox(cb);
 #endif
     cb->addItems(itemsData.toStringList());

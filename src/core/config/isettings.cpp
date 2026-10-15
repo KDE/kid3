@@ -27,7 +27,7 @@
 #include "isettings.h"
 #include <QVariant>
 #include <QStringList>
-#if defined Q_OS_MAC && QT_VERSION >= 0x060000
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060000
 #include <QSettings>
 #endif
 
@@ -39,7 +39,7 @@
  */
 void ISettings::migrateComKid3Kid3ToOrgKdeKid3Settings()
 {
-#if defined Q_OS_MAC && QT_VERSION >= 0x060000
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060000
   const QSettings oldSettings(QSettings::UserScope,
                               QLatin1String("Kid3"), QLatin1String("Kid3"));
   const int oldConfigVersion = oldSettings.value("ConfigStore/ConfigVersion").toInt();

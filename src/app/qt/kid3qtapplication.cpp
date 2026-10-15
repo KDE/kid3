@@ -27,7 +27,7 @@
 #include "kid3qtapplication.h"
 #include <typeinfo>
 #include <QStringList>
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #include <QFileOpenEvent>
 #endif
 
@@ -77,7 +77,7 @@ bool Kid3QtApplication::notify(QObject* receiver, QEvent* event)
  */
 bool Kid3QtApplication::event(QEvent* e)
 {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   if (e->type() == QEvent::FileOpen) {
     emit openFileRequested({static_cast<QFileOpenEvent*>(e)->file()});
     return true;

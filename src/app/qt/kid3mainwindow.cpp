@@ -76,7 +76,7 @@ Kid3MainWindow::Kid3MainWindow(IPlatformTools* platformTools,
 
   if (QPixmap icon;
       icon.load(dataRootDir +
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
                 QLatin1String("/icons/hicolor/128x128/apps/kid3-qt.png")
 #else
                 QLatin1String("/kid3.png")
@@ -102,7 +102,7 @@ void Kid3MainWindow::initActions()
 {
   auto toolBar = new QToolBar(this);
   toolBar->setObjectName(QLatin1String("MainToolbar"));
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   toolBar->setStyleSheet(QLatin1String("QToolButton { border: 0; }"));
 #endif
   QMenuBar* menubar = menuBar();
@@ -377,7 +377,7 @@ void Kid3MainWindow::initActions()
   editSelectAll->setIcon(QIcon::fromTheme(QLatin1String("edit-select-all"),
       QIcon(QLatin1String(":/images/edit-select-all.png"))));
 #endif
-#if defined Q_OS_MAC && QT_VERSION == 0x050400
+#if defined Q_OS_MACOS && QT_VERSION == 0x050400
   // Workaround for QTBUG-43471 from QTBUG-39934
   editSelectAll->setMenuRole(QAction::NoRole);
 #endif
@@ -458,7 +458,7 @@ void Kid3MainWindow::initActions()
   editFind->setStatusTip(tr("Find"));
   editFind->setText(tr("&Find..."));
   editFind->setShortcut(QKeySequence::Find);
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
 #if QT_VERSION >= 0x060700
   editFind->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::EditFind,
       QIcon::fromTheme(QLatin1String("edit-find"),
@@ -478,7 +478,7 @@ void Kid3MainWindow::initActions()
   editReplace->setStatusTip(tr("Find and replace"));
   editReplace->setText(tr("&Replace..."));
   editReplace->setShortcut(QKeySequence::Replace);
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
   editReplace->setIcon(QIcon::fromTheme(QLatin1String("edit-find-replace"),
       QIcon(QLatin1String(":/images/edit-find-replace.png"))));
 #endif
@@ -679,7 +679,7 @@ void Kid3MainWindow::initActions()
   auto helpAbout = new QAction(this);
   helpAbout->setStatusTip(tr("About Kid3"));
   helpAbout->setText(tr("&About Kid3"));
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
 #if QT_VERSION >= 0x060700
   helpAbout->setIcon(QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout,
       QIcon::fromTheme(QLatin1String("help-about"),

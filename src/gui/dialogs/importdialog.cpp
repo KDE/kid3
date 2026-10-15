@@ -63,7 +63,7 @@
 #include "frameitemdelegate.h"
 #include "trackdatamatcher.h"
 #include "iplatformtools.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -113,7 +113,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
 
   m_trackDataTable = new QTableView(this);
   m_trackDataTable->setModel(m_trackDataModel);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupItemView(m_trackDataTable);
 #endif
   m_trackDataTable->resizeColumnsToContents();
@@ -165,7 +165,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   serverButton->setAutoDefault(false);
   butlayout->addWidget(serverButton);
   m_serverComboBox = new QComboBox;
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_serverComboBox);
 #endif
   m_serverComboBox->setEditable(false);
@@ -189,7 +189,7 @@ ImportDialog::ImportDialog(IPlatformTools* platformTools,
   destLabel->setText(tr("D&estination:"));
   butlayout->addWidget(destLabel);
   m_destComboBox = new QComboBox;
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_destComboBox);
 #endif
   m_destComboBox->setEditable(false);
@@ -725,7 +725,7 @@ void ImportDialog::showTableHeaderContextMenu(const QPoint& pos)
       }
     }
     menu.setMouseTracking(true);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
     AccessibilityHelper::setupMenu(&menu);
 #endif
     menu.exec(widget->mapToGlobal(pos));

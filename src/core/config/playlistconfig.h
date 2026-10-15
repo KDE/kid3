@@ -70,8 +70,6 @@ class KID3_CORE_EXPORT PlaylistConfig : public StoredConfig<PlaylistConfig> {
   /** window geometry */
   Q_PROPERTY(QByteArray windowGeometry READ windowGeometry
              WRITE setWindowGeometry NOTIFY windowGeometryChanged)
-  Q_ENUMS(PlaylistFormat)
-  Q_ENUMS(PlaylistLocation)
 public:
   /**
    * Playlist format.
@@ -81,6 +79,7 @@ public:
     PF_PLS, /**< PLS */
     PF_XSPF /**< XSPF */
   };
+  Q_ENUM(PlaylistFormat)
 
   /**
    * Location to create playlist.
@@ -90,6 +89,7 @@ public:
     PL_EveryDirectory,   /**< create in every directory */
     PL_TopLevelDirectory /**< create in top-level directory */
   };
+  Q_ENUM(PlaylistLocation)
 
   /**
    * Constructor.

@@ -42,7 +42,6 @@ class AlbumListModel;
  */
 class KID3_CORE_EXPORT BatchImporter : public QObject, public IAbortable {
   Q_OBJECT
-  Q_ENUMS(ImportEventType)
 public:
   /** Events occurring during batch import. */
   enum ImportEventType {
@@ -58,6 +57,7 @@ public:
     Aborted,
     Error
   };
+  Q_ENUM(ImportEventType)
 
   /**
    * Constructor.

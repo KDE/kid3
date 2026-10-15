@@ -39,12 +39,6 @@
 /** Generalized frame. */
 class KID3_CORE_EXPORT Frame {
   Q_GADGET
-  Q_ENUMS(Type)
-  Q_ENUMS(FieldId)
-  Q_ENUMS(TextEncoding)
-  Q_ENUMS(PictureType)
-  Q_ENUMS(TagVersion)
-  Q_ENUMS(TagNumber)
 public:
   /** Generalized frame types. */
   enum Type {
@@ -111,6 +105,7 @@ public:
     FT_Other,
     FT_UnknownFrame
   };
+  Q_ENUM(Type)
 
   /** Maximum number of custom frame names. */
   static const int NUM_CUSTOM_FRAME_NAMES = FT_LastFrame - FT_Custom1 + 1;
@@ -181,6 +176,7 @@ public:
     // Type of subframe in CTOC and CHAP frames
     ID_Subframe
   };
+  Q_ENUM(FieldId)
 
   /** Text encoding for fields of type ID_TextEnc. */
   enum TextEncoding {
@@ -189,6 +185,7 @@ public:
     TE_UTF16BE = 2,
     TE_UTF8 = 3
   };
+  Q_ENUM(TextEncoding)
 
   /** Picture type, compatible with ID3v2 and FLAC. */
   enum PictureType {
@@ -214,6 +211,7 @@ public:
     PT_ArtistLogo = 19,
     PT_PublisherLogo = 20
   };
+  Q_ENUM(PictureType)
 
   /** Supported tags. */
   enum TagNumber {
@@ -227,6 +225,7 @@ public:
     Tag_Id3v2 = Tag_2,  /**< Tag which can be ID3v2 tag */
     Tag_Picture = Tag_2 /**< Tag used for pictures */
   };
+  Q_ENUM(TagNumber)
 
   /** Tag version contained in track data. */
   enum TagVersion {
@@ -238,6 +237,7 @@ public:
     TagV2V1 = TagV1 | TagV2,
     TagVAll = TagV1 | TagV2 | TagV3 /**< All tags */
   };
+  Q_ENUM(TagVersion)
 
   /**
    * Cast a mask of tag version bits to a TagVersion enum.

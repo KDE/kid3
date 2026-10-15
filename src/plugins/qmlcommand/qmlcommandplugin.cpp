@@ -177,7 +177,7 @@ bool QmlCommandPlugin::startUserCommand(
  */
 void QmlCommandPlugin::setupQmlEngine(QQmlEngine* engine)
 {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   // Folders containing a dot (like QtQuick.2) will cause Apple's code signing
   // to fail. On macOS, the QML plugins are therefore in Resources/qml/imports.
   const QString qmlImportsRelativeToPlugins =

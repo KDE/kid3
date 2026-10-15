@@ -231,7 +231,7 @@ PlayToolBar::PlayToolBar(AudioPlayer* player, QWidget* parent)
   connect(m_nextAction, &QAction::triggered, m_player, &AudioPlayer::next);
   connect(closeAction, &QAction::triggered, this, &QWidget::close);
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   setStyleSheet(QLatin1String("QToolButton { border: 0; }"));
 #endif
 }

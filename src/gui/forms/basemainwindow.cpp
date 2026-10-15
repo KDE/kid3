@@ -40,7 +40,7 @@
 #include <QToolBar>
 #include <QStatusBar>
 #include <QApplication>
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #include <sys/stat.h>
 #include <unistd.h>
 #endif
@@ -93,7 +93,7 @@
 #include "audioplayer.h"
 #include "playtoolbar.h"
 #endif
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include <QComboBox>
 #include "accessibilityhelper.h"
 #endif
@@ -423,7 +423,7 @@ void BaseMainWindowImpl::saveDirectory(bool updateGui)
         TaggedFile* taggedFile;
         const auto filePaths = notWritableFiles;
         for (const QString& filePath : filePaths) {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
           // On macOS, files may be locked, so try to make them mutable.
           const auto utf8Path = filePath.toUtf8();
           struct stat st;
@@ -1399,7 +1399,7 @@ void BaseMainWindowImpl::selectFrame(Frame* frame, const TaggedFile* taggedFile)
     dialog.setComboBoxItems(displayNames);
     dialog.setTextValue(displayNames.value(0));
     dialog.setComboBoxEditable(true);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
     AccessibilityHelper::setupComboBox(dialog.findChild<QComboBox*>());
 #endif
     ok = dialog.exec() == QDialog::Accepted;

@@ -302,7 +302,7 @@ void ImportConfig::writeToConfig(ISettings* config) const
                    QVariant(m_enableTimeDifferenceCheck));
   config->setValue(QLatin1String("MaxTimeDifference"),
                    QVariant(m_maxTimeDifference));
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   // Convince Mac OS X to store a 64-bit value.
   config->setValue(QLatin1String("ImportVisibleColumns"),
                    QVariant(m_importVisibleColumns | (Q_UINT64_C(1) << 63)));
@@ -377,7 +377,7 @@ void ImportConfig::readFromConfig(ISettings* config)
                                       m_maxTimeDifference).toInt();
   m_importVisibleColumns = config->value(QLatin1String("ImportVisibleColumns"),
                                          m_importVisibleColumns).toULongLong();
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   m_importVisibleColumns &= ~(Q_UINT64_C(1) << 63);
 #endif
   tagsNames = config->value(QLatin1String("ImportTagsNames"),

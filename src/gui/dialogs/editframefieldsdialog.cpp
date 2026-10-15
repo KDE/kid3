@@ -54,7 +54,7 @@
 #include "tableofcontentseditor.h"
 #include "subframeseditor.h"
 #include "pictureframe.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -298,7 +298,7 @@ LabeledComboBox::LabeledComboBox(QWidget* parent,
   auto layout = new QVBoxLayout(this);
   m_label = new QLabel(this);
   m_combo = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_combo);
 #endif
   layout->setContentsMargins(0, 0, 0, 0);
@@ -1365,7 +1365,7 @@ EditFrameFieldsDialog::EditFrameFieldsDialog(IPlatformTools* platformTools,
 {
   setObjectName(QLatin1String("EditFrameFieldsDialog"));
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   // Make sure that window stays on top, is necessary to keep the dialog
   // visible on Mac OS X while operating with the player for SYLT/ETCO frames.
   setWindowFlags(windowFlags() | Qt::Tool);

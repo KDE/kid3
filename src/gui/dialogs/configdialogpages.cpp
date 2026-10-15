@@ -67,7 +67,7 @@
 #include "contexthelp.h"
 #include "frame.h"
 #include "iplatformtools.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -184,7 +184,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   v1GroupBoxLayout->addWidget(m_markTruncationsCheckBox, 0, 0, 1, 2);
   auto textEncodingV1Label = new QLabel(tr("Text &encoding:"), v1GroupBox);
   m_textEncodingV1ComboBox = new QComboBox(v1GroupBox);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_textEncodingV1ComboBox);
 #endif
   m_textEncodingV1ComboBox->addItems(TagConfig::getTextCodecNames());
@@ -215,7 +215,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   v2GroupBoxLayout->addWidget(m_markStandardViolationsCheckBox, 3, 0, 1, 2);
   auto textEncodingLabel = new QLabel(tr("Text &encoding:"), v2GroupBox);
   m_textEncodingComboBox = new QComboBox(v2GroupBox);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_textEncodingComboBox);
 #endif
   m_textEncodingComboBox->addItems(TagConfig::getTextEncodingNames());
@@ -234,7 +234,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   auto id3v2VersionLabel = new QLabel(tr("&Version used for new tags:"),
                                       v2GroupBox);
   m_id3v2VersionComboBox = new QComboBox(v2GroupBox);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_id3v2VersionComboBox);
 #endif
   if (tagCfg.taggedFileFeatures() & TaggedFile::TF_ID3v23)
@@ -262,13 +262,13 @@ QWidget* ConfigDialogPages::createTagsPage()
   auto commentNameLabel = new QLabel(tr("Co&mment field name:"),
                                      vorbisGroupBox);
   m_commentNameComboBox = new QComboBox(vorbisGroupBox);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_commentNameComboBox);
 #endif
   auto pictureNameLabel = new QLabel(tr("&Picture field name:"),
                                      vorbisGroupBox);
   m_pictureNameComboBox = new QComboBox(vorbisGroupBox);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_pictureNameComboBox);
 #endif
   m_commentNameComboBox->setEditable(true);
@@ -293,7 +293,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   auto matroskaGroupBox = new QGroupBox(tr("Matroska"), tag2Page);
   auto writeStyleLabel = new QLabel(tr("&Write mode:"), matroskaGroupBox);
   m_writeStyleComboBox = new QComboBox(matroskaGroupBox);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_writeStyleComboBox);
 #endif
   m_writeStyleComboBox->addItem(tr("Compact"), QLatin1String("Compact"));
@@ -353,7 +353,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   auto quickAccessTagsListView = new QListView;
   m_quickAccessTagsModel = new QStandardItemModel(quickAccessWidget);
   quickAccessTagsListView->setModel(m_quickAccessTagsModel);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupItemView(quickAccessTagsListView);
 #endif
   quickAccessTagsListView->setAcceptDrops(true);
@@ -378,7 +378,7 @@ QWidget* ConfigDialogPages::createTagsPage()
   auto trackNameLabel = new QLabel(tr("Track nu&mber field name:"),
                                    riffGroupBox);
   m_trackNameComboBox = new QComboBox(riffGroupBox);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_trackNameComboBox);
 #endif
   m_trackNameComboBox->setEditable(true);
@@ -442,7 +442,7 @@ QWidget* ConfigDialogPages::createFilesPage()
   m_markChangesCheckBox = new QCheckBox(tr("&Mark changes"), saveGroupBox);
   m_coverFileNameLineEdit = new QLineEdit(saveGroupBox);
   m_fileTextEncodingComboBox = new QComboBox(saveGroupBox);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_fileTextEncodingComboBox);
 #endif
   m_fileTextEncodingComboBox->addItems(FileConfig::getTextCodecNames());
@@ -461,7 +461,7 @@ QWidget* ConfigDialogPages::createFilesPage()
   auto fileListGroupBox = new QGroupBox(tr("File List"), filesPage);
   auto nameFilterLabel = new QLabel(tr("Filte&r:"), fileListGroupBox);
   m_nameFilterComboBox = new QComboBox(fileListGroupBox);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_nameFilterComboBox);
 #endif
   m_nameFilterComboBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding,
@@ -601,7 +601,7 @@ QWidget* ConfigDialogPages::createActionsPage()
   auto audioOutputLayout = new QHBoxLayout;
   QLabel* audioOutputLabel = new QLabel(tr("A&udio output:"), commandsGroupBox);
   m_audioOutputComboBox = new QComboBox(commandsGroupBox);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_audioOutputComboBox);
 #endif
   m_audioOutputComboBox->addItem(tr("System"));
@@ -699,7 +699,7 @@ QWidget* ConfigDialogPages::createPluginsPage()
   pluginsListView->setAccessibleName(tr("Available Plugins"));
   m_enabledPluginsModel = new CheckableStringListModel(pluginsGroupBox);
   pluginsListView->setModel(m_enabledPluginsModel);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupItemView(pluginsListView);
 #endif
   pluginsLayout->addWidget(pluginsListView);

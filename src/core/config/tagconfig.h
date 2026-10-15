@@ -120,15 +120,13 @@ class KID3_CORE_EXPORT TagConfig : public StoredConfig<TagConfig> {
   /** default value for Email field in POPM frame. */
   Q_PROPERTY(QString defaultPopmEmail READ defaultPopmEmail
              NOTIFY starRatingMappingsChanged)
-  Q_ENUMS(Id3v2Version)
-  Q_ENUMS(TextEncoding)
-  Q_ENUMS(VorbisPictureName)
 public:
   /** The ID3v2 version used for new tags. */
   enum Id3v2Version {
     ID3v2_3_0 = 0,
     ID3v2_4_0 = 1
   };
+  Q_ENUM(Id3v2Version)
 
   /** Encoding used for ID3v2 frames. */
   enum TextEncoding {
@@ -136,12 +134,14 @@ public:
     TE_UTF16,
     TE_UTF8
   };
+  Q_ENUM(TextEncoding)
 
   /** Name for Vorbis picture. */
   enum VorbisPictureName {
     VP_METADATA_BLOCK_PICTURE,
     VP_COVERART
   };
+  Q_ENUM(VorbisPictureName)
 
   /**
    * Constructor.

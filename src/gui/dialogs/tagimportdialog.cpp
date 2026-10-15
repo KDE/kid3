@@ -36,7 +36,7 @@
 #include "importconfig.h"
 #include "contexthelp.h"
 #include "formatlistedit.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -68,7 +68,7 @@ TagImportDialog::TagImportDialog(QWidget* parent,
     auto destLayout = new QFormLayout;
     destLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
     m_destComboBox = new QComboBox;
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
     AccessibilityHelper::setupComboBox(m_destComboBox);
 #endif
     const auto tagVersions = Frame::availableTagVersions();

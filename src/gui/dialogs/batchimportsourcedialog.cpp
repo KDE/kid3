@@ -32,7 +32,7 @@
 #include <QSpinBox>
 #include <QLabel>
 #include <QDialogButtonBox>
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -53,7 +53,7 @@ BatchImportSourceDialog::BatchImportSourceDialog(QWidget* parent)
   auto serverLabel = new QLabel(tr("&Server:"));
   serverLayout->addWidget(serverLabel);
   m_serverComboBox = new QComboBox;
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_serverComboBox);
 #endif
   serverLabel->setBuddy(m_serverComboBox);

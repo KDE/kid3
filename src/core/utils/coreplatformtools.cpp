@@ -158,7 +158,7 @@ bool CorePlatformTools::moveToTrash(const QString& path) const
   return pSHFileOperationW(&fileOp) == 0;
 }
 
-#elif defined Q_OS_MAC
+#elif defined Q_OS_MACOS
 
 #include <CoreServices/CoreServices.h>
 

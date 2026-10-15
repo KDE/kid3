@@ -107,7 +107,7 @@ public:
    */
   QString getNameFilterPatterns(const QString& nameFilter) const override;
 
-#if !defined Q_OS_WIN32 && !defined Q_OS_MAC
+#if !defined Q_OS_WIN32 && !defined Q_OS_MACOS
   /**
    * Move file or directory to trash.
    *

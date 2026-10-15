@@ -50,7 +50,7 @@ PlaylistEditDialog::PlaylistEditDialog(PlaylistModel* model,
   setModal(false);
   setSizeGripEnabled(true);
   setAttribute(Qt::WA_DeleteOnClose);
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint);
 #endif
 

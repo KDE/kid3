@@ -797,7 +797,7 @@ QString FileSystemModelPrivate::size(const QModelIndex &index) const
         return QString();
     const FileSystemNode *n = node(index);
     if (n->isDir()) {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
         return QLatin1String("--");
 #else
         return QLatin1String("");
@@ -985,7 +985,7 @@ QVariant FileSystemModel::headerData(int section, Qt::Orientation orientation, i
     case 1: returnValue = tr("Size");
             break;
     case 2: returnValue =
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
                    tr("Kind", "Match OS X Finder");
 #else
                    tr("Type", "All other platforms");
@@ -1061,7 +1061,7 @@ public:
     {
         switch (sortColumn) {
         case 0: {
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
             // place directories before files
             bool left = l->isDir();
             bool right = r->isDir();

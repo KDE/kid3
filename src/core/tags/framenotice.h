@@ -37,7 +37,6 @@ class FrameCollection;
  */
 class KID3_CORE_EXPORT FrameNotice {
   Q_GADGET
-  Q_ENUMS(Warning)
 public:
   /** Warning type. */
   enum Warning {
@@ -62,6 +61,7 @@ public:
     ExcessSpace,  /**< Has excess white space */
     NumWarnings
   };
+  Q_ENUM(Warning)
 
   /**
    * Constructor.

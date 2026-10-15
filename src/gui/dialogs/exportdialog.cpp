@@ -51,7 +51,7 @@
 #include "texttablemodel.h"
 #include "formatlistedit.h"
 #include "iplatformtools.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -79,7 +79,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
 
   m_table = new QTableView(this);
   m_table->setModel(m_textTableModel);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupItemView(m_table);
 #endif
   if (QAccessible::isActive()) {
@@ -115,7 +115,7 @@ ExportDialog::ExportDialog(IPlatformTools* platformTools,
   auto srcLabel = new QLabel(tr("&Source:"), this);
   butlayout->addWidget(srcLabel);
   m_srcComboBox = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_srcComboBox);
 #endif
   m_srcComboBox->setEditable(false);

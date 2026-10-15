@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
   app.setDesktopFileName(QLatin1String("org.kde.kid3-qt"));
 #endif
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   QDir dir(QApplication::applicationDirPath());
   dir.cdUp();
   dir.cd(QLatin1String("PlugIns"));

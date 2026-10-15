@@ -48,7 +48,7 @@ void FindReplaceConfig::writeToConfig(ISettings* config) const
   config->setValue(QLatin1String("Flags"),
                    QVariant(static_cast<int>(m_params.getFlags())));
   config->setValue(QLatin1String("Frames"), QVariant(m_params.getFrameMask()
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
                    // Convince Mac OS X to store a 64-bit value.
                                                      | (Q_UINT64_C(1) << 63)
 #endif
@@ -72,7 +72,7 @@ void FindReplaceConfig::readFromConfig(ISettings* config)
                         static_cast<int>(m_params.getFlags())).toInt()));
   m_params.setFrameMask(config->value(QLatin1String("Frames"),
                                       m_params.getFrameMask()).toULongLong()
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
                         & ~(Q_UINT64_C(1) << 63)
 #endif
                         );

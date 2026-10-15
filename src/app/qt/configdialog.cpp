@@ -46,7 +46,7 @@
 #include "contexthelp.h"
 #include "mainwindowconfig.h"
 #include "configdialogpages.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -101,13 +101,13 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
             m_shortcutsModel, &ShortcutsModel::discardChangedShortcuts);
     m_shortcutsTreeView->setModel(m_shortcutsModel);
     m_shortcutsTreeView->setAccessibleName(tr("Keyboard Shortcuts"));
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
     AccessibilityHelper::setupItemView(m_shortcutsTreeView);
 #endif
     m_shortcutsTreeView->installEventFilter(this);
     m_shortcutsTreeView->expandAll();
     m_shortcutsTreeView->resizeColumnToContents(ShortcutsModel::ActionColumn);
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     m_shortcutsTreeView->header()->setStretchLastSection(false);
 #endif
   }
@@ -119,7 +119,7 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
 
     auto languageLabel = new QLabel(tr("&Language"), appearancePage);
     m_languageComboBox = new QComboBox(appearancePage);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
     AccessibilityHelper::setupComboBox(m_languageComboBox);
 #endif
     m_languageComboBox->addItem(tr("System"));
@@ -137,7 +137,7 @@ ConfigDialog::ConfigDialog(IPlatformTools* platformTools, QWidget* parent,
     m_useApplicationStyleCheckBox =
         new QCheckBox(tr("Use custom application &style"), appearancePage);
     m_applicationStyleComboBox = new QComboBox(appearancePage);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
     AccessibilityHelper::setupComboBox(m_applicationStyleComboBox);
 #endif
     fontStyleLayout->addWidget(m_useApplicationFontCheckBox, 1, 0);
@@ -296,7 +296,7 @@ void ConfigDialog::warnAboutAlreadyUsedShortcut(
              context + QLatin1Char('/') +
             (action ? action->text().remove(QLatin1Char('&'))
                     : QLatin1String("?"))));
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::announce(m_shortcutAlreadyUsedLabel,
                                 m_shortcutAlreadyUsedLabel->text());
 #endif

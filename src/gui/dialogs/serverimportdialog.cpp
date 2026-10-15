@@ -40,7 +40,7 @@
 #include "serverimporterconfig.h"
 #include "contexthelp.h"
 #include "trackdata.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -61,7 +61,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   auto findLayout = new QHBoxLayout;
   m_artistLineEdit = new QComboBox(this);
   m_albumLineEdit = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_artistLineEdit);
   AccessibilityHelper::setupComboBox(m_albumLineEdit);
 #endif
@@ -81,7 +81,7 @@ ServerImportDialog::ServerImportDialog(QWidget* parent) : QDialog(parent),
   auto serverLayout = new QHBoxLayout;
   m_serverLabel = new QLabel(tr("&Server:"), this);
   m_serverComboBox = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_serverComboBox);
 #endif
   m_serverComboBox->setEditable(true);
@@ -211,7 +211,7 @@ void ServerImportDialog::setImportSource(ServerImporter* source)
     }
 
     m_albumListBox->setModel(m_source->getAlbumListModel());
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
     AccessibilityHelper::setupItemView(m_albumListBox);
 #endif
 

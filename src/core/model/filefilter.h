@@ -39,13 +39,13 @@ class TaggedFile;
  */
 class KID3_CORE_EXPORT FileFilter : public QObject, public IAbortable {
   Q_OBJECT
-  Q_ENUMS(FilterEventType)
 public:
   /** Type of filter event. */
   enum FilterEventType {
     Started, Directory, ParseError, FilePassed, FileFilteredOut,
     Finished, Aborted
   };
+  Q_ENUM(FilterEventType)
 
   /**
    * Constructor.

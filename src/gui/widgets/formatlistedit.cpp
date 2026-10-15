@@ -31,7 +31,7 @@
 #include <QLayout>
 #include <QFormLayout>
 #include <QSizePolicy>
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -58,7 +58,7 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
     const QString& toolTip = tooltips.at(i);
     if (!comboBoxCreated) {
       m_formatComboBox = new QComboBox;
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
       AccessibilityHelper::setupComboBox(m_formatComboBox);
 #endif
       m_formatComboBox->setEditable(true);
@@ -83,7 +83,7 @@ FormatListEdit::FormatListEdit(const QStringList& labels,
   }
   hlayout->addLayout(formatLayout);
   auto vlayout = new QVBoxLayout;
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   vlayout->setSpacing(6);
 #endif
   m_addPushButton = new QPushButton(tr("&Add"));

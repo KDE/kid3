@@ -35,7 +35,7 @@
 #include "formatconfig.h"
 #include "configtable.h"
 #include "configtablemodel.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -52,13 +52,13 @@ FormatBox::FormatBox(const QString& title, QWidget* parent)
                                           this);
 
   m_caseConvComboBox = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_caseConvComboBox);
 #endif
   m_caseConvComboBox->addItems(FormatConfig::getCaseConversionNames());
 
   m_localeComboBox = new QComboBox(this);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(m_localeComboBox);
 #endif
   m_localeComboBox->addItems(FormatConfig::getLocaleNames());

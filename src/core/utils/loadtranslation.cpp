@@ -100,7 +100,7 @@ void Utils::loadTranslation(const QString& lang)
                     translationsDir, searchDelimiters)) ||
         qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
                    QLatin1String("."), searchDelimiters)
-#if !(defined Q_OS_WIN32 || defined Q_OS_MAC || defined Q_OS_ANDROID)
+#if !(defined Q_OS_WIN32 || defined Q_OS_MACOS || defined Q_OS_ANDROID)
         || qtTr->load(QLatin1String(QT_TRANSLATION_PREFIX) + localeName,
 #if QT_VERSION >= 0x060000
                    QLibraryInfo::path(QLibraryInfo::TranslationsPath),

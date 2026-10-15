@@ -300,7 +300,7 @@ void TagConfig::writeToConfig(ISettings* config) const
                    QVariant(m_textEncodingV1));
   config->setValue(QLatin1String("TextEncoding"),
                    QVariant(m_textEncoding));
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   // Convince Mac OS X to store a 64-bit value.
   config->setValue(QLatin1String("QuickAccessFrames"),
                    QVariant(m_quickAccessFrames | (Q_UINT64_C(1) << 63)));
@@ -371,7 +371,7 @@ void TagConfig::readFromConfig(ISettings* config)
   m_quickAccessFrames =
       config->value(QLatin1String("QuickAccessFrames"),
                     FrameCollection::DEFAULT_QUICK_ACCESS_FRAMES).toULongLong();
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   m_quickAccessFrames &= ~(Q_UINT64_C(1) << 63);
 #endif
   m_quickAccessFrameOrder = stringListToIntList(

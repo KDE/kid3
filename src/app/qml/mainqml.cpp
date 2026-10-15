@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
 
   Kid3QtApplication app(argc, argv);
   Utils::loadTranslation(configuredLanguage);
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
   QDir dir(QCoreApplication::applicationDirPath());
   dir.cdUp();
   dir.cd(QLatin1String("PlugIns"));

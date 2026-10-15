@@ -27,7 +27,7 @@
 #include "enumdelegate.h"
 #include <QComboBox>
 #include <QFontMetrics>
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -48,7 +48,7 @@ QWidget* EnumDelegate::createEditor(
   QWidget* parent, const QStyleOptionViewItem&, const QModelIndex&) const
 {
   auto cb = new QComboBox(parent);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
   AccessibilityHelper::setupComboBox(cb);
 #endif
   cb->addItems(getEnumStrings());

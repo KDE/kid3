@@ -50,7 +50,7 @@
 #include "externalprocess.h"
 #include "commandformatreplacer.h"
 #include "config.h"
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
 #include "accessibilityhelper.h"
 #endif
 
@@ -415,7 +415,7 @@ void FileList::contextMenu(const QModelIndex& index, const QPoint& pos)
       }
     }
     menu.setMouseTracking(true);
-#if defined Q_OS_MAC && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
+#if defined Q_OS_MACOS && QT_VERSION >= 0x060800 && !defined QT_NO_ACCESSIBILITY
     AccessibilityHelper::setupMenu(&menu);
 #endif
     menu.exec(pos);
