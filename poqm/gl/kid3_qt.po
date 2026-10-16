@@ -1002,98 +1002,106 @@ msgctxt "BrowserDialog|"
 msgid "&Close"
 msgstr "Pe&char"
 
-#: src/app/qt/configdialog.cpp:70
+#: src/app/qt/configdialog.cpp:74
 msgctxt "ConfigDialog|"
 msgid "&Tags"
 msgstr "E&tiquetas"
 
-#: src/app/qt/configdialog.cpp:71
+#: src/app/qt/configdialog.cpp:75
 msgctxt "ConfigDialog|"
 msgid "&Files"
 msgstr "&Ficheiros"
 
-#: src/app/qt/configdialog.cpp:72
+#: src/app/qt/configdialog.cpp:76
 msgctxt "ConfigDialog|"
 msgid "&User Actions"
 msgstr "Accións de persoa &usuaria"
 
-#: src/app/qt/configdialog.cpp:73
+#: src/app/qt/configdialog.cpp:77
 msgctxt "ConfigDialog|"
 msgid "&Network"
 msgstr "&Rede"
 
-#: src/app/qt/configdialog.cpp:74
+#: src/app/qt/configdialog.cpp:78
 msgctxt "ConfigDialog|"
 msgid "&Plugins"
 msgstr "&Complementos"
 
-#: src/app/qt/configdialog.cpp:86
+#: src/app/qt/configdialog.cpp:90
 msgctxt "ConfigDialog|"
 msgid "&Keyboard Shortcuts"
 msgstr "Atallos de &teclado"
 
-#: src/app/qt/configdialog.cpp:111
+#: src/app/qt/configdialog.cpp:103
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "&Keyboard Shortcuts"
+msgctxt "ConfigDialog|"
+msgid "Keyboard Shortcuts"
+msgstr "Atallos de &teclado"
+
+#: src/app/qt/configdialog.cpp:120
 msgctxt "ConfigDialog|"
 msgid "&Language"
 msgstr "&Idioma"
 
-#: src/app/qt/configdialog.cpp:113 src/app/qt/configdialog.cpp:204
-#: src/app/qt/configdialog.cpp:239
+#: src/app/qt/configdialog.cpp:125 src/app/qt/configdialog.cpp:219
+#: src/app/qt/configdialog.cpp:254
 msgctxt "ConfigDialog|"
 msgid "System"
 msgstr "Sistema"
 
-#: src/app/qt/configdialog.cpp:122
+#: src/app/qt/configdialog.cpp:134
 msgctxt "ConfigDialog|"
 msgid "Use custom app&lication font"
 msgstr "Usar unha fonte personalizada de ap&licación"
 
-#: src/app/qt/configdialog.cpp:124
+#: src/app/qt/configdialog.cpp:136
 msgctxt "ConfigDialog|"
 msgid "A&pplication Font..."
 msgstr "Fonte da a&plicación…"
 
-#: src/app/qt/configdialog.cpp:126
+#: src/app/qt/configdialog.cpp:138
 msgctxt "ConfigDialog|"
 msgid "Use custom application &style"
 msgstr "Usar un estilo personalizado de ap&licación"
 
-#: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
+#: src/app/qt/configdialog.cpp:147 src/app/qt/configdialog.cpp:376
 msgctxt "ConfigDialog|"
 msgid "Unknown"
 msgstr "Descoñecido"
 
-#: src/app/qt/configdialog.cpp:151
+#: src/app/qt/configdialog.cpp:166
 msgctxt "ConfigDialog|"
 msgid "Use native system file &dialogs"
 msgstr "Usar os &diálogos de ficheiro nativos do sistema"
 
-#: src/app/qt/configdialog.cpp:155
+#: src/app/qt/configdialog.cpp:170
 msgctxt "ConfigDialog|"
 msgid "&Appearance"
 msgstr "&Aparencia"
 
-#: src/app/qt/configdialog.cpp:164
+#: src/app/qt/configdialog.cpp:179
 msgctxt "ConfigDialog|"
 msgid "&Help"
 msgstr "&Axuda"
 
-#: src/app/qt/configdialog.cpp:165
+#: src/app/qt/configdialog.cpp:180
 msgctxt "ConfigDialog|"
 msgid "Restore Defaults"
 msgstr "Restaurar os valores predeterminados"
 
-#: src/app/qt/configdialog.cpp:166
+#: src/app/qt/configdialog.cpp:181
 msgctxt "ConfigDialog|"
 msgid "&OK"
 msgstr "&Aceptar"
 
-#: src/app/qt/configdialog.cpp:167
+#: src/app/qt/configdialog.cpp:182
 msgctxt "ConfigDialog|"
 msgid "&Cancel"
 msgstr "&Cancelar"
 
-#: src/app/qt/configdialog.cpp:279
+#: src/app/qt/configdialog.cpp:294
 #, qt-format
 msgctxt "ConfigDialog|"
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
@@ -1639,27 +1647,63 @@ msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
 msgstr "&Limpar a lista"
 
-#: src/app/qt/shortcutsdelegate.cpp:189
+#: src/app/qt/shortcutsdelegate.cpp:225
+msgctxt "ShortcutsDelegateEditor|"
+msgid ""
+"Press the new key combination. Press Tab to go to the Clear and Reset "
+"buttons."
+msgstr ""
+
+#: src/app/qt/shortcutsdelegate.cpp:230
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Clear"
 msgstr "Baleirar"
 
-#: src/app/qt/shortcutsdelegate.cpp:194
+#: src/app/qt/shortcutsdelegate.cpp:231
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "&Keyboard Shortcuts"
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Remove the keyboard shortcut"
+msgstr "Atallos de &teclado"
+
+#: src/app/qt/shortcutsdelegate.cpp:238
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Reset"
 msgstr "Restabelecer"
 
-#: src/app/qt/shortcutsmodel.cpp:113
+#: src/app/qt/shortcutsdelegate.cpp:240
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Restore the default keyboard shortcut"
+msgstr ""
+
+#: src/app/qt/shortcutsmodel.cpp:103
+#, qt-format
+msgctxt "ShortcutsModel|"
+msgid "Shortcut: %1. Press Return or F2 to edit."
+msgstr ""
+
+#: src/app/qt/shortcutsmodel.cpp:104
+msgctxt "ShortcutsModel|"
+msgid "none"
+msgstr ""
+
+#: src/app/qt/shortcutsmodel.cpp:120
 msgctxt "ShortcutsModel|"
 msgid "Press F2 or double click to edit cell contents."
 msgstr "Prema F2 ou faga clic duplo para editar o contido das celas."
 
-#: src/app/qt/shortcutsmodel.cpp:189
+#: src/app/qt/shortcutsmodel.cpp:123
+msgctxt "ShortcutsModel|"
+msgid "Press Return or F2 to edit."
+msgstr ""
+
+#: src/app/qt/shortcutsmodel.cpp:199
 msgctxt "ShortcutsModel|"
 msgid "Action"
 msgstr "Acción"
 
-#: src/app/qt/shortcutsmodel.cpp:192
+#: src/app/qt/shortcutsmodel.cpp:202
 msgctxt "ShortcutsModel|"
 msgid "Shortcut"
 msgstr "Atallo"
@@ -1869,7 +1913,7 @@ msgid "Unknown"
 msgstr "Descoñecido"
 
 #: src/core/model/commandformatreplacer.cpp:144 src/core/tags/frame.cpp:54
-#: src/core/tags/trackdata.cpp:199 src/gui/dialogs/tagimportdialog.cpp:212
+#: src/core/tags/trackdata.cpp:199 src/gui/dialogs/tagimportdialog.cpp:218
 msgctxt "@default|"
 msgid "Filename"
 msgstr "Nome de ficheiro"
@@ -2439,6 +2483,22 @@ msgctxt "QFileSystemModel|"
 msgid "Date Modified"
 msgstr "Data de modificación"
 
+#: src/core/model/taggedfilesystemmodel.cpp:121
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Folder"
+msgctxt "TaggedFileSystemModel|"
+msgid "Folder"
+msgstr "Cartafol"
+
+#: src/core/model/taggedfilesystemmodel.cpp:125
+#, fuzzy
+#| msgctxt "FileSystemModel|"
+#| msgid "Date Modified"
+msgctxt "TaggedFileSystemModel|"
+msgid "Modified"
+msgstr "Data de modificación"
+
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
 msgid "Search finished"
@@ -2685,7 +2745,7 @@ msgid "Milliseconds as unit"
 msgstr "Milisegundos como unidade"
 
 #: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
-#: src/gui/widgets/timeeventeditor.cpp:348
+#: src/gui/widgets/timeeventeditor.cpp:354
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Letra"
@@ -3850,137 +3910,137 @@ msgctxt "@default|"
 msgid "Escape for HTML"
 msgstr "Escapar para HTML"
 
-#: src/gui/dialogs/batchimportdialog.cpp:162
+#: src/gui/dialogs/batchimportdialog.cpp:169
 msgctxt "BatchImportDialog|"
 msgid "Automatic Import"
 msgstr "Importación automática"
 
-#: src/gui/dialogs/batchimportdialog.cpp:178
+#: src/gui/dialogs/batchimportdialog.cpp:185
 msgctxt "BatchImportDialog|"
 msgid "D&estination:"
 msgstr "D&estino:"
 
-#: src/gui/dialogs/batchimportdialog.cpp:193
+#: src/gui/dialogs/batchimportdialog.cpp:203
 msgctxt "BatchImportDialog|"
 msgid "&Profile:"
 msgstr "&Perfil:"
 
-#: src/gui/dialogs/batchimportdialog.cpp:204
+#: src/gui/dialogs/batchimportdialog.cpp:217
 msgctxt "BatchImportDialog|"
 msgid "Add"
 msgstr "Engadir"
 
-#: src/gui/dialogs/batchimportdialog.cpp:208
+#: src/gui/dialogs/batchimportdialog.cpp:221
 msgctxt "BatchImportDialog|"
 msgid "Remove"
 msgstr "Retirar"
 
-#: src/gui/dialogs/batchimportdialog.cpp:229
+#: src/gui/dialogs/batchimportdialog.cpp:242
 msgctxt "BatchImportDialog|"
 msgid "&Help"
 msgstr "&Axuda"
 
-#: src/gui/dialogs/batchimportdialog.cpp:235
+#: src/gui/dialogs/batchimportdialog.cpp:248
 msgctxt "BatchImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gardar a configuración"
 
-#: src/gui/dialogs/batchimportdialog.cpp:244
+#: src/gui/dialogs/batchimportdialog.cpp:257
 msgctxt "BatchImportDialog|"
 msgid "&Close"
 msgstr "Pe&char"
 
-#: src/gui/dialogs/batchimportdialog.cpp:284
+#: src/gui/dialogs/batchimportdialog.cpp:297
 msgctxt "BatchImportDialog|"
 msgid "New"
 msgstr "Novo"
 
-#: src/gui/dialogs/batchimportdialog.cpp:476
+#: src/gui/dialogs/batchimportdialog.cpp:489
 msgctxt "BatchImportDialog|"
 msgid "Reading Folder"
 msgstr "Lendo o cartafol"
 
-#: src/gui/dialogs/batchimportdialog.cpp:480
+#: src/gui/dialogs/batchimportdialog.cpp:493
 msgctxt "BatchImportDialog|"
 msgid "Started"
 msgstr "Iniciouse"
 
-#: src/gui/dialogs/batchimportdialog.cpp:483
+#: src/gui/dialogs/batchimportdialog.cpp:496
 msgctxt "BatchImportDialog|"
 msgid "Source"
 msgstr "Orixe"
 
-#: src/gui/dialogs/batchimportdialog.cpp:486
+#: src/gui/dialogs/batchimportdialog.cpp:499
 msgctxt "BatchImportDialog|"
 msgid "Querying"
 msgstr "Consultando"
 
-#: src/gui/dialogs/batchimportdialog.cpp:490
+#: src/gui/dialogs/batchimportdialog.cpp:503
 msgctxt "BatchImportDialog|"
 msgid "Fetching"
 msgstr "Obtendo"
 
-#: src/gui/dialogs/batchimportdialog.cpp:493
+#: src/gui/dialogs/batchimportdialog.cpp:506
 msgctxt "BatchImportDialog|"
 msgid "Data received"
 msgstr "Recibíronse datos"
 
-#: src/gui/dialogs/batchimportdialog.cpp:496
+#: src/gui/dialogs/batchimportdialog.cpp:509
 msgctxt "BatchImportDialog|"
 msgid "Cover"
 msgstr "Portada"
 
-#: src/gui/dialogs/batchimportdialog.cpp:500
+#: src/gui/dialogs/batchimportdialog.cpp:513
 msgctxt "BatchImportDialog|"
 msgid "Finished"
 msgstr "Rematou"
 
-#: src/gui/dialogs/batchimportdialog.cpp:504
+#: src/gui/dialogs/batchimportdialog.cpp:517
 msgctxt "BatchImportDialog|"
 msgid "Aborted"
 msgstr "Interrompeuse"
 
-#: src/gui/dialogs/batchimportdialog.cpp:507
+#: src/gui/dialogs/batchimportdialog.cpp:520
 msgctxt "BatchImportDialog|"
 msgid "Error"
 msgstr "Erro"
 
-#: src/gui/dialogs/batchimportdialog.cpp:523
+#: src/gui/dialogs/batchimportdialog.cpp:536
 msgctxt "BatchImportDialog|"
 msgid "A&bort"
 msgstr "I&nterromper"
 
-#: src/gui/dialogs/batchimportdialog.cpp:523
+#: src/gui/dialogs/batchimportdialog.cpp:536
 msgctxt "BatchImportDialog|"
 msgid "S&tart"
 msgstr "&Iniciar"
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:44
+#: src/gui/dialogs/batchimportsourcedialog.cpp:47
 msgctxt "BatchImportSourceDialog|"
 msgid "Import Source"
 msgstr "Orixe da importación"
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:50
+#: src/gui/dialogs/batchimportsourcedialog.cpp:53
 msgctxt "BatchImportSourceDialog|"
 msgid "&Server:"
 msgstr "&Servidor:"
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:58
+#: src/gui/dialogs/batchimportsourcedialog.cpp:64
 msgctxt "BatchImportSourceDialog|"
 msgid "&Accuracy:"
 msgstr "&Precisión:"
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:68
+#: src/gui/dialogs/batchimportsourcedialog.cpp:74
 msgctxt "BatchImportSourceDialog|"
 msgid "&Standard Tags"
 msgstr "Etiquetas e&stándar"
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:70
+#: src/gui/dialogs/batchimportsourcedialog.cpp:76
 msgctxt "BatchImportSourceDialog|"
 msgid "&Additional Tags"
 msgstr "Etiquetas &adicionais"
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:72
+#: src/gui/dialogs/batchimportsourcedialog.cpp:78
 msgctxt "BatchImportSourceDialog|"
 msgid "C&over Art"
 msgstr "P&ortada"
@@ -4056,93 +4116,93 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "A continuación arrastre a imaxe do navegador a Kid3."
 
-#: src/gui/dialogs/configdialogpages.cpp:177
+#: src/gui/dialogs/configdialogpages.cpp:180
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:180
+#: src/gui/dialogs/configdialogpages.cpp:183
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "&Marcar os campos recortados."
 
-#: src/gui/dialogs/configdialogpages.cpp:182
-#: src/gui/dialogs/configdialogpages.cpp:211
+#: src/gui/dialogs/configdialogpages.cpp:185
+#: src/gui/dialogs/configdialogpages.cpp:216
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "Codificación de t&exto:"
 
-#: src/gui/dialogs/configdialogpages.cpp:196
+#: src/gui/dialogs/configdialogpages.cpp:202
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:199
+#: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "Usar o formato «pista/pistas &totais»."
 
-#: src/gui/dialogs/configdialogpages.cpp:202
-msgctxt "ConfigDialogPages|"
-msgid "Track number &digits:"
-msgstr "&Díxitos dos números de pista:"
-
-#: src/gui/dialogs/configdialogpages.cpp:206
+#: src/gui/dialogs/configdialogpages.cpp:208
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Xénero como texto en vez de cadea numérica."
 
-#: src/gui/dialogs/configdialogpages.cpp:208
+#: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "Ficheiros &WAV cun fragmento id3 en minúsculas."
 
-#: src/gui/dialogs/configdialogpages.cpp:210
+#: src/gui/dialogs/configdialogpages.cpp:212
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "Mar&car os incumprimentos do estándar."
 
-#: src/gui/dialogs/configdialogpages.cpp:229
+#: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "&Versión que se usa para novas etiquetas:"
 
-#: src/gui/dialogs/configdialogpages.cpp:233
+#: src/gui/dialogs/configdialogpages.cpp:241
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:235
+#: src/gui/dialogs/configdialogpages.cpp:243
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:249
+#: src/gui/dialogs/configdialogpages.cpp:254
+msgctxt "ConfigDialogPages|"
+msgid "Track number &digits:"
+msgstr "&Díxitos dos números de pista:"
+
+#: src/gui/dialogs/configdialogpages.cpp:261
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:250
+#: src/gui/dialogs/configdialogpages.cpp:262
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "Nome do campo de co&mentario:"
 
-#: src/gui/dialogs/configdialogpages.cpp:253
+#: src/gui/dialogs/configdialogpages.cpp:268
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "Nome do cam&po de imaxe:"
 
-#: src/gui/dialogs/configdialogpages.cpp:275
+#: src/gui/dialogs/configdialogpages.cpp:293
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:276
+#: src/gui/dialogs/configdialogpages.cpp:294
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:278
+#: src/gui/dialogs/configdialogpages.cpp:299
 #, fuzzy
 #| msgctxt "FileSystemModel|"
 #| msgid "Computer"
@@ -4150,375 +4210,383 @@ msgctxt "ConfigDialogPages|"
 msgid "Compact"
 msgstr "Computador"
 
-#: src/gui/dialogs/configdialogpages.cpp:279
+#: src/gui/dialogs/configdialogpages.cpp:300
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:280
+#: src/gui/dialogs/configdialogpages.cpp:301
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:292
+#: src/gui/dialogs/configdialogpages.cpp:313
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Imaxe"
 
-#: src/gui/dialogs/configdialogpages.cpp:295
+#: src/gui/dialogs/configdialogpages.cpp:316
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "Marcar se s&upera (bytes):"
 
-#: src/gui/dialogs/configdialogpages.cpp:308
+#: src/gui/dialogs/configdialogpages.cpp:329
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "Amo&sar só xéneros personalizados."
 
-#: src/gui/dialogs/configdialogpages.cpp:316
+#: src/gui/dialogs/configdialogpages.cpp:337
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "Xénero&s personalizados"
 
-#: src/gui/dialogs/configdialogpages.cpp:328
+#: src/gui/dialogs/configdialogpages.cpp:349
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "Seccións pe&rsonalizadas"
 
-#: src/gui/dialogs/configdialogpages.cpp:343
+#: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "Arrastre e solte para reordenar os elementos."
 
-#: src/gui/dialogs/configdialogpages.cpp:346
+#: src/gui/dialogs/configdialogpages.cpp:370
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "Seccións de acceso &rápido"
 
-#: src/gui/dialogs/configdialogpages.cpp:353
+#: src/gui/dialogs/configdialogpages.cpp:377
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "Información de RIFF"
 
-#: src/gui/dialogs/configdialogpages.cpp:354
+#: src/gui/dialogs/configdialogpages.cpp:378
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "No&me do campo de número de pista:"
 
-#: src/gui/dialogs/configdialogpages.cpp:371
+#: src/gui/dialogs/configdialogpages.cpp:398
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "Formato das e&tiquetas"
 
-#: src/gui/dialogs/configdialogpages.cpp:373
+#: src/gui/dialogs/configdialogpages.cpp:400
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Cualificación"
 
-#: src/gui/dialogs/configdialogpages.cpp:383
+#: src/gui/dialogs/configdialogpages.cpp:410
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "Etiqueta &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:385
+#: src/gui/dialogs/configdialogpages.cpp:412
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "Etiqueta &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:386
+#: src/gui/dialogs/configdialogpages.cpp:413
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "Etiqueta &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:387
+#: src/gui/dialogs/configdialogpages.cpp:414
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "Todas as eti&quetas"
 
-#: src/gui/dialogs/configdialogpages.cpp:405
+#: src/gui/dialogs/configdialogpages.cpp:432
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Inicio"
 
-#: src/gui/dialogs/configdialogpages.cpp:406
+#: src/gui/dialogs/configdialogpages.cpp:433
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "Cargar os ú&ltimos ficheiros abertos."
 
-#: src/gui/dialogs/configdialogpages.cpp:412
+#: src/gui/dialogs/configdialogpages.cpp:439
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Gardar"
 
-#: src/gui/dialogs/configdialogpages.cpp:413
+#: src/gui/dialogs/configdialogpages.cpp:440
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "&Preservar a marca temporal dos ficheiros."
 
-#: src/gui/dialogs/configdialogpages.cpp:415
+#: src/gui/dialogs/configdialogpages.cpp:442
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "&Marcar os cambios."
 
-#: src/gui/dialogs/configdialogpages.cpp:425
+#: src/gui/dialogs/configdialogpages.cpp:455
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "Nome de f&icheiro da portada:"
 
-#: src/gui/dialogs/configdialogpages.cpp:426
+#: src/gui/dialogs/configdialogpages.cpp:456
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Codificación de t&exto (exportar, lista de reprodución):"
 
-#: src/gui/dialogs/configdialogpages.cpp:431
+#: src/gui/dialogs/configdialogpages.cpp:461
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Lista de ficheiros"
 
-#: src/gui/dialogs/configdialogpages.cpp:432
+#: src/gui/dialogs/configdialogpages.cpp:462
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Filt&ro:"
 
-#: src/gui/dialogs/configdialogpages.cpp:442
+#: src/gui/dialogs/configdialogpages.cpp:475
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "Cartafoles para incl&uír:"
 
-#: src/gui/dialogs/configdialogpages.cpp:446
+#: src/gui/dialogs/configdialogpages.cpp:479
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "Cartafoles para e&xcluír:"
 
-#: src/gui/dialogs/configdialogpages.cpp:450
+#: src/gui/dialogs/configdialogpages.cpp:483
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "Amo&sar os ficheiros agochados."
 
-#: src/gui/dialogs/configdialogpages.cpp:462
+#: src/gui/dialogs/configdialogpages.cpp:495
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Formato"
 
-#: src/gui/dialogs/configdialogpages.cpp:466
+#: src/gui/dialogs/configdialogpages.cpp:499
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "Nome do ficheiro a partir da etiqueta"
 
-#: src/gui/dialogs/configdialogpages.cpp:471
+#: src/gui/dialogs/configdialogpages.cpp:504
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "Etiqueta a partir do nome do ficheiro"
 
-#: src/gui/dialogs/configdialogpages.cpp:477
-#: src/gui/dialogs/configdialogpages.cpp:537
+#: src/gui/dialogs/configdialogpages.cpp:510
+#: src/gui/dialogs/configdialogpages.cpp:570
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Lista de reprodución"
 
-#: src/gui/dialogs/configdialogpages.cpp:489
+#: src/gui/dialogs/configdialogpages.cpp:522
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "&Formato do nome de ficheiro"
 
-#: src/gui/dialogs/configdialogpages.cpp:505
+#: src/gui/dialogs/configdialogpages.cpp:538
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "Nome do ficheiro a partir da etiqueta"
 
-#: src/gui/dialogs/configdialogpages.cpp:521
+#: src/gui/dialogs/configdialogpages.cpp:554
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "Etiqueta a partir do nome do ficheiro"
 
-#: src/gui/dialogs/configdialogpages.cpp:551
+#: src/gui/dialogs/configdialogpages.cpp:584
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Navegador"
 
-#: src/gui/dialogs/configdialogpages.cpp:552
+#: src/gui/dialogs/configdialogpages.cpp:585
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "&Navegador web:"
 
-#: src/gui/dialogs/configdialogpages.cpp:561
+#: src/gui/dialogs/configdialogpages.cpp:594
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "Ordes do &menú contextual"
 
-#: src/gui/dialogs/configdialogpages.cpp:564
+#: src/gui/dialogs/configdialogpages.cpp:597
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "Re&producir ao facer clic duplo."
 
-#: src/gui/dialogs/configdialogpages.cpp:566
+#: src/gui/dialogs/configdialogpages.cpp:599
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "&Seleccionar o ficheiro que soa."
 
-#: src/gui/dialogs/configdialogpages.cpp:569
+#: src/gui/dialogs/configdialogpages.cpp:602
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
 msgstr "Saída de &son:"
 
-#: src/gui/dialogs/configdialogpages.cpp:571
+#: src/gui/dialogs/configdialogpages.cpp:607
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "Sistema"
 
-#: src/gui/dialogs/configdialogpages.cpp:604
+#: src/gui/dialogs/configdialogpages.cpp:640
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Mandatario"
 
-#: src/gui/dialogs/configdialogpages.cpp:605
+#: src/gui/dialogs/configdialogpages.cpp:641
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Proxy:"
 
-#: src/gui/dialogs/configdialogpages.cpp:608
+#: src/gui/dialogs/configdialogpages.cpp:644
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "&Usar autenticación co mandatario."
 
-#: src/gui/dialogs/configdialogpages.cpp:610
+#: src/gui/dialogs/configdialogpages.cpp:646
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "&Nome de persoa usuaria do mandatario:"
 
-#: src/gui/dialogs/configdialogpages.cpp:614
+#: src/gui/dialogs/configdialogpages.cpp:650
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "&Contrasinal do mandatario:"
 
-#: src/gui/dialogs/configdialogpages.cpp:648
+#: src/gui/dialogs/configdialogpages.cpp:684
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "Complementos e prioridade dos &metadatos"
 
-#: src/gui/dialogs/configdialogpages.cpp:660
+#: src/gui/dialogs/configdialogpages.cpp:696
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "Complementos &dispoñíbeis"
 
-#: src/gui/dialogs/configdialogpages.cpp:671
+#: src/gui/dialogs/configdialogpages.cpp:699
+#, fuzzy
+#| msgctxt "ConfigDialogPages|"
+#| msgid "A&vailable Plugins"
+msgctxt "ConfigDialogPages|"
+msgid "Available Plugins"
+msgstr "Complementos &dispoñíbeis"
+
+#: src/gui/dialogs/configdialogpages.cpp:710
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "Os cambios só xorden efecto tras reiniciar!"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:801
+#: src/gui/dialogs/editframefieldsdialog.cpp:807
 msgctxt "@default|"
 msgid "Images"
 msgstr "Imaxes"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:802
-#: src/gui/widgets/timeeventeditor.cpp:349
+#: src/gui/dialogs/editframefieldsdialog.cpp:808
+#: src/gui/widgets/timeeventeditor.cpp:355
 msgctxt "@default|"
 msgid "All Files"
 msgstr "Todos os ficheiros"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1195
+#: src/gui/dialogs/editframefieldsdialog.cpp:1201
 msgctxt "BinaryOpenSave|"
 msgid "From Clip&board"
 msgstr "Do &portapapeis"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1196
+#: src/gui/dialogs/editframefieldsdialog.cpp:1202
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
 msgstr "Ao por&tapapeis"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1197
+#: src/gui/dialogs/editframefieldsdialog.cpp:1203
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
 msgstr "&Importar…"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1198
+#: src/gui/dialogs/editframefieldsdialog.cpp:1204
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
 msgstr "&Exportar…"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1199
+#: src/gui/dialogs/editframefieldsdialog.cpp:1205
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
 msgstr "&Vista…"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1371
+#: src/gui/dialogs/editframefieldsdialog.cpp:1377
 msgctxt "EditFrameFieldsDialog|"
 msgid "&OK"
 msgstr "&Aceptar"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1372
+#: src/gui/dialogs/editframefieldsdialog.cpp:1378
 msgctxt "EditFrameFieldsDialog|"
 msgid "&Cancel"
 msgstr "&Cancelar"
 
-#: src/gui/dialogs/exportdialog.cpp:68
+#: src/gui/dialogs/exportdialog.cpp:72
 msgctxt "ExportDialog|"
 msgid "Export"
 msgstr "Exportar"
 
-#: src/gui/dialogs/exportdialog.cpp:83
+#: src/gui/dialogs/exportdialog.cpp:93
 msgctxt "ExportDialog|"
 msgid "&Format:"
 msgstr "&Formato:"
 
-#: src/gui/dialogs/exportdialog.cpp:83
+#: src/gui/dialogs/exportdialog.cpp:93
 msgctxt "ExportDialog|"
 msgid "H&eader:"
 msgstr "Cab&eceira:"
 
-#: src/gui/dialogs/exportdialog.cpp:83
+#: src/gui/dialogs/exportdialog.cpp:93
 msgctxt "ExportDialog|"
 msgid "&Tracks:"
 msgstr "Pis&tas:"
 
-#: src/gui/dialogs/exportdialog.cpp:83
+#: src/gui/dialogs/exportdialog.cpp:93
 msgctxt "ExportDialog|"
 msgid "F&ooter:"
 msgstr "&Pé:"
 
-#: src/gui/dialogs/exportdialog.cpp:91
+#: src/gui/dialogs/exportdialog.cpp:101
 msgctxt "ExportDialog|"
 msgid "To F&ile..."
 msgstr "A un fiche&iro…"
 
-#: src/gui/dialogs/exportdialog.cpp:96
+#: src/gui/dialogs/exportdialog.cpp:106
 msgctxt "ExportDialog|"
 msgid "To Clip&board"
 msgstr "Ao &portapapeis"
 
-#: src/gui/dialogs/exportdialog.cpp:105
+#: src/gui/dialogs/exportdialog.cpp:115
 msgctxt "ExportDialog|"
 msgid "&Source:"
 msgstr "&Orixe:"
 
-#: src/gui/dialogs/exportdialog.cpp:110
+#: src/gui/dialogs/exportdialog.cpp:123
 #, qt-format
 msgctxt "ExportDialog|"
 msgid "Tag %1"
 msgstr "Etiqueta %1"
 
-#: src/gui/dialogs/exportdialog.cpp:122
+#: src/gui/dialogs/exportdialog.cpp:135
 msgctxt "ExportDialog|"
 msgid "&Help"
 msgstr "&Axuda"
 
-#: src/gui/dialogs/exportdialog.cpp:127
+#: src/gui/dialogs/exportdialog.cpp:140
 msgctxt "ExportDialog|"
 msgid "&Save Settings"
 msgstr "&Gardar a configuración"
 
-#: src/gui/dialogs/exportdialog.cpp:136
+#: src/gui/dialogs/exportdialog.cpp:149
 msgctxt "ExportDialog|"
 msgid "&Close"
 msgstr "Pe&char"
 
-#: src/gui/dialogs/exportdialog.cpp:155
+#: src/gui/dialogs/exportdialog.cpp:168
 msgctxt "ExportDialog|"
 msgid "File Error"
 msgstr "Erro de ficheiro"
 
-#: src/gui/dialogs/exportdialog.cpp:156
+#: src/gui/dialogs/exportdialog.cpp:169
 msgctxt "ExportDialog|"
 msgid "Error while writing file:\n"
 msgstr "Produciuse un erro ao escribir o ficheiro:\n"
@@ -4583,329 +4651,329 @@ msgctxt "FilterDialog|"
 msgid "&Apply"
 msgstr "&Aplicar"
 
-#: src/gui/dialogs/findreplacedialog.cpp:54
-#: src/gui/dialogs/findreplacedialog.cpp:170
+#: src/gui/dialogs/findreplacedialog.cpp:57
+#: src/gui/dialogs/findreplacedialog.cpp:182
 msgctxt "FindReplaceDialog|"
 msgid "Find and Replace"
 msgstr "Atopar e substituír"
 
-#: src/gui/dialogs/findreplacedialog.cpp:59
+#: src/gui/dialogs/findreplacedialog.cpp:62
 msgctxt "FindReplaceDialog|"
 msgid "F&ind:"
 msgstr "&Atopar:"
 
-#: src/gui/dialogs/findreplacedialog.cpp:66
+#: src/gui/dialogs/findreplacedialog.cpp:72
 msgctxt "FindReplaceDialog|"
 msgid "&Find"
 msgstr "&Atopar"
 
-#: src/gui/dialogs/findreplacedialog.cpp:69
+#: src/gui/dialogs/findreplacedialog.cpp:75
 msgctxt "FindReplaceDialog|"
 msgid "Re&place:"
 msgstr "&Substituír:"
 
-#: src/gui/dialogs/findreplacedialog.cpp:76
+#: src/gui/dialogs/findreplacedialog.cpp:85
 msgctxt "FindReplaceDialog|"
 msgid "&Replace"
 msgstr "&Substituír"
 
-#: src/gui/dialogs/findreplacedialog.cpp:79
+#: src/gui/dialogs/findreplacedialog.cpp:88
 msgctxt "FindReplaceDialog|"
 msgid "Replace &all"
 msgstr "Substituír &todo"
 
-#: src/gui/dialogs/findreplacedialog.cpp:94
+#: src/gui/dialogs/findreplacedialog.cpp:103
 msgctxt "FindReplaceDialog|"
 msgid "Options"
 msgstr "Opcións"
 
-#: src/gui/dialogs/findreplacedialog.cpp:96
+#: src/gui/dialogs/findreplacedialog.cpp:105
 msgctxt "FindReplaceDialog|"
 msgid "&Match case"
 msgstr "&Distinguir as maiúsculas das minúsculas."
 
-#: src/gui/dialogs/findreplacedialog.cpp:98
+#: src/gui/dialogs/findreplacedialog.cpp:107
 msgctxt "FindReplaceDialog|"
 msgid "&Backwards"
 msgstr "Cara a&trás"
 
-#: src/gui/dialogs/findreplacedialog.cpp:100
+#: src/gui/dialogs/findreplacedialog.cpp:109
 msgctxt "FindReplaceDialog|"
 msgid "Regular &expression"
 msgstr "&Expresión regular."
 
-#: src/gui/dialogs/findreplacedialog.cpp:105
+#: src/gui/dialogs/findreplacedialog.cpp:114
 msgctxt "FindReplaceDialog|"
 msgid "&Tags"
 msgstr "E&tiquetas"
 
-#: src/gui/dialogs/findreplacedialog.cpp:107
+#: src/gui/dialogs/findreplacedialog.cpp:116
 msgctxt "FindReplaceDialog|"
 msgid "Select a&ll"
 msgstr "Se&leccionar todo"
 
-#: src/gui/dialogs/findreplacedialog.cpp:117
+#: src/gui/dialogs/findreplacedialog.cpp:126
 msgctxt "FindReplaceDialog|"
 msgid "Filename"
 msgstr "Nome de ficheiro"
 
-#: src/gui/dialogs/findreplacedialog.cpp:132
+#: src/gui/dialogs/findreplacedialog.cpp:144
 msgctxt "FindReplaceDialog|"
 msgid "&Help"
 msgstr "&Axuda"
 
-#: src/gui/dialogs/findreplacedialog.cpp:137
+#: src/gui/dialogs/findreplacedialog.cpp:149
 msgctxt "FindReplaceDialog|"
 msgid "&Save Settings"
 msgstr "&Gardar a configuración"
 
-#: src/gui/dialogs/findreplacedialog.cpp:144
+#: src/gui/dialogs/findreplacedialog.cpp:156
 msgctxt "FindReplaceDialog|"
 msgid "&Close"
 msgstr "Pe&char"
 
-#: src/gui/dialogs/findreplacedialog.cpp:170
+#: src/gui/dialogs/findreplacedialog.cpp:182
 msgctxt "FindReplaceDialog|"
 msgid "Find"
 msgstr "Atopar"
 
-#: src/gui/dialogs/importdialog.cpp:128
+#: src/gui/dialogs/importdialog.cpp:138
 msgctxt "ImportDialog|"
 msgid "Accuracy:"
 msgstr "Precisión:"
 
-#: src/gui/dialogs/importdialog.cpp:139
+#: src/gui/dialogs/importdialog.cpp:149
 msgctxt "ImportDialog|"
 msgid "Cover Art:"
 msgstr "Portada:"
 
-#: src/gui/dialogs/importdialog.cpp:148
+#: src/gui/dialogs/importdialog.cpp:158
 msgctxt "ImportDialog|"
 msgid "From F&ile/Clipboard..."
 msgstr "Dun f&icheiro ou do portapapeis…"
 
-#: src/gui/dialogs/importdialog.cpp:151
+#: src/gui/dialogs/importdialog.cpp:161
 msgctxt "ImportDialog|"
 msgid "From T&ags..."
 msgstr "De etiquet&as…"
 
-#: src/gui/dialogs/importdialog.cpp:154
+#: src/gui/dialogs/importdialog.cpp:164
 msgctxt "ImportDialog|"
 msgid "&From Server..."
 msgstr "&Dun servidor…"
 
-#: src/gui/dialogs/importdialog.cpp:176
+#: src/gui/dialogs/importdialog.cpp:189
 msgctxt "ImportDialog|"
 msgid "D&estination:"
 msgstr "D&estino:"
 
-#: src/gui/dialogs/importdialog.cpp:195
+#: src/gui/dialogs/importdialog.cpp:211
 msgctxt "ImportDialog|"
 msgid "Revert"
 msgstr "Reverter"
 
-#: src/gui/dialogs/importdialog.cpp:204
+#: src/gui/dialogs/importdialog.cpp:220
 msgctxt "ImportDialog|"
 msgid "Check maximum allowable time &difference (sec):"
 msgstr "Comprobar a máxima &diferenza de tempo permisíbel (en segundos):"
 
-#: src/gui/dialogs/importdialog.cpp:212
+#: src/gui/dialogs/importdialog.cpp:228
 msgctxt "ImportDialog|"
 msgid "Match with:"
 msgstr "Casar con:"
 
-#: src/gui/dialogs/importdialog.cpp:214
+#: src/gui/dialogs/importdialog.cpp:230
 msgctxt "ImportDialog|"
 msgid "&Length"
 msgstr "&Duración"
 
-#: src/gui/dialogs/importdialog.cpp:217
+#: src/gui/dialogs/importdialog.cpp:233
 msgctxt "ImportDialog|"
 msgid "T&rack"
 msgstr "&Pista"
 
-#: src/gui/dialogs/importdialog.cpp:220
+#: src/gui/dialogs/importdialog.cpp:236
 msgctxt "ImportDialog|"
 msgid "&Title"
 msgstr "&Título"
 
-#: src/gui/dialogs/importdialog.cpp:248
+#: src/gui/dialogs/importdialog.cpp:266
 msgctxt "ImportDialog|"
 msgid "&Help"
 msgstr "&Axuda"
 
-#: src/gui/dialogs/importdialog.cpp:250
+#: src/gui/dialogs/importdialog.cpp:268
 msgctxt "ImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gardar a configuración"
 
-#: src/gui/dialogs/importdialog.cpp:252
+#: src/gui/dialogs/importdialog.cpp:270
 msgctxt "ImportDialog|"
 msgid "&OK"
 msgstr "&Aceptar"
 
-#: src/gui/dialogs/importdialog.cpp:253
+#: src/gui/dialogs/importdialog.cpp:271
 msgctxt "ImportDialog|"
 msgid "&Cancel"
 msgstr "&Cancelar"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:50
+#: src/gui/dialogs/numbertracksdialog.cpp:53
 #: src/qml/app/NumberTracksDialog.qml:32
 msgctxt "NumberTracksDialog|"
 msgid "Number Tracks"
 msgstr "Numerar as pistas"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:55
+#: src/gui/dialogs/numbertracksdialog.cpp:58
 msgctxt "NumberTracksDialog|"
 msgid "Start &number:"
 msgstr "&Número inicial:"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:67
+#: src/gui/dialogs/numbertracksdialog.cpp:70
 msgctxt "NumberTracksDialog|"
 msgid "&Destination:"
 msgstr "&Destino:"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:83
+#: src/gui/dialogs/numbertracksdialog.cpp:89
 msgctxt "NumberTracksDialog|"
 msgid "&Reset counter for each folder"
 msgstr "&Restabelecer o contador en cada cartafol."
 
-#: src/gui/dialogs/numbertracksdialog.cpp:89
+#: src/gui/dialogs/numbertracksdialog.cpp:95
 msgctxt "NumberTracksDialog|"
 msgid "&Total number of tracks:"
 msgstr "Número &total de pistas:"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:103
+#: src/gui/dialogs/numbertracksdialog.cpp:109
 msgctxt "NumberTracksDialog|"
 msgid "&Help"
 msgstr "&Axuda"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:108
+#: src/gui/dialogs/numbertracksdialog.cpp:114
 msgctxt "NumberTracksDialog|"
 msgid "&Save Settings"
 msgstr "&Gardar a configuración"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:117
+#: src/gui/dialogs/numbertracksdialog.cpp:123
 msgctxt "NumberTracksDialog|"
 msgid "&OK"
 msgstr "&Aceptar"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:123
+#: src/gui/dialogs/numbertracksdialog.cpp:129
 msgctxt "NumberTracksDialog|"
 msgid "&Cancel"
 msgstr "&Cancelar"
 
-#: src/gui/dialogs/playlistdialog.cpp:56
+#: src/gui/dialogs/playlistdialog.cpp:59
 msgctxt "PlaylistDialog|"
 msgid "Create Playlist"
 msgstr "Crear unha lista de reprodución"
 
-#: src/gui/dialogs/playlistdialog.cpp:144
+#: src/gui/dialogs/playlistdialog.cpp:162
 msgctxt "PlaylistDialog|"
 msgid "Playlist File Name"
 msgstr "Nome de ficheiro da lista de reprodución"
 
-#: src/gui/dialogs/playlistdialog.cpp:145
+#: src/gui/dialogs/playlistdialog.cpp:163
 msgctxt "PlaylistDialog|"
 msgid "Same as &folder name"
 msgstr "Igual que o nome do carta&fol."
 
-#: src/gui/dialogs/playlistdialog.cpp:147
+#: src/gui/dialogs/playlistdialog.cpp:165
 msgctxt "PlaylistDialog|"
 msgid "&Format:"
 msgstr "&Formato:"
 
-#: src/gui/dialogs/playlistdialog.cpp:152
+#: src/gui/dialogs/playlistdialog.cpp:170
 msgctxt "PlaylistDialog|"
 msgid "Create ne&w empty playlist:"
 msgstr "Crear unha no&va lista de reprodución baleira:"
 
-#: src/gui/dialogs/playlistdialog.cpp:153
+#: src/gui/dialogs/playlistdialog.cpp:171
 msgctxt "PlaylistDialog|"
 msgid "New"
 msgstr "Nova"
 
-#: src/gui/dialogs/playlistdialog.cpp:159
+#: src/gui/dialogs/playlistdialog.cpp:177
 msgctxt "PlaylistDialog|"
 msgid "Cr&eate in:"
 msgstr "Cr&ear en:"
 
-#: src/gui/dialogs/playlistdialog.cpp:162
+#: src/gui/dialogs/playlistdialog.cpp:180
 msgctxt "PlaylistDialog|"
 msgid "Current folder"
 msgstr "Cartafol actual"
 
-#: src/gui/dialogs/playlistdialog.cpp:163
+#: src/gui/dialogs/playlistdialog.cpp:181
 msgctxt "PlaylistDialog|"
 msgid "Every folder"
 msgstr "Cada cartafol"
 
-#: src/gui/dialogs/playlistdialog.cpp:164
+#: src/gui/dialogs/playlistdialog.cpp:182
 msgctxt "PlaylistDialog|"
 msgid "Top-level folder"
 msgstr "Cartafol raíz"
 
-#: src/gui/dialogs/playlistdialog.cpp:166
+#: src/gui/dialogs/playlistdialog.cpp:184
 msgctxt "PlaylistDialog|"
 msgid "Playlist Content"
 msgstr "Contido da lista de reprodución"
 
-#: src/gui/dialogs/playlistdialog.cpp:167
+#: src/gui/dialogs/playlistdialog.cpp:185
 msgctxt "PlaylistDialog|"
 msgid "For&mat:"
 msgstr "For&mato:"
 
-#: src/gui/dialogs/playlistdialog.cpp:171
+#: src/gui/dialogs/playlistdialog.cpp:189
 msgctxt "PlaylistDialog|"
 msgid "Incl&ude only the selected files"
 msgstr "Incl&uír só os ficheiros seleccionados."
 
-#: src/gui/dialogs/playlistdialog.cpp:172
+#: src/gui/dialogs/playlistdialog.cpp:190
 msgctxt "PlaylistDialog|"
 msgid "Sort by file &name"
 msgstr "Ordenar polo &nome de ficheiro."
 
-#: src/gui/dialogs/playlistdialog.cpp:174
+#: src/gui/dialogs/playlistdialog.cpp:192
 msgctxt "PlaylistDialog|"
 msgid "Sort by &tag field"
 msgstr "Ordenar polo campo de e&tiquetas."
 
-#: src/gui/dialogs/playlistdialog.cpp:191
+#: src/gui/dialogs/playlistdialog.cpp:209
 msgctxt "PlaylistDialog|"
 msgid "Use &relative path for files in playlist"
 msgstr "Usar rutas &relativas para os ficheiros da lista de reprodución."
 
-#: src/gui/dialogs/playlistdialog.cpp:193
+#: src/gui/dialogs/playlistdialog.cpp:211
 msgctxt "PlaylistDialog|"
 msgid "Use full p&ath for files in playlist"
 msgstr "Usar rutas &absolutas para os ficheiros da lista de reprodución."
 
-#: src/gui/dialogs/playlistdialog.cpp:194
+#: src/gui/dialogs/playlistdialog.cpp:212
 msgctxt "PlaylistDialog|"
 msgid "Write only &list of files"
 msgstr "Escribir só a &lista de ficheiros."
 
-#: src/gui/dialogs/playlistdialog.cpp:196
+#: src/gui/dialogs/playlistdialog.cpp:214
 msgctxt "PlaylistDialog|"
 msgid "Write &info using"
 msgstr "Escribir a &información con"
 
-#: src/gui/dialogs/playlistdialog.cpp:207
+#: src/gui/dialogs/playlistdialog.cpp:225
 msgctxt "PlaylistDialog|"
 msgid "&Help"
 msgstr "&Axuda"
 
-#: src/gui/dialogs/playlistdialog.cpp:211
+#: src/gui/dialogs/playlistdialog.cpp:229
 msgctxt "PlaylistDialog|"
 msgid "&Save Settings"
 msgstr "&Gardar a configuración"
 
-#: src/gui/dialogs/playlistdialog.cpp:219
+#: src/gui/dialogs/playlistdialog.cpp:237
 msgctxt "PlaylistDialog|"
 msgid "&OK"
 msgstr "&Aceptar"
 
-#: src/gui/dialogs/playlistdialog.cpp:222
+#: src/gui/dialogs/playlistdialog.cpp:240
 msgctxt "PlaylistDialog|"
 msgid "&Cancel"
 msgstr "&Cancelar"
@@ -4934,220 +5002,220 @@ msgstr ""
 "Modificouse unha lista de reprodución.\n"
 "Quere gardala?"
 
-#: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:100
+#: src/gui/dialogs/rendirdialog.cpp:60 src/gui/dialogs/rendirdialog.cpp:107
 msgctxt "RenDirDialog|"
 msgid "Rename Folder"
 msgstr "Renomear o cartafol"
 
-#: src/gui/dialogs/rendirdialog.cpp:69
+#: src/gui/dialogs/rendirdialog.cpp:72
 msgctxt "RenDirDialog|"
 msgid "Format"
 msgstr "Formato"
 
-#: src/gui/dialogs/rendirdialog.cpp:74
+#: src/gui/dialogs/rendirdialog.cpp:77
 msgctxt "RenDirDialog|"
 msgid "Preview"
 msgstr "Vista previa"
 
-#: src/gui/dialogs/rendirdialog.cpp:78
+#: src/gui/dialogs/rendirdialog.cpp:81
 msgctxt "RenDirDialog|"
 msgid "&Save Settings"
 msgstr "&Gardar a configuración"
 
-#: src/gui/dialogs/rendirdialog.cpp:101
+#: src/gui/dialogs/rendirdialog.cpp:108
 msgctxt "RenDirDialog|"
 msgid "Create Folder"
 msgstr "Crear un cartafol"
 
-#: src/gui/dialogs/rendirdialog.cpp:102
+#: src/gui/dialogs/rendirdialog.cpp:109
 msgctxt "RenDirDialog|"
 msgid "&Action:"
 msgstr "&Acción:"
 
-#: src/gui/dialogs/rendirdialog.cpp:110
+#: src/gui/dialogs/rendirdialog.cpp:117
 msgctxt "RenDirDialog|"
 msgid "&Source:"
 msgstr "&Orixe:"
 
-#: src/gui/dialogs/rendirdialog.cpp:122
+#: src/gui/dialogs/rendirdialog.cpp:132
 msgctxt "RenDirDialog|"
 msgid "&Edit..."
 msgstr "&Editar…"
 
-#: src/gui/dialogs/rendirdialog.cpp:126
+#: src/gui/dialogs/rendirdialog.cpp:136
 msgctxt "RenDirDialog|"
 msgid "&Format:"
 msgstr "&Formato:"
 
-#: src/gui/dialogs/rendirdialog.cpp:138
+#: src/gui/dialogs/rendirdialog.cpp:148
 msgctxt "RenDirDialog|"
 msgid "From:"
 msgstr "De:"
 
-#: src/gui/dialogs/rendirdialog.cpp:139
+#: src/gui/dialogs/rendirdialog.cpp:149
 msgctxt "RenDirDialog|"
 msgid "To:"
 msgstr "A:"
 
-#: src/gui/dialogs/rendirdialog.cpp:325
+#: src/gui/dialogs/rendirdialog.cpp:335
 msgctxt "RenDirDialog|"
 msgid "Folder Name from Tag"
 msgstr "Nome do cartafol a partir dunha etiqueta"
 
-#: src/gui/dialogs/serverimportdialog.cpp:61
+#: src/gui/dialogs/serverimportdialog.cpp:68
 msgctxt "ServerImportDialog|"
 msgid "&Find"
 msgstr "&Atopar"
 
-#: src/gui/dialogs/serverimportdialog.cpp:75
+#: src/gui/dialogs/serverimportdialog.cpp:82
 msgctxt "ServerImportDialog|"
 msgid "&Server:"
 msgstr "&Servidor:"
 
-#: src/gui/dialogs/serverimportdialog.cpp:78
+#: src/gui/dialogs/serverimportdialog.cpp:88
 msgctxt "ServerImportDialog|"
 msgid "C&GI Path:"
 msgstr "Ruta C&GI:"
 
-#: src/gui/dialogs/serverimportdialog.cpp:89
+#: src/gui/dialogs/serverimportdialog.cpp:99
 msgctxt "ServerImportDialog|"
 msgid "&Token:"
 msgstr "&Pase:"
 
-#: src/gui/dialogs/serverimportdialog.cpp:97
+#: src/gui/dialogs/serverimportdialog.cpp:107
 msgctxt "ServerImportDialog|"
 msgid "&Standard Tags"
 msgstr "Etiquetas e&stándar"
 
-#: src/gui/dialogs/serverimportdialog.cpp:98
+#: src/gui/dialogs/serverimportdialog.cpp:108
 msgctxt "ServerImportDialog|"
 msgid "&Additional Tags"
 msgstr "Etiquetas &adicionais"
 
-#: src/gui/dialogs/serverimportdialog.cpp:99
+#: src/gui/dialogs/serverimportdialog.cpp:109
 msgctxt "ServerImportDialog|"
 msgid "C&over Art"
 msgstr "P&ortada"
 
-#: src/gui/dialogs/serverimportdialog.cpp:113
+#: src/gui/dialogs/serverimportdialog.cpp:123
 msgctxt "ServerImportDialog|"
 msgid "&Help"
 msgstr "&Axuda"
 
-#: src/gui/dialogs/serverimportdialog.cpp:115
+#: src/gui/dialogs/serverimportdialog.cpp:125
 msgctxt "ServerImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gardar a configuración"
 
-#: src/gui/dialogs/serverimportdialog.cpp:117
+#: src/gui/dialogs/serverimportdialog.cpp:127
 msgctxt "ServerImportDialog|"
 msgid "&Close"
 msgstr "Pe&char"
 
-#: src/gui/dialogs/serverimportdialog.cpp:132
+#: src/gui/dialogs/serverimportdialog.cpp:142
 msgctxt "ServerImportDialog|"
 msgid "Ready."
 msgstr "Listo."
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:83
+#: src/gui/dialogs/servertrackimportdialog.cpp:87
 msgctxt "ServerTrackImportDialog|"
 msgid "&Server:"
 msgstr "&Servidor:"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:106
+#: src/gui/dialogs/servertrackimportdialog.cpp:119
 msgctxt "ServerTrackImportDialog|"
 msgid "Track Title/Artist - Album"
 msgstr "Título da pista/intérprete - álbum"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:107
+#: src/gui/dialogs/servertrackimportdialog.cpp:120
 msgctxt "ServerTrackImportDialog|"
 msgid "State"
 msgstr "Estado"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:115
+#: src/gui/dialogs/servertrackimportdialog.cpp:128
 msgctxt "ServerTrackImportDialog|"
 msgid "&Help"
 msgstr "&Axuda"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:117
+#: src/gui/dialogs/servertrackimportdialog.cpp:130
 msgctxt "ServerTrackImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gardar a configuración"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:119
+#: src/gui/dialogs/servertrackimportdialog.cpp:132
 msgctxt "ServerTrackImportDialog|"
 msgid "&OK"
 msgstr "&Aceptar"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:120
+#: src/gui/dialogs/servertrackimportdialog.cpp:133
 msgctxt "ServerTrackImportDialog|"
 msgid "&Apply"
 msgstr "&Aplicar"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:121
+#: src/gui/dialogs/servertrackimportdialog.cpp:134
 msgctxt "ServerTrackImportDialog|"
 msgid "&Cancel"
 msgstr "&Cancelar"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:229
-#: src/gui/dialogs/servertrackimportdialog.cpp:368
+#: src/gui/dialogs/servertrackimportdialog.cpp:242
+#: src/gui/dialogs/servertrackimportdialog.cpp:381
 msgctxt "ServerTrackImportDialog|"
 msgid "No result"
 msgstr "Non hai resultados."
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:229
-#: src/gui/dialogs/servertrackimportdialog.cpp:234
+#: src/gui/dialogs/servertrackimportdialog.cpp:242
 #: src/gui/dialogs/servertrackimportdialog.cpp:247
+#: src/gui/dialogs/servertrackimportdialog.cpp:260
 msgctxt "ServerTrackImportDialog|"
 msgid "Unknown"
 msgstr "Descoñecida"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:368
+#: src/gui/dialogs/servertrackimportdialog.cpp:381
 msgctxt "ServerTrackImportDialog|"
 msgid "No result selected"
 msgstr "Non se seleccionou ningún resultado."
 
-#: src/gui/dialogs/tagimportdialog.cpp:52
+#: src/gui/dialogs/tagimportdialog.cpp:55
 msgctxt "TagImportDialog|"
 msgid "Import from Tags"
 msgstr "Importar de etiquetas"
 
-#: src/gui/dialogs/tagimportdialog.cpp:58
+#: src/gui/dialogs/tagimportdialog.cpp:61
 msgctxt "TagImportDialog|"
 msgid "Format:"
 msgstr "Formato:"
 
-#: src/gui/dialogs/tagimportdialog.cpp:58
+#: src/gui/dialogs/tagimportdialog.cpp:61
 msgctxt "TagImportDialog|"
 msgid "Source:"
 msgstr "Orixe:"
 
-#: src/gui/dialogs/tagimportdialog.cpp:58
+#: src/gui/dialogs/tagimportdialog.cpp:61
 msgctxt "TagImportDialog|"
 msgid "Extraction:"
 msgstr "Extracción:"
 
-#: src/gui/dialogs/tagimportdialog.cpp:72
+#: src/gui/dialogs/tagimportdialog.cpp:78
 msgctxt "TagImportDialog|"
 msgid "D&estination:"
 msgstr "D&estino:"
 
-#: src/gui/dialogs/tagimportdialog.cpp:79
+#: src/gui/dialogs/tagimportdialog.cpp:85
 msgctxt "TagImportDialog|"
 msgid "&Help"
 msgstr "&Axuda"
 
-#: src/gui/dialogs/tagimportdialog.cpp:83
+#: src/gui/dialogs/tagimportdialog.cpp:89
 msgctxt "TagImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gardar a configuración"
 
-#: src/gui/dialogs/tagimportdialog.cpp:88
+#: src/gui/dialogs/tagimportdialog.cpp:94
 msgctxt "TagImportDialog|"
 msgid "&Apply"
 msgstr "&Aplicar"
 
-#: src/gui/dialogs/tagimportdialog.cpp:92
+#: src/gui/dialogs/tagimportdialog.cpp:98
 msgctxt "TagImportDialog|"
 msgid "&Close"
 msgstr "Pe&char"
@@ -5197,46 +5265,89 @@ msgctxt "TextImportDialog|"
 msgid "&Close"
 msgstr "Pe&char"
 
-#: src/gui/forms/basemainwindow.cpp:112
+#: src/gui/forms/accessibilityhelper.cpp:127
+#: src/gui/forms/accessibilityhelper.cpp:413
+msgctxt "AccessibilityHelper|"
+msgid "checked"
+msgstr ""
+
+#: src/gui/forms/accessibilityhelper.cpp:131
+msgctxt "AccessibilityHelper|"
+msgid "partially checked"
+msgstr ""
+
+#: src/gui/forms/accessibilityhelper.cpp:135
+#: src/gui/forms/accessibilityhelper.cpp:415
+msgctxt "AccessibilityHelper|"
+msgid "not checked"
+msgstr ""
+
+#: src/gui/forms/accessibilityhelper.cpp:401
+msgctxt "AccessibilityHelper|"
+msgid "menu"
+msgstr ""
+
+#: src/gui/forms/accessibilityhelper.cpp:402
+#, qt-format
+msgctxt "AccessibilityHelper|"
+msgid "%n items"
+msgid_plural "%n items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/gui/forms/accessibilityhelper.cpp:419
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "End of submenu"
+msgctxt "AccessibilityHelper|"
+msgid "submenu"
+msgstr "Fin do submenú"
+
+#: src/gui/forms/accessibilityhelper.cpp:423
+msgctxt "AccessibilityHelper|"
+msgid "dimmed"
+msgstr ""
+
+#: src/gui/forms/basemainwindow.cpp:116
 msgctxt "BaseMainWindowImpl|"
 msgid "Download"
 msgstr "Descargar"
 
-#: src/gui/forms/basemainwindow.cpp:233
+#: src/gui/forms/basemainwindow.cpp:237
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
 msgstr "Abrindo o cartafol…"
 
-#: src/gui/forms/basemainwindow.cpp:329
+#: src/gui/forms/basemainwindow.cpp:333
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
 msgstr "Interromper"
 
-#: src/gui/forms/basemainwindow.cpp:398
+#: src/gui/forms/basemainwindow.cpp:402
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
 msgstr "%1 non permite escritura"
 
-#: src/gui/forms/basemainwindow.cpp:408
+#: src/gui/forms/basemainwindow.cpp:412
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
 msgstr "Produciuse un erro ao escribir o ficheiro:\n"
 
-#: src/gui/forms/basemainwindow.cpp:410 src/gui/forms/basemainwindow.cpp:416
-#: src/gui/forms/basemainwindow.cpp:1133 src/gui/forms/basemainwindow.cpp:1138
-#: src/gui/forms/basemainwindow.cpp:1574 src/gui/forms/basemainwindow.cpp:1583
-#: src/gui/forms/basemainwindow.cpp:1658
+#: src/gui/forms/basemainwindow.cpp:414 src/gui/forms/basemainwindow.cpp:420
+#: src/gui/forms/basemainwindow.cpp:1137 src/gui/forms/basemainwindow.cpp:1142
+#: src/gui/forms/basemainwindow.cpp:1587 src/gui/forms/basemainwindow.cpp:1596
+#: src/gui/forms/basemainwindow.cpp:1671
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr "Erro de ficheiro"
 
-#: src/gui/forms/basemainwindow.cpp:413
+#: src/gui/forms/basemainwindow.cpp:417
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr "Erro ao escribir o ficheiro. Quere cambiar os permisos?"
 
-#: src/gui/forms/basemainwindow.cpp:466
+#: src/gui/forms/basemainwindow.cpp:470
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "The current folder has been modified.\n"
@@ -5245,12 +5356,12 @@ msgstr ""
 "Modificouse o cartafol actual.\n"
 "Quere gardalo?"
 
-#: src/gui/forms/basemainwindow.cpp:468 src/gui/forms/basemainwindow.cpp:507
+#: src/gui/forms/basemainwindow.cpp:472 src/gui/forms/basemainwindow.cpp:511
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
 msgstr "Aviso"
 
-#: src/gui/forms/basemainwindow.cpp:505
+#: src/gui/forms/basemainwindow.cpp:509
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "A playlist has been modified.\n"
@@ -5259,12 +5370,12 @@ msgstr ""
 "Modificouse unha lista de reprodución.\n"
 "Quere gardala?"
 
-#: src/gui/forms/basemainwindow.cpp:615
+#: src/gui/forms/basemainwindow.cpp:619
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
 msgstr "Saíndo…"
 
-#: src/gui/forms/basemainwindow.cpp:702
+#: src/gui/forms/basemainwindow.cpp:706
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
@@ -5272,7 +5383,7 @@ msgid_plural "%n folders"
 msgstr[0] "%n cartafol"
 msgstr[1] "%n cartafoles"
 
-#: src/gui/forms/basemainwindow.cpp:707
+#: src/gui/forms/basemainwindow.cpp:711
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
@@ -5280,7 +5391,7 @@ msgid_plural "%n files"
 msgstr[0] "%n ficheiro"
 msgstr[1] "%n ficheiros"
 
-#: src/gui/forms/basemainwindow.cpp:712
+#: src/gui/forms/basemainwindow.cpp:716
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
@@ -5288,289 +5399,341 @@ msgid_plural "%n selected"
 msgstr[0] "%n seleccionado"
 msgstr[1] "%n seleccionados"
 
-#: src/gui/forms/basemainwindow.cpp:715
+#: src/gui/forms/basemainwindow.cpp:719
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
 msgstr "Listo."
 
-#: src/gui/forms/basemainwindow.cpp:777
+#: src/gui/forms/basemainwindow.cpp:781
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
 msgstr "Creando a lista de reprodución…"
 
-#: src/gui/forms/basemainwindow.cpp:825
+#: src/gui/forms/basemainwindow.cpp:829
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
 msgstr "Non se atoparon os ficheiros."
 
-#: src/gui/forms/basemainwindow.cpp:826
+#: src/gui/forms/basemainwindow.cpp:830
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
 msgstr "Erro"
 
-#: src/gui/forms/basemainwindow.cpp:852
+#: src/gui/forms/basemainwindow.cpp:856
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
 msgstr "Importar"
 
-#: src/gui/forms/basemainwindow.cpp:1131 src/gui/forms/basemainwindow.cpp:1137
-#: src/gui/forms/basemainwindow.cpp:1575 src/gui/forms/basemainwindow.cpp:1584
+#: src/gui/forms/basemainwindow.cpp:1135 src/gui/forms/basemainwindow.cpp:1141
+#: src/gui/forms/basemainwindow.cpp:1588 src/gui/forms/basemainwindow.cpp:1597
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr "Erro ao renomear:\n"
 
-#: src/gui/forms/basemainwindow.cpp:1132
+#: src/gui/forms/basemainwindow.cpp:1136
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
 msgstr "Quere intentalo de novo tras pechar os cartafoles?"
 
-#: src/gui/forms/basemainwindow.cpp:1209
+#: src/gui/forms/basemainwindow.cpp:1213
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "Filtro"
 
-#: src/gui/forms/basemainwindow.cpp:1278
+#: src/gui/forms/basemainwindow.cpp:1282
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr " (filtráronse %1/%2)"
 
-#: src/gui/forms/basemainwindow.cpp:1392
+#: src/gui/forms/basemainwindow.cpp:1397
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr "Engadir unha sección"
 
-#: src/gui/forms/basemainwindow.cpp:1393
+#: src/gui/forms/basemainwindow.cpp:1398
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr "Seleccionar o identificador da sección"
 
-#: src/gui/forms/basemainwindow.cpp:1538
+#: src/gui/forms/basemainwindow.cpp:1551
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "Renomear o ficheiro"
 
-#: src/gui/forms/basemainwindow.cpp:1539
+#: src/gui/forms/basemainwindow.cpp:1552
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr "Escriba o novo nome de ficheiro:"
 
-#: src/gui/forms/basemainwindow.cpp:1576 src/gui/forms/basemainwindow.cpp:1585
+#: src/gui/forms/basemainwindow.cpp:1589 src/gui/forms/basemainwindow.cpp:1598
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr "Renomear %1 como %2 fallou.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1577
+#: src/gui/forms/basemainwindow.cpp:1590
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr "Quere intentalo de novo tras pechar os cartafoles?"
 
-#: src/gui/forms/basemainwindow.cpp:1595
+#: src/gui/forms/basemainwindow.cpp:1608
 #, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Seguro que quere mover estes %1 elementos para o lixo?"
 
-#: src/gui/forms/basemainwindow.cpp:1623
+#: src/gui/forms/basemainwindow.cpp:1636
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Seguro que quere mover estes %1 elementos para o lixo?"
 
-#: src/gui/forms/basemainwindow.cpp:1625
+#: src/gui/forms/basemainwindow.cpp:1638
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "Seguro que quere botar este elemento no lixo?"
 
-#: src/gui/forms/basemainwindow.cpp:1627
+#: src/gui/forms/basemainwindow.cpp:1640
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "Botar no lixo"
 
-#: src/gui/forms/basemainwindow.cpp:1656
+#: src/gui/forms/basemainwindow.cpp:1669
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr "O cartafol debe estar baleiro.\n"
 
-#: src/gui/forms/basemainwindow.cpp:1657
+#: src/gui/forms/basemainwindow.cpp:1670
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "Non foi posíbel botar os ficheiros no lixo"
 
-#: src/gui/forms/basemainwindow.cpp:1690
+#: src/gui/forms/basemainwindow.cpp:1703
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "Expandir todo"
 
-#: src/gui/forms/basemainwindow.cpp:1802
+#: src/gui/forms/basemainwindow.cpp:1815
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "I&nterromper"
 
-#: src/gui/forms/configurabletreeview.cpp:51
+#: src/gui/forms/configurabletreeview.cpp:54
 msgctxt "ConfigurableTreeView|"
 msgid "Automatic Column Widths"
 msgstr "Anchuras de columna automáticas"
 
-#: src/gui/forms/configurabletreeview.cpp:58
+#: src/gui/forms/configurabletreeview.cpp:61
 msgctxt "ConfigurableTreeView|"
 msgid "Custom Column Widths"
 msgstr "Anchura de columna personalizadas"
 
-#: src/gui/forms/filelist.cpp:110
+#: src/gui/forms/filelist.cpp:113
 msgctxt "FileList|"
 msgid "C&lear"
 msgstr "Ba&leirar"
 
-#: src/gui/forms/filelist.cpp:114
+#: src/gui/forms/filelist.cpp:117
 msgctxt "FileList|"
 msgid "&Close"
 msgstr "Pe&char"
 
-#: src/gui/forms/filelist.cpp:358 src/gui/forms/filelist.cpp:362
+#: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:365
 msgctxt "FileList|"
 msgid "&Expand all"
 msgstr "&Expandir todo"
 
-#: src/gui/forms/filelist.cpp:360 src/gui/forms/filelist.cpp:363
+#: src/gui/forms/filelist.cpp:363 src/gui/forms/filelist.cpp:366
 msgctxt "FileList|"
 msgid "&Collapse all"
 msgstr "&Pregar todo"
 
-#: src/gui/forms/filelist.cpp:373 src/gui/forms/filelist.cpp:375
+#: src/gui/forms/filelist.cpp:376 src/gui/forms/filelist.cpp:378
 msgctxt "FileList|"
 msgid "&Play"
 msgstr "Re&producir"
 
-#: src/gui/forms/filelist.cpp:379
+#: src/gui/forms/filelist.cpp:382
 msgctxt "FileList|"
 msgid "E&dit"
 msgstr "E&ditar"
 
-#: src/gui/forms/filelist.cpp:386 src/gui/forms/filelist.cpp:390
+#: src/gui/forms/filelist.cpp:389 src/gui/forms/filelist.cpp:393
 msgctxt "FileList|"
 msgid "&Open"
 msgstr "&Abrir…"
 
-#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
+#: src/gui/forms/filelist.cpp:390 src/gui/forms/filelist.cpp:394
 msgctxt "FileList|"
 msgid "Open Containing &Folder"
 msgstr "Abrir o carta&fol contedor"
 
-#: src/gui/forms/filelist.cpp:562
+#: src/gui/forms/filelist.cpp:568
 msgctxt "FileList|"
 msgid "Execute "
 msgstr "Executar "
 
-#: src/gui/forms/filelist.cpp:571
+#: src/gui/forms/filelist.cpp:577
 msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "Non se puido executar "
 
-#: src/gui/forms/kid3form.cpp:288
+#: src/gui/forms/kid3form.cpp:272
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Main Toolbar"
+msgctxt "Kid3Form|"
+msgid "Main Form"
+msgstr "Barra de ferramentas principal"
+
+#: src/gui/forms/kid3form.cpp:292
 msgctxt "Kid3Form|"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: src/gui/forms/kid3form.cpp:343 src/gui/forms/kid3form.cpp:1279
-#: src/gui/forms/kid3form.cpp:1280
+#: src/gui/forms/kid3form.cpp:317
+#, fuzzy
+#| msgctxt "KdeMainWindow|"
+#| msgid "File List"
+msgctxt "Kid3Form|"
+msgid "File list"
+msgstr "Lista de ficheiros"
+
+#: src/gui/forms/kid3form.cpp:318
+#, fuzzy
+#| msgctxt "LsCommand|"
+#| msgid "Folder list"
+msgctxt "Kid3Form|"
+msgid "Folder list"
+msgstr "Lista de cartafoles"
+
+#: src/gui/forms/kid3form.cpp:349
+msgctxt "Kid3Form|"
+msgid "Collapse or expand section 'File'"
+msgstr ""
+
+#: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:1317
+#: src/gui/forms/kid3form.cpp:1318
 msgctxt "Kid3Form|"
 msgid "F&ile"
 msgstr "F&icheiro"
 
-#: src/gui/forms/kid3form.cpp:354
+#: src/gui/forms/kid3form.cpp:365
 msgctxt "Kid3Form|"
 msgid "Name:"
 msgstr "Nome:"
 
-#: src/gui/forms/kid3form.cpp:363 src/gui/forms/kid3form.cpp:413
+#: src/gui/forms/kid3form.cpp:374 src/gui/forms/kid3form.cpp:437
 msgctxt "Kid3Form|"
 msgid "Format:"
 msgstr "Formato:"
 
-#: src/gui/forms/kid3form.cpp:394
+#: src/gui/forms/kid3form.cpp:387
+#, fuzzy
+#| msgctxt "SettingsPage|"
+#| msgid "To filename format"
+msgctxt "Kid3Form|"
+msgid "To filename format"
+msgstr "Ao formato de nome de ficheiro"
+
+#: src/gui/forms/kid3form.cpp:400
+#, fuzzy
+#| msgctxt "SettingsPage|"
+#| msgid "From filename format"
+msgctxt "Kid3Form|"
+msgid "From filename format"
+msgstr "Do formato do nome de ficheiro"
+
+#: src/gui/forms/kid3form.cpp:416
 msgctxt "Kid3Form|"
 msgid "From:"
 msgstr "De:"
 
-#: src/gui/forms/kid3form.cpp:400 src/gui/forms/kid3form.cpp:426
-#: src/gui/forms/kid3form.cpp:508 src/gui/forms/kid3form.cpp:532
+#: src/gui/forms/kid3form.cpp:422 src/gui/forms/kid3form.cpp:451
+#: src/gui/forms/kid3form.cpp:497 src/gui/forms/kid3form.cpp:545
+#: src/gui/forms/kid3form.cpp:572
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1"
 msgstr "Etiqueta %1"
 
-#: src/gui/forms/kid3form.cpp:402
+#: src/gui/forms/kid3form.cpp:424
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Filename from Tag %1"
 msgstr "Nome do ficheiro a partir da etiqueta %1"
 
-#: src/gui/forms/kid3form.cpp:419
+#: src/gui/forms/kid3form.cpp:444
 msgctxt "Kid3Form|"
 msgid "To:"
 msgstr "A:"
 
-#: src/gui/forms/kid3form.cpp:427
+#: src/gui/forms/kid3form.cpp:452
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
 msgstr "Etiqueta %1 a partir do nome do ficheiro"
 
-#: src/gui/forms/kid3form.cpp:448 src/gui/forms/kid3form.cpp:901
+#: src/gui/forms/kid3form.cpp:470
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Collapse or expand section 'Tag %1'"
+msgstr ""
+
+#: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:939
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
 msgstr "Etiqueta &%1"
 
-#: src/gui/forms/kid3form.cpp:477
+#: src/gui/forms/kid3form.cpp:514
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "From Tag %1"
 msgstr "Da etiqueta %1"
 
-#: src/gui/forms/kid3form.cpp:485 src/gui/forms/kid3form.cpp:541
+#: src/gui/forms/kid3form.cpp:522 src/gui/forms/kid3form.cpp:581
 msgctxt "Kid3Form|"
 msgid "Copy"
 msgstr "Copiar"
 
-#: src/gui/forms/kid3form.cpp:493 src/gui/forms/kid3form.cpp:517
+#: src/gui/forms/kid3form.cpp:530 src/gui/forms/kid3form.cpp:554
 msgctxt "Kid3Form|"
 msgid "Paste"
 msgstr "Pegar"
 
-#: src/gui/forms/kid3form.cpp:500
+#: src/gui/forms/kid3form.cpp:537
 msgctxt "Kid3Form|"
 msgid "From"
 msgstr "De"
 
-#: src/gui/forms/kid3form.cpp:502 src/gui/forms/kid3form.cpp:526
+#: src/gui/forms/kid3form.cpp:539 src/gui/forms/kid3form.cpp:566
 msgctxt "Kid3Form|"
 msgid "Filename"
 msgstr "Nome de ficheiro"
 
-#: src/gui/forms/kid3form.cpp:524
+#: src/gui/forms/kid3form.cpp:564
 msgctxt "Kid3Form|"
 msgid "To"
 msgstr "A"
 
-#: src/gui/forms/kid3form.cpp:551
+#: src/gui/forms/kid3form.cpp:594
 msgctxt "Kid3Form|"
 msgid "Remove"
 msgstr "Retirar"
 
-#: src/gui/forms/kid3form.cpp:565
+#: src/gui/forms/kid3form.cpp:608
 msgctxt "Kid3Form|"
 msgid "Edit..."
 msgstr "Editar…"
 
-#: src/gui/forms/kid3form.cpp:571
+#: src/gui/forms/kid3form.cpp:614
 msgctxt "Kid3Form|"
 msgid "Add..."
 msgstr "Engadir…"
 
-#: src/gui/forms/kid3form.cpp:577
+#: src/gui/forms/kid3form.cpp:620
 msgctxt "Kid3Form|"
 msgid "Delete"
 msgstr "Eliminar"
@@ -5630,27 +5793,27 @@ msgctxt "SectionActions|"
 msgid "Open Current Folder"
 msgstr "Abrir o cartafol actual"
 
-#: src/gui/widgets/abstractlistedit.cpp:50
+#: src/gui/widgets/abstractlistedit.cpp:53
 msgctxt "AbstractListEdit|"
 msgid "&Add..."
 msgstr "Eng&adir…"
 
-#: src/gui/widgets/abstractlistedit.cpp:51
+#: src/gui/widgets/abstractlistedit.cpp:54
 msgctxt "AbstractListEdit|"
 msgid "Move &Up"
 msgstr "S&ubir"
 
-#: src/gui/widgets/abstractlistedit.cpp:52
+#: src/gui/widgets/abstractlistedit.cpp:55
 msgctxt "AbstractListEdit|"
 msgid "Move &Down"
 msgstr "&Baixar"
 
-#: src/gui/widgets/abstractlistedit.cpp:53
+#: src/gui/widgets/abstractlistedit.cpp:56
 msgctxt "AbstractListEdit|"
 msgid "&Edit..."
 msgstr "&Editar…"
 
-#: src/gui/widgets/abstractlistedit.cpp:54
+#: src/gui/widgets/abstractlistedit.cpp:57
 msgctxt "AbstractListEdit|"
 msgid "&Remove"
 msgstr "&Retirar"
@@ -5675,22 +5838,22 @@ msgctxt "ChapterEditor|"
 msgid "End offset"
 msgstr "Desprazamento do final"
 
-#: src/gui/widgets/configtable.cpp:42
+#: src/gui/widgets/configtable.cpp:46
 msgctxt "ConfigTable|"
 msgid "&Add"
 msgstr "Eng&adir"
 
-#: src/gui/widgets/configtable.cpp:141
+#: src/gui/widgets/configtable.cpp:148
 msgctxt "ConfigTable|"
 msgid "&Insert row"
 msgstr "&Inserir unha fila"
 
-#: src/gui/widgets/configtable.cpp:145
+#: src/gui/widgets/configtable.cpp:152
 msgctxt "ConfigTable|"
 msgid "&Delete row"
 msgstr "&Eliminar a fila"
 
-#: src/gui/widgets/configtable.cpp:147
+#: src/gui/widgets/configtable.cpp:154
 msgctxt "ConfigTable|"
 msgid "&Clear row"
 msgstr "&Baleirar a fila"
@@ -5705,62 +5868,62 @@ msgctxt "FilenameFormatBox|"
 msgid "Maximum length:"
 msgstr "Lonxitude máxima:"
 
-#: src/gui/widgets/formatbox.cpp:48
+#: src/gui/widgets/formatbox.cpp:51
 msgctxt "FormatBox|"
 msgid "Automatically apply format"
 msgstr "Aplicar o formato automaticamente."
 
-#: src/gui/widgets/formatbox.cpp:56
+#: src/gui/widgets/formatbox.cpp:65
 msgctxt "FormatBox|"
 msgid "String replacement:"
 msgstr "Substitución de cadeas:"
 
-#: src/gui/widgets/formatbox.cpp:58
+#: src/gui/widgets/formatbox.cpp:67
 msgctxt "FormatBox|"
 msgid "From"
 msgstr "De"
 
-#: src/gui/widgets/formatbox.cpp:58
+#: src/gui/widgets/formatbox.cpp:67
 msgctxt "FormatBox|"
 msgid "To"
 msgstr "A"
 
-#: src/gui/widgets/formatbox.cpp:66
+#: src/gui/widgets/formatbox.cpp:75
 msgctxt "FormatBox|"
 msgid "Case conversion:"
 msgstr "Conversión en maiúsculas ou minúsculas:"
 
-#: src/gui/widgets/formatbox.cpp:67
+#: src/gui/widgets/formatbox.cpp:76
 msgctxt "FormatBox|"
 msgid "Locale:"
 msgstr "Configuración rexional:"
 
-#: src/gui/widgets/formatlistedit.cpp:83
+#: src/gui/widgets/formatlistedit.cpp:89
 msgctxt "FormatListEdit|"
 msgid "&Add"
 msgstr "Eng&adir"
 
-#: src/gui/widgets/formatlistedit.cpp:85
+#: src/gui/widgets/formatlistedit.cpp:91
 msgctxt "FormatListEdit|"
 msgid "&Remove"
 msgstr "&Retirar"
 
-#: src/gui/widgets/formatlistedit.cpp:245
+#: src/gui/widgets/formatlistedit.cpp:251
 msgctxt "FormatListEdit|"
 msgid "New"
 msgstr "Nova"
 
-#: src/gui/widgets/frametable.cpp:68 src/gui/widgets/frametable.cpp:70
+#: src/gui/widgets/frametable.cpp:72 src/gui/widgets/frametable.cpp:74
 msgctxt "FrameTable|"
 msgid "WWW Audio Source"
 msgstr "Orixe do son WWW"
 
-#: src/gui/widgets/frametable.cpp:160
+#: src/gui/widgets/frametable.cpp:214
 msgctxt "FrameTable|"
 msgid "&Select all"
 msgstr "Escoller &todos"
 
-#: src/gui/widgets/frametable.cpp:162
+#: src/gui/widgets/frametable.cpp:216
 msgctxt "FrameTable|"
 msgid "&Deselect all"
 msgstr "&Anular a selección"
@@ -5826,12 +5989,20 @@ msgctxt "PlayToolBar|"
 msgid "Close"
 msgstr "Pechar"
 
-#: src/gui/widgets/playtoolbar.cpp:163
+#: src/gui/widgets/playtoolbar.cpp:155
+#, fuzzy
+#| msgctxt "TimeEventEditor|"
+#| msgid "&Seek to position"
+msgctxt "PlayToolBar|"
+msgid "Seek to position"
+msgstr "&Saltar á posición"
+
+#: src/gui/widgets/playtoolbar.cpp:164
 msgctxt "PlayToolBar|"
 msgid "Mute"
 msgstr "Silenciar"
 
-#: src/gui/widgets/playtoolbar.cpp:346
+#: src/gui/widgets/playtoolbar.cpp:355
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
@@ -5852,27 +6023,27 @@ msgctxt "StringListEdit|"
 msgid "Edit Item"
 msgstr "Editar o elemento"
 
-#: src/gui/widgets/subframeseditor.cpp:67
+#: src/gui/widgets/subframeseditor.cpp:73
 msgctxt "SubframesEditor|"
 msgid "Edit..."
 msgstr "Editar…"
 
-#: src/gui/widgets/subframeseditor.cpp:72
+#: src/gui/widgets/subframeseditor.cpp:78
 msgctxt "SubframesEditor|"
 msgid "Add..."
 msgstr "Engadir…"
 
-#: src/gui/widgets/subframeseditor.cpp:77
+#: src/gui/widgets/subframeseditor.cpp:83
 msgctxt "SubframesEditor|"
 msgid "Delete"
 msgstr "Eliminar"
 
-#: src/gui/widgets/subframeseditor.cpp:129
+#: src/gui/widgets/subframeseditor.cpp:135
 msgctxt "SubframesEditor|"
 msgid "Add Frame"
 msgstr "Engadir unha sección"
 
-#: src/gui/widgets/subframeseditor.cpp:130
+#: src/gui/widgets/subframeseditor.cpp:136
 msgctxt "SubframesEditor|"
 msgid "Select the frame ID"
 msgstr "Seleccionar o identificador da sección"
@@ -5897,77 +6068,77 @@ msgctxt "TagFormatBox|"
 msgid "Validation"
 msgstr "Validación"
 
-#: src/gui/widgets/timeeventeditor.cpp:119
+#: src/gui/widgets/timeeventeditor.cpp:122
 msgctxt "TimeEventEditor|"
 msgid "&Add"
 msgstr "Eng&adir"
 
-#: src/gui/widgets/timeeventeditor.cpp:121
+#: src/gui/widgets/timeeventeditor.cpp:124
 msgctxt "TimeEventEditor|"
 msgid "&Delete"
 msgstr "&Eliminar"
 
-#: src/gui/widgets/timeeventeditor.cpp:123
+#: src/gui/widgets/timeeventeditor.cpp:126
 msgctxt "TimeEventEditor|"
 msgid "From Clip&board"
 msgstr "Do &portapapeis"
 
-#: src/gui/widgets/timeeventeditor.cpp:125
+#: src/gui/widgets/timeeventeditor.cpp:128
 msgctxt "TimeEventEditor|"
 msgid "&Import..."
 msgstr "&Importar…"
 
-#: src/gui/widgets/timeeventeditor.cpp:127
+#: src/gui/widgets/timeeventeditor.cpp:130
 msgctxt "TimeEventEditor|"
 msgid "&Export..."
 msgstr "&Exportar…"
 
-#: src/gui/widgets/timeeventeditor.cpp:129
+#: src/gui/widgets/timeeventeditor.cpp:132
 msgctxt "TimeEventEditor|"
 msgid "Help"
 msgstr "Axuda"
 
-#: src/gui/widgets/timeeventeditor.cpp:187
+#: src/gui/widgets/timeeventeditor.cpp:190
 msgctxt "TimeEventEditor|"
 msgid "Events"
 msgstr "Eventos"
 
-#: src/gui/widgets/timeeventeditor.cpp:193
+#: src/gui/widgets/timeeventeditor.cpp:196
 msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "Letra"
 
-#: src/gui/widgets/timeeventeditor.cpp:428
+#: src/gui/widgets/timeeventeditor.cpp:434
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "Desprazamento"
 
-#: src/gui/widgets/timeeventeditor.cpp:428
+#: src/gui/widgets/timeeventeditor.cpp:434
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
 msgstr "Milisegundos"
 
-#: src/gui/widgets/timeeventeditor.cpp:468
+#: src/gui/widgets/timeeventeditor.cpp:474
 msgctxt "TimeEventEditor|"
 msgid "&Insert row"
 msgstr "&Inserir unha fila"
 
-#: src/gui/widgets/timeeventeditor.cpp:471
+#: src/gui/widgets/timeeventeditor.cpp:477
 msgctxt "TimeEventEditor|"
 msgid "&Delete rows"
 msgstr "&Eliminar as filas"
 
-#: src/gui/widgets/timeeventeditor.cpp:473
+#: src/gui/widgets/timeeventeditor.cpp:479
 msgctxt "TimeEventEditor|"
 msgid "C&lear"
 msgstr "Ba&leirar"
 
-#: src/gui/widgets/timeeventeditor.cpp:475
+#: src/gui/widgets/timeeventeditor.cpp:481
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
 msgstr "En&gadir un desprazamento…"
 
-#: src/gui/widgets/timeeventeditor.cpp:477
+#: src/gui/widgets/timeeventeditor.cpp:483
 msgctxt "TimeEventEditor|"
 msgid "&Seek to position"
 msgstr "&Saltar á posición"

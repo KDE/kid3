@@ -1008,98 +1008,106 @@ msgctxt "BrowserDialog|"
 msgid "&Close"
 msgstr "&Itxi"
 
-#: src/app/qt/configdialog.cpp:70
+#: src/app/qt/configdialog.cpp:74
 msgctxt "ConfigDialog|"
 msgid "&Tags"
 msgstr "E&tiketak"
 
-#: src/app/qt/configdialog.cpp:71
+#: src/app/qt/configdialog.cpp:75
 msgctxt "ConfigDialog|"
 msgid "&Files"
 msgstr "&Fitxategiak"
 
-#: src/app/qt/configdialog.cpp:72
+#: src/app/qt/configdialog.cpp:76
 msgctxt "ConfigDialog|"
 msgid "&User Actions"
 msgstr "Era&biltzaile-ekintzak"
 
-#: src/app/qt/configdialog.cpp:73
+#: src/app/qt/configdialog.cpp:77
 msgctxt "ConfigDialog|"
 msgid "&Network"
 msgstr "&Sarea"
 
-#: src/app/qt/configdialog.cpp:74
+#: src/app/qt/configdialog.cpp:78
 msgctxt "ConfigDialog|"
 msgid "&Plugins"
 msgstr "&Pluginak"
 
-#: src/app/qt/configdialog.cpp:86
+#: src/app/qt/configdialog.cpp:90
 msgctxt "ConfigDialog|"
 msgid "&Keyboard Shortcuts"
 msgstr "Te&klatuko lasterbideak"
 
-#: src/app/qt/configdialog.cpp:111
+#: src/app/qt/configdialog.cpp:103
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "&Keyboard Shortcuts"
+msgctxt "ConfigDialog|"
+msgid "Keyboard Shortcuts"
+msgstr "Te&klatuko lasterbideak"
+
+#: src/app/qt/configdialog.cpp:120
 msgctxt "ConfigDialog|"
 msgid "&Language"
 msgstr "&Hizkuntza"
 
-#: src/app/qt/configdialog.cpp:113 src/app/qt/configdialog.cpp:204
-#: src/app/qt/configdialog.cpp:239
+#: src/app/qt/configdialog.cpp:125 src/app/qt/configdialog.cpp:219
+#: src/app/qt/configdialog.cpp:254
 msgctxt "ConfigDialog|"
 msgid "System"
 msgstr "Sistema"
 
-#: src/app/qt/configdialog.cpp:122
+#: src/app/qt/configdialog.cpp:134
 msgctxt "ConfigDialog|"
 msgid "Use custom app&lication font"
 msgstr "Aplikazioan norberak finkatutako &letra-tipoa"
 
-#: src/app/qt/configdialog.cpp:124
+#: src/app/qt/configdialog.cpp:136
 msgctxt "ConfigDialog|"
 msgid "A&pplication Font..."
 msgstr "A&plikazioaren letra-tipoa..."
 
-#: src/app/qt/configdialog.cpp:126
+#: src/app/qt/configdialog.cpp:138
 msgctxt "ConfigDialog|"
 msgid "Use custom application &style"
 msgstr "Erabili norberak finkatutako aplikazioaren e&stiloa"
 
-#: src/app/qt/configdialog.cpp:132 src/app/qt/configdialog.cpp:332
+#: src/app/qt/configdialog.cpp:147 src/app/qt/configdialog.cpp:376
 msgctxt "ConfigDialog|"
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: src/app/qt/configdialog.cpp:151
+#: src/app/qt/configdialog.cpp:166
 msgctxt "ConfigDialog|"
 msgid "Use native system file &dialogs"
 msgstr "Erabili sistemaren jatorrizko fitxategi elkarrizketa-koadroak"
 
-#: src/app/qt/configdialog.cpp:155
+#: src/app/qt/configdialog.cpp:170
 msgctxt "ConfigDialog|"
 msgid "&Appearance"
 msgstr "Itxur&a"
 
-#: src/app/qt/configdialog.cpp:164
+#: src/app/qt/configdialog.cpp:179
 msgctxt "ConfigDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/app/qt/configdialog.cpp:165
+#: src/app/qt/configdialog.cpp:180
 msgctxt "ConfigDialog|"
 msgid "Restore Defaults"
 msgstr "Berrezarri lehenetsiak"
 
-#: src/app/qt/configdialog.cpp:166
+#: src/app/qt/configdialog.cpp:181
 msgctxt "ConfigDialog|"
 msgid "&OK"
 msgstr "Ad&os"
 
-#: src/app/qt/configdialog.cpp:167
+#: src/app/qt/configdialog.cpp:182
 msgctxt "ConfigDialog|"
 msgid "&Cancel"
 msgstr "&Utzi"
 
-#: src/app/qt/configdialog.cpp:279
+#: src/app/qt/configdialog.cpp:294
 #, qt-format
 msgctxt "ConfigDialog|"
 msgid "The keyboard shortcut '%1' is already assigned to '%2'."
@@ -1646,27 +1654,63 @@ msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
 msgstr "&Hustu zerrenda"
 
-#: src/app/qt/shortcutsdelegate.cpp:189
+#: src/app/qt/shortcutsdelegate.cpp:225
+msgctxt "ShortcutsDelegateEditor|"
+msgid ""
+"Press the new key combination. Press Tab to go to the Clear and Reset "
+"buttons."
+msgstr ""
+
+#: src/app/qt/shortcutsdelegate.cpp:230
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Clear"
 msgstr "Hustu"
 
-#: src/app/qt/shortcutsdelegate.cpp:194
+#: src/app/qt/shortcutsdelegate.cpp:231
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "&Keyboard Shortcuts"
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Remove the keyboard shortcut"
+msgstr "Te&klatuko lasterbideak"
+
+#: src/app/qt/shortcutsdelegate.cpp:238
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Reset"
 msgstr "Berrezarri"
 
-#: src/app/qt/shortcutsmodel.cpp:113
+#: src/app/qt/shortcutsdelegate.cpp:240
+msgctxt "ShortcutsDelegateEditor|"
+msgid "Restore the default keyboard shortcut"
+msgstr ""
+
+#: src/app/qt/shortcutsmodel.cpp:103
+#, qt-format
+msgctxt "ShortcutsModel|"
+msgid "Shortcut: %1. Press Return or F2 to edit."
+msgstr ""
+
+#: src/app/qt/shortcutsmodel.cpp:104
+msgctxt "ShortcutsModel|"
+msgid "none"
+msgstr ""
+
+#: src/app/qt/shortcutsmodel.cpp:120
 msgctxt "ShortcutsModel|"
 msgid "Press F2 or double click to edit cell contents."
 msgstr "Sakatu F2 edo egin klik bikoitza gelaxketako edukia editatzeko."
 
-#: src/app/qt/shortcutsmodel.cpp:189
+#: src/app/qt/shortcutsmodel.cpp:123
+msgctxt "ShortcutsModel|"
+msgid "Press Return or F2 to edit."
+msgstr ""
+
+#: src/app/qt/shortcutsmodel.cpp:199
 msgctxt "ShortcutsModel|"
 msgid "Action"
 msgstr "Ekintza"
 
-#: src/app/qt/shortcutsmodel.cpp:192
+#: src/app/qt/shortcutsmodel.cpp:202
 msgctxt "ShortcutsModel|"
 msgid "Shortcut"
 msgstr "Lasterbidea"
@@ -1876,7 +1920,7 @@ msgid "Unknown"
 msgstr "Ezezaguna"
 
 #: src/core/model/commandformatreplacer.cpp:144 src/core/tags/frame.cpp:54
-#: src/core/tags/trackdata.cpp:199 src/gui/dialogs/tagimportdialog.cpp:212
+#: src/core/tags/trackdata.cpp:199 src/gui/dialogs/tagimportdialog.cpp:218
 msgctxt "@default|"
 msgid "Filename"
 msgstr "Fitxategi-izena"
@@ -2446,6 +2490,22 @@ msgctxt "QFileSystemModel|"
 msgid "Date Modified"
 msgstr "Aldatze data"
 
+#: src/core/model/taggedfilesystemmodel.cpp:121
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Folder"
+msgctxt "TaggedFileSystemModel|"
+msgid "Folder"
+msgstr "Karpeta"
+
+#: src/core/model/taggedfilesystemmodel.cpp:125
+#, fuzzy
+#| msgctxt "FileSystemModel|"
+#| msgid "Date Modified"
+msgctxt "TaggedFileSystemModel|"
+msgid "Modified"
+msgstr "Aldatze data"
+
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
 msgid "Search finished"
@@ -2692,7 +2752,7 @@ msgid "Milliseconds as unit"
 msgstr "Milisegundoak unitate gisa"
 
 #: src/core/tags/frame.cpp:100 src/core/tags/frame.cpp:163
-#: src/gui/widgets/timeeventeditor.cpp:348
+#: src/gui/widgets/timeeventeditor.cpp:354
 msgctxt "@default|"
 msgid "Lyrics"
 msgstr "Hitzak"
@@ -3861,145 +3921,145 @@ msgctxt "@default|"
 msgid "Escape for HTML"
 msgstr ""
 
-#: src/gui/dialogs/batchimportdialog.cpp:162
+#: src/gui/dialogs/batchimportdialog.cpp:169
 msgctxt "BatchImportDialog|"
 msgid "Automatic Import"
 msgstr "Inportatze automatikoa"
 
-#: src/gui/dialogs/batchimportdialog.cpp:178
+#: src/gui/dialogs/batchimportdialog.cpp:185
 msgctxt "BatchImportDialog|"
 msgid "D&estination:"
 msgstr "H&elburua:"
 
-#: src/gui/dialogs/batchimportdialog.cpp:193
+#: src/gui/dialogs/batchimportdialog.cpp:203
 msgctxt "BatchImportDialog|"
 msgid "&Profile:"
 msgstr "&Profila:"
 
-#: src/gui/dialogs/batchimportdialog.cpp:204
+#: src/gui/dialogs/batchimportdialog.cpp:217
 msgctxt "BatchImportDialog|"
 msgid "Add"
 msgstr "Gehitu"
 
-#: src/gui/dialogs/batchimportdialog.cpp:208
+#: src/gui/dialogs/batchimportdialog.cpp:221
 msgctxt "BatchImportDialog|"
 msgid "Remove"
 msgstr "Kendu"
 
-#: src/gui/dialogs/batchimportdialog.cpp:229
+#: src/gui/dialogs/batchimportdialog.cpp:242
 msgctxt "BatchImportDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/batchimportdialog.cpp:235
+#: src/gui/dialogs/batchimportdialog.cpp:248
 msgctxt "BatchImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/batchimportdialog.cpp:244
+#: src/gui/dialogs/batchimportdialog.cpp:257
 msgctxt "BatchImportDialog|"
 msgid "&Close"
 msgstr "It&xi"
 
-#: src/gui/dialogs/batchimportdialog.cpp:284
+#: src/gui/dialogs/batchimportdialog.cpp:297
 msgctxt "BatchImportDialog|"
 msgid "New"
 msgstr "Berria"
 
-#: src/gui/dialogs/batchimportdialog.cpp:476
+#: src/gui/dialogs/batchimportdialog.cpp:489
 msgctxt "BatchImportDialog|"
 msgid "Reading Folder"
 msgstr "Karpeta irakurtzen"
 
-#: src/gui/dialogs/batchimportdialog.cpp:480
+#: src/gui/dialogs/batchimportdialog.cpp:493
 msgctxt "BatchImportDialog|"
 msgid "Started"
 msgstr "Hasita"
 
-#: src/gui/dialogs/batchimportdialog.cpp:483
+#: src/gui/dialogs/batchimportdialog.cpp:496
 msgctxt "BatchImportDialog|"
 msgid "Source"
 msgstr "Sorburua"
 
-#: src/gui/dialogs/batchimportdialog.cpp:486
+#: src/gui/dialogs/batchimportdialog.cpp:499
 msgctxt "BatchImportDialog|"
 msgid "Querying"
 msgstr "Itauntzen"
 
-#: src/gui/dialogs/batchimportdialog.cpp:490
+#: src/gui/dialogs/batchimportdialog.cpp:503
 msgctxt "BatchImportDialog|"
 msgid "Fetching"
 msgstr "Eskuratzen"
 
-#: src/gui/dialogs/batchimportdialog.cpp:493
+#: src/gui/dialogs/batchimportdialog.cpp:506
 msgctxt "BatchImportDialog|"
 msgid "Data received"
 msgstr "Datuak jaso dira"
 
-#: src/gui/dialogs/batchimportdialog.cpp:496
+#: src/gui/dialogs/batchimportdialog.cpp:509
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Cover"
 msgstr "Azala"
 
-#: src/gui/dialogs/batchimportdialog.cpp:500
+#: src/gui/dialogs/batchimportdialog.cpp:513
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Finished"
 msgstr "Amaituta"
 
-#: src/gui/dialogs/batchimportdialog.cpp:504
+#: src/gui/dialogs/batchimportdialog.cpp:517
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Aborted"
 msgstr "Abortatuta"
 
-#: src/gui/dialogs/batchimportdialog.cpp:507
+#: src/gui/dialogs/batchimportdialog.cpp:520
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "Error"
 msgstr "Errorea"
 
-#: src/gui/dialogs/batchimportdialog.cpp:523
+#: src/gui/dialogs/batchimportdialog.cpp:536
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "A&bort"
 msgstr "Abortatu"
 
-#: src/gui/dialogs/batchimportdialog.cpp:523
+#: src/gui/dialogs/batchimportdialog.cpp:536
 #, fuzzy
 msgctxt "BatchImportDialog|"
 msgid "S&tart"
 msgstr "Hasi"
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:44
+#: src/gui/dialogs/batchimportsourcedialog.cpp:47
 msgctxt "BatchImportSourceDialog|"
 msgid "Import Source"
 msgstr ""
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:50
+#: src/gui/dialogs/batchimportsourcedialog.cpp:53
 #, fuzzy
 msgctxt "BatchImportSourceDialog|"
 msgid "&Server:"
 msgstr "&Zerbitzaria:"
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:58
+#: src/gui/dialogs/batchimportsourcedialog.cpp:64
 #, fuzzy
 msgctxt "BatchImportSourceDialog|"
 msgid "&Accuracy:"
 msgstr "Zehaztasuna"
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:68
+#: src/gui/dialogs/batchimportsourcedialog.cpp:74
 msgctxt "BatchImportSourceDialog|"
 msgid "&Standard Tags"
 msgstr ""
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:70
+#: src/gui/dialogs/batchimportsourcedialog.cpp:76
 msgctxt "BatchImportSourceDialog|"
 msgid "&Additional Tags"
 msgstr ""
 
-#: src/gui/dialogs/batchimportsourcedialog.cpp:72
+#: src/gui/dialogs/batchimportsourcedialog.cpp:78
 msgctxt "BatchImportSourceDialog|"
 msgid "C&over Art"
 msgstr ""
@@ -4084,95 +4144,95 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:177
+#: src/gui/dialogs/configdialogpages.cpp:180
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:180
+#: src/gui/dialogs/configdialogpages.cpp:183
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:182
-#: src/gui/dialogs/configdialogpages.cpp:211
+#: src/gui/dialogs/configdialogpages.cpp:185
+#: src/gui/dialogs/configdialogpages.cpp:216
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "Testu-kodeketa:"
 
-#: src/gui/dialogs/configdialogpages.cpp:196
+#: src/gui/dialogs/configdialogpages.cpp:202
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:199
+#: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:202
-msgctxt "ConfigDialogPages|"
-msgid "Track number &digits:"
-msgstr ""
-
-#: src/gui/dialogs/configdialogpages.cpp:206
+#: src/gui/dialogs/configdialogpages.cpp:208
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:208
+#: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:210
+#: src/gui/dialogs/configdialogpages.cpp:212
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:229
+#: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:233
+#: src/gui/dialogs/configdialogpages.cpp:241
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:235
+#: src/gui/dialogs/configdialogpages.cpp:243
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:249
+#: src/gui/dialogs/configdialogpages.cpp:254
+msgctxt "ConfigDialogPages|"
+msgid "Track number &digits:"
+msgstr ""
+
+#: src/gui/dialogs/configdialogpages.cpp:261
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:250
+#: src/gui/dialogs/configdialogpages.cpp:262
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:253
+#: src/gui/dialogs/configdialogpages.cpp:268
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:275
+#: src/gui/dialogs/configdialogpages.cpp:293
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:276
+#: src/gui/dialogs/configdialogpages.cpp:294
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:278
+#: src/gui/dialogs/configdialogpages.cpp:299
 #, fuzzy
 #| msgctxt "FileSystemModel|"
 #| msgid "Computer"
@@ -4180,227 +4240,227 @@ msgctxt "ConfigDialogPages|"
 msgid "Compact"
 msgstr "Ordenagailua"
 
-#: src/gui/dialogs/configdialogpages.cpp:279
+#: src/gui/dialogs/configdialogpages.cpp:300
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:280
+#: src/gui/dialogs/configdialogpages.cpp:301
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:292
+#: src/gui/dialogs/configdialogpages.cpp:313
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Irudia"
 
-#: src/gui/dialogs/configdialogpages.cpp:295
+#: src/gui/dialogs/configdialogpages.cpp:316
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:308
+#: src/gui/dialogs/configdialogpages.cpp:329
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:316
+#: src/gui/dialogs/configdialogpages.cpp:337
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:328
+#: src/gui/dialogs/configdialogpages.cpp:349
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:343
+#: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:346
+#: src/gui/dialogs/configdialogpages.cpp:370
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:353
+#: src/gui/dialogs/configdialogpages.cpp:377
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:354
+#: src/gui/dialogs/configdialogpages.cpp:378
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:371
+#: src/gui/dialogs/configdialogpages.cpp:398
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:373
+#: src/gui/dialogs/configdialogpages.cpp:400
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Balorazioa"
 
-#: src/gui/dialogs/configdialogpages.cpp:383
+#: src/gui/dialogs/configdialogpages.cpp:410
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "%1 etiketa"
 
-#: src/gui/dialogs/configdialogpages.cpp:385
+#: src/gui/dialogs/configdialogpages.cpp:412
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "%1 etiketa"
 
-#: src/gui/dialogs/configdialogpages.cpp:386
+#: src/gui/dialogs/configdialogpages.cpp:413
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "%1 etiketa"
 
-#: src/gui/dialogs/configdialogpages.cpp:387
+#: src/gui/dialogs/configdialogpages.cpp:414
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "Etiketa guztiak"
 
-#: src/gui/dialogs/configdialogpages.cpp:405
+#: src/gui/dialogs/configdialogpages.cpp:432
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Abioa"
 
-#: src/gui/dialogs/configdialogpages.cpp:406
+#: src/gui/dialogs/configdialogpages.cpp:433
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:412
+#: src/gui/dialogs/configdialogpages.cpp:439
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Gorde"
 
-#: src/gui/dialogs/configdialogpages.cpp:413
+#: src/gui/dialogs/configdialogpages.cpp:440
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:415
+#: src/gui/dialogs/configdialogpages.cpp:442
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:425
+#: src/gui/dialogs/configdialogpages.cpp:455
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:426
+#: src/gui/dialogs/configdialogpages.cpp:456
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:431
+#: src/gui/dialogs/configdialogpages.cpp:461
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Fitxategi-zerrenda"
 
-#: src/gui/dialogs/configdialogpages.cpp:432
+#: src/gui/dialogs/configdialogpages.cpp:462
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Iragazkia"
 
-#: src/gui/dialogs/configdialogpages.cpp:442
+#: src/gui/dialogs/configdialogpages.cpp:475
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:446
+#: src/gui/dialogs/configdialogpages.cpp:479
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:450
+#: src/gui/dialogs/configdialogpages.cpp:483
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "Erakutsi ezkutuko fitxategiak"
 
-#: src/gui/dialogs/configdialogpages.cpp:462
+#: src/gui/dialogs/configdialogpages.cpp:495
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Formatua"
 
-#: src/gui/dialogs/configdialogpages.cpp:466
+#: src/gui/dialogs/configdialogpages.cpp:499
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "Fitxategi-izena etiketatik"
 
-#: src/gui/dialogs/configdialogpages.cpp:471
+#: src/gui/dialogs/configdialogpages.cpp:504
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "Etiketa fitxategi-izenetik"
 
-#: src/gui/dialogs/configdialogpages.cpp:477
-#: src/gui/dialogs/configdialogpages.cpp:537
+#: src/gui/dialogs/configdialogpages.cpp:510
+#: src/gui/dialogs/configdialogpages.cpp:570
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Jotze-zerrenda"
 
-#: src/gui/dialogs/configdialogpages.cpp:489
+#: src/gui/dialogs/configdialogpages.cpp:522
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:505
+#: src/gui/dialogs/configdialogpages.cpp:538
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "Fitxategi-izena etiketatik"
 
-#: src/gui/dialogs/configdialogpages.cpp:521
+#: src/gui/dialogs/configdialogpages.cpp:554
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "Etiketa fitxategi-izenetik"
 
-#: src/gui/dialogs/configdialogpages.cpp:551
+#: src/gui/dialogs/configdialogpages.cpp:584
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Arakatzailea"
 
-#: src/gui/dialogs/configdialogpages.cpp:552
+#: src/gui/dialogs/configdialogpages.cpp:585
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "Web arakatzailea"
 
-#: src/gui/dialogs/configdialogpages.cpp:561
+#: src/gui/dialogs/configdialogpages.cpp:594
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:564
+#: src/gui/dialogs/configdialogpages.cpp:597
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:566
+#: src/gui/dialogs/configdialogpages.cpp:599
 #, fuzzy
 #| msgctxt "SelectCommand|"
 #| msgid "Select file"
@@ -4408,12 +4468,12 @@ msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "Hautatu fitxategia"
 
-#: src/gui/dialogs/configdialogpages.cpp:569
+#: src/gui/dialogs/configdialogpages.cpp:602
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:571
+#: src/gui/dialogs/configdialogpages.cpp:607
 #, fuzzy
 #| msgctxt "ConfigDialog|"
 #| msgid "System"
@@ -4421,182 +4481,188 @@ msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "Sistema"
 
-#: src/gui/dialogs/configdialogpages.cpp:604
+#: src/gui/dialogs/configdialogpages.cpp:640
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Proxya"
 
-#: src/gui/dialogs/configdialogpages.cpp:605
+#: src/gui/dialogs/configdialogpages.cpp:641
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Ordezkaria:"
 
-#: src/gui/dialogs/configdialogpages.cpp:608
+#: src/gui/dialogs/configdialogpages.cpp:644
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:610
+#: src/gui/dialogs/configdialogpages.cpp:646
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:614
+#: src/gui/dialogs/configdialogpages.cpp:650
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "Proxyko pasahitza:"
 
-#: src/gui/dialogs/configdialogpages.cpp:648
+#: src/gui/dialogs/configdialogpages.cpp:684
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:660
+#: src/gui/dialogs/configdialogpages.cpp:696
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "Plugin eskuragarriak"
 
-#: src/gui/dialogs/configdialogpages.cpp:671
+#: src/gui/dialogs/configdialogpages.cpp:699
+#, fuzzy
+msgctxt "ConfigDialogPages|"
+msgid "Available Plugins"
+msgstr "Plugin eskuragarriak"
+
+#: src/gui/dialogs/configdialogpages.cpp:710
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr ""
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:801
+#: src/gui/dialogs/editframefieldsdialog.cpp:807
 #, fuzzy
 msgctxt "@default|"
 msgid "Images"
 msgstr "Irudiak"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:802
-#: src/gui/widgets/timeeventeditor.cpp:349
+#: src/gui/dialogs/editframefieldsdialog.cpp:808
+#: src/gui/widgets/timeeventeditor.cpp:355
 #, fuzzy
 msgctxt "@default|"
 msgid "All Files"
 msgstr "Fitxategi guztiak"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1195
+#: src/gui/dialogs/editframefieldsdialog.cpp:1201
 #, fuzzy
 msgctxt "BinaryOpenSave|"
 msgid "From Clip&board"
 msgstr "Arbeletik"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1196
+#: src/gui/dialogs/editframefieldsdialog.cpp:1202
 #, fuzzy
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
 msgstr "&Arbelera"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1197
+#: src/gui/dialogs/editframefieldsdialog.cpp:1203
 #, fuzzy
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
 msgstr "&Inportatu..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1198
+#: src/gui/dialogs/editframefieldsdialog.cpp:1204
 #, fuzzy
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
 msgstr "&Esportatu..."
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1199
+#: src/gui/dialogs/editframefieldsdialog.cpp:1205
 #, fuzzy
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
 msgstr "&Ikusi"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1371
+#: src/gui/dialogs/editframefieldsdialog.cpp:1377
 #, fuzzy
 msgctxt "EditFrameFieldsDialog|"
 msgid "&OK"
 msgstr "&Ados"
 
-#: src/gui/dialogs/editframefieldsdialog.cpp:1372
+#: src/gui/dialogs/editframefieldsdialog.cpp:1378
 #, fuzzy
 msgctxt "EditFrameFieldsDialog|"
 msgid "&Cancel"
 msgstr "&Utzi"
 
-#: src/gui/dialogs/exportdialog.cpp:68
+#: src/gui/dialogs/exportdialog.cpp:72
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "Export"
 msgstr "Esportatu"
 
-#: src/gui/dialogs/exportdialog.cpp:83
+#: src/gui/dialogs/exportdialog.cpp:93
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "&Format:"
 msgstr "Formatua"
 
-#: src/gui/dialogs/exportdialog.cpp:83
+#: src/gui/dialogs/exportdialog.cpp:93
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "H&eader:"
 msgstr "Goiburua"
 
-#: src/gui/dialogs/exportdialog.cpp:83
+#: src/gui/dialogs/exportdialog.cpp:93
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "&Tracks:"
 msgstr "Pistak"
 
-#: src/gui/dialogs/exportdialog.cpp:83
+#: src/gui/dialogs/exportdialog.cpp:93
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "F&ooter:"
 msgstr "Orri-oina"
 
-#: src/gui/dialogs/exportdialog.cpp:91
+#: src/gui/dialogs/exportdialog.cpp:101
 msgctxt "ExportDialog|"
 msgid "To F&ile..."
 msgstr ""
 
-#: src/gui/dialogs/exportdialog.cpp:96
+#: src/gui/dialogs/exportdialog.cpp:106
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "To Clip&board"
 msgstr "A&rbelera..."
 
-#: src/gui/dialogs/exportdialog.cpp:105
+#: src/gui/dialogs/exportdialog.cpp:115
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "&Source:"
 msgstr "Sorburua"
 
-#: src/gui/dialogs/exportdialog.cpp:110
+#: src/gui/dialogs/exportdialog.cpp:123
 #, fuzzy, qt-format
 msgctxt "ExportDialog|"
 msgid "Tag %1"
 msgstr "%1 etiketa"
 
-#: src/gui/dialogs/exportdialog.cpp:122
+#: src/gui/dialogs/exportdialog.cpp:135
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/exportdialog.cpp:127
+#: src/gui/dialogs/exportdialog.cpp:140
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/exportdialog.cpp:136
+#: src/gui/dialogs/exportdialog.cpp:149
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "&Close"
 msgstr "&Itxi"
 
-#: src/gui/dialogs/exportdialog.cpp:155
+#: src/gui/dialogs/exportdialog.cpp:168
 msgctxt "ExportDialog|"
 msgid "File Error"
 msgstr ""
 
-#: src/gui/dialogs/exportdialog.cpp:156
+#: src/gui/dialogs/exportdialog.cpp:169
 #, fuzzy
 msgctxt "ExportDialog|"
 msgid "Error while writing file:\n"
@@ -4674,371 +4740,371 @@ msgctxt "FilterDialog|"
 msgid "&Apply"
 msgstr "&Aplikatu"
 
-#: src/gui/dialogs/findreplacedialog.cpp:54
-#: src/gui/dialogs/findreplacedialog.cpp:170
+#: src/gui/dialogs/findreplacedialog.cpp:57
+#: src/gui/dialogs/findreplacedialog.cpp:182
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "Find and Replace"
 msgstr "Bilatu eta Ordeztu"
 
-#: src/gui/dialogs/findreplacedialog.cpp:59
+#: src/gui/dialogs/findreplacedialog.cpp:62
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "F&ind:"
 msgstr "&Bilatu:"
 
-#: src/gui/dialogs/findreplacedialog.cpp:66
+#: src/gui/dialogs/findreplacedialog.cpp:72
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "&Find"
 msgstr "&Bilatu"
 
-#: src/gui/dialogs/findreplacedialog.cpp:69
+#: src/gui/dialogs/findreplacedialog.cpp:75
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "Re&place:"
 msgstr "Ordeztu"
 
-#: src/gui/dialogs/findreplacedialog.cpp:76
+#: src/gui/dialogs/findreplacedialog.cpp:85
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "&Replace"
 msgstr "&Ordeztu"
 
-#: src/gui/dialogs/findreplacedialog.cpp:79
+#: src/gui/dialogs/findreplacedialog.cpp:88
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "Replace &all"
 msgstr "Ordeztu guztiak"
 
-#: src/gui/dialogs/findreplacedialog.cpp:94
+#: src/gui/dialogs/findreplacedialog.cpp:103
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "Options"
 msgstr "Aukerak"
 
-#: src/gui/dialogs/findreplacedialog.cpp:96
+#: src/gui/dialogs/findreplacedialog.cpp:105
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "&Match case"
 msgstr "Bereizi maiuskulak"
 
-#: src/gui/dialogs/findreplacedialog.cpp:98
+#: src/gui/dialogs/findreplacedialog.cpp:107
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "&Backwards"
 msgstr "&Atzeruntz"
 
-#: src/gui/dialogs/findreplacedialog.cpp:100
+#: src/gui/dialogs/findreplacedialog.cpp:109
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "Regular &expression"
 msgstr "Adierazpen erregularra"
 
-#: src/gui/dialogs/findreplacedialog.cpp:105
+#: src/gui/dialogs/findreplacedialog.cpp:114
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "&Tags"
 msgstr "E&tiketak"
 
-#: src/gui/dialogs/findreplacedialog.cpp:107
+#: src/gui/dialogs/findreplacedialog.cpp:116
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "Select a&ll"
 msgstr "Hautatu denak"
 
-#: src/gui/dialogs/findreplacedialog.cpp:117
+#: src/gui/dialogs/findreplacedialog.cpp:126
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "Filename"
 msgstr "Fitxategi-izena"
 
-#: src/gui/dialogs/findreplacedialog.cpp:132
+#: src/gui/dialogs/findreplacedialog.cpp:144
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/findreplacedialog.cpp:137
+#: src/gui/dialogs/findreplacedialog.cpp:149
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/findreplacedialog.cpp:144
+#: src/gui/dialogs/findreplacedialog.cpp:156
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "&Close"
 msgstr "&Itxi"
 
-#: src/gui/dialogs/findreplacedialog.cpp:170
+#: src/gui/dialogs/findreplacedialog.cpp:182
 #, fuzzy
 msgctxt "FindReplaceDialog|"
 msgid "Find"
 msgstr "Aurkitu"
 
-#: src/gui/dialogs/importdialog.cpp:128
+#: src/gui/dialogs/importdialog.cpp:138
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "Accuracy:"
 msgstr "Zuzentasuna:"
 
-#: src/gui/dialogs/importdialog.cpp:139
+#: src/gui/dialogs/importdialog.cpp:149
 msgctxt "ImportDialog|"
 msgid "Cover Art:"
 msgstr ""
 
-#: src/gui/dialogs/importdialog.cpp:148
+#: src/gui/dialogs/importdialog.cpp:158
 msgctxt "ImportDialog|"
 msgid "From F&ile/Clipboard..."
 msgstr ""
 
-#: src/gui/dialogs/importdialog.cpp:151
+#: src/gui/dialogs/importdialog.cpp:161
 msgctxt "ImportDialog|"
 msgid "From T&ags..."
 msgstr ""
 
-#: src/gui/dialogs/importdialog.cpp:154
+#: src/gui/dialogs/importdialog.cpp:164
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "&From Server..."
 msgstr "Zerbitzaritik..."
 
-#: src/gui/dialogs/importdialog.cpp:176
+#: src/gui/dialogs/importdialog.cpp:189
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "D&estination:"
 msgstr "Helburua"
 
-#: src/gui/dialogs/importdialog.cpp:195
+#: src/gui/dialogs/importdialog.cpp:211
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "Revert"
 msgstr "Lehengoratu"
 
-#: src/gui/dialogs/importdialog.cpp:204
+#: src/gui/dialogs/importdialog.cpp:220
 msgctxt "ImportDialog|"
 msgid "Check maximum allowable time &difference (sec):"
 msgstr ""
 
-#: src/gui/dialogs/importdialog.cpp:212
+#: src/gui/dialogs/importdialog.cpp:228
 msgctxt "ImportDialog|"
 msgid "Match with:"
 msgstr ""
 
-#: src/gui/dialogs/importdialog.cpp:214
+#: src/gui/dialogs/importdialog.cpp:230
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "&Length"
 msgstr "Luzera"
 
-#: src/gui/dialogs/importdialog.cpp:217
+#: src/gui/dialogs/importdialog.cpp:233
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "T&rack"
 msgstr "Pista"
 
-#: src/gui/dialogs/importdialog.cpp:220
+#: src/gui/dialogs/importdialog.cpp:236
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "&Title"
 msgstr "&Titulua"
 
-#: src/gui/dialogs/importdialog.cpp:248
+#: src/gui/dialogs/importdialog.cpp:266
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/importdialog.cpp:250
+#: src/gui/dialogs/importdialog.cpp:268
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/importdialog.cpp:252
+#: src/gui/dialogs/importdialog.cpp:270
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "&OK"
 msgstr "&Ados"
 
-#: src/gui/dialogs/importdialog.cpp:253
+#: src/gui/dialogs/importdialog.cpp:271
 #, fuzzy
 msgctxt "ImportDialog|"
 msgid "&Cancel"
 msgstr "&Utzi"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:50
+#: src/gui/dialogs/numbertracksdialog.cpp:53
 #: src/qml/app/NumberTracksDialog.qml:32
 msgctxt "NumberTracksDialog|"
 msgid "Number Tracks"
 msgstr ""
 
-#: src/gui/dialogs/numbertracksdialog.cpp:55
+#: src/gui/dialogs/numbertracksdialog.cpp:58
 msgctxt "NumberTracksDialog|"
 msgid "Start &number:"
 msgstr ""
 
-#: src/gui/dialogs/numbertracksdialog.cpp:67
+#: src/gui/dialogs/numbertracksdialog.cpp:70
 #, fuzzy
 msgctxt "NumberTracksDialog|"
 msgid "&Destination:"
 msgstr "Helburua"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:83
+#: src/gui/dialogs/numbertracksdialog.cpp:89
 msgctxt "NumberTracksDialog|"
 msgid "&Reset counter for each folder"
 msgstr ""
 
-#: src/gui/dialogs/numbertracksdialog.cpp:89
+#: src/gui/dialogs/numbertracksdialog.cpp:95
 msgctxt "NumberTracksDialog|"
 msgid "&Total number of tracks:"
 msgstr ""
 
-#: src/gui/dialogs/numbertracksdialog.cpp:103
+#: src/gui/dialogs/numbertracksdialog.cpp:109
 #, fuzzy
 msgctxt "NumberTracksDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:108
+#: src/gui/dialogs/numbertracksdialog.cpp:114
 #, fuzzy
 msgctxt "NumberTracksDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:117
+#: src/gui/dialogs/numbertracksdialog.cpp:123
 #, fuzzy
 msgctxt "NumberTracksDialog|"
 msgid "&OK"
 msgstr "&Ados"
 
-#: src/gui/dialogs/numbertracksdialog.cpp:123
+#: src/gui/dialogs/numbertracksdialog.cpp:129
 #, fuzzy
 msgctxt "NumberTracksDialog|"
 msgid "&Cancel"
 msgstr "&Utzi"
 
-#: src/gui/dialogs/playlistdialog.cpp:56
+#: src/gui/dialogs/playlistdialog.cpp:59
 #, fuzzy
 msgctxt "PlaylistDialog|"
 msgid "Create Playlist"
 msgstr "Sortu jotze-zerrenda"
 
-#: src/gui/dialogs/playlistdialog.cpp:144
+#: src/gui/dialogs/playlistdialog.cpp:162
 msgctxt "PlaylistDialog|"
 msgid "Playlist File Name"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:145
+#: src/gui/dialogs/playlistdialog.cpp:163
 msgctxt "PlaylistDialog|"
 msgid "Same as &folder name"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:147
+#: src/gui/dialogs/playlistdialog.cpp:165
 #, fuzzy
 msgctxt "PlaylistDialog|"
 msgid "&Format:"
 msgstr "Formatua"
 
-#: src/gui/dialogs/playlistdialog.cpp:152
+#: src/gui/dialogs/playlistdialog.cpp:170
 msgctxt "PlaylistDialog|"
 msgid "Create ne&w empty playlist:"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:153
+#: src/gui/dialogs/playlistdialog.cpp:171
 #, fuzzy
 msgctxt "PlaylistDialog|"
 msgid "New"
 msgstr "Berria"
 
-#: src/gui/dialogs/playlistdialog.cpp:159
+#: src/gui/dialogs/playlistdialog.cpp:177
 #, fuzzy
 msgctxt "PlaylistDialog|"
 msgid "Cr&eate in:"
 msgstr "Sortu hemen:"
 
-#: src/gui/dialogs/playlistdialog.cpp:162
+#: src/gui/dialogs/playlistdialog.cpp:180
 #, fuzzy
 msgctxt "PlaylistDialog|"
 msgid "Current folder"
 msgstr "Uneko karpetari"
 
-#: src/gui/dialogs/playlistdialog.cpp:163
+#: src/gui/dialogs/playlistdialog.cpp:181
 msgctxt "PlaylistDialog|"
 msgid "Every folder"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:164
+#: src/gui/dialogs/playlistdialog.cpp:182
 msgctxt "PlaylistDialog|"
 msgid "Top-level folder"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:166
+#: src/gui/dialogs/playlistdialog.cpp:184
 msgctxt "PlaylistDialog|"
 msgid "Playlist Content"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:167
+#: src/gui/dialogs/playlistdialog.cpp:185
 #, fuzzy
 msgctxt "PlaylistDialog|"
 msgid "For&mat:"
 msgstr "Formatua"
 
-#: src/gui/dialogs/playlistdialog.cpp:171
+#: src/gui/dialogs/playlistdialog.cpp:189
 msgctxt "PlaylistDialog|"
 msgid "Incl&ude only the selected files"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:172
+#: src/gui/dialogs/playlistdialog.cpp:190
 msgctxt "PlaylistDialog|"
 msgid "Sort by file &name"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:174
+#: src/gui/dialogs/playlistdialog.cpp:192
 msgctxt "PlaylistDialog|"
 msgid "Sort by &tag field"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:191
+#: src/gui/dialogs/playlistdialog.cpp:209
 msgctxt "PlaylistDialog|"
 msgid "Use &relative path for files in playlist"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:193
+#: src/gui/dialogs/playlistdialog.cpp:211
 msgctxt "PlaylistDialog|"
 msgid "Use full p&ath for files in playlist"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:194
+#: src/gui/dialogs/playlistdialog.cpp:212
 msgctxt "PlaylistDialog|"
 msgid "Write only &list of files"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:196
+#: src/gui/dialogs/playlistdialog.cpp:214
 msgctxt "PlaylistDialog|"
 msgid "Write &info using"
 msgstr ""
 
-#: src/gui/dialogs/playlistdialog.cpp:207
+#: src/gui/dialogs/playlistdialog.cpp:225
 #, fuzzy
 msgctxt "PlaylistDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/playlistdialog.cpp:211
+#: src/gui/dialogs/playlistdialog.cpp:229
 #, fuzzy
 msgctxt "PlaylistDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/playlistdialog.cpp:219
+#: src/gui/dialogs/playlistdialog.cpp:237
 #, fuzzy
 msgctxt "PlaylistDialog|"
 msgid "&OK"
 msgstr "&Ados"
 
-#: src/gui/dialogs/playlistdialog.cpp:222
+#: src/gui/dialogs/playlistdialog.cpp:240
 #, fuzzy
 msgctxt "PlaylistDialog|"
 msgid "&Cancel"
@@ -5069,7 +5135,7 @@ msgid ""
 "Do you want to save it?"
 msgstr ""
 
-#: src/gui/dialogs/rendirdialog.cpp:57 src/gui/dialogs/rendirdialog.cpp:100
+#: src/gui/dialogs/rendirdialog.cpp:60 src/gui/dialogs/rendirdialog.cpp:107
 #, fuzzy
 #| msgctxt "RenameDirectoryCommand|"
 #| msgid "Rename directory"
@@ -5077,67 +5143,67 @@ msgctxt "RenDirDialog|"
 msgid "Rename Folder"
 msgstr "Berrizendatu direktorioa"
 
-#: src/gui/dialogs/rendirdialog.cpp:69
+#: src/gui/dialogs/rendirdialog.cpp:72
 #, fuzzy
 msgctxt "RenDirDialog|"
 msgid "Format"
 msgstr "Formatua"
 
-#: src/gui/dialogs/rendirdialog.cpp:74
+#: src/gui/dialogs/rendirdialog.cpp:77
 #, fuzzy
 msgctxt "RenDirDialog|"
 msgid "Preview"
 msgstr "Aurrebista"
 
-#: src/gui/dialogs/rendirdialog.cpp:78
+#: src/gui/dialogs/rendirdialog.cpp:81
 #, fuzzy
 msgctxt "RenDirDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/rendirdialog.cpp:101
+#: src/gui/dialogs/rendirdialog.cpp:108
 #, fuzzy
 msgctxt "RenDirDialog|"
 msgid "Create Folder"
 msgstr "Sortu karpeta"
 
-#: src/gui/dialogs/rendirdialog.cpp:102
+#: src/gui/dialogs/rendirdialog.cpp:109
 #, fuzzy
 msgctxt "RenDirDialog|"
 msgid "&Action:"
 msgstr "Ekintza"
 
-#: src/gui/dialogs/rendirdialog.cpp:110
+#: src/gui/dialogs/rendirdialog.cpp:117
 #, fuzzy
 msgctxt "RenDirDialog|"
 msgid "&Source:"
 msgstr "Sorburua"
 
-#: src/gui/dialogs/rendirdialog.cpp:122
+#: src/gui/dialogs/rendirdialog.cpp:132
 #, fuzzy
 msgctxt "RenDirDialog|"
 msgid "&Edit..."
 msgstr "&Editatu..."
 
-#: src/gui/dialogs/rendirdialog.cpp:126
+#: src/gui/dialogs/rendirdialog.cpp:136
 #, fuzzy
 msgctxt "RenDirDialog|"
 msgid "&Format:"
 msgstr "Formatua"
 
-#: src/gui/dialogs/rendirdialog.cpp:138
+#: src/gui/dialogs/rendirdialog.cpp:148
 #, fuzzy
 msgctxt "RenDirDialog|"
 msgid "From:"
 msgstr "Nondik:"
 
-#: src/gui/dialogs/rendirdialog.cpp:139
+#: src/gui/dialogs/rendirdialog.cpp:149
 #, fuzzy
 msgctxt "RenDirDialog|"
 msgid "To:"
 msgstr "Nori:"
 
-#: src/gui/dialogs/rendirdialog.cpp:325
+#: src/gui/dialogs/rendirdialog.cpp:335
 #, fuzzy
 #| msgctxt "TagToFilenameCommand|"
 #| msgid "Filename from tag"
@@ -5145,183 +5211,183 @@ msgctxt "RenDirDialog|"
 msgid "Folder Name from Tag"
 msgstr "Fitxategi-izena etiketatik"
 
-#: src/gui/dialogs/serverimportdialog.cpp:61
+#: src/gui/dialogs/serverimportdialog.cpp:68
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Find"
 msgstr "&Bilatu"
 
-#: src/gui/dialogs/serverimportdialog.cpp:75
+#: src/gui/dialogs/serverimportdialog.cpp:82
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Server:"
 msgstr "&Zerbitzaria:"
 
-#: src/gui/dialogs/serverimportdialog.cpp:78
+#: src/gui/dialogs/serverimportdialog.cpp:88
 msgctxt "ServerImportDialog|"
 msgid "C&GI Path:"
 msgstr ""
 
-#: src/gui/dialogs/serverimportdialog.cpp:89
+#: src/gui/dialogs/serverimportdialog.cpp:99
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Token:"
 msgstr "&Tokena ..."
 
-#: src/gui/dialogs/serverimportdialog.cpp:97
+#: src/gui/dialogs/serverimportdialog.cpp:107
 msgctxt "ServerImportDialog|"
 msgid "&Standard Tags"
 msgstr ""
 
-#: src/gui/dialogs/serverimportdialog.cpp:98
+#: src/gui/dialogs/serverimportdialog.cpp:108
 msgctxt "ServerImportDialog|"
 msgid "&Additional Tags"
 msgstr ""
 
-#: src/gui/dialogs/serverimportdialog.cpp:99
+#: src/gui/dialogs/serverimportdialog.cpp:109
 msgctxt "ServerImportDialog|"
 msgid "C&over Art"
 msgstr ""
 
-#: src/gui/dialogs/serverimportdialog.cpp:113
+#: src/gui/dialogs/serverimportdialog.cpp:123
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/serverimportdialog.cpp:115
+#: src/gui/dialogs/serverimportdialog.cpp:125
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/serverimportdialog.cpp:117
+#: src/gui/dialogs/serverimportdialog.cpp:127
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "&Close"
 msgstr "&Itxi"
 
-#: src/gui/dialogs/serverimportdialog.cpp:132
+#: src/gui/dialogs/serverimportdialog.cpp:142
 #, fuzzy
 msgctxt "ServerImportDialog|"
 msgid "Ready."
 msgstr "Prest."
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:83
+#: src/gui/dialogs/servertrackimportdialog.cpp:87
 #, fuzzy
 msgctxt "ServerTrackImportDialog|"
 msgid "&Server:"
 msgstr "&Zerbitzaria:"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:106
+#: src/gui/dialogs/servertrackimportdialog.cpp:119
 msgctxt "ServerTrackImportDialog|"
 msgid "Track Title/Artist - Album"
 msgstr ""
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:107
+#: src/gui/dialogs/servertrackimportdialog.cpp:120
 #, fuzzy
 msgctxt "ServerTrackImportDialog|"
 msgid "State"
 msgstr "Egoera"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:115
+#: src/gui/dialogs/servertrackimportdialog.cpp:128
 #, fuzzy
 msgctxt "ServerTrackImportDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:117
+#: src/gui/dialogs/servertrackimportdialog.cpp:130
 #, fuzzy
 msgctxt "ServerTrackImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:119
+#: src/gui/dialogs/servertrackimportdialog.cpp:132
 #, fuzzy
 msgctxt "ServerTrackImportDialog|"
 msgid "&OK"
 msgstr "&Ados"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:120
+#: src/gui/dialogs/servertrackimportdialog.cpp:133
 #, fuzzy
 msgctxt "ServerTrackImportDialog|"
 msgid "&Apply"
 msgstr "&Aplikatu"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:121
+#: src/gui/dialogs/servertrackimportdialog.cpp:134
 #, fuzzy
 msgctxt "ServerTrackImportDialog|"
 msgid "&Cancel"
 msgstr "&Utzi"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:229
-#: src/gui/dialogs/servertrackimportdialog.cpp:368
+#: src/gui/dialogs/servertrackimportdialog.cpp:242
+#: src/gui/dialogs/servertrackimportdialog.cpp:381
 msgctxt "ServerTrackImportDialog|"
 msgid "No result"
 msgstr ""
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:229
-#: src/gui/dialogs/servertrackimportdialog.cpp:234
+#: src/gui/dialogs/servertrackimportdialog.cpp:242
 #: src/gui/dialogs/servertrackimportdialog.cpp:247
+#: src/gui/dialogs/servertrackimportdialog.cpp:260
 #, fuzzy
 msgctxt "ServerTrackImportDialog|"
 msgid "Unknown"
 msgstr "Ezezaguna"
 
-#: src/gui/dialogs/servertrackimportdialog.cpp:368
+#: src/gui/dialogs/servertrackimportdialog.cpp:381
 msgctxt "ServerTrackImportDialog|"
 msgid "No result selected"
 msgstr ""
 
-#: src/gui/dialogs/tagimportdialog.cpp:52
+#: src/gui/dialogs/tagimportdialog.cpp:55
 #, fuzzy
 msgctxt "TagImportDialog|"
 msgid "Import from Tags"
 msgstr "Inportatu etiketetatik"
 
-#: src/gui/dialogs/tagimportdialog.cpp:58
+#: src/gui/dialogs/tagimportdialog.cpp:61
 #, fuzzy
 msgctxt "TagImportDialog|"
 msgid "Format:"
 msgstr "Formatua:"
 
-#: src/gui/dialogs/tagimportdialog.cpp:58
+#: src/gui/dialogs/tagimportdialog.cpp:61
 #, fuzzy
 msgctxt "TagImportDialog|"
 msgid "Source:"
 msgstr "Iturburua:"
 
-#: src/gui/dialogs/tagimportdialog.cpp:58
+#: src/gui/dialogs/tagimportdialog.cpp:61
 #, fuzzy
 msgctxt "TagImportDialog|"
 msgid "Extraction:"
 msgstr "Erauztea"
 
-#: src/gui/dialogs/tagimportdialog.cpp:72
+#: src/gui/dialogs/tagimportdialog.cpp:78
 #, fuzzy
 msgctxt "TagImportDialog|"
 msgid "D&estination:"
 msgstr "Helburua"
 
-#: src/gui/dialogs/tagimportdialog.cpp:79
+#: src/gui/dialogs/tagimportdialog.cpp:85
 #, fuzzy
 msgctxt "TagImportDialog|"
 msgid "&Help"
 msgstr "&Laguntza"
 
-#: src/gui/dialogs/tagimportdialog.cpp:83
+#: src/gui/dialogs/tagimportdialog.cpp:89
 #, fuzzy
 msgctxt "TagImportDialog|"
 msgid "&Save Settings"
 msgstr "&Gorde ezarpenak"
 
-#: src/gui/dialogs/tagimportdialog.cpp:88
+#: src/gui/dialogs/tagimportdialog.cpp:94
 #, fuzzy
 msgctxt "TagImportDialog|"
 msgid "&Apply"
 msgstr "&Aplikatu"
 
-#: src/gui/dialogs/tagimportdialog.cpp:92
+#: src/gui/dialogs/tagimportdialog.cpp:98
 #, fuzzy
 msgctxt "TagImportDialog|"
 msgid "&Close"
@@ -5380,49 +5446,92 @@ msgctxt "TextImportDialog|"
 msgid "&Close"
 msgstr "&Itxi"
 
-#: src/gui/forms/basemainwindow.cpp:112
+#: src/gui/forms/accessibilityhelper.cpp:127
+#: src/gui/forms/accessibilityhelper.cpp:413
+msgctxt "AccessibilityHelper|"
+msgid "checked"
+msgstr ""
+
+#: src/gui/forms/accessibilityhelper.cpp:131
+msgctxt "AccessibilityHelper|"
+msgid "partially checked"
+msgstr ""
+
+#: src/gui/forms/accessibilityhelper.cpp:135
+#: src/gui/forms/accessibilityhelper.cpp:415
+msgctxt "AccessibilityHelper|"
+msgid "not checked"
+msgstr ""
+
+#: src/gui/forms/accessibilityhelper.cpp:401
+msgctxt "AccessibilityHelper|"
+msgid "menu"
+msgstr ""
+
+#: src/gui/forms/accessibilityhelper.cpp:402
+#, qt-format
+msgctxt "AccessibilityHelper|"
+msgid "%n items"
+msgid_plural "%n items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/gui/forms/accessibilityhelper.cpp:419
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "End of submenu"
+msgctxt "AccessibilityHelper|"
+msgid "submenu"
+msgstr "Azpi-menuaren bukaera"
+
+#: src/gui/forms/accessibilityhelper.cpp:423
+msgctxt "AccessibilityHelper|"
+msgid "dimmed"
+msgstr ""
+
+#: src/gui/forms/basemainwindow.cpp:116
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Download"
 msgstr "Deskargatu"
 
-#: src/gui/forms/basemainwindow.cpp:233
+#: src/gui/forms/basemainwindow.cpp:237
 msgctxt "BaseMainWindowImpl|"
 msgid "Opening folder..."
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:329
+#: src/gui/forms/basemainwindow.cpp:333
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Abort"
 msgstr "Abortatu"
 
-#: src/gui/forms/basemainwindow.cpp:398
+#: src/gui/forms/basemainwindow.cpp:402
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%1 is not writable"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:408
+#: src/gui/forms/basemainwindow.cpp:412
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file:\n"
 msgstr "Errorea fitxategia idazterakoan:\n"
 
-#: src/gui/forms/basemainwindow.cpp:410 src/gui/forms/basemainwindow.cpp:416
-#: src/gui/forms/basemainwindow.cpp:1133 src/gui/forms/basemainwindow.cpp:1138
-#: src/gui/forms/basemainwindow.cpp:1574 src/gui/forms/basemainwindow.cpp:1583
-#: src/gui/forms/basemainwindow.cpp:1658
+#: src/gui/forms/basemainwindow.cpp:414 src/gui/forms/basemainwindow.cpp:420
+#: src/gui/forms/basemainwindow.cpp:1137 src/gui/forms/basemainwindow.cpp:1142
+#: src/gui/forms/basemainwindow.cpp:1587 src/gui/forms/basemainwindow.cpp:1596
+#: src/gui/forms/basemainwindow.cpp:1671
 msgctxt "BaseMainWindowImpl|"
 msgid "File Error"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:413
+#: src/gui/forms/basemainwindow.cpp:417
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while writing file. Do you want to change the permissions?"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:466
+#: src/gui/forms/basemainwindow.cpp:470
 #, fuzzy
 #| msgctxt "QuitCommand|"
 #| msgid "The current directory has been modified."
@@ -5432,26 +5541,26 @@ msgid ""
 "Do you want to save it?"
 msgstr "Uneko direktorioa aldatu egin da."
 
-#: src/gui/forms/basemainwindow.cpp:468 src/gui/forms/basemainwindow.cpp:507
+#: src/gui/forms/basemainwindow.cpp:472 src/gui/forms/basemainwindow.cpp:511
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Warning"
 msgstr "Abisua"
 
-#: src/gui/forms/basemainwindow.cpp:505
+#: src/gui/forms/basemainwindow.cpp:509
 msgctxt "BaseMainWindowImpl|"
 msgid ""
 "A playlist has been modified.\n"
 "Do you want to save it?"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:615
+#: src/gui/forms/basemainwindow.cpp:619
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Exiting..."
 msgstr "Irteten..."
 
-#: src/gui/forms/basemainwindow.cpp:702
+#: src/gui/forms/basemainwindow.cpp:706
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n folders"
@@ -5459,7 +5568,7 @@ msgid_plural "%n folders"
 msgstr[0] "%n karpeta"
 msgstr[1] "%n karpeta"
 
-#: src/gui/forms/basemainwindow.cpp:707
+#: src/gui/forms/basemainwindow.cpp:711
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n files"
@@ -5467,7 +5576,7 @@ msgid_plural "%n files"
 msgstr[0] "%n fitxategi"
 msgstr[1] "%n fitxategi"
 
-#: src/gui/forms/basemainwindow.cpp:712
+#: src/gui/forms/basemainwindow.cpp:716
 #, fuzzy, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "%n selected"
@@ -5475,137 +5584,137 @@ msgid_plural "%n selected"
 msgstr[0] "%n hautatuta"
 msgstr[1] "%n hautatuta"
 
-#: src/gui/forms/basemainwindow.cpp:715
+#: src/gui/forms/basemainwindow.cpp:719
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Ready."
 msgstr "Prest."
 
-#: src/gui/forms/basemainwindow.cpp:777
+#: src/gui/forms/basemainwindow.cpp:781
 msgctxt "BaseMainWindowImpl|"
 msgid "Creating playlist..."
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:825
+#: src/gui/forms/basemainwindow.cpp:829
 msgctxt "BaseMainWindowImpl|"
 msgid "Files not found"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:826
+#: src/gui/forms/basemainwindow.cpp:830
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Error"
 msgstr "Errorea"
 
-#: src/gui/forms/basemainwindow.cpp:852
+#: src/gui/forms/basemainwindow.cpp:856
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Import"
 msgstr "Inportatu"
 
-#: src/gui/forms/basemainwindow.cpp:1131 src/gui/forms/basemainwindow.cpp:1137
-#: src/gui/forms/basemainwindow.cpp:1575 src/gui/forms/basemainwindow.cpp:1584
+#: src/gui/forms/basemainwindow.cpp:1135 src/gui/forms/basemainwindow.cpp:1141
+#: src/gui/forms/basemainwindow.cpp:1588 src/gui/forms/basemainwindow.cpp:1597
 msgctxt "BaseMainWindowImpl|"
 msgid "Error while renaming:\n"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1132
+#: src/gui/forms/basemainwindow.cpp:1136
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing directories?"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1209
+#: src/gui/forms/basemainwindow.cpp:1213
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Filter"
 msgstr "Iragazkia"
 
-#: src/gui/forms/basemainwindow.cpp:1278
+#: src/gui/forms/basemainwindow.cpp:1282
 #, fuzzy, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid " [filtered %1/%2]"
 msgstr "(%1 iragazita)"
 
-#: src/gui/forms/basemainwindow.cpp:1392
+#: src/gui/forms/basemainwindow.cpp:1397
 msgctxt "BaseMainWindowImpl|"
 msgid "Add Frame"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1393
+#: src/gui/forms/basemainwindow.cpp:1398
 msgctxt "BaseMainWindowImpl|"
 msgid "Select the frame ID"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1538
+#: src/gui/forms/basemainwindow.cpp:1551
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename File"
 msgstr "Aldatu fitxategiaren izena"
 
-#: src/gui/forms/basemainwindow.cpp:1539
+#: src/gui/forms/basemainwindow.cpp:1552
 msgctxt "BaseMainWindowImpl|"
 msgid "Enter new file name:"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1576 src/gui/forms/basemainwindow.cpp:1585
+#: src/gui/forms/basemainwindow.cpp:1589 src/gui/forms/basemainwindow.cpp:1598
 #, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Rename %1 to %2 failed\n"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1577
+#: src/gui/forms/basemainwindow.cpp:1590
 msgctxt "BaseMainWindowImpl|"
 msgid "Retry after closing folders?"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1595
+#: src/gui/forms/basemainwindow.cpp:1608
 #, fuzzy, qt-format
 msgctxt "@default|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Benetan eraman nahi dituzu %1 elementu hauek zakarrontzira?"
 
-#: src/gui/forms/basemainwindow.cpp:1623
+#: src/gui/forms/basemainwindow.cpp:1636
 #, fuzzy, qt-format
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move these %1 items to the trash?"
 msgstr "Benetan eraman nahi dituzu %1 elementu hauek zakarrontzira?"
 
-#: src/gui/forms/basemainwindow.cpp:1625
+#: src/gui/forms/basemainwindow.cpp:1638
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Do you really want to move this item to the trash?"
 msgstr "Benetan eraman nahi duzu elementu hau zakarrontzira?"
 
-#: src/gui/forms/basemainwindow.cpp:1627
+#: src/gui/forms/basemainwindow.cpp:1640
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Move to Trash"
 msgstr "Bota zakarrontzira"
 
-#: src/gui/forms/basemainwindow.cpp:1656
+#: src/gui/forms/basemainwindow.cpp:1669
 msgctxt "BaseMainWindowImpl|"
 msgid "Folder must be empty.\n"
 msgstr ""
 
-#: src/gui/forms/basemainwindow.cpp:1657
+#: src/gui/forms/basemainwindow.cpp:1670
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Could not move these files to the Trash"
 msgstr "Ezin izan dira zakarrontzira eraman fitxategi hauek"
 
-#: src/gui/forms/basemainwindow.cpp:1690
+#: src/gui/forms/basemainwindow.cpp:1703
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
 msgstr "Zabaldu guztiak"
 
-#: src/gui/forms/basemainwindow.cpp:1802
+#: src/gui/forms/basemainwindow.cpp:1815
 #, fuzzy
 msgctxt "BaseMainWindowImpl|"
 msgid "A&bort"
 msgstr "Abortatu"
 
-#: src/gui/forms/configurabletreeview.cpp:51
+#: src/gui/forms/configurabletreeview.cpp:54
 #, fuzzy
 #| msgctxt "BatchImportCommand|"
 #| msgid "Automatic import"
@@ -5613,189 +5722,241 @@ msgctxt "ConfigurableTreeView|"
 msgid "Automatic Column Widths"
 msgstr "Zutabeen zabalera automatikoak"
 
-#: src/gui/forms/configurabletreeview.cpp:58
+#: src/gui/forms/configurabletreeview.cpp:61
 #, fuzzy
 msgctxt "ConfigurableTreeView|"
 msgid "Custom Column Widths"
 msgstr "Zutabeen zabalera pertsonalizatuak"
 
-#: src/gui/forms/filelist.cpp:110
+#: src/gui/forms/filelist.cpp:113
 #, fuzzy
 msgctxt "FileList|"
 msgid "C&lear"
 msgstr "&Garbitu"
 
-#: src/gui/forms/filelist.cpp:114
+#: src/gui/forms/filelist.cpp:117
 #, fuzzy
 msgctxt "FileList|"
 msgid "&Close"
 msgstr "&Itxi"
 
-#: src/gui/forms/filelist.cpp:358 src/gui/forms/filelist.cpp:362
+#: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:365
 #, fuzzy
 msgctxt "FileList|"
 msgid "&Expand all"
 msgstr "Zabaldu guztiak"
 
-#: src/gui/forms/filelist.cpp:360 src/gui/forms/filelist.cpp:363
+#: src/gui/forms/filelist.cpp:363 src/gui/forms/filelist.cpp:366
 #, fuzzy
 msgctxt "FileList|"
 msgid "&Collapse all"
 msgstr "Tolestu guztiak"
 
-#: src/gui/forms/filelist.cpp:373 src/gui/forms/filelist.cpp:375
+#: src/gui/forms/filelist.cpp:376 src/gui/forms/filelist.cpp:378
 #, fuzzy
 msgctxt "FileList|"
 msgid "&Play"
 msgstr "&Jo"
 
-#: src/gui/forms/filelist.cpp:379
+#: src/gui/forms/filelist.cpp:382
 #, fuzzy
 msgctxt "FileList|"
 msgid "E&dit"
 msgstr "Editatu"
 
-#: src/gui/forms/filelist.cpp:386 src/gui/forms/filelist.cpp:390
+#: src/gui/forms/filelist.cpp:389 src/gui/forms/filelist.cpp:393
 #, fuzzy
 msgctxt "FileList|"
 msgid "&Open"
 msgstr "&Ireki"
 
-#: src/gui/forms/filelist.cpp:387 src/gui/forms/filelist.cpp:391
+#: src/gui/forms/filelist.cpp:390 src/gui/forms/filelist.cpp:394
 #, fuzzy
 msgctxt "FileList|"
 msgid "Open Containing &Folder"
 msgstr "Ireki hau barnean duen karpeta"
 
-#: src/gui/forms/filelist.cpp:562
+#: src/gui/forms/filelist.cpp:568
 #, fuzzy
 msgctxt "FileList|"
 msgid "Execute "
 msgstr "Exekutatu"
 
-#: src/gui/forms/filelist.cpp:571
+#: src/gui/forms/filelist.cpp:577
 #, fuzzy
 msgctxt "FileList|"
 msgid "Could not execute "
 msgstr "ezin izan da %1 exekutatu"
 
-#: src/gui/forms/kid3form.cpp:288
+#: src/gui/forms/kid3form.cpp:272
+#, fuzzy
+#| msgctxt "@default|"
+#| msgid "Main Toolbar"
+msgctxt "Kid3Form|"
+msgid "Main Form"
+msgstr "Tresna-barra nagusia"
+
+#: src/gui/forms/kid3form.cpp:292
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Kid3"
 msgstr "Kid3"
 
-#: src/gui/forms/kid3form.cpp:343 src/gui/forms/kid3form.cpp:1279
-#: src/gui/forms/kid3form.cpp:1280
+#: src/gui/forms/kid3form.cpp:317
+#, fuzzy
+#| msgctxt "KdeMainWindow|"
+#| msgid "File List"
+msgctxt "Kid3Form|"
+msgid "File list"
+msgstr "Fitxategi-zerrenda"
+
+#: src/gui/forms/kid3form.cpp:318
+#, fuzzy
+#| msgctxt "LsCommand|"
+#| msgid "Folder list"
+msgctxt "Kid3Form|"
+msgid "Folder list"
+msgstr "Karpeten zerrenda"
+
+#: src/gui/forms/kid3form.cpp:349
+msgctxt "Kid3Form|"
+msgid "Collapse or expand section 'File'"
+msgstr ""
+
+#: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:1317
+#: src/gui/forms/kid3form.cpp:1318
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "F&ile"
 msgstr "Fitxategia"
 
-#: src/gui/forms/kid3form.cpp:354
+#: src/gui/forms/kid3form.cpp:365
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Name:"
 msgstr "Izena:"
 
-#: src/gui/forms/kid3form.cpp:363 src/gui/forms/kid3form.cpp:413
+#: src/gui/forms/kid3form.cpp:374 src/gui/forms/kid3form.cpp:437
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Format:"
 msgstr "Formatua:"
 
-#: src/gui/forms/kid3form.cpp:394
+#: src/gui/forms/kid3form.cpp:387
+#, fuzzy
+#| msgctxt "SettingsPage|"
+#| msgid "To filename format"
+msgctxt "Kid3Form|"
+msgid "To filename format"
+msgstr "Fitxategi-izen formatura"
+
+#: src/gui/forms/kid3form.cpp:400
+#, fuzzy
+#| msgctxt "SettingsPage|"
+#| msgid "From filename format"
+msgctxt "Kid3Form|"
+msgid "From filename format"
+msgstr "Fitxategi-izen formatutik"
+
+#: src/gui/forms/kid3form.cpp:416
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "From:"
 msgstr "Nondik:"
 
-#: src/gui/forms/kid3form.cpp:400 src/gui/forms/kid3form.cpp:426
-#: src/gui/forms/kid3form.cpp:508 src/gui/forms/kid3form.cpp:532
+#: src/gui/forms/kid3form.cpp:422 src/gui/forms/kid3form.cpp:451
+#: src/gui/forms/kid3form.cpp:497 src/gui/forms/kid3form.cpp:545
+#: src/gui/forms/kid3form.cpp:572
 #, fuzzy, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1"
 msgstr "%1 etiketa"
 
-#: src/gui/forms/kid3form.cpp:402
+#: src/gui/forms/kid3form.cpp:424
 #, fuzzy, qt-format
 msgctxt "Kid3Form|"
 msgid "Filename from Tag %1"
 msgstr "Fitxategi-izena etiketatik"
 
-#: src/gui/forms/kid3form.cpp:419
+#: src/gui/forms/kid3form.cpp:444
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "To:"
 msgstr "Nori:"
 
-#: src/gui/forms/kid3form.cpp:427
+#: src/gui/forms/kid3form.cpp:452
 #, fuzzy, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag %1 from Filename"
 msgstr "Etiketa fitxategi-izenetik"
 
-#: src/gui/forms/kid3form.cpp:448 src/gui/forms/kid3form.cpp:901
+#: src/gui/forms/kid3form.cpp:470
+#, qt-format
+msgctxt "Kid3Form|"
+msgid "Collapse or expand section 'Tag %1'"
+msgstr ""
+
+#: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:939
 #, fuzzy, qt-format
 msgctxt "Kid3Form|"
 msgid "Tag &%1"
 msgstr "%1 etiketa"
 
-#: src/gui/forms/kid3form.cpp:477
+#: src/gui/forms/kid3form.cpp:514
 #, fuzzy, qt-format
 msgctxt "Kid3Form|"
 msgid "From Tag %1"
 msgstr "%1 etiketatik"
 
-#: src/gui/forms/kid3form.cpp:485 src/gui/forms/kid3form.cpp:541
+#: src/gui/forms/kid3form.cpp:522 src/gui/forms/kid3form.cpp:581
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Copy"
 msgstr "Kopiatu"
 
-#: src/gui/forms/kid3form.cpp:493 src/gui/forms/kid3form.cpp:517
+#: src/gui/forms/kid3form.cpp:530 src/gui/forms/kid3form.cpp:554
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: src/gui/forms/kid3form.cpp:500
+#: src/gui/forms/kid3form.cpp:537
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "From"
 msgstr "Nork"
 
-#: src/gui/forms/kid3form.cpp:502 src/gui/forms/kid3form.cpp:526
+#: src/gui/forms/kid3form.cpp:539 src/gui/forms/kid3form.cpp:566
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Filename"
 msgstr "Fitxategi-izena"
 
-#: src/gui/forms/kid3form.cpp:524
+#: src/gui/forms/kid3form.cpp:564
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "To"
 msgstr "Nori"
 
-#: src/gui/forms/kid3form.cpp:551
+#: src/gui/forms/kid3form.cpp:594
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Remove"
 msgstr "Kendu"
 
-#: src/gui/forms/kid3form.cpp:565
+#: src/gui/forms/kid3form.cpp:608
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Edit..."
 msgstr "Editatu..."
 
-#: src/gui/forms/kid3form.cpp:571
+#: src/gui/forms/kid3form.cpp:614
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Add..."
 msgstr "Gehitu..."
 
-#: src/gui/forms/kid3form.cpp:577
+#: src/gui/forms/kid3form.cpp:620
 #, fuzzy
 msgctxt "Kid3Form|"
 msgid "Delete"
@@ -5887,31 +6048,31 @@ msgctxt "SectionActions|"
 msgid "Open Current Folder"
 msgstr "Direktorio bat irekitzen du"
 
-#: src/gui/widgets/abstractlistedit.cpp:50
+#: src/gui/widgets/abstractlistedit.cpp:53
 #, fuzzy
 msgctxt "AbstractListEdit|"
 msgid "&Add..."
 msgstr "&Gehitu..."
 
-#: src/gui/widgets/abstractlistedit.cpp:51
+#: src/gui/widgets/abstractlistedit.cpp:54
 #, fuzzy
 msgctxt "AbstractListEdit|"
 msgid "Move &Up"
 msgstr "Eraman &gora"
 
-#: src/gui/widgets/abstractlistedit.cpp:52
+#: src/gui/widgets/abstractlistedit.cpp:55
 #, fuzzy
 msgctxt "AbstractListEdit|"
 msgid "Move &Down"
 msgstr "Eraman &behera"
 
-#: src/gui/widgets/abstractlistedit.cpp:53
+#: src/gui/widgets/abstractlistedit.cpp:56
 #, fuzzy
 msgctxt "AbstractListEdit|"
 msgid "&Edit..."
 msgstr "&Editatu..."
 
-#: src/gui/widgets/abstractlistedit.cpp:54
+#: src/gui/widgets/abstractlistedit.cpp:57
 #, fuzzy
 msgctxt "AbstractListEdit|"
 msgid "&Remove"
@@ -5941,25 +6102,25 @@ msgctxt "ChapterEditor|"
 msgid "End offset"
 msgstr "Jatorri-aldaketaren amaiera:"
 
-#: src/gui/widgets/configtable.cpp:42
+#: src/gui/widgets/configtable.cpp:46
 #, fuzzy
 msgctxt "ConfigTable|"
 msgid "&Add"
 msgstr "&Gehitu"
 
-#: src/gui/widgets/configtable.cpp:141
+#: src/gui/widgets/configtable.cpp:148
 #, fuzzy
 msgctxt "ConfigTable|"
 msgid "&Insert row"
 msgstr "%1: txertatu errenkada 1"
 
-#: src/gui/widgets/configtable.cpp:145
+#: src/gui/widgets/configtable.cpp:152
 #, fuzzy
 msgctxt "ConfigTable|"
 msgid "&Delete row"
 msgstr "&Ezabatu lerroa"
 
-#: src/gui/widgets/configtable.cpp:147
+#: src/gui/widgets/configtable.cpp:154
 #, fuzzy
 msgctxt "ConfigTable|"
 msgid "&Clear row"
@@ -5976,69 +6137,69 @@ msgctxt "FilenameFormatBox|"
 msgid "Maximum length:"
 msgstr "Gehinezko luzera"
 
-#: src/gui/widgets/formatbox.cpp:48
+#: src/gui/widgets/formatbox.cpp:51
 msgctxt "FormatBox|"
 msgid "Automatically apply format"
 msgstr ""
 
-#: src/gui/widgets/formatbox.cpp:56
+#: src/gui/widgets/formatbox.cpp:65
 msgctxt "FormatBox|"
 msgid "String replacement:"
-msgstr ""
-
-#: src/gui/widgets/formatbox.cpp:58
-#, fuzzy
-msgctxt "FormatBox|"
-msgid "From"
-msgstr "Nork"
-
-#: src/gui/widgets/formatbox.cpp:58
-#, fuzzy
-msgctxt "FormatBox|"
-msgid "To"
-msgstr "Nori"
-
-#: src/gui/widgets/formatbox.cpp:66
-msgctxt "FormatBox|"
-msgid "Case conversion:"
 msgstr ""
 
 #: src/gui/widgets/formatbox.cpp:67
 #, fuzzy
 msgctxt "FormatBox|"
+msgid "From"
+msgstr "Nork"
+
+#: src/gui/widgets/formatbox.cpp:67
+#, fuzzy
+msgctxt "FormatBox|"
+msgid "To"
+msgstr "Nori"
+
+#: src/gui/widgets/formatbox.cpp:75
+msgctxt "FormatBox|"
+msgid "Case conversion:"
+msgstr ""
+
+#: src/gui/widgets/formatbox.cpp:76
+#, fuzzy
+msgctxt "FormatBox|"
 msgid "Locale:"
 msgstr "<b>Eskualde-ezarpenak</b>"
 
-#: src/gui/widgets/formatlistedit.cpp:83
+#: src/gui/widgets/formatlistedit.cpp:89
 #, fuzzy
 msgctxt "FormatListEdit|"
 msgid "&Add"
 msgstr "&Gehitu"
 
-#: src/gui/widgets/formatlistedit.cpp:85
+#: src/gui/widgets/formatlistedit.cpp:91
 #, fuzzy
 msgctxt "FormatListEdit|"
 msgid "&Remove"
 msgstr "&Kendu"
 
-#: src/gui/widgets/formatlistedit.cpp:245
+#: src/gui/widgets/formatlistedit.cpp:251
 #, fuzzy
 msgctxt "FormatListEdit|"
 msgid "New"
 msgstr "Berria"
 
-#: src/gui/widgets/frametable.cpp:68 src/gui/widgets/frametable.cpp:70
+#: src/gui/widgets/frametable.cpp:72 src/gui/widgets/frametable.cpp:74
 msgctxt "FrameTable|"
 msgid "WWW Audio Source"
 msgstr ""
 
-#: src/gui/widgets/frametable.cpp:160
+#: src/gui/widgets/frametable.cpp:214
 #, fuzzy
 msgctxt "FrameTable|"
 msgid "&Select all"
 msgstr "Hautatu &denak"
 
-#: src/gui/widgets/frametable.cpp:162
+#: src/gui/widgets/frametable.cpp:216
 #, fuzzy
 msgctxt "FrameTable|"
 msgid "&Deselect all"
@@ -6115,13 +6276,18 @@ msgctxt "PlayToolBar|"
 msgid "Close"
 msgstr "Itxi"
 
-#: src/gui/widgets/playtoolbar.cpp:163
+#: src/gui/widgets/playtoolbar.cpp:155
+msgctxt "PlayToolBar|"
+msgid "Seek to position"
+msgstr ""
+
+#: src/gui/widgets/playtoolbar.cpp:164
 #, fuzzy
 msgctxt "PlayToolBar|"
 msgid "Mute"
 msgstr "Isilarazi"
 
-#: src/gui/widgets/playtoolbar.cpp:346
+#: src/gui/widgets/playtoolbar.cpp:355
 #, fuzzy, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
@@ -6145,30 +6311,30 @@ msgctxt "StringListEdit|"
 msgid "Edit Item"
 msgstr "Editatu elementua"
 
-#: src/gui/widgets/subframeseditor.cpp:67
+#: src/gui/widgets/subframeseditor.cpp:73
 #, fuzzy
 msgctxt "SubframesEditor|"
 msgid "Edit..."
 msgstr "Editatu..."
 
-#: src/gui/widgets/subframeseditor.cpp:72
+#: src/gui/widgets/subframeseditor.cpp:78
 #, fuzzy
 msgctxt "SubframesEditor|"
 msgid "Add..."
 msgstr "Gehitu..."
 
-#: src/gui/widgets/subframeseditor.cpp:77
+#: src/gui/widgets/subframeseditor.cpp:83
 #, fuzzy
 msgctxt "SubframesEditor|"
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: src/gui/widgets/subframeseditor.cpp:129
+#: src/gui/widgets/subframeseditor.cpp:135
 msgctxt "SubframesEditor|"
 msgid "Add Frame"
 msgstr ""
 
-#: src/gui/widgets/subframeseditor.cpp:130
+#: src/gui/widgets/subframeseditor.cpp:136
 msgctxt "SubframesEditor|"
 msgid "Select the frame ID"
 msgstr ""
@@ -6195,90 +6361,90 @@ msgctxt "TagFormatBox|"
 msgid "Validation"
 msgstr ""
 
-#: src/gui/widgets/timeeventeditor.cpp:119
+#: src/gui/widgets/timeeventeditor.cpp:122
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Add"
 msgstr "&Gehitu"
 
-#: src/gui/widgets/timeeventeditor.cpp:121
+#: src/gui/widgets/timeeventeditor.cpp:124
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Delete"
 msgstr "&Ezabatu"
 
-#: src/gui/widgets/timeeventeditor.cpp:123
+#: src/gui/widgets/timeeventeditor.cpp:126
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "From Clip&board"
 msgstr "Arbeletik"
 
-#: src/gui/widgets/timeeventeditor.cpp:125
+#: src/gui/widgets/timeeventeditor.cpp:128
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Import..."
 msgstr "&Inportatu..."
 
-#: src/gui/widgets/timeeventeditor.cpp:127
+#: src/gui/widgets/timeeventeditor.cpp:130
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Export..."
 msgstr "&Esportatu..."
 
-#: src/gui/widgets/timeeventeditor.cpp:129
+#: src/gui/widgets/timeeventeditor.cpp:132
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Help"
 msgstr "Laguntza"
 
-#: src/gui/widgets/timeeventeditor.cpp:187
+#: src/gui/widgets/timeeventeditor.cpp:190
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Events"
 msgstr "Gertaerak"
 
-#: src/gui/widgets/timeeventeditor.cpp:193
+#: src/gui/widgets/timeeventeditor.cpp:196
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Lyrics"
 msgstr "Hitzak"
 
-#: src/gui/widgets/timeeventeditor.cpp:428
+#: src/gui/widgets/timeeventeditor.cpp:434
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Offset"
 msgstr "Desplazamendua"
 
-#: src/gui/widgets/timeeventeditor.cpp:428
+#: src/gui/widgets/timeeventeditor.cpp:434
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
 msgstr "Milisegundoak"
 
-#: src/gui/widgets/timeeventeditor.cpp:468
+#: src/gui/widgets/timeeventeditor.cpp:474
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Insert row"
 msgstr "%1: txertatu errenkada 1"
 
-#: src/gui/widgets/timeeventeditor.cpp:471
+#: src/gui/widgets/timeeventeditor.cpp:477
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "&Delete rows"
 msgstr "Ezabatu errenkadak"
 
-#: src/gui/widgets/timeeventeditor.cpp:473
+#: src/gui/widgets/timeeventeditor.cpp:479
 #, fuzzy
 msgctxt "TimeEventEditor|"
 msgid "C&lear"
 msgstr "&Garbitu"
 
-#: src/gui/widgets/timeeventeditor.cpp:475
+#: src/gui/widgets/timeeventeditor.cpp:481
 msgctxt "TimeEventEditor|"
 msgid "&Add offset..."
 msgstr ""
 
-#: src/gui/widgets/timeeventeditor.cpp:477
+#: src/gui/widgets/timeeventeditor.cpp:483
 msgctxt "TimeEventEditor|"
 msgid "&Seek to position"
 msgstr ""
