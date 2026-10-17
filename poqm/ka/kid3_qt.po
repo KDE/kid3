@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Qt-Contexts: true\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #: src/app/cli/clicommand.cpp:345
 msgctxt "CliCommand|"
@@ -1033,12 +1033,9 @@ msgid "&Keyboard Shortcuts"
 msgstr "&კლავიატურის მალსახმობები"
 
 #: src/app/qt/configdialog.cpp:103
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ConfigDialog|"
 msgid "Keyboard Shortcuts"
-msgstr "&კლავიატურის მალსახმობები"
+msgstr "კლავიატურის მალსახსმობები"
 
 #: src/app/qt/configdialog.cpp:120
 msgctxt "ConfigDialog|"
@@ -1653,6 +1650,8 @@ msgid ""
 "Press the new key combination. Press Tab to go to the Clear and Reset "
 "buttons."
 msgstr ""
+"დააჭირეთ ღილაკების ახალ კომბინაციას. გასუფთავების და ჩამოყრის ღილაკებზე "
+"გადასასვლელად დააჭირეთ ღილაკს Tab-ს."
 
 #: src/app/qt/shortcutsdelegate.cpp:230
 msgctxt "ShortcutsDelegateEditor|"
@@ -1660,12 +1659,9 @@ msgid "Clear"
 msgstr "გასუფთავება"
 
 #: src/app/qt/shortcutsdelegate.cpp:231
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Remove the keyboard shortcut"
-msgstr "&კლავიატურის მალსახმობები"
+msgstr "კლავიატურის მალსახმობის წაშლა"
 
 #: src/app/qt/shortcutsdelegate.cpp:238
 msgctxt "ShortcutsDelegateEditor|"
@@ -1675,18 +1671,18 @@ msgstr "თავიდან ჩართვა"
 #: src/app/qt/shortcutsdelegate.cpp:240
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Restore the default keyboard shortcut"
-msgstr ""
+msgstr "ნაგულისხმევი კლავიატურის მალსახმობის აღდგენა"
 
 #: src/app/qt/shortcutsmodel.cpp:103
 #, qt-format
 msgctxt "ShortcutsModel|"
 msgid "Shortcut: %1. Press Return or F2 to edit."
-msgstr ""
+msgstr "მალსახმობი: %1. ჩასასწორებლად დააჭირეთ ღილაკს Enter, ან F2."
 
 #: src/app/qt/shortcutsmodel.cpp:104
 msgctxt "ShortcutsModel|"
 msgid "none"
-msgstr ""
+msgstr "არცერთი"
 
 #: src/app/qt/shortcutsmodel.cpp:120
 msgctxt "ShortcutsModel|"
@@ -1697,7 +1693,7 @@ msgstr ""
 #: src/app/qt/shortcutsmodel.cpp:123
 msgctxt "ShortcutsModel|"
 msgid "Press Return or F2 to edit."
-msgstr ""
+msgstr "ჩასასწორებლად დააჭირეთ ღილაკს Enter, ან F2."
 
 #: src/app/qt/shortcutsmodel.cpp:199
 msgctxt "ShortcutsModel|"
@@ -2485,20 +2481,14 @@ msgid "Date Modified"
 msgstr "შეცვლის თარიღი"
 
 #: src/core/model/taggedfilesystemmodel.cpp:121
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Folder"
 msgctxt "TaggedFileSystemModel|"
 msgid "Folder"
 msgstr "საქაღალდე"
 
 #: src/core/model/taggedfilesystemmodel.cpp:125
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Date Modified"
 msgctxt "TaggedFileSystemModel|"
 msgid "Modified"
-msgstr "შეცვლის თარიღი"
+msgstr "შეიცვალა"
 
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
@@ -4418,12 +4408,9 @@ msgid "A&vailable Plugins"
 msgstr "&ხელმისაწვდომი დამატებები"
 
 #: src/gui/dialogs/configdialogpages.cpp:699
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "A&vailable Plugins"
 msgctxt "ConfigDialogPages|"
 msgid "Available Plugins"
-msgstr "&ხელმისაწვდომი დამატებები"
+msgstr "ხელმისაწვდომი დამატებები"
 
 #: src/gui/dialogs/configdialogpages.cpp:710
 msgctxt "ConfigDialogPages|"
@@ -5225,44 +5212,41 @@ msgstr "დაკე&ტვა"
 #: src/gui/forms/accessibilityhelper.cpp:413
 msgctxt "AccessibilityHelper|"
 msgid "checked"
-msgstr ""
+msgstr "ჩართულია"
 
 #: src/gui/forms/accessibilityhelper.cpp:131
 msgctxt "AccessibilityHelper|"
 msgid "partially checked"
-msgstr ""
+msgstr "ნაწილობრივ ჩართული"
 
 #: src/gui/forms/accessibilityhelper.cpp:135
 #: src/gui/forms/accessibilityhelper.cpp:415
 msgctxt "AccessibilityHelper|"
 msgid "not checked"
-msgstr ""
+msgstr "ჩართული არაა"
 
 #: src/gui/forms/accessibilityhelper.cpp:401
 msgctxt "AccessibilityHelper|"
 msgid "menu"
-msgstr ""
+msgstr "მენიუ"
 
 #: src/gui/forms/accessibilityhelper.cpp:402
 #, qt-format
 msgctxt "AccessibilityHelper|"
 msgid "%n items"
 msgid_plural "%n items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%n ელემენტი"
+msgstr[1] "%n ელემენტი"
 
 #: src/gui/forms/accessibilityhelper.cpp:419
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "End of submenu"
 msgctxt "AccessibilityHelper|"
 msgid "submenu"
-msgstr "ქვემენიუს დასასრული"
+msgstr "ქვემენიუ"
 
 #: src/gui/forms/accessibilityhelper.cpp:423
 msgctxt "AccessibilityHelper|"
 msgid "dimmed"
-msgstr ""
+msgstr "ჩაბნელებული"
 
 #: src/gui/forms/basemainwindow.cpp:116
 msgctxt "BaseMainWindowImpl|"
@@ -5536,12 +5520,9 @@ msgid "Could not execute "
 msgstr "გაშვების შეცდომა "
 
 #: src/gui/forms/kid3form.cpp:272
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Main Toolbar"
 msgctxt "Kid3Form|"
 msgid "Main Form"
-msgstr "ხელსაწყოთა მთავარი ზოლი"
+msgstr "მთავარი ფორმა"
 
 #: src/gui/forms/kid3form.cpp:292
 msgctxt "Kid3Form|"
@@ -5549,17 +5530,11 @@ msgid "Kid3"
 msgstr "Kid3"
 
 #: src/gui/forms/kid3form.cpp:317
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "File List"
 msgctxt "Kid3Form|"
 msgid "File list"
 msgstr "ფაილების სია"
 
 #: src/gui/forms/kid3form.cpp:318
-#, fuzzy
-#| msgctxt "LsCommand|"
-#| msgid "Folder list"
 msgctxt "Kid3Form|"
 msgid "Folder list"
 msgstr "საქაღალდეების სია"
@@ -5567,7 +5542,7 @@ msgstr "საქაღალდეების სია"
 #: src/gui/forms/kid3form.cpp:349
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'File'"
-msgstr ""
+msgstr "სექციის 'ფაილი' ჩამოშლა, ან აკეცვა"
 
 #: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:1317
 #: src/gui/forms/kid3form.cpp:1318
@@ -5586,17 +5561,11 @@ msgid "Format:"
 msgstr "ფორმატი:"
 
 #: src/gui/forms/kid3form.cpp:387
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "To filename format"
 msgctxt "Kid3Form|"
 msgid "To filename format"
 msgstr "ფაილის სახელის ფორმატში"
 
 #: src/gui/forms/kid3form.cpp:400
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "From filename format"
 msgctxt "Kid3Form|"
 msgid "From filename format"
 msgstr "ფაილის სახელის ფორმატიდან"
@@ -5635,7 +5604,7 @@ msgstr "ჭდე %1 ფაილის სახელიდან"
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'Tag %1'"
-msgstr ""
+msgstr "სექციის 'ჭდე %1' ჩამოშლა, ან აკეცვა"
 
 #: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:939
 #, qt-format
@@ -5946,12 +5915,9 @@ msgid "Close"
 msgstr "დახურვა"
 
 #: src/gui/widgets/playtoolbar.cpp:155
-#, fuzzy
-#| msgctxt "TimeEventEditor|"
-#| msgid "&Seek to position"
 msgctxt "PlayToolBar|"
 msgid "Seek to position"
-msgstr "&პოზიციაზე გადახვევა"
+msgstr "პოზიციაზე გადახვევა"
 
 #: src/gui/widgets/playtoolbar.cpp:164
 msgctxt "PlayToolBar|"

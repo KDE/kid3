@@ -3,13 +3,13 @@
 # This file is distributed under the license LGPL version 2.1 or
 # version 3 or later versions approved by the membership of KDE e.V.
 #
-# Yuri Chornoivan <yurchor@ukr.net>, 2020, 2021, 2022, 2023, 2024, 2026.
+# SPDX-FileCopyrightText: 2020, 2021, 2022, 2023, 2024, 2026 Yuri Chornoivan <yurchor@ukr.net>
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-05-05 08:50+0300\n"
+"PO-Revision-Date: 2026-10-16 11:30+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Qt-Contexts: true\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n"
 "%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 23.04.3\n"
+"X-Generator: Lokalize 25.12.1\n"
 "X-Qt-Contexts: true\n"
 
 #: src/app/cli/clicommand.cpp:345
@@ -1042,12 +1042,9 @@ msgid "&Keyboard Shortcuts"
 msgstr "&Клавіатурні скорочення"
 
 #: src/app/qt/configdialog.cpp:103
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ConfigDialog|"
 msgid "Keyboard Shortcuts"
-msgstr "&Клавіатурні скорочення"
+msgstr "Клавіатурні скорочення"
 
 #: src/app/qt/configdialog.cpp:120
 msgctxt "ConfigDialog|"
@@ -1662,6 +1659,8 @@ msgid ""
 "Press the new key combination. Press Tab to go to the Clear and Reset "
 "buttons."
 msgstr ""
+"Натисніть нову комбінацію клавіш. Натисніть Tab, щоб перейти до кнопок "
+"вилучення і відновлення початкової комбінації."
 
 #: src/app/qt/shortcutsdelegate.cpp:230
 msgctxt "ShortcutsDelegateEditor|"
@@ -1669,12 +1668,9 @@ msgid "Clear"
 msgstr "Спорожнити"
 
 #: src/app/qt/shortcutsdelegate.cpp:231
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Remove the keyboard shortcut"
-msgstr "&Клавіатурні скорочення"
+msgstr "Вилучити клавіатурне скорочення"
 
 #: src/app/qt/shortcutsdelegate.cpp:238
 msgctxt "ShortcutsDelegateEditor|"
@@ -1684,18 +1680,18 @@ msgstr "Скинути"
 #: src/app/qt/shortcutsdelegate.cpp:240
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Restore the default keyboard shortcut"
-msgstr ""
+msgstr "Відновити типове клавіатурне скорочення"
 
 #: src/app/qt/shortcutsmodel.cpp:103
 #, qt-format
 msgctxt "ShortcutsModel|"
 msgid "Shortcut: %1. Press Return or F2 to edit."
-msgstr ""
+msgstr "Скорочення: %1. Натисніть Enter або F2, щоб змінити."
 
 #: src/app/qt/shortcutsmodel.cpp:104
 msgctxt "ShortcutsModel|"
 msgid "none"
-msgstr ""
+msgstr "немає"
 
 #: src/app/qt/shortcutsmodel.cpp:120
 msgctxt "ShortcutsModel|"
@@ -1705,7 +1701,7 @@ msgstr "Натисніть F2 або двічі клацніть, щоб від�
 #: src/app/qt/shortcutsmodel.cpp:123
 msgctxt "ShortcutsModel|"
 msgid "Press Return or F2 to edit."
-msgstr ""
+msgstr "Натисніть Enter або F2, щоб змінити."
 
 #: src/app/qt/shortcutsmodel.cpp:199
 msgctxt "ShortcutsModel|"
@@ -2493,20 +2489,14 @@ msgid "Date Modified"
 msgstr "Дата зміни"
 
 #: src/core/model/taggedfilesystemmodel.cpp:121
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Folder"
 msgctxt "TaggedFileSystemModel|"
 msgid "Folder"
 msgstr "Тека"
 
 #: src/core/model/taggedfilesystemmodel.cpp:125
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Date Modified"
 msgctxt "TaggedFileSystemModel|"
 msgid "Modified"
-msgstr "Дата зміни"
+msgstr "Змінено"
 
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
@@ -4426,12 +4416,9 @@ msgid "A&vailable Plugins"
 msgstr "Д&оступні додатки"
 
 #: src/gui/dialogs/configdialogpages.cpp:699
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "A&vailable Plugins"
 msgctxt "ConfigDialogPages|"
 msgid "Available Plugins"
-msgstr "Д&оступні додатки"
+msgstr "Доступні додатки"
 
 #: src/gui/dialogs/configdialogpages.cpp:710
 msgctxt "ConfigDialogPages|"
@@ -5233,46 +5220,43 @@ msgstr "За&крити"
 #: src/gui/forms/accessibilityhelper.cpp:413
 msgctxt "AccessibilityHelper|"
 msgid "checked"
-msgstr ""
+msgstr "позначено"
 
 #: src/gui/forms/accessibilityhelper.cpp:131
 msgctxt "AccessibilityHelper|"
 msgid "partially checked"
-msgstr ""
+msgstr "частково позначено"
 
 #: src/gui/forms/accessibilityhelper.cpp:135
 #: src/gui/forms/accessibilityhelper.cpp:415
 msgctxt "AccessibilityHelper|"
 msgid "not checked"
-msgstr ""
+msgstr "не позначено"
 
 #: src/gui/forms/accessibilityhelper.cpp:401
 msgctxt "AccessibilityHelper|"
 msgid "menu"
-msgstr ""
+msgstr "меню"
 
 #: src/gui/forms/accessibilityhelper.cpp:402
 #, qt-format
 msgctxt "AccessibilityHelper|"
 msgid "%n items"
 msgid_plural "%n items"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%n запис"
+msgstr[1] "%n записи"
+msgstr[2] "%n записів"
+msgstr[3] "%n запис"
 
 #: src/gui/forms/accessibilityhelper.cpp:419
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "End of submenu"
 msgctxt "AccessibilityHelper|"
 msgid "submenu"
-msgstr "Кінець підменю"
+msgstr "підменю"
 
 #: src/gui/forms/accessibilityhelper.cpp:423
 msgctxt "AccessibilityHelper|"
 msgid "dimmed"
-msgstr ""
+msgstr "притлумлено"
 
 #: src/gui/forms/basemainwindow.cpp:116
 msgctxt "BaseMainWindowImpl|"
@@ -5552,12 +5536,9 @@ msgid "Could not execute "
 msgstr "Не вдалося виконати "
 
 #: src/gui/forms/kid3form.cpp:272
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Main Toolbar"
 msgctxt "Kid3Form|"
 msgid "Main Form"
-msgstr "Головна панель"
+msgstr "Основна форма"
 
 #: src/gui/forms/kid3form.cpp:292
 msgctxt "Kid3Form|"
@@ -5565,17 +5546,11 @@ msgid "Kid3"
 msgstr "Kid3"
 
 #: src/gui/forms/kid3form.cpp:317
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "File List"
 msgctxt "Kid3Form|"
 msgid "File list"
 msgstr "Список файлів"
 
 #: src/gui/forms/kid3form.cpp:318
-#, fuzzy
-#| msgctxt "LsCommand|"
-#| msgid "Folder list"
 msgctxt "Kid3Form|"
 msgid "Folder list"
 msgstr "Список тек"
@@ -5583,7 +5558,7 @@ msgstr "Список тек"
 #: src/gui/forms/kid3form.cpp:349
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'File'"
-msgstr ""
+msgstr "Згорнути або розгорнути розділ «Файл»"
 
 #: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:1317
 #: src/gui/forms/kid3form.cpp:1318
@@ -5602,17 +5577,11 @@ msgid "Format:"
 msgstr "Формат:"
 
 #: src/gui/forms/kid3form.cpp:387
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "To filename format"
 msgctxt "Kid3Form|"
 msgid "To filename format"
 msgstr "До формату назв файлів"
 
 #: src/gui/forms/kid3form.cpp:400
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "From filename format"
 msgctxt "Kid3Form|"
 msgid "From filename format"
 msgstr "З формату назви файла"
@@ -5651,7 +5620,7 @@ msgstr "Мітка %1 з назви файла"
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'Tag %1'"
-msgstr ""
+msgstr "Згорнути або розгорнути розділ «Мітка %1»"
 
 #: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:939
 #, qt-format
@@ -5962,12 +5931,9 @@ msgid "Close"
 msgstr "Закрити"
 
 #: src/gui/widgets/playtoolbar.cpp:155
-#, fuzzy
-#| msgctxt "TimeEventEditor|"
-#| msgid "&Seek to position"
 msgctxt "PlayToolBar|"
 msgid "Seek to position"
-msgstr "Пере&йти до позиції"
+msgstr "Перейти до позиції"
 
 #: src/gui/widgets/playtoolbar.cpp:164
 msgctxt "PlayToolBar|"

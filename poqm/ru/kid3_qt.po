@@ -1044,12 +1044,9 @@ msgid "&Keyboard Shortcuts"
 msgstr "&Комбинации клавиш"
 
 #: src/app/qt/configdialog.cpp:103
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ConfigDialog|"
 msgid "Keyboard Shortcuts"
-msgstr "&Комбинации клавиш"
+msgstr "Комбинации клавиш"
 
 #: src/app/qt/configdialog.cpp:120
 msgctxt "ConfigDialog|"
@@ -1664,6 +1661,8 @@ msgid ""
 "Press the new key combination. Press Tab to go to the Clear and Reset "
 "buttons."
 msgstr ""
+"Нажмите новую комбинацию клавиш. Чтобы перейти к кнопкам «Очистить» и "
+"«Сброс», нажмите Tab."
 
 #: src/app/qt/shortcutsdelegate.cpp:230
 msgctxt "ShortcutsDelegateEditor|"
@@ -1671,12 +1670,9 @@ msgid "Clear"
 msgstr "Очистить"
 
 #: src/app/qt/shortcutsdelegate.cpp:231
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Remove the keyboard shortcut"
-msgstr "&Комбинации клавиш"
+msgstr "Удалить комбинацию клавиш"
 
 #: src/app/qt/shortcutsdelegate.cpp:238
 msgctxt "ShortcutsDelegateEditor|"
@@ -1686,18 +1682,18 @@ msgstr "Сброс"
 #: src/app/qt/shortcutsdelegate.cpp:240
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Restore the default keyboard shortcut"
-msgstr ""
+msgstr "Восстановить комбинацию клавиш по умолчанию"
 
 #: src/app/qt/shortcutsmodel.cpp:103
 #, qt-format
 msgctxt "ShortcutsModel|"
 msgid "Shortcut: %1. Press Return or F2 to edit."
-msgstr ""
+msgstr "Комбинация клавиш: %1. Для изменения нажмите Enter или F2."
 
 #: src/app/qt/shortcutsmodel.cpp:104
 msgctxt "ShortcutsModel|"
 msgid "none"
-msgstr ""
+msgstr "нет"
 
 #: src/app/qt/shortcutsmodel.cpp:120
 msgctxt "ShortcutsModel|"
@@ -1709,7 +1705,7 @@ msgstr ""
 #: src/app/qt/shortcutsmodel.cpp:123
 msgctxt "ShortcutsModel|"
 msgid "Press Return or F2 to edit."
-msgstr ""
+msgstr "Для изменения нажмите Enter или F2."
 
 #: src/app/qt/shortcutsmodel.cpp:199
 msgctxt "ShortcutsModel|"
@@ -2497,20 +2493,14 @@ msgid "Date Modified"
 msgstr "Дата изменения"
 
 #: src/core/model/taggedfilesystemmodel.cpp:121
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Folder"
 msgctxt "TaggedFileSystemModel|"
 msgid "Folder"
 msgstr "Папка"
 
 #: src/core/model/taggedfilesystemmodel.cpp:125
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Date Modified"
 msgctxt "TaggedFileSystemModel|"
 msgid "Modified"
-msgstr "Дата изменения"
+msgstr "Изменён"
 
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
@@ -4432,12 +4422,9 @@ msgid "A&vailable Plugins"
 msgstr "&Доступные модули"
 
 #: src/gui/dialogs/configdialogpages.cpp:699
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "A&vailable Plugins"
 msgctxt "ConfigDialogPages|"
 msgid "Available Plugins"
-msgstr "&Доступные модули"
+msgstr "Доступные модули"
 
 #: src/gui/dialogs/configdialogpages.cpp:710
 msgctxt "ConfigDialogPages|"
@@ -5239,45 +5226,42 @@ msgstr "&Закрыть"
 #: src/gui/forms/accessibilityhelper.cpp:413
 msgctxt "AccessibilityHelper|"
 msgid "checked"
-msgstr ""
+msgstr "отмечено"
 
 #: src/gui/forms/accessibilityhelper.cpp:131
 msgctxt "AccessibilityHelper|"
 msgid "partially checked"
-msgstr ""
+msgstr "отмечено частично"
 
 #: src/gui/forms/accessibilityhelper.cpp:135
 #: src/gui/forms/accessibilityhelper.cpp:415
 msgctxt "AccessibilityHelper|"
 msgid "not checked"
-msgstr ""
+msgstr "не отмечено"
 
 #: src/gui/forms/accessibilityhelper.cpp:401
 msgctxt "AccessibilityHelper|"
 msgid "menu"
-msgstr ""
+msgstr "меню"
 
 #: src/gui/forms/accessibilityhelper.cpp:402
 #, qt-format
 msgctxt "AccessibilityHelper|"
 msgid "%n items"
 msgid_plural "%n items"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%n элемент"
+msgstr[1] "%n элемента"
+msgstr[2] "%n элементов"
 
 #: src/gui/forms/accessibilityhelper.cpp:419
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "End of submenu"
 msgctxt "AccessibilityHelper|"
 msgid "submenu"
-msgstr "Конец вложенного меню"
+msgstr "вложенное меню"
 
 #: src/gui/forms/accessibilityhelper.cpp:423
 msgctxt "AccessibilityHelper|"
 msgid "dimmed"
-msgstr ""
+msgstr "недоступно"
 
 #: src/gui/forms/basemainwindow.cpp:116
 msgctxt "BaseMainWindowImpl|"
@@ -5554,12 +5538,9 @@ msgid "Could not execute "
 msgstr "Не удалось выполнить "
 
 #: src/gui/forms/kid3form.cpp:272
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Main Toolbar"
 msgctxt "Kid3Form|"
 msgid "Main Form"
-msgstr "Основная панель инструментов"
+msgstr "Основная форма"
 
 #: src/gui/forms/kid3form.cpp:292
 msgctxt "Kid3Form|"
@@ -5567,25 +5548,19 @@ msgid "Kid3"
 msgstr "Kid3"
 
 #: src/gui/forms/kid3form.cpp:317
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "File List"
 msgctxt "Kid3Form|"
 msgid "File list"
 msgstr "Список файлов"
 
 #: src/gui/forms/kid3form.cpp:318
-#, fuzzy
-#| msgctxt "LsCommand|"
-#| msgid "Folder list"
 msgctxt "Kid3Form|"
 msgid "Folder list"
-msgstr "Список каталогов"
+msgstr "Список папок"
 
 #: src/gui/forms/kid3form.cpp:349
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'File'"
-msgstr ""
+msgstr "Свернуть или развернуть раздел «Файл»"
 
 #: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:1317
 #: src/gui/forms/kid3form.cpp:1318
@@ -5604,17 +5579,11 @@ msgid "Format:"
 msgstr "Формат:"
 
 #: src/gui/forms/kid3form.cpp:387
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "To filename format"
 msgctxt "Kid3Form|"
 msgid "To filename format"
 msgstr "В формат имени файла"
 
 #: src/gui/forms/kid3form.cpp:400
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "From filename format"
 msgctxt "Kid3Form|"
 msgid "From filename format"
 msgstr "Из формата имени файла"
@@ -5653,7 +5622,7 @@ msgstr "Тег %1 из имени файла"
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'Tag %1'"
-msgstr ""
+msgstr "Свернуть или развернуть раздел «Тег %1»"
 
 #: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:939
 #, qt-format
@@ -5964,12 +5933,9 @@ msgid "Close"
 msgstr "Закрыть"
 
 #: src/gui/widgets/playtoolbar.cpp:155
-#, fuzzy
-#| msgctxt "TimeEventEditor|"
-#| msgid "&Seek to position"
 msgctxt "PlayToolBar|"
 msgid "Seek to position"
-msgstr "&Перейти к позиции"
+msgstr "Перейти к позиции"
 
 #: src/gui/widgets/playtoolbar.cpp:164
 msgctxt "PlayToolBar|"

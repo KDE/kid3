@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3\n"
-"PO-Revision-Date: 2026-05-30 10:59+0200\n"
+"PO-Revision-Date: 2026-10-16 09:37+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -1040,12 +1040,9 @@ msgid "&Keyboard Shortcuts"
 msgstr "Dreceres de &teclat"
 
 #: src/app/qt/configdialog.cpp:103
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ConfigDialog|"
 msgid "Keyboard Shortcuts"
-msgstr "Dreceres de &teclat"
+msgstr "Dreceres de teclat"
 
 #: src/app/qt/configdialog.cpp:120
 msgctxt "ConfigDialog|"
@@ -1662,6 +1659,8 @@ msgid ""
 "Press the new key combination. Press Tab to go to the Clear and Reset "
 "buttons."
 msgstr ""
+"Premeu la combinació de tecles nova. Premeu la pestanya per a anar als "
+"botons Neteja i Restableix."
 
 #: src/app/qt/shortcutsdelegate.cpp:230
 msgctxt "ShortcutsDelegateEditor|"
@@ -1669,33 +1668,30 @@ msgid "Clear"
 msgstr "Neteja"
 
 #: src/app/qt/shortcutsdelegate.cpp:231
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Remove the keyboard shortcut"
-msgstr "Dreceres de &teclat"
+msgstr "Elimina la drecera de teclat"
 
 #: src/app/qt/shortcutsdelegate.cpp:238
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Reset"
-msgstr "Inicialitza"
+msgstr "Restableix"
 
 #: src/app/qt/shortcutsdelegate.cpp:240
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Restore the default keyboard shortcut"
-msgstr ""
+msgstr "Restableix la drecera del teclat predeterminada"
 
 #: src/app/qt/shortcutsmodel.cpp:103
 #, qt-format
 msgctxt "ShortcutsModel|"
 msgid "Shortcut: %1. Press Return or F2 to edit."
-msgstr ""
+msgstr "Drecera: %1. Premeu Retorn o F2 per a editar."
 
 #: src/app/qt/shortcutsmodel.cpp:104
 msgctxt "ShortcutsModel|"
 msgid "none"
-msgstr ""
+msgstr "cap"
 
 #: src/app/qt/shortcutsmodel.cpp:120
 msgctxt "ShortcutsModel|"
@@ -1705,7 +1701,7 @@ msgstr "Premeu F2 o feu-hi doble clic per a editar el contingut de la cel·la."
 #: src/app/qt/shortcutsmodel.cpp:123
 msgctxt "ShortcutsModel|"
 msgid "Press Return or F2 to edit."
-msgstr ""
+msgstr "Premeu Retorn o F2 per a editar."
 
 #: src/app/qt/shortcutsmodel.cpp:199
 msgctxt "ShortcutsModel|"
@@ -2493,20 +2489,14 @@ msgid "Date Modified"
 msgstr "Data de modificació"
 
 #: src/core/model/taggedfilesystemmodel.cpp:121
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Folder"
 msgctxt "TaggedFileSystemModel|"
 msgid "Folder"
 msgstr "Carpeta"
 
 #: src/core/model/taggedfilesystemmodel.cpp:125
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Date Modified"
 msgctxt "TaggedFileSystemModel|"
 msgid "Modified"
-msgstr "Data de modificació"
+msgstr "Modificat"
 
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
@@ -4432,12 +4422,9 @@ msgid "A&vailable Plugins"
 msgstr "Connectors dispo&nibles"
 
 #: src/gui/dialogs/configdialogpages.cpp:699
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "A&vailable Plugins"
 msgctxt "ConfigDialogPages|"
 msgid "Available Plugins"
-msgstr "Connectors dispo&nibles"
+msgstr "Connectors disponibles"
 
 #: src/gui/dialogs/configdialogpages.cpp:710
 msgctxt "ConfigDialogPages|"
@@ -5241,44 +5228,41 @@ msgstr "Tan&ca"
 #: src/gui/forms/accessibilityhelper.cpp:413
 msgctxt "AccessibilityHelper|"
 msgid "checked"
-msgstr ""
+msgstr "marcat"
 
 #: src/gui/forms/accessibilityhelper.cpp:131
 msgctxt "AccessibilityHelper|"
 msgid "partially checked"
-msgstr ""
+msgstr "marcat parcialment"
 
 #: src/gui/forms/accessibilityhelper.cpp:135
 #: src/gui/forms/accessibilityhelper.cpp:415
 msgctxt "AccessibilityHelper|"
 msgid "not checked"
-msgstr ""
+msgstr "no marcat"
 
 #: src/gui/forms/accessibilityhelper.cpp:401
 msgctxt "AccessibilityHelper|"
 msgid "menu"
-msgstr ""
+msgstr "menú"
 
 #: src/gui/forms/accessibilityhelper.cpp:402
 #, qt-format
 msgctxt "AccessibilityHelper|"
 msgid "%n items"
 msgid_plural "%n items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%n element"
+msgstr[1] "%n elements"
 
 #: src/gui/forms/accessibilityhelper.cpp:419
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "End of submenu"
 msgctxt "AccessibilityHelper|"
 msgid "submenu"
-msgstr "Fi del submenú"
+msgstr "submenú"
 
 #: src/gui/forms/accessibilityhelper.cpp:423
 msgctxt "AccessibilityHelper|"
 msgid "dimmed"
-msgstr ""
+msgstr "enfosquit"
 
 #: src/gui/forms/basemainwindow.cpp:116
 msgctxt "BaseMainWindowImpl|"
@@ -5552,12 +5536,9 @@ msgid "Could not execute "
 msgstr "No s'ha pogut executar "
 
 #: src/gui/forms/kid3form.cpp:272
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Main Toolbar"
 msgctxt "Kid3Form|"
 msgid "Main Form"
-msgstr "Barra d'eines principal"
+msgstr "Formulari principal"
 
 #: src/gui/forms/kid3form.cpp:292
 msgctxt "Kid3Form|"
@@ -5565,17 +5546,11 @@ msgid "Kid3"
 msgstr "Kid3"
 
 #: src/gui/forms/kid3form.cpp:317
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "File List"
 msgctxt "Kid3Form|"
 msgid "File list"
 msgstr "Llista de fitxers"
 
 #: src/gui/forms/kid3form.cpp:318
-#, fuzzy
-#| msgctxt "LsCommand|"
-#| msgid "Folder list"
 msgctxt "Kid3Form|"
 msgid "Folder list"
 msgstr "Llista de carpetes"
@@ -5583,7 +5558,7 @@ msgstr "Llista de carpetes"
 #: src/gui/forms/kid3form.cpp:349
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'File'"
-msgstr ""
+msgstr "Redueix o expandeix la secció «Fitxer»"
 
 #: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:1317
 #: src/gui/forms/kid3form.cpp:1318
@@ -5602,20 +5577,14 @@ msgid "Format:"
 msgstr "Format:"
 
 #: src/gui/forms/kid3form.cpp:387
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "To filename format"
 msgctxt "Kid3Form|"
 msgid "To filename format"
 msgstr "Al format del nom de fitxer"
 
 #: src/gui/forms/kid3form.cpp:400
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "From filename format"
 msgctxt "Kid3Form|"
 msgid "From filename format"
-msgstr "Des del format del nom de fitxer"
+msgstr "Des del format de nom de fitxer"
 
 #: src/gui/forms/kid3form.cpp:416
 msgctxt "Kid3Form|"
@@ -5651,7 +5620,7 @@ msgstr "Etiqueta %1 des del nom de fitxer"
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'Tag %1'"
-msgstr ""
+msgstr "Redueix o expandeix la secció «Etiqueta %1»"
 
 #: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:939
 #, qt-format
@@ -5962,12 +5931,9 @@ msgid "Close"
 msgstr "Tanca"
 
 #: src/gui/widgets/playtoolbar.cpp:155
-#, fuzzy
-#| msgctxt "TimeEventEditor|"
-#| msgid "&Seek to position"
 msgctxt "PlayToolBar|"
 msgid "Seek to position"
-msgstr "Ve&s a la posició"
+msgstr "Ves a la posició"
 
 #: src/gui/widgets/playtoolbar.cpp:164
 msgctxt "PlayToolBar|"

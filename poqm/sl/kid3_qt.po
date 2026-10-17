@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kid3 Trunk\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-03-28 00:39+0000\n"
-"PO-Revision-Date: 2026-05-05 06:56+0200\n"
+"PO-Revision-Date: 2026-10-16 09:45+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
 "Language: sl\n"
@@ -626,7 +626,7 @@ msgstr "Pogovorno okno nastavitev"
 #: src/app/kde/kdemainwindow.cpp:191
 msgctxt "KdeMainWindow|"
 msgid "O&pen Folder..."
-msgstr "O&dpri mapo ..."
+msgstr "Odpri mapo..."
 
 #: src/app/kde/kdemainwindow.cpp:192
 msgctxt "KdeMainWindow|"
@@ -636,7 +636,7 @@ msgstr "Odpre mapo"
 #: src/app/kde/kdemainwindow.cpp:199
 msgctxt "KdeMainWindow|"
 msgid "Re&load"
-msgstr "Ponovno &naloži"
+msgstr "Ponovno na&loži"
 
 #: src/app/kde/kdemainwindow.cpp:200
 msgctxt "KdeMainWindow|"
@@ -651,7 +651,7 @@ msgstr "Odloži"
 #: src/app/kde/kdemainwindow.cpp:216
 msgctxt "KdeMainWindow|"
 msgid "&Import..."
-msgstr "&Uvozi ..."
+msgstr "Uvozi ..."
 
 #: src/app/kde/kdemainwindow.cpp:217
 msgctxt "KdeMainWindow|"
@@ -683,7 +683,7 @@ msgstr "Uvozi iz značk"
 #: src/app/kde/kdemainwindow.cpp:260
 msgctxt "KdeMainWindow|"
 msgid "Automatic I&mport..."
-msgstr "Samodejni &uvoz …"
+msgstr "Samodejni uvoz …"
 
 #: src/app/kde/kdemainwindow.cpp:261
 msgctxt "KdeMainWindow|"
@@ -693,7 +693,7 @@ msgstr "Samodejni uvoz"
 #: src/app/kde/kdemainwindow.cpp:265
 msgctxt "KdeMainWindow|"
 msgid "&Browse Cover Art..."
-msgstr "&Prebrskaj naslovnice ovitkov ..."
+msgstr "Prebrskaj naslovnice ovitkov ..."
 
 #: src/app/kde/kdemainwindow.cpp:266
 msgctxt "KdeMainWindow|"
@@ -703,7 +703,7 @@ msgstr "Prebrskaj naslovnice ovitkov albumov"
 #: src/app/kde/kdemainwindow.cpp:270
 msgctxt "KdeMainWindow|"
 msgid "&Export..."
-msgstr "&Izvozi ..."
+msgstr "Izvozi ..."
 
 #: src/app/kde/kdemainwindow.cpp:271
 msgctxt "KdeMainWindow|"
@@ -713,7 +713,7 @@ msgstr "Izvozi v datoteko ali na odložišče"
 #: src/app/kde/kdemainwindow.cpp:275
 msgctxt "KdeMainWindow|"
 msgid "&Create Playlist..."
-msgstr "&Ustvari seznam predvajanja …"
+msgstr "Ustvari seznam predvajanja …"
 
 #: src/app/kde/kdemainwindow.cpp:276
 msgctxt "KdeMainWindow|"
@@ -723,7 +723,7 @@ msgstr "Ustvari seznam predvajanja M3U"
 #: src/app/kde/kdemainwindow.cpp:279
 msgctxt "KdeMainWindow|"
 msgid "Apply &Filename Format"
-msgstr "Uveljavi zapis &imena datoteke"
+msgstr "Uveljavi zapis imena datoteke"
 
 #: src/app/kde/kdemainwindow.cpp:280
 msgctxt "KdeMainWindow|"
@@ -733,7 +733,7 @@ msgstr "Uveljavi zapis imena datoteke"
 #: src/app/kde/kdemainwindow.cpp:283
 msgctxt "KdeMainWindow|"
 msgid "Apply &Tag Format"
-msgstr "Uveljavi obliko &značk"
+msgstr "Uveljavi obliko značk"
 
 #: src/app/kde/kdemainwindow.cpp:284
 msgctxt "KdeMainWindow|"
@@ -743,7 +743,7 @@ msgstr "Uveljavi obliko značk"
 #: src/app/kde/kdemainwindow.cpp:287
 msgctxt "KdeMainWindow|"
 msgid "Apply Text &Encoding"
-msgstr "Uveljavi &kodiranje besedila"
+msgstr "Uveljavi kodiranje besedila"
 
 #: src/app/kde/kdemainwindow.cpp:288
 msgctxt "KdeMainWindow|"
@@ -753,7 +753,7 @@ msgstr "Uveljavi kodiranje besedila"
 #: src/app/kde/kdemainwindow.cpp:291
 msgctxt "KdeMainWindow|"
 msgid "&Rename Folder..."
-msgstr "&Preimenuj mapo ..."
+msgstr "Preimenuj mapo ..."
 
 #: src/app/kde/kdemainwindow.cpp:292
 msgctxt "KdeMainWindow|"
@@ -763,7 +763,7 @@ msgstr "Preimenuj mapo"
 #: src/app/kde/kdemainwindow.cpp:295
 msgctxt "KdeMainWindow|"
 msgid "&Number Tracks..."
-msgstr "&Številči posnetke ..."
+msgstr "Številči posnetke ..."
 
 #: src/app/kde/kdemainwindow.cpp:296
 msgctxt "KdeMainWindow|"
@@ -813,7 +813,7 @@ msgstr "Predvajaj"
 #: src/app/kde/kdemainwindow.cpp:323
 msgctxt "KdeMainWindow|"
 msgid "Show &Picture"
-msgstr "Pokaži &sliko"
+msgstr "Pokaži sliko"
 
 #: src/app/kde/kdemainwindow.cpp:324
 msgctxt "KdeMainWindow|"
@@ -823,7 +823,7 @@ msgstr "Pokaži sliko"
 #: src/app/kde/kdemainwindow.cpp:329
 msgctxt "KdeMainWindow|"
 msgid "Auto &Hide Tags"
-msgstr "Samodejno &skrij značke"
+msgstr "Samodejno skrij značke"
 
 #: src/app/kde/kdemainwindow.cpp:330
 msgctxt "KdeMainWindow|"
@@ -833,7 +833,7 @@ msgstr "Samodejno skrij značke"
 #: src/app/kde/kdemainwindow.cpp:335
 msgctxt "KdeMainWindow|"
 msgid "Select All in &Folder"
-msgstr "Izberi vse v &mapi"
+msgstr "Izberi vse v mapi"
 
 #: src/app/kde/kdemainwindow.cpp:336
 msgctxt "KdeMainWindow|"
@@ -843,7 +843,7 @@ msgstr "Izberite vse datoteke v trenutni mapi"
 #: src/app/kde/kdemainwindow.cpp:339
 msgctxt "KdeMainWindow|"
 msgid "&Invert Selection"
-msgstr "Preo&brni izbor"
+msgstr "Preobrni izbor"
 
 #: src/app/kde/kdemainwindow.cpp:343
 msgctxt "KdeMainWindow|"
@@ -936,12 +936,12 @@ msgstr "Seznam datotek"
 #: src/app/kde/kdemainwindow.cpp:426
 msgctxt "KdeMainWindow|"
 msgid "&Rename"
-msgstr "Pre&imenuj"
+msgstr "Preimenuj"
 
 #: src/app/kde/kdemainwindow.cpp:435
 msgctxt "KdeMainWindow|"
 msgid "&Move to Trash"
-msgstr "Premakni v s&meti"
+msgstr "Premakni v smeti"
 
 #: src/app/kde/kdemainwindow.cpp:441
 msgctxt "KdeMainWindow|"
@@ -971,7 +971,7 @@ msgstr "Da"
 #: src/app/kde/kdeplatformtools.cpp:198 src/app/kde/kdeplatformtools.cpp:242
 msgctxt "@default|"
 msgid "&No"
-msgstr "Ne"
+msgstr "&Ne"
 
 #: src/app/kde/mainkde.cpp:121
 msgctxt "@default|"
@@ -986,12 +986,12 @@ msgstr "Urejevalnik zvočnih značk"
 #: src/app/qt/browserdialog.cpp:97
 msgctxt "BrowserDialog|"
 msgid "&Back"
-msgstr "Na&zaj"
+msgstr "Nazaj"
 
 #: src/app/qt/browserdialog.cpp:104
 msgctxt "BrowserDialog|"
 msgid "&Forward"
-msgstr "&Naprej"
+msgstr "Naprej"
 
 #: src/app/qt/browserdialog.cpp:111
 msgctxt "BrowserDialog|"
@@ -1011,50 +1011,47 @@ msgstr "Najdi naslednje"
 #: src/app/qt/browserdialog.cpp:155
 msgctxt "BrowserDialog|"
 msgid "&Close"
-msgstr "&Zapri"
+msgstr "Zapri"
 
 #: src/app/qt/configdialog.cpp:74
 msgctxt "ConfigDialog|"
 msgid "&Tags"
-msgstr "&Značke"
+msgstr "Značke"
 
 #: src/app/qt/configdialog.cpp:75
 msgctxt "ConfigDialog|"
 msgid "&Files"
-msgstr "&Datoteke"
+msgstr "Datoteke"
 
 #: src/app/qt/configdialog.cpp:76
 msgctxt "ConfigDialog|"
 msgid "&User Actions"
-msgstr "&Dejanja uporabnika"
+msgstr "Dejanja uporabnika"
 
 #: src/app/qt/configdialog.cpp:77
 msgctxt "ConfigDialog|"
 msgid "&Network"
-msgstr "&Omrežje"
+msgstr "Omrežje"
 
 #: src/app/qt/configdialog.cpp:78
 msgctxt "ConfigDialog|"
 msgid "&Plugins"
-msgstr "&Vtičniki"
+msgstr "Vtičniki"
 
 #: src/app/qt/configdialog.cpp:90
 msgctxt "ConfigDialog|"
 msgid "&Keyboard Shortcuts"
-msgstr "&Tipke za bližnjice"
+msgstr "Tipke za bližnjice"
 
 #: src/app/qt/configdialog.cpp:103
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ConfigDialog|"
 msgid "Keyboard Shortcuts"
-msgstr "&Tipke za bližnjice"
+msgstr "Tipke za bližnjice"
 
 #: src/app/qt/configdialog.cpp:120
 msgctxt "ConfigDialog|"
 msgid "&Language"
-msgstr "&Jezik"
+msgstr "Jezik"
 
 #: src/app/qt/configdialog.cpp:125 src/app/qt/configdialog.cpp:219
 #: src/app/qt/configdialog.cpp:254
@@ -1070,7 +1067,7 @@ msgstr "Uporabi pisavo ap&likacije po meri"
 #: src/app/qt/configdialog.cpp:136
 msgctxt "ConfigDialog|"
 msgid "A&pplication Font..."
-msgstr "Pisava pro&grama ..."
+msgstr "Pisava programa ..."
 
 #: src/app/qt/configdialog.cpp:138
 msgctxt "ConfigDialog|"
@@ -1090,12 +1087,12 @@ msgstr "Uporabi domorodna sistemska pogovorna okna za &datoteke"
 #: src/app/qt/configdialog.cpp:170
 msgctxt "ConfigDialog|"
 msgid "&Appearance"
-msgstr "Vi&dez"
+msgstr "Videz"
 
 #: src/app/qt/configdialog.cpp:179
 msgctxt "ConfigDialog|"
 msgid "&Help"
-msgstr "Po&moč"
+msgstr "Pomoč"
 
 #: src/app/qt/configdialog.cpp:180
 msgctxt "ConfigDialog|"
@@ -1105,12 +1102,12 @@ msgstr "Obnovi privzete vrednosti"
 #: src/app/qt/configdialog.cpp:181
 msgctxt "ConfigDialog|"
 msgid "&OK"
-msgstr "V &redu"
+msgstr "V redu"
 
 #: src/app/qt/configdialog.cpp:182
 msgctxt "ConfigDialog|"
 msgid "&Cancel"
-msgstr "Pre&kliči"
+msgstr "Prekliči"
 
 #: src/app/qt/configdialog.cpp:294
 #, qt-format
@@ -1121,7 +1118,7 @@ msgstr "Kombinacija tipk za bližnjico »%1« je že dodeljena »%2«."
 #: src/app/qt/kid3mainwindow.cpp:109
 msgctxt "Kid3MainWindow|"
 msgid "&File"
-msgstr "&Datoteka"
+msgstr "Datoteka"
 
 #: src/app/qt/kid3mainwindow.cpp:113
 msgctxt "Kid3MainWindow|"
@@ -1141,7 +1138,7 @@ msgstr "Odpre nedavno uporabljeno mapo"
 #: src/app/qt/kid3mainwindow.cpp:135
 msgctxt "Kid3MainWindow|"
 msgid "Open &Recent"
-msgstr "Odpri ne&davne"
+msgstr "Odpri nedavne"
 
 #: src/app/qt/kid3mainwindow.cpp:148
 msgctxt "Kid3MainWindow|"
@@ -1151,7 +1148,7 @@ msgstr "Odpre mapo"
 #: src/app/qt/kid3mainwindow.cpp:149
 msgctxt "Kid3MainWindow|"
 msgid "O&pen Folder..."
-msgstr "O&dpri mapo ..."
+msgstr "Odpri mapo..."
 
 #: src/app/qt/kid3mainwindow.cpp:166
 msgctxt "Kid3MainWindow|"
@@ -1196,7 +1193,7 @@ msgstr "Uvoz iz datoteke ali odložišča"
 #: src/app/qt/kid3mainwindow.cpp:236
 msgctxt "Kid3MainWindow|"
 msgid "&Import..."
-msgstr "&Uvozi ..."
+msgstr "Uvozi ..."
 
 #: src/app/qt/kid3mainwindow.cpp:258 src/app/qt/kid3mainwindow.cpp:278
 #, qt-format
@@ -1228,7 +1225,7 @@ msgstr "Samodejni uvoz"
 #: src/app/qt/kid3mainwindow.cpp:299
 msgctxt "Kid3MainWindow|"
 msgid "Automatic I&mport..."
-msgstr "Samodejni &uvoz …"
+msgstr "Samodejni uvoz …"
 
 #: src/app/qt/kid3mainwindow.cpp:307
 msgctxt "Kid3MainWindow|"
@@ -1238,7 +1235,7 @@ msgstr "Prebrskaj naslovnice ovitkov albumov"
 #: src/app/qt/kid3mainwindow.cpp:308
 msgctxt "Kid3MainWindow|"
 msgid "&Browse Cover Art..."
-msgstr "&Prebrskaj naslovnice ovitkov ..."
+msgstr "Prebrskaj naslovnice ovitkov ..."
 
 #: src/app/qt/kid3mainwindow.cpp:317
 msgctxt "Kid3MainWindow|"
@@ -1248,7 +1245,7 @@ msgstr "Izvozi v datoteko ali na odložišče"
 #: src/app/qt/kid3mainwindow.cpp:318
 msgctxt "Kid3MainWindow|"
 msgid "&Export..."
-msgstr "&Izvozi ..."
+msgstr "Izvozi ..."
 
 #: src/app/qt/kid3mainwindow.cpp:328
 msgctxt "Kid3MainWindow|"
@@ -1258,7 +1255,7 @@ msgstr "Ustvari seznam predvajanja M3U"
 #: src/app/qt/kid3mainwindow.cpp:329
 msgctxt "Kid3MainWindow|"
 msgid "&Create Playlist..."
-msgstr "&Ustvari seznam predvajanja ..."
+msgstr "Ustvari seznam predvajanja ..."
 
 #: src/app/qt/kid3mainwindow.cpp:348
 msgctxt "Kid3MainWindow|"
@@ -1268,12 +1265,12 @@ msgstr "Zapre program"
 #: src/app/qt/kid3mainwindow.cpp:349
 msgctxt "Kid3MainWindow|"
 msgid "&Quit"
-msgstr "&Izhod"
+msgstr "Izhod"
 
 #: src/app/qt/kid3mainwindow.cpp:366
 msgctxt "Kid3MainWindow|"
 msgid "&Edit"
-msgstr "&Uredi"
+msgstr "Uredi"
 
 #: src/app/qt/kid3mainwindow.cpp:369
 msgctxt "Kid3MainWindow|"
@@ -1283,7 +1280,7 @@ msgstr "Izberi vse datoteke"
 #: src/app/qt/kid3mainwindow.cpp:370
 msgctxt "Kid3MainWindow|"
 msgid "Select &All"
-msgstr "Izberi &vse"
+msgstr "Izberi vse"
 
 #: src/app/qt/kid3mainwindow.cpp:391
 msgctxt "Kid3MainWindow|"
@@ -1293,7 +1290,7 @@ msgstr "Počisti izbor vseh datotek"
 #: src/app/qt/kid3mainwindow.cpp:392
 msgctxt "Kid3MainWindow|"
 msgid "Dese&lect"
-msgstr "Prekli&či izbor"
+msgstr "Prekliči izbor"
 
 #: src/app/qt/kid3mainwindow.cpp:402
 msgctxt "Kid3MainWindow|"
@@ -1303,12 +1300,12 @@ msgstr "Izberite vse datoteke v trenutni mapi"
 #: src/app/qt/kid3mainwindow.cpp:403
 msgctxt "Kid3MainWindow|"
 msgid "Select All in &Folder"
-msgstr "Izberi vse v &mapi"
+msgstr "Izberi vse v mapi"
 
 #: src/app/qt/kid3mainwindow.cpp:411
 msgctxt "Kid3MainWindow|"
 msgid "&Invert Selection"
-msgstr "Preo&brni izbor"
+msgstr "Preobrni izbor"
 
 #: src/app/qt/kid3mainwindow.cpp:419
 msgctxt "Kid3MainWindow|"
@@ -1338,7 +1335,7 @@ msgstr "Poišči"
 #: src/app/qt/kid3mainwindow.cpp:459
 msgctxt "Kid3MainWindow|"
 msgid "&Find..."
-msgstr "&Najdi ..."
+msgstr "Najdi ..."
 
 #: src/app/qt/kid3mainwindow.cpp:478
 msgctxt "Kid3MainWindow|"
@@ -1348,12 +1345,12 @@ msgstr "Najdi in zamenjaj"
 #: src/app/qt/kid3mainwindow.cpp:479
 msgctxt "Kid3MainWindow|"
 msgid "&Replace..."
-msgstr "&Zamenjaj ..."
+msgstr "Zamenjaj ..."
 
 #: src/app/qt/kid3mainwindow.cpp:491
 msgctxt "Kid3MainWindow|"
 msgid "&Tools"
-msgstr "O&rodja"
+msgstr "Orodja"
 
 #: src/app/qt/kid3mainwindow.cpp:494
 msgctxt "Kid3MainWindow|"
@@ -1363,7 +1360,7 @@ msgstr "Uveljavi zapis imena datoteke"
 #: src/app/qt/kid3mainwindow.cpp:495
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Filename Format"
-msgstr "Uveljavi zapis &imena datoteke"
+msgstr "Uveljavi zapis imena datoteke"
 
 #: src/app/qt/kid3mainwindow.cpp:504
 msgctxt "Kid3MainWindow|"
@@ -1373,7 +1370,7 @@ msgstr "Uveljavi obliko značk"
 #: src/app/qt/kid3mainwindow.cpp:505
 msgctxt "Kid3MainWindow|"
 msgid "Apply &Tag Format"
-msgstr "Uveljavi obliko &značk"
+msgstr "Uveljavi obliko značk"
 
 #: src/app/qt/kid3mainwindow.cpp:513
 msgctxt "Kid3MainWindow|"
@@ -1383,7 +1380,7 @@ msgstr "Uveljavi kodiranje besedila"
 #: src/app/qt/kid3mainwindow.cpp:514
 msgctxt "Kid3MainWindow|"
 msgid "Apply Text &Encoding"
-msgstr "Uveljavi &kodiranje besedila"
+msgstr "Uveljavi kodiranje besedila"
 
 #: src/app/qt/kid3mainwindow.cpp:523
 msgctxt "Kid3MainWindow|"
@@ -1393,7 +1390,7 @@ msgstr "Preimenuj mapo"
 #: src/app/qt/kid3mainwindow.cpp:524
 msgctxt "Kid3MainWindow|"
 msgid "&Rename Folder..."
-msgstr "&Preimenuj mapo ..."
+msgstr "Preimenuj mapo ..."
 
 #: src/app/qt/kid3mainwindow.cpp:532
 msgctxt "Kid3MainWindow|"
@@ -1403,7 +1400,7 @@ msgstr "Številči posnetke"
 #: src/app/qt/kid3mainwindow.cpp:533
 msgctxt "Kid3MainWindow|"
 msgid "&Number Tracks..."
-msgstr "&Številči posnetke ..."
+msgstr "Številči posnetke ..."
 
 #: src/app/qt/kid3mainwindow.cpp:541
 msgctxt "Kid3MainWindow|"
@@ -1448,7 +1445,7 @@ msgstr "&Predvajaj"
 #: src/app/qt/kid3mainwindow.cpp:592
 msgctxt "Kid3MainWindow|"
 msgid "&Settings"
-msgstr "&Nastavitve"
+msgstr "Nastavitve"
 
 #: src/app/qt/kid3mainwindow.cpp:596
 msgctxt "Kid3MainWindow|"
@@ -1458,7 +1455,7 @@ msgstr "Omogoči/onemogoči orodno vrstico"
 #: src/app/qt/kid3mainwindow.cpp:597
 msgctxt "Kid3MainWindow|"
 msgid "Show &Toolbar"
-msgstr "Pokaži &orodno vrstico"
+msgstr "Pokaži orodno vrstico"
 
 #: src/app/qt/kid3mainwindow.cpp:607
 msgctxt "Kid3MainWindow|"
@@ -1468,7 +1465,7 @@ msgstr "Omogoči/onemogoči vrstico stanja"
 #: src/app/qt/kid3mainwindow.cpp:608
 msgctxt "Kid3MainWindow|"
 msgid "Show St&atusbar"
-msgstr "Pokaži vrs&tico stanja"
+msgstr "Pokaži vrstico stanja"
 
 #: src/app/qt/kid3mainwindow.cpp:617
 msgctxt "Kid3MainWindow|"
@@ -1478,7 +1475,7 @@ msgstr "Pokaži sliko"
 #: src/app/qt/kid3mainwindow.cpp:618
 msgctxt "Kid3MainWindow|"
 msgid "Show &Picture"
-msgstr "Pokaži &sliko"
+msgstr "Pokaži sliko"
 
 #: src/app/qt/kid3mainwindow.cpp:627
 msgctxt "Kid3MainWindow|"
@@ -1488,7 +1485,7 @@ msgstr "Samodejno skrij značke"
 #: src/app/qt/kid3mainwindow.cpp:628
 msgctxt "Kid3MainWindow|"
 msgid "Auto &Hide Tags"
-msgstr "Samodejno &skrij značke"
+msgstr "Samodejno skrij značke"
 
 #: src/app/qt/kid3mainwindow.cpp:637
 msgctxt "Kid3MainWindow|"
@@ -1498,12 +1495,12 @@ msgstr "Prilagodi Kid3"
 #: src/app/qt/kid3mainwindow.cpp:638
 msgctxt "Kid3MainWindow|"
 msgid "&Configure Kid3..."
-msgstr "Prila&godi Kid3 ..."
+msgstr "Prilagodi Kid3 ..."
 
 #: src/app/qt/kid3mainwindow.cpp:659
 msgctxt "Kid3MainWindow|"
 msgid "&Help"
-msgstr "Po&moč"
+msgstr "Pomoč"
 
 #: src/app/qt/kid3mainwindow.cpp:662
 msgctxt "Kid3MainWindow|"
@@ -1513,7 +1510,7 @@ msgstr "Priročnik za Kid3"
 #: src/app/qt/kid3mainwindow.cpp:663
 msgctxt "Kid3MainWindow|"
 msgid "Kid3 &Handbook"
-msgstr "Priro&čnik za Kid3"
+msgstr "Priročnik za Kid3"
 
 #: src/app/qt/kid3mainwindow.cpp:680
 msgctxt "Kid3MainWindow|"
@@ -1523,7 +1520,7 @@ msgstr "O programu Kid3"
 #: src/app/qt/kid3mainwindow.cpp:681
 msgctxt "Kid3MainWindow|"
 msgid "&About Kid3"
-msgstr "&O programu Kid3"
+msgstr "O programu Kid3"
 
 #: src/app/qt/kid3mainwindow.cpp:700
 msgctxt "Kid3MainWindow|"
@@ -1606,12 +1603,12 @@ msgstr "Seznam datotek"
 #: src/app/qt/kid3mainwindow.cpp:808
 msgctxt "Kid3MainWindow|"
 msgid "&Rename"
-msgstr "Pre&imenuj"
+msgstr "Preimenuj"
 
 #: src/app/qt/kid3mainwindow.cpp:815
 msgctxt "Kid3MainWindow|"
 msgid "&Move to Trash"
-msgstr "Premakni v s&meti"
+msgstr "Premakni v smeti"
 
 #: src/app/qt/kid3mainwindow.cpp:822
 msgctxt "Kid3MainWindow|"
@@ -1656,7 +1653,7 @@ msgstr "Priročnik za Kid3"
 #: src/app/qt/recentfilesmenu.cpp:119
 msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
-msgstr "&Počisti seznam"
+msgstr "Počisti seznam"
 
 #: src/app/qt/shortcutsdelegate.cpp:225
 msgctxt "ShortcutsDelegateEditor|"
@@ -1664,6 +1661,8 @@ msgid ""
 "Press the new key combination. Press Tab to go to the Clear and Reset "
 "buttons."
 msgstr ""
+"Pritisnite novo kombinacijo tipk. Pritisnite tipko Tab, da se pomaknete do "
+"gumbov »Počisti« in »Ponastavi«."
 
 #: src/app/qt/shortcutsdelegate.cpp:230
 msgctxt "ShortcutsDelegateEditor|"
@@ -1671,12 +1670,9 @@ msgid "Clear"
 msgstr "Počisti"
 
 #: src/app/qt/shortcutsdelegate.cpp:231
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Remove the keyboard shortcut"
-msgstr "&Tipke za bližnjice"
+msgstr "Odstrani tipko za bližnjico"
 
 #: src/app/qt/shortcutsdelegate.cpp:238
 msgctxt "ShortcutsDelegateEditor|"
@@ -1686,18 +1682,18 @@ msgstr "Ponastavi"
 #: src/app/qt/shortcutsdelegate.cpp:240
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Restore the default keyboard shortcut"
-msgstr ""
+msgstr "Ponastavi privzeto bližnjico tipke"
 
 #: src/app/qt/shortcutsmodel.cpp:103
 #, qt-format
 msgctxt "ShortcutsModel|"
 msgid "Shortcut: %1. Press Return or F2 to edit."
-msgstr ""
+msgstr "Bližnjica: %1. Za urejanje pritisnite tipko Return ali F2."
 
 #: src/app/qt/shortcutsmodel.cpp:104
 msgctxt "ShortcutsModel|"
 msgid "none"
-msgstr ""
+msgstr "nobena"
 
 #: src/app/qt/shortcutsmodel.cpp:120
 msgctxt "ShortcutsModel|"
@@ -1707,7 +1703,7 @@ msgstr "Pritisnite F2 ali dvokliknite za urejanje vsebine celic."
 #: src/app/qt/shortcutsmodel.cpp:123
 msgctxt "ShortcutsModel|"
 msgid "Press Return or F2 to edit."
-msgstr ""
+msgstr "Pritisnite Return ali F2 za urejanje."
 
 #: src/app/qt/shortcutsmodel.cpp:199
 msgctxt "ShortcutsModel|"
@@ -2495,20 +2491,14 @@ msgid "Date Modified"
 msgstr "Datum spremembe"
 
 #: src/core/model/taggedfilesystemmodel.cpp:121
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Folder"
 msgctxt "TaggedFileSystemModel|"
 msgid "Folder"
 msgstr "Mapa"
 
 #: src/core/model/taggedfilesystemmodel.cpp:125
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Date Modified"
 msgctxt "TaggedFileSystemModel|"
 msgid "Modified"
-msgstr "Datum spremembe"
+msgstr "Spremenjeno"
 
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
@@ -3887,7 +3877,7 @@ msgstr "Samodejni uvoz"
 #: src/gui/dialogs/batchimportdialog.cpp:185
 msgctxt "BatchImportDialog|"
 msgid "D&estination:"
-msgstr "&Cilj:"
+msgstr "Cilj:"
 
 #: src/gui/dialogs/batchimportdialog.cpp:203
 msgctxt "BatchImportDialog|"
@@ -3907,7 +3897,7 @@ msgstr "Odstrani"
 #: src/gui/dialogs/batchimportdialog.cpp:242
 msgctxt "BatchImportDialog|"
 msgid "&Help"
-msgstr "Po&moč"
+msgstr "Pomoč"
 
 #: src/gui/dialogs/batchimportdialog.cpp:248
 msgctxt "BatchImportDialog|"
@@ -3917,7 +3907,7 @@ msgstr "&Shrani nastavitve"
 #: src/gui/dialogs/batchimportdialog.cpp:257
 msgctxt "BatchImportDialog|"
 msgid "&Close"
-msgstr "&Zapri"
+msgstr "Zapri"
 
 #: src/gui/dialogs/batchimportdialog.cpp:297
 msgctxt "BatchImportDialog|"
@@ -3977,12 +3967,12 @@ msgstr "Napaka"
 #: src/gui/dialogs/batchimportdialog.cpp:536
 msgctxt "BatchImportDialog|"
 msgid "A&bort"
-msgstr "Preki&ni"
+msgstr "Prekini"
 
 #: src/gui/dialogs/batchimportdialog.cpp:536
 msgctxt "BatchImportDialog|"
 msgid "S&tart"
-msgstr "&Začni"
+msgstr "Začni"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:47
 msgctxt "BatchImportSourceDialog|"
@@ -4002,17 +3992,17 @@ msgstr "N&atančnost:"
 #: src/gui/dialogs/batchimportsourcedialog.cpp:74
 msgctxt "BatchImportSourceDialog|"
 msgid "&Standard Tags"
-msgstr "&Navadne značke"
+msgstr "Navadne značke"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:76
 msgctxt "BatchImportSourceDialog|"
 msgid "&Additional Tags"
-msgstr "&Dodatne značke"
+msgstr "Dodatne značke"
 
 #: src/gui/dialogs/batchimportsourcedialog.cpp:78
 msgctxt "BatchImportSourceDialog|"
 msgid "C&over Art"
-msgstr "Nasl&ovnice ovitkov"
+msgstr "Naslovnice ovitkov"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:83
 #: src/gui/dialogs/browsecoverartdialog.cpp:263
@@ -4023,12 +4013,12 @@ msgstr "Prebrskaj naslovnice ovitkov"
 #: src/gui/dialogs/browsecoverartdialog.cpp:92
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Artist/Album"
-msgstr "&Izvajalec/album"
+msgstr "Izvajalec/album"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:105
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Source"
-msgstr "&Vir"
+msgstr "Vir"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:107
 msgctxt "BrowseCoverArtDialog|"
@@ -4043,7 +4033,7 @@ msgstr "URL:"
 #: src/gui/dialogs/browsecoverartdialog.cpp:118
 msgctxt "BrowseCoverArtDialog|"
 msgid "&URL extraction"
-msgstr "&Pridobivanje URL-ja"
+msgstr "Pridobivanje URL-ja"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:120
 msgctxt "BrowseCoverArtDialog|"
@@ -4058,7 +4048,7 @@ msgstr "URL slike"
 #: src/gui/dialogs/browsecoverartdialog.cpp:130
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Help"
-msgstr "Po&moč"
+msgstr "Pomoč"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:135
 msgctxt "BrowseCoverArtDialog|"
@@ -4073,7 +4063,7 @@ msgstr "Pre&brskaj"
 #: src/gui/dialogs/browsecoverartdialog.cpp:145
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Cancel"
-msgstr "Pre&kliči"
+msgstr "Prekliči"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:177
 msgctxt "BrowseCoverArtDialog|"
@@ -4093,13 +4083,13 @@ msgstr "ID3v1"
 #: src/gui/dialogs/configdialogpages.cpp:183
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
-msgstr "&Označi porezana polja"
+msgstr "Označi porezana polja"
 
 #: src/gui/dialogs/configdialogpages.cpp:185
 #: src/gui/dialogs/configdialogpages.cpp:216
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
-msgstr "&Kodiranje besedila:"
+msgstr "Kodiranje besedila:"
 
 #: src/gui/dialogs/configdialogpages.cpp:202
 msgctxt "ConfigDialogPages|"
@@ -4109,12 +4099,12 @@ msgstr "ID3v2"
 #: src/gui/dialogs/configdialogpages.cpp:205
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
-msgstr "Uporabi zapis &posnetek/skupnega števila posnetkov"
+msgstr "Uporabi zapis posnetek/skupnega števila posnetkov"
 
 #: src/gui/dialogs/configdialogpages.cpp:208
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
-msgstr "&Zvrst kot besedilo namesto številčnega niza"
+msgstr "Zvrst kot besedilo namesto številčnega niza"
 
 #: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
@@ -4124,12 +4114,12 @@ msgstr "&WAV-datoteke z majhnim kosom id3"
 #: src/gui/dialogs/configdialogpages.cpp:212
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
-msgstr "O&znači standardne kršitve"
+msgstr "Označi standardne kršitve"
 
 #: src/gui/dialogs/configdialogpages.cpp:234
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
-msgstr "&Različica, ki se uporablja za nove značke:"
+msgstr "Različica, ki se uporablja za nove značke:"
 
 #: src/gui/dialogs/configdialogpages.cpp:241
 msgctxt "ConfigDialogPages|"
@@ -4144,7 +4134,7 @@ msgstr "ID3v2.4.0"
 #: src/gui/dialogs/configdialogpages.cpp:254
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
-msgstr "&Število števk v številkah posnetkov:"
+msgstr "Število števk v številu posnetkov:"
 
 #: src/gui/dialogs/configdialogpages.cpp:261
 msgctxt "ConfigDialogPages|"
@@ -4159,7 +4149,7 @@ msgstr "Ime polja ko&mentarja:"
 #: src/gui/dialogs/configdialogpages.cpp:268
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
-msgstr "&Ime polja slike:"
+msgstr "Ime polja slike:"
 
 #: src/gui/dialogs/configdialogpages.cpp:293
 msgctxt "ConfigDialogPages|"
@@ -4194,22 +4184,22 @@ msgstr "Slika"
 #: src/gui/dialogs/configdialogpages.cpp:316
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
-msgstr "Označi , če je &večje kot (bajtov):"
+msgstr "Označi , če je večje kot (bajtov):"
 
 #: src/gui/dialogs/configdialogpages.cpp:329
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
-msgstr "&Pokaži samo zvrsti po meri"
+msgstr "Pokaži samo zvrsti po meri"
 
 #: src/gui/dialogs/configdialogpages.cpp:337
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
-msgstr "&Zvrsti po meri"
+msgstr "Zvrsti po meri"
 
 #: src/gui/dialogs/configdialogpages.cpp:349
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
-msgstr "&Okvirji po meri"
+msgstr "Okvirji po meri"
 
 #: src/gui/dialogs/configdialogpages.cpp:367
 msgctxt "ConfigDialogPages|"
@@ -4219,7 +4209,7 @@ msgstr "Uporabi povleci in spusti za prerazvrščanje elementov"
 #: src/gui/dialogs/configdialogpages.cpp:370
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
-msgstr "&Okvirji za hiter dostop"
+msgstr "Okvirji za hiter dostop"
 
 #: src/gui/dialogs/configdialogpages.cpp:377
 msgctxt "ConfigDialogPages|"
@@ -4229,12 +4219,12 @@ msgstr "PODATKI O RIFFU"
 #: src/gui/dialogs/configdialogpages.cpp:378
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
-msgstr "Ime polja &številke posnetka:"
+msgstr "Ime polja številke posnetka:"
 
 #: src/gui/dialogs/configdialogpages.cpp:398
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
-msgstr "&Oblika značk"
+msgstr "Oblika značk"
 
 #: src/gui/dialogs/configdialogpages.cpp:400
 msgctxt "ConfigDialogPages|"
@@ -4259,7 +4249,7 @@ msgstr "Značka &3"
 #: src/gui/dialogs/configdialogpages.cpp:414
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
-msgstr "Vse zna&čke"
+msgstr "Vse značke"
 
 #: src/gui/dialogs/configdialogpages.cpp:432
 msgctxt "ConfigDialogPages|"
@@ -4279,12 +4269,12 @@ msgstr "Shrani"
 #: src/gui/dialogs/configdialogpages.cpp:440
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
-msgstr "&Ohrani časovni žig datoteke"
+msgstr "Ohrani časovni žig datoteke"
 
 #: src/gui/dialogs/configdialogpages.cpp:442
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
-msgstr "O&znači spremembe"
+msgstr "Označi spremembe"
 
 #: src/gui/dialogs/configdialogpages.cpp:455
 msgctxt "ConfigDialogPages|"
@@ -4294,7 +4284,7 @@ msgstr "&Ime datoteke za naslovnico:"
 #: src/gui/dialogs/configdialogpages.cpp:456
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
-msgstr "&Kodiranje besedila (izvoz, seznam predvajanja):"
+msgstr "Kodiranje besedila (izvoz, seznam predvajanja):"
 
 #: src/gui/dialogs/configdialogpages.cpp:461
 msgctxt "ConfigDialogPages|"
@@ -4309,12 +4299,12 @@ msgstr "Filte&r:"
 #: src/gui/dialogs/configdialogpages.cpp:475
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
-msgstr "Vklj&uči mape:"
+msgstr "Vključi mape:"
 
 #: src/gui/dialogs/configdialogpages.cpp:479
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
-msgstr "Iz&ključi mape:"
+msgstr "Izključi mape:"
 
 #: src/gui/dialogs/configdialogpages.cpp:483
 msgctxt "ConfigDialogPages|"
@@ -4400,40 +4390,37 @@ msgstr "Posredni strežnik"
 #: src/gui/dialogs/configdialogpages.cpp:641
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
-msgstr "&Posr. strežnik:"
+msgstr "&Posrednik:"
 
 #: src/gui/dialogs/configdialogpages.cpp:644
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
-msgstr "&Uporabi preverjanje pristnosti s posrednim strežnikom"
+msgstr "&Uporabi preverjanje pristnosti s posrednikom"
 
 #: src/gui/dialogs/configdialogpages.cpp:646
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
-msgstr "&Ime uporabnika posr. strežnika:"
+msgstr "Ime uporabnika posrednika:"
 
 #: src/gui/dialogs/configdialogpages.cpp:650
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
-msgstr "&Geslo za posr. strežnik:"
+msgstr "Geslo za posrednika:"
 
 #: src/gui/dialogs/configdialogpages.cpp:684
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
-msgstr "Vstavki in prednost &metapodatkov"
+msgstr "Vtičnik in prednost &metapodatkov"
 
 #: src/gui/dialogs/configdialogpages.cpp:696
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
-msgstr "&Vstavki na voljo"
+msgstr "&Vtičniki na voljo"
 
 #: src/gui/dialogs/configdialogpages.cpp:699
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "A&vailable Plugins"
 msgctxt "ConfigDialogPages|"
 msgid "Available Plugins"
-msgstr "&Vstavki na voljo"
+msgstr "Razpoložljivi vtičniki"
 
 #: src/gui/dialogs/configdialogpages.cpp:710
 msgctxt "ConfigDialogPages|"
@@ -4454,37 +4441,37 @@ msgstr "Vse datoteke"
 #: src/gui/dialogs/editframefieldsdialog.cpp:1201
 msgctxt "BinaryOpenSave|"
 msgid "From Clip&board"
-msgstr "Iz od&ložišča"
+msgstr "Iz odložišča"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1202
 msgctxt "BinaryOpenSave|"
 msgid "&To Clipboard"
-msgstr "&Na odložišče"
+msgstr "Na odložišče"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1203
 msgctxt "BinaryOpenSave|"
 msgid "&Import..."
-msgstr "&Uvozi ..."
+msgstr "Uvozi ..."
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1204
 msgctxt "BinaryOpenSave|"
 msgid "&Export..."
-msgstr "&Izvozi ..."
+msgstr "Izvozi ..."
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1205
 msgctxt "BinaryOpenSave|"
 msgid "&View..."
-msgstr "&Pogled ..."
+msgstr "Pogled ..."
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1377
 msgctxt "EditFrameFieldsDialog|"
 msgid "&OK"
-msgstr "V &redu"
+msgstr "V redu"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:1378
 msgctxt "EditFrameFieldsDialog|"
 msgid "&Cancel"
-msgstr "Pre&kliči"
+msgstr "Prekliči"
 
 #: src/gui/dialogs/exportdialog.cpp:72
 msgctxt "ExportDialog|"
@@ -4494,37 +4481,37 @@ msgstr "Izvozi"
 #: src/gui/dialogs/exportdialog.cpp:93
 msgctxt "ExportDialog|"
 msgid "&Format:"
-msgstr "&Oblika:"
+msgstr "Oblika:"
 
 #: src/gui/dialogs/exportdialog.cpp:93
 msgctxt "ExportDialog|"
 msgid "H&eader:"
-msgstr "&Glava:"
+msgstr "Glava:"
 
 #: src/gui/dialogs/exportdialog.cpp:93
 msgctxt "ExportDialog|"
 msgid "&Tracks:"
-msgstr "&Posnetki:"
+msgstr "Posnetki:"
 
 #: src/gui/dialogs/exportdialog.cpp:93
 msgctxt "ExportDialog|"
 msgid "F&ooter:"
-msgstr "N&oga:"
+msgstr "Noga:"
 
 #: src/gui/dialogs/exportdialog.cpp:101
 msgctxt "ExportDialog|"
 msgid "To F&ile..."
-msgstr "V datote&ko …"
+msgstr "V datoteko …"
 
 #: src/gui/dialogs/exportdialog.cpp:106
 msgctxt "ExportDialog|"
 msgid "To Clip&board"
-msgstr "Na od&ložišče"
+msgstr "Na odložišče"
 
 #: src/gui/dialogs/exportdialog.cpp:115
 msgctxt "ExportDialog|"
 msgid "&Source:"
-msgstr "&Vir:"
+msgstr "Vir:"
 
 #: src/gui/dialogs/exportdialog.cpp:123
 #, qt-format
@@ -4535,7 +4522,7 @@ msgstr "Značka %1"
 #: src/gui/dialogs/exportdialog.cpp:135
 msgctxt "ExportDialog|"
 msgid "&Help"
-msgstr "Po&moč"
+msgstr "Pomoč"
 
 #: src/gui/dialogs/exportdialog.cpp:140
 msgctxt "ExportDialog|"
@@ -4545,7 +4532,7 @@ msgstr "&Shrani nastavitve"
 #: src/gui/dialogs/exportdialog.cpp:149
 msgctxt "ExportDialog|"
 msgid "&Close"
-msgstr "&Zapri"
+msgstr "Zapri"
 
 #: src/gui/dialogs/exportdialog.cpp:168
 msgctxt "ExportDialog|"
@@ -4565,7 +4552,7 @@ msgstr "Filtriraj"
 #: src/gui/dialogs/filterdialog.cpp:53
 msgctxt "FilterDialog|"
 msgid "&Preview"
-msgstr "Predo&gled"
+msgstr "Predogled"
 
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
@@ -5235,51 +5222,48 @@ msgstr "&Zapri"
 #: src/gui/forms/accessibilityhelper.cpp:413
 msgctxt "AccessibilityHelper|"
 msgid "checked"
-msgstr ""
+msgstr "preverjeno"
 
 #: src/gui/forms/accessibilityhelper.cpp:131
 msgctxt "AccessibilityHelper|"
 msgid "partially checked"
-msgstr ""
+msgstr "delno preverjeno"
 
 #: src/gui/forms/accessibilityhelper.cpp:135
 #: src/gui/forms/accessibilityhelper.cpp:415
 msgctxt "AccessibilityHelper|"
 msgid "not checked"
-msgstr ""
+msgstr "ni preverjeno"
 
 #: src/gui/forms/accessibilityhelper.cpp:401
 msgctxt "AccessibilityHelper|"
 msgid "menu"
-msgstr ""
+msgstr "meni"
 
 #: src/gui/forms/accessibilityhelper.cpp:402
 #, qt-format
 msgctxt "AccessibilityHelper|"
 msgid "%n items"
 msgid_plural "%n items"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "%n postavka"
+msgstr[1] "%n postavki"
+msgstr[2] "%n postavke"
+msgstr[3] "%n postavk"
 
 #: src/gui/forms/accessibilityhelper.cpp:419
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "End of submenu"
 msgctxt "AccessibilityHelper|"
 msgid "submenu"
-msgstr "Konec podmenija"
+msgstr "podmeni"
 
 #: src/gui/forms/accessibilityhelper.cpp:423
 msgctxt "AccessibilityHelper|"
 msgid "dimmed"
-msgstr ""
+msgstr "zatemnjeno"
 
 #: src/gui/forms/basemainwindow.cpp:116
 msgctxt "BaseMainWindowImpl|"
 msgid "Download"
-msgstr "Prenesi"
+msgstr "Prenesi sem"
 
 #: src/gui/forms/basemainwindow.cpp:237
 msgctxt "BaseMainWindowImpl|"
@@ -5554,12 +5538,9 @@ msgid "Could not execute "
 msgstr "Ni bilo mogoče izvršiti "
 
 #: src/gui/forms/kid3form.cpp:272
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Main Toolbar"
 msgctxt "Kid3Form|"
 msgid "Main Form"
-msgstr "Glavna orodna vrstica"
+msgstr "Glavni obrazec"
 
 #: src/gui/forms/kid3form.cpp:292
 msgctxt "Kid3Form|"
@@ -5567,17 +5548,11 @@ msgid "Kid3"
 msgstr "Kid3"
 
 #: src/gui/forms/kid3form.cpp:317
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "File List"
 msgctxt "Kid3Form|"
 msgid "File list"
 msgstr "Seznam datotek"
 
 #: src/gui/forms/kid3form.cpp:318
-#, fuzzy
-#| msgctxt "LsCommand|"
-#| msgid "Folder list"
 msgctxt "Kid3Form|"
 msgid "Folder list"
 msgstr "Seznam map"
@@ -5585,7 +5560,7 @@ msgstr "Seznam map"
 #: src/gui/forms/kid3form.cpp:349
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'File'"
-msgstr ""
+msgstr "Strni ali razširi razdelek 'Datoteka'"
 
 #: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:1317
 #: src/gui/forms/kid3form.cpp:1318
@@ -5604,17 +5579,11 @@ msgid "Format:"
 msgstr "Oblika:"
 
 #: src/gui/forms/kid3form.cpp:387
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "To filename format"
 msgctxt "Kid3Form|"
 msgid "To filename format"
 msgstr "V obliko zapisa imena datoteke"
 
 #: src/gui/forms/kid3form.cpp:400
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "From filename format"
 msgctxt "Kid3Form|"
 msgid "From filename format"
 msgstr "Iz oblike imena datoteke"
@@ -5653,7 +5622,7 @@ msgstr "Značka %1 iz imena datoteke"
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'Tag %1'"
-msgstr ""
+msgstr "Strni ali razširi razdelek 'Značka %1'"
 
 #: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:939
 #, qt-format
@@ -5964,12 +5933,9 @@ msgid "Close"
 msgstr "Zapri"
 
 #: src/gui/widgets/playtoolbar.cpp:155
-#, fuzzy
-#| msgctxt "TimeEventEditor|"
-#| msgid "&Seek to position"
 msgctxt "PlayToolBar|"
 msgid "Seek to position"
-msgstr "&Poišči položaj"
+msgstr "Poišči položaj"
 
 #: src/gui/widgets/playtoolbar.cpp:164
 msgctxt "PlayToolBar|"
@@ -6090,7 +6056,7 @@ msgstr "Odmik"
 #: src/gui/widgets/timeeventeditor.cpp:434
 msgctxt "TimeEventEditor|"
 msgid "Milliseconds"
-msgstr "milisekund"
+msgstr "Milisekund"
 
 #: src/gui/widgets/timeeventeditor.cpp:474
 msgctxt "TimeEventEditor|"

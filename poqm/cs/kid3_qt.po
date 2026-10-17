@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-07-26 11:55+0200\n"
+"PO-Revision-Date: 2026-10-17 01:24+0200\n"
 "Last-Translator: Libor Filípek <libor.filipek@gmail.com>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Lokalize 26.08.2\n"
 "X-Language: cs\n"
 "X-Source-Language: en\n"
 "X-Qt-Contexts: true\n"
@@ -1043,12 +1043,9 @@ msgid "&Keyboard Shortcuts"
 msgstr "&Klávesové zkratky"
 
 #: src/app/qt/configdialog.cpp:103
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ConfigDialog|"
 msgid "Keyboard Shortcuts"
-msgstr "&Klávesové zkratky"
+msgstr "Klávesové zkratky"
 
 #: src/app/qt/configdialog.cpp:120
 msgctxt "ConfigDialog|"
@@ -1655,7 +1652,7 @@ msgstr "Příručka k programu Kid3"
 #: src/app/qt/recentfilesmenu.cpp:119
 msgctxt "RecentFilesMenu|"
 msgid "&Clear List"
-msgstr "V&yčistit seznam"
+msgstr "V&ymazat seznam"
 
 #: src/app/qt/shortcutsdelegate.cpp:225
 msgctxt "ShortcutsDelegateEditor|"
@@ -1663,19 +1660,18 @@ msgid ""
 "Press the new key combination. Press Tab to go to the Clear and Reset "
 "buttons."
 msgstr ""
+"Stiskněte novou klávesovou zkratku. Stisknutím klávesy Tab přejděte na "
+"tlačítka Vymazat a Obnovit."
 
 #: src/app/qt/shortcutsdelegate.cpp:230
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Clear"
-msgstr "Vyprázdnit"
+msgstr "Vymazat"
 
 #: src/app/qt/shortcutsdelegate.cpp:231
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Remove the keyboard shortcut"
-msgstr "&Klávesové zkratky"
+msgstr "Odstranit klávesovou zkratku"
 
 #: src/app/qt/shortcutsdelegate.cpp:238
 msgctxt "ShortcutsDelegateEditor|"
@@ -1685,18 +1681,18 @@ msgstr "Obnovit"
 #: src/app/qt/shortcutsdelegate.cpp:240
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Restore the default keyboard shortcut"
-msgstr ""
+msgstr "Obnovit výchozí klávesovou zkratku"
 
 #: src/app/qt/shortcutsmodel.cpp:103
 #, qt-format
 msgctxt "ShortcutsModel|"
 msgid "Shortcut: %1. Press Return or F2 to edit."
-msgstr ""
+msgstr "Zkratka: %1. Pro úpravu stiskněte Return nebo F2."
 
 #: src/app/qt/shortcutsmodel.cpp:104
 msgctxt "ShortcutsModel|"
 msgid "none"
-msgstr ""
+msgstr "žádná"
 
 #: src/app/qt/shortcutsmodel.cpp:120
 msgctxt "ShortcutsModel|"
@@ -1706,7 +1702,7 @@ msgstr "Obsah buňky upravte stisknutím F2 nebo dvojitým kliknutím."
 #: src/app/qt/shortcutsmodel.cpp:123
 msgctxt "ShortcutsModel|"
 msgid "Press Return or F2 to edit."
-msgstr ""
+msgstr "Pro úpravu stiskněte Return nebo F2."
 
 #: src/app/qt/shortcutsmodel.cpp:199
 msgctxt "ShortcutsModel|"
@@ -2494,20 +2490,14 @@ msgid "Date Modified"
 msgstr "Datum změny"
 
 #: src/core/model/taggedfilesystemmodel.cpp:121
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Folder"
 msgctxt "TaggedFileSystemModel|"
 msgid "Folder"
 msgstr "Složka"
 
 #: src/core/model/taggedfilesystemmodel.cpp:125
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Date Modified"
 msgctxt "TaggedFileSystemModel|"
 msgid "Modified"
-msgstr "Datum změny"
+msgstr "Změněno"
 
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
@@ -4428,12 +4418,9 @@ msgid "A&vailable Plugins"
 msgstr "Dostupné modul&y"
 
 #: src/gui/dialogs/configdialogpages.cpp:699
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "A&vailable Plugins"
 msgctxt "ConfigDialogPages|"
 msgid "Available Plugins"
-msgstr "Dostupné modul&y"
+msgstr "Dostupné moduly"
 
 #: src/gui/dialogs/configdialogpages.cpp:710
 msgctxt "ConfigDialogPages|"
@@ -5235,45 +5222,42 @@ msgstr "&Zavřít"
 #: src/gui/forms/accessibilityhelper.cpp:413
 msgctxt "AccessibilityHelper|"
 msgid "checked"
-msgstr ""
+msgstr "zkontrolováno"
 
 #: src/gui/forms/accessibilityhelper.cpp:131
 msgctxt "AccessibilityHelper|"
 msgid "partially checked"
-msgstr ""
+msgstr "částečně zkontrolováno"
 
 #: src/gui/forms/accessibilityhelper.cpp:135
 #: src/gui/forms/accessibilityhelper.cpp:415
 msgctxt "AccessibilityHelper|"
 msgid "not checked"
-msgstr ""
+msgstr "nezkontrolováno"
 
 #: src/gui/forms/accessibilityhelper.cpp:401
 msgctxt "AccessibilityHelper|"
 msgid "menu"
-msgstr ""
+msgstr "nabídka"
 
 #: src/gui/forms/accessibilityhelper.cpp:402
 #, qt-format
 msgctxt "AccessibilityHelper|"
 msgid "%n items"
 msgid_plural "%n items"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "%n položka"
+msgstr[1] "%n položky"
+msgstr[2] "%n položek"
 
 #: src/gui/forms/accessibilityhelper.cpp:419
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "End of submenu"
 msgctxt "AccessibilityHelper|"
 msgid "submenu"
-msgstr "Konec podnabídky"
+msgstr "podnabídka"
 
 #: src/gui/forms/accessibilityhelper.cpp:423
 msgctxt "AccessibilityHelper|"
 msgid "dimmed"
-msgstr ""
+msgstr "ztlumeno"
 
 #: src/gui/forms/basemainwindow.cpp:116
 msgctxt "BaseMainWindowImpl|"
@@ -5482,7 +5466,7 @@ msgstr "Nelze přesunout tyto soubory do koše"
 #: src/gui/forms/basemainwindow.cpp:1703
 msgctxt "BaseMainWindowImpl|"
 msgid "Expand All"
-msgstr "Rozvinout vše"
+msgstr "Rozbalit vše"
 
 #: src/gui/forms/basemainwindow.cpp:1815
 msgctxt "BaseMainWindowImpl|"
@@ -5502,7 +5486,7 @@ msgstr "Vlastní šířky sloupce"
 #: src/gui/forms/filelist.cpp:113
 msgctxt "FileList|"
 msgid "C&lear"
-msgstr "Vyči&stit"
+msgstr "Vyma&zat"
 
 #: src/gui/forms/filelist.cpp:117
 msgctxt "FileList|"
@@ -5512,12 +5496,12 @@ msgstr "&Zavřít"
 #: src/gui/forms/filelist.cpp:361 src/gui/forms/filelist.cpp:365
 msgctxt "FileList|"
 msgid "&Expand all"
-msgstr "Rozvinout vš&e"
+msgstr "Rozbalit vš&e"
 
 #: src/gui/forms/filelist.cpp:363 src/gui/forms/filelist.cpp:366
 msgctxt "FileList|"
 msgid "&Collapse all"
-msgstr "Svinout vš&e"
+msgstr "Sbalit vš&e"
 
 #: src/gui/forms/filelist.cpp:376 src/gui/forms/filelist.cpp:378
 msgctxt "FileList|"
@@ -5550,12 +5534,9 @@ msgid "Could not execute "
 msgstr "Nelze spustit "
 
 #: src/gui/forms/kid3form.cpp:272
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Main Toolbar"
 msgctxt "Kid3Form|"
 msgid "Main Form"
-msgstr "Hlavní panel nástrojů"
+msgstr "Hlavní formulář"
 
 #: src/gui/forms/kid3form.cpp:292
 msgctxt "Kid3Form|"
@@ -5563,17 +5544,11 @@ msgid "Kid3"
 msgstr "Kid3"
 
 #: src/gui/forms/kid3form.cpp:317
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "File List"
 msgctxt "Kid3Form|"
 msgid "File list"
 msgstr "Seznam souborů"
 
 #: src/gui/forms/kid3form.cpp:318
-#, fuzzy
-#| msgctxt "LsCommand|"
-#| msgid "Folder list"
 msgctxt "Kid3Form|"
 msgid "Folder list"
 msgstr "Seznam složek"
@@ -5581,7 +5556,7 @@ msgstr "Seznam složek"
 #: src/gui/forms/kid3form.cpp:349
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'File'"
-msgstr ""
+msgstr "Sbalit nebo rozbalit sekci 'Soubor'"
 
 #: src/gui/forms/kid3form.cpp:354 src/gui/forms/kid3form.cpp:1317
 #: src/gui/forms/kid3form.cpp:1318
@@ -5600,17 +5575,11 @@ msgid "Format:"
 msgstr "Formát:"
 
 #: src/gui/forms/kid3form.cpp:387
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "To filename format"
 msgctxt "Kid3Form|"
 msgid "To filename format"
 msgstr "Do formátu názvu souboru"
 
 #: src/gui/forms/kid3form.cpp:400
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "From filename format"
 msgctxt "Kid3Form|"
 msgid "From filename format"
 msgstr "Z formátu názvu souboru"
@@ -5649,7 +5618,7 @@ msgstr "Značka %1 z názvu souboru"
 #, qt-format
 msgctxt "Kid3Form|"
 msgid "Collapse or expand section 'Tag %1'"
-msgstr ""
+msgstr "Sbalit nebo rozbalit sekci 'Značka %1'"
 
 #: src/gui/forms/kid3form.cpp:477 src/gui/forms/kid3form.cpp:939
 #, qt-format
@@ -5826,7 +5795,7 @@ msgstr "Smazat řá&dek"
 #: src/gui/widgets/configtable.cpp:154
 msgctxt "ConfigTable|"
 msgid "&Clear row"
-msgstr "Vy&prázdnit řádek"
+msgstr "Vy&mazat řádek"
 
 #: src/gui/widgets/filenameformatbox.cpp:46
 msgctxt "FilenameFormatBox|"
@@ -5960,12 +5929,9 @@ msgid "Close"
 msgstr "Zavřít"
 
 #: src/gui/widgets/playtoolbar.cpp:155
-#, fuzzy
-#| msgctxt "TimeEventEditor|"
-#| msgid "&Seek to position"
 msgctxt "PlayToolBar|"
 msgid "Seek to position"
-msgstr "&Přejít na pozici"
+msgstr "Přejít na pozici"
 
 #: src/gui/widgets/playtoolbar.cpp:164
 msgctxt "PlayToolBar|"
@@ -6101,7 +6067,7 @@ msgstr "Smazat řá&dky"
 #: src/gui/widgets/timeeventeditor.cpp:479
 msgctxt "TimeEventEditor|"
 msgid "C&lear"
-msgstr "Vyči&stit"
+msgstr "Vyma&zat"
 
 #: src/gui/widgets/timeeventeditor.cpp:481
 msgctxt "TimeEventEditor|"
