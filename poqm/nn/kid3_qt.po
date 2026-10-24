@@ -1045,8 +1045,6 @@ msgstr "&Snøggtastar"
 
 #: src/app/qt/configdialog.cpp:103
 #, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ConfigDialog|"
 msgid "Keyboard Shortcuts"
 msgstr "&Snøggtastar"
@@ -1673,8 +1671,6 @@ msgstr "Tøm"
 
 #: src/app/qt/shortcutsdelegate.cpp:231
 #, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Remove the keyboard shortcut"
 msgstr "&Snøggtastar"
@@ -2517,16 +2513,12 @@ msgstr "Sist endra"
 
 #: src/core/model/taggedfilesystemmodel.cpp:121
 #, fuzzy
-#| msgctxt "@default|"
-#| msgid "Folder"
 msgctxt "TaggedFileSystemModel|"
 msgid "Folder"
 msgstr "Mappe"
 
 #: src/core/model/taggedfilesystemmodel.cpp:125
 #, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Date Modified"
 msgctxt "TaggedFileSystemModel|"
 msgid "Modified"
 msgstr "Dato endra"
@@ -4477,8 +4469,6 @@ msgstr "Tilgjengelege &programtillegg"
 
 #: src/gui/dialogs/configdialogpages.cpp:699
 #, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "A&vailable Plugins"
 msgctxt "ConfigDialogPages|"
 msgid "Available Plugins"
 msgstr "Tilgjengelege &programtillegg"
@@ -5311,8 +5301,6 @@ msgstr[1] ""
 
 #: src/gui/forms/accessibilityhelper.cpp:419
 #, fuzzy
-#| msgctxt "@default|"
-#| msgid "End of submenu"
 msgctxt "AccessibilityHelper|"
 msgid "submenu"
 msgstr "Slutt undermeny"
@@ -5595,8 +5583,6 @@ msgstr "Klarte ikkje køyra"
 
 #: src/gui/forms/kid3form.cpp:272
 #, fuzzy
-#| msgctxt "@default|"
-#| msgid "Main Toolbar"
 msgctxt "Kid3Form|"
 msgid "Main Form"
 msgstr "Hovudverktøylinje"
@@ -5608,16 +5594,12 @@ msgstr "Kid3"
 
 #: src/gui/forms/kid3form.cpp:317
 #, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "File List"
 msgctxt "Kid3Form|"
 msgid "File list"
 msgstr "Filliste"
 
 #: src/gui/forms/kid3form.cpp:318
 #, fuzzy
-#| msgctxt "LsCommand|"
-#| msgid "Folder list"
 msgctxt "Kid3Form|"
 msgid "Folder list"
 msgstr "Mappeliste"
@@ -5645,16 +5627,12 @@ msgstr "Format:"
 
 #: src/gui/forms/kid3form.cpp:387
 #, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "To filename format"
 msgctxt "Kid3Form|"
 msgid "To filename format"
 msgstr "Til filnamnformat"
 
 #: src/gui/forms/kid3form.cpp:400
 #, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "From filename format"
 msgctxt "Kid3Form|"
 msgid "From filename format"
 msgstr "Frå filnamnformat"
@@ -6004,8 +5982,6 @@ msgstr "Lukk"
 
 #: src/gui/widgets/playtoolbar.cpp:155
 #, fuzzy
-#| msgctxt "TimeEventEditor|"
-#| msgid "&Seek to position"
 msgctxt "PlayToolBar|"
 msgid "Seek to position"
 msgstr "&Hopp til posisjon"
