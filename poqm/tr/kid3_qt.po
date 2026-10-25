@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-10-16 19:15+0300\n"
+"PO-Revision-Date: 2026-10-24 21:59+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -2959,7 +2959,7 @@ msgstr "Ada Göre Sırala"
 #: src/core/tags/frame.cpp:180
 msgctxt "@default|"
 msgid "Subtitle"
-msgstr "Altyazı"
+msgstr "Alt Yazı"
 
 #: src/core/tags/frame.cpp:181
 msgctxt "@default|"
@@ -6401,7 +6401,7 @@ msgstr "TIT2 — Şarkı adı / İçerik açıklaması"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:524
 msgctxt "@default|"
 msgid "TIT3 - Subtitle/Description refinement"
-msgstr "TIT3 — Alt yazı / Açıklama düzeltmesi"
+msgstr "TIT3 — Alt yazı / Açıklama iyileştirmesi"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:525
 msgctxt "@default|"
