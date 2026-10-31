@@ -404,6 +404,16 @@ public:
   QString defaultPopmEmail() const;
 
   /**
+   * Available text codecs for tags.
+   */
+  Q_INVOKABLE static QStringList getTextCodecNames();
+
+  /**
+   * Set list of available text codecs for tags.
+   */
+  Q_INVOKABLE static void setTextCodecNames(const QStringList& textCodecNames);
+
+  /**
    * String list of encodings for ID3v2.
    */
   Q_INVOKABLE static QStringList getTextEncodingNames();
@@ -583,6 +593,7 @@ private:
   bool m_genreNotNumeric;
   bool m_lowercaseId3RiffChunk;
 
+  static QStringList s_textCodecNames;
   /** Index in configuration storage */
   static int s_index;
 };

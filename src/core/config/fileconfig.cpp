@@ -299,12 +299,13 @@ void FileConfig::setTextEncoding(const QString& textEncoding)
 
 int FileConfig::textEncodingIndex() const
 {
-  return indexFromTextCodecName(m_textEncoding);
+  return indexFromTextCodecName(m_textEncoding, getTextCodecNames());
 }
 
 void FileConfig::setTextEncodingIndex(int index)
 {
-  if (QString encoding = indexToTextCodecName(index); !encoding.isNull()) {
+  if (QString encoding = indexToTextCodecName(index, getTextCodecNames());
+      !encoding.isNull()) {
     setTextEncoding(encoding);
   }
 }
@@ -331,4 +332,9 @@ void FileConfig::setLoadLastOpenedFile(bool loadLastOpenedFile)
     m_loadLastOpenedFile = loadLastOpenedFile;
     emit loadLastOpenedFileChanged(m_loadLastOpenedFile);
   }
+}
+
+QStringList FileConfig::getTextCodecNames()
+{
+  return getAvailableTextCodecNames();
 }

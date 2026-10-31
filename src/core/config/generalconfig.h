@@ -66,14 +66,14 @@ public:
    */
   virtual void readFromConfig(ISettings* config) = 0;
 
+protected:
   /**
    * String list of available text codecs.
    *
    * @return list of codec names.
    */
-  Q_INVOKABLE static QStringList getTextCodecNames();
+  static QStringList getAvailableTextCodecNames();
 
-protected:
   /**
    * Convert list of integers to list of strings.
    * @param intList list of integers
@@ -98,18 +98,22 @@ protected:
   static QString getTextCodecName(const QString& comboEntry);
 
   /**
-   * Get index of text encoding in getTextCodecNames().
+   * Get index of text encoding in list.
    * @param textEncoding text encoding name
+   * @param textEncodingList text encoding list as from getTextCodecNames()
    * @return index of encoding.
    */
-  static int indexFromTextCodecName(const QString& textEncoding);
+  static int indexFromTextCodecName(const QString& textEncoding,
+                                    const QStringList& textEncodingList);
 
   /**
    * Get text encoding name from index in getTextCodecNames().
    * @param index index of encoding
+   * @param textEncodingList text encoding list as from getTextCodecNames()
    * @return text encoding name, null if index invalid.
    */
-  static QString indexToTextCodecName(int index);
+  static QString indexToTextCodecName(int index,
+                                      const QStringList& textEncodingList);
 
   /** Configuration group. */
   QString m_group;

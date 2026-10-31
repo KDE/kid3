@@ -208,6 +208,11 @@ public:
   /** Set if the last opened file is loaded on startup. */
   void setLoadLastOpenedFile(bool loadLastOpenedFile);
 
+  /**
+   * Available text codecs for files.
+   */
+  Q_INVOKABLE static QStringList getTextCodecNames();
+
 signals:
   /** Emitted when @a nameFilter changed. */
   void nameFilterChanged(const QString& nameFilter);

@@ -27,17 +27,6 @@
 #include "generalconfig.h"
 #include <QStringList>
 
-namespace {
-
-/** Index of latin-1 entry in getTextCodecNames(). */
-#if QT_VERSION >= 0x060000
-enum { TextEncodingLatin1Index = 7 };
-#else
-enum { TextEncodingLatin1Index = 13 };
-#endif
-
-}
-
 /**
  * Constructor.
  * Set default configuration.
@@ -81,7 +70,7 @@ QList<int> GeneralConfig::stringListToIntList(const QStringList& strList)
  *
  * @return list of codec names.
  */
-QStringList GeneralConfig::getTextCodecNames()
+QStringList GeneralConfig::getAvailableTextCodecNames()
 {
   static QStringList textEncodingList;
   if (textEncodingList.isEmpty()) {
@@ -98,7 +87,6 @@ QStringList GeneralConfig::getTextCodecNames()
       "Locale",
       nullptr
     };
-    Q_ASSERT(qstrcmp(codecs[TextEncodingLatin1Index], "ISO-8859-1") == 0);
 #else
     static const char* const codecs[] = {
       "Apple Roman (macintosh)",
@@ -160,7 +148,6 @@ QStringList GeneralConfig::getTextCodecNames()
       "WINSAMI2 (WS2)",
       nullptr
     };
-    Q_ASSERT(qstrcmp(codecs[TextEncodingLatin1Index], "ISO-8859-1 (latin1)") == 0);
 #endif
     const char* const* str = codecs;
     while (*str) {
@@ -184,33 +171,38 @@ QString GeneralConfig::getTextCodecName(const QString& comboEntry)
 }
 
 /**
- * Get index of text encoding in getTextCodecNames().
+ * Get index of text encoding in list.
  * @param textEncoding text encoding name
+ * @param textEncodingList text encoding list as from getTextCodecNames()
  * @return index of encoding.
  */
-int GeneralConfig::indexFromTextCodecName(const QString& textEncoding)
+int GeneralConfig::indexFromTextCodecName(const QString& textEncoding,
+                                          const QStringList& textEncodingList)
 {
+  int latin1Index = -1;
   int index = 0;
-  QStringList textEncodingList = getTextCodecNames();
   for (auto it = textEncodingList.constBegin();
        it != textEncodingList.constEnd();
        ++it) {
-    if (getTextCodecName(*it) == textEncoding) {
+    if (QString codecName = getTextCodecName(*it); codecName == textEncoding) {
       return index;
+    } else if (latin1Index < 0 && codecName == QLatin1String("ISO-8859-1")) {
+      latin1Index = index;
     }
     ++index;
   }
-  return TextEncodingLatin1Index;
+  return latin1Index;
 }
 
 /**
  * Get text encoding name from index in getTextCodecNames().
  * @param index index of encoding
+ * @param textEncodingList text encoding list as from getTextCodecNames()
  * @return text encoding name, null if index invalid.
  */
-QString GeneralConfig::indexToTextCodecName(int index)
+QString GeneralConfig::indexToTextCodecName(int index,
+                                            const QStringList& textEncodingList)
 {
-  QStringList textEncodingList = getTextCodecNames();
   return index >= 0 && index < textEncodingList.size()
       ? getTextCodecName(textEncodingList.at(index))
       : QString();

@@ -949,16 +949,19 @@ private:
   QScopedPointer<AACFileTypeResolver> m_aacFileTypeResolver;
   QScopedPointer<MP2FileTypeResolver> m_mp2FileTypeResolver;
 #endif
+#if !(QT_VERSION >= 0x060000 && TAGLIB_VERSION >= 0x020303)
   QScopedPointer<TextCodecStringHandler> m_textCodecStringHandler;
+#endif
 };
 
 
-TagLibInitializer::TagLibInitializer() :
+TagLibInitializer::TagLibInitializer()
 #if TAGLIB_VERSION < 0x020000
-    m_aacFileTypeResolver(new AACFileTypeResolver),
+  : m_aacFileTypeResolver(new AACFileTypeResolver),
     m_mp2FileTypeResolver(new MP2FileTypeResolver),
+#elif !(QT_VERSION >= 0x060000 && TAGLIB_VERSION >= 0x020303)
+  : m_textCodecStringHandler(new TextCodecStringHandler)
 #endif
-    m_textCodecStringHandler(new TextCodecStringHandler)
 {
 }
 
@@ -967,8 +970,47 @@ void TagLibInitializer::init()
 #if TAGLIB_VERSION < 0x020000
   TagLib::FileRef::addFileTypeResolver(m_aacFileTypeResolver.data());
   TagLib::FileRef::addFileTypeResolver(m_mp2FileTypeResolver.data());
-#endif
+#elif !(QT_VERSION >= 0x060000 && TAGLIB_VERSION >= 0x020303)
   TagLib::ID3v1::Tag::setStringHandler(m_textCodecStringHandler.data());
+#else
+  static const char* const codecs[] = {
+    "Apple Roman (macintosh)",
+    "IBM850",
+    "IBM866",
+    "ISO-8859-1 (latin1)",
+    "ISO-8859-2 (latin2)",
+    "ISO-8859-3 (latin3)",
+    "ISO-8859-4 (latin4)",
+    "ISO-8859-5 (cyrillic)",
+    "ISO-8859-6 (arabic)",
+    "ISO-8859-7 (greek)",
+    "ISO-8859-8 (hebrew)",
+    "ISO-8859-9 (latin5)",
+    "ISO-8859-13 (baltic)",
+    "ISO-8859-15 (latin9)",
+    "KOI8-R",
+    "KOI8-U",
+    "System",
+    "TIS-620 (ISO 8859-11)",
+    "UTF-8",
+    "windows-1250",
+    "windows-1251",
+    "windows-1252",
+    "windows-1253",
+    "windows-1254",
+    "windows-1255",
+    "windows-1256",
+    "windows-1257",
+    "windows-1258",
+    nullptr
+  };
+  QStringList textEncodingList;
+  const char* const* str = codecs;
+  while (*str) {
+    textEncodingList += QString::fromLatin1(*str++);
+  }
+  TagConfig::setTextCodecNames(textEncodingList);
+#endif
 }
 
 TagLibInitializer::~TagLibInitializer() {

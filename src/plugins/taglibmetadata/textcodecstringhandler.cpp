@@ -31,6 +31,61 @@
 
 using namespace TagLibUtils;
 
+#if QT_VERSION >= 0x060000 && TAGLIB_VERSION >= 0x020303
+
+namespace TextCodecStringHandler {
+
+void setStringDecoder(const QString& encodingName)
+{
+  static const struct CodePageForName {
+    const char* name;
+    int codePage;
+  } codePageForName[] = {
+    { "Apple Roman (macintosh)", 10000 },
+    { "IBM850", 850 },
+    { "IBM866", 866 },
+    { "ISO-8859-1", 28591 },
+    { "ISO-8859-2", 28592 },
+    { "ISO-8859-3", 28593 },
+    { "ISO-8859-4", 28594 },
+    { "ISO-8859-5", 28595 },
+    { "ISO-8859-6", 28596 },
+    { "ISO-8859-7", 28597 },
+    { "ISO-8859-8", 28598 },
+    { "ISO-8859-9", 28599 },
+    { "ISO-8859-13", 28603 },
+    { "ISO-8859-15", 28605 },
+    { "KOI8-R", 20866 },
+    { "KOI8-U", 21866 },
+    { "System", 0 },
+    { "TIS-620 (ISO 8859-11)", 874 },
+    { "UTF-8", 65001 },
+    { "windows-1250", 1250 },
+    { "windows-1251", 1251 },
+    { "windows-1252", 1252 },
+    { "windows-1253", 1253 },
+    { "windows-1254", 1254 },
+    { "windows-1255", 1255 },
+    { "windows-1256", 1256 },
+    { "windows-1257", 1257 },
+    { "windows-1258", 1258 }
+  };
+  static QMap<QString, int> codePageMap;
+  if (codePageMap.isEmpty()) {
+    // first time initialization
+    for (const auto& [str, codePage] : codePageForName) {
+      codePageMap.insert(QString::fromLatin1(str), codePage);
+    }
+  }
+  auto it = codePageMap.constFind(encodingName);
+  int codePage = it != codePageMap.constEnd() ? *it : 0;
+  TagLib::ID3v1::Tag::setAssumedCodePage(codePage);
+}
+
+}
+
+#else
+
 #if QT_VERSION >= 0x060000
 QStringDecoder TextCodecStringHandler::s_decoder;
 QStringEncoder TextCodecStringHandler::s_encoder;
@@ -78,3 +133,5 @@ TagLib::ByteVector TextCodecStringHandler::render(const TagLib::String& s) const
   return s.data(TagLib::String::Latin1);
 #endif
 }
+
+#endif

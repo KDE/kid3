@@ -221,7 +221,7 @@ QString StarRatingMapping::defaultPopmEmail() const
   return QString();
 }
 
-
+QStringList TagConfig::s_textCodecNames;
 int TagConfig::s_index = -1;
 
 /**
@@ -576,13 +576,14 @@ void TagConfig::setTextEncodingV1(const QString& textEncodingV1)
 /** index of ID3v1 text encoding in getTextCodecNames() */
 int TagConfig::textEncodingV1Index() const
 {
-  return indexFromTextCodecName(m_textEncodingV1);
+  return indexFromTextCodecName(m_textEncodingV1, getTextCodecNames());
 }
 
 /** Set ID3v1 text encoding from index in getTextCodecNames(). */
 void TagConfig::setTextEncodingV1Index(int index)
 {
-  if (QString encoding = indexToTextCodecName(index); !encoding.isNull()) {
+  if (QString encoding = indexToTextCodecName(index, getTextCodecNames());
+      !encoding.isNull()) {
     setTextEncodingV1(encoding);
   }
 }
@@ -737,6 +738,25 @@ int TagConfig::starCountToRating(int starCount, const QString& type) const
 QString TagConfig::defaultPopmEmail() const
 {
   return m_starRatingMapping->defaultPopmEmail();
+}
+
+/**
+ * Available text codecs for tags.
+ */
+QStringList TagConfig::getTextCodecNames()
+{
+  if (s_textCodecNames.isEmpty()) {
+    s_textCodecNames = getAvailableTextCodecNames();
+  }
+  return s_textCodecNames;
+}
+
+/**
+ * Set list of available text codecs for tags.
+ */
+void TagConfig::setTextCodecNames(const QStringList& textCodecNames)
+{
+  s_textCodecNames = textCodecNames;
 }
 
 /**

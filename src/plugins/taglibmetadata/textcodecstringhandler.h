@@ -33,7 +33,15 @@
 #include <QTextCodec>
 #endif
 #include <id3v1tag.h>
+#include "taglibfile.h"
 
+#if QT_VERSION >= 0x060000 && TAGLIB_VERSION >= 0x020303
+namespace TextCodecStringHandler {
+
+void setStringDecoder(const QString& encodingName);
+
+}
+#else
 /**
  * Data encoding in ID3v1 tags.
  */
@@ -96,3 +104,4 @@ private:
   static const QTextCodec* s_codec;
 #endif
 };
+#endif
