@@ -274,6 +274,17 @@ bool TagLibRiffSupport::readFile(TagLibFile& f, TagLib::File* file) const
         frame.setFieldList({{Frame::ID_Data, QByteArray(bext.data(), bext.size())}});
         f.m_extraFrames[Frame::Tag_3].append(frame);
       }
+#if TAGLIB_VERSION >= 0x020303
+      if (const TagLib::ByteVectorList disps = wavFile->DISPData(); !disps.isEmpty()) {
+        for (const TagLib::ByteVector& disp : disps) {
+          Frame frame = Frame(
+              Frame::ExtendedType(Frame::Type::FT_Other, QLatin1String("DISP")),
+              {}, Frame::toNegativeIndex(i++));
+          frame.setFieldList({{Frame::ID_Data, QByteArray(disp.data(), disp.size())}});
+          f.m_extraFrames[Frame::Tag_3].append(frame);
+        }
+      }
+#endif
       f.m_extraFrames[Frame::Tag_3].setRead(true);
     }
 #endif
@@ -314,6 +325,9 @@ bool TagLibRiffSupport::writeFile(TagLibFile& f, TagLib::File* file, bool force,
 #if TAGLIB_VERSION >= 0x020300
       TagLib::String ixml;
       TagLib::ByteVector bext;
+#if TAGLIB_VERSION >= 0x020303
+      TagLib::ByteVectorList disps;
+#endif
       const auto frames = f.m_extraFrames[Frame::Tag_3];
       for (const Frame& frame : frames) {
         if (frame.getType() == Frame::FT_Other) {
@@ -322,11 +336,19 @@ bool TagLibRiffSupport::writeFile(TagLibFile& f, TagLib::File* file, bool force,
           } else if (name == QLatin1String("BEXT")) {
             const QByteArray data = frame.getFieldValue(Frame::ID_Data).toByteArray();
             bext = TagLib::ByteVector(data.constData(), data.size());
+#if TAGLIB_VERSION >= 0x020303
+          } else if (name == QLatin1String("DISP")) {
+            const QByteArray data = frame.getFieldValue(Frame::ID_Data).toByteArray();
+            disps.append(TagLib::ByteVector(data.constData(), data.size()));
+#endif
           }
         }
       }
       wavFile->setiXMLData(ixml);
       wavFile->setBEXTData(bext);
+#if TAGLIB_VERSION >= 0x020303
+      wavFile->setDISPData(disps);
+#endif
 #endif
 
       if (
@@ -480,8 +502,12 @@ bool TagLibRiffSupport::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
     }
 #if TAGLIB_VERSION >= 0x020300
     if (f.m_extraFrames[tagNr].isRead() && frame.getType() == Frame::FT_Other &&
-        (frame.getName() == QLatin1String("iXML") ||
-         frame.getName() == QLatin1String("BEXT"))) {
+        (frame.getName() == QLatin1String("iXML")
+         || frame.getName() == QLatin1String("BEXT")
+#if TAGLIB_VERSION >= 0x020303
+         || frame.getName() == QLatin1String("DISP")
+#endif
+       )) {
       if (int idx = Frame::fromNegativeIndex(frame.getIndex());
           idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
         Frame newFrame(frame);
@@ -512,10 +538,17 @@ bool TagLibRiffSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame& f
     }
 #if TAGLIB_VERSION >= 0x020300
     if (f.m_extraFrames[tagNr].isRead() && frame.getType() == Frame::FT_Other &&
-        (frame.getName() == QLatin1String("iXML") ||
-         frame.getName() == QLatin1String("BEXT"))) {
-      if (frame.getName() == QLatin1String("BEXT") &&
-          frame.getFieldList().empty()) {
+        (frame.getName() == QLatin1String("iXML")
+         || frame.getName() == QLatin1String("BEXT")
+#if TAGLIB_VERSION >= 0x020303
+         || frame.getName() == QLatin1String("DISP")
+#endif
+       )) {
+      if ((frame.getName() == QLatin1String("BEXT")
+#if TAGLIB_VERSION >= 0x020303
+           || frame.getName() == QLatin1String("DISP")
+#endif
+          ) && frame.getFieldList().empty()) {
         frame.setFieldList({{Frame::ID_Data, QByteArray()}});
       }
       frame.setIndex(Frame::toNegativeIndex(f.m_extraFrames[tagNr].size()));
@@ -557,8 +590,12 @@ bool TagLibRiffSupport::deleteFrame(TagLibFile& f, Frame::TagNumber tagNr,
   if (auto infoTag = dynamic_cast<TagLib::RIFF::Info::Tag*>(f.m_tag[tagNr])) {
 #if TAGLIB_VERSION >= 0x020300
     if (f.m_extraFrames[tagNr].isRead() && frame.getType() == Frame::FT_Other &&
-        (frame.getName() == QLatin1String("iXML") ||
-         frame.getName() == QLatin1String("BEXT"))) {
+        (frame.getName() == QLatin1String("iXML")
+         || frame.getName() == QLatin1String("BEXT")
+#if TAGLIB_VERSION >= 0x020303
+         || frame.getName() == QLatin1String("DISP")
+#endif
+       )) {
       if (int idx = Frame::fromNegativeIndex(frame.getIndex());
           idx >= 0 && idx < f.m_extraFrames[tagNr].size()) {
         f.m_extraFrames[tagNr].removeAt(idx);
@@ -608,11 +645,24 @@ bool TagLibRiffSupport::deleteFrames(
           flt.isEnabled(Frame::FT_Other, QLatin1String("iXML"));
       const bool bextEnabled =
           flt.isEnabled(Frame::FT_Other, QLatin1String("BEXT"));
-      if ((ixmlEnabled || bextEnabled) && !f.m_extraFrames[tagNr].isEmpty()) {
+#if TAGLIB_VERSION >= 0x020303
+      const bool dispEnabled =
+          flt.isEnabled(Frame::FT_Other, QLatin1String("DISP"));
+#endif
+      if ((ixmlEnabled
+           || bextEnabled
+#if TAGLIB_VERSION >= 0x020303
+           || dispEnabled
+#endif
+          ) && !f.m_extraFrames[tagNr].isEmpty()) {
         for (auto it = f.m_extraFrames[tagNr].begin(); it != f.m_extraFrames[tagNr].end();) {
           if (it->getType() == Frame::FT_Other &&
-              ((ixmlEnabled && it->getName() == QLatin1String("iXML")) ||
-               (bextEnabled && it->getName() == QLatin1String("BEXT")))) {
+              ((ixmlEnabled && it->getName() == QLatin1String("iXML"))
+               || (bextEnabled && it->getName() == QLatin1String("BEXT"))
+#if TAGLIB_VERSION >= 0x020303
+               || (dispEnabled && it->getName() == QLatin1String("DISP"))
+#endif
+              )) {
             it = f.m_extraFrames[tagNr].erase(it);
           } else {
             ++it;
@@ -688,7 +738,11 @@ QStringList TagLibRiffSupport::getFrameIds(
       lst.append(QString::fromLatin1(fieldName)); // clazy:exclude=reserve-candidates
     }
 #if TAGLIB_VERSION >= 0x020300
-    lst << QLatin1String("BEXT") << QLatin1String("iXML");
+    lst << QLatin1String("BEXT")
+#if TAGLIB_VERSION >= 0x020303
+        << QLatin1String("DISP")
+#endif
+        << QLatin1String("iXML");
 #endif
   }
 #endif
