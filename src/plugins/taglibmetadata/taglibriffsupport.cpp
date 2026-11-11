@@ -31,6 +31,9 @@
 
 #include "taglibutils.h"
 #include "taglibfile.h"
+#if TAGLIB_VERSION >= 0x020303
+#include <aiffnativetag.h>
+#endif
 
 using namespace TagLibUtils;
 
@@ -191,6 +194,51 @@ TagLib::ByteVector getInfoName(const Frame& frame)
 }
 #endif
 
+#if TAGLIB_VERSION >= 0x020303
+/**
+ * Get name of AIFF tag from type.
+ * @param type type
+ * @return name, empty if not supported.
+ */
+TagLib::ByteVector getAiffNameFromType(Frame::Type type)
+{
+  switch (type) {
+  case Frame::FT_Title:
+    return "NAME";
+  case Frame::FT_Artist:
+    return "AUTH";
+  case Frame::FT_Comment:
+    return "ANNO";
+  case Frame::FT_Copyright:
+    return "(c) ";
+  default:
+    return {};
+  }
+}
+
+/**
+ * Get the frame type for an AIFF name.
+ * @param id AIFF tag name
+ * @return frame type.
+ */
+Frame::Type getTypeFromAiffName(const TagLib::ByteVector& id)
+{
+  if (id == "NAME") {
+    return Frame::FT_Title;
+  }
+  if (id == "AUTH") {
+    return Frame::FT_Artist;
+  }
+  if (id == "ANNO") {
+    return Frame::FT_Comment;
+  }
+  if (id == "(c) ") {
+    return Frame::FT_Copyright;
+  }
+  return Frame::FT_UnknownFrame;
+}
+#endif
+
 }
 
 
@@ -290,9 +338,26 @@ bool TagLibRiffSupport::readFile(TagLibFile& f, TagLib::File* file) const
 #endif
     return true;
   }
-  if (dynamic_cast<TagLib::RIFF::AIFF::File*>(file) != nullptr) {
+  if (auto aiffFile = dynamic_cast<TagLib::RIFF::AIFF::File*>(file)) {
     f.m_fileExtension = QLatin1String(".aiff");
+#if TAGLIB_VERSION >= 0x020303
+    f.m_tag[Frame::Tag_1] = nullptr;
+    f.markTagUnchanged(Frame::Tag_1);
+    f.m_isTagSupported[Frame::Tag_3] = true;
+    if (!f.m_tag[Frame::Tag_2]) {
+      TagLib::ID3v2::Tag* id3v2Tag = aiffFile->tag();
+      f.setId3v2VersionFromTag(id3v2Tag);
+      f.m_tag[Frame::Tag_2] = id3v2Tag;
+      f.markTagUnchanged(Frame::Tag_2);
+    }
+    if (!f.m_tag[Frame::Tag_3]) {
+      f.m_tag[Frame::Tag_3] = aiffFile->nativeTag();
+      f.markTagUnchanged(Frame::Tag_3);
+    }
+#else
+    Q_UNUSED(aiffFile);
     putFileRefTagInTag2(f);
+#endif
     return true;
   }
   return false;
@@ -305,11 +370,11 @@ bool TagLibRiffSupport::writeFile(TagLibFile& f, TagLib::File* file, bool force,
     if (anyTagMustBeSaved(f, force)) {
       static constexpr TagLib::RIFF::WAV::File::TagTypes tagTypes[TagLibFile::NUM_TAGS] = {
         TagLib::RIFF::WAV::File::NoTags, TagLib::RIFF::WAV::File::ID3v2,
-  #if TAGLIB_VERSION >= 0x010a00
+#if TAGLIB_VERSION >= 0x010a00
         TagLib::RIFF::WAV::File::Info
-  #else
+#else
         TagLib::RIFF::WAV::File::NoTags
-  #endif
+#endif
       };
       int saveTags = 0;
       FOR_TAGLIB_TAGS(tagNr) {
@@ -377,6 +442,20 @@ bool TagLibRiffSupport::writeFile(TagLibFile& f, TagLib::File* file, bool force,
     }
     return true;
   }
+#if TAGLIB_VERSION >= 0x020303
+  if (auto aiffFile = dynamic_cast<TagLib::RIFF::AIFF::File*>(file)) {
+    if (anyTagMustBeSaved(f, force)) {
+      f.setId3v2VersionOrDefault(id3v2Version);
+      if (aiffFile->save(f.m_id3v2Version == 4 ? TagLib::ID3v2::v4 : TagLib::ID3v2::v3)) {
+        fileChanged = true;
+        FOR_TAGLIB_TAGS(tagNr) {
+          f.markTagUnchanged(tagNr);
+        }
+      }
+    }
+    return true;
+  }
+#endif
   return false;
 }
 
@@ -489,6 +568,12 @@ QString TagLibRiffSupport::getTagFormat(
     return QLatin1String("RIFF INFO");
   }
 #endif
+#if TAGLIB_VERSION >= 0x020303
+  if (dynamic_cast<const TagLib::RIFF::AIFF::NativeTag*>(tag) != nullptr) {
+    type = TaggedFile::TT_Aiff;
+    return QLatin1String("AIFF");
+  }
+#endif
   return QString();
 }
 
@@ -521,6 +606,20 @@ bool TagLibRiffSupport::setFrame(TagLibFile& f, Frame::TagNumber tagNr,
     if (int index = frame.getIndex(); index != -1) {
       infoTag->setFieldText(getInfoName(frame), toTString(frame.getValue()));
       f.markTagChanged(tagNr, frame.getExtendedType());
+      return true;
+    }
+    return setFrameWithoutIndex(f, tagNr, frame);
+  }
+#endif
+#if TAGLIB_VERSION >= 0x020303
+  if (auto nativeTag = dynamic_cast<TagLib::RIFF::AIFF::NativeTag*>(f.m_tag[tagNr])) {
+    if (const Frame::Type type = frame.getType(); type == Frame::FT_Copyright) {
+      TagLib::ByteVector id = getAiffNameFromType(type);
+      TagLib::String tstr = toTString(frame.getValue());
+      if (TagLib::String oldTstr = nativeTag->fieldText(id); tstr != oldTstr) {
+        nativeTag->setFieldText(id, tstr);
+        f.markTagChanged(tagNr, Frame::ExtendedType(type));
+      }
       return true;
     }
     return setFrameWithoutIndex(f, tagNr, frame);
@@ -576,6 +675,20 @@ bool TagLibRiffSupport::addFrame(TagLibFile& f, Frame::TagNumber tagNr, Frame& f
       ++index;
     }
     frame.setIndex(found ? index : -1);
+    f.markTagChanged(tagNr, frame.getExtendedType());
+    return true;
+  }
+#endif
+#if TAGLIB_VERSION >= 0x020303
+  if (auto nativeTag = dynamic_cast<TagLib::RIFF::AIFF::NativeTag*>(f.m_tag[tagNr])) {
+    TagLib::ByteVector id = getAiffNameFromType(frame.getType());
+    TagLib::String tvalue = toTString(frame.getValue());
+    if (tvalue.isEmpty()) {
+      tvalue = " "; // empty values are not added by TagLib
+    }
+    nativeTag->setFieldText(id, tvalue);
+    QString name = QString::fromLatin1(id.data(), id.size());
+    frame.setExtendedType(Frame::ExtendedType(frame.getType(), name));
     f.markTagChanged(tagNr, frame.getExtendedType());
     return true;
   }
@@ -675,6 +788,15 @@ bool TagLibRiffSupport::deleteFrames(
     return true;
   }
 #endif
+#if TAGLIB_VERSION >= 0x020303
+  if (auto nativeTag = dynamic_cast<TagLib::RIFF::AIFF::NativeTag*>(f.m_tag[tagNr])) {
+    if (flt.isEnabled(Frame::FT_Copyright)) {
+      nativeTag->removeField(getAiffNameFromType(Frame::FT_Copyright));
+      // the other frames are handled in the fallback TaggedFile::deleteFrames().
+      return false;
+    }
+  }
+#endif
   return false;
 }
 
@@ -703,6 +825,22 @@ bool TagLibRiffSupport::getAllFrames(
       }
     }
 #endif
+    return true;
+  }
+#endif
+#if TAGLIB_VERSION >= 0x020303
+  if (auto nativeTag = dynamic_cast<TagLib::RIFF::AIFF::NativeTag*>(f.m_tag[tagNr])) {
+    const TagLib::ByteVectorList fieldIds = {"NAME", "AUTH", "(c) ", "ANNO"};
+    int i = 0;
+    for (const TagLib::ByteVector& id : fieldIds) {
+      if (TagLib::String s = nativeTag->fieldText(id); !s.isEmpty()) {
+        QString name = QString::fromLatin1(id.data(), id.size());
+        QString value = toQString(s);
+        Frame::Type type = getTypeFromAiffName(id);
+        Frame frame(type, value, name, i++);
+        frames.insert(frame);
+      }
+    }
     return true;
   }
 #endif
@@ -744,6 +882,18 @@ QStringList TagLibRiffSupport::getFrameIds(
 #endif
         << QLatin1String("iXML");
 #endif
+  }
+#endif
+#if TAGLIB_VERSION >= 0x020303
+  if (f.m_tagType[tagNr] == TaggedFile::TT_Aiff) {
+    for (const auto type : {
+      Frame::FT_Title,
+      Frame::FT_Artist,
+      Frame::FT_Comment,
+      Frame::FT_Copyright
+    }) {
+      lst.append(Frame::ExtendedType(type, QLatin1String("")).getName());
+    }
   }
 #endif
   return lst;

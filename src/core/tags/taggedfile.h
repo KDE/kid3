@@ -61,7 +61,8 @@ public:
     TT_Ape,
     TT_Mp4,
     TT_Asf,
-    TT_Info
+    TT_Info,
+    TT_Aiff
   };
 
   /** Information about file. */
