@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-10-09 22:25+0200\n"
+"PO-Revision-Date: 2026-11-11 23:00+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -5946,7 +5946,7 @@ msgstr "Отключить звук"
 #, qt-format
 msgctxt "PlayToolBar|"
 msgid "Volume: %1%"
-msgstr "Громкость: %1%"
+msgstr "Громкость: %1 %"
 
 #: src/gui/widgets/progresswidget.cpp:56
 msgctxt "ProgressWidget|"
