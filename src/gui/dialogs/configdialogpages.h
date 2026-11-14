@@ -51,6 +51,7 @@ class GuiConfig;
 class NetworkConfig;
 class ImportConfig;
 class PlaylistConfig;
+class MainWindowConfig;
 class IPlatformTools;
 
 /**
@@ -77,9 +78,12 @@ public:
 
   /**
    * Create page with files settings.
+   * @param provideUseNativeDialogsOption true to include checkbox
+   *        "Use native system file dialogs", for KDE which does not have an
+   *        "Appearance" page with this option
    * @return files page.
    */
-  QWidget* createFilesPage();
+  QWidget* createFilesPage(bool provideUseNativeDialogsOption = false);
 
   /**
    * Create page with actions settings.
@@ -130,7 +134,7 @@ private:
       const TagConfig& tagCfg, const FileConfig& fileCfg,
       const UserActionsConfig& userActionsCfg, const GuiConfig& guiCfg,
       const NetworkConfig& networkCfg, const ImportConfig& importCfg,
-      const PlaylistConfig& playlistCfg);
+      const PlaylistConfig& playlistCfg, const MainWindowConfig& mainWindowCfg);
 
   void getQuickAccessFramesConfig(QList<int>& frameTypes,
                                   quint64& frameMask) const;
@@ -144,6 +148,8 @@ private:
   QCheckBox* m_preserveTimeCheckBox;
   /** Mark changes checkbox */
   QCheckBox* m_markChangesCheckBox;
+  /** Use native system file dialogs checkbox */
+  QCheckBox* m_useNativeDialogsCheckBox;
   /** Filename for cover lineedit */
   QLineEdit* m_coverFileNameLineEdit;
   /** File list name filter combo box */

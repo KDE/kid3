@@ -50,7 +50,7 @@ KdeConfigDialog::KdeConfigDialog(IPlatformTools* platformTools,
 
   addPage(m_pages->createTagsPage(), tr("Tags"),
           QLatin1String("applications-multimedia"));
-  addPage(m_pages->createFilesPage(), tr("Files"),
+  addPage(m_pages->createFilesPage(true), tr("Files"),
           QLatin1String("document-save"));
   addPage(m_pages->createActionsPage(), tr("User Actions"),
           QLatin1String("preferences-other"));

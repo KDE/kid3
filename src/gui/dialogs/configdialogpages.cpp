@@ -57,6 +57,7 @@
 #include "networkconfig.h"
 #include "importconfig.h"
 #include "playlistconfig.h"
+#include "mainwindowconfig.h"
 #include "stringlistedit.h"
 #include "stringlisteditdialog.h"
 #include "configtable.h"
@@ -137,7 +138,8 @@ ConfigDialogPages::ConfigDialogPages(IPlatformTools* platformTools,
                                      QObject* parent) : QObject(parent),
   m_platformTools(platformTools),
   m_loadLastOpenedFileCheckBox(nullptr), m_preserveTimeCheckBox(nullptr),
-  m_markChangesCheckBox(nullptr), m_coverFileNameLineEdit(nullptr),
+  m_markChangesCheckBox(nullptr), m_useNativeDialogsCheckBox(nullptr),
+  m_coverFileNameLineEdit(nullptr),
   m_nameFilterComboBox(nullptr), m_includeFoldersLineEdit(nullptr),
   m_excludeFoldersLineEdit(nullptr), m_showHiddenFilesCheckBox(nullptr),
   m_fileTextEncodingComboBox(nullptr),
@@ -419,9 +421,12 @@ QWidget* ConfigDialogPages::createTagsPage()
 
 /**
  * Create page with files settings.
+ * @param provideUseNativeDialogsOption true to include checkbox
+ *        "Use native system file dialogs", for KDE which does not have an
+ *        "Appearance" page with this option
  * @return files page.
  */
-QWidget* ConfigDialogPages::createFilesPage()
+QWidget* ConfigDialogPages::createFilesPage(bool provideUseNativeDialogsOption)
 {
   auto filesPage = new QWidget;
   auto vlayout = new QVBoxLayout(filesPage);
@@ -452,6 +457,11 @@ QWidget* ConfigDialogPages::createFilesPage()
   formLayout->setFieldGrowthPolicy(QFormLayout::AllNonFixedFieldsGrow);
   formLayout->addRow(m_preserveTimeCheckBox);
   formLayout->addRow(m_markChangesCheckBox);
+  if (provideUseNativeDialogsOption) {
+    m_useNativeDialogsCheckBox =
+      new QCheckBox(tr("Use native system file &dialogs"), saveGroupBox);
+    formLayout->addRow(m_useNativeDialogsCheckBox);
+  }
   formLayout->addRow(tr("F&ilename for cover:"), m_coverFileNameLineEdit);
   formLayout->addRow(tr("Text &encoding (Export, Playlist):"),
                      m_fileTextEncodingComboBox);
@@ -731,8 +741,9 @@ void ConfigDialogPages::setDefaultConfig()
   ImportConfig importCfg;
   importCfg.setAvailablePlugins(ImportConfig::instance().availablePlugins());
   PlaylistConfig playlistCfg;
+  MainWindowConfig mainWindowCfg;
   setConfigs(fnCfg, id3Cfg, tagCfg, fileCfg, userActionsCfg, guiCfg, networkCfg,
-            importCfg, playlistCfg);
+            importCfg, playlistCfg, mainWindowCfg);
 }
 
 /**
@@ -749,8 +760,9 @@ void ConfigDialogPages::setConfig()
   const NetworkConfig& networkCfg = NetworkConfig::instance();
   const ImportConfig& importCfg = ImportConfig::instance();
   const PlaylistConfig& playlistCfg = PlaylistConfig::instance();
+  const MainWindowConfig& mainWindowCfg = MainWindowConfig::instance();
   setConfigs(fnCfg, id3Cfg, tagCfg, fileCfg, userActionsCfg, guiCfg, networkCfg,
-            importCfg, playlistCfg);
+            importCfg, playlistCfg, mainWindowCfg);
 }
 
 /**
@@ -761,7 +773,7 @@ void ConfigDialogPages::setConfigs(
     const TagConfig& tagCfg, const FileConfig& fileCfg,
     const UserActionsConfig& userActionsCfg, const GuiConfig& guiCfg,
     const NetworkConfig& networkCfg, const ImportConfig& importCfg,
-    const PlaylistConfig& playlistCfg)
+    const PlaylistConfig& playlistCfg, const MainWindowConfig& mainWindowCfg)
 {
   m_fnFormatBox->fromFormatConfig(fnCfg);
   m_tagFormatBox->fromFormatConfig(id3Cfg);
@@ -770,6 +782,9 @@ void ConfigDialogPages::setConfigs(
   m_loadLastOpenedFileCheckBox->setChecked(fileCfg.loadLastOpenedFile());
   m_preserveTimeCheckBox->setChecked(fileCfg.preserveTime());
   m_markChangesCheckBox->setChecked(fileCfg.markChanges());
+  if (m_useNativeDialogsCheckBox) {
+    m_useNativeDialogsCheckBox->setChecked(!mainWindowCfg.dontUseNativeDialogs());
+  }
   m_coverFileNameLineEdit->setText(fileCfg.defaultCoverFileName());
   m_nameFilterComboBox->setCurrentIndex(
         m_nameFilterComboBox->findData(fileCfg.nameFilter()));
@@ -909,6 +924,11 @@ void ConfigDialogPages::getConfig() const
   fileCfg.setLoadLastOpenedFile(m_loadLastOpenedFileCheckBox->isChecked());
   fileCfg.setPreserveTime(m_preserveTimeCheckBox->isChecked());
   fileCfg.setMarkChanges(m_markChangesCheckBox->isChecked());
+  if (m_useNativeDialogsCheckBox) {
+    MainWindowConfig& mainWindowCfg = MainWindowConfig::instance();
+    mainWindowCfg.setDontUseNativeDialogs(
+      !m_useNativeDialogsCheckBox->isChecked());
+  }
   fileCfg.setDefaultCoverFileName(m_coverFileNameLineEdit->text());
   fileCfg.setNameFilter(m_nameFilterComboBox->currentData().toString());
   fileCfg.setIncludeFolders(
