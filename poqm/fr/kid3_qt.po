@@ -1779,17 +1779,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "Nom"
 
-#: src/core/config/tagconfig.cpp:749 src/core/tags/frame.cpp:84
+#: src/core/config/tagconfig.cpp:769 src/core/tags/frame.cpp:84
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:750 src/core/tags/frame.cpp:85
+#: src/core/config/tagconfig.cpp:770 src/core/tags/frame.cpp:85
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF16"
 
-#: src/core/config/tagconfig.cpp:751 src/core/tags/frame.cpp:87
+#: src/core/config/tagconfig.cpp:771 src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF8"
@@ -4074,354 +4074,362 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "Ensuite glissez l'image depuis le navigateur sur la fenêtre de Kid3."
 
-#: src/gui/dialogs/configdialogpages.cpp:180
+#: src/gui/dialogs/configdialogpages.cpp:182
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:183
+#: src/gui/dialogs/configdialogpages.cpp:185
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "&Marquer les champs tronqués"
 
-#: src/gui/dialogs/configdialogpages.cpp:185
-#: src/gui/dialogs/configdialogpages.cpp:216
+#: src/gui/dialogs/configdialogpages.cpp:187
+#: src/gui/dialogs/configdialogpages.cpp:218
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "&Encodage du texte :"
 
-#: src/gui/dialogs/configdialogpages.cpp:202
+#: src/gui/dialogs/configdialogpages.cpp:204
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:205
+#: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "Utiliser le format piste/nombre &total de pistes"
 
-#: src/gui/dialogs/configdialogpages.cpp:208
+#: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Genre comme du texte au lieu du nombre"
 
-#: src/gui/dialogs/configdialogpages.cpp:210
+#: src/gui/dialogs/configdialogpages.cpp:212
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "Fichiers &WAV avec nom du morceau id3 en minuscules"
 
-#: src/gui/dialogs/configdialogpages.cpp:212
+#: src/gui/dialogs/configdialogpages.cpp:214
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "Mar&quer des violations de la norme"
 
-#: src/gui/dialogs/configdialogpages.cpp:234
+#: src/gui/dialogs/configdialogpages.cpp:236
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "&Version utilisée pour les nouvelles étiquettes :"
 
-#: src/gui/dialogs/configdialogpages.cpp:241
+#: src/gui/dialogs/configdialogpages.cpp:243
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:243
+#: src/gui/dialogs/configdialogpages.cpp:245
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:254
+#: src/gui/dialogs/configdialogpages.cpp:256
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "Nombre de &chiffres dans le numéro de piste :"
 
-#: src/gui/dialogs/configdialogpages.cpp:261
+#: src/gui/dialogs/configdialogpages.cpp:263
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:262
+#: src/gui/dialogs/configdialogpages.cpp:264
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "No&m du champ commentaire :"
 
-#: src/gui/dialogs/configdialogpages.cpp:268
+#: src/gui/dialogs/configdialogpages.cpp:270
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "Nom du champ d'&image :"
 
-#: src/gui/dialogs/configdialogpages.cpp:293
+#: src/gui/dialogs/configdialogpages.cpp:295
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
 msgstr "Matroska"
 
-#: src/gui/dialogs/configdialogpages.cpp:294
+#: src/gui/dialogs/configdialogpages.cpp:296
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
 msgstr "&Mode d'écriture :"
 
-#: src/gui/dialogs/configdialogpages.cpp:299
+#: src/gui/dialogs/configdialogpages.cpp:301
 msgctxt "ConfigDialogPages|"
 msgid "Compact"
 msgstr "Synthétique"
 
-#: src/gui/dialogs/configdialogpages.cpp:300
+#: src/gui/dialogs/configdialogpages.cpp:302
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
 msgstr "Ne pas réduire"
 
-#: src/gui/dialogs/configdialogpages.cpp:301
+#: src/gui/dialogs/configdialogpages.cpp:303
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
 msgstr "Éviter l'insertion"
 
-#: src/gui/dialogs/configdialogpages.cpp:313
+#: src/gui/dialogs/configdialogpages.cpp:315
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Image"
 
-#: src/gui/dialogs/configdialogpages.cpp:316
+#: src/gui/dialogs/configdialogpages.cpp:318
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "Marquer si l'image est &plus grande que (en octets) :"
 
-#: src/gui/dialogs/configdialogpages.cpp:329
+#: src/gui/dialogs/configdialogpages.cpp:331
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "Afficher uniquement le&s genres personnalisés"
 
-#: src/gui/dialogs/configdialogpages.cpp:337
+#: src/gui/dialogs/configdialogpages.cpp:339
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "Genre&s personnalisés"
 
-#: src/gui/dialogs/configdialogpages.cpp:349
+#: src/gui/dialogs/configdialogpages.cpp:351
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "Tr&ames personnalisées"
 
-#: src/gui/dialogs/configdialogpages.cpp:367
+#: src/gui/dialogs/configdialogpages.cpp:369
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "Utiliser le glisser-déposer pour trier à nouveau les éléments"
 
-#: src/gui/dialogs/configdialogpages.cpp:370
+#: src/gui/dialogs/configdialogpages.cpp:372
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr "Accès &rapide aux champs"
 
-#: src/gui/dialogs/configdialogpages.cpp:377
+#: src/gui/dialogs/configdialogpages.cpp:379
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF INFO"
 
-#: src/gui/dialogs/configdialogpages.cpp:378
+#: src/gui/dialogs/configdialogpages.cpp:380
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "No&m du champ numéro de piste :"
 
-#: src/gui/dialogs/configdialogpages.cpp:398
+#: src/gui/dialogs/configdialogpages.cpp:400
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "Forma&t des étiquettes"
 
-#: src/gui/dialogs/configdialogpages.cpp:400
+#: src/gui/dialogs/configdialogpages.cpp:402
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Classement"
 
-#: src/gui/dialogs/configdialogpages.cpp:410
+#: src/gui/dialogs/configdialogpages.cpp:412
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "Étiquette &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:412
+#: src/gui/dialogs/configdialogpages.cpp:414
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "Étiquette &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:413
+#: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "Étiquette &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:414
+#: src/gui/dialogs/configdialogpages.cpp:416
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "&Toutes les étiquettes"
 
-#: src/gui/dialogs/configdialogpages.cpp:432
+#: src/gui/dialogs/configdialogpages.cpp:437
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Démarrage"
 
-#: src/gui/dialogs/configdialogpages.cpp:433
+#: src/gui/dialogs/configdialogpages.cpp:438
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr "Ouvrir &les derniers fichiers"
 
-#: src/gui/dialogs/configdialogpages.cpp:439
+#: src/gui/dialogs/configdialogpages.cpp:444
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Enregistrer"
 
-#: src/gui/dialogs/configdialogpages.cpp:440
+#: src/gui/dialogs/configdialogpages.cpp:445
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "&Préserver l'horodatage des fichiers"
 
-#: src/gui/dialogs/configdialogpages.cpp:442
+#: src/gui/dialogs/configdialogpages.cpp:447
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "&Marquer les changements"
 
-#: src/gui/dialogs/configdialogpages.cpp:455
+#: src/gui/dialogs/configdialogpages.cpp:462
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "Use native system file &dialogs"
+msgctxt "ConfigDialogPages|"
+msgid "Use native system file &dialogs"
+msgstr "Utiliser les boites de &dialogue natives de fichiers système"
+
+#: src/gui/dialogs/configdialogpages.cpp:465
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "Nom de f&ichier pour la jaquette :"
 
-#: src/gui/dialogs/configdialogpages.cpp:456
+#: src/gui/dialogs/configdialogpages.cpp:466
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "&Encodage du texte (Exporter, liste de lecture) :"
 
-#: src/gui/dialogs/configdialogpages.cpp:461
+#: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Liste de fichiers"
 
-#: src/gui/dialogs/configdialogpages.cpp:462
+#: src/gui/dialogs/configdialogpages.cpp:472
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "Fil&tre :"
 
-#: src/gui/dialogs/configdialogpages.cpp:475
+#: src/gui/dialogs/configdialogpages.cpp:485
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "I&nclure les dossiers :"
 
-#: src/gui/dialogs/configdialogpages.cpp:479
+#: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "E&xclure les dossiers :"
 
-#: src/gui/dialogs/configdialogpages.cpp:483
+#: src/gui/dialogs/configdialogpages.cpp:493
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "Afficher le&s fichiers cachés"
 
-#: src/gui/dialogs/configdialogpages.cpp:495
+#: src/gui/dialogs/configdialogpages.cpp:505
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Format"
 
-#: src/gui/dialogs/configdialogpages.cpp:499
+#: src/gui/dialogs/configdialogpages.cpp:509
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "Nom de fichier depuis l'étiquette"
 
-#: src/gui/dialogs/configdialogpages.cpp:504
+#: src/gui/dialogs/configdialogpages.cpp:514
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "Étiquette depuis le nom de fichier"
 
-#: src/gui/dialogs/configdialogpages.cpp:510
-#: src/gui/dialogs/configdialogpages.cpp:570
+#: src/gui/dialogs/configdialogpages.cpp:520
+#: src/gui/dialogs/configdialogpages.cpp:580
 msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Liste de lecture"
 
-#: src/gui/dialogs/configdialogpages.cpp:522
+#: src/gui/dialogs/configdialogpages.cpp:532
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "Format du nom de &fichier"
 
-#: src/gui/dialogs/configdialogpages.cpp:538
+#: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "Nom de fichier depuis l'étiquette"
 
-#: src/gui/dialogs/configdialogpages.cpp:554
+#: src/gui/dialogs/configdialogpages.cpp:564
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "Étiquette depuis le nom de fichier"
 
-#: src/gui/dialogs/configdialogpages.cpp:584
+#: src/gui/dialogs/configdialogpages.cpp:594
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Navigateur"
 
-#: src/gui/dialogs/configdialogpages.cpp:585
+#: src/gui/dialogs/configdialogpages.cpp:595
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "&Navigateur web :"
 
-#: src/gui/dialogs/configdialogpages.cpp:594
+#: src/gui/dialogs/configdialogpages.cpp:604
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "Commandes du &menu contextuel"
 
-#: src/gui/dialogs/configdialogpages.cpp:597
+#: src/gui/dialogs/configdialogpages.cpp:607
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "Double-cliquer pour &lire"
 
-#: src/gui/dialogs/configdialogpages.cpp:599
+#: src/gui/dialogs/configdialogpages.cpp:609
 msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "&Sélectionner un fichier à lire"
 
-#: src/gui/dialogs/configdialogpages.cpp:602
+#: src/gui/dialogs/configdialogpages.cpp:612
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
 msgstr "Sortie A&udio :"
 
-#: src/gui/dialogs/configdialogpages.cpp:607
+#: src/gui/dialogs/configdialogpages.cpp:617
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr "Système"
 
-#: src/gui/dialogs/configdialogpages.cpp:640
+#: src/gui/dialogs/configdialogpages.cpp:650
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Serveur mandataire"
 
-#: src/gui/dialogs/configdialogpages.cpp:641
+#: src/gui/dialogs/configdialogpages.cpp:651
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Serveur mandataire :"
 
-#: src/gui/dialogs/configdialogpages.cpp:644
+#: src/gui/dialogs/configdialogpages.cpp:654
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "&Utiliser l'authentification avec le serveur mandataire"
 
-#: src/gui/dialogs/configdialogpages.cpp:646
+#: src/gui/dialogs/configdialogpages.cpp:656
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "&Nom d'utilisateur du serveur mandataire :"
 
-#: src/gui/dialogs/configdialogpages.cpp:650
+#: src/gui/dialogs/configdialogpages.cpp:660
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "&Mot de passe du serveur mandataire :"
 
-#: src/gui/dialogs/configdialogpages.cpp:684
+#: src/gui/dialogs/configdialogpages.cpp:694
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "Modules &métadonnées && Priorité"
 
-#: src/gui/dialogs/configdialogpages.cpp:696
+#: src/gui/dialogs/configdialogpages.cpp:706
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "Modules externes &disponibles"
 
-#: src/gui/dialogs/configdialogpages.cpp:699
+#: src/gui/dialogs/configdialogpages.cpp:709
 msgctxt "ConfigDialogPages|"
 msgid "Available Plugins"
 msgstr "Modules externes disponibles"
 
-#: src/gui/dialogs/configdialogpages.cpp:710
+#: src/gui/dialogs/configdialogpages.cpp:720
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "Les modifications ne prendront effet qu'après un redémarrage !"

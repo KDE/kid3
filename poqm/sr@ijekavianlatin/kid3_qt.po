@@ -1792,17 +1792,17 @@ msgctxt "StarRatingMappingsModel|"
 msgid "Name"
 msgstr "Ime"
 
-#: src/core/config/tagconfig.cpp:749 src/core/tags/frame.cpp:84
+#: src/core/config/tagconfig.cpp:769 src/core/tags/frame.cpp:84
 msgctxt "@default|"
 msgid "ISO-8859-1"
 msgstr "ISO-8859-1"
 
-#: src/core/config/tagconfig.cpp:750 src/core/tags/frame.cpp:85
+#: src/core/config/tagconfig.cpp:770 src/core/tags/frame.cpp:85
 msgctxt "@default|"
 msgid "UTF16"
 msgstr "UTF-16"
 
-#: src/core/config/tagconfig.cpp:751 src/core/tags/frame.cpp:87
+#: src/core/config/tagconfig.cpp:771 src/core/tags/frame.cpp:87
 msgctxt "@default|"
 msgid "UTF8"
 msgstr "UTF-8"
@@ -4136,93 +4136,93 @@ msgctxt "BrowseCoverArtDialog|"
 msgid "Then drag the picture from the browser to Kid3."
 msgstr "i onda prevucite sliku sa pregledača u Kid3."
 
-#: src/gui/dialogs/configdialogpages.cpp:180
+#: src/gui/dialogs/configdialogpages.cpp:182
 msgctxt "ConfigDialogPages|"
 msgid "ID3v1"
 msgstr "ID3v1"
 
-#: src/gui/dialogs/configdialogpages.cpp:183
+#: src/gui/dialogs/configdialogpages.cpp:185
 msgctxt "ConfigDialogPages|"
 msgid "&Mark truncated fields"
 msgstr "Označi odsječena &polja"
 
-#: src/gui/dialogs/configdialogpages.cpp:185
-#: src/gui/dialogs/configdialogpages.cpp:216
+#: src/gui/dialogs/configdialogpages.cpp:187
+#: src/gui/dialogs/configdialogpages.cpp:218
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding:"
 msgstr "Kodiranje &teksta:"
 
-#: src/gui/dialogs/configdialogpages.cpp:202
+#: src/gui/dialogs/configdialogpages.cpp:204
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2"
 msgstr "ID3v2"
 
-#: src/gui/dialogs/configdialogpages.cpp:205
+#: src/gui/dialogs/configdialogpages.cpp:207
 msgctxt "ConfigDialogPages|"
 msgid "Use &track/total number of tracks format"
 msgstr "Koristi format &numera/ukupno numera"
 
-#: src/gui/dialogs/configdialogpages.cpp:208
+#: src/gui/dialogs/configdialogpages.cpp:210
 msgctxt "ConfigDialogPages|"
 msgid "&Genre as text instead of numeric string"
 msgstr "&Žanr kao tekst umjesto brojnog niza"
 
-#: src/gui/dialogs/configdialogpages.cpp:210
+#: src/gui/dialogs/configdialogpages.cpp:212
 msgctxt "ConfigDialogPages|"
 msgid "&WAV files with lowercase id3 chunk"
 msgstr "&WAV datoteka s malih slova id3 komad"
 
-#: src/gui/dialogs/configdialogpages.cpp:212
+#: src/gui/dialogs/configdialogpages.cpp:214
 msgctxt "ConfigDialogPages|"
 msgid "Mar&k standard violations"
 msgstr "&Označite kršenja standarda"
 
-#: src/gui/dialogs/configdialogpages.cpp:234
+#: src/gui/dialogs/configdialogpages.cpp:236
 msgctxt "ConfigDialogPages|"
 msgid "&Version used for new tags:"
 msgstr "I&zdanje za nove oznake:"
 
-#: src/gui/dialogs/configdialogpages.cpp:241
+#: src/gui/dialogs/configdialogpages.cpp:243
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.3.0"
 msgstr "ID3v2.3.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:243
+#: src/gui/dialogs/configdialogpages.cpp:245
 msgctxt "ConfigDialogPages|"
 msgid "ID3v2.4.0"
 msgstr "ID3v2.4.0"
 
-#: src/gui/dialogs/configdialogpages.cpp:254
+#: src/gui/dialogs/configdialogpages.cpp:256
 msgctxt "ConfigDialogPages|"
 msgid "Track number &digits:"
 msgstr "Broj &cifara numere:"
 
-#: src/gui/dialogs/configdialogpages.cpp:261
+#: src/gui/dialogs/configdialogpages.cpp:263
 msgctxt "ConfigDialogPages|"
 msgid "Ogg/Vorbis"
 msgstr "Ogg/Vorbis"
 
-#: src/gui/dialogs/configdialogpages.cpp:262
+#: src/gui/dialogs/configdialogpages.cpp:264
 msgctxt "ConfigDialogPages|"
 msgid "Co&mment field name:"
 msgstr "Ime polja ko&mentara:"
 
-#: src/gui/dialogs/configdialogpages.cpp:268
+#: src/gui/dialogs/configdialogpages.cpp:270
 msgctxt "ConfigDialogPages|"
 msgid "&Picture field name:"
 msgstr "Ime polja &slike:"
 
-#: src/gui/dialogs/configdialogpages.cpp:293
+#: src/gui/dialogs/configdialogpages.cpp:295
 msgctxt "ConfigDialogPages|"
 msgid "Matroska"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:294
+#: src/gui/dialogs/configdialogpages.cpp:296
 msgctxt "ConfigDialogPages|"
 msgid "&Write mode:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:299
+#: src/gui/dialogs/configdialogpages.cpp:301
 #, fuzzy
 #| msgctxt "FileSystemModel|"
 #| msgid "Computer"
@@ -4230,170 +4230,178 @@ msgctxt "ConfigDialogPages|"
 msgid "Compact"
 msgstr "Računar"
 
-#: src/gui/dialogs/configdialogpages.cpp:300
+#: src/gui/dialogs/configdialogpages.cpp:302
 msgctxt "ConfigDialogPages|"
 msgid "Do not shrink"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:301
+#: src/gui/dialogs/configdialogpages.cpp:303
 msgctxt "ConfigDialogPages|"
 msgid "Avoid insert"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:313
+#: src/gui/dialogs/configdialogpages.cpp:315
 msgctxt "ConfigDialogPages|"
 msgid "Picture"
 msgstr "Slika"
 
-#: src/gui/dialogs/configdialogpages.cpp:316
+#: src/gui/dialogs/configdialogpages.cpp:318
 msgctxt "ConfigDialogPages|"
 msgid "Mark if &larger than (bytes):"
 msgstr "Označi ako &je veće od (bajtova):"
 
-#: src/gui/dialogs/configdialogpages.cpp:329
+#: src/gui/dialogs/configdialogpages.cpp:331
 msgctxt "ConfigDialogPages|"
 msgid "&Show only custom genres"
 msgstr "Prik&aži samo posebne žanrove"
 
-#: src/gui/dialogs/configdialogpages.cpp:337
+#: src/gui/dialogs/configdialogpages.cpp:339
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Cu&stom Genres"
 msgstr "Posebni žanrovi"
 
-#: src/gui/dialogs/configdialogpages.cpp:349
+#: src/gui/dialogs/configdialogpages.cpp:351
 #, fuzzy
 msgctxt "ConfigDialogPages|"
 msgid "Custom F&rames"
 msgstr "Pose&bni žanrovi"
 
-#: src/gui/dialogs/configdialogpages.cpp:367
+#: src/gui/dialogs/configdialogpages.cpp:369
 msgctxt "ConfigDialogPages|"
 msgid "Use drag and drop to reorder the items"
 msgstr "Prevucite za preraspodeđivanje čvorova"
 
-#: src/gui/dialogs/configdialogpages.cpp:370
+#: src/gui/dialogs/configdialogpages.cpp:372
 msgctxt "ConfigDialogPages|"
 msgid "&Quick Access Frames"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:377
+#: src/gui/dialogs/configdialogpages.cpp:379
 msgctxt "ConfigDialogPages|"
 msgid "RIFF INFO"
 msgstr "RIFF INFO"
 
-#: src/gui/dialogs/configdialogpages.cpp:378
+#: src/gui/dialogs/configdialogpages.cpp:380
 msgctxt "ConfigDialogPages|"
 msgid "Track nu&mber field name:"
 msgstr "Ime polja broj nu&mere:"
 
-#: src/gui/dialogs/configdialogpages.cpp:398
+#: src/gui/dialogs/configdialogpages.cpp:400
 msgctxt "ConfigDialogPages|"
 msgid "&Tag Format"
 msgstr "&Format oznake"
 
-#: src/gui/dialogs/configdialogpages.cpp:400
+#: src/gui/dialogs/configdialogpages.cpp:402
 msgctxt "ConfigDialogPages|"
 msgid "Rating"
 msgstr "Rejting"
 
-#: src/gui/dialogs/configdialogpages.cpp:410
+#: src/gui/dialogs/configdialogpages.cpp:412
 msgctxt "ConfigDialogPages|"
 msgid "Tag &1"
 msgstr "Oznaka &1"
 
-#: src/gui/dialogs/configdialogpages.cpp:412
+#: src/gui/dialogs/configdialogpages.cpp:414
 msgctxt "ConfigDialogPages|"
 msgid "Tag &2"
 msgstr "Oznaka &2"
 
-#: src/gui/dialogs/configdialogpages.cpp:413
+#: src/gui/dialogs/configdialogpages.cpp:415
 msgctxt "ConfigDialogPages|"
 msgid "Tag &3"
 msgstr "Oznaka &3"
 
-#: src/gui/dialogs/configdialogpages.cpp:414
+#: src/gui/dialogs/configdialogpages.cpp:416
 msgctxt "ConfigDialogPages|"
 msgid "All Ta&gs"
 msgstr "S&vi oznake"
 
-#: src/gui/dialogs/configdialogpages.cpp:432
+#: src/gui/dialogs/configdialogpages.cpp:437
 msgctxt "ConfigDialogPages|"
 msgid "Startup"
 msgstr "Pokretanje"
 
-#: src/gui/dialogs/configdialogpages.cpp:433
+#: src/gui/dialogs/configdialogpages.cpp:438
 msgctxt "ConfigDialogPages|"
 msgid "&Load last-opened files"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:439
+#: src/gui/dialogs/configdialogpages.cpp:444
 msgctxt "ConfigDialogPages|"
 msgid "Save"
 msgstr "Sačuvaj"
 
-#: src/gui/dialogs/configdialogpages.cpp:440
+#: src/gui/dialogs/configdialogpages.cpp:445
 msgctxt "ConfigDialogPages|"
 msgid "&Preserve file timestamp"
 msgstr "Očuvaj &vremensku oznaku fajla"
 
-#: src/gui/dialogs/configdialogpages.cpp:442
+#: src/gui/dialogs/configdialogpages.cpp:447
 msgctxt "ConfigDialogPages|"
 msgid "&Mark changes"
 msgstr "O&znači izmjene"
 
-#: src/gui/dialogs/configdialogpages.cpp:455
+#: src/gui/dialogs/configdialogpages.cpp:462
+#, fuzzy
+#| msgctxt "ConfigDialog|"
+#| msgid "Use native system file &dialogs"
+msgctxt "ConfigDialogPages|"
+msgid "Use native system file &dialogs"
+msgstr "Koristi sistemske &dijaloge fajlova"
+
+#: src/gui/dialogs/configdialogpages.cpp:465
 msgctxt "ConfigDialogPages|"
 msgid "F&ilename for cover:"
 msgstr "&Ime fajla za omot albuma:"
 
-#: src/gui/dialogs/configdialogpages.cpp:456
+#: src/gui/dialogs/configdialogpages.cpp:466
 msgctxt "ConfigDialogPages|"
 msgid "Text &encoding (Export, Playlist):"
 msgstr "Kodiranje &teksta (Izvezi, lista numera):"
 
-#: src/gui/dialogs/configdialogpages.cpp:461
+#: src/gui/dialogs/configdialogpages.cpp:471
 msgctxt "ConfigDialogPages|"
 msgid "File List"
 msgstr "Spisak fajlova"
 
-#: src/gui/dialogs/configdialogpages.cpp:462
+#: src/gui/dialogs/configdialogpages.cpp:472
 msgctxt "ConfigDialogPages|"
 msgid "Filte&r:"
 msgstr "&Filter:"
 
-#: src/gui/dialogs/configdialogpages.cpp:475
+#: src/gui/dialogs/configdialogpages.cpp:485
 msgctxt "ConfigDialogPages|"
 msgid "Inclu&de folders:"
 msgstr "Iskl&jučiti fascikle:"
 
-#: src/gui/dialogs/configdialogpages.cpp:479
+#: src/gui/dialogs/configdialogpages.cpp:489
 msgctxt "ConfigDialogPages|"
 msgid "E&xclude folders:"
 msgstr "I&zuzmi fascikle:"
 
-#: src/gui/dialogs/configdialogpages.cpp:483
+#: src/gui/dialogs/configdialogpages.cpp:493
 msgctxt "ConfigDialogPages|"
 msgid "&Show hidden files"
 msgstr "&Skriveni fajlovi"
 
-#: src/gui/dialogs/configdialogpages.cpp:495
+#: src/gui/dialogs/configdialogpages.cpp:505
 msgctxt "ConfigDialogPages|"
 msgid "Format"
 msgstr "Format"
 
-#: src/gui/dialogs/configdialogpages.cpp:499
+#: src/gui/dialogs/configdialogpages.cpp:509
 msgctxt "ConfigDialogPages|"
 msgid "Filename from tag"
 msgstr "oznake u ime fajla"
 
-#: src/gui/dialogs/configdialogpages.cpp:504
+#: src/gui/dialogs/configdialogpages.cpp:514
 msgctxt "ConfigDialogPages|"
 msgid "Tag from filename"
 msgstr "oznaku iz imena fajla"
 
-#: src/gui/dialogs/configdialogpages.cpp:510
-#: src/gui/dialogs/configdialogpages.cpp:570
+#: src/gui/dialogs/configdialogpages.cpp:520
+#: src/gui/dialogs/configdialogpages.cpp:580
 #, fuzzy
 #| msgctxt "PlaylistEditDialog|"
 #| msgid "Playlist"
@@ -4401,42 +4409,42 @@ msgctxt "ConfigDialogPages|"
 msgid "Playlist"
 msgstr "Lista numera"
 
-#: src/gui/dialogs/configdialogpages.cpp:522
+#: src/gui/dialogs/configdialogpages.cpp:532
 msgctxt "ConfigDialogPages|"
 msgid "&Filename Format"
 msgstr "Format imena &fajla"
 
-#: src/gui/dialogs/configdialogpages.cpp:538
+#: src/gui/dialogs/configdialogpages.cpp:548
 msgctxt "ConfigDialogPages|"
 msgid "Filename from Tag"
 msgstr "oznake u ime fajla"
 
-#: src/gui/dialogs/configdialogpages.cpp:554
+#: src/gui/dialogs/configdialogpages.cpp:564
 msgctxt "ConfigDialogPages|"
 msgid "Tag from Filename"
 msgstr "oznaku iz imena fajla"
 
-#: src/gui/dialogs/configdialogpages.cpp:584
+#: src/gui/dialogs/configdialogpages.cpp:594
 msgctxt "ConfigDialogPages|"
 msgid "Browser"
 msgstr "Pregledač"
 
-#: src/gui/dialogs/configdialogpages.cpp:585
+#: src/gui/dialogs/configdialogpages.cpp:595
 msgctxt "ConfigDialogPages|"
 msgid "Web &browser:"
 msgstr "Veb &pregledač:"
 
-#: src/gui/dialogs/configdialogpages.cpp:594
+#: src/gui/dialogs/configdialogpages.cpp:604
 msgctxt "ConfigDialogPages|"
 msgid "Context &Menu Commands"
 msgstr "Naredbe kontekstnog me&nija"
 
-#: src/gui/dialogs/configdialogpages.cpp:597
+#: src/gui/dialogs/configdialogpages.cpp:607
 msgctxt "ConfigDialogPages|"
 msgid "&Play on double click"
 msgstr "&Reprodukuj pri dvokliku"
 
-#: src/gui/dialogs/configdialogpages.cpp:599
+#: src/gui/dialogs/configdialogpages.cpp:609
 #, fuzzy
 #| msgctxt "SelectCommand|"
 #| msgid "Select file"
@@ -4444,52 +4452,52 @@ msgctxt "ConfigDialogPages|"
 msgid "&Select file on play"
 msgstr "Izaberi fajl"
 
-#: src/gui/dialogs/configdialogpages.cpp:602
+#: src/gui/dialogs/configdialogpages.cpp:612
 msgctxt "ConfigDialogPages|"
 msgid "A&udio output:"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:607
+#: src/gui/dialogs/configdialogpages.cpp:617
 msgctxt "ConfigDialogPages|"
 msgid "System"
 msgstr ""
 
-#: src/gui/dialogs/configdialogpages.cpp:640
+#: src/gui/dialogs/configdialogpages.cpp:650
 msgctxt "ConfigDialogPages|"
 msgid "Proxy"
 msgstr "Proksi"
 
-#: src/gui/dialogs/configdialogpages.cpp:641
+#: src/gui/dialogs/configdialogpages.cpp:651
 msgctxt "ConfigDialogPages|"
 msgid "&Proxy:"
 msgstr "&Proksi:"
 
-#: src/gui/dialogs/configdialogpages.cpp:644
+#: src/gui/dialogs/configdialogpages.cpp:654
 msgctxt "ConfigDialogPages|"
 msgid "&Use authentication with proxy"
 msgstr "Koristi &autentifikaciju za proksi"
 
-#: src/gui/dialogs/configdialogpages.cpp:646
+#: src/gui/dialogs/configdialogpages.cpp:656
 msgctxt "ConfigDialogPages|"
 msgid "Proxy user &name:"
 msgstr "Korisničko &ime za proksi:"
 
-#: src/gui/dialogs/configdialogpages.cpp:650
+#: src/gui/dialogs/configdialogpages.cpp:660
 msgctxt "ConfigDialogPages|"
 msgid "Proxy pass&word:"
 msgstr "L&ozinka za proksi:"
 
-#: src/gui/dialogs/configdialogpages.cpp:684
+#: src/gui/dialogs/configdialogpages.cpp:694
 msgctxt "ConfigDialogPages|"
 msgid "&Metadata Plugins && Priority"
 msgstr "&Metapodaci priključci && Prioritet"
 
-#: src/gui/dialogs/configdialogpages.cpp:696
+#: src/gui/dialogs/configdialogpages.cpp:706
 msgctxt "ConfigDialogPages|"
 msgid "A&vailable Plugins"
 msgstr "&Dostupni dodaci"
 
-#: src/gui/dialogs/configdialogpages.cpp:699
+#: src/gui/dialogs/configdialogpages.cpp:709
 #, fuzzy
 #| msgctxt "ConfigDialogPages|"
 #| msgid "A&vailable Plugins"
@@ -4497,7 +4505,7 @@ msgctxt "ConfigDialogPages|"
 msgid "Available Plugins"
 msgstr "&Dostupni dodaci"
 
-#: src/gui/dialogs/configdialogpages.cpp:710
+#: src/gui/dialogs/configdialogpages.cpp:720
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
 msgstr "Neke izmene neće biti uključene pre ponovnog pokretanja!"
