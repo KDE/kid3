@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-10-16 11:30+0300\n"
+"PO-Revision-Date: 2026-11-15 14:30+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -4275,9 +4275,6 @@ msgid "&Mark changes"
 msgstr "Поз&начати зміни"
 
 #: src/gui/dialogs/configdialogpages.cpp:462
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Use native system file &dialogs"
 msgctxt "ConfigDialogPages|"
 msgid "Use native system file &dialogs"
 msgstr "Використовувати природні для системи &діалогові вікна"

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kid3_qt\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-11-11 23:00+0200\n"
+"PO-Revision-Date: 2026-11-15 09:53+0200\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -4281,12 +4281,9 @@ msgid "&Mark changes"
 msgstr "&Отмечать изменения"
 
 #: src/gui/dialogs/configdialogpages.cpp:462
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Use native system file &dialogs"
 msgctxt "ConfigDialogPages|"
 msgid "Use native system file &dialogs"
-msgstr "Использовать встроенные файловые &диалоги"
+msgstr "Использовать системные &диалоги выбора файлов"
 
 #: src/gui/dialogs/configdialogpages.cpp:465
 msgctxt "ConfigDialogPages|"

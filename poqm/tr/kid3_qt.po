@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-11-10 21:39+0300\n"
+"PO-Revision-Date: 2026-11-15 20:14+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1060,12 +1060,12 @@ msgstr "Sistem"
 #: src/app/qt/configdialog.cpp:134
 msgctxt "ConfigDialog|"
 msgid "Use custom app&lication font"
-msgstr "Uygu&lama için özel yazıtipi kullan"
+msgstr "Uygu&lama için özel yazı tipi kullan"
 
 #: src/app/qt/configdialog.cpp:136
 msgctxt "ConfigDialog|"
 msgid "A&pplication Font..."
-msgstr "&Uygulama Yazıtipi…"
+msgstr "&Uygulama Yazı Tipi…"
 
 #: src/app/qt/configdialog.cpp:138
 msgctxt "ConfigDialog|"
@@ -4275,12 +4275,9 @@ msgid "&Mark changes"
 msgstr "Değişiklikleri i&mle"
 
 #: src/gui/dialogs/configdialogpages.cpp:462
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Use native system file &dialogs"
 msgctxt "ConfigDialogPages|"
 msgid "Use native system file &dialogs"
-msgstr "Sistemin &doğal dosya pencerelerini kullan"
+msgstr "Sistem &yerel dosya iletişim kutularını kullan"
 
 #: src/gui/dialogs/configdialogpages.cpp:465
 msgctxt "ConfigDialogPages|"
