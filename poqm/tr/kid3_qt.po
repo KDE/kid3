@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-11-15 20:14+0300\n"
+"PO-Revision-Date: 2026-11-16 19:18+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -4555,7 +4555,7 @@ msgstr "Süzgeç"
 #: src/gui/dialogs/filterdialog.cpp:53
 msgctxt "FilterDialog|"
 msgid "&Preview"
-msgstr "&Önizleme"
+msgstr "Ö&n İzle"
 
 #: src/gui/dialogs/filterdialog.cpp:69
 msgctxt "FilterDialog|"
@@ -4971,7 +4971,7 @@ msgstr "Biçim"
 #: src/gui/dialogs/rendirdialog.cpp:77
 msgctxt "RenDirDialog|"
 msgid "Preview"
-msgstr "Önizleme"
+msgstr "Ön İzleme"
 
 #: src/gui/dialogs/rendirdialog.cpp:81
 msgctxt "RenDirDialog|"
@@ -7122,7 +7122,7 @@ msgstr "Künyeden Klasör Adı"
 #: src/qml/app/RenameDirectoryPage.qml:188
 msgctxt "RenameDirectoryPage|"
 msgid "Preview"
-msgstr "Önizleme"
+msgstr "Ön İzleme"
 
 #: src/qml/app/SettingsPage.qml:30
 msgctxt "SettingsPage|"

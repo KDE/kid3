@@ -49,7 +49,7 @@
 
 <copyright>
 <year
->2025</year>
+>2026</year>
 <holder
 >Urs Fleisch</holder>
 </copyright>
@@ -57,13 +57,13 @@
 >&FDLNotice;</legalnotice>
 
 <date
->24/07/2025</date>
+>08/10/2026</date>
 <releaseinfo
->3.9.7</releaseinfo>
+>3.10.2</releaseinfo>
 
 <abstract>
 <para
->O &kid3; é um aplicativo para editar as tags ID3v1 e ID3v2 em arquivos MP3 de forma eficiente. Também suporta tags em arquivos Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e módulos de tracker (MOD, S3M, IT, XM). É fácil definir tags de vários arquivos com os mesmos valores (por exemplo, álbum, artista, ano e gênero em todos os arquivos do mesmo álbum) e gerar as tags a partir do nome do arquivo ou vice-versa. </para>
+>O &kid3; é um aplicativo para editar as tags ID3v1 e ID3v2 em arquivos MP3 de forma eficiente. Também suporta tags em arquivos Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e módulos de tracker (MOD, S3M, IT, XM). É fácil definir tags de vários arquivos com os mesmos valores (por exemplo, álbum, artista, ano e gênero em todos os arquivos do mesmo álbum) e gerar as tags a partir do nome do arquivo ou vice-versa. </para>
 </abstract>
 
 <keywordset>
@@ -121,6 +121,10 @@
 >Opus</keyword>
 <keyword
 >DSF</keyword>
+<keyword
+>Matroska</keyword>
+<keyword
+>WebM</keyword>
 </keywordset>
 
 </bookinfo>
@@ -403,7 +407,7 @@ end manpage include-->
 >Introdução</title>
 
 <para
->O &kid3; é um aplicativo para editar as tags ID3v1 e ID3v2 em arquivos MP3 de forma eficiente. Essas tags podem ser editadas pela maioria dos reprodutores de MP3, mas não de uma maneira muito prática e eficiente. Além disso, as tags em arquivos Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e módulos de tracker (MOD, S3M, IT, XM) também são suportadas. </para>
+>O &kid3; é um aplicativo para editar as tags ID3v1 e ID3v2 em arquivos MP3 de forma eficiente. Essas tags podem ser editadas pela maioria dos reprodutores de MP3, mas não de uma maneira muito prática e eficiente. Além disso, as tags em arquivos Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e módulos de tracker (MOD, S3M, IT, XM) também são suportadas. </para>
 <para
 >O &kid3; não captura nem codifica arquivos MP3, mas foi projetado para editar as tags ID3 de todos os arquivos de um álbum de forma eficiente, ou seja, com o mínimo de cliques e toques de teclado possível. Enquanto a maioria dos outros programas pode editar tags ID3v1 ou ID3v2, o &kid3; tem controle total sobre ambas as versões, pode converter tags entre os dois formatos e tem acesso a todas as tags ID3v2. As tags de vários arquivos podem ser definidas com o mesmo valor, por exemplo, o artista, o álbum, o ano e o gênero de todos os arquivos de um álbum normalmente têm os mesmos valores e podem ser definidos juntos. Se as informações das tags estiverem contidas no nome do arquivo, as tags podem ser definidas automaticamente a partir do nome do arquivo. Também é possível definir o nome do arquivo de acordo com as tags encontradas no arquivo em formatos arbitrários. </para>
 <para
@@ -448,7 +452,7 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->Editar tags MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Speex, TrueAudio, WavPack, WMA, WAV e AIFF</para
+>Editar tags MP3, Ogg/Vorbis, Opus, DSF, FLAC, MPC, APE, MP4/AAC, MP2, Matroska/WebM, Speex, TrueAudio, WavPack, WMA, WAV e AIFF</para
 ></listitem>
 <listitem
 ><para
@@ -667,7 +671,7 @@ end manpage include-->
 
 <para
 >A lista de arquivos contém os nomes de todos os arquivos na pasta aberta que correspondem ao filtro de nome de arquivo selecionado (normalmente <filename class="extension"
->*.mp3 *.ogg *.opus *.dsf *.flac *.mpc *.aac *.m4a *.m4b *.m4p *.mp4 *.mp2 *.spx *.tta *.wv *.wma *.wav *.aiff *.ape</filename
+>*.3g2 *.aac *.afc *.aif *.aifc *.aiff *.ape *.asf *.dff *.dsdiff *.dff *.flac *.it *.m4a *.m4b *.m4p *.m4r *.m4v *.mka *.mkv *.mod *.module *.mp2 *.mp3 *.mp4 *.mp4v *.mpc *.nst *.oga *.ogg *.opus *.s3n *.shn *.spx *.tta *.wav *.webm *.wma *.wmv *.wow *.wv *.xm</filename
 >). Um ou vários arquivos podem ser selecionados. Para não selecionar nenhum arquivo, clique na área vazia após as entradas da lista. A seleção determina os arquivos que serão afetados pelas operações disponíveis usando os botões descritos abaixo. </para>
 <para
 >Além de <guilabel
@@ -822,7 +826,7 @@ end manpage include-->
 >Arquivo</title>
 
 <para
->Mostra informações sobre a codificação (MP3, Ogg, Opus, DSF, FLAC, MPC, APE, MP2, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF), taxa de bits, taxa de amostragem, canais e a duração do arquivo. </para>
+>Mostra informações sobre a codificação ((MP3, Ogg, Opus, DSF, DFF, FLAC, MPC, APE, Matroska, Webm, MP2, MP4, AAC, Speex, TrueAudio, WavPack, ASF, WAV, AIFF, IT, Mod, S3M, XM, SHN), taxa de bits, taxa de amostragem, canais e a duração do arquivo. </para>
 <para
 >O campo de edição <guilabel
 >Nome</guilabel
@@ -830,7 +834,7 @@ end manpage include-->
 <para
 >A caixa de combinação <guilabel
 >Formato</guilabel
-> e o campo de edição de linha contêm o formato a ser usado quando o nome do arquivo é gerado a partir da primeira ou da segunda tag. O nome do arquivo pode conter caracteres arbitrários, até mesmo uma parte de pasta separada por uma barra do nome do arquivo, mas essa pasta já deve existir para que a renomeação seja bem-sucedida. Os seguintes códigos especiais são usados ​​para inserir valores de tag no nome do arquivo: </para>
+> e o campo de edição de linha contêm o formato a ser usado quando o nome do arquivo é gerado a partir da primeira ou da segunda tag. Os seguintes códigos especiais são usados ​​para inserir valores de tag no nome do arquivo: </para>
 
 <itemizedlist>
 <listitem
@@ -2843,13 +2847,7 @@ end manpage include-->
 >.m4b</filename
 > e são bastante grandes porque contêm todos os capítulos em um único arquivo. Para navegar nesses arquivos, eles podem conter marcadores de capítulo, que podem ser editados em um pseudo frame de "Capítulos" usando o mesmo editor usado para <link linkend="synchronized-lyrics"
 >letras sincronizadas</link
->. Observe, no entanto, que esse recurso está disponível apenas com o plugin <guilabel
->Mp4v2Metadata</guilabel
->, portanto, certifique-se de que ele esteja ativado e acima do plugin <guilabel
->TaglibMetadata</guilabel
-> na aba de <guilabel
->Plugins</guilabel
-> das configurações, caso precise editar capítulos de MP4. </para>
+>. Existem dois tipos de capítulos em arquivos MP4: "Nero" e "QuickTime (QT)". </para>
 <para
 >As informações dos capítulos em audiolivros MP3 são armazenadas em múltiplos frames "Capítulo" (CHAP) que são referenciados por um frame "Sumário" (CTOC), e esses frames possuem subframes embutidos. Para editar essas informações em um único local, um pseudo frame "Capítulos" também pode ser usado para tags ID3v2. Seu conteúdo é usado para criar o capítulo real, o sumário e os frames embutidos: a <guilabel
 >Descrição</guilabel
@@ -3574,10 +3572,6 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%v %{vbr} VBR ou vazio (somente para o ID3v2.3 com o id3lib)</para
-></listitem>
-<listitem
-><para
 >%r %{samplerate} Taxa de amostragem em Hz</para
 ></listitem>
 <listitem
@@ -4184,10 +4178,6 @@ end manpage include-->
 ></listitem>
 <listitem
 ><para
->%v %{vbr} VBR ou vazio (somente para o ID3v2.3 com o id3lib)</para
-></listitem>
-<listitem
-><para
 >%r %{samplerate} Taxa de amostragem em Hz</para
 ></listitem>
 <listitem
@@ -4748,6 +4738,30 @@ end manpage include-->
 >COVERART</literal
 >" é uma forma não oficial anterior de incluir imagens em comentários Vorbis. Pode ser usado para compatibilidade com reprodutores antigos. </para>
 <para
+>O modo usado ao salvar arquivos <guilabel
+>Matroska</guilabel
+> pode ser selecionado com <guilabel
+>Modo de gravação</guilabel
+>. Ele controla o equilíbrio entre o tamanho do arquivo e a velocidade de gravação ao salvar etiquetas, anexos e capítulos no arquivo. Para arquivos muito grandes e/ou sistemas de arquivos lentos (de rede), usar <guilabel
+>Evitar inserção</guilabel
+> reduzirá significativamente o tempo de gravação. Existem três modos possíveis: </para>
+<itemizedlist>
+<listitem
+><para
+>Compacto: Grava etiquetas, anexos e capítulos da forma mais compacta possível. Este é o modo padrão.</para
+></listitem>
+<listitem
+><para
+>Não encolher: Não encolhe os blocos ao gravar. Adiciona preenchimento quando o conteúdo ficar menor. Permite inserções quando o conteúdo ficar maior. </para
+></listitem>
+<listitem
+><para
+>Evitar inserir: Assim como <guilabel
+>Não encolher</guilabel
+>, evita também inserções para blocos que não estejam no final do arquivo: Substitui um bloco crescente que não seja o último por um preenchimento do tamanho antigo e anexa um novo bloco ao final do arquivo.</para
+></listitem>
+</itemizedlist>
+<para
 >Se a caixa de seleção <guilabel
 >Marcar se maior que (bytes)</guilabel
 > estiver ativada, os arquivos que contêm capas de álbuns embutidas que excedem o tamanho especificado em bytes serão marcados em vermelho. Isso pode ser usado para encontrar arquivos que contenham imagens muito grandes que não são aceitas por alguns aplicativos e reprodutores. O valor padrão é 131072 bytes (128 KB). </para>
@@ -5106,14 +5120,6 @@ end manpage include-->
 >TaglibMetadata</guilabel
 >. Detalhes sobre o plugin de metadados e por que você pode querer usá-lo em vez do TagLib estão listados abaixo. </para>
 <itemizedlist>
-<listitem
-><para
-><guilabel
->Id3libMetadata</guilabel
->: Usa <ulink url="http://id3lib.sourceforge.net"
->id3lib</ulink
-> para tags ID3v1.1 e ID3v2.3 em arquivos MP3, MP2 e AAC. Suporta alguns tipos de frames a mais que o TagLib.</para
-></listitem>
 <listitem
 ><para
 ><guilabel
@@ -6441,25 +6447,25 @@ if __name__ == '__main__':
 >Requisitos</title>
 
 <para
->O &kid3; precisa do <ulink url="https://www.qt.io"
+>O &kid3; requer o <ulink url="https://www.qt.io"
 >&Qt;</ulink
 >. O <ulink url="http://www.kde.org"
 >&kde;</ulink
-> é recomendado, mas não necessário, pois o &kid3; também pode ser compilado como um aplicativo &Qt;. O &kid3; pode ser compilado para sistemas onde essas bibliotecas estão disponíveis, por exemplo, para o GNU/&Linux;, &Windows; e &macOS;. Para marcar arquivos Ogg/Vorbis, são necessárias as bibliotecas <ulink url="http://xiph.org/ogg/"
+> é recomendado, mas não obrigatório, uma vez que o &kid3; também pode ser compilado como uma aplicação &Qt;. O &kid3; pode ser compilado para sistemas onde essas bibliotecas estejam disponíveis, <abbrev
+>p. ex.</abbrev
+> GNU/&Linux;, &Windows; e &macOS;. Para adicionar etiquetas a arquivos Ogg/Vorbis, são necessárias as bibliotecas <ulink url="http://xiph.org/ogg/"
 >libogg</ulink
 >, <ulink url="http://xiph.org/vorbis/"
 >libvorbis e libvorbisfile</ulink
->; para arquivos FLAC, são necessárias as bibliotecas <ulink url="http://flac.sourceforge.net"
+>; para arquivos FLAC, as bibliotecas <ulink url="http://flac.sourceforge.net"
 >libFLAC++ e libFLAC</ulink
->. <ulink url="http://id3lib.sourceforge.net"
->id3lib</ulink
-> é usado para arquivos MP3. Esses quatro formatos também são suportados por <ulink url="http://taglib.github.io/"
+>. Esses formatos também são suportados pela <ulink url="http://taglib.github.io/"
 >TagLib</ulink
->, que também pode lidar com arquivos Opus, MPC, APE, MP2, Speex, TrueAudio, WavPack, WMA, WAV, AIFF e módulos de tracker. Para importar de impressões digitais acústicas, <ulink url="http://acoustid.org/chromaprint"
+>, que também pode lidar com arquivos Opus, MPC, APE, MP2, MP3, MP4, AAC, Speex, TrueAudio, WavPack, WMA, WAV, AIFF, Matroska/WebM, SHN, DSF, DFF e módulos de tracker. Para a importação a partir de impressões digitais acústicas, são utilizados o <ulink url="http://acoustid.org/chromaprint"
 >Chromaprint</ulink
-> e <ulink url="http://libav.org/"
+> e a <ulink url="http://libav.org/"
 >libav</ulink
-> são usados. </para>
+>. </para>
 <para
 >O &kid3; está disponível para a maioria das distribuições &Linux;, &Windows; e &macOS;. Os links podem ser encontrados em <ulink url="https://kid3.kde.org"
 > https://kid3.kde.org</ulink
@@ -6498,7 +6504,7 @@ if __name__ == '__main__':
 >Se nem todas as bibliotecas estiverem presentes, o &kid3; será compilado com funcionalidade reduzida. Portanto, você deve garantir que todos os pacotes de desenvolvimento desejados estejam instalados. Por outro lado, as opções do <userinput
 >cmake</userinput
 > controlam quais bibliotecas serão compiladas. O padrão é: <userinput
->-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_ID3LIB:BOOL=ON -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON</userinput
+>-DWITH_TAGLIB:BOOL=ON -DWITH_MP4V2:BOOL=OFF -DWITH_CHROMAPRINT:BOOL=ON -DWITH_VORBIS:BOOL=ON -DWITH_FLAC:BOOL=ON </userinput
 >. Essas opções podem ser desativadas usando <userinput
 >OFF</userinput
 >. </para>
