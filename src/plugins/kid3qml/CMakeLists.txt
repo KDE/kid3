@@ -44,12 +44,12 @@ if(NOT HAVE_QMLDIR_IN_QRC)
     install(TARGETS ${plugin_TARGET}
       LIBRARY DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3
       RUNTIME DESTINATION ${WITH_PLUGINSDIR}/imports/Kid3)
-    set_target_properties(
-      ${plugin_TARGET} PROPERTIES
-      RUNTIME_OUTPUT_DIRECTORY ${kid3_plugins_BINARY_DIR}/imports/Kid3
-      LIBRARY_OUTPUT_DIRECTORY ${kid3_plugins_BINARY_DIR}/imports/Kid3
-    )
   endif()
+  set_target_properties(
+    ${plugin_TARGET} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${kid3_plugins_BINARY_DIR}/imports/Kid3
+    LIBRARY_OUTPUT_DIRECTORY ${kid3_plugins_BINARY_DIR}/imports/Kid3
+  )
 else()
   install(TARGETS ${plugin_TARGET}
     LIBRARY DESTINATION ${WITH_BINDIR}
