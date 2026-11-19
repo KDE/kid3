@@ -3011,7 +3011,7 @@ msgstr "Comercial"
 #: src/core/tags/frame.cpp:210
 msgctxt "@default|"
 msgid "Table of Contents"
-msgstr "Taula de contingut"
+msgstr "Índex de continguts"
 
 #: src/core/tags/frame.cpp:211
 msgctxt "@default|"
@@ -6187,7 +6187,7 @@ msgstr "COMR – Comercial"
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:465
 msgctxt "@default|"
 msgid "CTOC - Table of contents"
-msgstr "CTOC – Taula de contingut"
+msgstr "CTOC – Índex de continguts"
 
 #: src/plugins/taglibmetadata/taglibmpegsupport.cpp:467
 msgctxt "@default|"
