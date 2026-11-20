@@ -899,7 +899,7 @@
           <li xml:lang="uk">ID3v2: реалізовано підтримку значень із декількома рядками у фреймах TXXX.</li>
           <li>Windows: Support MP4 64-bit atoms on Windows.</li>
           <li xml:lang="ar">ويندوز: دعم ذرات MP4 64-بت على ويندوز.</li>
-          <li xml:lang="ca">Windows: permet àtoms de 64 bits de MP4 al Windows.</li>
+          <li xml:lang="ca">Windows: permet àtoms de 64 bits d'MP4 al Windows.</li>
           <li xml:lang="ca-valencia">Windows: permet àtoms de 64 bits de MP4 a Windows.</li>
           <li xml:lang="cs">Windows: Podpora 64bitových atomů MP4 ve Windows.</li>
           <li xml:lang="es">Windows: Compatibilidad con átomos MP4 de 64 bits en Windows.</li>
