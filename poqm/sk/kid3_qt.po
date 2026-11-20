@@ -4272,9 +4272,6 @@ msgid "&Mark changes"
 msgstr "Označi&ť zmeny"
 
 #: src/gui/dialogs/configdialogpages.cpp:462
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Use native system file &dialogs"
 msgctxt "ConfigDialogPages|"
 msgid "Use native system file &dialogs"
 msgstr "Použiť natívne súborové &dialógy"

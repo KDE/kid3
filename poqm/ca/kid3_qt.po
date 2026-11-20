@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3\n"
-"PO-Revision-Date: 2026-11-15 09:29+0100\n"
+"PO-Revision-Date: 2026-11-19 17:28+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca\n"
@@ -859,7 +859,7 @@ msgstr "Fitxer s&egüent"
 #: src/app/kde/kdemainwindow.cpp:351
 msgctxt "KdeMainWindow|"
 msgid "Select next file"
-msgstr "Selecciona el següent fitxer"
+msgstr "Selecciona el fitxer següent"
 
 #: src/app/kde/kdemainwindow.cpp:363
 #, qt-format
@@ -1317,7 +1317,7 @@ msgstr "Fitxer a&nterior"
 #: src/app/qt/kid3mainwindow.cpp:438
 msgctxt "Kid3MainWindow|"
 msgid "Select next file"
-msgstr "Selecciona el següent fitxer"
+msgstr "Selecciona el fitxer següent"
 
 #: src/app/qt/kid3mainwindow.cpp:439
 msgctxt "Kid3MainWindow|"
@@ -4434,7 +4434,7 @@ msgstr "Connectors disponibles"
 #: src/gui/dialogs/configdialogpages.cpp:720
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
-msgstr "Els canvis només tindran efecte en el següent reinici!"
+msgstr "Els canvis només tindran efecte en el reinici següent!"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:807
 msgctxt "@default|"
@@ -4737,7 +4737,7 @@ msgstr "Reverteix"
 #: src/gui/dialogs/importdialog.cpp:220
 msgctxt "ImportDialog|"
 msgid "Check maximum allowable time &difference (sec):"
-msgstr "Comprova la diferència màxima de temps permesa (seg):"
+msgstr "Comprova la diferència màxima de temps permesa (s):"
 
 #: src/gui/dialogs/importdialog.cpp:228
 msgctxt "ImportDialog|"
