@@ -77,6 +77,11 @@ AbstractSettingsPage {
           onDeactivated: function() { tagCfg.lowercaseId3RiffChunk = value; }
         },
         SettingsElement {
+          name: qsTr("Mark standard violations")
+          onActivated: function() { value = tagCfg.markStandardViolations; }
+          onDeactivated: function() { tagCfg.markStandardViolations = value; }
+        },
+        SettingsElement {
           name: qsTr("Version used for new ID3v2 tags")
           dropDownModel: configs.tagConfig().getId3v2VersionNames()
           onActivated: function() { value = tagCfg.id3v2Version; }
