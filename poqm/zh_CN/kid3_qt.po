@@ -1035,12 +1035,9 @@ msgid "&Keyboard Shortcuts"
 msgstr "快捷键(&K)"
 
 #: src/app/qt/configdialog.cpp:103
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ConfigDialog|"
 msgid "Keyboard Shortcuts"
-msgstr "快捷键(&K)"
+msgstr ""
 
 #: src/app/qt/configdialog.cpp:120
 msgctxt "ConfigDialog|"
@@ -1662,12 +1659,9 @@ msgid "Clear"
 msgstr "清除"
 
 #: src/app/qt/shortcutsdelegate.cpp:231
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "&Keyboard Shortcuts"
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Remove the keyboard shortcut"
-msgstr "快捷键(&K)"
+msgstr ""
 
 #: src/app/qt/shortcutsdelegate.cpp:238
 msgctxt "ShortcutsDelegateEditor|"
@@ -2486,20 +2480,14 @@ msgid "Date Modified"
 msgstr "修改日期"
 
 #: src/core/model/taggedfilesystemmodel.cpp:121
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Folder"
 msgctxt "TaggedFileSystemModel|"
 msgid "Folder"
 msgstr "文件夹"
 
 #: src/core/model/taggedfilesystemmodel.cpp:125
-#, fuzzy
-#| msgctxt "FileSystemModel|"
-#| msgid "Date Modified"
 msgctxt "TaggedFileSystemModel|"
 msgid "Modified"
-msgstr "修改日期"
+msgstr ""
 
 #: src/core/model/tagsearcher.cpp:198
 msgctxt "TagSearcher|"
@@ -4278,9 +4266,6 @@ msgid "&Mark changes"
 msgstr "标记变更(&M)"
 
 #: src/gui/dialogs/configdialogpages.cpp:462
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Use native system file &dialogs"
 msgctxt "ConfigDialogPages|"
 msgid "Use native system file &dialogs"
 msgstr "使用系统原生的文件对话框(&D)"
@@ -4427,12 +4412,9 @@ msgid "A&vailable Plugins"
 msgstr "可用的插件(&V)"
 
 #: src/gui/dialogs/configdialogpages.cpp:709
-#, fuzzy
-#| msgctxt "ConfigDialogPages|"
-#| msgid "A&vailable Plugins"
 msgctxt "ConfigDialogPages|"
 msgid "Available Plugins"
-msgstr "可用的插件(&V)"
+msgstr ""
 
 #: src/gui/dialogs/configdialogpages.cpp:720
 msgctxt "ConfigDialogPages|"
@@ -5260,12 +5242,9 @@ msgid_plural "%n items"
 msgstr[0] ""
 
 #: src/gui/forms/accessibilityhelper.cpp:419
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "End of submenu"
 msgctxt "AccessibilityHelper|"
 msgid "submenu"
-msgstr "子菜单结束"
+msgstr ""
 
 #: src/gui/forms/accessibilityhelper.cpp:423
 msgctxt "AccessibilityHelper|"
@@ -5541,12 +5520,9 @@ msgid "Could not execute "
 msgstr "无法执行 "
 
 #: src/gui/forms/kid3form.cpp:272
-#, fuzzy
-#| msgctxt "@default|"
-#| msgid "Main Toolbar"
 msgctxt "Kid3Form|"
 msgid "Main Form"
-msgstr "主工具栏"
+msgstr ""
 
 #: src/gui/forms/kid3form.cpp:292
 msgctxt "Kid3Form|"
@@ -5554,17 +5530,11 @@ msgid "Kid3"
 msgstr "Kid3"
 
 #: src/gui/forms/kid3form.cpp:317
-#, fuzzy
-#| msgctxt "KdeMainWindow|"
-#| msgid "File List"
 msgctxt "Kid3Form|"
 msgid "File list"
-msgstr "文件列表"
+msgstr ""
 
 #: src/gui/forms/kid3form.cpp:318
-#, fuzzy
-#| msgctxt "LsCommand|"
-#| msgid "Folder list"
 msgctxt "Kid3Form|"
 msgid "Folder list"
 msgstr "目录列表"
@@ -5591,17 +5561,11 @@ msgid "Format:"
 msgstr "格式："
 
 #: src/gui/forms/kid3form.cpp:387
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "To filename format"
 msgctxt "Kid3Form|"
 msgid "To filename format"
 msgstr "至文件名称格式"
 
 #: src/gui/forms/kid3form.cpp:400
-#, fuzzy
-#| msgctxt "SettingsPage|"
-#| msgid "From filename format"
 msgctxt "Kid3Form|"
 msgid "From filename format"
 msgstr "文件名称格式"
@@ -5951,12 +5915,9 @@ msgid "Close"
 msgstr "关闭"
 
 #: src/gui/widgets/playtoolbar.cpp:155
-#, fuzzy
-#| msgctxt "TimeEventEditor|"
-#| msgid "&Seek to position"
 msgctxt "PlayToolBar|"
 msgid "Seek to position"
-msgstr "搜索定位(&S)"
+msgstr ""
 
 #: src/gui/widgets/playtoolbar.cpp:164
 msgctxt "PlayToolBar|"
