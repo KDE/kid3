@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Kid3 3.8.1\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/p/kid3/bugs/\n"
 "POT-Creation-Date: 2019-12-14 08:42+0100\n"
-"PO-Revision-Date: 2026-11-16 19:18+0300\n"
+"PO-Revision-Date: 2026-11-23 17:58+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -1095,7 +1095,7 @@ msgstr "&Yardım"
 #: src/app/qt/configdialog.cpp:180
 msgctxt "ConfigDialog|"
 msgid "Restore Defaults"
-msgstr "Öntanımlılara Dön"
+msgstr "Varsayılanlara Dön"
 
 #: src/app/qt/configdialog.cpp:181
 msgctxt "ConfigDialog|"
@@ -1680,7 +1680,7 @@ msgstr "Sıfırla"
 #: src/app/qt/shortcutsdelegate.cpp:240
 msgctxt "ShortcutsDelegateEditor|"
 msgid "Restore the default keyboard shortcut"
-msgstr "Öntanımlı klavye kısayolunu geri yükle"
+msgstr "Varsayılan klavye kısayolunu geri yükle"
 
 #: src/app/qt/shortcutsmodel.cpp:103
 #, qt-format
@@ -2685,7 +2685,7 @@ msgstr "Hedef Türü"
 #: src/core/tags/frame.cpp:75
 msgctxt "@default|"
 msgid "Default"
-msgstr "Öntanımlı"
+msgstr "Varsayılan"
 
 #: src/core/tags/frame.cpp:76
 msgctxt "@default|"
