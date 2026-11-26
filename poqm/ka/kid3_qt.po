@@ -1071,7 +1071,7 @@ msgstr "უცნობი"
 #: src/app/qt/configdialog.cpp:166
 msgctxt "ConfigDialog|"
 msgid "Use native system file &dialogs"
-msgstr "&სისტემური ფაილის ფანჯრების გამოყენება"
+msgstr "სისტემური ფაილის &დიალოგების გამოყენება"
 
 #: src/app/qt/configdialog.cpp:170
 msgctxt "ConfigDialog|"
@@ -4267,12 +4267,9 @@ msgid "&Mark changes"
 msgstr "&ცვლილებების დანიშვნა"
 
 #: src/gui/dialogs/configdialogpages.cpp:462
-#, fuzzy
-#| msgctxt "ConfigDialog|"
-#| msgid "Use native system file &dialogs"
 msgctxt "ConfigDialogPages|"
 msgid "Use native system file &dialogs"
-msgstr "&სისტემური ფაილის ფანჯრების გამოყენება"
+msgstr "სისტემური ფაილის &დიალოგების გამოყენება"
 
 #: src/gui/dialogs/configdialogpages.cpp:465
 msgctxt "ConfigDialogPages|"

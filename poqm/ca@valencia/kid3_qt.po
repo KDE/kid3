@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: kid3\n"
-"PO-Revision-Date: 2026-11-15 09:29+0100\n"
+"PO-Revision-Date: 2026-11-19 17:28+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -2625,7 +2625,7 @@ msgstr "Identificador"
 #: src/core/tags/frame.cpp:231
 msgctxt "@default|"
 msgid "Volume Adjustment"
-msgstr "Ajust del volum"
+msgstr "Ajusteu el volum"
 
 #: src/core/tags/frame.cpp:62
 msgctxt "@default|"
@@ -4435,7 +4435,7 @@ msgstr "Connectors disponibles"
 #: src/gui/dialogs/configdialogpages.cpp:720
 msgctxt "ConfigDialogPages|"
 msgid "Changes take only effect after a restart!"
-msgstr "Els canvis només s'efectuaran en el següent reinici!"
+msgstr "Els canvis només s'efectuaran en el reinici següent!"
 
 #: src/gui/dialogs/editframefieldsdialog.cpp:807
 msgctxt "@default|"
@@ -4738,7 +4738,7 @@ msgstr "Revertix"
 #: src/gui/dialogs/importdialog.cpp:220
 msgctxt "ImportDialog|"
 msgid "Check maximum allowable time &difference (sec):"
-msgstr "Comprova la diferència màxima de temps permesa (seg):"
+msgstr "Comprova la diferència màxima de temps permesa (s):"
 
 #: src/gui/dialogs/importdialog.cpp:228
 msgctxt "ImportDialog|"

@@ -3900,7 +3900,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/batchimportdialog.cpp:248
 msgctxt "BatchImportDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/batchimportdialog.cpp:257
 msgctxt "BatchImportDialog|"
@@ -4051,7 +4051,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/browsecoverartdialog.cpp:135
 msgctxt "BrowseCoverArtDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/browsecoverartdialog.cpp:144
 msgctxt "BrowseCoverArtDialog|"
@@ -4530,7 +4530,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/exportdialog.cpp:140
 msgctxt "ExportDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/exportdialog.cpp:149
 msgctxt "ExportDialog|"
@@ -4575,7 +4575,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/filterdialog.cpp:80
 msgctxt "FilterDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/filterdialog.cpp:91
 msgctxt "FilterDialog|"
@@ -4681,7 +4681,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/findreplacedialog.cpp:149
 msgctxt "FindReplaceDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/findreplacedialog.cpp:156
 msgctxt "FindReplaceDialog|"
@@ -4761,7 +4761,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/importdialog.cpp:268
 msgctxt "ImportDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/importdialog.cpp:270
 msgctxt "ImportDialog|"
@@ -4807,7 +4807,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/numbertracksdialog.cpp:114
 msgctxt "NumberTracksDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/numbertracksdialog.cpp:123
 msgctxt "NumberTracksDialog|"
@@ -4922,7 +4922,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/playlistdialog.cpp:229
 msgctxt "PlaylistDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/playlistdialog.cpp:237
 msgctxt "PlaylistDialog|"
@@ -4976,7 +4976,7 @@ msgstr "Ön İzleme"
 #: src/gui/dialogs/rendirdialog.cpp:81
 msgctxt "RenDirDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/rendirdialog.cpp:108
 msgctxt "RenDirDialog|"
@@ -5061,7 +5061,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/serverimportdialog.cpp:125
 msgctxt "ServerImportDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/serverimportdialog.cpp:127
 msgctxt "ServerImportDialog|"
@@ -5096,7 +5096,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/servertrackimportdialog.cpp:130
 msgctxt "ServerTrackImportDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/servertrackimportdialog.cpp:132
 msgctxt "ServerTrackImportDialog|"
@@ -5164,7 +5164,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/tagimportdialog.cpp:89
 msgctxt "TagImportDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/tagimportdialog.cpp:94
 msgctxt "TagImportDialog|"
@@ -5204,7 +5204,7 @@ msgstr "&Yardım"
 #: src/gui/dialogs/textimportdialog.cpp:75
 msgctxt "TextImportDialog|"
 msgid "&Save Settings"
-msgstr "&Ayarları Kaydet"
+msgstr "Ayar&ları Kaydet"
 
 #: src/gui/dialogs/textimportdialog.cpp:80
 msgctxt "TextImportDialog|"
