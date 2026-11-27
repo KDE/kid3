@@ -99,10 +99,10 @@ ffmpeg_patchlevel=0+deb13u1
 libflac_version=1.5.0+ds
 libflac_patchlevel=5
 taglib_version=2.3.2
-chromaprint_version=1.6.1
+chromaprint_version=1.6.2
 chromaprint_patchlevel=1
 mp4v2_version=2.1.3
-utfcpp_version=4.1.1
+utfcpp_version=4.2.1
 
 verify_not_in_srcdir() {
   if test -f CMakeLists.txt; then
@@ -1399,9 +1399,9 @@ extract_chromaprint() {
     echo "### Extracting chromaprint"
 
     tar xzf $SRC_ARCHIVE_DIR/chromaprint_${chromaprint_version}.orig.tar.gz
-    if test "${chromaprint_version}" = "1.6.1" && \
-       test "$(tar tf $SRC_ARCHIVE_DIR/chromaprint_1.6.1.orig.tar.gz | head -1 | cut -d'/' -f1)" = "acoustid-chromaprint-e88b741"; then
-      mv acoustid-chromaprint-e88b741 chromaprint-1.6.1
+    local _cpdir=$(tar tf $SRC_ARCHIVE_DIR/chromaprint_${chromaprint_version}.orig.tar.gz | head -1 | cut -d'/' -f1)
+    if test "$_cpdir" != "chromaprint-${chromaprint_version}"; then
+      mv $_cpdir chromaprint-${chromaprint_version}
     fi
     cd chromaprint-${chromaprint_version}/
     tar xJf $SRC_ARCHIVE_DIR/chromaprint_${chromaprint_version}-${chromaprint_patchlevel}.debian.tar.xz
