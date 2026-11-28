@@ -7212,17 +7212,17 @@ msgctxt "SettingsPage|"
 msgid "Tags"
 msgstr "Etikedoj"
 
-#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:204
+#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:209
 msgctxt "SettingsPage|"
 msgid "Files"
 msgstr "Dosieroj"
 
-#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:343
+#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:348
 msgctxt "SettingsPage|"
 msgid "Plugins"
 msgstr "Kromprogramoj"
 
-#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:401
+#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:406
 msgctxt "SettingsPage|"
 msgid "Appearance"
 msgstr "Aspekto"
@@ -7258,166 +7258,174 @@ msgid "WAV files with lowercase id3 chunk"
 msgstr "WAV-dosieroj kun minuskla id3-peco"
 
 #: src/qml/app/SettingsPage.qml:80
+#, fuzzy
+#| msgctxt "ConfigDialogPages|"
+#| msgid "Mar&k standard violations"
+msgctxt "SettingsPage|"
+msgid "Mark standard violations"
+msgstr "Mark&k normaj malobservoj"
+
+#: src/qml/app/SettingsPage.qml:85
 msgctxt "SettingsPage|"
 msgid "Version used for new ID3v2 tags"
 msgstr "Versio uzata por novaj ID3v2-etikedoj"
 
-#: src/qml/app/SettingsPage.qml:86
+#: src/qml/app/SettingsPage.qml:91
 msgctxt "SettingsPage|"
 msgid "Track number digits"
 msgstr "Traknumero-ciferoj"
 
-#: src/qml/app/SettingsPage.qml:91
+#: src/qml/app/SettingsPage.qml:96
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis comment field name"
 msgstr "Ogg/Vorbis komenta kamponomo"
 
-#: src/qml/app/SettingsPage.qml:101
+#: src/qml/app/SettingsPage.qml:106
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis bildkampa nomo"
 
-#: src/qml/app/SettingsPage.qml:107
+#: src/qml/app/SettingsPage.qml:112
 msgctxt "SettingsPage|"
 msgid "RIFF track number field name"
 msgstr "RIFF-traknumera kamponomo"
 
-#: src/qml/app/SettingsPage.qml:117
+#: src/qml/app/SettingsPage.qml:122
 msgctxt "SettingsPage|"
 msgid "Mark if picture larger than maximum size"
 msgstr "Marki se bildo pli granda ol maksimuma grandeco"
 
-#: src/qml/app/SettingsPage.qml:122
+#: src/qml/app/SettingsPage.qml:127
 msgctxt "SettingsPage|"
 msgid "Picture maximum size (bytes)"
 msgstr "Maksimuma grandeco de bildo (bajtoj)"
 
-#: src/qml/app/SettingsPage.qml:127
+#: src/qml/app/SettingsPage.qml:132
 msgctxt "SettingsPage|"
 msgid "Show only custom genres"
 msgstr "Montri nur proprajn ĝenrojn"
 
-#: src/qml/app/SettingsPage.qml:131
+#: src/qml/app/SettingsPage.qml:136
 msgctxt "SettingsPage|"
 msgid "Custom Genres"
 msgstr "Propraj Ĝenroj"
 
-#: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:243
+#: src/qml/app/SettingsPage.qml:147 src/qml/app/SettingsPage.qml:248
 msgctxt "SettingsPage|"
 msgid "Case conversion"
 msgstr "Kazkonverto"
 
-#: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:249
+#: src/qml/app/SettingsPage.qml:153 src/qml/app/SettingsPage.qml:254
 msgctxt "SettingsPage|"
 msgid "Locale"
 msgstr "Lokaĵaro"
 
-#: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:260
+#: src/qml/app/SettingsPage.qml:164 src/qml/app/SettingsPage.qml:265
 msgctxt "SettingsPage|"
 msgid "String replacement"
 msgstr "Ĉeno anstataŭigo"
 
-#: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:264
+#: src/qml/app/SettingsPage.qml:168 src/qml/app/SettingsPage.qml:269
 msgctxt "SettingsPage|"
 msgid "String Replacement"
 msgstr "Ĉeno Anstataŭigo"
 
-#: src/qml/app/SettingsPage.qml:174
+#: src/qml/app/SettingsPage.qml:179
 msgctxt "SettingsPage|"
 msgid "Custom frames"
 msgstr "Propraj kadroj"
 
-#: src/qml/app/SettingsPage.qml:176
+#: src/qml/app/SettingsPage.qml:181
 msgctxt "SettingsPage|"
 msgid "Custom Frames"
 msgstr "Propraj Kadroj"
 
-#: src/qml/app/SettingsPage.qml:189
+#: src/qml/app/SettingsPage.qml:194
 msgctxt "SettingsPage|"
 msgid "Quick access frames"
 msgstr "Rapida aliro kadroj"
 
-#: src/qml/app/SettingsPage.qml:208
+#: src/qml/app/SettingsPage.qml:213
 msgctxt "SettingsPage|"
 msgid "Load last-opened files"
 msgstr "Ŝargi la lastajn malfermitajn dosierojn"
 
-#: src/qml/app/SettingsPage.qml:213
+#: src/qml/app/SettingsPage.qml:218
 msgctxt "SettingsPage|"
 msgid "Preserve file timestamp"
 msgstr "Konservi dosieran tempomarkon"
 
-#: src/qml/app/SettingsPage.qml:218
+#: src/qml/app/SettingsPage.qml:223
 msgctxt "SettingsPage|"
 msgid "Mark changes"
 msgstr "Mark ŝanĝiĝas"
 
-#: src/qml/app/SettingsPage.qml:223
+#: src/qml/app/SettingsPage.qml:228
 msgctxt "SettingsPage|"
 msgid "Automatically apply format"
 msgstr "Aŭtomate apliki formaton"
 
-#: src/qml/app/SettingsPage.qml:228
+#: src/qml/app/SettingsPage.qml:233
 msgctxt "SettingsPage|"
 msgid "Use for playlist and folder names"
 msgstr "Uzi por ludlisto kaj dosierujo-nomoj"
 
-#: src/qml/app/SettingsPage.qml:233
+#: src/qml/app/SettingsPage.qml:238
 msgctxt "SettingsPage|"
 msgid "Use maximum length"
 msgstr "Uzi maksimuman longon"
 
-#: src/qml/app/SettingsPage.qml:238
+#: src/qml/app/SettingsPage.qml:243
 msgctxt "SettingsPage|"
 msgid "Maximum length"
 msgstr "Maksimuma longeco"
 
-#: src/qml/app/SettingsPage.qml:275
+#: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Filename for cover"
 msgstr "Dosiernomo por kovrilo"
 
-#: src/qml/app/SettingsPage.qml:280
+#: src/qml/app/SettingsPage.qml:285
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
 msgstr "Tekstokodado de Ludlisto"
 
-#: src/qml/app/SettingsPage.qml:286
+#: src/qml/app/SettingsPage.qml:291
 msgctxt "SettingsPage|"
 msgid "To filename format"
 msgstr "Al dosiernomo formato"
 
-#: src/qml/app/SettingsPage.qml:296
+#: src/qml/app/SettingsPage.qml:301
 msgctxt "SettingsPage|"
 msgid "Filename from Tag"
 msgstr "Dosiernomo de Tag"
 
-#: src/qml/app/SettingsPage.qml:311
+#: src/qml/app/SettingsPage.qml:316
 msgctxt "SettingsPage|"
 msgid "From filename format"
 msgstr "El dosiernomo formato"
 
-#: src/qml/app/SettingsPage.qml:321
+#: src/qml/app/SettingsPage.qml:326
 msgctxt "SettingsPage|"
 msgid "Tag from Filename"
 msgstr "Etikedo el Dosiernomo"
 
-#: src/qml/app/SettingsPage.qml:405
+#: src/qml/app/SettingsPage.qml:410
 msgctxt "SettingsPage|"
 msgid "Language"
 msgstr "Lingvo"
 
-#: src/qml/app/SettingsPage.qml:406
+#: src/qml/app/SettingsPage.qml:411
 msgctxt "SettingsPage|"
 msgid "System"
 msgstr "Sistemo"
 
-#: src/qml/app/SettingsPage.qml:417
+#: src/qml/app/SettingsPage.qml:422
 msgctxt "SettingsPage|"
 msgid "Theme"
 msgstr "Etoso"
 
-#: src/qml/app/SettingsPage.qml:435
+#: src/qml/app/SettingsPage.qml:440
 msgctxt "SettingsPage|"
 msgid "Quick Access Frames"
 msgstr "Rapida Aliro Kadroj"

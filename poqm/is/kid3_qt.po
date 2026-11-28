@@ -7161,17 +7161,17 @@ msgctxt "SettingsPage|"
 msgid "Tags"
 msgstr "Merki"
 
-#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:204
+#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:209
 msgctxt "SettingsPage|"
 msgid "Files"
 msgstr "Skrár"
 
-#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:343
+#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:348
 msgctxt "SettingsPage|"
 msgid "Plugins"
 msgstr "Viðbætur"
 
-#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:401
+#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:406
 msgctxt "SettingsPage|"
 msgid "Appearance"
 msgstr "Útlit"
@@ -7207,166 +7207,174 @@ msgid "WAV files with lowercase id3 chunk"
 msgstr "WAV-skrár með lágstafa id3 bút"
 
 #: src/qml/app/SettingsPage.qml:80
+#, fuzzy
+#| msgctxt "ConfigDialogPages|"
+#| msgid "Mar&k standard violations"
+msgctxt "SettingsPage|"
+msgid "Mark standard violations"
+msgstr "Mer&kja frávik frá stöðlum"
+
+#: src/qml/app/SettingsPage.qml:85
 msgctxt "SettingsPage|"
 msgid "Version used for new ID3v2 tags"
 msgstr "Útgáfa notuð fyrir ný ID3v2-merki"
 
-#: src/qml/app/SettingsPage.qml:86
+#: src/qml/app/SettingsPage.qml:91
 msgctxt "SettingsPage|"
 msgid "Track number digits"
 msgstr "Númer hljóðspors í tölustöfum"
 
-#: src/qml/app/SettingsPage.qml:91
+#: src/qml/app/SettingsPage.qml:96
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis comment field name"
 msgstr "Heiti reits fyrir Ogg/Vorbis-athugasemd"
 
-#: src/qml/app/SettingsPage.qml:101
+#: src/qml/app/SettingsPage.qml:106
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis picture field name"
 msgstr "Heiti reits fyrir Ogg/Vorbis-mynd"
 
-#: src/qml/app/SettingsPage.qml:107
+#: src/qml/app/SettingsPage.qml:112
 msgctxt "SettingsPage|"
 msgid "RIFF track number field name"
 msgstr "Heiti RIFF-reits fyrir númer hljóðspors"
 
-#: src/qml/app/SettingsPage.qml:117
+#: src/qml/app/SettingsPage.qml:122
 msgctxt "SettingsPage|"
 msgid "Mark if picture larger than maximum size"
 msgstr "Merkja ef stærð myndar er meiri en hámarksstærð"
 
-#: src/qml/app/SettingsPage.qml:122
+#: src/qml/app/SettingsPage.qml:127
 msgctxt "SettingsPage|"
 msgid "Picture maximum size (bytes)"
 msgstr "Hámarksstærð myndar (bæti)"
 
-#: src/qml/app/SettingsPage.qml:127
+#: src/qml/app/SettingsPage.qml:132
 msgctxt "SettingsPage|"
 msgid "Show only custom genres"
 msgstr "Birta einungis sérsniðna stíla"
 
-#: src/qml/app/SettingsPage.qml:131
+#: src/qml/app/SettingsPage.qml:136
 msgctxt "SettingsPage|"
 msgid "Custom Genres"
 msgstr "Sérsniðnir stílar"
 
-#: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:243
+#: src/qml/app/SettingsPage.qml:147 src/qml/app/SettingsPage.qml:248
 msgctxt "SettingsPage|"
 msgid "Case conversion"
 msgstr "Umbreyting há/lágstafa"
 
-#: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:249
+#: src/qml/app/SettingsPage.qml:153 src/qml/app/SettingsPage.qml:254
 msgctxt "SettingsPage|"
 msgid "Locale"
 msgstr "Staðfærsla"
 
-#: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:260
+#: src/qml/app/SettingsPage.qml:164 src/qml/app/SettingsPage.qml:265
 msgctxt "SettingsPage|"
 msgid "String replacement"
 msgstr "Útskipting strengs"
 
-#: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:264
+#: src/qml/app/SettingsPage.qml:168 src/qml/app/SettingsPage.qml:269
 msgctxt "SettingsPage|"
 msgid "String Replacement"
 msgstr "Útskipting strengs"
 
-#: src/qml/app/SettingsPage.qml:174
+#: src/qml/app/SettingsPage.qml:179
 msgctxt "SettingsPage|"
 msgid "Custom frames"
 msgstr "Sérsniðnir rammar"
 
-#: src/qml/app/SettingsPage.qml:176
+#: src/qml/app/SettingsPage.qml:181
 msgctxt "SettingsPage|"
 msgid "Custom Frames"
 msgstr "Sérsniðnir rammar"
 
-#: src/qml/app/SettingsPage.qml:189
+#: src/qml/app/SettingsPage.qml:194
 msgctxt "SettingsPage|"
 msgid "Quick access frames"
 msgstr "Flýtiaðgangur að römmum"
 
-#: src/qml/app/SettingsPage.qml:208
+#: src/qml/app/SettingsPage.qml:213
 msgctxt "SettingsPage|"
 msgid "Load last-opened files"
 msgstr "Hlaða inn síðast opnuðum skrám"
 
-#: src/qml/app/SettingsPage.qml:213
+#: src/qml/app/SettingsPage.qml:218
 msgctxt "SettingsPage|"
 msgid "Preserve file timestamp"
 msgstr "Halda í tímamerki skráar"
 
-#: src/qml/app/SettingsPage.qml:218
+#: src/qml/app/SettingsPage.qml:223
 msgctxt "SettingsPage|"
 msgid "Mark changes"
 msgstr "Merkja breytingar"
 
-#: src/qml/app/SettingsPage.qml:223
+#: src/qml/app/SettingsPage.qml:228
 msgctxt "SettingsPage|"
 msgid "Automatically apply format"
 msgstr "Beita sniði sjálfvirkt"
 
-#: src/qml/app/SettingsPage.qml:228
+#: src/qml/app/SettingsPage.qml:233
 msgctxt "SettingsPage|"
 msgid "Use for playlist and folder names"
 msgstr "Nota fyrir spilunarlista og möppuheiti"
 
-#: src/qml/app/SettingsPage.qml:233
+#: src/qml/app/SettingsPage.qml:238
 msgctxt "SettingsPage|"
 msgid "Use maximum length"
 msgstr "Nota hámarkslengd"
 
-#: src/qml/app/SettingsPage.qml:238
+#: src/qml/app/SettingsPage.qml:243
 msgctxt "SettingsPage|"
 msgid "Maximum length"
 msgstr "Hámarkslengd"
 
-#: src/qml/app/SettingsPage.qml:275
+#: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Filename for cover"
 msgstr "Skráarheiti fyrir umslag"
 
-#: src/qml/app/SettingsPage.qml:280
+#: src/qml/app/SettingsPage.qml:285
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
 msgstr "Stafatafla texta spilunarlista"
 
-#: src/qml/app/SettingsPage.qml:286
+#: src/qml/app/SettingsPage.qml:291
 msgctxt "SettingsPage|"
 msgid "To filename format"
 msgstr "Í snið á skráarheiti"
 
-#: src/qml/app/SettingsPage.qml:296
+#: src/qml/app/SettingsPage.qml:301
 msgctxt "SettingsPage|"
 msgid "Filename from Tag"
 msgstr "Skráarheiti út frá merki"
 
-#: src/qml/app/SettingsPage.qml:311
+#: src/qml/app/SettingsPage.qml:316
 msgctxt "SettingsPage|"
 msgid "From filename format"
 msgstr "Úr sniði á skráarheiti"
 
-#: src/qml/app/SettingsPage.qml:321
+#: src/qml/app/SettingsPage.qml:326
 msgctxt "SettingsPage|"
 msgid "Tag from Filename"
 msgstr "Merki út frá skráarheiti"
 
-#: src/qml/app/SettingsPage.qml:405
+#: src/qml/app/SettingsPage.qml:410
 msgctxt "SettingsPage|"
 msgid "Language"
 msgstr "Tungumál"
 
-#: src/qml/app/SettingsPage.qml:406
+#: src/qml/app/SettingsPage.qml:411
 msgctxt "SettingsPage|"
 msgid "System"
 msgstr "Kerfi"
 
-#: src/qml/app/SettingsPage.qml:417
+#: src/qml/app/SettingsPage.qml:422
 msgctxt "SettingsPage|"
 msgid "Theme"
 msgstr "Þema"
 
-#: src/qml/app/SettingsPage.qml:435
+#: src/qml/app/SettingsPage.qml:440
 msgctxt "SettingsPage|"
 msgid "Quick Access Frames"
 msgstr "Flýtiaðgangur að römmum"

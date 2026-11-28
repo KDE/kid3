@@ -7269,17 +7269,17 @@ msgctxt "SettingsPage|"
 msgid "Tags"
 msgstr "Mærker"
 
-#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:204
+#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:209
 msgctxt "SettingsPage|"
 msgid "Files"
 msgstr "Filer"
 
-#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:343
+#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:348
 msgctxt "SettingsPage|"
 msgid "Plugins"
 msgstr "Plugins"
 
-#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:401
+#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:406
 msgctxt "SettingsPage|"
 msgid "Appearance"
 msgstr "Udseende"
@@ -7315,71 +7315,79 @@ msgid "WAV files with lowercase id3 chunk"
 msgstr "WAV-filer med små bogstavs id3 stumper"
 
 #: src/qml/app/SettingsPage.qml:80
+#, fuzzy
+#| msgctxt "ConfigDialogPages|"
+#| msgid "Mar&k standard violations"
+msgctxt "SettingsPage|"
+msgid "Mark standard violations"
+msgstr "Mar&ker overtrædelser af standarden"
+
+#: src/qml/app/SettingsPage.qml:85
 msgctxt "SettingsPage|"
 msgid "Version used for new ID3v2 tags"
 msgstr "Version anvendt til nye ID3v2-mærker"
 
-#: src/qml/app/SettingsPage.qml:86
+#: src/qml/app/SettingsPage.qml:91
 msgctxt "SettingsPage|"
 msgid "Track number digits"
 msgstr "Spornummer"
 
-#: src/qml/app/SettingsPage.qml:91
+#: src/qml/app/SettingsPage.qml:96
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis comment field name"
 msgstr "Navn på Ogg/Vorbis kommentar felt"
 
-#: src/qml/app/SettingsPage.qml:101
+#: src/qml/app/SettingsPage.qml:106
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis picture field name"
 msgstr "Ogg/Vorbis navn på billedefelt"
 
-#: src/qml/app/SettingsPage.qml:107
+#: src/qml/app/SettingsPage.qml:112
 msgctxt "SettingsPage|"
 msgid "RIFF track number field name"
 msgstr "RIFF spornummer feltnavn"
 
-#: src/qml/app/SettingsPage.qml:117
+#: src/qml/app/SettingsPage.qml:122
 msgctxt "SettingsPage|"
 msgid "Mark if picture larger than maximum size"
 msgstr "Markér hvis billede overskrider maksimal størrelse"
 
-#: src/qml/app/SettingsPage.qml:122
+#: src/qml/app/SettingsPage.qml:127
 msgctxt "SettingsPage|"
 msgid "Picture maximum size (bytes)"
 msgstr "Maksimum størrelse på billeder (Bytes)"
 
-#: src/qml/app/SettingsPage.qml:127
+#: src/qml/app/SettingsPage.qml:132
 msgctxt "SettingsPage|"
 msgid "Show only custom genres"
 msgstr "Vis kun brugerdefinerede genrer"
 
-#: src/qml/app/SettingsPage.qml:131
+#: src/qml/app/SettingsPage.qml:136
 msgctxt "SettingsPage|"
 msgid "Custom Genres"
 msgstr "Brugerdefinerede genre"
 
-#: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:243
+#: src/qml/app/SettingsPage.qml:147 src/qml/app/SettingsPage.qml:248
 msgctxt "SettingsPage|"
 msgid "Case conversion"
 msgstr "Store/små bogstavskonvertering"
 
-#: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:249
+#: src/qml/app/SettingsPage.qml:153 src/qml/app/SettingsPage.qml:254
 msgctxt "SettingsPage|"
 msgid "Locale"
 msgstr "Sprog"
 
-#: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:260
+#: src/qml/app/SettingsPage.qml:164 src/qml/app/SettingsPage.qml:265
 msgctxt "SettingsPage|"
 msgid "String replacement"
 msgstr "Streng erstatning"
 
-#: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:264
+#: src/qml/app/SettingsPage.qml:168 src/qml/app/SettingsPage.qml:269
 msgctxt "SettingsPage|"
 msgid "String Replacement"
 msgstr "Streng erstatning"
 
-#: src/qml/app/SettingsPage.qml:174
+#: src/qml/app/SettingsPage.qml:179
 #, fuzzy
 #| msgctxt "ConfigDialogPages|"
 #| msgid "Custom &Genres"
@@ -7387,7 +7395,7 @@ msgctxt "SettingsPage|"
 msgid "Custom frames"
 msgstr "Brugerdefinerede &genrer"
 
-#: src/qml/app/SettingsPage.qml:176
+#: src/qml/app/SettingsPage.qml:181
 #, fuzzy
 #| msgctxt "ConfigDialogPages|"
 #| msgid "Custom &Genres"
@@ -7395,7 +7403,7 @@ msgctxt "SettingsPage|"
 msgid "Custom Frames"
 msgstr "Brugerdefinerede &genrer"
 
-#: src/qml/app/SettingsPage.qml:189
+#: src/qml/app/SettingsPage.qml:194
 #, fuzzy
 #| msgctxt "ConfigDialogPages|"
 #| msgid "&Quick Access Frames"
@@ -7403,27 +7411,27 @@ msgctxt "SettingsPage|"
 msgid "Quick access frames"
 msgstr "S&tandard felter"
 
-#: src/qml/app/SettingsPage.qml:208
+#: src/qml/app/SettingsPage.qml:213
 msgctxt "SettingsPage|"
 msgid "Load last-opened files"
 msgstr "Indlæs sidst åbnede filer"
 
-#: src/qml/app/SettingsPage.qml:213
+#: src/qml/app/SettingsPage.qml:218
 msgctxt "SettingsPage|"
 msgid "Preserve file timestamp"
 msgstr "Behold fil tidsstempling"
 
-#: src/qml/app/SettingsPage.qml:218
+#: src/qml/app/SettingsPage.qml:223
 msgctxt "SettingsPage|"
 msgid "Mark changes"
 msgstr "Markér ændringer"
 
-#: src/qml/app/SettingsPage.qml:223
+#: src/qml/app/SettingsPage.qml:228
 msgctxt "SettingsPage|"
 msgid "Automatically apply format"
 msgstr "Anvend format automatisk"
 
-#: src/qml/app/SettingsPage.qml:228
+#: src/qml/app/SettingsPage.qml:233
 #, fuzzy
 #| msgctxt "PlaylistDialog|"
 #| msgid "Same as &folder name"
@@ -7431,62 +7439,62 @@ msgctxt "SettingsPage|"
 msgid "Use for playlist and folder names"
 msgstr "Samme som &mappenavnet"
 
-#: src/qml/app/SettingsPage.qml:233
+#: src/qml/app/SettingsPage.qml:238
 msgctxt "SettingsPage|"
 msgid "Use maximum length"
 msgstr "Brug maksimal længde"
 
-#: src/qml/app/SettingsPage.qml:238
+#: src/qml/app/SettingsPage.qml:243
 msgctxt "SettingsPage|"
 msgid "Maximum length"
 msgstr "Maksimal længde"
 
-#: src/qml/app/SettingsPage.qml:275
+#: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Filename for cover"
 msgstr "Omslagets filnavn"
 
-#: src/qml/app/SettingsPage.qml:280
+#: src/qml/app/SettingsPage.qml:285
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
 msgstr "Tegnsæt for afspilningsliste"
 
-#: src/qml/app/SettingsPage.qml:286
+#: src/qml/app/SettingsPage.qml:291
 msgctxt "SettingsPage|"
 msgid "To filename format"
 msgstr "Til filnavn format"
 
-#: src/qml/app/SettingsPage.qml:296
+#: src/qml/app/SettingsPage.qml:301
 msgctxt "SettingsPage|"
 msgid "Filename from Tag"
 msgstr "Filnavn fra mærke"
 
-#: src/qml/app/SettingsPage.qml:311
+#: src/qml/app/SettingsPage.qml:316
 msgctxt "SettingsPage|"
 msgid "From filename format"
 msgstr "Fra filnavn format"
 
-#: src/qml/app/SettingsPage.qml:321
+#: src/qml/app/SettingsPage.qml:326
 msgctxt "SettingsPage|"
 msgid "Tag from Filename"
 msgstr "Mærke fra filnavn"
 
-#: src/qml/app/SettingsPage.qml:405
+#: src/qml/app/SettingsPage.qml:410
 msgctxt "SettingsPage|"
 msgid "Language"
 msgstr "Sprog"
 
-#: src/qml/app/SettingsPage.qml:406
+#: src/qml/app/SettingsPage.qml:411
 msgctxt "SettingsPage|"
 msgid "System"
 msgstr "System"
 
-#: src/qml/app/SettingsPage.qml:417
+#: src/qml/app/SettingsPage.qml:422
 msgctxt "SettingsPage|"
 msgid "Theme"
 msgstr "Tema"
 
-#: src/qml/app/SettingsPage.qml:435
+#: src/qml/app/SettingsPage.qml:440
 #, fuzzy
 #| msgctxt "ConfigDialogPages|"
 #| msgid "&Quick Access Frames"

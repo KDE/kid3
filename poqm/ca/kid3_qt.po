@@ -7142,17 +7142,17 @@ msgctxt "SettingsPage|"
 msgid "Tags"
 msgstr "Etiquetes"
 
-#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:204
+#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:209
 msgctxt "SettingsPage|"
 msgid "Files"
 msgstr "Fitxers"
 
-#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:343
+#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:348
 msgctxt "SettingsPage|"
 msgid "Plugins"
 msgstr "Connectors"
 
-#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:401
+#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:406
 msgctxt "SettingsPage|"
 msgid "Appearance"
 msgstr "Aparença"
@@ -7188,166 +7188,174 @@ msgid "WAV files with lowercase id3 chunk"
 msgstr "Fitxers WAV amb el bloc id3 en minúscules"
 
 #: src/qml/app/SettingsPage.qml:80
+#, fuzzy
+#| msgctxt "ConfigDialogPages|"
+#| msgid "Mar&k standard violations"
+msgctxt "SettingsPage|"
+msgid "Mark standard violations"
+msgstr "Mar&ca les infraccions de l'estàndard"
+
+#: src/qml/app/SettingsPage.qml:85
 msgctxt "SettingsPage|"
 msgid "Version used for new ID3v2 tags"
 msgstr "Versió usada per a les etiquetes noves ID3 versió 2"
 
-#: src/qml/app/SettingsPage.qml:86
+#: src/qml/app/SettingsPage.qml:91
 msgctxt "SettingsPage|"
 msgid "Track number digits"
 msgstr "Dígits del número de la peça"
 
-#: src/qml/app/SettingsPage.qml:91
+#: src/qml/app/SettingsPage.qml:96
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis comment field name"
 msgstr "Nom del camp de comentari a Ogg/Vorbis"
 
-#: src/qml/app/SettingsPage.qml:101
+#: src/qml/app/SettingsPage.qml:106
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis picture field name"
 msgstr "Nom del camp de la imatge a Ogg/Vorbis"
 
-#: src/qml/app/SettingsPage.qml:107
+#: src/qml/app/SettingsPage.qml:112
 msgctxt "SettingsPage|"
 msgid "RIFF track number field name"
 msgstr "Nom de camp del número de la peça RIFF"
 
-#: src/qml/app/SettingsPage.qml:117
+#: src/qml/app/SettingsPage.qml:122
 msgctxt "SettingsPage|"
 msgid "Mark if picture larger than maximum size"
 msgstr "Marca si la imatge és més gran que la mida màxima"
 
-#: src/qml/app/SettingsPage.qml:122
+#: src/qml/app/SettingsPage.qml:127
 msgctxt "SettingsPage|"
 msgid "Picture maximum size (bytes)"
 msgstr "Mida màxima de la imatge (bytes)"
 
-#: src/qml/app/SettingsPage.qml:127
+#: src/qml/app/SettingsPage.qml:132
 msgctxt "SettingsPage|"
 msgid "Show only custom genres"
 msgstr "Mostra només els gèneres personalitzats"
 
-#: src/qml/app/SettingsPage.qml:131
+#: src/qml/app/SettingsPage.qml:136
 msgctxt "SettingsPage|"
 msgid "Custom Genres"
 msgstr "Gèneres personalitzats"
 
-#: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:243
+#: src/qml/app/SettingsPage.qml:147 src/qml/app/SettingsPage.qml:248
 msgctxt "SettingsPage|"
 msgid "Case conversion"
 msgstr "Conversió entre majúscules i minúscules"
 
-#: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:249
+#: src/qml/app/SettingsPage.qml:153 src/qml/app/SettingsPage.qml:254
 msgctxt "SettingsPage|"
 msgid "Locale"
 msgstr "Configuració regional"
 
-#: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:260
+#: src/qml/app/SettingsPage.qml:164 src/qml/app/SettingsPage.qml:265
 msgctxt "SettingsPage|"
 msgid "String replacement"
 msgstr "Cadena de substitució"
 
-#: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:264
+#: src/qml/app/SettingsPage.qml:168 src/qml/app/SettingsPage.qml:269
 msgctxt "SettingsPage|"
 msgid "String Replacement"
 msgstr "Cadena de substitució"
 
-#: src/qml/app/SettingsPage.qml:174
+#: src/qml/app/SettingsPage.qml:179
 msgctxt "SettingsPage|"
 msgid "Custom frames"
 msgstr "Marcs personalitzats"
 
-#: src/qml/app/SettingsPage.qml:176
+#: src/qml/app/SettingsPage.qml:181
 msgctxt "SettingsPage|"
 msgid "Custom Frames"
 msgstr "Marcs personalitzats"
 
-#: src/qml/app/SettingsPage.qml:189
+#: src/qml/app/SettingsPage.qml:194
 msgctxt "SettingsPage|"
 msgid "Quick access frames"
 msgstr "Marcs d'accés ràpid"
 
-#: src/qml/app/SettingsPage.qml:208
+#: src/qml/app/SettingsPage.qml:213
 msgctxt "SettingsPage|"
 msgid "Load last-opened files"
 msgstr "Carrega els últims fitxers oberts"
 
-#: src/qml/app/SettingsPage.qml:213
+#: src/qml/app/SettingsPage.qml:218
 msgctxt "SettingsPage|"
 msgid "Preserve file timestamp"
 msgstr "Conserva la marca de temps del fitxer"
 
-#: src/qml/app/SettingsPage.qml:218
+#: src/qml/app/SettingsPage.qml:223
 msgctxt "SettingsPage|"
 msgid "Mark changes"
 msgstr "Marca els canvis"
 
-#: src/qml/app/SettingsPage.qml:223
+#: src/qml/app/SettingsPage.qml:228
 msgctxt "SettingsPage|"
 msgid "Automatically apply format"
 msgstr "Aplica automàticament el format"
 
-#: src/qml/app/SettingsPage.qml:228
+#: src/qml/app/SettingsPage.qml:233
 msgctxt "SettingsPage|"
 msgid "Use for playlist and folder names"
 msgstr "Emprar-ho per als noms de llistes de reproducció i de carpetes"
 
-#: src/qml/app/SettingsPage.qml:233
+#: src/qml/app/SettingsPage.qml:238
 msgctxt "SettingsPage|"
 msgid "Use maximum length"
 msgstr "Empra la longitud màxima"
 
-#: src/qml/app/SettingsPage.qml:238
+#: src/qml/app/SettingsPage.qml:243
 msgctxt "SettingsPage|"
 msgid "Maximum length"
 msgstr "Longitud màxima"
 
-#: src/qml/app/SettingsPage.qml:275
+#: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Filename for cover"
 msgstr "Nom de fitxer per a la caràtula"
 
-#: src/qml/app/SettingsPage.qml:280
+#: src/qml/app/SettingsPage.qml:285
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
 msgstr "Codificació del text a la llista de reproducció"
 
-#: src/qml/app/SettingsPage.qml:286
+#: src/qml/app/SettingsPage.qml:291
 msgctxt "SettingsPage|"
 msgid "To filename format"
 msgstr "Al format del nom de fitxer"
 
-#: src/qml/app/SettingsPage.qml:296
+#: src/qml/app/SettingsPage.qml:301
 msgctxt "SettingsPage|"
 msgid "Filename from Tag"
 msgstr "Nom del fitxer des de l'etiqueta"
 
-#: src/qml/app/SettingsPage.qml:311
+#: src/qml/app/SettingsPage.qml:316
 msgctxt "SettingsPage|"
 msgid "From filename format"
 msgstr "Des del format del nom de fitxer"
 
-#: src/qml/app/SettingsPage.qml:321
+#: src/qml/app/SettingsPage.qml:326
 msgctxt "SettingsPage|"
 msgid "Tag from Filename"
 msgstr "Etiqueta des del nom de fitxer"
 
-#: src/qml/app/SettingsPage.qml:405
+#: src/qml/app/SettingsPage.qml:410
 msgctxt "SettingsPage|"
 msgid "Language"
 msgstr "Idioma"
 
-#: src/qml/app/SettingsPage.qml:406
+#: src/qml/app/SettingsPage.qml:411
 msgctxt "SettingsPage|"
 msgid "System"
 msgstr "Sistema"
 
-#: src/qml/app/SettingsPage.qml:417
+#: src/qml/app/SettingsPage.qml:422
 msgctxt "SettingsPage|"
 msgid "Theme"
 msgstr "Tema"
 
-#: src/qml/app/SettingsPage.qml:435
+#: src/qml/app/SettingsPage.qml:440
 msgctxt "SettingsPage|"
 msgid "Quick Access Frames"
 msgstr "Marcs d'accés ràpid"

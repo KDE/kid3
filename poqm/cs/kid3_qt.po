@@ -7140,17 +7140,17 @@ msgctxt "SettingsPage|"
 msgid "Tags"
 msgstr "Značky"
 
-#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:204
+#: src/qml/app/SettingsPage.qml:33 src/qml/app/SettingsPage.qml:209
 msgctxt "SettingsPage|"
 msgid "Files"
 msgstr "Soubory"
 
-#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:343
+#: src/qml/app/SettingsPage.qml:34 src/qml/app/SettingsPage.qml:348
 msgctxt "SettingsPage|"
 msgid "Plugins"
 msgstr "Moduly"
 
-#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:401
+#: src/qml/app/SettingsPage.qml:35 src/qml/app/SettingsPage.qml:406
 msgctxt "SettingsPage|"
 msgid "Appearance"
 msgstr "Vzhled"
@@ -7186,166 +7186,174 @@ msgid "WAV files with lowercase id3 chunk"
 msgstr "Soubory WAV s blokem id3 s malými písmeny"
 
 #: src/qml/app/SettingsPage.qml:80
+#, fuzzy
+#| msgctxt "ConfigDialogPages|"
+#| msgid "Mar&k standard violations"
+msgctxt "SettingsPage|"
+msgid "Mark standard violations"
+msgstr "Označte &porušení standardu"
+
+#: src/qml/app/SettingsPage.qml:85
 msgctxt "SettingsPage|"
 msgid "Version used for new ID3v2 tags"
 msgstr "Verze používaná pro nové značky ID3v2"
 
-#: src/qml/app/SettingsPage.qml:86
+#: src/qml/app/SettingsPage.qml:91
 msgctxt "SettingsPage|"
 msgid "Track number digits"
 msgstr "Počet číslic v čísle skladby"
 
-#: src/qml/app/SettingsPage.qml:91
+#: src/qml/app/SettingsPage.qml:96
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis comment field name"
 msgstr "Název pole s poznámkou Ogg/Vorbis"
 
-#: src/qml/app/SettingsPage.qml:101
+#: src/qml/app/SettingsPage.qml:106
 msgctxt "SettingsPage|"
 msgid "Ogg/Vorbis picture field name"
 msgstr "Název pole s obrázkem Ogg/Vorbis"
 
-#: src/qml/app/SettingsPage.qml:107
+#: src/qml/app/SettingsPage.qml:112
 msgctxt "SettingsPage|"
 msgid "RIFF track number field name"
 msgstr "Název skladby číslo pole RIFF"
 
-#: src/qml/app/SettingsPage.qml:117
+#: src/qml/app/SettingsPage.qml:122
 msgctxt "SettingsPage|"
 msgid "Mark if picture larger than maximum size"
 msgstr "Označit, je-li obrázek větší než maximální velikost"
 
-#: src/qml/app/SettingsPage.qml:122
+#: src/qml/app/SettingsPage.qml:127
 msgctxt "SettingsPage|"
 msgid "Picture maximum size (bytes)"
 msgstr "Největší velikost obrázků (bajty)"
 
-#: src/qml/app/SettingsPage.qml:127
+#: src/qml/app/SettingsPage.qml:132
 msgctxt "SettingsPage|"
 msgid "Show only custom genres"
 msgstr "Ukázat pouze vlastní žánry"
 
-#: src/qml/app/SettingsPage.qml:131
+#: src/qml/app/SettingsPage.qml:136
 msgctxt "SettingsPage|"
 msgid "Custom Genres"
 msgstr "Vlastní žánry"
 
-#: src/qml/app/SettingsPage.qml:142 src/qml/app/SettingsPage.qml:243
+#: src/qml/app/SettingsPage.qml:147 src/qml/app/SettingsPage.qml:248
 msgctxt "SettingsPage|"
 msgid "Case conversion"
 msgstr "Převod velikosti písmen"
 
-#: src/qml/app/SettingsPage.qml:148 src/qml/app/SettingsPage.qml:249
+#: src/qml/app/SettingsPage.qml:153 src/qml/app/SettingsPage.qml:254
 msgctxt "SettingsPage|"
 msgid "Locale"
 msgstr "Lokalizace"
 
-#: src/qml/app/SettingsPage.qml:159 src/qml/app/SettingsPage.qml:260
+#: src/qml/app/SettingsPage.qml:164 src/qml/app/SettingsPage.qml:265
 msgctxt "SettingsPage|"
 msgid "String replacement"
 msgstr "Nahrazení řetězce"
 
-#: src/qml/app/SettingsPage.qml:163 src/qml/app/SettingsPage.qml:264
+#: src/qml/app/SettingsPage.qml:168 src/qml/app/SettingsPage.qml:269
 msgctxt "SettingsPage|"
 msgid "String Replacement"
 msgstr "Nahrazení řetězce"
 
-#: src/qml/app/SettingsPage.qml:174
+#: src/qml/app/SettingsPage.qml:179
 msgctxt "SettingsPage|"
 msgid "Custom frames"
 msgstr "Vlastní prvky"
 
-#: src/qml/app/SettingsPage.qml:176
+#: src/qml/app/SettingsPage.qml:181
 msgctxt "SettingsPage|"
 msgid "Custom Frames"
 msgstr "Vlastní prvky"
 
-#: src/qml/app/SettingsPage.qml:189
+#: src/qml/app/SettingsPage.qml:194
 msgctxt "SettingsPage|"
 msgid "Quick access frames"
 msgstr "Prvky s rychlým přístupem"
 
-#: src/qml/app/SettingsPage.qml:208
+#: src/qml/app/SettingsPage.qml:213
 msgctxt "SettingsPage|"
 msgid "Load last-opened files"
 msgstr "Načíst naposledy otevřené soubory"
 
-#: src/qml/app/SettingsPage.qml:213
+#: src/qml/app/SettingsPage.qml:218
 msgctxt "SettingsPage|"
 msgid "Preserve file timestamp"
 msgstr "Neměnit časové razítko souboru"
 
-#: src/qml/app/SettingsPage.qml:218
+#: src/qml/app/SettingsPage.qml:223
 msgctxt "SettingsPage|"
 msgid "Mark changes"
 msgstr "Označit změny"
 
-#: src/qml/app/SettingsPage.qml:223
+#: src/qml/app/SettingsPage.qml:228
 msgctxt "SettingsPage|"
 msgid "Automatically apply format"
 msgstr "Použít formát automaticky"
 
-#: src/qml/app/SettingsPage.qml:228
+#: src/qml/app/SettingsPage.qml:233
 msgctxt "SettingsPage|"
 msgid "Use for playlist and folder names"
 msgstr "Použít pro názvy seznamů skladeb a složek"
 
-#: src/qml/app/SettingsPage.qml:233
+#: src/qml/app/SettingsPage.qml:238
 msgctxt "SettingsPage|"
 msgid "Use maximum length"
 msgstr "Použít maximální délku"
 
-#: src/qml/app/SettingsPage.qml:238
+#: src/qml/app/SettingsPage.qml:243
 msgctxt "SettingsPage|"
 msgid "Maximum length"
 msgstr "Maximální délka"
 
-#: src/qml/app/SettingsPage.qml:275
+#: src/qml/app/SettingsPage.qml:280
 msgctxt "SettingsPage|"
 msgid "Filename for cover"
 msgstr "Název souboru pro obal"
 
-#: src/qml/app/SettingsPage.qml:280
+#: src/qml/app/SettingsPage.qml:285
 msgctxt "SettingsPage|"
 msgid "Playlist text encoding"
 msgstr "Kódování textu seznamu skladeb"
 
-#: src/qml/app/SettingsPage.qml:286
+#: src/qml/app/SettingsPage.qml:291
 msgctxt "SettingsPage|"
 msgid "To filename format"
 msgstr "Do formátu názvu souboru"
 
-#: src/qml/app/SettingsPage.qml:296
+#: src/qml/app/SettingsPage.qml:301
 msgctxt "SettingsPage|"
 msgid "Filename from Tag"
 msgstr "Název souboru ze značky"
 
-#: src/qml/app/SettingsPage.qml:311
+#: src/qml/app/SettingsPage.qml:316
 msgctxt "SettingsPage|"
 msgid "From filename format"
 msgstr "Z formátu názvu souboru"
 
-#: src/qml/app/SettingsPage.qml:321
+#: src/qml/app/SettingsPage.qml:326
 msgctxt "SettingsPage|"
 msgid "Tag from Filename"
 msgstr "Značka z názvu souboru"
 
-#: src/qml/app/SettingsPage.qml:405
+#: src/qml/app/SettingsPage.qml:410
 msgctxt "SettingsPage|"
 msgid "Language"
 msgstr "Jazyk"
 
-#: src/qml/app/SettingsPage.qml:406
+#: src/qml/app/SettingsPage.qml:411
 msgctxt "SettingsPage|"
 msgid "System"
 msgstr "Systém"
 
-#: src/qml/app/SettingsPage.qml:417
+#: src/qml/app/SettingsPage.qml:422
 msgctxt "SettingsPage|"
 msgid "Theme"
 msgstr "Motiv"
 
-#: src/qml/app/SettingsPage.qml:435
+#: src/qml/app/SettingsPage.qml:440
 msgctxt "SettingsPage|"
 msgid "Quick Access Frames"
 msgstr "Prvky s rychlým přístupem"
